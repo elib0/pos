@@ -1,10 +1,11 @@
 <?php
 $lang['orders']='Orders';
-$lang['orders_no_items_in_cart']='Not have items with low stock ';
+$lang['orders_no_items_in_cart']='There are not items in the cart';
 $lang['orders_saved']='Order saved!';
 $lang['orders_no_save']='Error creating order, Please try again!';
 $lang['orders_cancel']='Cancel';
-$lang['orders_confirm']='Does this safe to remove this order?';
-$lang['orders_confirm_items']='Does this safe to remove this item from the order?';
-$lang['orders_create_lowstock']='Create Order with Low Stock Items';
+$lang['orders_confirm']='Are you sure to remove those items from the order?';
+$lang['orders_confirm_items']='Are you sure to remove this item from the order?';
+$lang['orders_send_order']='Send Order';
+$lang['orders_fill_cart_with_low_stock_items']='Fill cart with low stock items';
 ?>

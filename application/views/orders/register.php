@@ -1,6 +1,6 @@
 <?php $this->load->view('partial/header'); ?>
 <?php $this->load->view('flange_option',array('control'=>'orders')); ?>
-<div id="page_title" style="margin-bottom:8px;"> <?php echo $this->lang->line('register'); ?> </div>
+<div id="page_title" style="margin-bottom:8px;"> <?php echo $this->lang->line('orders').' '.$this->lang->line('register'); ?> </div>
 <?php
 	if(isset($error)){	echo "<div class='error_message'>$error</div>"; }
 	if (isset($warning)){	echo "<div class='warning_mesage'>$warning</div>"; }
@@ -18,14 +18,14 @@
 </div>
 <div id="table_holder">
 	<?php echo form_open('orders/save/', 'id="form-order"');?>
-	<table id="sortable_table" class="tablesorter" style="width: 100%;">
+	<table id="sortable_table" class="tablesorter" style="width: 100%;" >
 		<thead>
 			<tr>
 				<th width="11%"><?php echo $this->lang->line('common_delete'); ?></th>
-				<th width="28%"><?php echo $this->lang->line('sales_item_number'); ?></th>
+				<th width="10%"><?php echo $this->lang->line('sales_item_number'); ?></th>
 				<th width="35%"><?php echo $this->lang->line('sales_item_name'); ?></th>
-				<th width="10%" align="right"><?php echo $this->lang->line('sales_quantity'); ?></th>
-				<th width="18%"><?php echo $this->lang->line('items_reorder_level'); ?></th>
+				<th width="10%" align="right"><?php echo $this->lang->line('items_current_quantity'); ?></th>
+				<th width="18%" ><?php echo $this->lang->line('sales_quantity'); ?></th>
 				<!-- <th style="width:11%;"><?php //echo $this->lang->line('sales_edit'); ?></th> -->
 			</tr>
 		</thead>
@@ -41,8 +41,11 @@
 		?>
 					<tr id="<?=$item['item_id']?>" class="sale-line">
 						<td>
-							<?php echo anchor("orders/delete_item/".$item['item_id'],$this->lang->line('common_delete'),"class='small_button delete_item'")?></td>
-						<td><?=$cur_item_info->item_number?></td>
+							<?php echo anchor("orders/delete_item/".$item['item_id'],$this->lang->line('common_delete'),"class='small_button delete_item'")?>
+						</td>
+						<td>
+							<?=$cur_item_info->item_id?>
+						</td>
 						<td style="align:center;">
 							<?=$cur_item_info->name?>
 							<input type="hidden" name="items[<?php echo $item['item_id']; ?>][id_item]" value="<?php echo $item['item_id']; ?>">
@@ -60,11 +63,13 @@
 		</tbody>
 	</table>
 	<?php 
+	echo anchor('orders/index/1', $this->lang->line('orders_fill_cart_with_low_stock_items'), 'class="big_button" style="display: inline-block; margin:10px; float: left;"');
+	
 	echo form_submit(
 				array(
 					'name'=>'sendto',
 					'id'=>'sendto',
-					'value'=>$this->lang->line('reports_send_administrator'),
+					'value'=>$this->lang->line('orders_send_order'),
 					'class'=>'big_button',
 					'style'=>'display: inline-block; margin:10px; float: right;'
 				));

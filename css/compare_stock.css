@@ -1,0 +1,16 @@
+input[type=text]{
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+input[type=checkbox]{
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.linkPrint, #btnSendToAdmin{
+    display: none;
+}
+

@@ -250,6 +250,7 @@ class Item extends CI_Model
 		$this->con->where('deleted',0);
 		$this->con->like('name', $search);
 		$this->con->order_by("name", "asc");
+		$this->con->limit($limit);
 		$by_name = $this->con->get();
 		foreach($by_name->result() as $row)
 		{
@@ -260,17 +261,13 @@ class Item extends CI_Model
 		$this->con->where('deleted',0);
 		$this->con->like('item_number', $search);
 		$this->con->order_by("item_number", "asc");
+		$this->con->limit($limit);
 		$by_item_number = $this->con->get();
 		foreach($by_item_number->result() as $row)
 		{
 			$suggestions[]=$row->item_id.'|'.$row->item_number;
 		}
 
-		//only return $limit suggestions
-		if(count($suggestions > $limit))
-		{
-			$suggestions = array_slice($suggestions, 0,$limit);
-		}
 		return $suggestions;
 
 	}

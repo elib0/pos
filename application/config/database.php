@@ -82,12 +82,12 @@ $db['default']['stricton'] = FALSE;
 $db['default']['onlinehost'] = 'www.google.com';
 $db['default']['onlineport'] = '80';
 
-// $db['other']['hostname'] = 'localhost';
-// $db['other']['username'] = 'root';
-// $db['other']['password'] = 'root';
-// $db['other']['database'] = 'possp2';
-// $db['other']['dbdriver'] = 'mysql';
-// $db['other']['dbprefix'] = 'ospos_';
+$db['other']['hostname'] = 'localhost';
+$db['other']['username'] = 'root';
+$db['other']['password'] = 'root';
+$db['other']['database'] = 'possp2';
+$db['other']['dbdriver'] = 'mysql';
+$db['other']['dbprefix'] = 'ospos_';
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

@@ -64,7 +64,7 @@ class Share_inventories extends Secure_area
                 $table_rows .= '<option value="'.$j.'">'.$j.'</option>';
             }
             $table_rows .= '</select></td>';
-            $table_rows .= '<td><input type="checkbox" name="check[]" value="'.$value->item_id.'" class="cb"></td>';
+            $table_rows .= '<td><input type="checkbox" name="check[]" value="'.$value->item_id.'" class="cb" checked></td>';
             $table_rows .= '</tr>';
         }
 
@@ -98,9 +98,14 @@ class Share_inventories extends Secure_area
                     $this->load->model('Item');
                     $items_info = $this->Item->get_multiple_info( $_GET['check'] )->result();
                     foreach ($items_info as $i => $item){
+                        $item_data = array(
+                            'quantity' =>  $_GET['amount'][$i],
+                            'name' => $item->name
+                        );
 
+                        $item_data['quantity'] = $item->quantity + ($_GET['amount'][$i] * -1);
+                        $this->Item->save($item_data,$items[$i]['item_id']);
                     }
-
 
                     //Retorno Json
                     $response['success'] = 1;
@@ -167,6 +172,10 @@ class Share_inventories extends Secure_area
         $arr = array('item_id'=>0, 'amount'=>0);
         $items = array();
 
+        //Cabecera completa
+        $employee_id=$this->Employee->get_logged_in_employee_info()->person_id;
+        $emp_info=$this->Employee->get_info($employee_id);
+
         foreach ($details as $i => $detail) {
             $arr[$i]['item_id'] = $detail->item_id;
             $arr[$i]['amount'] = $detail->quantity;
@@ -188,7 +197,8 @@ class Share_inventories extends Secure_area
             'items_info'  => $items_info,
             'barcode'     => $dispatch_id.'tranfer',
             'barcodetext' => 'Transfer Code',
-            'form'        => $arr
+            'form'        => $arr,
+            'employee'    => $emp_info->first_name.' '.$emp_info->last_name
         ); //Array para vista
         $this->load->view("items/test",$data);
     }

@@ -29,7 +29,9 @@ $this->load->view("partial/header");
 	include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
 	$dbs = array('...'=>'...');
 	foreach ($db as $key => $value){
-		$dbs[$key] = ucwords($key);
+		if ( $key != $_SESSION['dblocation'] ) {
+			$dbs[$key] = ucwords($key);
+		}
 	}
 	$options = 'id="dbselected"';
 	?>

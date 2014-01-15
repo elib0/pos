@@ -17,7 +17,7 @@ class Share_inventory extends CI_Model
 
     public function getDataColumns()
     {
-        return array($lang['reports_item_id'] = 'Id', $this->lang->line('reports_item'), $lang['reports_item_in_stock'] = 'In Stock', $lang['reports_comment_item'] = 'amount', $lang['reports_checked'] = 'Delete');
+        return array($lang['reports_item_id'] = 'Id', $this->lang->line('reports_item'), $lang['reports_item_in_stock'] = 'In Stock', $lang['reports_comment_item'] = 'Quantity', $lang['reports_checked'] = 'Active');
     }
 
     public function getData()
@@ -92,8 +92,6 @@ class Share_inventory extends CI_Model
         $this->con->select('item_id, name, quantity');
         $this->con->where('item_id', $search);
         $this->con->where('deleted', 0);
-
-        // $this->con->where("item_id = '".$search."' and deleted=0");
         $this->con->limit(1);
         return $this->con->get();
     }
@@ -102,6 +100,7 @@ class Share_inventory extends CI_Model
         $suggestions = array();
         $this->con->from('items');
         $this->con->like('name', $search);
+        $this->con->where('quantity > 5');
         $this->con->where('deleted',0);
         $this->con->limit($limit);
         $this->con->order_by("quantity", "asc");

@@ -10,6 +10,13 @@ $this->load->view("partial/header");
 		font-size: 24px;
 		font-weight: bold;
 	}
+	.location-option, .delete-options{
+		display: inline-block;
+		margin: 5px 0;
+	}
+	.delete-options{
+		float: right;
+	}
 </style>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
@@ -26,10 +33,14 @@ $this->load->view("partial/header");
 	}
 	$options = 'id="dbselected"';
 	?>
-	<div>
+	<div class="location-option">
 	<?php echo form_label('Location:', 'dbselected'); ?>
 	<?php echo form_dropdown('dbselected', $dbs, '...', $options); ?>
 	<h6 class="wire" style="display:inline-block">(This option to send to another location and are deducted in this store!)</h6>
+	</div>
+	<div class="delete-options">
+		<a href="#" id="selectall">Select All</a>|
+		<a href="#" id="deselectall">Deselect All</a>
 	</div>
 	<div class="products-to-send">
 		<table class="tablesorter report share-inventorie-report" id="sortable_table">
@@ -98,12 +109,20 @@ $this->load->view("partial/footer");
 		return false;
 	});
 	$$('#sortable_table tbody').on('click','input.cb',function(){
-		if (!$$(this).is(':checked')) {
-			$$(this).parents('tr').remove();		
-		}
-		var items = $$('#sortable_table tbody tr').length;
-		if(items<=0){
-			$$('#sortable_table tbody').html('<tr><td colspan="5" class="td-info">Please serach a item to add</td></tr>');
-		}
+		// if (!$$(this).is(':checked')) {
+		// 	$$(this).parents('tr').remove();		
+		// }
+		// var items = $$('#sortable_table tbody tr').length;
+		// if(items<=0){
+		// 	$$('#sortable_table tbody').html('<tr><td colspan="5" class="td-info">Please serach a item to add</td></tr>');
+		// }
+	});
+	$$('#selectall').click(function(){
+		$('.cb').attr('checked','checked');
+		return false
+	});
+	$$('#deselectall').click(function(){
+		$('.cb').removeAttr('checked');
+		return false
 	});
 </script>

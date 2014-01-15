@@ -57,8 +57,14 @@ class Share_inventories extends Secure_area
             $table_rows .= '<td>'.$value->item_id.'</td>';
             $table_rows .= '<td>'.$value->name.'</td>';
             $table_rows .= '<td>'.$value->quantity.'</td>';
-            $table_rows .= '<td><input type="text" name="amount[]" value="1" id="amount'.$value->item_id.'"></td>';
-            $table_rows .= '<td><input type="checkbox" name="check[]" value="'.$value->item_id.'" class="cb" checked></td>';
+            // $table_rows .= '<td><input type="text" name="amount[]" value="1" id="amount'.$value->item_id.'"></td>';
+            $table_rows .= '<td><select name="amount[]" id="amount"'.$value->item_id.'">';
+            for ($i=0; $i < $value->quantity-2; $i++) {
+                $j = $i+1; 
+                $table_rows .= '<option value="'.$j.'">'.$j.'</option>';
+            }
+            $table_rows .= '</select></td>';
+            $table_rows .= '<td><input type="checkbox" name="check[]" value="'.$value->item_id.'" class="cb"></td>';
             $table_rows .= '</tr>';
         }
 
@@ -88,6 +94,15 @@ class Share_inventories extends Secure_area
 
                 asort($items);
                 if ($id = $this->Share_inventory->save_dispatchs($transfer, $items) ){
+                    //Resto cantidad de BD local
+                    $this->load->model('Item');
+                    $items_info = $this->Item->get_multiple_info( $_GET['check'] )->result();
+                    foreach ($items_info as $i => $item){
+
+                    }
+
+
+                    //Retorno Json
                     $response['success'] = 1;
                     $response['msg'] = 'Items transfer successful!';
                     $response['id'] = $id;
@@ -99,39 +114,6 @@ class Share_inventories extends Secure_area
         }
 
         echo json_encode($response);
-    }
-
-    public function dispatch_details($dispatch_id){
-        $this->load->model('Share_inventory');
-        $details = $this->Share_inventory->get_reception_detail($dispatch_id)->result();
-        $db = $this->Share_inventory->get_reception_locations($dispatch_id)->result()[0];
-        $arr = array('item_id'=>0, 'amount'=>0);
-        $items = array();
-
-        foreach ($details as $i => $detail) {
-            $arr[$i]['item_id'] = $detail->item_id;
-            $arr[$i]['amount'] = $detail->quantity;
-            $items[$i] = $detail->item_id;
-        }
-
-        //Resultado de items
-        $items_info = $this->Item->get_multiple_info( $items )->result();
-        foreach ($items_info as $i => $item) {
-            $item_data = array(
-                'quantity' => $arr[$i]['amount'],
-                'name'     => $item->name
-            );
-        }
-
-        $data = array(
-            'title'       => 'Dispatch Report',
-            'subtitle'    => 'From: '.$db->sender.' to: '.$db->receiver,
-            'items_info'  => $items_info,
-            'barcode'     => $dispatch_id.'tranfer',
-            'barcodetext' => 'Transfer Code',
-            'form'        => $arr
-        ); //Array para vista
-        $this->load->view("items/test",$data);
     }
 
     public function save_reception(){
@@ -176,6 +158,39 @@ class Share_inventories extends Secure_area
             $data['form'] = $arr;
             $this->load->view("items/test",$data);
         }
+    }
+
+    public function dispatch_details($dispatch_id){
+        $this->load->model('Share_inventory');
+        $details = $this->Share_inventory->get_reception_detail($dispatch_id)->result();
+        $db = $this->Share_inventory->get_reception_locations($dispatch_id)->result()[0];
+        $arr = array('item_id'=>0, 'amount'=>0);
+        $items = array();
+
+        foreach ($details as $i => $detail) {
+            $arr[$i]['item_id'] = $detail->item_id;
+            $arr[$i]['amount'] = $detail->quantity;
+            $items[$i] = $detail->item_id;
+        }
+
+        //Resultado de items
+        $items_info = $this->Item->get_multiple_info( $items )->result();
+        foreach ($items_info as $i => $item) {
+            $item_data = array(
+                'quantity' => $arr[$i]['amount'],
+                'name'     => $item->name
+            );
+        }
+
+        $data = array(
+            'title'       => 'Dispatch Report',
+            'subtitle'    => 'From: '.$db->sender.' to: '.$db->receiver,
+            'items_info'  => $items_info,
+            'barcode'     => $dispatch_id.'tranfer',
+            'barcodetext' => 'Transfer Code',
+            'form'        => $arr
+        ); //Array para vista
+        $this->load->view("items/test",$data);
     }
 }
 ?>

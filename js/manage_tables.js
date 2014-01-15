@@ -45,7 +45,7 @@ function do_search_form(){
 		data: form.serialize(),
 		method: form.attr('method'),
 		success: function(data){
-			alert('Item Added');
+			// alert('Item Added');
 			var items = $('#sortable_table tbody tr input').length;
 			if (data) {
 				if(items > 0){

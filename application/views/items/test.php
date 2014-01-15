@@ -16,13 +16,13 @@ $total_general = 0;
                 <div id="company_name"><?php echo $this->config->item('company'); ?></div>
                 <div id="company_address"><?php echo nl2br($this->config->item('address')); ?></div>
                 <div id="company_phone"><?php echo $this->config->item('phone'); ?></div>
-                <div id="employee"><?php echo $employee ?></div>
             </div>
         </td>
         <td>
             <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
             <div id="page_subtitle" style="margin-bottom:8px;">
                 <?php echo $subtitle ?><br>
+                <div id="employee"><?php echo $this->lang->line('employees_employee').": ".$employee ?></div>
             </div>
         </td>
         <td>

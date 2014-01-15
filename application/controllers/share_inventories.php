@@ -193,7 +193,7 @@ class Share_inventories extends Secure_area
 
         $data = array(
             'title'       => 'Dispatch Report',
-            'subtitle'    => 'From: '.$db->sender.' to: '.$db->receiver,
+            'subtitle'    => 'From: '.ucwords($db->sender).' to: '.ucwords($db->receiver),
             'items_info'  => $items_info,
             'barcode'     => $dispatch_id.'tranfer',
             'barcodetext' => 'Transfer Code',

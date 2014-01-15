@@ -204,7 +204,7 @@ else
 
 	    <?php echo form_open("receivings/cancel_receiving",array('id'=>'cancel_sale_form')); ?>
 			    <div class='small_button' id='cancel_sale_button' style='float:left;margin-top:5px;'>
-					<span>Cancel </span>
+					<span>Reset </span>
 				</div>
         </form>
 	</div>

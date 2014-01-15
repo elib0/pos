@@ -67,7 +67,7 @@ if(isset($error))
 <th style="width:11%;"><?php echo $this->lang->line('recvs_cost'); ?></th>
 <th style="width:11%;"><?php echo $this->lang->line('recvs_quantity'); ?></th>
 <th style="width:11%;"><?php echo $this->lang->line('recvs_discount'); ?></th>
-<th style="width:15%;"><?php echo $this->lang->line('recvs_total'); ?></th>
+<th style="width:15%;">Sub Total</th>
 <th style="width:11%;"><?php echo $this->lang->line('recvs_edit'); ?></th>
 </tr>
 </thead>

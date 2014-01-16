@@ -17,6 +17,23 @@ $this->load->view("partial/header");
 	.delete-options{
 		float: right;
 	}
+
+	#frmShareIvn input{margin: 5px;}
+    #frmShareIvn input[type=text] {width: 90%;}
+    #frmShareIvn input[type=checkbox] {display: none;}
+    #frmShareIvn input[type=checkbox] + label {
+        background: #fff;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background: url(images/inputs/checkbox.png) 0px 0px no-repeat;
+        text-indent: -1000em;
+        cursor: pointer;
+        margin: 5px;
+    }
+    #frmShareIvn input[type=checkbox]:checked + label {
+        background: url(images/inputs/checkbox.png) 0px -16px no-repeat;
+    }
 </style>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
@@ -40,10 +57,6 @@ $this->load->view("partial/header");
 	<?php echo form_dropdown('dbselected', $dbs, '...', $options); ?>
 	<h6 class="wire" style="display:inline-block">(This option to send to another location and are deducted in this store!)</h6>
 	</div>
-	<div class="delete-options">
-		<a href="#" id="selectall">Select All</a>|
-		<a href="#" id="deselectall">Deselect All</a>
-	</div>
 	<div class="products-to-send">
 		<table class="tablesorter report share-inventorie-report" id="sortable_table">
 	        <thead>
@@ -55,10 +68,14 @@ $this->load->view("partial/header");
 	        </thead>
 	        <tbody>
 	            <tr>
-	            	<td colspan="5" class="td-info">Add products to pass from the search box</td>
+	            	<td colspan="5" class="td-info">Use the search box to add an item to TRANSFER</td>
 	            </tr>
 	        </tbody>
 	    </table>
+	    <div class="delete-options">
+			<!-- <a href="#" id="deselectall">Delete All Items Selected</a> -->
+			<div class="big_button" style="float: left;" id="deselectall"><span>Delete All Items Selected</span></div>
+		</div>
 	    <a class="linkPrint" href="#" id="btnSubmit">
 	        <div class="big_button" style="float: left;"><span>Send</span></div>
 	    </a>
@@ -68,6 +85,8 @@ $this->load->view("partial/header");
 $this->load->view("partial/footer");
 ?>
 <script>
+	var default_table_row = '<tr><td colspan="5" class="td-info">Use the search box to add an item to TRANSFER</td></tr>';
+
 	enable_search_form('<?php echo site_url("$controller_name/suggest")?>','<?php echo $this->lang->line("common_confirm_search")?>', false);
 	
 	$$('.cb').each(function(index, el) {
@@ -111,20 +130,18 @@ $this->load->view("partial/footer");
 		return false;
 	});
 	$$('#sortable_table tbody').on('click','input.cb',function(){
-		// if (!$$(this).is(':checked')) {
-		// 	$$(this).parents('tr').remove();		
-		// }
-		// var items = $$('#sortable_table tbody tr').length;
-		// if(items<=0){
-		// 	$$('#sortable_table tbody').html('<tr><td colspan="5" class="td-info">Please serach a item to add</td></tr>');
-		// }
-	});
-	$$('#selectall').click(function(){
-		$('.cb').attr('checked','checked');
-		return false
+		if (!$$(this).is(':checked')) {
+			$$(this).parents('tr').remove();		
+		}
+		var items = $$('#sortable_table tbody tr').length;
+		if(items<=0){
+			$$('#sortable_table tbody').html(default_table_row);
+		}
 	});
 	$$('#deselectall').click(function(){
-		$('.cb').removeAttr('checked');
+		// $('.cb').removeAttr('checked');
+		$$('#sortable_table tbody tr').remove();
+		$$('#sortable_table tbody').html(default_table_row);
 		return false
 	});
 </script>

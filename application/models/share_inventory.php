@@ -17,7 +17,7 @@ class Share_inventory extends CI_Model
 
     public function getDataColumns()
     {
-        return array($lang['reports_item_id'] = 'Id', $this->lang->line('reports_item'), $lang['reports_item_in_stock'] = 'In Stock', $lang['reports_comment_item'] = 'Quantity', $lang['reports_checked'] = 'Active');
+        return array($lang['reports_item_id'] = 'Id', $this->lang->line('reports_item'), $lang['reports_item_in_stock'] = 'In Stock', $lang['reports_comment_item'] = 'Quantity', $lang['reports_checked'] = 'Delete Item');
     }
 
     public function getData()

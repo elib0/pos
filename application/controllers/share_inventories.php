@@ -29,7 +29,7 @@ class Share_inventories extends Secure_area
 
         $data = array(
             "title"           => $this->lang->line('share_items'),
-            "subtitle"        => 'Send Items To Other Stores',
+            "subtitle"        => 'Send Items to others Locations',
             "headers"         => $model->getDataColumns(),
             "data"            => $tabular_data,
             'controller_name' => strtolower(get_class())
@@ -64,7 +64,7 @@ class Share_inventories extends Secure_area
                 $table_rows .= '<option value="'.$j.'">'.$j.'</option>';
             }
             $table_rows .= '</select></td>';
-            $table_rows .= '<td><input type="checkbox" name="check[]" value="'.$value->item_id.'" class="cb" checked></td>';
+            $table_rows .= '<td><input id="del'.$value->item_id.'" type="checkbox" name="check[]" value="'.$value->item_id.'" class="cb" checked><label for="del'.$value->item_id.'"></label></td>';
             $table_rows .= '</tr>';
         }
 

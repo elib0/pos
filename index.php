@@ -1,7 +1,10 @@
 <?php
 //Agregado para el cambio de location bds
 session_start();
-$_SESSION['dblocation'] = ($_SESSION['dblocation'] != '' && isset($_SESSION['dblocation'])) ? $_SESSION['dblocation'] : 'default';
+if ( !isset( $_SESSION['dblocation'] ) ) {
+	$_SESSION['dblocation'] = 'default';
+}
+// $_SESSION['dblocation'] = ($_SESSION['dblocation'] != '' && isset($_SESSION['dblocation'])) ? $_SESSION['dblocation'] : 'default';
 //FIN Agregado para el cambio de location bds
 
 /*
@@ -39,7 +42,7 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+			error_reporting(E_ALL & ~E_DEPRECATED);
 		break;
 
 		case 'testing':

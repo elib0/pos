@@ -34,7 +34,11 @@ $this->load->view("partial/header");
     #frmShareIvn input[type=checkbox]:checked + label {
         background: url(images/inputs/checkbox.png) 0px -16px no-repeat;
     }
+    #alert-message{
+    	background-color: #CCC;
+    }
 </style>
+<div id="alert-message"></div>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
 <?php echo form_open(site_url("$controller_name/search"),array('id'=>'search_form', 'method'=>'GET')); ?>
@@ -121,10 +125,18 @@ $this->load->view("partial/footer");
 					}
 				});
 			}else{
-				alert('You must have at least one item to transfer!');	
+				alert('You must have at least one item to transfer!');
 			}
 		}else{
-			alert('You must select a database');
+			// alert('You must select a database');
+			$('#alert-message').fadeIn('slow', function() {
+				$('#alert-message').html('You must select a database');
+				setTimeout(function(){
+					$('#alert-message').fadeOut('slow', function() {
+						$('#alert-message').html('');
+					});
+				},3000);
+			});
 		}
 
 		return false;
@@ -139,7 +151,6 @@ $this->load->view("partial/footer");
 		}
 	});
 	$$('#deselectall').click(function(){
-		// $('.cb').removeAttr('checked');
 		$$('#sortable_table tbody tr').remove();
 		$$('#sortable_table tbody').html(default_table_row);
 		return false

@@ -69,7 +69,10 @@ else
 		<?php if ($items_module_allowed)
 		{
 		?>
-			<td><?php echo $item['price'];?></td>
+			<td>
+				<?php echo $item['price'];?>
+				<?php echo form_hidden(array('name'=>'price','value'=>$item['price']));?>
+			</td>
 		<?php
 		}
 		else
@@ -83,6 +86,7 @@ else
 		<td>
 		<?php
         	echo $item['quantity'];
+        	echo form_hidden(array('name'=>'quantity','value'=>$item['quantity']));
 		?>
 		</td>
 

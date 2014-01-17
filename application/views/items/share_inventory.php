@@ -38,7 +38,6 @@ $this->load->view("partial/header");
     	background-color: #CCC;
     }
 </style>
-<div id="alert-message"></div>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
 <?php echo form_open(site_url("$controller_name/search"),array('id'=>'search_form', 'method'=>'GET')); ?>
@@ -125,17 +124,22 @@ $this->load->view("partial/footer");
 					}
 				});
 			}else{
-				alert('You must have at least one item to transfer!');
+				notif({
+				    type: "warning",
+				    msg: "You must have at least one item to transfer!",
+				    width: "all",
+				    height: 100,
+				    position: "center"
+				});
 			}
 		}else{
 			// alert('You must select a database');
-			$('#alert-message').fadeIn('slow', function() {
-				$('#alert-message').html('You must select a database');
-				setTimeout(function(){
-					$('#alert-message').fadeOut('slow', function() {
-						$('#alert-message').html('');
-					});
-				},3000);
+			notif({
+			  type: "error",
+			  msg: "You must select a database",
+			  width: "all",
+			  height: 100,
+			  position: "center"
 			});
 		}
 

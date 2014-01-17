@@ -185,7 +185,10 @@ class Receivings extends Secure_area
 			$info=$this->Supplier->get_info($supplier_id);
 			$data['supplier']=$info->first_name.' '.$info->last_name;
 		}
-		$this->load->view("receivings/receiving",$data);
+		if( $cart < 1)
+			$this->load->view("receivings/receiving",$data);
+		else
+			$this->load->view("receivings/receiving_",$data);
 	}
 
     function cancel_receiving()

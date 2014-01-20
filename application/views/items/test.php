@@ -7,6 +7,9 @@ $total_general = 0;
         width: 33.3%;
         text-align: center;
     }
+    #sortable_table tr td:last-child{
+        text-align: right;
+    }
 </style>
 <link rel="stylesheet" href="css/compare_stock.css" media="print">
 <table class="table-header">
@@ -53,10 +56,17 @@ $total_general = 0;
         		<td><?php echo $items_info[$i]->cost_price*$items_info[$i]->quantity; ?></td>
         	</tr>
         <?php endfor; ?>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>Total:</strong> <?php echo $total_general; ?></td>
+            </tr>
         </tbody>
 	</table>
 </div>
-total general <?php echo $total_general; ?>
+
 <a class="linkPrint" href="#">
     <div class="big_button" style="float: left;"><span>Print</span></div>
 </a>

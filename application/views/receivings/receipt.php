@@ -7,13 +7,21 @@ if (isset($error_message))
 }
 ?>
 <div id="receipt_wrapper">
-	<div id="receipt_header">
-		<div id="company_name"><?php echo $this->config->item('company'); ?></div>
-		<div id="company_address"><?php echo nl2br($this->config->item('address')); ?></div>
-		<div id="company_phone"><?php echo $this->config->item('phone'); ?></div>
-		<div id="sale_receipt"><?php echo $receipt_title; ?></div>
-		<div id="sale_time"><?php echo $transaction_time ?></div>
-	</div>
+	<table class="header-table">
+		<tr>
+			<td><img src="images/logo.png" alt="Logo"></td>
+			<td>
+				<div id="receipt_header">
+					<div id="company_name"><?php echo $this->config->item('company'); ?></div>
+					<div id="company_address"><?php echo nl2br($this->config->item('address')); ?></div>
+					<div id="company_phone"><?php echo $this->config->item('phone'); ?></div>
+					<div id="sale_receipt"><?php echo $receipt_title; ?></div>
+					<div id="sale_time"><?php echo $transaction_time ?></div>
+				</div>
+			</td>
+			<td></td>
+		</tr>
+	</table>
 	<div id="receipt_general_info">
 		<?php if(isset($supplier))
 		{

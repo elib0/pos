@@ -182,3 +182,12 @@ a.none
 	clear:both;
 
 }
+
+/*Reportes*/
+.header-table{
+	width: 100%;
+}
+.header-table tr td{
+	width: 33.3%;
+	text-align: center;
+}

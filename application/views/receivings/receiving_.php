@@ -25,7 +25,6 @@ if(isset($error))
 		<div class="small_button" id="receivings_submit">
 			<span>Load Receivings</span>
 		</div>
-		<!-- <input type="submit" value="Load Receivings" id="receivings_submit"> -->
 	<?php echo form_close(); ?>
 
 <!-- Receiving Items List -->

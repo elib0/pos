@@ -1,8 +1,19 @@
 <?php
 $this->load->view("partial/header");
 ?>
-<div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
-<div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
+
+<table class="header-table">
+	<tr>
+		<td><img src="images/logo.png" alt="Logo"></td>
+		<td>
+			<div id="receipt_header">
+				<div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
+				<div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
+			</div>
+		</td>
+		<td></td>
+	</tr>
+</table>
 <div style="text-align: center;">
 
 <script type="text/javascript">
@@ -22,6 +33,10 @@ swfobject.embedSWF(
 	<div class="summary_row"><?php echo $this->lang->line('reports_'.$name). ': '.to_currency($value); ?></div>
 <?php }?>
 </div>
+<a class="linkBack" href="#">
+    <div class="big_button" style="float: left;"><span>Back</span></div>
+</a>
 <?php
+
 $this->load->view("partial/footer"); 
 ?>

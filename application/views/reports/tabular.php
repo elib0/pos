@@ -7,8 +7,18 @@ if($export_excel == 1){
 	$this->load->view("partial/header");
 } 
 ?>
-<div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
-<div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
+<table class="header-table">
+	<tr>
+		<td><img src="images/logo.png" alt="Logo"></td>
+		<td>
+			<div id="receipt_header">
+				<div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
+				<div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
+			</div>
+		</td>
+		<td></td>
+	</tr>
+</table>
 <div id="table_holder">
 	<table class="tablesorter report" id="sortable_table">
 		<thead>
@@ -48,6 +58,9 @@ if($export_excel == 1){
 	die();
 	
 }else{
+	echo '<a class="linkBack" href="#">
+    <div class="big_button" style="float: left;"><span>Back</span></div>
+	</a>';
 	$this->load->view("partial/footer"); 
 ?>
 

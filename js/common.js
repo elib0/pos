@@ -1,3 +1,8 @@
+//Boton General volver atras
+$('.linkBack').click(function(){
+    history.back(1);
+});
+
 function get_dimensions() 
 {
 	var dims = {width:0,height:0};

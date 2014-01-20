@@ -70,6 +70,9 @@ $total_general = 0;
 <a class="linkPrint" href="#">
     <div class="big_button" style="float: left;"><span>Print</span></div>
 </a>
+<a class="linkBack" href="#">
+    <div class="big_button" style="float: left;"><span>Back</span></div>
+</a>
 <?php
 $this->load->view("partial/footer");
 ?>

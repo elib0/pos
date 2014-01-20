@@ -96,6 +96,9 @@ if (isset($error_message))
 	<?php echo "<img src='index.php?c=barcode&barcode=$receiving_id&text=$receiving_id&width=250&height=50' />"; ?>
 	</div>
 </div>
+<a class="linkBack" href="#">
+    <div class="big_button" style="float: left;"><span>Back</span></div>
+</a>
 <?php $this->load->view("partial/footer"); ?>
 
 <?php if ($this->Appconfig->get('print_after_sale'))

@@ -52,8 +52,8 @@ $total_general = 0;
         		<td><?php echo $items_info[$i]->item_id; ?></td>
         		<td><?php echo $items_info[$i]->name; ?></td>
         		<td><?php echo $items_info[$i]->quantity; ?></td>
-        		<td><?php echo $items_info[$i]->cost_price; ?></td>
-        		<td><?php echo $items_info[$i]->cost_price*$items_info[$i]->quantity; ?></td>
+        		<td><?php echo to_currency($items_info[$i]->cost_price); ?></td>
+        		<td><?php echo to_currency($items_info[$i]->cost_price*$items_info[$i]->quantity); ?></td>
         	</tr>
         <?php endfor; ?>
             <tr>
@@ -61,7 +61,7 @@ $total_general = 0;
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><strong>Total:</strong> <?php echo $total_general; ?></td>
+                <td><strong>Total:</strong> <?php echo to_currency($total_general); ?></td>
             </tr>
         </tbody>
 	</table>

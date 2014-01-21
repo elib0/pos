@@ -279,18 +279,30 @@ $(document).ready(function()
 
     $("#finish_sale_button").click(function()
     {
-    	if (confirm('<?php echo $this->lang->line("recvs_confirm_finish_receiving"); ?>'))
-    	{
+    	setTimeout(function(){
     		$('#finish_sale_form').submit();
-    	}
+    	},5500);
+    	notif({
+		  type: "info",
+		  msg: '<?php echo $this->lang->line("recvs_confirm_finish_receiving"); ?>',
+		  width: "all",
+		  height: 100,
+		  position: "center"
+		});
     });
 
     $("#cancel_sale_button").click(function()
     {
-    	if (confirm('<?php echo $this->lang->line("recvs_confirm_cancel_receiving"); ?>'))
-    	{
+    	setTimeout(function(){
     		$('#cancel_sale_form').submit();
-    	}
+    	},5500);
+    	notif({
+		  type: "warning",
+		  msg: '<?php echo $this->lang->line("recvs_confirm_cancel_receiving"); ?>',
+		  width: "all",
+		  height: 100,
+		  position: "center"
+		});
     });
 
 

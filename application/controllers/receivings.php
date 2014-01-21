@@ -100,7 +100,7 @@ class Receivings extends Secure_area
 		$this->_reload();
 	}
 
-	function complete()
+	function complete($other=false)
 	{
 		$data['cart']=$this->receiving_lib->get_cart();
 		$data['total']=$this->receiving_lib->get_total();
@@ -185,10 +185,13 @@ class Receivings extends Secure_area
 			$info=$this->Supplier->get_info($supplier_id);
 			$data['supplier']=$info->first_name.' '.$info->last_name;
 		}
-		if( $cart < 1)
+		if( $cart < 1){
+			$this->receiving_lib->empty_cart();
 			$this->load->view("receivings/receiving",$data);
-		else
+		}
+		else{
 			$this->load->view("receivings/receiving_",$data);
+		}
 	}
 
     function cancel_receiving()

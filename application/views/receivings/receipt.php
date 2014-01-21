@@ -40,7 +40,7 @@ if (isset($error_message))
 	<th style="width:17%;"><?php echo $this->lang->line('common_price'); ?></th>
 	<th style="width:16%;text-align:center;"><?php echo $this->lang->line('sales_quantity'); ?></th>
 	<th style="width:16%;text-align:center;"><?php echo $this->lang->line('sales_discount'); ?></th>
-	<th style="width:17%;text-align:right;"><?php echo $this->lang->line('sales_total'); ?></th>
+	<th style="width:17%;text-align:right;">Sub Total</th>
 	</tr>
 	<?php
 	foreach(array_reverse($cart, true) as $line=>$item)
@@ -93,7 +93,7 @@ if (isset($error_message))
 	<?php echo nl2br($this->config->item('return_policy')); ?>
 	</div>
 	<div id='barcode'>
-	<?php echo "<img src='index.php?c=barcode&barcode=$receiving_id&text=$receiving_id&width=250&height=50' />"; ?>
+	<?php echo '<img src="'.site_url().'/barcode?barcode='.$receiving_id.'&text='.$receiving_id.'&width=300" />'; ?>
 	</div>
 </div>
 <a class="linkBack" href="#">

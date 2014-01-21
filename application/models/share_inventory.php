@@ -100,12 +100,15 @@ class Share_inventory extends CI_Model
         return $this->con->get();
     }
 
-    function get_search_suggestion($search, $limit = 5){
+    function get_search_suggestion($search, $not_in = array(), $limit = 5){
         $suggestions = array();
         $this->con->from('items');
         $this->con->like('name', $search);
         $this->con->where('quantity > 5');
         $this->con->where('deleted',0);
+        if ( count($not_in) > 0 ) {
+            $this->con->where_not_in( 'item_id', $not_in );
+        }
         $this->con->limit($limit);
         $this->con->order_by("quantity", "asc");
         $by_item_number = $this->con->get();

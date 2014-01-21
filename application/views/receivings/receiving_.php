@@ -121,7 +121,7 @@ else
 	{
 	?>
 	<div id="finish_sale">
-		<?php echo form_open("receivings/complete",array('id'=>'finish_sale_form')); ?>
+		<?php echo form_open("receivings/complete/algo",array('id'=>'finish_sale_form')); ?>
 		<br />
 		<label id="comment_label" for="comment"><?php echo $this->lang->line('common_comments'); ?>:</label>
 		<?php echo form_textarea(array('name'=>'comment','value'=>'','rows'=>'4','cols'=>'23'));?>
@@ -230,18 +230,38 @@ $(document).ready(function()
 
     $("#finish_sale_button").click(function()
     {
-    	if (confirm('<?php echo $this->lang->line("recvs_confirm_finish_receiving"); ?>'))
-    	{
+    	setTimeout(function(){
     		$('#finish_sale_form').submit();
-    	}
+    	},5500);
+    	notif({
+		  type: "info",
+		  msg: '<?php echo $this->lang->line("recvs_confirm_finish_receiving"); ?>',
+		  width: "all",
+		  height: 100,
+		  position: "center"
+		});
+    	// if (confirm('<?php echo $this->lang->line("recvs_confirm_finish_receiving"); ?>'))
+    	// {
+    	// 	$('#finish_sale_form').submit();
+    	// }
     });
 
     $("#cancel_sale_button").click(function()
     {
-    	if (confirm('<?php echo $this->lang->line("recvs_confirm_cancel_receiving"); ?>'))
-    	{
+    	setTimeout(function(){
     		$('#cancel_sale_form').submit();
-    	}
+    	},5500);
+    	notif({
+		  type: "warning",
+		  msg: '<?php echo $this->lang->line("recvs_confirm_cancel_receiving"); ?>',
+		  width: "all",
+		  height: 100,
+		  position: "center"
+		});
+    	// if (confirm('<?php echo $this->lang->line("recvs_confirm_cancel_receiving"); ?>'))
+    	// {
+    	// 	$('#cancel_sale_form').submit();
+    	// }
     });
 
 

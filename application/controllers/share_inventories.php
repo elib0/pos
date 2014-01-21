@@ -47,11 +47,11 @@ class Share_inventories extends Secure_area
         echo implode("\n",$suggestions);
     }
 
-    public function delete_suggest($item_id=0){
-        if($item_id>0){
+    public function delete_suggest(){
+        if(isset($_GET['id'])){
             $data = $this->session->userdata('items_shipping');
-            $id = array_search($item_id, $data);
-            unset($data[$id]);
+            $i = array_search($_GET['id'], $data);
+            unset($data[$i]);
             $this->session->set_userdata('items_shipping', $data);
         }else{
             $this->session->unset_userdata('items_shipping');

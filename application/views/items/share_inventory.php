@@ -148,14 +148,10 @@ $this->load->view("partial/footer");
 	});
 	$$('#sortable_table tbody').on('click','input.cb',function(){
 		if (!$$(this).is(':checked')) {
-			$$(this).parents('tr').remove();		
+			var id = $$(this).parents('tr').find('td:first-child').html();
+			$$(this).parents('tr').remove();
+			$$.get('index.php/<?php echo $controller_name ?>/delete_suggest', {'id': id});
 		}
-		$.ajax({
-			url: 'index.php/<?php echo $controller_name ?>/delete_suggest',
-			type: 'POST'
-		});
-
-		$.get('index.php/<?php echo $controller_name ?>/delete_suggest', {'id': 110});
 		
 		var items = $$('#sortable_table tbody tr').length;
 		if(items<=0){

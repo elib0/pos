@@ -121,7 +121,7 @@ else
 	{
 	?>
 	<div id="finish_sale">
-		<?php echo form_open("receivings/complete/algo",array('id'=>'finish_sale_form')); ?>
+		<?php echo form_open("receivings/complete/true",array('id'=>'finish_sale_form')); ?>
 		<br />
 		<label id="comment_label" for="comment"><?php echo $this->lang->line('common_comments'); ?>:</label>
 		<?php echo form_textarea(array('name'=>'comment','value'=>'','rows'=>'4','cols'=>'23'));?>

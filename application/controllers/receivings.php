@@ -100,7 +100,7 @@ class Receivings extends Secure_area
 		$this->_reload();
 	}
 
-	function complete($other=false)
+	function complete($other=0)
 	{
 		$data['cart']=$this->receiving_lib->get_cart();
 		$data['total']=$this->receiving_lib->get_total();
@@ -134,6 +134,7 @@ class Receivings extends Secure_area
 			$data['error_message'] = $this->lang->line('receivings_transaction_failed');
 		}
 
+		$data['preload'] = $other;
 		$this->load->view("receivings/receipt",$data);
 		$this->receiving_lib->clear_all();
 	}

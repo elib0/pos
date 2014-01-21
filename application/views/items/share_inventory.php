@@ -57,7 +57,7 @@ $this->load->view("partial/header");
 	$options = 'id="dbselected"';
 	?>
 	<div class="location-option">
-	<?php echo form_label('Location:', 'dbselected'); ?>
+	<?php echo form_label('Receiving Location:', 'dbselected'); ?>
 	<?php echo form_dropdown('dbselected', $dbs, '...', $options); ?>
 	<h6 class="wire" style="display:inline-block">(This option to send to another location and are deducted in this store!)</h6>
 	</div>
@@ -119,7 +119,13 @@ $this->load->view("partial/footer");
 					dataType: 'json',
 					success: function(data){
 						if (data.id) {
-							alert(data.msg);
+							notif({
+							    type: "success",
+							    msg: data.msg,
+							    width: "all",
+							    height: 100,
+							    position: "center"
+							});
 							window.location = 'index.php/share_inventories/dispatch_details/'+data.id;
 						};
 					}

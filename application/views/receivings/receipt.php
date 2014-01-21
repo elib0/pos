@@ -36,10 +36,16 @@ if (isset($error_message))
 
 	<table id="receipt_items">
 	<tr>
-	<th style="width:50%;"><?php echo $this->lang->line('items_item'); ?></th>
+	<th style="width:44%;"><?php echo $this->lang->line('items_item'); ?></th>
 	<th style="width:17%;"><?php echo $this->lang->line('common_price'); ?></th>
-	<th style="width:16%;text-align:center;"><?php echo $this->lang->line('sales_quantity'); ?></th>
-	<th style="width:16%;text-align:center;"><?php echo $this->lang->line('sales_discount'); ?></th>
+	<th style="width:19%;text-align:center;"><?php echo $this->lang->line('sales_quantity'); ?></th>
+	<th style="width:19%;text-align:center;">
+		<?php if ($preload != 0): ?>
+			<?php echo $this->lang->line('sales_discount'); ?>
+		<?php else: ?>
+			<?php echo 'Defective / Missing'; ?>
+		<?php endif ?>
+	</th>
 	<th style="width:17%;text-align:right;">Sub Total</th>
 	</tr>
 	<?php

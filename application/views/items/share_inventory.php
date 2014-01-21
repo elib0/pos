@@ -38,6 +38,7 @@ $this->load->view("partial/header");
     	background-color: #CCC;
     }
 </style>
+<?php print_r($session).' Cantidad de elementos:'.count($session); ?>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
 <?php echo form_open(site_url("$controller_name/search"),array('id'=>'search_form', 'method'=>'GET')); ?>
@@ -77,7 +78,7 @@ $this->load->view("partial/header");
 	    </table>
 	    <div class="delete-options">
 			<!-- <a href="#" id="deselectall">Delete All Items Selected</a> -->
-			<div class="big_button" style="float: left;" id="deselectall"><span>Delete All Items Selected</span></div>
+			<div class="big_button" style="float: left;" id="deselectall"><span>Delete All Items</span></div>
 		</div>
 	    <a class="linkPrint" href="#" id="btnSubmit">
 	        <div class="big_button" style="float: left;"><span>Send</span></div>
@@ -149,6 +150,13 @@ $this->load->view("partial/footer");
 		if (!$$(this).is(':checked')) {
 			$$(this).parents('tr').remove();		
 		}
+		$.ajax({
+			url: 'index.php/<?php echo $controller_name ?>/delete_suggest',
+			type: 'POST'
+		});
+
+		$.get('index.php/<?php echo $controller_name ?>/delete_suggest', {'id': 110});
+		
 		var items = $$('#sortable_table tbody tr').length;
 		if(items<=0){
 			$$('#sortable_table tbody').html(default_table_row);
@@ -157,6 +165,7 @@ $this->load->view("partial/footer");
 	$$('#deselectall').click(function(){
 		$$('#sortable_table tbody tr').remove();
 		$$('#sortable_table tbody').html(default_table_row);
+		$.get('index.php/<?php echo $controller_name ?>/delete_suggest');
 		return false
 	});
 </script>

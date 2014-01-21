@@ -32,7 +32,8 @@ class Share_inventories extends Secure_area
             "subtitle"        => 'Send Items to others Locations',
             "headers"         => $model->getDataColumns(),
             "data"            => $tabular_data,
-            'controller_name' => strtolower(get_class())
+            'controller_name' => strtolower(get_class()),
+            'session'=>$this->session->userdata('items_shipping')
         );
 
         $this->load->view("items/share_inventory",$data);
@@ -41,18 +42,32 @@ class Share_inventories extends Secure_area
     public function suggest(){
         $this->load->model('Share_inventory');
         $model = $this->Share_inventory;
-        $suggestions = $model->get_search_suggestion($this->input->post('q'));
+        $all_items = $this->session->userdata('items_shipping');
+        $suggestions = $model->get_search_suggestion($this->input->post('q'), $all_items);
         echo implode("\n",$suggestions);
+    }
+
+    public function delete_suggest($item_id=0){
+        if($item_id>0){
+            $data = $this->session->userdata('items_shipping');
+            $id = array_search($item_id, $data);
+            unset($data[$id]);
+            $this->session->set_userdata('items_shipping', $data);
+        }else{
+            $this->session->unset_userdata('items_shipping');
+        }
     }
 
     function search()
     {
         $this->load->model('Share_inventory');
+        $all_items = $this->session->userdata('items_shipping');
         $search = substr( $this->input->get('search'), 1, strpos($this->input->get('search'),']')-1 );
         $data_rows = $this->Share_inventory->search($search);
         $table_rows = '';
 
         foreach ($data_rows->result() as $value) {
+            $all_items[] = $value->item_id;
             $table_rows .= '<tr>';
             $table_rows .= '<td>'.$value->item_id.'</td>';
             $table_rows .= '<td>'.$value->name.'</td>';
@@ -67,6 +82,7 @@ class Share_inventories extends Secure_area
             $table_rows .= '<td><input id="del'.$value->item_id.'" type="checkbox" name="check[]" value="'.$value->item_id.'" class="cb" checked><label for="del'.$value->item_id.'"></label></td>';
             $table_rows .= '</tr>';
         }
+        $this->session->set_userdata('items_shipping', $all_items);
 
         echo $table_rows;
     }

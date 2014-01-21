@@ -18,7 +18,7 @@ function enable_search_form(suggest_url,confirm_search_message, activeResult){
     	$(this).attr('value','');
     });
 
-    $("#search").autocomplete(suggest_url,{max:100,selectFirst: false});
+    $("#search").autocomplete(suggest_url,{max:100,selectFirst: false, cacheLength: 0});
     $("#search").result(function(event, data, formatted)
     {
     	do_search_form();
@@ -49,11 +49,11 @@ function do_search_form(){
 			var items = $('#sortable_table tbody tr input').length;
 			if (data) {
 				if(items > 0){
-					$('#search').attr('value','');
 					$('#sortable_table tbody').append(data);
 				}else{
 					$('#sortable_table tbody').html(data);
 				}
+				$('#search').val(''); //Borro value del campo de busqueda
 			}
 		}
 	});

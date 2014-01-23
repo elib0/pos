@@ -111,10 +111,6 @@ else
 		echo $this->lang->line("recvs_supplier").': <b>'.$supplier. '</b><br />';
 		echo anchor("receivings/delete_supplier",'['.$this->lang->line('common_delete').' '.$this->lang->line('suppliers_supplier').']');
 	}
-	else
-	{
-		//Nothing to  do here
-	}
 	?>
 	<?php
 	if(count($cart) > 0)
@@ -189,6 +185,12 @@ $(document).ready(function()
     	form.attr('action', form.attr('action')+'/'+$('#reception').val());
     	window.location = form.attr('action');
     	return false;
+    });
+
+    $('#reception').keypress(function(event) {
+    	if (event.which == 13) {
+    		 $('#receivings_submit').click();
+    	};
     });
 
     $("#item").result(function(event, data, formatted)

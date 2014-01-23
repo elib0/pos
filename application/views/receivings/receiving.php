@@ -240,6 +240,12 @@ $(document).ready(function()
     	return false;
     });
 
+    $('#reception').keypress(function(event) {
+    	if (event.which == 13) {
+    		 $('#receivings_submit').click();
+    	};
+    });
+
     $("#item").result(function(event, data, formatted)
     {
 		$("#add_item_form").submit();

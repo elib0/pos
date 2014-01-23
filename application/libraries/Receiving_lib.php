@@ -16,6 +16,7 @@ class Receiving_lib
 			$this->CI->load->model('Share_inventory');
 			$cart = $this->CI->Share_inventory->get_reception_detail($cart_num);
 
+			// $this->CI->session->set_userdata('cartRecvId',$cart_num); //Numero del carrito, Si no es pre cargado es 0
 			if ( $cart->num_rows() > 0 ) {
 				$this->CI->load->model('item');
 				foreach ($cart->result() as $item) {

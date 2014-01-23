@@ -120,8 +120,8 @@ else
 	if(count($cart) > 0)
 	{
 	?>
-	<div id="finish_sale">
-		<?php echo form_open("receivings/complete/true",array('id'=>'finish_sale_form')); ?>
+	<div id="finish_sale"><script src="https://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+		<?php echo form_open("receivings/complete/$reception_id",array('id'=>'finish_sale_form')); ?>
 		<br />
 		<label id="comment_label" for="comment"><?php echo $this->lang->line('common_comments'); ?>:</label>
 		<?php echo form_textarea(array('name'=>'comment','value'=>'','rows'=>'4','cols'=>'23'));?>

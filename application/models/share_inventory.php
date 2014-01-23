@@ -49,6 +49,11 @@ class Share_inventory extends CI_Model
         return $transfer_id;
     }
 
+    public function set_reception_status($reception_id, $status = 1){
+        $this->con->where('id', $reception_id);
+        $this->con->update('transfers', array('status' => $status));
+    }
+
     public function get_all_receptions(){
         $this->con->from('transfers');
         $this->con->where('receiver', $_SESSION['dblocation']);

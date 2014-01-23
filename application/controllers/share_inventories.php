@@ -137,10 +137,6 @@ class Share_inventories extends Secure_area
         echo json_encode($response);
     }
 
-    public function status_reception($status = 1){
-        
-    }
-
     public function save_reception(){
         //Comprueba si hay otra bd presente para tranferencia de items entre bds
         $db = ( $this->input->post('dbselected') != '...' ) ? $this->input->post('dbselected') : null ;

@@ -102,6 +102,9 @@ class Receivings extends Secure_area
 
 	function complete($other=0)
 	{
+		$this->load->model('Share_inventory');
+		$this->Share_inventory->set_reception_status($other,0);
+
 		$data['cart']=$this->receiving_lib->get_cart();
 		$data['total']=$this->receiving_lib->get_total();
 		$data['receipt_title']=$this->lang->line('recvs_receipt');
@@ -191,6 +194,7 @@ class Receivings extends Secure_area
 			$this->load->view("receivings/receiving",$data);
 		}
 		else{
+			$data['reception_id'] = $cart;
 			$this->load->view("receivings/receiving_",$data);
 		}
 	}

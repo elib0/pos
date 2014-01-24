@@ -217,17 +217,19 @@ class Sale_lib
 		//array/cart records are identified by $insertkey and item_id is just another field.
 		$item = array(($insertkey)=>
 		array(
-			'item_id'=>$item_id,
-			'line'=>$insertkey,
-			'name'=>$this->CI->Item->get_info($item_id)->name,
-			'item_number'=>$this->CI->Item->get_info($item_id)->item_number,
-			'description'=>$description!=null ? $description: $this->CI->Item->get_info($item_id)->description,
-			'serialnumber'=>$serialnumber!=null ? $serialnumber: '',
-			'allow_alt_description'=>$this->CI->Item->get_info($item_id)->allow_alt_description,
-			'is_serialized'=>$this->CI->Item->get_info($item_id)->is_serialized,
-			'quantity'=>$quantity,
-            'discount'=>$discount,
-			'price'=>$price!=null ? $price: $this->CI->Item->get_info($item_id)->unit_price
+			'item_id'               =>$item_id,
+			'line'                  =>$insertkey,
+			'name'                  =>$this->CI->Item->get_info($item_id)->name,
+			'item_number'           =>$this->CI->Item->get_info($item_id)->item_number,
+			'description'           =>$description!=null ? $description: $this->CI->Item->get_info($item_id)->description,
+			'serialnumber'          =>$serialnumber!=null ? $serialnumber: '',
+			'allow_alt_description' =>$this->CI->Item->get_info($item_id)->allow_alt_description,
+			'is_serialized'         =>$this->CI->Item->get_info($item_id)->is_serialized,
+			'quantity_total'        =>$this->CI->Item->get_info($item_id)->quantity,
+			'quantity'              =>$quantity,
+			'reorder'               =>$this->CI->Item->get_info($item_id)->reorder_level,
+			'discount'              =>$discount,
+			'price'                 =>$price!=null ? $price: $this->CI->Item->get_info($item_id)->unit_price
 			)
 		);
 

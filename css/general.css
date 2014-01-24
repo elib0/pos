@@ -189,7 +189,7 @@ label.required
 	font-weight:bold;
 }
 
-input
+input,select
 {
 	font-family:arial;
 	padding: 3px;

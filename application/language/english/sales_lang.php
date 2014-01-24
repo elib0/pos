@@ -36,6 +36,7 @@ $lang['sales_receipt']='Sales Receipt';
 $lang['sales_id']='Sale ID';
 $lang['sales_sale']='Sale';
 $lang['sales_return']='Return';
+$lang['sales_shipping']='Shipping';
 $lang['sales_confirm_finish_sale'] = 'Are you sure you want to submit this sale? This cannot be undone.';
 $lang['sales_confirm_cancel_sale'] = 'Are you sure you want to clear this sale? All items will cleared.';
 $lang['sales_cash'] = 'Cash';

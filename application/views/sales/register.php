@@ -110,16 +110,21 @@ else
 
 		<td>
 		<?php
-        	if($item['is_serialized']==1)
-        	{
-        		echo $item['quantity'];
-        		echo form_hidden('quantity',$item['quantity']);
-        	}
-        	else
-        	{
-        		echo form_input(array('name'=>'quantity','value'=>$item['quantity'],'size'=>'2'));
-        	}
-		?>
+        	if($item['is_serialized']==1):?>
+        		<?php echo $item['quantity']; ?>
+        		<?php echo form_hidden('quantity',$item['quantity']); ?>
+        	<?php else: ?>
+        		<select name="quantity">
+	            <?php 
+	            for ($i=0; $i < $item['quantity_total']-$item['reorder']; $i++) {
+	                $j = $i+1; 
+	                $selected = ($j == $item['quantity']) ? ' selected' : '';
+	                echo '<option value="'.$j.'"'.$selected.'>'.$j.'</option>';
+	            }
+	            ?>
+            	</select>
+        	<?php endif; ?>
+        	<?php //echo form_input(array('name'=>'quantity','value'=>$item['quantity'],'size'=>'2')); ?>
 		</td>
 
 		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3'));?></td>
@@ -235,7 +240,7 @@ else
 	if(count($cart) > 0)
 	{
 	?>
-
+		
     	<div id="Cancel_sale">
 		<?php echo form_open("sales/cancel_sale",array('id'=>'cancel_sale_form')); ?>
 		<div class='big_button' id='cancel_sale_button' style='margin-top:5px;'>
@@ -269,9 +274,9 @@ else
 
 				if ($payments_cover_total)
 				{
-					echo "<div class='big_button' id='finish_sale_button' style='float:left;margin-top:5px;'><span>".$this->lang->line('sales_complete_sale')."</span></div>";
+					echo "<div class='big_button' id='finish_sale_button'><span>".$this->lang->line('sales_complete_sale')."</span></div>";
 				}
-				echo "<div class='big_button' id='suspend_sale_button' style='float:right;margin-top:5px;'><span>".$this->lang->line('sales_suspend_sale')."</span></div>";
+				echo "<br><div class='big_button' id='suspend_sale_button' style='margin: 5px 0'><span>".$this->lang->line('sales_suspend_sale')."</span></div>";
 				?>
 			</div>
 			</form>

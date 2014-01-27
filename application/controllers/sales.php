@@ -111,7 +111,7 @@ class Sales extends Secure_area
 		$data=array();
 		$mode = $this->sale_lib->get_mode();
 		$item_id_or_number_or_item_kit_or_receipt = $this->input->post("item");
-		$quantity = $mode=="sale" ? 1:-1;
+		$quantity = $mode!="return" ? 1:-1;
 
 		if($this->sale_lib->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt) && $mode=='return')
 		{
@@ -193,6 +193,17 @@ class Sales extends Secure_area
 		$data['amount_change']=to_currency($this->sale_lib->get_amount_due() * -1);
 		$data['employee']=$emp_info->first_name.' '.$emp_info->last_name;
 
+		//Para guardar el tipo de Sale
+		$mode = 0;
+		switch ( $this->sale_lib->get_mode() ) {
+			case 'return':
+				$mode = 1;
+			break;
+			case 'shipping':
+				$mode = 2;
+			break;
+		}
+
 		if($customer_id!=-1)
 		{
 			$cust_info=$this->Customer->get_info($customer_id);
@@ -200,7 +211,7 @@ class Sales extends Secure_area
 		}
 
 		//SAVE sale to database
-		$data['sale_id']='POS '.$this->Sale->save($data['cart'], $customer_id,$employee_id,$comment,$data['payments']);
+		$data['sale_id']='POS '.$this->Sale->save($data['cart'], $customer_id,$employee_id,$comment,$data['payments'], $mode);
 		if ($data['sale_id'] == 'POS -1')
 		{
 			$data['error_message'] = $this->lang->line('sales_transaction_failed');

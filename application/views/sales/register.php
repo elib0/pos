@@ -1,5 +1,21 @@
 <?php $this->load->view("partial/header"); ?>
-<div id="page_title" style="margin-bottom:8px;"><?php echo $this->lang->line('sales_register'); ?></div>
+<style>
+	select#customer{
+		width: 100%;
+	}
+</style>
+<div id="page_title" style="margin-bottom:8px;">
+	<?php 
+		if ($mode=='return') {
+			echo $this->lang->line('sales_return');
+		}elseif ($mode=='shipping') {
+			echo $this->lang->line('sales_shipping');
+		}else{
+			echo $this->lang->line('sales_register');
+		}
+		echo ' '.$this->lang->line('register'); 
+	?>
+</div>
 <?php
 if(isset($error))
 {
@@ -184,7 +200,8 @@ else
 		</tr>
 		<tr style="height:3px">
 		<td colspan=8 style="background-color:white"> </td>
-		</tr>		</form>
+		</tr>		
+		</form>
 	<?php
 	}
 }
@@ -203,19 +220,34 @@ else
 	}
 	else
 	{
-		echo form_open("sales/select_customer",array('id'=>'select_customer_form')); ?>
-		<label id="customer_label" for="customer"><?php echo $this->lang->line('sales_select_customer'); ?></label>
-		<?php echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','value'=>$this->lang->line('sales_start_typing_customer_name')));?>
-		</form>
-		<div style="margin-top:5px;text-align:center;">
-		<h3 style="margin: 5px 0 5px 0"><?php echo $this->lang->line('common_or'); ?></h3>
-		<?php echo anchor("customers/view/-1/width:350",
-		"<div class='big_button' style='margin:0 auto;'><span>".$this->lang->line('sales_new_customer')."</span></div>",
-		array('class'=>'thickbox none','title'=>$this->lang->line('sales_new_customer')));
-		?>
-		</div>
-		<div class="clearfix">&nbsp;</div>
-		<?php
+		if ($mode=='sale' || $mode=='return'):
+			echo form_open("sales/select_customer",array('id'=>'select_customer_form')); ?>
+			<label id="customer_label" for="customer"><?php echo $this->lang->line('sales_select_customer'); ?></label>
+			<?php echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','value'=>$this->lang->line('sales_start_typing_customer_name')));?>
+			</form>
+			<div style="margin-top:5px;text-align:center;">
+			<h3 style="margin: 5px 0 5px 0"><?php echo $this->lang->line('common_or'); ?></h3>
+			<?php echo anchor("customers/view/-1/width:350",
+			"<div class='big_button' style='margin:0 auto;'><span>".$this->lang->line('sales_new_customer')."</span></div>",
+			array('class'=>'thickbox none','title'=>$this->lang->line('sales_new_customer')));
+			?>
+			</div>
+			<div class="clearfix">&nbsp;</div>
+	<?php
+		else:
+			include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
+			$dbs = array('...'=>'...');
+			foreach ($db as $key => $value){
+				if ( $key != $_SESSION['dblocation'] ) {
+					$dbs[$key] = ucwords($key);
+				}
+			}
+			$options = 'id="customer"';
+			echo form_open("sales/select_customer",array('id'=>'select_customer_form'));
+			echo form_label('Receiving Location:', 'customer', array('id'=>'customer_label'));
+			echo form_dropdown('customer', $dbs, '...', $options);
+			echo form_close();
+		endif;
 	}
 	?>
 
@@ -231,8 +263,6 @@ else
 		<div class="float_left" style='width:55%;'><?php echo $this->lang->line('sales_total'); ?>:</div>
 		<div class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($total); ?></div>
 	</div>
-
-
 
 
 	<?php
@@ -363,8 +393,6 @@ else
 		}
 		?>
 
-
-
 	</div>
 
 	<?php
@@ -458,7 +486,13 @@ $(document).ready(function()
     {
     	if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>'))
     	{
-    		$('#finish_sale_form').submit();
+    		//Enviar edicion de productos agregados
+    		$('#cart_contents form').each(function(index, el) {
+    			// $(this).submit();
+    			alert( $(this).attr('action') );
+    		});
+    		return false;
+    		// $('#finish_sale_form').submit();
     	}
     });
 

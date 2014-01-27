@@ -39,7 +39,7 @@ class Sale extends CI_Model
 		return $success;
 	}
 
-	function save ($items,$customer_id,$employee_id,$comment,$payments,$sale_id=false)
+	function save ($items,$customer_id,$employee_id,$comment,$payments,$sale_id=false,$mode=0)
 	{
 		if(count($items)==0)
 			return -1;
@@ -57,7 +57,8 @@ class Sale extends CI_Model
 			'customer_id'=> $this->Customer->exists($customer_id) ? $customer_id : null,
 			'employee_id'=>$employee_id,
 			'payment_type'=>$payment_types,
-			'comment'=>$comment
+			'comment'=>$comment,
+			'mode'=>$mode
 		);
 
 		//Run these queries as a transaction, we want to make sure we do all or nothing

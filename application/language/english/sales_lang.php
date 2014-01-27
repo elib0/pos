@@ -1,7 +1,8 @@
 <?php
 $lang['sales_giftcard_number']='Gift Card Number';
 $lang['sales_giftcard']='Gift Card';
-$lang['sales_register']='Sales Register';
+$lang['sales_register']='Sales';
+$lang['register']='Register';
 $lang['sales_mode']='Register Mode';
 $lang['sales_new_item'] = 'New Item';
 $lang['sales_item_name'] = 'Item Name';

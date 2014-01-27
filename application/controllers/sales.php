@@ -133,7 +133,7 @@ class Sales extends Secure_area
 		$this->_reload($data);
 	}
 
-	function edit_item($line)
+	function edit_item($line, $ajax=false)
 	{
 		$data= array();
 
@@ -161,8 +161,9 @@ class Sales extends Secure_area
 			$data['warning'] = $this->lang->line('sales_quantity_less_than_zero');
 		}
 
-
-		$this->_reload($data);
+		if (!$ajax) {
+			$this->_reload($data);
+		}
 	}
 
 	function delete_item($item_number)

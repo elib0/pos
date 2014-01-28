@@ -81,7 +81,7 @@ else
 <th style="width:11%;"><?php echo $this->lang->line('sales_price'); ?></th>
 <th style="width:11%;"><?php echo $this->lang->line('sales_quantity'); ?></th>
 <th style="width:11%;"><?php echo $this->lang->line('sales_discount'); ?></th>
-<th style="width:15%;"><?php echo $this->lang->line('sales_total'); ?></th>
+<th style="width:15%;">Sub Total</th>
 <th style="width:11%;"><?php echo $this->lang->line('sales_edit'); ?></th>
 </tr>
 </thead>
@@ -100,9 +100,9 @@ else
 	foreach(array_reverse($cart, true) as $line=>$item)
 	{
 		$cur_item_info = $this->Item->get_info($item['item_id']);
-		echo form_open("sales/edit_item/$line");
+		echo form_open( "sales/edit_item/$line", array('id'=>'edit_item'.$item['item_id']) );
 	?>
-		<tr>
+		<tr id="<?php echo $item['item_id']; ?>" class="sale-line">
 		<td><?php echo anchor("sales/delete_item/$line",'['.$this->lang->line('common_delete').']');?></td>
 		<td><?php echo $item['item_number']; ?></td>
 		<td style="align:center;"><?php echo $item['name']; ?><br /> [<?php echo $cur_item_info->quantity; ?> in stock]</td>
@@ -112,7 +112,7 @@ else
 		<?php if ($items_module_allowed)
 		{
 		?>
-			<td><?php echo form_input(array('name'=>'price','value'=>$item['price'],'size'=>'6'));?></td>
+			<td><?php echo form_input(array('name'=>'price','value'=>$item['price'],'size'=>'6','class'=>'edit-item','ref'=>$item['item_id']));?></td>
 		<?php
 		}
 		else
@@ -130,7 +130,7 @@ else
         		<?php echo $item['quantity']; ?>
         		<?php echo form_hidden('quantity',$item['quantity']); ?>
         	<?php else: ?>
-        		<select name="quantity">
+        		<select name="quantity" class="select-edit-item" ref="<?php echo $item['item_id']; ?>">
 	            <?php 
 	            for ($i=0; $i < $item['quantity_total']-$item['reorder']; $i++) {
 	                $j = $i+1; 
@@ -143,8 +143,8 @@ else
         	<?php //echo form_input(array('name'=>'quantity','value'=>$item['quantity'],'size'=>'2')); ?>
 		</td>
 
-		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3'));?></td>
-		<td><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>
+		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3', 'class'=>'edit-item','ref'=>$item['item_id']));?></td>
+		<td class="sub-total"><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>
 		<td>
             <?php echo form_submit("edit_item", $this->lang->line('sales_edit_item'));?>
             <?php echo form_button( array('value'=>$item['item_id'],'name'=>'item_broken','class'=>'item-broken','content'=>'Report Item') ); ?>
@@ -200,7 +200,7 @@ else
 		</tr>
 		<tr style="height:3px">
 		<td colspan=8 style="background-color:white"> </td>
-		</tr>		
+		</tr>
 		</form>
 	<?php
 	}
@@ -213,54 +213,47 @@ else
 
 <div id="overall_sale">
 	<?php
-	if(isset($customer))
-	{
-		echo $this->lang->line("sales_customer").': <b>'.$customer. '</b><br />';
-		echo anchor("sales/remove_customer",'['.$this->lang->line('common_remove').' '.$this->lang->line('customers_customer').']');
-	}
-	else
-	{
-		if ($mode=='sale' || $mode=='return'):
-			echo form_open("sales/select_customer",array('id'=>'select_customer_form')); ?>
-			<label id="customer_label" for="customer"><?php echo $this->lang->line('sales_select_customer'); ?></label>
-			<?php echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','value'=>$this->lang->line('sales_start_typing_customer_name')));?>
-			</form>
-			<div style="margin-top:5px;text-align:center;">
-			<h3 style="margin: 5px 0 5px 0"><?php echo $this->lang->line('common_or'); ?></h3>
-			<?php echo anchor("customers/view/-1/width:350",
+	if ($mode=='sale' || $mode=='return'){
+		if (isset($customer)) {
+			echo $this->lang->line("sales_customer").': <b>'.$customer. '</b><br />';
+			echo anchor("sales/remove_customer",'['.$this->lang->line('common_remove').' '.$this->lang->line('customers_customer').']');
+		}else{
+			echo form_open("sales/select_customer",array('id'=>'select_customer_form'));
+			echo '<label id="customer_label" for="customer">'.$this->lang->line('sales_select_customer').'</label>';
+			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','value'=>$this->lang->line('sales_start_typing_customer_name')));
+			echo form_close();
+			echo '<div style="margin-top:5px;text-align:center;">';
+			echo '<h3 style="margin: 5px 0 5px 0">'.$this->lang->line('common_or').'</h3>';
+			echo anchor("customers/view/-1/width:350",
 			"<div class='big_button' style='margin:0 auto;'><span>".$this->lang->line('sales_new_customer')."</span></div>",
 			array('class'=>'thickbox none','title'=>$this->lang->line('sales_new_customer')));
-			?>
-			</div>
-			<div class="clearfix">&nbsp;</div>
-	<?php
-		else:
-			include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
-			$dbs = array('...'=>'...');
-			foreach ($db as $key => $value){
-				if ( $key != $_SESSION['dblocation'] ) {
-					$dbs[$key] = ucwords($key);
-				}
+			echo '</div><div class="clearfix">&nbsp;</div>';
+		}
+	}else{
+		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
+		$dbs = array('...'=>'...');
+		foreach ($db as $key => $value){
+			if ( $key != $_SESSION['dblocation'] ) {
+				$dbs[$key] = ucwords($key);
 			}
-			$options = 'id="customer"';
-			echo form_open("sales/select_customer",array('id'=>'select_customer_form'));
-			echo form_label('Receiving Location:', 'customer', array('id'=>'customer_label'));
-			echo form_dropdown('customer', $dbs, '...', $options);
-			echo form_close();
-		endif;
+		}
+		echo form_open("sales/select_location",array('id'=>'select_customer_form'));
+		echo form_label('Receiving Location:', 'location', array('id'=>'customer_label'));
+		echo form_dropdown('location', $dbs, $this->sale_lib->get_customer(), 'id="location"');
+		echo form_close();
 	}
 	?>
 
 	<div id='sale_details'>
 		<div class="float_left" style="width:55%;"><?php echo $this->lang->line('sales_sub_total'); ?>:</div>
-		<div class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($subtotal); ?></div>
+		<div id="general-sub-total" class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($subtotal); ?></div>
 
 		<?php foreach($taxes as $name=>$value) { ?>
 		<div class="float_left" style='width:55%;'><?php echo $name; ?>:</div>
 		<div class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($value); ?></div>
 		<?php }; ?>
 
-		<div class="float_left" style='width:55%;'><?php echo $this->lang->line('sales_total'); ?>:</div>
+		<div class="float_left total" style='width:55%;'><?php echo $this->lang->line('sales_total'); ?>:</div>
 		<div class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($total); ?></div>
 	</div>
 
@@ -313,7 +306,6 @@ else
 		<?php
 		}
 		?>
-
 
 
     <table width="100%"><tr>
@@ -423,6 +415,29 @@ $(document).ready(function()
 
     });
 
+    $('.select-edit-item').change(function(event) {
+    	var ref = $(this).attr('ref');
+		$('#edit_item'+ref).ajaxSubmit({
+			success:function(response)
+			{
+				set_subtotal(ref);
+				set_total();
+			}
+		});
+    });
+
+    $('.edit-item').blur(function(event) {
+    	var ref = $(this).attr('ref');
+		
+		$('#edit_item'+ref).ajaxSubmit({
+			success:function(response)
+			{
+				set_subtotal(ref);
+				set_total();
+			}
+		});
+    });
+
     $("#item").autocomplete('<?php echo site_url("sales/item_search"); ?>',
     {
     	minChars:0,
@@ -461,6 +476,14 @@ $(document).ready(function()
 		}
     });
 
+    //Envia formulario de customer idependientemente del formato de customer
+    $('#location').change(function(event) {
+    	if ( $(this).val() != '...') {
+    		// $("#select_customer_form").submit();
+    		$("#select_customer_form").ajaxSubmit();
+    	};
+    });
+
     $("#customer").result(function(event, data, formatted)
     {
 		$("#select_customer_form").submit();
@@ -486,13 +509,7 @@ $(document).ready(function()
     {
     	if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>'))
     	{
-    		//Enviar edicion de productos agregados
-    		$('#cart_contents form').each(function(index, el) {
-    			// $(this).submit();
-    			alert( $(this).attr('action') );
-    		});
-    		return false;
-    		// $('#finish_sale_form').submit();
+    		$('#finish_sale_form').submit();
     	}
     });
 
@@ -520,6 +537,26 @@ $(document).ready(function()
 
 	$("#payment_types").change(checkPaymentTypeGiftcard).ready(checkPaymentTypeGiftcard)
 });
+
+function set_total(){
+	var total = 0;
+	$('.sale-line').each(function(index, el) {
+		var price = $(this).find('input[name=price]').val();
+		var quantity = $(this).find('select').val();
+		var discount = $(this).find('input[name=discount]').val();
+		total += price*quantity-price*quantity*discount/100;
+	});
+
+	$('#general-sub-total').html(total);
+}
+
+function set_subtotal(line){
+	//Variables de calculo
+	var price = $('tr#'+line+' input[name=price]').val();
+	var quantity = $('tr#'+line+' select').val();
+	var discount = $('tr#'+line+' input[name=discount]').val();
+	$('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100);
+}
 
 function post_item_form_submit(response)
 {

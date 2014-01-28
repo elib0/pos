@@ -26,6 +26,13 @@ class Sales extends Secure_area
 		echo implode("\n",$suggestions);
 	}
 
+	function select_location(){
+		if ( $this->sale_lib->get_mode() == 'shipping') {
+			$customer_id = $this->input->post("location");
+		}
+		$this->sale_lib->set_customer($customer_id);
+	}
+
 	function select_customer()
 	{
 		$customer_id = $this->input->post("customer");
@@ -196,23 +203,47 @@ class Sales extends Secure_area
 
 		//Para guardar el tipo de Sale
 		$mode = 0;
+		$customer_id_finally = -1;
 		switch ( $this->sale_lib->get_mode() ) {
 			case 'return':
 				$mode = 1;
 			break;
 			case 'shipping':
 				$mode = 2;
+
+				//Registrar Location como customer "CALICHE"
+				include('application/config/database.php');
+				$person_data = array(
+					'first_name'=>$customer_id,
+					'last_name'=>$db[$customer_id]['database'],
+					'email'=>null,
+					'phone_number'=>null,
+					'address_1'=>$db[$customer_id]['hostname'],
+					'address_2'=>null,
+					'city'=>null,
+					'state'=>null,
+					'zip'=>null,
+					'country'=>null,
+					'comments'=>'location'
+				);
+				$customer_data=array(
+					'account_number'=>null,
+					'taxable'=>0
+				);
+				$this->Customer->save($person_data,$customer_data,$customer_id_finally);
 			break;
 		}
 
-		if($customer_id!=-1)
+		if($customer_id!=-1 && is_numeric($customer_id))
 		{
 			$cust_info=$this->Customer->get_info($customer_id);
 			$data['customer']=$cust_info->first_name.' '.$cust_info->last_name;
+		}else{
+			$customer_id = $customer_id_finally;
 		}
 
 		//SAVE sale to database
-		$data['sale_id']='POS '.$this->Sale->save($data['cart'], $customer_id,$employee_id,$comment,$data['payments'], $mode);
+		$data['sale_id']='POS '.$this->Sale->save($data['cart'], $customer_id,$employee_id,$comment,$data['payments'], false, $mode);
 		if ($data['sale_id'] == 'POS -1')
 		{
 			$data['error_message'] = $this->lang->line('sales_transaction_failed');

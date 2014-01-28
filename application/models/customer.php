@@ -82,6 +82,20 @@ class Customer extends Person
 	}
 
 	/*
+	Gets information about a particular customer
+	*/
+	function get_info_by_name($customer_name)
+	{
+		$this->con->from('customers');
+		$this->con->join('people', 'people.person_id = customers.person_id');
+		$this->con->where('people.first_name',$customer_id);
+		$this->con->limit(1);
+		$query = $this->con->get();
+
+		return $query->row();
+	}
+
+	/*
 	Gets information about multiple customers
 	*/
 	function get_multiple_info($customer_ids)

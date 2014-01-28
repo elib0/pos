@@ -230,6 +230,7 @@ class Sales extends Secure_area
 					'account_number'=>null,
 					'taxable'=>0
 				);
+				$customer_id_finally = $this->Customer->get_info_by_name($customer_id);
 				$this->Customer->save($person_data,$customer_data,$customer_id_finally);
 			break;
 		}

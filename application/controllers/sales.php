@@ -203,7 +203,6 @@ class Sales extends Secure_area
 
 		//Para guardar el tipo de Sale
 		$mode = 0;
-		$customer_id_finally = -1;
 		switch ( $this->sale_lib->get_mode() ) {
 			case 'return':
 				$mode = 1;
@@ -230,17 +229,21 @@ class Sales extends Secure_area
 					'account_number'=>null,
 					'taxable'=>0
 				);
-				$customer_id_finally = $this->Customer->get_info_by_name($customer_id);
-				$this->Customer->save($person_data,$customer_data,$customer_id_finally);
+				//Customer by Location
+				$customer = $this->Customer->get_info_by_name($customer_id);
+				if (!$customer) {
+					$this->Customer->save($person_data,$customer_data,-1);
+					$customer_id =  $customer_data['person_id'];
+				}else{
+					$customer_id = $customer->person_id;
+				}
 			break;
 		}
 
-		if($customer_id!=-1 && is_numeric($customer_id))
+		if($customer_id>-1 && is_numeric($customer_id))
 		{
 			$cust_info=$this->Customer->get_info($customer_id);
 			$data['customer']=$cust_info->first_name.' '.$cust_info->last_name;
-		}else{
-			$customer_id = $customer_id_finally;
 		}
 
 		//SAVE sale to database

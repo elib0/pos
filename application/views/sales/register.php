@@ -250,7 +250,7 @@ else
 
 		<?php foreach($taxes as $name=>$value) { ?>
 		<div class="float_left" style='width:55%;'><?php echo $name; ?>:</div>
-		<div class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($value); ?></div>
+		<div class="float_left taxes" style="width:45%;font-weight:bold;"><?php echo to_currency($value); ?></div>
 		<?php }; ?>
 
 		<div class="float_left total" style='width:55%;'><?php echo $this->lang->line('sales_total'); ?>:</div>
@@ -536,30 +536,31 @@ $(document).ready(function()
 	$("#payment_types").change(checkPaymentTypeGiftcard).ready(checkPaymentTypeGiftcard)
 });
 
-// function set_total(){
-// 	$.ajax({
-// 		url: 'index.php/sales/get_ajax_sale_details',
-// 		dataType: 'json',
-// 		success: function(data){
-// 			$('#amount_tendered').val(data.total);
-// 			$('.general-total').html(data.total).formatCurrency();
-// 			$('#general-sub-total').html(data.subtotal).formatCurrency();
-// 		}
-// 	});
-// }
-
 function set_amounts(line){
 	$.ajax({
 		url: 'index.php/sales/get_ajax_sale_details',
 		dataType: 'json',
 		success: function(data){
+			var taxes = new Array();
+			var price = $('tr#'+line+' input[name=price]').val();
+ 			var quantity = $('tr#'+line+' select').val();
+			var discount = $('tr#'+line+' input[name=discount]').val();
+			
+
 			$('#amount_tendered').val(data.total);
 			$('.general-total').html(data.total).formatCurrency();
-			$('#general-sub-total, tr#'+line+' td.sub-total').html(data.subtotal).formatCurrency();
+			$('#general-sub-total').html(data.subtotal).formatCurrency();
+			$('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100).formatCurrency();
+
+			for (var key in data.taxes){
+				taxes.push(data.taxes[key]);
+			}
+
+			$('.taxes').each(function(index, el) {
+				$(this).html(taxes[index]).formatCurrency();					
+			});
 		}
 	});
-	// $('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100).formatCurrency();
-	// set_total();
 }
 
 function post_item_form_submit(response)

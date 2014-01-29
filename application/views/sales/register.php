@@ -77,12 +77,12 @@ else
 <tr>
 <th style="width:11%;"><?php echo $this->lang->line('common_delete'); ?></th>
 <th style="width:30%;"><?php echo $this->lang->line('sales_item_number'); ?></th>
-<th style="width:30%;"><?php echo $this->lang->line('sales_item_name'); ?></th>
-<th style="width:11%;"><?php echo $this->lang->line('sales_price'); ?></th>
+<th style="width:33%;"><?php echo $this->lang->line('sales_item_name'); ?></th>
+<th style="width:13%;"><?php echo $this->lang->line('sales_price'); ?></th>
 <th style="width:11%;"><?php echo $this->lang->line('sales_quantity'); ?></th>
 <th style="width:11%;"><?php echo $this->lang->line('sales_discount'); ?></th>
-<th style="width:15%;">Sub Total</th>
-<th style="width:11%;"><?php echo $this->lang->line('sales_edit'); ?></th>
+<th style="width:20%;">Sub Total</th>
+<!-- <th style="width:11%;"><?php //echo $this->lang->line('sales_edit'); ?></th> -->
 </tr>
 </thead>
 <tbody id="cart_contents">
@@ -145,10 +145,10 @@ else
 
 		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3', 'class'=>'edit-item','ref'=>$item['item_id']));?></td>
 		<td class="sub-total"><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>
-		<td>
-            <?php echo form_submit("edit_item", $this->lang->line('sales_edit_item'));?>
-            <?php echo form_button( array('value'=>$item['item_id'],'name'=>'item_broken','class'=>'item-broken','content'=>'Report Item') ); ?>
-        </td>
+		<!-- <td>
+            <?php //echo form_submit("edit_item", $this->lang->line('sales_edit_item'));?>
+            <?php //echo form_button( array('value'=>$item['item_id'],'name'=>'item_broken','class'=>'item-broken','content'=>'Report Item') ); ?>
+        </td> -->
 		</tr>
 		<tr>
 		<td style="color:#2F4F4F";><?php echo $this->lang->line('sales_description_abbrv').':';?></td>
@@ -254,7 +254,7 @@ else
 		<?php }; ?>
 
 		<div class="float_left total" style='width:55%;'><?php echo $this->lang->line('sales_total'); ?>:</div>
-		<div class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($total); ?></div>
+		<div class="float_left general-total" style="width:45%;font-weight:bold;"><?php echo to_currency($total); ?></div>
 	</div>
 
 
@@ -314,7 +314,7 @@ else
 	</tr>
 	<tr>
 	<td style="width:55%; "><div class="float_left" ><?php echo 'Amount Due:' ?></div></td>
-	<td style="width:45%; text-align:right; "><div class="float_left" style="text-align:right;font-weight:bold;"><?php echo to_currency($amount_due); ?></div></td>
+	<td style="width:45%; text-align:right; "><div class="float_left general-total" style="text-align:right;font-weight:bold;"><?php echo to_currency($amount_due); ?></div></td>
 	</tr></table>
 
 	<div id="Payment_Types" >
@@ -420,8 +420,7 @@ $(document).ready(function()
 		$('#edit_item'+ref).ajaxSubmit({
 			success:function(response)
 			{
-				set_subtotal(ref);
-				set_total();
+				set_amounts(ref);
 			}
 		});
     });
@@ -432,8 +431,7 @@ $(document).ready(function()
 		$('#edit_item'+ref).ajaxSubmit({
 			success:function(response)
 			{
-				set_subtotal(ref);
-				set_total();
+				set_amounts(ref);
 			}
 		});
     });
@@ -538,24 +536,30 @@ $(document).ready(function()
 	$("#payment_types").change(checkPaymentTypeGiftcard).ready(checkPaymentTypeGiftcard)
 });
 
-function set_total(){
-	var total = 0;
-	$('.sale-line').each(function(index, el) {
-		var price = $(this).find('input[name=price]').val();
-		var quantity = $(this).find('select').val();
-		var discount = $(this).find('input[name=discount]').val();
-		total += price*quantity-price*quantity*discount/100;
+// function set_total(){
+// 	$.ajax({
+// 		url: 'index.php/sales/get_ajax_sale_details',
+// 		dataType: 'json',
+// 		success: function(data){
+// 			$('#amount_tendered').val(data.total);
+// 			$('.general-total').html(data.total).formatCurrency();
+// 			$('#general-sub-total').html(data.subtotal).formatCurrency();
+// 		}
+// 	});
+// }
+
+function set_amounts(line){
+	$.ajax({
+		url: 'index.php/sales/get_ajax_sale_details',
+		dataType: 'json',
+		success: function(data){
+			$('#amount_tendered').val(data.total);
+			$('.general-total').html(data.total).formatCurrency();
+			$('#general-sub-total, tr#'+line+' td.sub-total').html(data.subtotal).formatCurrency();
+		}
 	});
-
-	$('#general-sub-total').html(total);
-}
-
-function set_subtotal(line){
-	//Variables de calculo
-	var price = $('tr#'+line+' input[name=price]').val();
-	var quantity = $('tr#'+line+' select').val();
-	var discount = $('tr#'+line+' input[name=discount]').val();
-	$('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100);
+	// $('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100).formatCurrency();
+	// set_total();
 }
 
 function post_item_form_submit(response)

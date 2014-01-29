@@ -13,6 +13,15 @@ class Sales extends Secure_area
 		$this->_reload();
 	}
 
+	/*Datos de la venta actual por ajax*/
+	function get_ajax_sale_details(){
+		$subtotal = $this->sale_lib->get_subtotal();
+		$taxes = $this->sale_lib->get_taxes();
+		$total = $this->sale_lib->get_total();
+
+		echo json_encode(array('total'=>$total, 'subtotal'=>$subtotal, 'taxes'=>$taxes));
+	}
+
 	function item_search()
 	{
 		$suggestions = $this->Item->get_item_search_suggestions($this->input->post('q'),$this->input->post('limit'));
@@ -191,7 +200,7 @@ class Sales extends Secure_area
 		$data['subtotal']=$this->sale_lib->get_subtotal();
 		$data['taxes']=$this->sale_lib->get_taxes();
 		$data['total']=$this->sale_lib->get_total();
-		$data['receipt_title']=$this->lang->line('sales_receipt');
+		// $data['receipt_title']=$this->lang->line('sales_receipt');
 		$data['transaction_time']= date('m/d/Y h:i:s a');
 		$customer_id=$this->sale_lib->get_customer();
 		$employee_id=$this->Employee->get_logged_in_employee_info()->person_id;
@@ -206,9 +215,16 @@ class Sales extends Secure_area
 		switch ( $this->sale_lib->get_mode() ) {
 			case 'return':
 				$mode = 1;
+
+				//Datos para la vista a generar
+				$data['receipt_title'] = $this->lang->line('sales_return');
 			break;
 			case 'shipping':
 				$mode = 2;
+
+				//Datos para la vista a generar
+				$data['receipt_title'] = $this->lang->line('sales_shipping');
+				$data['employee']=$emp_info->first_name.' '.$emp_info->last_name.' From: '.ucwords($_SESSION['dblocation']);
 
 				//Registrar Location como customer "CALICHE"
 				include('application/config/database.php');
@@ -238,12 +254,22 @@ class Sales extends Secure_area
 					$customer_id = $customer->person_id;
 				}
 			break;
+			default:
+				//Datos para la vista a generar
+				$data['receipt_title'] = $this->lang->line('sales_register');
+			break;
 		}
+
+		$data['receipt_title'] .= ' '.$this->lang->line('sales_receipt');
 
 		if($customer_id>-1 && is_numeric($customer_id))
 		{
 			$cust_info=$this->Customer->get_info($customer_id);
-			$data['customer']=$cust_info->first_name.' '.$cust_info->last_name;
+			if ($this->sale_lib->get_mode() == 'shipping') {
+				$data['customer']=ucwords($cust_info->comments).': '.ucwords($cust_info->first_name);
+			}else{
+				$data['customer']=$cust_info->first_name.' '.$cust_info->last_name;
+			}
 		}
 
 		//SAVE sale to database

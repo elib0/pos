@@ -18,8 +18,9 @@ class Sales extends Secure_area
 		$subtotal = $this->sale_lib->get_subtotal();
 		$taxes = $this->sale_lib->get_taxes();
 		$total = $this->sale_lib->get_total();
+		$amountdue = $this->sale_lib->get_amount_due();
 
-		echo json_encode(array('total'=>$total, 'subtotal'=>$subtotal, 'taxes'=>$taxes));
+		echo json_encode(array('total'=>$total, 'subtotal'=>$subtotal, 'taxes'=>$taxes, 'due'=>$amountdue));
 	}
 
 	function item_search()

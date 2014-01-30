@@ -314,7 +314,7 @@ else
 	</tr>
 	<tr>
 	<td style="width:55%; "><div class="float_left" ><?php echo 'Amount Due:' ?></div></td>
-	<td style="width:45%; text-align:right; "><div class="float_left amount-due" style="text-align:right;font-weight:bold;"><?php echo to_currency($amount_due); ?></div></td>
+	<td style="width:45%; text-align:right; "><div id="amount-due" class="float_left" style="text-align:right;font-weight:bold;"><?php echo to_currency($amount_due); ?></div></td>
 	</tr></table>
 
 	<div id="Payment_Types" >
@@ -547,8 +547,8 @@ function set_amounts(line){
 			var discount = $('tr#'+line+' input[name=discount]').val();
 			
 
-			$('#amount_tendered').val(data.total);
-			$('.amount-due').val(data.due);
+			$('#amount_tendered').val(data.due);
+			$('#amount-due').html(data.due).formatCurrency();
 			$('.general-total').html(data.total).formatCurrency();
 			$('#general-sub-total').html(data.subtotal).formatCurrency();
 			$('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100).formatCurrency();

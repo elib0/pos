@@ -546,7 +546,6 @@ function set_amounts(line){
  			var quantity = $('tr#'+line+' select').val();
 			var discount = $('tr#'+line+' input[name=discount]').val();
 			
-
 			$('#amount_tendered').val(data.due);
 			$('#amount-due').html(data.due).formatCurrency();
 			$('.general-total').html(data.total).formatCurrency();

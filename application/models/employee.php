@@ -5,6 +5,8 @@ class Employee extends Person
 
     function __construct()
     {
+    	$this->load->helper('date'); //Cargo helper de codeignier para las fechas
+
         parent::__construct();
         //Seleccion de DB
         // $this->session->set_userdata(array('dblocation'=>'other'));
@@ -46,6 +48,42 @@ class Employee extends Person
 		$this->con->from('employees');
 		$this->con->where('deleted',0);
 		return $this->con->count_all_results();
+	}
+
+	/**
+	 * Abre Log de hora trabajadas por dia y localidad
+	 * @param  INT $employee_id Id del empleado o persona
+	 * @return [boolean]              [True o False segun sea]
+	 */
+	function open_day($employee_id){
+		$b = false;
+		$data = array(
+			'employee_id' => $employee_id,
+			'date'      => date('Y-m-d'),
+			'login'     => date('H:i:s'),
+			'location'  => $_SESSION['dblocation']
+		);
+
+		//Si el registro se inserta satisfactoriamente resultadod = true
+		if ( $this->con->insert('employees_schedule', $data) ) $b = true;
+
+		return $b;
+	}
+
+	/**
+	 * Cierra el log del dia trabajado por localidad
+	 * @param  INT $employee_id Id del empleado o persona a registrar
+	 * @return [boolean]              [True o False segun sea]
+	 */
+	function close_day($employee_id){
+		$b = false;
+		$this->con->where('employee_id', $employee_id);
+		$this->con->where('date = CURDATE()');
+		$this->con->where("location = '".$_SESSION['dblocation']."'");
+
+		if ( $this->db->update('employees_schedule', array('logout'=>date('H:i:s'))) ) $b = true;
+
+		return $b;
 	}
 
 	/*
@@ -287,7 +325,9 @@ class Employee extends Person
 		{
 			$row=$query->row();
 			$this->session->set_userdata('person_id', $row->person_id);
-			return true;
+			if ( $employee = $this->open_day( $row->person_id ) ) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -299,9 +339,12 @@ class Employee extends Person
 	{
 		$pageRedirect = 'login/index';
 		if($otherUser != '') $pageRedirect .= '/'.$otherUser;
-		$this->session->sess_destroy();
-		unset($_SESSION['dblocation']);
-		redirect( $pageRedirect );
+		$employee = $this->get_logged_in_employee_info();
+		if ( $employee = $this->close_day( $employee->person_id ) ) {
+			$this->session->sess_destroy();
+			unset($_SESSION['dblocation']);
+			redirect( $pageRedirect );
+		}
 	}
 
 	/*

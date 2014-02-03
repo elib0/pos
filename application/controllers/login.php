@@ -20,6 +20,7 @@ class Login extends CI_Controller
 
 			if($this->form_validation->run() == FALSE)
 			{
+				//Para cambio rapido de usuario(LOGOUT alternativo)
 				if($userId != ''){
 					$person = $this->Employee->get_info( $userId );
 					$data['fastUser'] = $person->username;

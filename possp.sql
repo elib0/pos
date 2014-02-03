@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2014-01-29 16:21:44
+Date: 2014-02-03 16:41:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -303,6 +303,26 @@ CREATE TABLE `ospos_employees` (
 -- Records of ospos_employees
 -- ----------------------------
 INSERT INTO `ospos_employees` VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', '1', '1', '0', '0');
+
+-- ----------------------------
+-- Table structure for `ospos_employees_schedule`
+-- ----------------------------
+DROP TABLE IF EXISTS `ospos_employees_schedule`;
+CREATE TABLE `ospos_employees_schedule` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `employee_id` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `login` time NOT NULL,
+  `logout` time DEFAULT NULL,
+  `location` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of ospos_employees_schedule
+-- ----------------------------
+INSERT INTO `ospos_employees_schedule` VALUES ('1', '1', '2014-02-03', '14:45:01', '14:53:01', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('2', '1', '2014-02-03', '15:07:52', null, 'default');
 
 -- ----------------------------
 -- Table structure for `ospos_giftcards`
@@ -1177,7 +1197,7 @@ CREATE TABLE `ospos_people` (
 -- ----------------------------
 -- Records of ospos_people
 -- ----------------------------
-INSERT INTO `ospos_people` VALUES ('Alex', 'Kundalia', '555-555-5555', 'info@om-parts.com', 'Address 1', null, null, null, null, null, null, '1');
+INSERT INTO `ospos_people` VALUES ('Alex', 'Kundalia', '555-555-5555', 'info@om-parts.com', 'Address 1', '', '', '', '', '', '', '1');
 INSERT INTO `ospos_people` VALUES ('other', 'possp2', null, null, 'localhost', null, null, null, null, null, 'location', '2');
 
 -- ----------------------------
@@ -1583,18 +1603,18 @@ CREATE TABLE `ospos_schedules` (
   `out` time NOT NULL,
   `person_id` int(11) NOT NULL,
   PRIMARY KEY (`schedule_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=150 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ospos_schedules
 -- ----------------------------
-INSERT INTO `ospos_schedules` VALUES ('123', 'Saturday', '00:00:00', '23:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('122', 'Friday', '00:00:00', '23:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('121', 'Thursday', '00:00:00', '23:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('120', 'Wednesday', '00:00:00', '23:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('119', 'Tuesday', '00:00:00', '23:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('118', 'Monday', '00:00:00', '23:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('117', 'Sunday', '00:00:00', '23:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('155', 'Friday', '00:00:00', '23:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('154', 'Thursday', '09:00:00', '23:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('153', 'Wednesday', '00:00:00', '23:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('152', 'Tuesday', '00:00:00', '23:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('151', 'Monday', '00:00:00', '23:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('150', 'Sunday', '00:00:00', '23:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('156', 'Saturday', '00:00:00', '23:00:00', '1');
 
 -- ----------------------------
 -- Table structure for `ospos_sessions`
@@ -1612,7 +1632,14 @@ CREATE TABLE `ospos_sessions` (
 -- ----------------------------
 -- Records of ospos_sessions
 -- ----------------------------
-INSERT INTO `ospos_sessions` VALUES ('b91e2fbfca3b64b584442f850fceefa3', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.76 Safari/537.36', '1391028610', 'a:8:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;s:4:\"cart\";a:2:{i:2;a:13:{s:7:\"item_id\";s:2:\"45\";s:4:\"line\";i:2;s:4:\"name\";s:12:\"3G Digitizer\";s:11:\"item_number\";N;s:11:\"description\";s:0:\"\";s:12:\"serialnumber\";s:0:\"\";s:21:\"allow_alt_description\";s:1:\"0\";s:13:\"is_serialized\";s:1:\"0\";s:14:\"quantity_total\";s:6:\"743.00\";s:8:\"quantity\";s:1:\"1\";s:7:\"reorder\";s:4:\"2.00\";s:8:\"discount\";s:1:\"0\";s:5:\"price\";s:5:\"45.00\";}i:3;a:13:{s:7:\"item_id\";s:3:\"106\";s:4:\"line\";i:3;s:4:\"name\";s:16:\"Pantalla bold 10\";s:11:\"item_number\";N;s:11:\"description\";s:0:\"\";s:12:\"serialnumber\";s:0:\"\";s:21:\"allow_alt_description\";s:1:\"0\";s:13:\"is_serialized\";s:1:\"0\";s:14:\"quantity_total\";s:5:\"24.00\";s:8:\"quantity\";s:1:\"4\";s:7:\"reorder\";s:5:\"10.00\";s:8:\"discount\";s:1:\"0\";s:5:\"price\";s:6:\"224.00\";}}s:9:\"sale_mode\";s:4:\"sale\";s:8:\"customer\";i:-1;s:8:\"payments\";a:0:{}}');
+INSERT INTO `ospos_sessions` VALUES ('cdc2933e7de03b5f3874d45bbe74f4d4', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.102 Safari/537.36', '1391093826', 'a:6:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:4:\"cart\";a:0:{}s:9:\"sale_mode\";s:8:\"shipping\";s:8:\"customer\";i:-1;s:8:\"payments\";a:0:{}}');
+INSERT INTO `ospos_sessions` VALUES ('977825d7e408b7aecec16740faa3b3c3', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.102 Safari/537.36', '1391171628', '');
+INSERT INTO `ospos_sessions` VALUES ('6eb7a53a017495d23dd015783d303c88', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.102 Safari/537.36', '1391116106', 'a:6:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:4:\"cart\";a:0:{}s:9:\"sale_mode\";s:4:\"sale\";s:8:\"customer\";i:-1;s:8:\"payments\";a:0:{}}');
+INSERT INTO `ospos_sessions` VALUES ('5b4d951fc4fd073b894e5186f331c5bc', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.102 Safari/537.36', '1391089049', 'a:8:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;s:4:\"cart\";a:0:{}s:9:\"sale_mode\";s:4:\"sale\";s:8:\"customer\";i:-1;s:8:\"payments\";a:0:{}}');
+INSERT INTO `ospos_sessions` VALUES ('97232511834f671a27a037c0555eb16b', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.102 Safari/537.36', '1391181396', 'a:6:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:4:\"cart\";a:0:{}s:9:\"sale_mode\";s:4:\"sale\";s:8:\"customer\";i:-1;s:8:\"payments\";a:0:{}}');
+INSERT INTO `ospos_sessions` VALUES ('5f285fe94a31b871e3d47f72a607ee21', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.102 Safari/537.36', '1391442939', 'a:6:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:4:\"cart\";a:0:{}s:9:\"sale_mode\";s:4:\"sale\";s:8:\"customer\";i:-1;s:8:\"payments\";a:0:{}}');
+INSERT INTO `ospos_sessions` VALUES ('5aad1e92edbb02453db7151a6d062782', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.102 Safari/537.36', '1391455402', 'a:2:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";}');
+INSERT INTO `ospos_sessions` VALUES ('01cf77bbd84a7dc695daafe54a39f8f8', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.102 Safari/537.36', '1391461668', 'a:1:{s:9:\"person_id\";s:1:\"1\";}');
 
 -- ----------------------------
 -- Table structure for `ospos_suppliers`

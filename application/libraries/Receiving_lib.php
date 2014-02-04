@@ -21,7 +21,7 @@ class Receiving_lib
 				$this->CI->load->model('item');
 				foreach ($cart->result() as $item) {
 					$data = $this->CI->Item->get_info($item->item_id);
-					$this->add_item($item->item_id, $item->quantity, 0, $data->unit_price);
+					$this->add_item($item->item_id, $item->quantity_purchased, 0, $item->item_unit_price);
 				}
 			}
 		}

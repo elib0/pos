@@ -63,10 +63,10 @@ class Share_inventory extends CI_Model
     }
 
     public function get_reception_detail($reception_id){
-        $this->con->from('transfer_items');
-        $this->con->join('transfers', 'transfers.id = transfer_items.transfer_id');
-        $this->con->where('transfer_items.transfer_id', $reception_id);
-        $this->con->where('transfers.status', 1);
+        $this->con->from('sales_items');
+        $this->con->join('sales', 'sales.sale_id = sales_items.sale_id');
+        $this->con->where('sales_items.sale_id', $reception_id);
+        $this->con->where('sales.status', 1);
         return $this->con->get();
     }
 

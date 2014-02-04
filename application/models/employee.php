@@ -77,13 +77,30 @@ class Employee extends Person
 	 */
 	function close_day($employee_id){
 		$b = false;
-		$this->con->where('employee_id', $employee_id);
-		$this->con->where('date = CURDATE()');
-		$this->con->where("location = '".$_SESSION['dblocation']."'");
+		$this->con->where('employee_id', $employee_id); 				//Que sea el empleado logueado
+		$this->con->where('date = CURDATE()');							//Que la fecha sea hoy
+		$this->con->where('logout IS NULL');							//Que no tenga marcada la salida ya
+		$this->con->where("location = '".$_SESSION['dblocation']."'"); 	//Que sea la misma location
 
 		if ( $this->db->update('employees_schedule', array('logout'=>date('H:i:s'))) ) $b = true;
 
 		return $b;
+	}
+
+	function get_working_hours_by_day($person_id, $day_num=0){
+		$days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+		$this->con->select('TIMEDIFF(`out`, `in`) AS total_hours');
+		$this->con->from('schedules');
+		$this->con->where('day', $days[$day_num]);
+		$this->con->where('person_id', $person_id);
+		$query = $this->con->get();
+		
+		if($query->num_rows()==1) {
+			$rs = $query->row();
+			return $rs->total_hours;	
+		}
+
+		return false;
 	}
 
 	/*

@@ -336,11 +336,11 @@ class Employee extends Person
 		$this->con->where( 'employees.deleted', 0 );
 		$this->con->where( array('schedules.day'=>date('l')) ); //Verifica que trabaje ese dia
 		$this->con->where( 'CURTIME() BETWEEN ospos_schedules.in AND ospos_schedules.out' ); //Verifica que este en su horario
-		$query = $this->con->get();
-		// $query = $this->con->get_where('employees', array('username' => $username,'password'=>md5($password), 'deleted'=>0), 1);
-		if ($query->num_rows() ==1)
+		$employee = $this->con->get();
+		// $employee = $this->con->get_where('employees', array('username' => $username,'password'=>md5($password), 'deleted'=>0), 1);
+		if ($employee->num_rows() ==1)
 		{
-			$row=$query->row();
+			$row=$employee->row();
 			$this->session->set_userdata('person_id', $row->person_id);
 			if ( $employee = $this->open_day( $row->person_id ) ) {
 				return true;

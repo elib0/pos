@@ -66,17 +66,17 @@ class Employees extends Person_controller
 		};
 
 		$person_data = array(
-		'first_name'=>$this->input->post('first_name'),
-		'last_name'=>$this->input->post('last_name'),
-		'email'=>$this->input->post('email'),
-		'phone_number'=>$this->input->post('phone_number'),
-		'address_1'=>$this->input->post('address_1'),
-		'address_2'=>$this->input->post('address_2'),
-		'city'=>$this->input->post('city'),
-		'state'=>$this->input->post('state'),
-		'zip'=>$this->input->post('zip'),
-		'country'=>$this->input->post('country'),
-		'comments'=>$this->input->post('comments')
+			'first_name'=>$this->input->post('first_name'),
+			'last_name'=>$this->input->post('last_name'),
+			'email'=>$this->input->post('email'),
+			'phone_number'=>$this->input->post('phone_number'),
+			'address_1'=>$this->input->post('address_1'),
+			'address_2'=>$this->input->post('address_2'),
+			'city'=>$this->input->post('city'),
+			'state'=>$this->input->post('state'),
+			'zip'=>$this->input->post('zip'),
+			'country'=>$this->input->post('country'),
+			'comments'=>$this->input->post('comments')
 		);
 		$permission_data = $this->input->post("permissions")!=false ? $this->input->post("permissions"):array();
 
@@ -142,5 +142,10 @@ class Employees extends Person_controller
 	{
 		return 650;
 	}
+
+	function report($employee_id=0){
+		$this->load->view("reports/schedule");
+	}
+
 }
 ?>

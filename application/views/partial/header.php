@@ -123,7 +123,7 @@ html {
 		<div id="menubar_date">
 			<?php echo date('F d, Y') ?>
 			<div id="time" style="display:inline;"></div>
-			<div id="state_server">
+			<!-- <div id="state_server">
 				<?php
 					include 'application/config/database.php';
 					$url = $db[$active_group]['onlinehost'];
@@ -135,7 +135,7 @@ html {
 						echo '<div class="server-offonline"></div>';  
 					} 
 				?>
-			</div>
+			</div> -->
 		</div>
 		
 	</div>

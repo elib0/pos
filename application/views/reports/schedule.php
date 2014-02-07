@@ -3,64 +3,77 @@
 <head>
 <link href='<?php echo base_url();?>css/fullcalendar.css' rel='stylesheet' />
 <link href='<?php echo base_url();?>css/fullcalendar.print.css' rel='stylesheet' media='print' />
+<link href='<?php echo base_url();?>css/ospos.css' rel='stylesheet' media='print' />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-<script src='<?php echo base_url();?>js/fullcalendar.min.js'></script>
+<script src='<?php echo base_url();?>js/fullcalendar.js'></script>
 <script>
-
 	$(document).ready(function() {
-	
-		var date = new Date(2010, 1, 11);
-		var d = date.getDate();
+		var date = new Date(<?php echo $year ?>, <?php echo $month ?>, 1);
 		var m = date.getMonth();
 		var y = date.getFullYear();
-		
 		$('#calendar').fullCalendar({
 			year: y,
 			month: m,
+			contentHeight: 600,
+			weekMode: 'liquid',
+			events: "<?php echo base_url();?>/index.php/employees/json_calendar",
 			header:{
 				left: 'title',
 				center: '',
 				right: ''
 			},
-			weekMode: 'variable',
-			events: [
-				{
-					title: '26/30',
-					start: new Date(y, m, 6)
-				},
-				{
-					title: '12/12',
-					start: new Date(y, m, 2)
-				},
-				{
-					title: '12/24',
-					start: new Date(y, m, 24)
-				}
-			]
+			
+			loading: function(bool) {
+				if (bool) $('#loading').show();
+				else $('#loading').hide();
+			}
+			
 		});
 		
 	});
-
-
 </script>
 <style>
-
 	body {
-		margin-top: 40px;
 		text-align: center;
 		font-size: 14px;
 		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		}
+	}
 
 	#calendar {
-		width: 900px;
+		width: 1024px;
 		margin: 0 auto;
-		}
+	}
 
+	.header-table{
+		width: 100%;
+	}
+	.header-table tr td{
+		width: 33.3%;
+		text-align: center;
+	}
 </style>
 </head>
 <body>
+<?php if ($employee): ?>
+<table class="header-table">
+	<tr>
+		<td><img src="<?php echo base_url();?>images/logo.png" alt="Logo"></td>
+		<td>
+			<div id="receipt_header">
+				<div id="company_name"><?php echo $this->config->item('company'); ?></div>
+				<div id="company_address"><?php echo nl2br($this->config->item('address')); ?></div>
+				<div id="company_phone"><?php echo $this->config->item('phone'); ?></div>
+			</div>
+			<h1><?php echo $this->lang->line('employees_employee').": ".$employee ?></h1>
+		</td>
+		<td></td>
+	</tr>
+</table>
+<hr>
 <div id='calendar'></div>
+<?php else: ?>
+	<h1>Error</h1>
+<?php endif ?>
 </body>
 </html>

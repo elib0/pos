@@ -41,6 +41,9 @@ class Sale extends CI_Model
 
 	function save ($items,$customer_id,$employee_id,$comment,$payments,$sale_id=false,$mode=0)
 	{
+		if ($mode == 2) {
+			// $this->con = $this->load->database('shippings', true);
+		}
 		if(count($items)==0)
 			return -1;
 

@@ -66,6 +66,7 @@ class Share_inventory extends CI_Model
         $this->con->from('sales_items');
         $this->con->join('sales', 'sales.sale_id = sales_items.sale_id');
         $this->con->where('sales_items.sale_id', $reception_id);
+        $this->con->where('sales.mode', 2);
         $this->con->where('sales.status', 1);
         return $this->con->get();
     }

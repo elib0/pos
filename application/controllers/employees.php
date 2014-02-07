@@ -143,8 +143,61 @@ class Employees extends Person_controller
 		return 650;
 	}
 
+	function json_calendar(){
+		$year = date('Y');
+		$month = date('m');
+		$events_status = array('incomplete'=>'#CA1C1C', 'notwork'=>'#000');
+		$response = array();
+
+		$month = $this->Employee->get_worked_days(1);
+
+		foreach ($month->result() as $day) {
+			array_push($response, array(
+				'title'=>$day->worked_hours,
+				'start'=>$day->date,
+				'color'=>''
+			));
+		}
+
+		echo json_encode($response);
+
+		// echo json_encode(array(
+		// 	array(
+		// 		'id' => 111,
+		// 		'title' => "5/8",
+		// 		'start' => "$year-$month-10",
+		// 		'color' => $events_status['incomplete']
+		// 	),
+			
+		// 	array(
+		// 		'id' => 222,
+		// 		'title' => "0/8",
+		// 		'start' => "$year-$month-20",
+		// 		'color'=>$events_status['notwork']
+		// 	),
+
+		// 	array(
+		// 		'id' => 222,
+		// 		'title' => "9/9",
+		// 		'start' => "$year-$month-1"
+		// 	),
+
+		// 	array(
+		// 		'id' => 222,
+		// 		'title' => "5/6",
+		// 		'start' => "$year-$month-5"
+		// 	)
+		// ));
+	}
+
 	function report($employee_id=0){
-		$this->load->view("reports/schedule");
+		$person = $this->Employee->get_info($employee_id);
+		$data = array(
+			'employee'=>$person->first_name.' '.$person->last_name,
+			'year'=> date('Y'),
+			'month'=> date('m')-1
+		);
+		$this->load->view("reports/schedule", $data);
 	}
 
 }

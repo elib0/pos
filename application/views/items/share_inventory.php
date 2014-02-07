@@ -111,7 +111,7 @@ $this->load->view("partial/footer");
 			if (items > 0) {
 				// $$('#frmShareIvn').submit();	
 				var form = $$('#frmShareIvn');
-				console.log(form.attr('action'));console.log(form.attr('method'));console.log(form.serialize());
+
 				$$.ajax({
 					url: form.attr('action'),
 					type: form.attr('method'),

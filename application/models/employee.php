@@ -87,20 +87,23 @@ class Employee extends Person
 		return $b;
 	}
 
-	function get_working_hours_by_day($person_id, $day_num=0){
-		$days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-		$this->con->select('TIMEDIFF(`out`, `in`) AS total_hours');
+	function get_working_hours($person_id, $day_num=0){
+		// $days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+		$this->con->select('TIMEDIFF(`out`, `in`) AS total_hours', false);
 		$this->con->from('schedules');
-		$this->con->where('day', $days[$day_num]);
+		// $this->con->where('day', $days[$day_num]);
 		$this->con->where('person_id', $person_id);
-		$query = $this->con->get();
-		
-		if($query->num_rows()==1) {
-			$rs = $query->row();
-			return $rs->total_hours;	
-		}
 
-		return false;
+		return $query = $this->con->get();
+	}
+
+	function get_worked_days($person_id){
+		// $days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+		$this->con->select('date, TIMEDIFF(`logout`, `login`) AS worked_hours, location', false);
+		$this->con->from('employees_schedule');
+		$this->con->where('employee_id', $person_id);
+
+		return $query = $this->con->get();
 	}
 
 	/*

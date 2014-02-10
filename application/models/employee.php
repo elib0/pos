@@ -87,14 +87,13 @@ class Employee extends Person
 		return $b;
 	}
 
-	function get_working_hours($person_id, $day_num=0){
+	function get_working_hours($person_id=0){
 		// $days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-		$this->con->select('TIMEDIFF(`out`, `in`) AS total_hours', false);
+		$this->con->select('day,TIMEDIFF(`out`, `in`) AS total_hours', false);
 		$this->con->from('schedules');
-		// $this->con->where('day', $days[$day_num]);
 		$this->con->where('person_id', $person_id);
 
-		return $query = $this->con->get();
+		return $this->con->get();
 	}
 
 	function get_worked_days($person_id){
@@ -103,7 +102,7 @@ class Employee extends Person
 		$this->con->from('employees_schedule');
 		$this->con->where('employee_id', $person_id);
 
-		return $query = $this->con->get();
+		return $this->con->get();
 	}
 
 	/*

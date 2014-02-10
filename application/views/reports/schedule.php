@@ -25,8 +25,22 @@
 			},
 			
 			loading: function(bool) {
-				if (bool) $('#loading').show();
-				else $('#loading').hide();
+				if(bool){ 
+					$('#loading').show();
+				}else {
+					$.ajax({
+						url: '<?php echo base_url();?>/index.php/employees/json_schedule',
+						type: 'GET',
+						dataType: 'json',
+						success: function(data){
+							$.each(data, function(index, val) {
+								var text = $('.'+val.day+' .fc-event-title').html();
+								$('.'+val.day+' .fc-event-title').html(text+'/'+val.hours);
+								$('#loading').hide();
+							});
+						}
+					});
+				};
 			}
 			
 		});
@@ -52,10 +66,23 @@
 		width: 33.3%;
 		text-align: center;
 	}
+	#loading{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: hsla(0, 0%, 80%, 0.7);
+		 z-index: 5000;
+		 top: 0;
+		 left: 0;
+	}
 </style>
 </head>
 <body>
 <?php if ($employee): ?>
+<div id="loading">
+	<img src="<?php echo base_url();?>images/loading.gif" alt="Loading">
+	<br><h1>Loading data, Please wait...</h1>
+</div>
 <table class="header-table">
 	<tr>
 		<td><img src="<?php echo base_url();?>images/logo.png" alt="Logo"></td>

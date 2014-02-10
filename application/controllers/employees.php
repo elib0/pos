@@ -155,39 +155,34 @@ class Employees extends Person_controller
 			array_push($response, array(
 				'title'=>$day->worked_hours,
 				'start'=>$day->date,
+				'className'=>'fc-'.strtolower(date('D',strtotime($day->date))).'-event',
 				'color'=>''
 			));
 		}
 
 		echo json_encode($response);
+	}
 
-		// echo json_encode(array(
-		// 	array(
-		// 		'id' => 111,
-		// 		'title' => "5/8",
-		// 		'start' => "$year-$month-10",
-		// 		'color' => $events_status['incomplete']
-		// 	),
-			
-		// 	array(
-		// 		'id' => 222,
-		// 		'title' => "0/8",
-		// 		'start' => "$year-$month-20",
-		// 		'color'=>$events_status['notwork']
-		// 	),
+	function json_schedule($person_id=0){
+		$response = array();
+		$days = array(
+			'Sunday'=>'fc-sun-event',
+			'Monday'=>'fc-mon-event',
+			'Tuesday'=>'fc-tue-event',
+			'Wednesday'=>'fc-wed-event',
+			'Thursday'=>'fc-thu-event',
+			'Friday'=>'fc-fri-event',
+			'Saturday'=>'fc-sat-event'
+		);
+		$week = $this->Employee->get_working_hours(1);
+		foreach ($week->result() as $day) {
+			array_push($response, array(
+				'day'=>$days[$day->day],
+				'hours'=>$day->total_hours
+			));
+		}
 
-		// 	array(
-		// 		'id' => 222,
-		// 		'title' => "9/9",
-		// 		'start' => "$year-$month-1"
-		// 	),
-
-		// 	array(
-		// 		'id' => 222,
-		// 		'title' => "5/6",
-		// 		'start' => "$year-$month-5"
-		// 	)
-		// ));
+		echo json_encode($response);
 	}
 
 	function report($employee_id=0){

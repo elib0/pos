@@ -144,41 +144,28 @@ class Employees extends Person_controller
 	}
 
 	function json_calendar(){
+		$peron = 1;
 		$year = date('Y');
 		$month = date('m');
-		$events_status = array('incomplete'=>'#CA1C1C', 'notwork'=>'#000');
+		$events_status = array('incomplete'=>'#CA1C1C', 'notwork'=>'#000', 'working'=>'#0063C6');
 		$response = array();
 
-		$month = $this->Employee->get_worked_days(1);
+		$month = $this->Employee->get_worked_days($peron);
 
 		foreach ($month->result() as $day) {
+			$title = $day->worked_hours;
+			$color = '';
+			$week_day = $this->Employee->get_working_hours($peron, $day->date);
+			if ($day->worked_hours != $week_day->total_hours) {
+				$color = $events_status['incomplete'];
+			}elseif ($day->worked_hours == '') {
+				$color = $events_status['working'];
+				$title = 'Working Now';
+			}
 			array_push($response, array(
-				'title'=>$day->worked_hours,
+				'title'=>$title.'/'.$week_day->total_hours,
 				'start'=>$day->date,
-				'className'=>'fc-'.strtolower(date('D',strtotime($day->date))).'-event',
-				'color'=>''
-			));
-		}
-
-		echo json_encode($response);
-	}
-
-	function json_schedule($person_id=0){
-		$response = array();
-		$days = array(
-			'Sunday'=>'fc-sun-event',
-			'Monday'=>'fc-mon-event',
-			'Tuesday'=>'fc-tue-event',
-			'Wednesday'=>'fc-wed-event',
-			'Thursday'=>'fc-thu-event',
-			'Friday'=>'fc-fri-event',
-			'Saturday'=>'fc-sat-event'
-		);
-		$week = $this->Employee->get_working_hours(1);
-		foreach ($week->result() as $day) {
-			array_push($response, array(
-				'day'=>$days[$day->day],
-				'hours'=>$day->total_hours
+				'color'=>$color
 			));
 		}
 
@@ -193,6 +180,18 @@ class Employees extends Person_controller
 			'month'=> date('m')-1
 		);
 		$this->load->view("reports/schedule", $data);
+	}
+
+	function ajax_check_logged_in()
+	{
+		$employee = $this->Employee->get_logged_in_employee_info();
+		if ( $employee = $this->Employee->close_day( $employee->person_id ) ) {
+			$this->session->sess_destroy();
+			unset($_SESSION['dblocation']);
+			echo 0;
+		}else{
+			echo 1;
+		}
 	}
 
 }

@@ -87,18 +87,23 @@ class Employee extends Person
 		return $b;
 	}
 
-	function get_working_hours($person_id=0){
-		// $days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+	function get_working_hours($person_id=0, $date=false){
 		$this->con->select('day,TIMEDIFF(`out`, `in`) AS total_hours', false);
 		$this->con->from('schedules');
 		$this->con->where('person_id', $person_id);
+		$this->con->where('day', date('l',strtotime($date)));
+		$query = $this->con->get();
 
-		return $this->con->get();
+		if($query->num_rows()==1){
+			return $query->row();
+		}else{
+			return false;
+		}
 	}
 
 	function get_worked_days($person_id){
-		// $days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-		$this->con->select('date, TIMEDIFF(`logout`, `login`) AS worked_hours, location', false);
+		$this->con->select('date, SEC_TO_TIME(SUM(TIME_TO_SEC(logout) - TIME_TO_SEC(login))) AS worked_hours, location', false);
+		$this->con->group_by('date');
 		$this->con->from('employees_schedule');
 		$this->con->where('employee_id', $person_id);
 

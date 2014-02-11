@@ -71,7 +71,6 @@ html {
 </head>
 <body>
 <div id="logout_overlay" class="overlay">
-
 </div>
 <div id="menubar">
 	<div id="menubar_container">
@@ -185,21 +184,13 @@ html {
 			e.preventDefault();
 		});
 
-		//Control de post menu logout
-		// $('#logout_overlay input:button').click(function(e){
-		// 	var id = $(e.target).attr('id');
-
-		// 	switch(id){
-		// 		case 'btnSessionSales':
-		// 			var w = window.open('index.php/reports/summary_employees/<?php echo $hoy ?>/<?php echo $hoy ?>/sales/1');
-		// 		break;
-		// 		case 'btnSessionInventory':
-		// 			var w = window.open('index.php/reports/inventory_summary/1');
-		// 		break;
-		// 	}
-
-		// 	var opt = window.confirm('The file is save?');
-		// 	if(opt) w.close();
-		// });
+		setInterval(function(){
+			$.get('<?php echo site_url(); ?>/Employees/ajax_check_logged_in', function(data) {
+				console.log(data);
+				if (data==0) {
+					location.reload();
+				}
+			});
+		}, (1000*60)*5);
 	});
 </script>

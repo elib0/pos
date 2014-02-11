@@ -28,18 +28,7 @@
 				if(bool){ 
 					$('#loading').show();
 				}else {
-					$.ajax({
-						url: '<?php echo base_url();?>/index.php/employees/json_schedule',
-						type: 'GET',
-						dataType: 'json',
-						success: function(data){
-							$.each(data, function(index, val) {
-								var text = $('.'+val.day+' .fc-event-title').html();
-								$('.'+val.day+' .fc-event-title').html(text+'/'+val.hours);
-								$('#loading').hide();
-							});
-						}
-					});
+					$('#loading').hide();
 				};
 			}
 			
@@ -74,6 +63,7 @@
 		 z-index: 5000;
 		 top: 0;
 		 left: 0;
+		 padding: 2em 0;
 	}
 </style>
 </head>

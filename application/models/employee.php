@@ -89,6 +89,7 @@ class Employee extends Person
 
 	function get_working_hours($person_id=0, $date=false){
 		$this->con->select('day,TIMEDIFF(`out`, `in`) AS total_hours', false);
+		$this->con->select('SUM( TIME_TO_SEC(`out`) - TIME_TO_SEC(`in`) ) AS total_segs_work', false);
 		$this->con->from('schedules');
 		$this->con->where('person_id', $person_id);
 		$this->con->where('day', date('l',strtotime($date)));
@@ -103,6 +104,7 @@ class Employee extends Person
 
 	function get_worked_days($person_id, $day=0){
 		$this->con->select('date, SEC_TO_TIME(SUM(TIME_TO_SEC(logout) - TIME_TO_SEC(login))) AS worked_hours, location', false);
+		$this->con->select('SUM( TIME_TO_SEC(logout) - TIME_TO_SEC(login) ) AS total_segs_worked', false);
 		$this->con->group_by('date');
 		$this->con->from('employees_schedule');
 		if ($day > 0) {

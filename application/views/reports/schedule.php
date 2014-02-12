@@ -17,7 +17,7 @@
 			month: m,
 			contentHeight: 600,
 			weekMode: 'liquid',
-			events: "<?php echo base_url();?>/index.php/employees/json_calendar",
+			events: "<?php echo base_url();?>/index.php/employees/json_calendar/<?php echo $employee_id; ?>",
 			header:{
 				left: 'title',
 				center: '',

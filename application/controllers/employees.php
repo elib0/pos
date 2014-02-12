@@ -143,20 +143,19 @@ class Employees extends Person_controller
 		return 650;
 	}
 
-	function json_calendar(){
-		$peron = 1;
+	function json_calendar($person_id=0){
 		$year = date('Y');
 		$month = date('m');
 		$events_status = array('incomplete'=>'#CA1C1C', 'notwork'=>'#000', 'working'=>'#0063C6');
 		$response = array();
 
-		$month = $this->Employee->get_worked_days($peron);
+		$month = $this->Employee->get_worked_days($person_id);
 
 		foreach ($month->result() as $day) {
 			$title = $day->worked_hours;
 			$color = '';
-			$week_day = $this->Employee->get_working_hours($peron, $day->date);
-			if ($day->worked_hours != $week_day->total_hours) {
+			$week_day = $this->Employee->get_working_hours($person_id, $day->date);
+			if ($day->total_segs_worked < $week_day->total_segs_work) {
 				$color = $events_status['incomplete'];
 			}elseif ($title == '') {
 				$color = $events_status['working'];
@@ -176,6 +175,7 @@ class Employees extends Person_controller
 		$person = $this->Employee->get_info($employee_id);
 		$data = array(
 			'employee'=>$person->first_name.' '.$person->last_name,
+			'employee_id'=>$employee_id,
 			'year'=> date('Y'),
 			'month'=> date('m')-1
 		);

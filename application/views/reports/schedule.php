@@ -68,7 +68,7 @@
 </style>
 </head>
 <body>
-<?php if ($employee): ?>
+<?php if ($employee != ' '): ?>
 <div id="loading">
 	<img src="<?php echo base_url();?>images/loading.gif" alt="Loading">
 	<br><h1>Loading data, Please wait...</h1>

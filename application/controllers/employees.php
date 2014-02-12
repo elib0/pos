@@ -158,7 +158,7 @@ class Employees extends Person_controller
 			$week_day = $this->Employee->get_working_hours($peron, $day->date);
 			if ($day->worked_hours != $week_day->total_hours) {
 				$color = $events_status['incomplete'];
-			}elseif ($day->worked_hours == '') {
+			}elseif ($title == '') {
 				$color = $events_status['working'];
 				$title = 'Working Now';
 			}

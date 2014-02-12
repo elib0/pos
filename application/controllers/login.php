@@ -11,7 +11,7 @@ class Login extends CI_Controller
 	{
 		if($this->Employee->is_logged_in())
 		{
-			redirect('home');
+			redirect('inventories_compare');
 		}
 		else
 		{
@@ -21,11 +21,10 @@ class Login extends CI_Controller
 			if($this->form_validation->run() == FALSE)
 			{
 				//Para cambio rapido de usuario(LOGOUT alternativo)
+				$data['fastUser'] = '';
 				if($userId != ''){
 					$person = $this->Employee->get_info( $userId );
 					$data['fastUser'] = $person->username;
-				}else{
-					$data['fastUser'] = '';
 				}
 
 				$this->load->view('login', $data);

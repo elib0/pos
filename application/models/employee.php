@@ -101,10 +101,13 @@ class Employee extends Person
 		}
 	}
 
-	function get_worked_days($person_id){
+	function get_worked_days($person_id, $day=0){
 		$this->con->select('date, SEC_TO_TIME(SUM(TIME_TO_SEC(logout) - TIME_TO_SEC(login))) AS worked_hours, location', false);
 		$this->con->group_by('date');
 		$this->con->from('employees_schedule');
+		if ($day > 0) {
+			$this->con->where('DAY(day) = '.$day);
+		}
 		$this->con->where('employee_id', $person_id);
 
 		return $this->con->get();
@@ -332,6 +335,26 @@ class Employee extends Person
 		return $this->con->get();
 	}
 
+	function can_work($person_id=0){
+		$b = 1;
+		$this->con->select('SUM(TIME_TO_SEC(ospos_employees_schedule.`logout`) - TIME_TO_SEC(ospos_employees_schedule.`login`)) AS trabajado,SUM(TIME_TO_SEC(ospos_schedules.`out`) - TIME_TO_SEC(ospos_schedules.`in`)) AS trabajar', false);
+		$this->con->from('employees_schedule');
+		$this->con->join('schedules', 'employees_schedule.employee_id = schedules.person_id');
+		$this->con->where('employees_schedule.date = CURDATE()');
+		$this->con->where("schedules.`day` = DATE_FORMAT(CURDATE(),'%W')");
+		$this->con->where('employees_schedule.employee_id', $person_id);
+		$query = $this->con->get();
+
+		if ($query->num_rows()==1) {
+			$rs = $query->row();
+			if ($rs->trabajado >= $rs->trabajar) {
+				$b = 0;
+			}
+		}
+
+		return $b;
+	}
+
 	/*
 	Attempts to login employee and set session. Returns boolean based on outcome.
 	*/
@@ -348,9 +371,11 @@ class Employee extends Person
 		if ($employee->num_rows() ==1)
 		{
 			$row=$employee->row();
-			$this->session->set_userdata('person_id', $row->person_id);
-			if ( $employee = $this->open_day( $row->person_id ) ) {
-				return true;
+			if ($this->can_work($row->person_id)) {
+				if ( $employee = $this->open_day( $row->person_id ) ) {
+					$this->session->set_userdata('person_id', $row->person_id);
+					return true;
+				}
 			}
 		}
 		return false;

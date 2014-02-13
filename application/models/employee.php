@@ -272,7 +272,7 @@ class Employee extends Person
 		$by_name = $this->con->get();
 		foreach($by_name->result() as $row)
 		{
-			$suggestions[]=$row->first_name.' '.$row->last_name;
+			$suggestions[]=$row->person_id.'|'.$row->first_name.' '.$row->last_name;
 		}
 
 		$this->con->from('employees');

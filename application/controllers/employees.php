@@ -171,15 +171,29 @@ class Employees extends Person_controller
 		echo json_encode($response);
 	}
 
-	function report($employee_id=0){
-		$person = $this->Employee->get_info($employee_id);
-		$data = array(
-			'employee'=>$person->first_name.' '.$person->last_name,
-			'employee_id'=>$employee_id,
-			'year'=> date('Y'),
-			'month'=> date('m')-1
-		);
-		$this->load->view("reports/schedule", $data);
+	function report(){
+		if (isset( $_POST['submit'] )) {
+			$employee_id= $this->input->post('search');
+			$person = $this->Employee->get_info($employee_id);
+			$data = array(
+				'employee'=>$person->first_name.' '.$person->last_name,
+				'employee_id'=>$employee_id,
+				'year'=> $this->input->post('year'),
+				'month'=> $this->input->post('month')
+			);
+			$this->load->view("reports/schedule", $data);
+		}else{
+			foreach (range(date('Y')-10, date('Y')) as $year) {
+				$years[$year] = $year;
+			}
+			$data = array(
+				'controller_name'=>'employees',
+				'months_of_year'=> array('January','February','March','April','May','June','July','August','September','October','November','December'),
+				'years'=>$years
+			);
+			$this->load->view("reports/date_input_schedule", $data);
+		}
+		
 	}
 
 	function ajax_check_logged_in()

@@ -183,7 +183,7 @@ class Employees extends Person_controller
 			);
 			$this->load->view("reports/schedule", $data);
 		}else{
-			foreach (range(date('Y')-10, date('Y')) as $year) {
+			foreach (range(date('Y'), date('Y')-10) as $year) {
 				$years[$year] = $year;
 			}
 			$data = array(

@@ -349,8 +349,10 @@ class Employee extends Person
 
 		if ($query->num_rows()==1) {
 			$rs = $query->row();
-			if ($rs->trabajado >= $rs->trabajar) {
-				$b = 0;
+			if ($rs->trabajado != '') {						//Fixes devuelve valores nulls
+				if ($rs->trabajado >= $rs->trabajar) {
+					$b = 0;
+				}
 			}
 		}
 

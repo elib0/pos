@@ -55,20 +55,20 @@ class Employee extends Person
 	 * @param  INT $employee_id Id del empleado o persona
 	 * @return [boolean]              [True o False segun sea]
 	 */
-	function open_day($employee_id){
-		$b = false;
-		$data = array(
-			'employee_id' => $employee_id,
-			'date'      => date('Y-m-d'),
-			'login'     => date('H:i:s'),
-			'location'  => $_SESSION['dblocation']
-		);
+	// function open_day($employee_id){
+	// 	$b = false;
+	// 	$data = array(
+	// 		'employee_id' => $employee_id,
+	// 		'date'      => date('Y-m-d'),
+	// 		'login'     => date('H:i:s'),
+	// 		'location'  => $_SESSION['dblocation']
+	// 	);
 
-		//Si el registro se inserta satisfactoriamente resultadod = true
-		if ( $this->con->insert('employees_schedule', $data) ) $b = true;
+	// 	//Si el registro se inserta satisfactoriamente resultadod = true
+	// 	if ( $this->con->insert('employees_schedule', $data) ) $b = true;
 
-		return $b;
-	}
+	// 	return $b;
+	// }
 
 	/**
 	 * Cierra el log del dia trabajado por localidad
@@ -387,16 +387,52 @@ class Employee extends Person
 		$this->con->where( array('schedules.day'=>date('l')) ); //Verifica que trabaje ese dia
 		$this->con->where( 'CURTIME() BETWEEN ospos_schedules.in AND ospos_schedules.out' ); //Verifica que este en su horario
 		$employee = $this->con->get();
-		// $employee = $this->con->get_where('employees', array('username' => $username,'password'=>md5($password), 'deleted'=>0), 1);
+
 		if ($employee->num_rows() ==1)
 		{
 			$row=$employee->row();
 			if ($this->can_work($row->person_id)) {
-				if ( $employee = $this->open_day( $row->person_id ) ) {
-					$this->session->set_userdata('person_id', $row->person_id);
-					return true;
-				}
+				$this->session->set_userdata('person_id', $row->person_id);
+				return true;
 			}
+		}
+		return false;
+	}
+
+	function open_day($username, $password)
+	{
+		$response = array('message'=>'General Error', 'status'=>0);
+		$this->con->from('employees');
+		$this->con->join('schedules','employees.person_id=schedules.person_id');
+		$this->con->where( array('employees.username' => $username,'employees.password'=>md5($password)) );
+		$this->con->where( 'employees.deleted', 0 );
+		$this->con->where( array('schedules.day'=>date('l')) ); //Verifica que trabaje ese dia
+		$this->con->where( 'CURTIME() BETWEEN ospos_schedules.in AND ospos_schedules.out' ); //Verifica que este en su horario
+		$employee = $this->con->get();
+		
+		if ($employee->num_rows() ==1)
+		{
+			$row=$employee->row();
+			if ($this->can_work($row->person_id)) {
+				$data = array(
+					'employee_id' => $employee_id,
+					'date'      => date('Y-m-d'),
+					'login'     => date('H:i:s'),
+					'location'  => $_SESSION['dblocation']
+				);
+
+				if ( $this->con->insert('employees_schedule', $data) ){
+					
+				};
+			}else{
+				$response['message'] = 'Out of Schedule';
+				$response['status'] = -1;
+				die(json_encode($response));	
+			}
+		}else{
+			$response['message'] = 'Invalid User';
+			$response['status'] = -2;
+			die(json_encode($response));
 		}
 		return false;
 	}

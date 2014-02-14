@@ -212,12 +212,10 @@ class Employees extends Person_controller
 		echo json_encode($months_worked);
 	}
 
-	function ajax_check_logged_in()
+	function close_day()
 	{
 		$employee = $this->Employee->get_logged_in_employee_info();
 		if ( $employee = $this->Employee->close_day( $employee->person_id ) ) {
-			$this->session->sess_destroy();
-			unset($_SESSION['dblocation']);
 			echo 0;
 		}else{
 			echo 1;

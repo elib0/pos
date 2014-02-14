@@ -184,13 +184,13 @@ html {
 			e.preventDefault();
 		});
 
-		setInterval(function(){
-			$.get('<?php echo site_url(); ?>/Employees/ajax_check_logged_in', function(data) {
-				console.log(data);
-				if (data==0) {
-					location.reload();
-				}
-			});
-		}, (1000*60)*5);
+		// setInterval(function(){
+		// 	$.get('<?php echo site_url(); ?>/Employees/ajax_check_logged_in', function(data) {
+		// 		console.log(data);
+		// 		if (data==0) {
+		// 			location.reload();
+		// 		}
+		// 	});
+		// }, (1000*60)*5);
 	});
 </script>

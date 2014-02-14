@@ -152,9 +152,11 @@ class Employees extends Person_controller
 		$month = $this->Employee->get_worked_days($person_id);
 
 		foreach ($month->result() as $day) {
-			$title = $day->worked_hours;
 			$color = '';
 			$week_day = $this->Employee->get_working_hours($person_id, $day->date);
+
+			//Porcentage de horas trabajas
+			$title = ceil(($day->total_segs_worked/$week_day->total_segs_work)*100).'%';
 			if ($day->total_segs_worked < $week_day->total_segs_work) {
 				$color = $events_status['incomplete'];
 			}elseif ($title == '') {
@@ -162,7 +164,7 @@ class Employees extends Person_controller
 				$title = 'Working Now';
 			}
 			array_push($response, array(
-				'title'=>$title.'/'.$week_day->total_hours,
+				'title'=>$title.' of '.substr($week_day->total_hours, 0, -3).'Hrs',
 				'start'=>$day->date,
 				'color'=>$color
 			));
@@ -189,11 +191,25 @@ class Employees extends Person_controller
 			$data = array(
 				'controller_name'=>'employees',
 				'months_of_year'=> array('January','February','March','April','May','June','July','August','September','October','November','December'),
-				'years'=>$years
+				'years'=>$years,
+				'labels_attrib' => array('class'=>'required') 
 			);
 			$this->load->view("reports/date_input_schedule", $data);
 		}
 		
+	}
+
+	function worked_report_inputs(){
+		$months_worked = array();
+		$person_id = $this->input->get('id');
+		$year = (isset($_GET['year'])) ? $this->input->get('year') : 0 ;
+		$months = $this->Employee->get_worked_details($person_id, $year);
+
+		foreach ($months->result() as $data) {
+			array_push($months_worked, array());
+		}
+
+		echo json_encode($months_worked);
 	}
 
 	function ajax_check_logged_in()

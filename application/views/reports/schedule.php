@@ -21,7 +21,7 @@
 			header:{
 				left: 'title',
 				center: '',
-				right: ''
+				right: 'prev,next'
 			},
 			
 			loading: function(bool) {

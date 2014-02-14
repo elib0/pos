@@ -87,6 +87,22 @@ class Employee extends Person
 		return $b;
 	}
 
+	function get_worked_details($person_id, $year=0){
+		$format = ($year>1970) ? '%M' : '%Y';
+		$this->con->select("DATE_FORMAT(date,'".$format."') AS data", false);
+		$this->con->from('employees_schedule');
+		$this->con->where('logout IS NOT NULL');
+
+		if ($year > 1970) {
+			$this->con->where('YEAR(date) = '.$year);		
+		}
+
+		$this->con->where('employee_id', $person_id);
+		$this->con->group_by("DATE_FORMAT(date,'".$format."')");
+
+		return $this->con->get();
+	}
+
 	function get_working_hours($person_id=0, $date=false){
 		$this->con->select('day,TIMEDIFF(`out`, `in`) AS total_hours', false);
 		$this->con->select('SUM( TIME_TO_SEC(`out`) - TIME_TO_SEC(`in`) ) AS total_segs_work', false);

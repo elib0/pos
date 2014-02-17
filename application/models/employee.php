@@ -50,43 +50,6 @@ class Employee extends Person
 		return $this->con->count_all_results();
 	}
 
-	/**
-	 * Abre Log de hora trabajadas por dia y localidad
-	 * @param  INT $employee_id Id del empleado o persona
-	 * @return [boolean]              [True o False segun sea]
-	 */
-	// function open_day($employee_id){
-	// 	$b = false;
-	// 	$data = array(
-	// 		'employee_id' => $employee_id,
-	// 		'date'      => date('Y-m-d'),
-	// 		'login'     => date('H:i:s'),
-	// 		'location'  => $_SESSION['dblocation']
-	// 	);
-
-	// 	//Si el registro se inserta satisfactoriamente resultadod = true
-	// 	if ( $this->con->insert('employees_schedule', $data) ) $b = true;
-
-	// 	return $b;
-	// }
-
-	/**
-	 * Cierra el log del dia trabajado por localidad
-	 * @param  INT $employee_id Id del empleado o persona a registrar
-	 * @return [boolean]              [True o False segun sea]
-	 */
-	function close_day($employee_id){
-		$b = false;
-		$this->con->where('employee_id', $employee_id); 				//Que sea el empleado logueado
-		$this->con->where('date = CURDATE()');							//Que la fecha sea hoy
-		$this->con->where('logout IS NULL');							//Que no tenga marcada la salida ya
-		$this->con->where("location = '".$_SESSION['dblocation']."'"); 	//Que sea la misma location
-
-		if ( $this->db->update('employees_schedule', array('logout'=>date('H:i:s'))) ) $b = true;
-
-		return $b;
-	}
-
 	function get_worked_details($person_id, $year=0){
 		$format = ($year>1970) ? '%M' : '%Y';
 		$this->con->select("DATE_FORMAT(date,'".$format."') AS data", false);
@@ -129,6 +92,19 @@ class Employee extends Person
 		$this->con->where('employee_id', $person_id);
 
 		return $this->con->get();
+	}
+
+	function get_all_working(){
+		$this->con->from('employees_schedule');
+		$this->con->join('employees', 'employees_schedule.employee_id = employees.person_id');
+		$this->con->where('employees_schedule.date = CURDATE()');
+		$this->con->where('employees_schedule.logout IS NULL');
+		$query = $this->con->get();
+
+		if ($query->num_rows > 0) {
+			return $query;
+		}
+		return false;
 	}
 
 	/*
@@ -399,9 +375,8 @@ class Employee extends Person
 		return false;
 	}
 
-	function open_day($username, $password)
+	function login_($username, $password)
 	{
-		$response = array('message'=>'General Error', 'status'=>0);
 		$this->con->from('employees');
 		$this->con->join('schedules','employees.person_id=schedules.person_id');
 		$this->con->where( array('employees.username' => $username,'employees.password'=>md5($password)) );
@@ -412,29 +387,46 @@ class Employee extends Person
 		
 		if ($employee->num_rows() ==1)
 		{
-			$row=$employee->row();
-			if ($this->can_work($row->person_id)) {
-				$data = array(
-					'employee_id' => $employee_id,
-					'date'      => date('Y-m-d'),
-					'login'     => date('H:i:s'),
-					'location'  => $_SESSION['dblocation']
-				);
-
-				if ( $this->con->insert('employees_schedule', $data) ){
-					
-				};
-			}else{
-				$response['message'] = 'Out of Schedule';
-				$response['status'] = -1;
-				die(json_encode($response));	
-			}
-		}else{
-			$response['message'] = 'Invalid User';
-			$response['status'] = -2;
-			die(json_encode($response));
+			return $employee->row();
 		}
 		return false;
+	}
+
+	/**
+	 * Abre Log de hora trabajadas por dia y localidad
+	 * @param  INT $employee_id Id del empleado o persona
+	 * @return [boolean]              [True o False segun sea]
+	 */
+	function open_day($employee_id){
+		$b = false;
+		$data = array(
+			'employee_id' => $employee_id,
+			'date'      => date('Y-m-d'),
+			'login'     => date('H:i:s'),
+			'location'  => $_SESSION['dblocation']
+		);
+
+		//Si el registro se inserta satisfactoriamente resultadod = true
+		if ( $this->con->insert('employees_schedule', $data) ) $b = true;
+
+		return $b;
+	}
+
+	/**
+	 * Cierra el log del dia trabajado por localidad
+	 * @param  INT $employee_id Id del empleado o persona a registrar
+	 * @return [boolean]              [True o False segun sea]
+	 */
+	function close_day($employee_id){
+		$b = false;
+		$this->con->where('employee_id', $employee_id); 				//Que sea el empleado logueado
+		$this->con->where('date = CURDATE()');							//Que la fecha sea hoy
+		$this->con->where('logout IS NULL');							//Que no tenga marcada la salida ya
+		$this->con->where("location = '".$_SESSION['dblocation']."'"); 	//Que sea la misma location
+
+		if ( $this->db->update('employees_schedule', array('logout'=>date('H:i:s'))) ) $b = true;
+
+		return $b;
 	}
 
 	/*

@@ -94,6 +94,9 @@ html {
 			<div class="menu_item">
 				<a href="index.php/share_inventories">En pruebas</a>
 			</div>
+			<div class="menu_item">
+				<a href="index.php/employees/assistance">Schedule</a>
+			</div>
 		</div>
 
 		<div id="menubar_footer">

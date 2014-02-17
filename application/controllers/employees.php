@@ -173,6 +173,19 @@ class Employees extends Person_controller
 		echo json_encode($response);
 	}
 
+	function worked_report_inputs(){
+		$months_worked = array();
+		$person_id = $this->input->get('id');
+		$year = (isset($_GET['year'])) ? $this->input->get('year') : 0 ;
+		$months = $this->Employee->get_worked_details($person_id, $year);
+
+		foreach ($months->result() as $data) {
+			array_push($months_worked, array());
+		}
+
+		echo json_encode($months_worked);
+	}
+
 	function report(){
 		if (isset( $_POST['submit'] )) {
 			$employee_id= $this->input->post('search');
@@ -199,26 +212,47 @@ class Employees extends Person_controller
 		
 	}
 
-	function worked_report_inputs(){
-		$months_worked = array();
-		$person_id = $this->input->get('id');
-		$year = (isset($_GET['year'])) ? $this->input->get('year') : 0 ;
-		$months = $this->Employee->get_worked_details($person_id, $year);
+	function assistance(){
+		$data = array(
+			'controller_name' => 'employees',
+			'employees_working' => $this->Employee->get_all_working()
+		);
+		$this->load->view('employees/assistance', $data);
+	}
 
-		foreach ($months->result() as $data) {
-			array_push($months_worked, array());
+
+	function open_day(){
+		$username = $this->input->post('name');
+		$password = $this->input->post('password');
+
+		//Respuesta
+		$response = array('message'=>'Invalid User', 'status'=>0);
+
+		$row = $this->Employee->login_($username, $password);
+		if($row){
+			if ($this->Employee->can_work($row->person_id)) {
+				if ( $this->Employee->open_day($row->person_id) ){
+					$response['message'] = $row->username;
+					$response['user'] = $row->person_id;
+					$response['status'] = 1;
+				}
+			}else{
+				$response['message'] = 'Out of Schedule';
+				$response['status'] = -1;
+			}
 		}
-
-		echo json_encode($months_worked);
+		
+		die(json_encode($response));
 	}
 
 	function close_day()
 	{
-		$employee = $this->Employee->get_logged_in_employee_info();
-		if ( $employee = $this->Employee->close_day( $employee->person_id ) ) {
-			echo 0;
-		}else{
+		$person_id = $this->input->post('id');
+		$password = $this->input->post('password');
+		if ( $this->Employee->close_day( $person_id ) ) {
 			echo 1;
+		}else{
+			echo 0;
 		}
 	}
 

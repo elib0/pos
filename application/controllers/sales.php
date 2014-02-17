@@ -50,6 +50,13 @@ class Sales extends Secure_area
 		$this->_reload();
 	}
 
+	function select_employee()
+	{
+		$employee_id = $this->input->post("employee");
+		$this->sale_lib->set_employee($employee_id);
+		$this->_reload();
+	}
+
 	function change_mode()
 	{
 		$mode = $this->input->post("mode");
@@ -204,7 +211,8 @@ class Sales extends Secure_area
 		// $data['receipt_title']=$this->lang->line('sales_receipt');
 		$data['transaction_time']= date('m/d/Y h:i:s a');
 		$customer_id=$this->sale_lib->get_customer();
-		$employee_id=$this->Employee->get_logged_in_employee_info()->person_id;
+		$employee_id=$this->sale_lib->get_employee();
+		// $employee_id=$this->Employee->get_logged_in_employee_info()->person_id;
 		$comment = $this->sale_lib->get_comment();
 		$emp_info=$this->Employee->get_info($employee_id);
 		$data['payments']=$this->sale_lib->get_payments();

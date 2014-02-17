@@ -210,7 +210,6 @@ else
 </table>
 </div>
 
-
 <div id="overall_sale">
 	<?php
 	if ($mode=='sale' || $mode=='return'){
@@ -218,6 +217,12 @@ else
 			echo $this->lang->line("sales_customer").': <b>'.$customer. '</b><br />';
 			echo anchor("sales/remove_customer",'['.$this->lang->line('common_remove').' '.$this->lang->line('customers_customer').']');
 		}else{
+			echo form_open("sales/select_employee",array('id'=>'select_employee_form'));
+			echo '<label id="customer_label" for="employee">'.$this->lang->line('sales_select_employee').'</label>';
+			echo form_input(array('name'=>'employee','id'=>'employee','size'=>'30'));
+			echo form_close();
+			echo '<div style="margin-top:5px;text-align:center;">';
+
 			echo form_open("sales/select_customer",array('id'=>'select_customer_form'));
 			echo '<label id="customer_label" for="customer">'.$this->lang->line('sales_select_customer').'</label>';
 			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','value'=>$this->lang->line('sales_start_typing_customer_name')));
@@ -435,6 +440,25 @@ $(document).ready(function()
 			}
 		});
     });
+
+	$(function() {
+		$("#employee").autocomplete('index.php/employees/suggest',
+			{
+				max:100,
+				delay:10,
+				selectFirst: false,
+				formatItem: function(row) {
+					return row[1];
+				}
+			}
+		);
+
+		$("#employee").result(function(event, data, formatted){
+			// if ( $(this).val() != '' ) {
+				$("#select_employee_form").submit();
+			// }
+		});
+	});
 
     $("#item").autocomplete('<?php echo site_url("sales/item_search"); ?>',
     {

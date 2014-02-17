@@ -154,6 +154,19 @@ class Sale_lib
 		$this->CI->session->set_userdata('customer',$customer_id);
 	}
 
+	function get_employee()
+	{
+		if(!$this->CI->session->userdata('employee'))
+			$this->set_employee(-1);
+
+		return $this->CI->session->userdata('employee');
+	}
+
+	function set_employee($employee_id)
+	{
+		$this->CI->session->set_userdata('employee',$employee_id);
+	}
+
 	function get_mode()
 	{
 		if(!$this->CI->session->userdata('sale_mode'))

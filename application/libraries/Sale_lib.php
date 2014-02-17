@@ -436,6 +436,11 @@ class Sale_lib
 		$this->CI->session->unset_userdata('customer');
 	}
 
+	function remove_employee()
+	{
+		$this->CI->session->unset_userdata('employee');
+	}
+
 	function clear_mode()
 	{
 		$this->CI->session->unset_userdata('sale_mode');
@@ -449,6 +454,7 @@ class Sale_lib
 		$this->clear_email_receipt();
 		$this->empty_payments();
 		$this->remove_customer();
+		$this->remove_employee();
 	}
 
 	function get_taxes()

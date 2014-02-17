@@ -219,7 +219,7 @@ else
 		}else{
 			echo form_open("sales/select_employee",array('id'=>'select_employee_form'));
 			echo '<label id="customer_label" for="employee">'.$this->lang->line('sales_select_employee').'</label>';
-			echo form_input(array('name'=>'employee','id'=>'employee','size'=>'30'));
+			echo form_input(array('name'=>'employee','id'=>'employee','size'=>'30', 'value'=>$employee));
 			echo form_close();
 			echo '<div style="margin-top:5px;text-align:center;">';
 

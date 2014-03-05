@@ -398,7 +398,7 @@ class Employee extends Person
 	 * @return [boolean]              [True o False segun sea]
 	 */
 	function open_day($employee_id){
-		$b = false;
+		$b = 0;
 		$data = array(
 			'employee_id' => $employee_id,
 			'date'      => date('Y-m-d'),
@@ -406,15 +406,17 @@ class Employee extends Person
 			'location'  => $_SESSION['dblocation']
 		);
 
-		$ewn = $this->session->userdata('employees_working_now');
+		$ewn = ( $this->session->userdata('employees_working_now') ) ? $this->session->userdata('employees_working_now') :  array(0);
 
 		//Si el registro se inserta satisfactoriamente resultadod = true
-		if ( $this->con->insert('employees_schedule', $data) && $ewn ){
-			if ( !in_array($employee_id, $ewn) ) {
-				$b = true;
+		if ( !in_array($employee_id, $ewn) ) {
+			if ( $this->con->insert('employees_schedule', $data) ){
+				$b = 1;
 				array_push($ewn, $employee_id);
 				$this->session->set_userdata('employees_working_now', $ewn);
 			}
+		}else{
+			$b = 3;
 		}
 
 		return $b;
@@ -432,7 +434,12 @@ class Employee extends Person
 		$this->con->where('logout IS NULL');							//Que no tenga marcada la salida ya
 		$this->con->where("location = '".$_SESSION['dblocation']."'"); 	//Que sea la misma location
 
-		if ( $this->db->update('employees_schedule', array('logout'=>date('H:i:s'))) ) $b = true;
+		if ( $this->db->update('employees_schedule', array('logout'=>date('H:i:s'))) ){
+			$b = true;
+			$ewn = $this->session->userdata('employees_working_now');
+			unset($ewn[array_search($employee_id, $ewn)]);
+			$this->session->set_userdata('employees_working_now', $ewn);
+		}
 
 		return $b;
 	}

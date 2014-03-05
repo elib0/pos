@@ -56,11 +56,12 @@ table.tablesorter tbody td{
 <script>
 	$(function() {
 		$('#submit').click(function(event) {
-			if (confirm('El usuario quedara logueado')) {
+			if (confirm('You will start to work?')) {
 				$('#login').ajaxSubmit({
 					dataType:'json',
 					success:function(data)
 					{
+						console.log(data);
 						if (data.status == 1) {
 							var button = '<td><button class="logout-button" user="'+data.user+'">Logout</button></td></tr>';
 							if ($('.user-row').length < 1) {

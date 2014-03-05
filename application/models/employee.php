@@ -96,7 +96,7 @@ class Employee extends Person
 
 	function get_all_working(){
 		$this->con->from('employees_schedule');
-		$this->con->join('employees', 'employees_schedule.employee_id = employees.person_id');
+		$this->con->join('people', 'employees_schedule.employee_id = people.person_id');
 		$this->con->where('employees_schedule.date = CURDATE()');
 		$this->con->where('employees_schedule.logout IS NULL');
 		$query = $this->con->get();
@@ -406,8 +406,16 @@ class Employee extends Person
 			'location'  => $_SESSION['dblocation']
 		);
 
+		$ewn = $this->session->userdata('employees_working_now');
+
 		//Si el registro se inserta satisfactoriamente resultadod = true
-		if ( $this->con->insert('employees_schedule', $data) ) $b = true;
+		if ( $this->con->insert('employees_schedule', $data) && $ewn ){
+			if ( !in_array($employee_id, $ewn) ) {
+				$b = true;
+				array_push($ewn, $employee_id);
+				$this->session->set_userdata('employees_working_now', $ewn);
+			}
+		}
 
 		return $b;
 	}

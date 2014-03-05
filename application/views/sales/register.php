@@ -212,17 +212,16 @@ else
 
 <div id="overall_sale">
 	<?php
+	echo form_open("sales/select_employee",array('id'=>'select_employee_form'));
+	echo '<label id="customer_label" for="employee">'.$this->lang->line('sales_select_employee').'</label>';
+	echo form_input(array('name'=>'employee','id'=>'employee','size'=>'30', 'value'=>$employee));
+	echo form_close();
+	echo '<div style="margin-top:5px;text-align:center;">';
 	if ($mode=='sale' || $mode=='return'){
 		if (isset($customer)) {
 			echo $this->lang->line("sales_customer").': <b>'.$customer. '</b><br />';
 			echo anchor("sales/remove_customer",'['.$this->lang->line('common_remove').' '.$this->lang->line('customers_customer').']');
 		}else{
-			echo form_open("sales/select_employee",array('id'=>'select_employee_form'));
-			echo '<label id="customer_label" for="employee">'.$this->lang->line('sales_select_employee').'</label>';
-			echo form_input(array('name'=>'employee','id'=>'employee','size'=>'30', 'value'=>$employee));
-			echo form_close();
-			echo '<div style="margin-top:5px;text-align:center;">';
-
 			echo form_open("sales/select_customer",array('id'=>'select_customer_form'));
 			echo '<label id="customer_label" for="customer">'.$this->lang->line('sales_select_customer').'</label>';
 			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','value'=>$this->lang->line('sales_start_typing_customer_name')));

@@ -12,9 +12,15 @@ input#search{
 	font-size: 24px;
 	font-weight: bold;
 }
+table.tablesorter tbody td{
+	padding: 15px;
+}
 </style>
 
 <div class="employees-assistance">
+	<div id="title_bar">
+		<div id="title" class="float_left">Assistance Marker</div>
+	</div>
 	<h3>Login:</h3>
 	<?php echo form_open($controller_name.'/open_day', array('id'=>'login', 'method'=>'POST')); ?>
 	<?php echo form_label('Nick Name:', 'name'); ?>
@@ -35,13 +41,13 @@ input#search{
 			<?php if ($employees_working): ?>
 			<?php foreach ($employees_working->result() as $employee): ?>
 			<tr class="user-row">
-				<td><?php echo $employee->username ?></td>
+				<td><?php echo ucwords($employee->first_name.' '.$employee->last_name); ?></td>
 				<td><button class="logout-button" user="<?php echo $employee->employee_id ?>">logout</button></td>
 			</tr>
 			<?php endforeach ?>
 			<?php else: ?>
 			<tr>
-				<td colspan="2" class="td-info"><h2>No have employees selected</h2></td>
+				<td colspan="2" class="td-info"><h2>No Employees Working</h2></td>
 			</tr>	
 			<?php endif ?>
 		</tbody>
@@ -56,11 +62,11 @@ input#search{
 					success:function(data)
 					{
 						if (data.status == 1) {
-							var buttons = '<td><button class="logout-button" user="'+data.user+'">logout</button></td></tr>';
+							var button = '<td><button class="logout-button" user="'+data.user+'">Logout</button></td></tr>';
 							if ($('.user-row').length < 1) {
-								$('tbody').html('<tr class="user-row"><td>'+data.message+'</td>'+buttons);
+								$('tbody').html('<tr class="user-row"><td>'+data.message+'</td>'+button);
 							}else{
-								$('tbody').append('<tr class="user-row"><td>'+data.message+'</td>'+buttons);
+								$('tbody').append('<tr class="user-row"><td>'+data.message+'</td>'+button);
 							}
 							
 						}else{

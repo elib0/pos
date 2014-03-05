@@ -81,7 +81,7 @@ table.tablesorter tbody td{
 		});
 
 		$$('tbody').on('click', '.logout-button', function(event) {
-			if (confirm('Vas a salir del horario, deseas continuar?')) {
+			if (confirm('Finish work day?')) {
 				var button = $$(this);
 				$$.ajax({
 					url: 'index.php/<?php echo $controller_name; ?>/close_day',

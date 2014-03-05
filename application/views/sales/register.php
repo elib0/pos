@@ -251,10 +251,13 @@ else
 	<div id='sale_details'>
 		<div class="float_left" style="width:55%;"><?php echo $this->lang->line('sales_sub_total'); ?>:</div>
 		<div id="general-sub-total" class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($subtotal); ?></div>
-
+		
 		<?php foreach($taxes as $name=>$value) { ?>
 		<div class="float_left" style='width:55%;'><?php echo $name; ?>:</div>
-		<div class="float_left taxes" style="width:45%;font-weight:bold;"><?php echo to_currency($value); ?></div>
+		<div class="float_left taxes" style="width:45%;font-weight:bold;">
+			<input type="checkbox" name="taxes[]" value="1" checked="checked">
+			<?php echo to_currency($value); ?>
+		</div>
 		<?php }; ?>
 
 		<div class="float_left total" style='width:55%;'><?php echo $this->lang->line('sales_total'); ?>:</div>
@@ -528,10 +531,23 @@ $(document).ready(function()
 
     $("#finish_sale_button").click(function()
     {
-    	if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>'))
-    	{
-    		$('#finish_sale_form').submit();
-    	}
+    	var dbselected = document.getElementById('location').selectedIndex;
+
+    	if (dbselected > 0) {
+			if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>'))
+			{
+				$('#finish_sale_form').submit();
+			}
+		}else{
+			// alert('You must select a database');
+			notif({
+				type: "error",
+				msg: "You must select a database first!",
+				width: "all",
+				height: 100,
+				position: "center"
+			});
+		}
     });
 
 	$("#suspend_sale_button").click(function()

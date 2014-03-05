@@ -102,7 +102,7 @@ if (isset($error_message))
 	<?php echo '<img src="'.site_url().'/barcode?barcode='.$receiving_id.'&text='.$receiving_id.'&width=300" />'; ?>
 	</div>
 </div>
-<a class="linkBack" href="#">
+<a class="linkBack" href="index.php/sales">
     <div class="big_button" style="float: left;"><span>Back</span></div>
 </a>
 <?php $this->load->view("partial/footer"); ?>

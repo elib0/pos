@@ -75,7 +75,7 @@ html {
 <div id="menubar">
 	<div id="menubar_container">
 		<div id="menubar_company_info">
-		<span ><img src="images/logo.png" border="0" /><?php //echo $this->config->item('company'); ?></span>
+		<span ><img src="images/logo.png" border="0" width="155px"/><?php //echo $this->config->item('company'); ?></span>
 		</div>
 
 		<div id="menubar_navigation">

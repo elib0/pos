@@ -252,13 +252,19 @@ else
 		<div class="float_left" style="width:55%;"><?php echo $this->lang->line('sales_sub_total'); ?>:</div>
 		<div id="general-sub-total" class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($subtotal); ?></div>
 		
-		<?php foreach($taxes as $name=>$value) { ?>
-		<div class="float_left" style='width:55%;'><?php echo $name; ?>:</div>
-		<div class="float_left taxes" style="width:45%;font-weight:bold;">
-			<input type="checkbox" name="taxes[]" value="1" checked="checked">
-			<?php echo to_currency($value); ?>
+		<!-- combro de inpuestos opcional -->
+		<div class="float_left" style='width:55%;'>Taxing</div>
+		<div class="float_left taxes" style="width:45%;font-weight:bold;"><input id="taxing" type="checkbox" name="taxing" value="1" checked="checked"></div>
+		<!-- FIN combro de inpuestos opcional -->
+
+		<div id="taxing-block">
+			<?php foreach($taxes as $name=>$value) { ?>
+			<div class="float_left" style='width:55%;'><?php echo $name; ?>:</div>
+			<div class="float_left taxes" style="width:45%;font-weight:bold;">
+				<?php echo to_currency($value); ?>
+			</div>
+			<?php }; ?>
 		</div>
-		<?php }; ?>
 
 		<div class="float_left total" style='width:55%;'><?php echo $this->lang->line('sales_total'); ?>:</div>
 		<div class="float_left general-total" style="width:45%;font-weight:bold;"><?php echo to_currency($total); ?></div>
@@ -422,6 +428,24 @@ $(document).ready(function()
 
     });
 
+    //Para el cobro de taxes
+    $('#taxing').click(function(event) {
+    	var cb = this;
+    	var value = 1;
+
+    	if ($(cb).is(':checked')) {
+    		$('#taxing-block').show();	
+    	}else{
+			$('#taxing-block').hide();
+			value = 0;	    		
+    	}
+
+    	$.get('index.php/sales/set_taxing', {taxing: value}, function(data) {
+			set_amounts();
+		});
+    	
+    });
+
     $('.select-edit-item').change(function(event) {
     	var ref = $(this).attr('ref');
 		$('#edit_item'+ref).ajaxSubmit({
@@ -576,6 +600,7 @@ $(document).ready(function()
 });
 
 function set_amounts(line){
+	line = line || false;
 	$.ajax({
 		url: 'index.php/sales/get_ajax_sale_details',
 		dataType: 'json',
@@ -589,15 +614,19 @@ function set_amounts(line){
 			$('#amount-due').html(data.due).formatCurrency();
 			$('.general-total').html(data.total).formatCurrency();
 			$('#general-sub-total').html(data.subtotal).formatCurrency();
-			$('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100).formatCurrency();
 
-			for (var key in data.taxes){
-				taxes.push(data.taxes[key]);
+			if(line){
+				$('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100).formatCurrency();
+
+				for (var key in data.taxes){
+					taxes.push(data.taxes[key]);
+				}
+				
+				$('.taxes').each(function(index, el) {
+					$(this).html(taxes[index]).formatCurrency();					
+				});
 			}
-
-			$('.taxes').each(function(index, el) {
-				$(this).html(taxes[index]).formatCurrency();					
-			});
+			
 		}
 	});
 }

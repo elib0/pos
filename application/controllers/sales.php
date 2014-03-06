@@ -43,6 +43,12 @@ class Sales extends Secure_area
 		$this->sale_lib->set_customer($customer_id);
 	}
 
+	function set_taxing(){
+		$taxing = $this->input->get("taxing");
+		$this->sale_lib->set_taxing($taxing);
+		$this->_reload();
+	}
+
 	function select_customer()
 	{
 		$customer_id = $this->input->post("customer");

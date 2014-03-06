@@ -508,12 +508,26 @@ class Sale_lib
             $total+=($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100);
 		}
 
-		foreach($this->get_taxes() as $tax)
-		{
-			$total+=$tax;
+		if ( $this->get_taxing() ) {
+			foreach($this->get_taxes() as $tax)
+			{
+				$total+=$tax;
+			}
 		}
 
 		return to_currency_no_money($total);
+	}
+
+	function get_taxing(){
+		if (!$this->CI->session->userdata( 'taxing' ) ) {
+			$this->CI->session->set_userdata('taxing',1);
+		}
+		return $this->CI->session->userdata('taxing');
+	}
+
+	function set_taxing($val)
+	{
+		$this->CI->session->set_userdata('taxing',$val);
 	}
 }
 ?>

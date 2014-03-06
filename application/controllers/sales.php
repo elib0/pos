@@ -430,6 +430,13 @@ class Sales extends Secure_area
 		$data['mode']=$this->sale_lib->get_mode();
 		$data['subtotal']=$this->sale_lib->get_subtotal();
 		$data['taxes']=$this->sale_lib->get_taxes();
+		
+		//Se cobran taxes?
+		$data['taxing'] = '';
+		if ($this->sale_lib->get_taxing()) {
+			$data['taxing']= 'checked';
+		}
+
 		$data['total']=$this->sale_lib->get_total();
 		$data['items_module_allowed'] = $this->Employee->has_permission('items', $person_info->person_id);
 		$data['comment'] = $this->sale_lib->get_comment();

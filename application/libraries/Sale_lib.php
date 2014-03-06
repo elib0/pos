@@ -519,7 +519,7 @@ class Sale_lib
 	}
 
 	function get_taxing(){
-		if (!$this->CI->session->userdata( 'taxing' ) ) {
+		if ( $this->CI->session->userdata( 'taxing' ) == null ) {
 			$this->CI->session->set_userdata('taxing',1);
 		}
 		return $this->CI->session->userdata('taxing');

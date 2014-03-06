@@ -254,7 +254,9 @@ else
 		
 		<!-- combro de inpuestos opcional -->
 		<div class="float_left" style='width:55%;'>Taxing</div>
-		<div class="float_left taxes" style="width:45%;font-weight:bold;"><input id="taxing" type="checkbox" name="taxing" value="1" checked="checked"></div>
+		<div class="float_left" style="width:45%;font-weight:bold;">
+			<input id="taxing" type="checkbox" name="taxing" <?php echo $taxing; ?>>
+		</div>
 		<!-- FIN combro de inpuestos opcional -->
 
 		<div id="taxing-block">
@@ -621,7 +623,7 @@ function set_amounts(line){
 				for (var key in data.taxes){
 					taxes.push(data.taxes[key]);
 				}
-				
+
 				$('.taxes').each(function(index, el) {
 					$(this).html(taxes[index]).formatCurrency();					
 				});

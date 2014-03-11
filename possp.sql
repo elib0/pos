@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2014-03-05 16:00:54
+Date: 2014-03-11 16:38:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -370,7 +370,7 @@ CREATE TABLE `ospos_inventory` (
   PRIMARY KEY (`trans_id`),
   KEY `ospos_inventory_ibfk_1` (`trans_items`),
   KEY `ospos_inventory_ibfk_2` (`trans_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=474 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=475 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_inventory
@@ -848,6 +848,7 @@ INSERT INTO `ospos_inventory` VALUES ('470', '45', '1', '2014-02-04 08:10:51', '
 INSERT INTO `ospos_inventory` VALUES ('471', '9', '1', '2014-02-04 08:13:34', 'POS 9', '-1');
 INSERT INTO `ospos_inventory` VALUES ('472', '104', '1', '2014-02-04 08:17:56', 'RECV 43', '8');
 INSERT INTO `ospos_inventory` VALUES ('473', '98', '1', '2014-02-06 07:47:26', 'POS 10', '-1');
+INSERT INTO `ospos_inventory` VALUES ('474', '106', '1', '2014-03-05 14:42:20', 'RECV 44', '2');
 
 -- ----------------------------
 -- Table structure for `ospos_items`
@@ -982,7 +983,7 @@ INSERT INTO `ospos_items` VALUES ('Pantalla bold 6', 'Blackberry', null, null, '
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 7', 'Blackberry', null, null, '', '1200.00', '66.00', '586.00', '10.00', '', '103', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 8', 'Blackberry', null, null, '', '1200.00', '593.00', '158.00', '10.00', '', '104', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 9', 'Blackberry', null, null, '', '1200.00', '200.00', '50.00', '10.00', '', '105', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 10', 'Blackberry', null, null, '', '1200.00', '224.00', '18.00', '10.00', '', '106', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 10', 'Blackberry', null, null, '', '1200.00', '224.00', '20.00', '10.00', '', '106', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 11', 'Blackberry', null, null, '', '1200.00', '37.00', '42.00', '10.00', '', '107', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 12', 'Blackberry', null, null, '', '1200.00', '69.50', '34.00', '10.00', '', '108', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 13', 'Blackberry', null, null, '', '1200.00', '80.90', '18.00', '10.00', '', '109', '0', '0', '0', '0');
@@ -1178,6 +1179,7 @@ CREATE TABLE `ospos_modules` (
   `desc_lang_key` varchar(255) NOT NULL,
   `sort` int(10) NOT NULL,
   `module_id` varchar(255) NOT NULL,
+  `options` varchar(100) DEFAULT 'none',
   PRIMARY KEY (`module_id`),
   UNIQUE KEY `desc_lang_key` (`desc_lang_key`),
   UNIQUE KEY `name_lang_key` (`name_lang_key`)
@@ -1186,16 +1188,16 @@ CREATE TABLE `ospos_modules` (
 -- ----------------------------
 -- Records of ospos_modules
 -- ----------------------------
-INSERT INTO `ospos_modules` VALUES ('module_config', 'module_config_desc', '100', 'config');
-INSERT INTO `ospos_modules` VALUES ('module_customers', 'module_customers_desc', '10', 'customers');
-INSERT INTO `ospos_modules` VALUES ('module_employees', 'module_employees_desc', '80', 'employees');
-INSERT INTO `ospos_modules` VALUES ('module_giftcards', 'module_giftcards_desc', '90', 'giftcards');
-INSERT INTO `ospos_modules` VALUES ('module_items', 'module_items_desc', '20', 'items');
-INSERT INTO `ospos_modules` VALUES ('module_item_kits', 'module_item_kits_desc', '30', 'item_kits');
-INSERT INTO `ospos_modules` VALUES ('module_receivings', 'module_receivings_desc', '60', 'receivings');
-INSERT INTO `ospos_modules` VALUES ('module_reports', 'module_reports_desc', '50', 'reports');
-INSERT INTO `ospos_modules` VALUES ('module_sales', 'module_sales_desc', '70', 'sales');
-INSERT INTO `ospos_modules` VALUES ('module_suppliers', 'module_suppliers_desc', '40', 'suppliers');
+INSERT INTO `ospos_modules` VALUES ('module_config', 'module_config_desc', '100', 'config', 'save');
+INSERT INTO `ospos_modules` VALUES ('module_customers', 'module_customers_desc', '10', 'customers', 'add,update,delete');
+INSERT INTO `ospos_modules` VALUES ('module_employees', 'module_employees_desc', '80', 'employees', 'add,update,delete');
+INSERT INTO `ospos_modules` VALUES ('module_giftcards', 'module_giftcards_desc', '90', 'giftcards', 'add,update,delete');
+INSERT INTO `ospos_modules` VALUES ('module_items', 'module_items_desc', '20', 'items', 'add,update,delete');
+INSERT INTO `ospos_modules` VALUES ('module_item_kits', 'module_item_kits_desc', '30', 'item_kits', 'add,update,delete');
+INSERT INTO `ospos_modules` VALUES ('module_receivings', 'module_receivings_desc', '60', 'receivings', 'none');
+INSERT INTO `ospos_modules` VALUES ('module_reports', 'module_reports_desc', '50', 'reports', 'none');
+INSERT INTO `ospos_modules` VALUES ('module_sales', 'module_sales_desc', '70', 'sales', 'none');
+INSERT INTO `ospos_modules` VALUES ('module_suppliers', 'module_suppliers_desc', '40', 'suppliers', 'add,update,delete');
 
 -- ----------------------------
 -- Table structure for `ospos_people`
@@ -1242,18 +1244,14 @@ CREATE TABLE `ospos_permissions` (
 INSERT INTO `ospos_permissions` VALUES ('config', '1');
 INSERT INTO `ospos_permissions` VALUES ('customers', '1');
 INSERT INTO `ospos_permissions` VALUES ('employees', '1');
+INSERT INTO `ospos_permissions` VALUES ('giftcards', '1');
 INSERT INTO `ospos_permissions` VALUES ('items', '1');
 INSERT INTO `ospos_permissions` VALUES ('items', '4');
 INSERT INTO `ospos_permissions` VALUES ('item_kits', '1');
 INSERT INTO `ospos_permissions` VALUES ('receivings', '1');
 INSERT INTO `ospos_permissions` VALUES ('reports', '1');
-INSERT INTO `ospos_permissions` VALUES ('reports', '68');
 INSERT INTO `ospos_permissions` VALUES ('sales', '1');
 INSERT INTO `ospos_permissions` VALUES ('sales', '4');
-INSERT INTO `ospos_permissions` VALUES ('sales', '66');
-INSERT INTO `ospos_permissions` VALUES ('sales', '67');
-INSERT INTO `ospos_permissions` VALUES ('sales', '68');
-INSERT INTO `ospos_permissions` VALUES ('sales', '69');
 INSERT INTO `ospos_permissions` VALUES ('suppliers', '1');
 
 -- ----------------------------
@@ -1270,7 +1268,7 @@ CREATE TABLE `ospos_receivings` (
   PRIMARY KEY (`receiving_id`),
   KEY `supplier_id` (`supplier_id`),
   KEY `employee_id` (`employee_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_receivings
@@ -1318,6 +1316,7 @@ INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:24:56', null, '1', '', '40
 INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:32:37', null, '1', '', '41', '0');
 INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:45:47', null, '1', '', '42', '0');
 INSERT INTO `ospos_receivings` VALUES ('2014-02-04 09:47:56', null, '1', 'jugjhjghjghjghjghjghj', '43', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-03-05 16:12:20', null, '1', '', '44', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_receivings_items`
@@ -1445,6 +1444,7 @@ INSERT INTO `ospos_receivings_items` VALUES ('42', '101', '', '', '5', '12', '12
 INSERT INTO `ospos_receivings_items` VALUES ('42', '102', '', '', '6', '23', '1200.00', '80.00', '0');
 INSERT INTO `ospos_receivings_items` VALUES ('42', '103', '', '', '7', '78', '1200.00', '66.00', '0');
 INSERT INTO `ospos_receivings_items` VALUES ('43', '104', '', '', '1', '8', '1200.00', '593.00', '0');
+INSERT INTO `ospos_receivings_items` VALUES ('44', '106', '', '', '1', '2', '1200.00', '224.00', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_sales`
@@ -1683,7 +1683,8 @@ CREATE TABLE `ospos_sessions` (
 -- ----------------------------
 -- Records of ospos_sessions
 -- ----------------------------
-INSERT INTO `ospos_sessions` VALUES ('bf5f7e1d94836cae50ab508ee2f9e1ab', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1700.107 Safari/537.36', '1394050664', 'a:10:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:21:\"employees_working_now\";a:1:{i:0;i:0;}s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;s:8:\"employee\";i:-1;s:4:\"cart\";a:1:{i:1;a:13:{s:7:\"item_id\";s:2:\"98\";s:4:\"line\";i:1;s:4:\"name\";s:15:\"Pantalla bold 1\";s:11:\"item_number\";N;s:11:\"description\";s:0:\"\";s:12:\"serialnumber\";s:0:\"\";s:21:\"allow_alt_description\";s:1:\"0\";s:13:\"is_serialized\";s:1:\"0\";s:14:\"quantity_total\";s:5:\"33.00\";s:8:\"quantity\";i:2;s:7:\"reorder\";s:5:\"10.00\";s:8:\"discount\";i:0;s:5:\"price\";s:6:\"369.00\";}}s:9:\"sale_mode\";s:4:\"sale\";s:8:\"customer\";i:-1;s:8:\"payments\";a:0:{}}');
+INSERT INTO `ospos_sessions` VALUES ('40b84f2bbbf696bf459aa92f1477b407', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36', '1394571812', 'a:10:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:6:\"taxing\";s:1:\"1\";s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;s:8:\"employee\";i:-1;s:4:\"cart\";a:0:{}s:9:\"sale_mode\";s:4:\"sale\";s:8:\"customer\";i:-1;s:8:\"payments\";a:0:{}}');
+INSERT INTO `ospos_sessions` VALUES ('38842dfb878da9889e86d103b077461b', '192.168.1.139', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36', '1394554026', 'a:2:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";}');
 
 -- ----------------------------
 -- Table structure for `ospos_suppliers`
@@ -1726,7 +1727,7 @@ INSERT INTO `ospos_transfers` VALUES ('2', 'default', 'other', '2013-12-13', '1'
 INSERT INTO `ospos_transfers` VALUES ('3', 'default', 'other', '2013-12-13', '1');
 INSERT INTO `ospos_transfers` VALUES ('4', 'default', 'other', '2013-12-13', '1');
 INSERT INTO `ospos_transfers` VALUES ('5', 'default', 'other', '2014-01-13', '1');
-INSERT INTO `ospos_transfers` VALUES ('6', 'default', 'default', '2014-01-15', '1');
+INSERT INTO `ospos_transfers` VALUES ('6', 'default', 'default', '2014-01-15', '0');
 INSERT INTO `ospos_transfers` VALUES ('7', 'default', 'other', '2014-01-15', '0');
 INSERT INTO `ospos_transfers` VALUES ('8', 'default', 'other', '2014-01-16', '1');
 INSERT INTO `ospos_transfers` VALUES ('9', 'default', 'other', '2014-01-20', '1');

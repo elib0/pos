@@ -112,3 +112,7 @@
 {
 	text-align: center;
 }
+
+#employee_permission_info ul.module-options{
+	list-style: disc inside none;
+}

@@ -57,10 +57,22 @@ foreach($all_modules->result() as $module)
 ?>
 <li>
 <?php
+	$subpermissions = explode(',', $module->options);
 	echo form_checkbox("permissions[]",$module->module_id,$this->Employee->has_permission($module->module_id,$person_info->person_id));
 ?>
 <span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
 <span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
+<ul class="module-options">
+	<?php 
+	foreach ($subpermissions as $value) {
+		if ($value != 'none') {
+			echo "<li>";
+			echo form_label(ucwords($value));
+			echo "</li>";
+		}
+	}
+	?>
+</ul>
 </li>
 <?php
 //Dias de la semana para armar el horario

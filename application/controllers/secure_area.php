@@ -18,7 +18,7 @@ class Secure_area extends CI_Controller
 			if(!$this->Employee->has_permission($module_id,$this->Employee->get_logged_in_employee_info()->person_id))
 			{
 				redirect('no_access/'.$module_id);
-			}	
+			}
 		}
 		
 		

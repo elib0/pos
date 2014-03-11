@@ -431,6 +431,8 @@ $(document).ready(function()
     });
 
     //Para el cobro de taxes
+    var b = '<?php echo $taxing ?>';
+    if (b !== 'checked') {$('#taxing-block').hide();}
     $('#taxing').click(function(event) {
     	var cb = this;
     	var value = 1;

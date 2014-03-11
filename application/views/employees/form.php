@@ -67,6 +67,7 @@ foreach($all_modules->result() as $module)
 	foreach ($subpermissions as $value) {
 		if ($value != 'none') {
 			echo "<li>";
+			echo form_checkbox($module->module_id.'[]',$module->module_id));
 			echo form_label(ucwords($value));
 			echo "</li>";
 		}

@@ -182,12 +182,14 @@ class Employee extends Person
 				//Now insert the new permissions
 				if($this->con->delete('permissions', array('person_id' => $employee_id))) //Borra permisos actuales
 				{
-					foreach($permission_data as $allowed_module)
+					foreach($permission_data as $allowed_module => $privileges)
 					{
 						$this->con->insert('permissions',
 						array(
 						'module_id'=>$allowed_module,
-						'person_id'=>$employee_id));
+						'person_id'=>$employee_id,
+						'privileges'=>$privileges
+						));
 					}
 				}
 			}

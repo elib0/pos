@@ -58,17 +58,27 @@ foreach($all_modules->result() as $module)
 <li>
 <?php
 	$subpermissions = explode(',', $module->options);
-	echo form_checkbox("permissions[]",$module->module_id,$this->Employee->has_permission($module->module_id,$person_info->person_id));
+	$attribs = array(
+				'name'=>'permissions[]',
+				'value'=>$module->module_id,
+				'class'=>'permissions-option',
+				'checked'=>$this->Employee->has_permission($module->module_id,$person_info->person_id)
+				);
+	echo form_checkbox($attribs);
 ?>
 <span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
 <span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
 <ul class="module-options">
 	<?php 
-	foreach ($subpermissions as $value) {
-		if ($value != 'none') {
+	foreach ($subpermissions as $subpermission) {
+		if ($subpermission != 'none' || $subpermission == '') {
+			$attribs = array(
+				'name'=>$module->module_id.'[]',
+				'value'=>$subpermission,
+				'class'=>$module->module_id.'-option');
 			echo "<li>";
-			echo form_checkbox($module->module_id.'[]',$module->module_id));
-			echo form_label(ucwords($value));
+			echo form_checkbox($attribs);
+			echo form_label(ucwords($subpermission));
 			echo "</li>";
 		}
 	}
@@ -130,6 +140,15 @@ echo form_close();
 //validation and submit handling
 $(document).ready(function()
 {
+	//Funcionavilidad de los permisos
+	$('.permissions-option').click(function(event) {
+		var perm = this.value;
+		if ($(this).is(':checked')){
+			$('.'+perm+'-option').attr('checked','checked');
+		}else{
+			$('.'+perm+'-option').removeAttr('checked');
+		}
+	});
 	// $('#submit').click(function(e){
 	// 	var days = $('td.checkDays > input[type=checkbox]');
 	// 	var hours = $('td.checkDays > input[type=checkbox]');

@@ -47,5 +47,15 @@ class Module extends CI_Model
 		$this->db->order_by("sort", "asc");
 		return $this->db->get();
 	}
+
+	// function get_options_module($module_id)
+	// {
+	// 	$this->db->select('options');
+	// 	$this->db->from('modules');
+	// 	// $this->db->join('permissions','permissions.module_id=modules.module_id');
+	// 	$this->db->where("module_id",$module_id);
+	// 	// $this->db->where("permissions.person_id",$person_id);
+	// 	return explode(',', $this->db->get()->row()->options);
+	// }
 }
 ?>

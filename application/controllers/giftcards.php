@@ -19,6 +19,7 @@ class Giftcards extends Secure_area implements iData_controller
 		$data['controller_name']=strtolower(get_class());
 		$data['form_width']=$this->get_form_width();
 		$data['manage_table']=get_giftcards_manage_table( $this->Giftcard->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
+		// $data['access'] = $this->Employee->permission_privileges('giftcards', 1);
 		$this->load->view('giftcards/manage',$data);
 	}
 

@@ -56,20 +56,30 @@ function post_giftcard_form_submit(response)
 }
 
 </script>
-
 <div id="title_bar">
 	<div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?></div>
 	<div id="new_button">
-		<?php echo anchor("$controller_name/view/-1/width:$form_width",
-		"<div class='big_button' style='float: left;'><span>".$this->lang->line($controller_name.'_new')."</span></div>",
-		array('class'=>'thickbox none','title'=>$this->lang->line($controller_name.'_new')));
+
+		<?php
+		if($this->Employee->has_privilege('add', $controller_name)){
+			echo anchor("$controller_name/view/-1/width:$form_width",
+			"<div class='big_button' style='float: left;'><span>".$this->lang->line($controller_name.'_new')."</span></div>",
+			array('class'=>'thickbox none','title'=>$this->lang->line($controller_name.'_new')));	
+		} 
+		
 		?>
 	</div>
 </div>
 <?php echo $this->pagination->create_links();?>
 <div id="table_action_header">
 	<ul>
-		<li class="float_left"><span><?php echo anchor("$controller_name/delete",$this->lang->line("common_delete"),array('id'=>'delete')); ?></span></li>
+		<?php if($this->Employee->has_privilege('delete', $controller_name)):  ?>
+		<li class="float_left">
+			<span>
+			<?php echo anchor("$controller_name/delete",$this->lang->line("common_delete"),array('id'=>'delete')); ?>
+			</span>
+		</li>
+		<?php endif; ?>
 		<li class="float_right">
 		<img src='<?php echo base_url()?>images/spinner_small.gif' alt='spinner' id='spinner' />
 		<?php echo form_open("$controller_name/search",array('id'=>'search_form')); ?>

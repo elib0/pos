@@ -500,5 +500,33 @@ class Employee extends Person
 		return false;
 	}
 
+	function has_privilege($privilege,$module_id){
+		$person_id = $this->get_logged_in_employee_info()->person_id;
+		$permissions = $this->con->get_where('permissions', array('person_id' => $person_id,'module_id'=>$module_id), 1);
+		if ($permissions->num_rows() == 1) {
+			$permissions = explode(',', $permissions->row()->privileges);
+			return in_array($privilege, $permissions);
+		}
+
+		return false;
+	}
+
+	// function permission_privileges($module_id,$person_id){
+	// 	$permissions = $this->con->get_where('permissions', array('person_id' => $person_id,'module_id'=>$module_id), 1);
+	// 	$options = $this->Module->get_options_module($module_id);
+	// 	$result = array();
+
+	// 	if ($permissions->num_rows() == 1) {
+	// 		$permission = explode(',', $permissions->row()->privileges);
+	// 		// foreach ($options as $options) {
+	// 			// $result[$options] = true;
+	// 		// }
+	// 		// return $result;
+	// 		return array_diff($options,$permission);
+	// 	}
+
+	// 	return false;
+	// }
+
 }
 ?>

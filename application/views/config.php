@@ -251,13 +251,15 @@ echo form_open('config/save/',array('id'=>'config_form'));
 </div>
 
 
-<?php 
-echo form_submit(array(
-	'name'=>'submit',
-	'id'=>'submit',
-	'value'=>$this->lang->line('common_submit'),
-	'class'=>'submit_button float_right')
-);
+<?php
+if($this->Employee->has_privilege('save', 'config')){ 
+	echo form_submit(array(
+		'name'=>'submit',
+		'id'=>'submit',
+		'value'=>$this->lang->line('common_submit'),
+		'class'=>'submit_button float_right')
+	);
+}
 ?>
 </fieldset>
 </div>
@@ -266,6 +268,10 @@ echo form_close();
 ?>
 <div id="feedback_bar"></div>
 <script type='text/javascript'>
+//bloqueo de inputs en caso de que no pueda editar
+if ( $('#submit').length < 1) {
+	$('input, textarea, select').attr('disabled', 'disabled');
+};
 
 //validation and submit handling
 $(document).ready(function()

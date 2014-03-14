@@ -129,7 +129,12 @@ function get_supplier_data_row($supplier,$controller)
 	$table_data_row.='<td width="17%">'.character_limiter($supplier->first_name,13).'</td>';
 	$table_data_row.='<td width="22%">'.mailto($supplier->email,character_limiter($supplier->email,22)).'</td>';
 	$table_data_row.='<td width="17%">'.character_limiter($supplier->phone_number,13).'</td>';
-	$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$supplier->person_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+
+	if($CI->Employee->has_privilege('update', $controller_name)){
+		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$supplier->person_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+	}else{
+		$table_data_row .= '<td width="5%"></td>';
+	}
 	$table_data_row.='</tr>';
 
 	return $table_data_row;
@@ -209,7 +214,11 @@ function get_item_data_row($item,$controller)
 	$table_data_row.='<td width="14%">'.to_currency($item->unit_price).'</td>';
 	$table_data_row.='<td width="14%">'.$tax_percents.'</td>';
 	$table_data_row.='<td width="14%">'.number_format($item->quantity).'</td>';
-	$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item->item_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+	if($CI->Employee->has_privilege('update', $controller_name)){
+		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item->item_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+	}else{
+		$table_data_row .= '<td width="5%"></td>';
+	}
 
 	//Ramel Inventory Tracking
 	// $table_data_row.='<td width="10%">'.anchor($controller_name."/inventory/$item->item_id/width:$width", $CI->lang->line('common_inv'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_count'))).
@@ -345,7 +354,12 @@ function get_item_kit_data_row($item_kit,$controller)
 	$table_data_row.="<td width='3%'><input type='checkbox' id='item_kit_$item_kit->item_kit_id' value='".$item_kit->item_kit_id."'/></td>";
 	$table_data_row.='<td width="15%">'.$item_kit->name.'</td>';
 	$table_data_row.='<td width="20%">'.character_limiter($item_kit->description, 25).'</td>';
-	$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item_kit->item_kit_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+	if($CI->Employee->has_privilege('update', $controller_name)){
+		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item_kit->item_kit_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+	}else{
+		$table_data_row .= '<td width="5%"></td>';
+	}
+	
 
 	$table_data_row.='</tr>';
 	return $table_data_row;

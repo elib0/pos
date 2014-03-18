@@ -138,6 +138,18 @@ function show_hide_search_filter(search_filter_section, switchImgTag) {
 	</div>
 </div>
 
+<?php echo form_open('#') ?>
+<?php
+include('application/config/database.php');
+$dbs = array();
+foreach ($db as $key => $value) $dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
+
+echo form_open("$controller_name/set_location", array('id'=>'form_items_location'));
+echo form_label('Location:', 'locationbd');		
+echo form_dropdown('locationbd', $dbs,$items_location);		
+echo form_close();
+?>
+
 <div id="titleTextImg" style="background-color:#EEEEEE;height:20px;position:relative;">
 	<div style="float:left;vertical-align:text-top;">Search Options :</div>
 	<a id="imageDivLink" href="javascript:show_hide_search_filter('search_filter_section', 'imageDivLink');" style="outline:none;">

@@ -8,6 +8,23 @@ class Items extends Secure_area implements iData_controller
 		parent::__construct('items');
 	}
 
+	function set_location(){
+		$result = 'default';
+
+		//Llamado ajax
+		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+			if ($this->session->userdata('items_location')!=false) {
+				$result = $this->session->userdata('items_location');
+			}elseif($this->input->post('locationbd')!=false){
+				$result = $this->input->post('locationbd');
+			}
+			die($result);
+		//Llamado comun
+		}else{
+
+		}
+	}
+
 	function index()
 	{
 		$config['base_url'] = site_url('/items/index');
@@ -16,6 +33,7 @@ class Items extends Secure_area implements iData_controller
 		$config['uri_segment'] = 3;
 		$this->pagination->initialize($config);
 
+		$data['items_location']= $this->session->userdata('items_location')!=false ? $this->session->userdate('items_location'): 'default';
 		$data['controller_name']=strtolower(get_class());
 		$data['form_width']=$this->get_form_width();
 		$data['manage_table']=get_items_manage_table( $this->Item->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
@@ -27,6 +45,7 @@ class Items extends Secure_area implements iData_controller
 		$low_inventory=$this->input->post('low_inventory');
 		$is_serialized=$this->input->post('is_serialized');
 		$no_description=$this->input->post('no_description');
+		$location = $this->input->post('dblocation')!=false? $this->input->post('dblocation'): 'default';
 
 		$data['search_section_state']=$this->input->post('search_section_state');
 		$data['low_inventory']=$this->input->post('low_inventory');
@@ -34,7 +53,7 @@ class Items extends Secure_area implements iData_controller
 		$data['no_description']=$this->input->post('no_description');
 		$data['controller_name']=strtolower(get_class());
 		$data['form_width']=$this->get_form_width();
-		$data['manage_table']=get_items_manage_table($this->Item->get_all_filtered($low_inventory,$is_serialized,$no_description),$this);
+		$data['manage_table']=get_items_manage_table($this->Item->get_all_filtered($low_inventory,$is_serialized,$no_description, $location),$this);
 		$this->load->view('items/manage',$data);
 	}
 

@@ -9,7 +9,7 @@ class Item extends CI_Model
         $this->load->database();
         //Seleccion de DB
         // $this->session->set_userdata(array('dblocation'=>'other'));
-        $db = $this->session->userdata('dblocation');
+        $db = $this->session->userdata('items_location');
         if($db)
             $this->con = $this->load->database($db, true);
         else

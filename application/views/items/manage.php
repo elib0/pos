@@ -10,6 +10,16 @@ $(document).ready(function()
     enable_delete('<?php echo $this->lang->line($controller_name."_confirm_delete")?>','<?php echo $this->lang->line($controller_name."_none_selected")?>');
     enable_bulk_edit('<?php echo $this->lang->line($controller_name."_none_selected")?>');
 
+    $('#locationbd').change(function(event) {
+    	$('#form_items_location').ajaxSubmit({
+			success:function(response)
+			{
+				$('#title span').html(response);
+				console.log(response);
+			}
+		});
+    });
+
     $('#generate_barcodes').click(function()
     {
     	var selected = get_selected_values();
@@ -122,7 +132,7 @@ function show_hide_search_filter(search_filter_section, switchImgTag) {
 </script>
 
 <div id="title_bar">
-	<div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?></div>
+	<div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?>(<span><?php echo $items_location ?></span>)</div>
 	<div id="new_button">
 		<?php
 		if($this->Employee->has_privilege('add', $controller_name)){  
@@ -138,7 +148,6 @@ function show_hide_search_filter(search_filter_section, switchImgTag) {
 	</div>
 </div>
 
-<?php echo form_open('#') ?>
 <?php
 include('application/config/database.php');
 $dbs = array();
@@ -146,7 +155,7 @@ foreach ($db as $key => $value) $dbs[$key] = ucwords($key); //Creo arreglo para 
 
 echo form_open("$controller_name/set_location", array('id'=>'form_items_location'));
 echo form_label('Location:', 'locationbd');		
-echo form_dropdown('locationbd', $dbs,$items_location);		
+echo form_dropdown('items_location', $dbs,$items_location, 'id="locationbd"');		
 echo form_close();
 ?>
 

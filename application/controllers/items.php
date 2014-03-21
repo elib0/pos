@@ -27,6 +27,10 @@ class Items extends Secure_area implements iData_controller
 		}
 	}
 
+	function create_shipping_cart(){
+		
+	}
+
 	function index()
 	{
 		$config['base_url'] = site_url('/items/index');
@@ -50,7 +54,7 @@ class Items extends Secure_area implements iData_controller
 		$no_description=$this->input->post('no_description');
 		$location = $this->input->post('dblocation')!=false? $this->input->post('dblocation'): 'default';
 
-		$data['items_location']= $this->session->userdata('items_location')!=false ? $this->session->userdate('items_location'): 'default';
+		$data['items_location']= $this->set_location();
 
 		$data['search_section_state']=$this->input->post('search_section_state');
 		$data['low_inventory']=$this->input->post('low_inventory');

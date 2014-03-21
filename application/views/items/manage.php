@@ -14,8 +14,8 @@ $(document).ready(function()
     	$('#form_items_location').ajaxSubmit({
 			success:function(response)
 			{
-				$('#title span').html(response);
-				console.log(response);
+				// $('#title span').html(response);
+				location.reload();
 			}
 		});
     });

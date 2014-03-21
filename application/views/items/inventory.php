@@ -99,12 +99,12 @@ foreach ($db as $key => $value){
 	if($_SESSION['dblocation'] != $key ) $dbs[$key] = ucwords($key);
 }
 $options = 'id="dbselected"';
-echo form_label('To:', 'newquantityTo');
+// echo form_label('To:', 'newquantityTo');
 ?>
 	<div class='form_field'>
-	<?php echo form_dropdown('dbselected', $dbs, '...', $options); ?>
+	<?php //echo form_dropdown('dbselected', $dbs, '...', $options); ?>
 	</div>
-	<h6 clas="wire">(This option to send to another location and are deducted in this store!)</h6>
+	<!-- <h6 clas="wire">(This option to send to another location and are deducted in this store!)</h6> -->
 </div>
 
 <div class="field_row clearfix">

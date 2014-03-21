@@ -157,7 +157,8 @@ function get_items_manage_table($items,$controller)
 	$CI->lang->line('items_tax_percents'),
 	$CI->lang->line('items_quantity'),
 	'&nbsp;',
-	$CI->lang->line('items_inventory')
+	$CI->lang->line('items_inventory'),
+	'&nbsp;'
 	);
 
 	$table.='<thead><tr>';
@@ -221,7 +222,7 @@ function get_item_data_row($item,$controller)
 	}
 
 	//Ramel Inventory Tracking
-	// $table_data_row.='<td width="10%">'.anchor($controller_name."/inventory/$item->item_id/width:$width", $CI->lang->line('common_inv'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_count'))).
+	$table_data_row.='<td width="10%">'.anchor($controller_name."/inventory/$item->item_id/width:$width", $CI->lang->line('common_inv'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_count'))).
 	$table_data_row.='<td width="10%">'.
 	/*'</td>';//inventory count
 	$table_data_row.='<td width="5%">'*/'&nbsp;&nbsp;&nbsp;&nbsp;'.anchor($controller_name."/count_details/$item->item_id/width:$width", $CI->lang->line('common_det'),array('class'=>'thickbox','title'=>$CI->lang->line($controller_name.'_details_count'))).'</td>';//inventory details

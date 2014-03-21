@@ -27,10 +27,6 @@ class Items extends Secure_area implements iData_controller
 		}
 	}
 
-	function create_shipping_cart(){
-		
-	}
-
 	function index()
 	{
 		$config['base_url'] = site_url('/items/index');

@@ -254,10 +254,10 @@ class Items extends Secure_area implements iData_controller
 		$this->Inventory->insert($inv_data);
 
 		//Comprueba si hay otra bd presente para tranferencia de items entre bds
-		$db = ( $this->input->post('dbselected') != '...' ) ? $this->input->post('dbselected') : null ;
+		$db = $this->input->post('dbselected');
 
 		//Si hay otra bd presente resto por que esta haciendo tranferencia de item
-		if ($db != '...' && $db != null){
+		if ($db != '...' && $db != false){
 			if($this->input->post('newquantity') < $cur_item_info->quantity){ //Para que no pase mas de lo que tiene
 				$item_data = array(
 					'quantity' => $this->input->post('newquantity'),
@@ -279,7 +279,7 @@ class Items extends Secure_area implements iData_controller
 			$newquantity = $this->input->post('newquantity');
 			//Update stock quantity
 			$item_data = array(
-			'quantity'=>$cur_item_info->quantity + $newquantity
+				'quantity'=>$cur_item_info->quantity + $newquantity
 			);
 
 			if($this->Item->save($item_data,$item_id))

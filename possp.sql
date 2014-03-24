@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2014-03-11 16:38:42
+Date: 2014-03-24 11:13:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -260,8 +260,8 @@ INSERT INTO `ospos_app_config` VALUES ('timezone', 'America/Chicago');
 INSERT INTO `ospos_app_config` VALUES ('website', 'www.smokefreevapor.net');
 INSERT INTO `ospos_app_config` VALUES ('default_tax_1_rate', '8.365');
 INSERT INTO `ospos_app_config` VALUES ('default_tax_1_name', 'Sales Tax');
-INSERT INTO `ospos_app_config` VALUES ('default_tax_2_rate', '2');
-INSERT INTO `ospos_app_config` VALUES ('default_tax_2_name', 'TAxes bads');
+INSERT INTO `ospos_app_config` VALUES ('default_tax_2_rate', '');
+INSERT INTO `ospos_app_config` VALUES ('default_tax_2_name', '');
 INSERT INTO `ospos_app_config` VALUES ('currency_symbol', '$');
 INSERT INTO `ospos_app_config` VALUES ('language', 'english');
 INSERT INTO `ospos_app_config` VALUES ('print_after_sale', 'print_after_sale');
@@ -305,6 +305,7 @@ CREATE TABLE `ospos_employees` (
 -- ----------------------------
 INSERT INTO `ospos_employees` VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', '1', '1', '0', '0');
 INSERT INTO `ospos_employees` VALUES ('speed', '21232f297a57a5a743894a0e4a801fc3', '4', '1', '0', '0');
+INSERT INTO `ospos_employees` VALUES ('rramon', '25d55ad283aa400af464c76d713c07ad', '42', '1', '0', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_employees_schedule`
@@ -350,11 +351,12 @@ CREATE TABLE `ospos_giftcards` (
   `deleted` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`giftcard_id`),
   UNIQUE KEY `giftcard_number` (`giftcard_number`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of ospos_giftcards
 -- ----------------------------
+INSERT INTO `ospos_giftcards` VALUES ('48', '001', '1000.00', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_inventory`
@@ -946,7 +948,7 @@ INSERT INTO `ospos_items` VALUES ('3GS Battery', 'iPhone', null, null, '', '0.00
 INSERT INTO `ospos_items` VALUES ('4G Battery', 'iPhone', null, null, '', '0.00', '40.00', '9.00', '2.00', '', '66', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4S Battery', 'iPhone', null, null, '', '0.00', '35.00', '4.00', '1.00', '', '67', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4 CDMA / 4S Vibrator', 'iPhone', null, null, '', '0.00', '35.00', '-1.00', '0.00', '', '68', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3G Dock', 'iPhone', null, null, '', '0.00', '35.00', '203.00', '0.00', '', '69', '0', '0', '0', '2');
+INSERT INTO `ospos_items` VALUES ('3G Dock', 'iPhone', null, null, '', '0.00', '35.00', '3.00', '0.00', '', '69', '0', '0', '0', '2');
 INSERT INTO `ospos_items` VALUES ('4 GSM Boom Box', 'iPhone', null, null, '', '0.00', '45.00', '98.00', '0.00', '', '70', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('CDMA / 4S Boom Box', 'iPhone', null, null, '', '0.00', '45.00', '32.00', '1.00', '', '71', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4S Audio Jack', 'iPhone', null, null, '', '0.00', '50.00', '65.00', '0.00', '', '72', '0', '0', '0', '0');
@@ -1217,7 +1219,7 @@ CREATE TABLE `ospos_people` (
   `comments` text,
   `person_id` int(10) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`person_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_people
@@ -1226,6 +1228,7 @@ INSERT INTO `ospos_people` VALUES ('Alex', 'Kundalia', '555-555-5555', 'info@om-
 INSERT INTO `ospos_people` VALUES ('other', 'possp2', null, null, 'localhost', null, null, null, null, null, 'location', '2');
 INSERT INTO `ospos_people` VALUES ('Jv ', 'Soluciones', '', '', '', '', '', '', '', '', '', '3');
 INSERT INTO `ospos_people` VALUES ('speed', 'speed', '', '', '', '', '', '', '', '', '', '4');
+INSERT INTO `ospos_people` VALUES ('Ramon ', 'Rivas', '', '', '', '', '', '', '', '', '', '42');
 
 -- ----------------------------
 -- Table structure for `ospos_permissions`
@@ -1234,6 +1237,7 @@ DROP TABLE IF EXISTS `ospos_permissions`;
 CREATE TABLE `ospos_permissions` (
   `module_id` varchar(255) NOT NULL,
   `person_id` int(10) NOT NULL,
+  `privileges` varchar(100) DEFAULT 'none',
   PRIMARY KEY (`module_id`,`person_id`),
   KEY `person_id` (`person_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -1241,18 +1245,23 @@ CREATE TABLE `ospos_permissions` (
 -- ----------------------------
 -- Records of ospos_permissions
 -- ----------------------------
-INSERT INTO `ospos_permissions` VALUES ('config', '1');
-INSERT INTO `ospos_permissions` VALUES ('customers', '1');
-INSERT INTO `ospos_permissions` VALUES ('employees', '1');
-INSERT INTO `ospos_permissions` VALUES ('giftcards', '1');
-INSERT INTO `ospos_permissions` VALUES ('items', '1');
-INSERT INTO `ospos_permissions` VALUES ('items', '4');
-INSERT INTO `ospos_permissions` VALUES ('item_kits', '1');
-INSERT INTO `ospos_permissions` VALUES ('receivings', '1');
-INSERT INTO `ospos_permissions` VALUES ('reports', '1');
-INSERT INTO `ospos_permissions` VALUES ('sales', '1');
-INSERT INTO `ospos_permissions` VALUES ('sales', '4');
-INSERT INTO `ospos_permissions` VALUES ('suppliers', '1');
+INSERT INTO `ospos_permissions` VALUES ('suppliers', '1', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('item_kits', '1', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('items', '1', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('customers', '1', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('items', '4', 'none');
+INSERT INTO `ospos_permissions` VALUES ('sales', '4', 'none');
+INSERT INTO `ospos_permissions` VALUES ('customers', '42', 'update,delete');
+INSERT INTO `ospos_permissions` VALUES ('items', '42', 'add,delete');
+INSERT INTO `ospos_permissions` VALUES ('sales', '42', 'none');
+INSERT INTO `ospos_permissions` VALUES ('employees', '42', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('config', '42', 'save');
+INSERT INTO `ospos_permissions` VALUES ('reports', '1', 'none');
+INSERT INTO `ospos_permissions` VALUES ('receivings', '1', 'none');
+INSERT INTO `ospos_permissions` VALUES ('sales', '1', 'none');
+INSERT INTO `ospos_permissions` VALUES ('employees', '1', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('giftcards', '1', 'add,delete,update');
+INSERT INTO `ospos_permissions` VALUES ('config', '1', 'save');
 
 -- ----------------------------
 -- Table structure for `ospos_receivings`
@@ -1649,23 +1658,38 @@ CREATE TABLE `ospos_schedules` (
   `out` time NOT NULL,
   `person_id` int(11) NOT NULL,
   PRIMARY KEY (`schedule_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=184 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ospos_schedules
 -- ----------------------------
-INSERT INTO `ospos_schedules` VALUES ('155', 'Friday', '08:00:00', '17:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('154', 'Thursday', '00:00:00', '19:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('153', 'Wednesday', '00:00:00', '16:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('152', 'Tuesday', '00:00:00', '20:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('151', 'Monday', '00:00:00', '21:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('150', 'Sunday', '00:00:00', '23:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('156', 'Saturday', '00:00:00', '01:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('182', 'Friday', '08:00:00', '17:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('162', 'Sunday', '00:00:00', '20:00:00', '5');
+INSERT INTO `ospos_schedules` VALUES ('181', 'Thursday', '00:00:00', '23:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('180', 'Wednesday', '00:00:00', '21:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('179', 'Tuesday', '00:00:00', '20:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('178', 'Monday', '00:00:00', '21:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('177', 'Sunday', '00:00:00', '23:00:00', '1');
 INSERT INTO `ospos_schedules` VALUES ('157', 'Sunday', '08:00:00', '19:00:00', '4');
 INSERT INTO `ospos_schedules` VALUES ('158', 'Monday', '08:00:00', '18:00:00', '4');
 INSERT INTO `ospos_schedules` VALUES ('159', 'Tuesday', '08:00:00', '16:00:00', '4');
 INSERT INTO `ospos_schedules` VALUES ('160', 'Wednesday', '08:00:00', '16:00:00', '4');
 INSERT INTO `ospos_schedules` VALUES ('161', 'Thursday', '08:00:00', '16:00:00', '4');
+INSERT INTO `ospos_schedules` VALUES ('163', 'Monday', '00:00:00', '20:00:00', '5');
+INSERT INTO `ospos_schedules` VALUES ('164', 'Tuesday', '00:00:00', '20:00:00', '5');
+INSERT INTO `ospos_schedules` VALUES ('165', 'Wednesday', '00:00:00', '20:00:00', '5');
+INSERT INTO `ospos_schedules` VALUES ('166', 'Thursday', '00:00:00', '19:00:00', '5');
+INSERT INTO `ospos_schedules` VALUES ('167', 'Friday', '00:00:00', '20:00:00', '5');
+INSERT INTO `ospos_schedules` VALUES ('168', 'Saturday', '00:00:00', '20:00:00', '5');
+INSERT INTO `ospos_schedules` VALUES ('169', 'Tuesday', '00:00:00', '20:00:00', '40');
+INSERT INTO `ospos_schedules` VALUES ('170', 'Wednesday', '00:00:00', '20:00:00', '40');
+INSERT INTO `ospos_schedules` VALUES ('171', 'Thursday', '00:00:00', '19:00:00', '40');
+INSERT INTO `ospos_schedules` VALUES ('172', 'Friday', '00:00:00', '20:00:00', '40');
+INSERT INTO `ospos_schedules` VALUES ('173', 'Tuesday', '00:00:00', '23:00:00', '42');
+INSERT INTO `ospos_schedules` VALUES ('174', 'Wednesday', '00:00:00', '20:00:00', '42');
+INSERT INTO `ospos_schedules` VALUES ('175', 'Thursday', '00:00:00', '20:00:00', '42');
+INSERT INTO `ospos_schedules` VALUES ('176', 'Friday', '00:00:00', '20:00:00', '42');
+INSERT INTO `ospos_schedules` VALUES ('183', 'Saturday', '00:00:00', '01:00:00', '1');
 
 -- ----------------------------
 -- Table structure for `ospos_sessions`
@@ -1683,8 +1707,8 @@ CREATE TABLE `ospos_sessions` (
 -- ----------------------------
 -- Records of ospos_sessions
 -- ----------------------------
-INSERT INTO `ospos_sessions` VALUES ('40b84f2bbbf696bf459aa92f1477b407', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36', '1394571812', 'a:10:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:6:\"taxing\";s:1:\"1\";s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;s:8:\"employee\";i:-1;s:4:\"cart\";a:0:{}s:9:\"sale_mode\";s:4:\"sale\";s:8:\"customer\";i:-1;s:8:\"payments\";a:0:{}}');
-INSERT INTO `ospos_sessions` VALUES ('38842dfb878da9889e86d103b077461b', '192.168.1.139', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.146 Safari/537.36', '1394554026', 'a:2:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";}');
+INSERT INTO `ospos_sessions` VALUES ('a366f72c1631561f73a93e47c2abd2d1', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36', '1395674885', 'a:3:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:14:\"items_location\";s:5:\"other\";}');
+INSERT INTO `ospos_sessions` VALUES ('0a62fc56ee1c1d6c7aa451c99a593c3b', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36', '1395436180', 'a:11:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:14:\"items_location\";s:5:\"other\";s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;s:8:\"employee\";i:-1;s:4:\"cart\";a:0:{}s:9:\"sale_mode\";s:8:\"shipping\";s:8:\"customer\";i:-1;s:6:\"taxing\";i:1;s:8:\"payments\";a:0:{}}');
 
 -- ----------------------------
 -- Table structure for `ospos_suppliers`

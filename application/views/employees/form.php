@@ -50,6 +50,27 @@ $password_label_attributes = $person_info->person_id == "" ? array('class'=>'req
 <legend><?php echo $this->lang->line("employees_permission_info"); ?></legend>
 <p><?php echo $this->lang->line("employees_permission_desc"); ?></p>
 
+<select id="employee_profile_type">
+	<option>Profile type...</option>
+</select>
+<script type='text/javascript'>
+$(function(){
+	//Tipos de perfiles de usuario
+	var types={
+			Administrator:'*',
+			Seller:'[value=reports],[value=sales]'
+		},
+		options='';
+	$.each(types,function(key){
+		options+='<option value="'+key+'">'+key+'</option>';
+	});
+	$('#employee_profile_type').append(options).change(function(event){
+		if(!types[this.value]) return;
+		$('ul#permission_list :checkbox').removeAttr('checked')
+			.filter(types[this.value]).attr('checked','checked');
+	});
+});
+</script>
 <ul id="permission_list">
 <?php
 foreach($all_modules->result() as $module)
@@ -59,11 +80,11 @@ foreach($all_modules->result() as $module)
 <?php
 	$subpermissions = explode(',', $module->options);
 	$attribs = array(
-				'name'=>'permissions[]',
-				'value'=>$module->module_id,
-				'class'=>'permissions-option',
-				'checked'=>$this->Employee->has_permission($module->module_id,$person_info->person_id)
-				);
+		'name'=>'permissions[]',
+		'value'=>$module->module_id,
+		'class'=>'permissions-option',
+		'checked'=>$this->Employee->has_permission($module->module_id,$person_info->person_id)
+	);
 	echo form_checkbox($attribs);
 ?>
 <span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
@@ -138,6 +159,23 @@ echo form_close();
 <script type='text/javascript'>
 
 //validation and submit handling
+$(function(){
+	//Tipos de perfiles de usuario
+	var options='',
+		types={
+			admin:['Administrator','*'],
+			sell:['Seller','[value=reports],[value=sales]']
+		};
+	$.each(types,function(val,array){
+		options+='<option value="'+val+'">'+array[0]+'</option>';
+	});
+	$('#employee_profile_type').append(options).change(function(event){
+		if(!types[this.value])return;
+		var $all=$('ul#permission_list :checkbox');
+		$all.filter(':checked').removeAttr('checked');
+		$all.filter(types[this.value][1]).attr('checked','checked');
+	});
+});
 $(document).ready(function()
 {
 	//Funcionavilidad de los permisos

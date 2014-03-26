@@ -91,10 +91,11 @@ html {
 			<?php
 			}
 			?>
-			<div class="menu_item">
+			<!-- <div class="menu_item">
 				<a href="index.php/share_inventories">En pruebas</a>
-			</div>
+			</div> -->
 			<div class="menu_item">
+				<img src="<?php echo base_url().'images/menubar/schedule.png';?>" border="0" alt="Menubar Image" /></a><br />
 				<a href="index.php/employees/assistance">Schedule</a>
 			</div>
 		</div>

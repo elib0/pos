@@ -89,5 +89,12 @@ $db['other']['database'] = 'possp2';
 $db['other']['dbdriver'] = 'mysql';
 $db['other']['dbprefix'] = 'ospos_';
 
+$db['miharbito_db']['hostname'] = 'localhost';
+$db['miharbito_db']['username'] = 'root';
+$db['miharbito_db']['password'] = 'root';
+$db['miharbito_db']['database'] = 'miharbito_db';
+$db['miharbito_db']['dbdriver'] = 'mysql';
+$db['miharbito_db']['dbprefix'] = 'ospos_';
+
 /* End of file database.php */
 /* Location: ./application/config/database.php */

@@ -326,7 +326,6 @@ class Items extends Secure_area implements iData_controller
 				}
 			}
 			$this->Item_taxes->save_multiple($items_taxes_data, $items_to_update);
-
 			echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_bulk_edit')));
 		}
 		else

@@ -24,9 +24,9 @@ table.tablesorter tbody td{
 	<h3>Login:</h3>
 	<?php echo form_open($controller_name.'/open_day', array('id'=>'login', 'method'=>'POST')); ?>
 	<?php echo form_label('Nick Name:', 'name'); ?>
-	<input type="text" name="name">
+	<input type="text" name="name" required>
 	<?php echo form_label('Password:', 'password'); ?>
-	<input type="password" name="password">
+	<input type="password" name="password" required>
 	<input type="submit" value="Login" id="submit">
 	<?php echo form_close(); ?>
 	<h2>Employees Working Now:</h2>
@@ -42,14 +42,21 @@ table.tablesorter tbody td{
 			<?php foreach ($employees_working->result() as $employee): ?>
 			<tr class="user-row">
 				<td><?php echo ucwords($employee->first_name.' '.$employee->last_name); ?></td>
-				<td><button class="logout-button" user="<?php echo $employee->employee_id ?>">logout</button></td>
+				<td>
+					<form id="form_close_day<?php echo $employee->employee_id ?>" action="index.php/<?php echo $controller_name; ?>/close_day" method="POST">
+						<button class="logout-button" user="<?php echo $employee->employee_id ?>"><?php echo $this->lang->line("common_logout"); ?></button>
+						<input type="password" name="logoutpass" id="logoutpass">
+						<input type="hidden" name="username" value="">
+						<label for="logoutpass">Password</label>
+					</form>
+				</td>
 			</tr>
 			<?php endforeach ?>
 			<?php else: ?>
 			<tr>
 				<td colspan="2" class="td-info"><h2>No Employees Working</h2></td>
 			</tr>	
-			<?php endif ?>
+			<?php endif; ?>
 		</tbody>
 	</table>
 </div>
@@ -63,7 +70,7 @@ table.tablesorter tbody td{
 					{
 						console.log(data);
 						if (data.status == 1) {
-							var button = '<td><button class="logout-button" user="'+data.user+'">Logout</button></td></tr>';
+							var button = '<td><button class="logout-button" user="'+data.user+'">Logout</button><input type="password" name="logpass"></td></tr>';
 							if ($('.user-row').length < 1) {
 								$('tbody').html('<tr class="user-row"><td>'+data.message+'</td>'+button);
 							}else{
@@ -80,14 +87,12 @@ table.tablesorter tbody td{
 			return false;
 		});
 
+
 		$$('tbody').on('click', '.logout-button', function(event) {
 			if (confirm('Finish work day?')) {
 				var button = $$(this);
-				$$.ajax({
-					url: 'index.php/<?php echo $controller_name; ?>/close_day',
-					type: 'POST',
-					dataType: 'json',
-					data: {'id': button.attr('user')},
+
+				$('#form_close_day'+button.attr('user')).ajaxSubmit({
 					success: function(data){
 						if (data == 1) {
 							button.parents('tr.user-row').remove();

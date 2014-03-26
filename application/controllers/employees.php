@@ -253,7 +253,7 @@ class Employees extends Person_controller
 	function close_day()
 	{
 		$person_id = $this->input->post('id');
-		$password = $this->input->post('password');
+		$password = $this->input->post('logoutpass');
 		if ( $this->Employee->close_day( $person_id ) ) {
 			echo 1;
 		}else{

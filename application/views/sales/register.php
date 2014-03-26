@@ -559,7 +559,12 @@ $(document).ready(function()
 
     $("#finish_sale_button").click(function()
     {
-    	var dbselected = document.getElementById('location').selectedIndex;
+    	var mode = '<?php echo $mode ?>';
+    	var dbselected = 1;
+
+    	if (mode=='shipping') {
+    		dbselected = document.getElementById('location').selectedIndex
+    	}
 
     	if (dbselected > 0) {
 			if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>'))

@@ -101,7 +101,7 @@ html {
 
 		<div id="menubar_footer">
 		<?php
-			echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! | ";
+			echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (".$_SESSION['dblocation'].")| ";
 
 			$people = $this->Employee->get_all();
 		?>

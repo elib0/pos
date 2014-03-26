@@ -159,23 +159,6 @@ echo form_close();
 <script type='text/javascript'>
 
 //validation and submit handling
-$(function(){
-	//Tipos de perfiles de usuario
-	var options='',
-		types={
-			admin:['Administrator','*'],
-			sell:['Seller','[value=reports],[value=sales]']
-		};
-	$.each(types,function(val,array){
-		options+='<option value="'+val+'">'+array[0]+'</option>';
-	});
-	$('#employee_profile_type').append(options).change(function(event){
-		if(!types[this.value])return;
-		var $all=$('ul#permission_list :checkbox');
-		$all.filter(':checked').removeAttr('checked');
-		$all.filter(types[this.value][1]).attr('checked','checked');
-	});
-});
 $(document).ready(function()
 {
 	//Funcionavilidad de los permisos

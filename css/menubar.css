@@ -81,7 +81,7 @@
 }
 
 #menu_changeuser ul{
-	background: #0A6184;
+	background: #000;
 	position:relative;
 	list-style: none;
 	width: 100px;
@@ -98,7 +98,7 @@
 }
 
 #menu_changeuser ul>li:hover{
-	background: hsl(6, 84%, 64%);
+	background: #003399;
 }
 
 #menubar_footer
@@ -121,4 +121,8 @@
 	padding-top:3px;
 	font-size:8pt;
 	font-weight:bold;
+}
+
+#menubar #menubar_footer a{
+	color: #FFF;
 }

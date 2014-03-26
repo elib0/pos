@@ -8,8 +8,13 @@
 #mode_form
 {
 	position:relative;
-	background-color:#DDD;
-	padding: 8px 0px 8px 0px;
+	background-color:#000; /*#DDD*/
+	padding: 8px;
+	-webkit-border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	color:#FFF;
 }
 
 #show_suspended_sales_button
@@ -27,17 +32,18 @@
 #add_item_form
 {
 	position:relative;
-	background-color:#BBBBBB;
-	width:100%;
-	padding: 8px 0px 8px 0px;
+	background-color:#FFF;
+	padding: 8px;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
 
 }
 
 #new_item_button_register
 {
-	position:absolute;
 	top:3px;
-	right:4px;
+	right:3px;
+	position:absolute;
 }
 
 #add_item_form input
@@ -60,14 +66,13 @@
 #register
 {
 	position:relative;
-	width:100%;
 	padding:0px;
 	border-collapse:collapse;
 }
 
 #register th
 {
-	background-color: #396B98;
+	background-color: #DE770F;
 	padding:5px;
 	text-align:center;
 	color:#FFFFFF;
@@ -75,23 +80,23 @@
 
 #register td
 {
-	background-color:#EEEEEE;
-	padding:3px;
 	text-align:center;
+	background-color:#FFF;
 }
 
 #overall_sale
 {
 	float:left;
 	margin-left:4px;
-	background-color:#E6E6E6;
+	background-color:#fff;
 	width:28%;
 	padding:5px;
 	font-family:Arial;
 	font-size:13px;
-	-webkit-border-radius: 12px;
-	-moz-border-radius: 12px;
-	border-radius: 12px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
 
 }
 
@@ -114,7 +119,7 @@
 	width:100%;
 	margin-top:5px;
 	border-top:2px solid #000;
-	background-color:#DDD;
+	background-color:#fff;
 	margin-bottom:0px;
 	clear:both;
 }

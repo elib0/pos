@@ -76,7 +76,7 @@ else
 <thead>
 <tr>
 <th style="width:11%;"><?php echo $this->lang->line('common_delete'); ?></th>
-<th style="width:30%;"><?php echo $this->lang->line('sales_item_number'); ?></th>
+<th style="width:32%;"><?php echo $this->lang->line('sales_item_number'); ?></th>
 <th style="width:33%;"><?php echo $this->lang->line('sales_item_name'); ?></th>
 <th style="width:13%;"><?php echo $this->lang->line('sales_price'); ?></th>
 <th style="width:11%;"><?php echo $this->lang->line('sales_quantity'); ?></th>
@@ -355,7 +355,7 @@ else
 			</td>
 			</tr>
         	</table>
-			<div class='big_button' id='add_payment_button' style='float:left;margin-top:5px;'>
+			<div class='big_button' id='add_payment_button' style='float:left;margin:5px 0 0 35px;'>
 				<span><?php echo $this->lang->line('sales_add_payment'); ?></span>
 			</div>
 		</div>

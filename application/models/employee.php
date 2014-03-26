@@ -394,6 +394,17 @@ class Employee extends Person
 		return false;
 	}
 
+	function can_logout($person_id, $password){
+		$b = false;
+		$this->con->from('employees');
+		$this->con->where( array('employees.person_id' => $person_id,'employees.password'=>md5($password)) );
+		if ($employee->num_rows() ==1)
+		{
+			$b = true;
+		}
+		return $b;
+	}
+
 	/**
 	 * Abre Log de hora trabajadas por dia y localidad
 	 * @param  INT $employee_id Id del empleado o persona

@@ -254,10 +254,14 @@ class Employees extends Person_controller
 	{
 		$person_id = $this->input->post('id');
 		$password = $this->input->post('logoutpass');
-		if ( $this->Employee->close_day( $person_id ) ) {
-			echo 1;
+		if ($this->Employee->can_logout($person_id, $password)) {
+			if ( $this->Employee->close_day( $person_id ) ) {
+				echo 1;		//Cerro el dia
+			}else{
+				echo 0;		//Problema al registar el cierre de dia
+			}
 		}else{
-			echo 0;
+			echo -1;		//Contraseña invalida
 		}
 	}
 

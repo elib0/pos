@@ -190,10 +190,9 @@ class Receivings extends Secure_area
 			$data['supplier']=$info->first_name.' '.$info->last_name;
 		}
 		if( $cart < 1){
-			$this->receiving_lib->empty_cart();
+			// $this->receiving_lib->empty_cart();
 			$this->load->view("receivings/receiving",$data);
-		}
-		else{
+		}else{
 			$data['reception_id'] = $cart;
 			$this->load->view("receivings/receiving_",$data);
 		}

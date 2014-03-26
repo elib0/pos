@@ -28,6 +28,7 @@
 			<li><a href="<?php echo site_url('reports/summary_taxes');?>"><?php echo $this->lang->line('reports_taxes'); ?></a></li>
 			<li><a href="<?php echo site_url('reports/summary_discounts');?>"><?php echo $this->lang->line('reports_discounts'); ?></a></li>
 			<li><a href="<?php echo site_url('reports/summary_payments');?>"><?php echo $this->lang->line('reports_payments'); ?></a></li>
+			<li><a href="<?php echo site_url('employees/report');?>">Schedule Employee</a></li>
 		</ul>
 	</li>
 	
@@ -55,9 +56,3 @@ if(isset($error))
 }
 ?>
 <?php $this->load->view("partial/footer"); ?>
-
-<script type="text/javascript" language="javascript">
-$(document).ready(function()
-{
-});
-</script>

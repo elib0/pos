@@ -12,7 +12,7 @@ class Reports extends Secure_area
 	//Initial report listing screen
 	function index()
 	{
-		$this->load->view("reports/listing",array());	
+		$this->load->view("reports/listing",array());
 	}
 	
 	function _get_common_report_data()

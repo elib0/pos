@@ -11,7 +11,7 @@ class Receiving_lib
 	function get_cart($cart_num = 0)
 	{
 
-		if($cart_num>0){
+		if($cart_num > 0){
 			$this->empty_cart();
 			$this->CI->load->model('Share_inventory');
 			$cart = $this->CI->Share_inventory->get_reception_detail($cart_num);

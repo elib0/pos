@@ -160,9 +160,15 @@ label.required
 .warning_message
 {
 	text-align:center;
-	background-color:#fffcdd;
-	border:1px solid #fff4aa;
+	border:1px solid #000;
 	font-weight:bold;
+	background-color:#fff;
+	border-top:none;
+
+	-webkit-border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+	border-bottom-left-radius:5px;
 }
 
 .error_message
@@ -176,9 +182,16 @@ label.required
 .warning_mesage
 {
 	text-align:center;
-	background-color:#FBEC5D;
-	border:1px solid #da3232;
+	background-color:#FCFBF2;
+	border:1px solid #FCEFA1;
+	margin:0 0 5px 0;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	font-size:15px;
 	font-weight:bold;
+	padding:10px;
+	width:97%;
 }
 
 .success_message

@@ -24,6 +24,18 @@ body
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
+a{
+	color: #000;
+	text-decoration: underline;
+	font-size: 1em;
+}
+
+a:hover{
+	color: #003399;
+	text-decoration: none;
+	font-size: 1em;
+}
+
 a.none
 {
 	text-decoration:none;
@@ -37,7 +49,6 @@ a.none
 	/*background-color:#FFFFFF;*/
 	margin: 0;
 	padding: 0;
-	border-bottom:1px solid #CCCCCC;
 	text-align:center;
 	min-height: 500px
 }
@@ -173,17 +184,29 @@ a.none
 #footer
 {
 	height: 1em;
-	background-color: #fff;
-	position:relative;
 	/*margin-top:25px;
 	margin-bottom:15px;*/
 	padding: 1.5em;
 	text-align:center;
-	font-size:11px;
-	color:#777777;
+	font-size:12px;
+	color:#000;
 	clear:both;
-
+	background-color:#f4f4f4;
+	bottom:0;
+	border-top:1px solid #CCC;
+	margin-top:10px;
 }
+
+#footer a{
+	text-decoration: underline;
+	color: #000;
+}
+
+#footer a:hover{
+	text-decoration:none;
+	color: #003399;
+}
+
 
 /*Reportes*/
 .header-table{
@@ -193,3 +216,34 @@ a.none
 	width: 33.3%;
 	text-align: center;
 }
+
+
+.middle-black-bar{
+	background-color: #000; 
+	-webkit-border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	border-radius: 5px; 
+	font-size: 12px; 
+	padding: 3px;
+	margin: 0 0 5px 0;
+}
+
+.middle-black-bar label{
+	font-weight: bold;
+	color: #FFF;
+}
+
+.middle-gray-bar{
+	background-color: #FFF;
+	border: 1px solid #CCC; 
+	-webkit-border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	border-radius: 5px; 
+	font-size: 15px; 
+	padding: 3px;
+	margin: 0 0 5px 0;
+	height:20px;
+	position:relative;
+	font-weight: bold;
+}
+

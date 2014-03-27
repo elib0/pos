@@ -602,8 +602,15 @@ $(document).ready(function()
 
 	$("#add_payment_button").click(function()
 	{
-	   $('#add_payment_form').submit();
+	   
+	   		$('#add_payment_form').submit();	
+	   
     });
+	
+	$('#add_payment_form').submit(function(){
+	   			if($('#amount_tendered').val()==''||$('#amount_tendered').val()==0)$('#amount_tendered').val('O');
+	});	
+
 
 	$("#payment_types").change(checkPaymentTypeGiftcard).ready(checkPaymentTypeGiftcard)
 });

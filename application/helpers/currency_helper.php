@@ -5,6 +5,7 @@ function to_currency($number)
 	$currency_symbol = $CI->config->item('currency_symbol') ? $CI->config->item('currency_symbol') : '$';
 	if($number >= 0)
 	{
+		$number=$number==""?0:$number;
 		return $currency_symbol.number_format($number, 2, '.', '');
     }
     else

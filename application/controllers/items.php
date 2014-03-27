@@ -58,6 +58,15 @@ class Items extends Secure_area implements iData_controller
 		$data['no_description']=$this->input->post('no_description');
 		$data['controller_name']=strtolower(get_class());
 		$data['form_width']=$this->get_form_width();
+
+		//Paginacion para filtro
+		$config['base_url'] = site_url('/items/index');
+		$config['total_rows'] = $this->Item->get_all_filtered($low_inventory,$is_serialized,$no_description, $location)->num_rows();
+		$config['per_page'] = '20';
+		$config['uri_segment'] = 3;
+		$this->pagination->initialize($config);
+
+
 		$data['manage_table']=get_items_manage_table($this->Item->get_all_filtered($low_inventory,$is_serialized,$no_description, $location),$this);
 		$this->load->view('items/manage',$data);
 	}

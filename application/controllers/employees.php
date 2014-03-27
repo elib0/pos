@@ -237,7 +237,7 @@ class Employees extends Person_controller
 		if($row){
 			if ($this->Employee->can_work($row->person_id)) {
 				if ( $this->Employee->open_day($row->person_id) ){
-					$response['message'] = $row->username;
+					$response['message'] = $row->first_name.' '.$row->last_name;
 					$response['user'] = $row->person_id;
 					$response['status'] = 1;
 				}
@@ -252,17 +252,20 @@ class Employees extends Person_controller
 
 	function close_day()
 	{
-		$person_id = $this->input->post('id');
+		$response = array('status'=>0, 'message'=>'General Error, Try Again!');
+		$person_id = $this->input->post('person_id');
 		$password = $this->input->post('logoutpass');
 		if ($this->Employee->can_logout($person_id, $password)) {
 			if ( $this->Employee->close_day( $person_id ) ) {
-				echo 1;		//Cerro el dia
-			}else{
-				echo 0;		//Problema al registar el cierre de dia
+				$response['status'] = 1;
+				$response['message'] = 'Success Logout!';
 			}
 		}else{
-			echo -1;		//Contraseña invalida
+			$response['status'] = -1;
+			$response['message'] = 'Wrong Password, try Again!';
 		}
+
+		die( json_encode($response) );
 	}
 
 }

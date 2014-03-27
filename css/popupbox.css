@@ -9,6 +9,10 @@
 #customer_basic_info,#item_basic_info,#item_number_info,#supplier_basic_info
 {
 	padding: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
 }
 
 #scan_item_number.loading
@@ -115,4 +119,15 @@
 
 #employee_permission_info ul.module-options{
 	list-style: disc inside none;
+}
+
+legend{
+	color: #333333;
+	font-weight: bold;
+	padding: 2px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	background-color: #fafafa;;
 }

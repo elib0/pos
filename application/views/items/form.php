@@ -135,7 +135,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 	</div>
 </div>
 
-<div class="field_row clearfix">	
+<!-- <div class="field_row clearfix">	
 <?php echo form_label($this->lang->line('items_location').':', 'location',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
@@ -144,7 +144,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 		'value'=>$item_info->location)
 	);?>
 	</div>
-</div>
+</div> -->
 
 <div class="field_row clearfix">
 <?php echo form_label($this->lang->line('items_description').':', 'description',array('class'=>'wide')); ?>
@@ -159,7 +159,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 	</div>
 </div>
 
-<div class="field_row clearfix">
+<!-- <div class="field_row clearfix">
 <?php echo form_label($this->lang->line('items_allow_alt_desciption').':', 'allow_alt_description',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo form_checkbox(array(
@@ -181,7 +181,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 		'checked'=>($item_info->is_serialized)? 1 : 0)
 	);?>
 	</div>
-</div>
+</div> -->
 
 <?php
 echo form_submit(array(

@@ -105,7 +105,7 @@ class Employees extends Person_controller
 			{
 				if($this->Schedule->save($person_schedule, $id)){
 					echo json_encode(array('success'=>true,'message'=>$this->lang->line('employees_successful_adding').' '.
-					$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$employee_data['person_id'],'name_employe'=>$person_data['first_name'].' '.$person_data['last_name']));
+					$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$employee_data['person_id']));
 				}
 			}
 			else //previous employee

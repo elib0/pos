@@ -382,6 +382,7 @@ class Employee extends Person
 	{
 		$this->con->from('employees');
 		$this->con->join('schedules','employees.person_id=schedules.person_id');
+		$this->con->join('people','schedules.person_id=people.person_id');
 		$this->con->where( array('employees.username' => $username,'employees.password'=>md5($password)) );
 		$this->con->where( 'employees.deleted', 0 );
 		$this->con->where( array('schedules.day'=>date('l')) ); //Verifica que trabaje ese dia
@@ -399,7 +400,8 @@ class Employee extends Person
 		$b = false;
 		$this->con->from('employees');
 		$this->con->where( array('employees.person_id' => $person_id,'employees.password'=>md5($password)) );
-		if ($employee->num_rows() ==1)
+		$employee = $this->con->get();
+		if ($employee->num_rows() == 1)
 		{
 			$b = true;
 		}

@@ -46,7 +46,7 @@ table.tablesorter tbody td{
 					<form id="form_close_day<?php echo $employee->employee_id ?>" action="index.php/<?php echo $controller_name; ?>/close_day" method="POST">
 						<button class="logout-button" user="<?php echo $employee->employee_id ?>"><?php echo $this->lang->line("common_logout"); ?></button>
 						<input type="password" name="logoutpass" id="logoutpass">
-						<input type="hidden" name="username" value="">
+						<input type="hidden" name="person_id" value="<?php echo $employee->employee_id; ?>">
 						<label for="logoutpass">Password</label>
 					</form>
 				</td>
@@ -68,13 +68,13 @@ table.tablesorter tbody td{
 					dataType:'json',
 					success:function(data)
 					{
-						console.log(data);
+						// console.log(data);
 						if (data.status == 1) {
-							var button = '<td><button class="logout-button" user="'+data.user+'">Logout</button><input type="password" name="logpass"></td></tr>';
+							var form = '<td><form id="form_close_day'+data.user+'" action="index.php/<?php echo $controller_name; ?>/close_day" method="POST"><button class="logout-button" user="'+data.user+'"><?php echo $this->lang->line("common_logout"); ?></button><input type="password" name="logoutpass" id="logoutpass"><input type="hidden" name="person_id" value="'+data.user+'"><label for="logoutpass">Password</label></form></td>';
 							if ($('.user-row').length < 1) {
-								$('tbody').html('<tr class="user-row"><td>'+data.message+'</td>'+button);
+								$('tbody').html('<tr class="user-row"><td>'+data.message+'</td>'+form);
 							}else{
-								$('tbody').append('<tr class="user-row"><td>'+data.message+'</td>'+button);
+								$('tbody').append('<tr class="user-row"><td>'+data.message+'</td>'+form);
 							}
 							
 						}else{
@@ -94,14 +94,30 @@ table.tablesorter tbody td{
 
 				$('#form_close_day'+button.attr('user')).ajaxSubmit({
 					success: function(data){
-						if (data == 1) {
-							button.parents('tr.user-row').remove();
-							if ($('.user-row').length < 1) {
-								$('tbody').html('<tr><td colspan="2" class="td-info"><h2>No have employees selected</h2></td></tr>');
-							}
+						console.log(data);
+						switch(data.status){
+							case -1:case 0:
+								notif({
+								    type: "error",
+								    msg: data.message,
+								    width: "all",
+								    height: 100,
+								    position: "center"
+								});
+								$('#logoutpass').val('');
+							break;
+							case 1:
+								button.parents('tr.user-row').remove();
+								if ($('.user-row').length < 1) {
+									$('tbody').html('<tr><td colspan="2" class="td-info"><h2>No have employees selected</h2></td></tr>');
+								}
+							break;
 						}
-					}
+					},
+					dataType:'json'
 				});
+				event.preventDefault();
+				return false;
 			}
 		});
 	});

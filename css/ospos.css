@@ -172,16 +172,30 @@ a.none
 #footer
 {
 	height: 1em;
-	position:relative;
+	position:fixed;
 	/*margin-top:25px;
 	margin-bottom:15px;*/
 	padding: 1.5em;
 	text-align:center;
-	font-size:11px;
-	color:#777777;
+	font-size:12px;
+	color:#000;
 	clear:both;
-
+	background-color:#f4f4f4;
+	bottom:0;
+	width:100%;
+	border-top:1px solid #CCC;
 }
+
+#footer a{
+	text-decoration: underline;
+	color: #000;
+}
+
+#footer a:hover{
+	text-decoration:none;
+	color: #003399;
+}
+
 
 /*Reportes*/
 .header-table{

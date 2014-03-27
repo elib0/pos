@@ -81,6 +81,3 @@ $db['default']['autoinit'] = FALSE;
 $db['default']['stricton'] = FALSE;
 $db['default']['onlinehost'] = 'www.google.com';
 $db['default']['onlineport'] = '80';
-
-/* End of file database.php */
-/* Location: ./application/config/database.php */

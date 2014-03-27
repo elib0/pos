@@ -266,7 +266,8 @@ class Employee extends Person
 		$by_name = $this->con->get();
 		foreach($by_name->result() as $row)
 		{
-			$suggestions[]=$row->person_id.'|'.$row->first_name.' '.$row->last_name;
+			//$suggestions[]=$row->person_id.'|'.$row->first_name.' '.$row->last_name;
+			$suggestions[]=$row->first_name.' '.$row->last_name;
 		}
 
 		$this->con->from('employees');
@@ -508,9 +509,18 @@ class Employee extends Person
 
 		$query = $this->con->get_where('permissions', array('person_id' => $person_id,'module_id'=>$module_id), 1);
 		return $query->num_rows() == 1;
+	}
+	function has_privilege_permi($module_id,$person_id,$privilege_name)
+	{
+		//if no module_id is null, allow access
+		if($module_id==null){ return true; }
 
-
-		return false;
+		//$query = $this->con->get_where('permissions', array('person_id' => $person_id,'module_id'=>$module_id,'privileges'=>$privilege_name), 1);
+		$this->con->from('permissions');
+		$this->con->like('privileges',$privilege_name);
+		$this->con->where(array('person_id' => $person_id,'module_id'=>$module_id));
+		$query=$this->con->get();
+		return $query->num_rows() == 1;
 	}
 
 	function has_privilege($privilege,$module_id){

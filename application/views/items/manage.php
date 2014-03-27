@@ -191,9 +191,8 @@ echo form_open("$controller_name/set_location", array('id'=>'form_items_location
 	</form>
 </div>
 
-<div style="height: 30px; margin: 3px 0 3px 0">
-	<?php $this->pagination->create_links();?>
-</div>
+()<?php $this->pagination->create_links();?>
+
 
 <div id="table_action_header">
 	<ul>

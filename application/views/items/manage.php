@@ -190,7 +190,11 @@ echo form_open("$controller_name/set_location", array('id'=>'form_items_location
 	<input type="hidden" name="search_section_state" id="search_section_state" value="<?php echo isset($search_section_state)?  ( ($search_section_state)? 'block' : 'none') : 'none';?>" />
 	</form>
 </div>
-<?php echo $this->pagination->create_links();?>
+
+<div style="padding: 3px; margin: 3px 0 3px 0">
+	<?php echo $this->pagination->create_links();?>
+</div>
+
 <div id="table_action_header">
 	<ul>
 		<?php if($this->Employee->has_privilege('delete', $controller_name)):  ?>

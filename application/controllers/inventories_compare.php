@@ -52,7 +52,7 @@ class Inventories_compare extends Secure_area
         $this->email->to('reports@fastirepair.com');
 
         $this->email->subject('Report Inventory Stock');
-        $this->email->message($header.$body.$footer);
+        $this->email->message($head.$body.$footer);
 
         if ($this->email->send()) {
             $response['status'] = 1;

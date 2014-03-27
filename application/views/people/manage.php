@@ -71,7 +71,7 @@ function post_person_form_submit(response)
 		?>
 		<?php if ($controller_name =='customers') {?>
 			<?php echo anchor("$controller_name/excel_import/width:$form_width",
-			"<div class='big_button' style='float: left;'><span>Excel Import</span></div>",
+			"<div class='big_button' style='float: left; margin:0 5px 0'><span>Excel Import</span></div>",
 				array('class'=>'thickbox none','title'=>'Import Items from Excel'));
 			?>	
 		<?php } ?>

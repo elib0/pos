@@ -41,14 +41,18 @@ class Inventories_compare extends Secure_area
         $response = array('status'=>0, 'msg'=>'Error sending to administrator.');
         $this->load->library('email');
 
+
+        $head = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head><body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0"><center>';
         $body = $this->input->post('report');
+        $footer = '</center></body></html>';
+
 
         $email = $this->Appconfig->get('email');
         $this->email->from($email, 'Fast I Repair');
         $this->email->to('reports@fastirepair.com');
 
         $this->email->subject('Report Inventory Stock');
-        $this->email->message($body);
+        $this->email->message($header.$body.$footer);
 
         if ($this->email->send()) {
             $response['status'] = 1;

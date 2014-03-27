@@ -7,7 +7,7 @@
 <?php echo form_dropdown('month', $months_of_year); ?><br>
 <?php echo form_label('Select Year:', 'year',$labels_attrib); ?><br>
 <?php echo form_dropdown('year', $years); ?><br>
-<input type="submit" value="Send" name="submit" class="submit_button">
+<input type="submit" value="Send" name="submit" id="submit" class="submit_button">
 <?php echo form_close(); ?>
 <script>
 	$(function() {
@@ -28,6 +28,21 @@
 					console.log(data);
 				});
 			}
+		});
+
+		$('#submit').click(function(e){
+			if ($('#search').val().length < 1) {
+				notif({
+				    type: "error",
+				    msg: 'Search Employee can not be empty, Please Try Again!',
+				    width: "all",
+				    height: 100,
+				    position: "center"
+				});
+			};
+
+			e.preventDefault();
+			return false;
 		});
 	});
 </script>

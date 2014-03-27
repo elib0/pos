@@ -84,7 +84,7 @@ $this->load->view("partial/footer");
             $.ajax({
                     url: $(this).attr('href'),
                     type: 'POST',
-                    data: {'report': $('#compare_form').html()},
+                    data: {'report': $('#sortable_table').html()},
                     success: function (data) {
                         console.log(data);
                         var type_msg = 'error';

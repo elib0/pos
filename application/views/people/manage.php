@@ -83,7 +83,7 @@ function post_person_form_submit(response)
 		<?php if($this->Employee->has_privilege('delete', $controller_name)):  ?>
 		<li class="float_left"><span><?php echo anchor("$controller_name/delete",$this->lang->line("common_delete"),array('id'=>'delete')); ?></span></li>
 		<?php endif; ?>
-		<li class="float_left"><span><a href="#" id="email"><?php echo $this->lang->line("common_email");?></a></span></li>
+		<li class="float_left"><span><a href="javascript:void(0)" id="email"><?php echo $this->lang->line("common_email");?></a></span></li>
 		<li class="float_right">
 		<img src='<?php echo base_url()?>images/spinner_small.gif' alt='spinner' id='spinner' />
 		<?php echo form_open("$controller_name/search",array('id'=>'search_form')); ?>

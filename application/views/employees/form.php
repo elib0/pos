@@ -76,40 +76,40 @@ $(function(){
 foreach($all_modules->result() as $module)
 {
 ?>
-<li>
-<?php
-	$subpermissions = explode(',', $module->options);
-	$attribs = array(
-		'name'=>'permissions[]',
-		'value'=>$module->module_id,
-		'class'=>'permissions-option',
-		'checked'=>$this->Employee->has_permission($module->module_id,$person_info->person_id)
-	);
-	echo form_checkbox($attribs);
-?>
-<span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
-<span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
-<ul class="module-options">
-	<?php 
-	foreach ($subpermissions as $subpermission) {
-		if ($subpermission != 'none' || $subpermission == '') {
-			$attribs = array(
-				'name'=>$module->module_id.'[]',
-				'value'=>$subpermission,
-				'class'=>$module->module_id.'-option');
-			echo "<li>";
-			echo form_checkbox($attribs);
-			echo form_label(ucwords($subpermission));
-			echo "</li>";
-		}
-	}
+	<li>
+	<?php
+		$subpermissions = explode(',', $module->options);
+		$attribs = array(
+			'name'=>'permissions[]',
+			'value'=>$module->module_id,
+			'class'=>'permissions-option',
+			'checked'=>$this->Employee->has_permission($module->module_id,$person_info->person_id)
+		);
+		echo form_checkbox($attribs);
 	?>
-</ul>
-</li>
+	<span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
+	<span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
+	<ul class="module-options">
+		<?php 
+		foreach ($subpermissions as $subpermission) {
+			if ($subpermission != 'none' || $subpermission == '') {
+				$attribs = array(
+					'name'=>$module->module_id.'[]',
+					'value'=>$subpermission,
+					'class'=>$module->module_id.'-option',
+					'checked'=>$this->Employee->has_privilege_permi($module->module_id,$person_info->person_id,$subpermission));
+				echo "<li>";
+				echo form_checkbox($attribs);
+				echo form_label(ucwords($subpermission));
+				echo "</li>";
+			}
+		}
+		?>
+	</ul>
+	</li>
 <?php
-//Dias de la semana para armar el horario
-$days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-
+	//Dias de la semana para armar el horario
+	$days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
 }
 ?>
 </ul>
@@ -168,6 +168,12 @@ $(document).ready(function()
 			$('.'+perm+'-option').attr('checked','checked');
 		}else{
 			$('.'+perm+'-option').removeAttr('checked');
+		}
+	});
+	$('#permission_list input[type="checkbox"]:not(.permissions-option)').click(function(event) {
+		var perm = $(this).attr('class').split('-');
+		if ($(this).is(':checked')){
+			$('input[type="checkbox"][value="'+perm[0]+'"].permissions-option').attr('checked','checked');
 		}
 	});
 	// $('#submit').click(function(e){

@@ -137,9 +137,11 @@ function do_email(url)
 	//If email is not enabled, don't do anything
 	if(!enable_email.enabled)
 		return;
-
 	$.post(url, { 'ids[]': get_selected_values() },function(response)
-	{
+	{ 
+		if(response=='#'){
+			response ='javascript:void(0)';
+		}
 		$('#email').attr('href',response);
 	});
 

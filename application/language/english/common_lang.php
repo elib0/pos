@@ -1,5 +1,5 @@
 <?php
-$lang['common_common']='common';
+$lang['common_common']='Common';
 $lang['common_submit']='Submit';
 $lang['common_or']='OR';
 $lang['common_powered_by']='Powered by';
@@ -18,14 +18,14 @@ $lang['common_state']='State';
 $lang['common_zip']='Zip';
 $lang['common_country']='Country';
 $lang['common_comments']='Comments';
-$lang['common_edit']='edit';
+$lang['common_edit']='Edit';
 $lang['common_search']='Search';
 $lang['common_delete']='Delete';
 $lang['common_remove']='Remove';
 $lang['common_view_recent_sales']='View Recent Sales';
 $lang['common_you_are_using_ospos']='You are using Open Source Point Of Sale Version';
 $lang['common_please_visit_my']='Please visit my';
-$lang['common_website']='website';
+$lang['common_website']='Website';
 $lang['common_fields_required_message']='Fields in red are required';
 $lang['common_learn_about_project']='to learn the lastest information about the project';
 $lang['common_searched_for']='Searched for';
@@ -37,6 +37,6 @@ $lang['common_no_persons_to_display']='There are no people to display';
 $lang['common_return_policy']='Return Policy';
 $lang['common_price']='Price';
 $lang['common_welcome_message']= 'Welcome to Open Source Point Of Sale, click a module below to get started!';
-$lang['common_inv']='inv';
-$lang['common_det']='details';
+$lang['common_inv']='Manage';
+$lang['common_det']='Details';
 ?>

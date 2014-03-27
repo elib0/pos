@@ -41,10 +41,13 @@ label.required
 
 .submit_button
 {
-	padding: 5px;
+	padding: 10px;
 	color: #fff;
 	background-color: #0a6184;
 	border: 2px solid #ddd;
+	font-size: 12px;
+	font-weight: bold;
+	cursor: pointer;
 }
 
 .delete_button

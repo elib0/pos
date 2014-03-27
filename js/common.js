@@ -1,6 +1,9 @@
-//Boton General volver atras
-$('.linkBack').click(function(){
-    history.back(1);
+$(document).ready(function() {
+	$('.linkBack').click(function(){
+		console.log('gustavo gay ');
+	    history.back(1);
+	    return false;
+	});
 });
 
 function get_dimensions() 

@@ -9,27 +9,27 @@
 	<link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/ospos_print.css"  media="print"/>
 	<link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/jquery-ui.css" />
 	<link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/notifIt.css" />
-	<script>BASE_URL = '<?php echo site_url(); ?>';</script>
-	<script src="<?php echo base_url();?>js/jquery-1.10.2.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/notifIt.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery-1.2.6.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery.formatCurrency.js" type="text/javascript"></script>
-	<script src="<?php echo base_url();?>js/jquery-ui.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery.color.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery.metadata.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery.form.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery.tablesorter.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery.ajax_queue.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery.bgiframe.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery.autocomplete.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery.validate.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/jquery.jkey-1.1.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/thickbox.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/common.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/manage_tables.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/swfobject.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/date.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?php echo base_url();?>js/datepicker.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script>BASE_URL = '<?=site_url()?>';</script>
+	<script src="<?=base_url()?>js/jquery-1.10.2.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/notifIt.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery-1.2.6.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.formatCurrency.js" type="text/javascript"></script>
+	<script src="<?=base_url()?>js/jquery-ui.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.color.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.metadata.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.form.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.tablesorter.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.ajax_queue.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.bgiframe.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.autocomplete.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.validate.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.jkey-1.1.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/thickbox.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/common.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/manage_tables.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/swfobject.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/date.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/datepicker.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
 
 <style type="text/css">
 html {
@@ -84,7 +84,7 @@ html {
 			{
 			?>
 			<div class="menu_item">
-				<a href="<?php echo site_url("$module->module_id");?>">
+				<a href="<?=site_url("$module->module_id")?>">
 				<img src="<?php echo base_url().'images/menubar/'.$module->module_id.'.png';?>" border="0" alt="Menubar Image" /></a><br />
 				<a href="<?php echo site_url("$module->module_id");?>"><?php echo $this->lang->line("module_".$module->module_id) ?></a>
 			</div>
@@ -183,8 +183,10 @@ html {
 				open: function() {
 					$("#logout_overlay").load(href);
 				}
-			});
-			$('.ui-dialog').css('overflow', 'visible');
+			}).parents('.ui-dialog').css({
+				'overflow':'visible'
+			}).find('.ui-dialog-titlebar-close').attr('href',document.location);
+			//$('.ui-dialog').css('overflow', 'visible');
 			e.preventDefault();
 		});
 

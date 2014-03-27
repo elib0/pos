@@ -17,7 +17,7 @@ $lang['common_state']='Estado';
 $lang['common_zip']='C.P.';
 $lang['common_country']='País';
 $lang['common_comments']='Comentarios';
-$lang['common_edit']='editar';
+$lang['common_edit']='Editar';
 $lang['common_search']='Buscar';
 $lang['common_delete']='Borrar';
 $lang['common_view_recent_sales']='Ver Ventas Recientes';
@@ -35,6 +35,6 @@ $lang['common_no_persons_to_display']='No hay gente que mostrar';
 $lang['common_return_policy']='Política de reintegro';
 $lang['common_price']='Precio';
 $lang['common_welcome_message']= 'Bienvenido(a) a Open Source Point Of Sale. ¡Haz click en algún módulo; debajo, para empezar!';
-$lang['common_inv']='inv';
-$lang['common_det']='detalles';
+$lang['common_inv']='Inv';
+$lang['common_det']='Detalles';
 ?>

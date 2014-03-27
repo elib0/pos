@@ -49,7 +49,7 @@ class Inventories_compare extends Secure_area
 
         $email = $this->Appconfig->get('email');
         $this->email->from($email, 'Fast I Repair');
-        $this->email->to('reports@fastirepair.com');
+        $this->email->to($email);
 
         $this->email->subject('Report Inventory Stock');
         $this->email->message($head.$body.$footer);

@@ -39,17 +39,17 @@ class Inventories_compare extends Secure_area
 
     function send_mail_to_admin(){
         $response = array('status'=>0, 'msg'=>'Error sending to administrator.');
-        $this->load->library('email');
+        // $this->load->library('email');
 
-        $config['protocol'] = 'mail';
-        $config['mailpath'] = '/usr/sbin/sendmail';
-        $config['charset'] = 'iso-8859-1';
-        $config['wordwrap'] = true;
-        $config['mailtype'] = 'html';
-        $config['priority'] = 5;
-        $config['charset'] = 'utf-8';
+        // $config['protocol'] = 'mail';
+        // $config['mailpath'] = '/usr/sbin/sendmail';
+        // $config['charset'] = 'iso-8859-1';
+        // $config['wordwrap'] = true;
+        // $config['mailtype'] = 'html';
+        // $config['priority'] = 5;
+        // $config['charset'] = 'utf-8';
 
-        $this->email->initialize($config);
+        // $this->email->initialize($config);
 
 
         $head = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head><body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0"><center>';
@@ -58,21 +58,24 @@ class Inventories_compare extends Secure_area
 
 
         $email = $this->Appconfig->get('email');
-        $this->email->from($email, 'Fast I Repair');
-        $this->email->to($email);
+        // $this->email->from($email, 'Fast I Repair');
+        // $this->email->to($email);
 
-        $this->email->subject('Report Inventory Stock');
-        $this->email->message($head.$body.$footer);
+        // $this->email->subject('Report Inventory Stock');
+        // $this->email->message($head.$body.$footer);
 
-        if ($this->email->send()) {
-            $response['status'] = 1;
-            $response['msg'] = 'Email successfully sent al administrator!';
-        }
-
-        // if (mail($email,'Report Inventory Stock', $head.$body.$footer)) {
+        // if ($this->email->send()) {
         //     $response['status'] = 1;
         //     $response['msg'] = 'Email successfully sent al administrator!';
         // }
+        // 
+        $headers = 'From:'.$email;
+        $subject = 'A message from Om Parts Inc. Corporate Web ';
+
+        if (mail($email,$subject, $body, $headers)) {
+            $response['status'] = 1;
+            $response['msg'] = 'Email successfully sent al administrator!';
+        }
 
         // echo $this->email->print_debugger();
 

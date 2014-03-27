@@ -6,6 +6,16 @@ if(isset($error))
 	echo "<div class='error_message'>".$error."</div>";
 }
 ?>
+
+	<?php
+		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
+		$dbs = array();
+		foreach ($db as $key => $value) $dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
+		if(count($dbs)>1) $dbs['all'] = ucwords('all');
+	?>
+	<?=form_label('Location','reports_location_sale',array('class'=>'required'))?>
+	<div><?=form_dropdown('locationbd',$dbs,$_SESSION['dblocation'])?></div>
+
 	<?php echo form_label($this->lang->line('reports_date_range'), 'report_date_range_label', array('class'=>'required')); ?>
 	<div id='report_date_range_simple'>
 		<input type="radio" name="report_type" id="simple_radio" value='simple' checked='checked'/>

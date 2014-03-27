@@ -86,7 +86,18 @@ $this->load->view("partial/footer");
                     type: 'POST',
                     data: {'report': $('#compare_form').html()},
                     success: function (data) {
-                        // data
+                        console.log(data);
+                        var type_msg = 'error';
+
+                        if (data.status == 1) type_msg='success';
+
+                        notif({
+                            type: type_msg,
+                            msg: data.msg,
+                            width: "all",
+                            height: 100,
+                            position: "center"
+                        });
                     }
                 });
             return false;

@@ -38,18 +38,26 @@ class Inventories_compare extends Secure_area
     }
 
     function send_mail_to_admin(){
+        $response = array('status'=>0, 'msg'=>'Error sending to administrator.');
         $this->load->library('email');
+
+        $body = $this->input->post('report');
 
         $email = $this->Appconfig->get('email');
         $this->email->from($email, 'Fast I Repair');
         $this->email->to('reports@fastirepair.com');
 
         $this->email->subject('Report Inventory Stock');
-        $this->email->message('Prueba');
+        $this->email->message($body);
 
-        $this->email->send();
+        if ($this->email->send()) {
+            $response['status'] = 1;
+            $response['msg'] = 'Email successfully sent al administrator!';
+        }
 
-        echo $this->email->print_debugger();
+        // echo $this->email->print_debugger();
+
+        die( json_encode($response) );
     }
 }
 ?>

@@ -37,7 +37,6 @@ a.none
 	/*background-color:#FFFFFF;*/
 	margin: 0;
 	padding: 0;
-	border-bottom:1px solid #CCCCCC;
 	text-align:center;
 	min-height: 500px
 }
@@ -173,7 +172,6 @@ a.none
 #footer
 {
 	height: 1em;
-	background-color: #fff;
 	position:relative;
 	/*margin-top:25px;
 	margin-bottom:15px;*/

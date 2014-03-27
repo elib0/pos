@@ -1,6 +1,7 @@
 <?php
-//Agregado para el cambio de location bds
+//Agregado para el cambio de location bdsa
 session_start();
+// unset($_SESSION['dblocation']);
 if ( !isset( $_SESSION['dblocation'] ) ) {
 	$_SESSION['dblocation'] = 'default';
 }

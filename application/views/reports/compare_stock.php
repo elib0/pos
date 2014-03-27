@@ -19,17 +19,57 @@ $this->load->view("partial/header");
     .compare-stock input[type=checkbox]:checked + label {
         background: url(images/inputs/checkbox.png) 0px -16px no-repeat;
     }
+
+
+   /* -webkit-border-top-left-radius:5px;
+    -webkit-border-top-right-radius:5px;
+    -webkit-border-bottom-right-radius:0;
+    -webkit-border-bottom-left-radius:0;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+    border-bottom-right-radius:0;
+    border-bottom-left-radius:0;*/
+
+
 </style>
-<?=form_open('inventories_compare/save', array('id'=>'compare_form'))?>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
+<?=form_open('inventories_compare/save', array('id'=>'compare_form'))?>
 <div id="table_holder">
     <table class="tablesorter report compare-stock" id="sortable_table">
         <thead>
-            <tr>
-                <?php foreach ($headers as $header) { ?>
-                <th><?php echo $header; ?></th>
-                <?php } ?>
+            <tr style="text-align: center;">
+                <?php 
+                    $size = count($headers);
+                    $i = 0;
+                    foreach ($headers as $header) { 
+                        switch ($header) {
+                            case 'Id':
+                                $style = ' style=" border-top-left-radius:5px;-webkit-border-top-left-radius:5px; width:5%; padding: 5px" '; 
+                            break;  
+
+                            case 'Item':
+                                $style = ' style=" width:55%; padding: 5px" '; 
+                            break;
+
+                            case 'In Stock':
+                                $style = ' style=" width:10%; padding: 5px" '; 
+                            break;
+
+                            case 'Comment':
+                                $style = ' style=" width:20%; padding: 5px" '; 
+                            break;
+
+                            case 'Checked':
+                                $style = ' style=" border-top-right-radius:5px;-webkit-border-top-right-radius:5px; width:10%; padding: 5px;" '; 
+                            break;
+                        }
+                ?>
+                <th <?php echo $style; ?> ><?php echo $header; ?></th>
+                <?php 
+                        $i++;
+                    } 
+                ?>
             </tr>
         </thead>
         <tbody>
@@ -41,7 +81,7 @@ $this->load->view("partial/header");
                 <td><?php echo $cell; ?></td>
                 <?php } ?>
                 <td>
-                    <?=form_input(array('id'=>'comment'.$row[0], 'name'=>'comment'.$row[0], 'type'=>'text'))?>
+                    <?=form_input(array('id'=>'comment'.$row[0], 'name'=>'comment'.$row[0], 'type'=>'text','style'=>'border:1px solid #CCC; -webkit-border-radius: 5px;-moz-border-radius: 5px; border-radius: 5px;'))?>
                 </td>
                 <td>
                     <?=form_input(array('id'=>'check'.$row[0], 'name'=>'check'.$row[0], 'type'=>'checkbox'))?>
@@ -51,12 +91,14 @@ $this->load->view("partial/header");
             <?php } ?>
         </tbody>
     </table>
-    <a class="linkPrint" href="#">
-        <div class="big_button" style="float: left;"><span>Print</span></div>
-    </a>
-    <a id="btnSendToAdmin" href="index.php/inventories_compare/send_mail_to_admin">
-        <div class="big_button" style="float: left;"><span>Send to Administrator</span></div>
-    </a>
+    <div style="margin: 5px 0">
+        <a class="linkPrint" href="#">
+            <div class="big_button" style="float: left;"><span>Print</span></div>
+        </a>
+        <a id="btnSendToAdmin" href="index.php/inventories_compare/send_mail_to_admin">
+            <div class="big_button" style="float: left; margin-left: 5px"><span>Send to Administrator</span></div>
+        </a>
+    </div>
 </div>
 <?=form_close()?>
 <?php

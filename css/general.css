@@ -163,15 +163,10 @@ label.required
 .warning_message
 {
 	text-align:center;
-	border:1px solid #000;
 	font-weight:bold;
 	background-color:#fff;
-	border-top:none;
+	font-size:11px;
 
-	-webkit-border-bottom-right-radius:5px;
-	-webkit-border-bottom-left-radius:5px;
-	border-bottom-right-radius:5px;
-	border-bottom-left-radius:5px;
 }
 
 .error_message

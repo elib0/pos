@@ -137,7 +137,7 @@ function show_hide_search_filter(search_filter_section, switchImgTag) {
 		<?php
 		if($this->Employee->has_privilege('add', $controller_name)){  
 			echo anchor("$controller_name/view/-1/width:$form_width",
-			"<div class='big_button' style='float: left;'><span>".$this->lang->line($controller_name.'_new')."</span></div>",
+			"<div class='big_button' style='float: left; margin: 0 5px 0 0'><span>".$this->lang->line($controller_name.'_new')."</span></div>",
 			array('class'=>'thickbox none','title'=>$this->lang->line($controller_name.'_new')));
 		}
 		?>
@@ -154,30 +154,47 @@ $dbs = array();
 foreach ($db as $key => $value) $dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
 
 echo form_open("$controller_name/set_location", array('id'=>'form_items_location'));
-echo form_label('Location:', 'locationbd');		
-echo form_dropdown('items_location', $dbs,$items_location, 'id="locationbd"');		
-echo form_close();
+// echo form_label('Location:', 'locationbd');		
+// echo form_dropdown('items_location', $dbs,$items_location, 'id="locationbd"');		
+
 ?>
 
-<div id="titleTextImg" style="background-color:#EEEEEE;height:20px;position:relative;">
-	<div style="float:left;vertical-align:text-top;">Search Options :</div>
+<div class="middle-black-bar">
+	<div>
+		<label for="locationbd" style="display: inline;"><?=form_label('Location:', 'locationbd')?></label>
+		<?=form_dropdown('items_location', $dbs,$items_location, 'id="locationbd" style="display: inline;"');?>
+	</div>
+</div>
+<?php echo form_close(); ?>
+
+
+
+
+
+
+<div id="titleTextImg" class="middle-gray-bar">
+	<div style="float:left;">Search Options :</div>
 	<a id="imageDivLink" href="javascript:show_hide_search_filter('search_filter_section', 'imageDivLink');" style="outline:none;">
 	<img src="
 	<?php echo isset($search_section_state)?  ( ($search_section_state)? base_url().'images/minus.png' : base_url().'images/plus.png') : base_url().'images/plus.png';?>" style="border:0;outline:none;padding:0px;margin:0px;position:relative;top:-5px;"></a>
 </div>
 
-<div id="search_filter_section" style="display: <?php echo isset($search_section_state)?  ( ($search_section_state)? 'block' : 'none') : 'none';?>;background-color:#EEEEEE;">
+<div id="search_filter_section" style="text-align: right; font-weight: bold; height: 30px; font-size: 12px; display: <?php echo isset($search_section_state)?  ( ($search_section_state)? 'block' : 'none') : 'none';?>;">
 	<?php echo form_open("$controller_name/refresh",array('id'=>'items_filter_form')); ?>
 	<?php echo form_label($this->lang->line('items_low_inventory_items').' '.':', 'low_inventory');?>
 	<?php echo form_checkbox(array('name'=>'low_inventory','id'=>'low_inventory','value'=>1,'checked'=> isset($low_inventory)?  ( ($low_inventory)? 1 : 0) : 0)).' | ';?>
 	<?php echo form_label($this->lang->line('items_serialized_items').' '.':', 'is_serialized');?>
 	<?php echo form_checkbox(array('name'=>'is_serialized','id'=>'is_serialized','value'=>1,'checked'=> isset($is_serialized)?  ( ($is_serialized)? 1 : 0) : 0)).' | ';?>
 	<?php echo form_label($this->lang->line('items_no_description_items').' '.':', 'no_description');?>
-	<?php echo form_checkbox(array('name'=>'no_description','id'=>'no_description','value'=>1,'checked'=> isset($no_description)?  ( ($no_description)? 1 : 0) : 0)).' | ';?>
+	<?php echo form_checkbox(array('name'=>'no_description','id'=>'no_description','value'=>1,'checked'=> isset($no_description)?  ( ($no_description)? 1 : 0) : 0));?>
 	<input type="hidden" name="search_section_state" id="search_section_state" value="<?php echo isset($search_section_state)?  ( ($search_section_state)? 'block' : 'none') : 'none';?>" />
 	</form>
 </div>
-<?php echo $this->pagination->create_links();?>
+
+<div style="height: 30px; margin: 3px 0 3px 0">
+	<?php $this->pagination->create_links();?>
+</div>
+
 <div id="table_action_header">
 	<ul>
 		<?php if($this->Employee->has_privilege('delete', $controller_name)):  ?>
@@ -188,7 +205,7 @@ echo form_close();
 		<li class="float_right">
 		<img src='<?php echo base_url()?>images/spinner_small.gif' alt='spinner' id='spinner' />
 		<?php echo form_open("$controller_name/search",array('id'=>'search_form')); ?>
-		<input type="text" name ='search' id='search'/>
+		<input type="text" name ='search' id='search' placeholder="Search ..." style ="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #CCC "/>
 		</form>
 		</li>
 	</ul>

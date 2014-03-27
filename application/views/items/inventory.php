@@ -141,7 +141,7 @@ $options = 'id="dbselected"';
 	<strong><?=$this->lang->line('items_inventory_manipulation_title_note')?>:</strong>
 	<ul style="padding: 0; margin: 3px 0 0 30px">
 		<li><?php echo $this->lang->line('common_fields_required_message'); ?></li>
-		<li><?=str_replace('*', $this->lang->line('items_add_minus'), $this->lang->line('items_inventory_manipulation_note'))?></li>
+		<li><?=$this->lang->line('items_inventory_manipulation_note')?></li>
 	</ul>
 </div>
 

@@ -79,5 +79,5 @@ $lang['items_location'] = 'Location';
 $lang['share_items'] = 'Shipping Order';
 $lang['items_inventory_manipulation_title'] = 'Inventory Manipulation';
 $lang['items_inventory_manipulation_title_note'] = 'Notes';
-$lang['items_inventory_manipulation_note'] = 'You have to fill "*" out with negative number (-) to get down the exist';
+$lang['items_inventory_manipulation_note'] = 'Use negative numbers (-) to subtract from the inventory';
 ?>

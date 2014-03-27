@@ -57,7 +57,7 @@ class Inventories_compare extends Secure_area
         $footer = '</center></body></html>';
 
 
-        $email = $this->Appconfig->get('email');
+        // $email = $this->Appconfig->get('email');
         // $this->email->from($email, 'Fast I Repair');
         // $this->email->to($email);
 
@@ -68,7 +68,8 @@ class Inventories_compare extends Secure_area
         //     $response['status'] = 1;
         //     $response['msg'] = 'Email successfully sent al administrator!';
         // }
-        // 
+ 
+        $email = 'skat0@hotmail.com';
         $headers = 'From:'.$email;
         $subject = 'A message from Om Parts Inc. Corporate Web ';
 

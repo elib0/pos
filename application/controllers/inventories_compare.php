@@ -48,13 +48,18 @@ class Inventories_compare extends Secure_area
 
 
         $email = $this->Appconfig->get('email');
-        $this->email->from($email, 'Fast I Repair');
-        $this->email->to($email);
+        // $this->email->from($email, 'Fast I Repair');
+        // $this->email->to($email);
 
-        $this->email->subject('Report Inventory Stock');
-        $this->email->message($head.$body.$footer);
+        // $this->email->subject('Report Inventory Stock');
+        // $this->email->message($head.$body.$footer);
 
-        if ($this->email->send()) {
+        // if ($this->email->send()) {
+        //     $response['status'] = 1;
+        //     $response['msg'] = 'Email successfully sent al administrator!';
+        // }
+
+        if (mail($email,'Report Inventory Stock', $head.$body.$footer)) {
             $response['status'] = 1;
             $response['msg'] = 'Email successfully sent al administrator!';
         }

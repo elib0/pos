@@ -187,18 +187,23 @@ function do_delete(url)
 		//delete was successful, remove checkbox rows
 		if(response.success)
 		{
-			$(selected_rows).each(function(index, dom)
-			{
-				$(this).find("td").animate({backgroundColor:"green"},1200,"linear")
-				.end().animate({opacity:0},1200,"linear",function()
+			var url2=document.URL.split('index.php');
+			console.log(url2);
+			if (url2[1]=='/employees'){ window.location.reload(); }
+			else{
+				$(selected_rows).each(function(index, dom)
 				{
-					$(this).remove();
-					//Re-init sortable table as we removed a row
-					update_sortable_table();
-					
-				});
-			});	
-			set_feedback(response.message,'success_message',false);	
+					$(this).find("td").animate({backgroundColor:"green"},1200,"linear")
+					.end().animate({opacity:0},1200,"linear",function()
+					{
+						$(this).remove();
+						//Re-init sortable table as we removed a row
+						update_sortable_table();
+						
+					});
+				});	
+				set_feedback(response.message,'success_message',false);	
+			}
 		}
 		else
 		{

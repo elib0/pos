@@ -77,4 +77,7 @@ $lang['items_manually_editing_of_quantity'] = 'Manual Edit of Quantity';
 $lang['items_inventory'] = 'Inventory';
 $lang['items_location'] = 'Location';
 $lang['share_items'] = 'Shipping Order';
+$lang['items_inventory_manipulation_title'] = 'Inventory Manipulation';
+$lang['items_inventory_manipulation_title_note'] = 'Notes';
+$lang['items_inventory_manipulation_note'] = 'Use negative numbers (-) to subtract from the inventory';
 ?>

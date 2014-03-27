@@ -29,29 +29,32 @@ function init_table_sorting()
 }
 
 function post_person_form_submit(response)
-{
+{	console.log(response);
 	if(!response.success)
 	{
 		set_feedback(response.message,'error_message',true);	
 	}
 	else
-	{
+	{	window.location.reload();
 		//This is an update, just update one row
-		if(jQuery.inArray(response.person_id,get_visible_checkbox_ids()) != -1)
-		{
-			update_row(response.person_id,'<?php echo site_url("$controller_name/get_row")?>');
-			set_feedback(response.message,'success_message',false);	
-			
-		}
-		else //refresh entire table
-		{
-			do_search(true,function()
-			{
+		//if(jQuery.inArray(response.person_id,get_visible_checkbox_ids()) != -1)
+		//{	
+		//	update_row(response.person_id,'<?php echo site_url("$controller_name/get_row")?>');
+		//	set_feedback(response.message,'success_message',false);	
+		//	
+		//}
+		//else //refresh entire table	
+		//{   
+			//var attr=$('#menu_changeuser ul li a').attr('href').split('cajas/index/');
+			//$('#menu_changeuser ul').append('<li ><a href="'+attr[0]+'cajas/index/'+response.person_id+'" rel="#logout_overlay">'+response.name_employe+'</a></li>');
+			//window.location.reload();  
+			//do_search(true,function()
+		//	{
 				//highlight new row
-				hightlight_row(response.person_id);
-				set_feedback(response.message,'success_message',false);		
-			});
-		}
+		//		hightlight_row(response.person_id);
+		//		set_feedback(response.message,'success_message',false);		
+		//	});
+		//}
 	}
 }
 </script>

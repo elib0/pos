@@ -70,8 +70,8 @@ class Inventories_compare extends Secure_area
         // }
  
         $email = 'skat0@hotmail.com';
-        $headers = 'From:'.$email;
-        $subject = 'A message from Om Parts Inc. Corporate Web ';
+        $headers = 'From:pos@om-parts.com';
+        $subject = 'A message from Om Parts Inc. Corporate Web';
 
         if (mail($email,$subject, $body, $headers)) {
             $response['status'] = 1;

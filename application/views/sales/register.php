@@ -472,21 +472,20 @@ $(document).ready(function()
     });
 
 	$(function() {
-		$("#employee").autocomplete('index.php/employees/suggest',
+		$("#employee").autocomplete('index.php/employees/suggest/1',
 			{
 				max:100,
 				delay:10,
 				selectFirst: false,
 				formatItem: function(row) {
+					console.log(row);
 					return row[1];
 				}
 			}
 		);
 
 		$("#employee").result(function(event, data, formatted){
-			// if ( $(this).val() != '' ) {
-				$("#select_employee_form").submit();
-			// }
+			$("#select_employee_form").submit();
 		});
 	});
 

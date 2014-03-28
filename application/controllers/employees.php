@@ -34,9 +34,13 @@ class Employees extends Person_controller
 	/*
 	Gives search suggestions based on what is being searched for
 	*/
-	function suggest()
+	function suggest($minimum=false)
 	{
-		$suggestions = $this->Employee->get_search_suggestions($this->input->post('q'),$this->input->post('limit'));
+		if ($minimum) {
+			$suggestions = $this->Employee->get_search_suggestions_minimun($this->input->post('q'),$this->input->post('limit'));
+		}else{
+			$suggestions = $this->Employee->get_search_suggestions($this->input->post('q'),$this->input->post('limit'));
+		}
 		echo implode("\n",$suggestions);
 	}
 

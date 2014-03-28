@@ -128,15 +128,15 @@ html {
 			<div id="time" style="display:inline;"></div>
 			<!-- <div id="state_server">
 				<?php
-					include 'application/config/database.php';
-					$url = $db[$active_group]['onlinehost'];
-					$port = $db[$active_group]['onlineport'];
-					$conn = @fsockopen($url, $port, $errno, $errstr, 30);
-					if ($conn) { 
-						echo '<div class="server-online"></div>'; 
-					} else { 
-						echo '<div class="server-offonline"></div>';  
-					} 
+					// include 'application/config/database.php';
+					// $url = $db[$active_group]['onlinehost'];
+					// $port = $db[$active_group]['onlineport'];
+					// $conn = @fsockopen($url, $port, $errno, $errstr, 30);
+					// if ($conn) { 
+					// 	echo '<div class="server-online"></div>'; 
+					// } else { 
+					// 	echo '<div class="server-offonline"></div>';  
+					// } 
 				?>
 			</div> -->
 		</div>

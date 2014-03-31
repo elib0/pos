@@ -33,6 +33,7 @@ class Reports extends Secure_area
 	function date_input_excel_export()
 	{
 		$data = $this->_get_common_report_data();
+		$data['report_name'] = ucwords( str_replace('_',' ',$this->uri->segment(2)) );
 		$this->load->view("reports/date_input_excel_export",$data);	
 	}
 	
@@ -334,7 +335,9 @@ class Reports extends Secure_area
 	//Input for reports that require only a date range. (see routes.php to see that all graphical summary reports route here)
 	function date_input()
 	{
+
 		$data = $this->_get_common_report_data();
+		$data['report_name'] = ucwords( str_replace('_',' ',$this->uri->segment(2)) );
 		$this->load->view("reports/date_input",$data);	
 	}
 	
@@ -974,7 +977,8 @@ class Reports extends Secure_area
 			
 	function excel_export()
 	{
-		$this->load->view("reports/excel_export",array());		
+		$data['report_name'] = ucwords( str_replace('_',' ',$this->uri->segment(2)) );
+		$this->load->view("reports/excel_export",$data);		
 	}
 	
 	function inventory_low($export_excel=0,$location='default')

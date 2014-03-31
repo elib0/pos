@@ -981,7 +981,8 @@ class Reports extends Secure_area
 			
 	function excel_export()
 	{
-		$this->load->view("reports/excel_export",array());		
+		$data['report_name'] = ucwords( str_replace('_',' ',$this->uri->segment(2)) );
+		$this->load->view("reports/excel_export",$data);		
 	}
 	
 	function inventory_low($export_excel=0,$location='default')

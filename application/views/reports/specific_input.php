@@ -12,8 +12,7 @@ if(isset($error))
 		foreach ($db as $key => $value) $dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
 		if(count($dbs)>1) $dbs['all'] = ucwords('all');
 	?>
-	<?=form_label('Location','reports_location_sale',array('class'=>'required'))?>
-	<div><?=form_dropdown('locationbd',$dbs,$_SESSION['dblocation'])?></div>
+	<div>Location:<?=form_dropdown('locationbd', $dbs,'', 'id="locationbd"')?></div>
 
 	<?php echo form_label($this->lang->line('reports_date_range'), 'report_date_range_label', array('class'=>'required')); ?>
 	<div id='report_date_range_simple'>
@@ -66,22 +65,19 @@ $(document).ready(function()
 	{
 		var sale_type = $("#sale_type").val();
 		var export_excel = 0;
-		if ($("#export_excel_yes").attr('checked'))
-		{
-			export_excel = 1;
-		}
+		if ($("#export_excel_yes").attr('checked')){ export_excel = 1; }
 		
 		if ($("#simple_radio").attr('checked'))
 		{
 			window.location = window.location+'/'+$("#report_date_range_simple option:selected").val()+ '/' + $('#specific_input_data').val() + '/' + sale_type
-			+ '/' + export_excel;
+			+ '/' + export_excel+'/'+$('#locationbd').val();
 		}
 		else
 		{
 			var start_date = $("#start_year").val()+'-'+$("#start_month").val()+'-'+$('#start_day').val();
 			var end_date = $("#end_year").val()+'-'+$("#end_month").val()+'-'+$('#end_day').val();
 			
-			window.location = window.location+'/'+start_date + '/'+ end_date + '/' + $('#specific_input_data').val() + '/' + sale_type + '/'+ export_excel;
+			window.location = window.location+'/'+start_date + '/'+ end_date + '/' + $('#specific_input_data').val() + '/' + sale_type + '/'+ export_excel+'/'+$('#locationbd').val();
 		}
 	});
 	

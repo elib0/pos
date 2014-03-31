@@ -16,33 +16,35 @@ class Detailed_sales extends Report
 	
 	public function getData(array $inputs)
 	{
-		$this->db->select('sale_id, sale_date, sum(quantity_purchased) as items_purchased, CONCAT(employee.first_name," ",employee.last_name) as employee_name, CONCAT(customer.first_name," ",customer.last_name) as customer_name, sum(subtotal) as subtotal, sum(total) as total, sum(tax) as tax, sum(profit) as profit, payment_type, comment', false);
-		$this->db->from('sales_items_temp');
-		$this->db->join('people as employee', 'sales_items_temp.employee_id = employee.person_id');
-		$this->db->join('people as customer', 'sales_items_temp.customer_id = customer.person_id', 'left');
-		$this->db->where('sale_date BETWEEN "'. $inputs['start_date']. '" and "'. $inputs['end_date'].'"');
+		$this->con->select('sale_id, sale_date, sum(quantity_purchased) as items_purchased, CONCAT(employee.first_name," ",employee.last_name) as employee_name, CONCAT(customer.first_name," ",customer.last_name) as customer_name, sum(subtotal) as subtotal, sum(total) as total, sum(tax) as tax, sum(profit) as profit, payment_type, comment', false);
+		$this->con->from('sales_items_temp');
+		$this->con->join('people as employee', 'sales_items_temp.employee_id = employee.person_id');
+		$this->con->join('people as customer', 'sales_items_temp.customer_id = customer.person_id', 'left');
+		$this->con->where('sale_date BETWEEN "'. $inputs['start_date']. '" and "'. $inputs['end_date'].'"');
 		if ($inputs['sale_type'] == 'sales')
 		{
-			$this->db->where('quantity_purchased > 0');
+			$this->con->where('quantity_purchased > 0');
 		}
 		elseif ($inputs['sale_type'] == 'returns')
 		{
-			$this->db->where('quantity_purchased < 0');
+			$this->con->where('quantity_purchased < 0');
 		}
-		$this->db->group_by('sale_id');
-		$this->db->order_by('sale_date');
+		$this->con->group_by('sale_id');
+		$this->con->order_by('sale_date');
 
 		$data = array();
-		$data['summary'] = $this->db->get()->result_array();
+
+		$data['summary'] = $this->con->get()->result_array();
+		$data['sql'] = $this->con->last_query();
 		$data['details'] = array();
 		
 		foreach($data['summary'] as $key=>$value)
 		{
-			$this->db->select('name, category, quantity_purchased, serialnumber, sales_items_temp.description, subtotal,total, tax, profit, discount_percent');
-			$this->db->from('sales_items_temp');
-			$this->db->join('items', 'sales_items_temp.item_id = items.item_id');
-			$this->db->where('sale_id = '.$value['sale_id']);
-			$data['details'][$key] = $this->db->get()->result_array();
+			$this->con->select('name, category, quantity_purchased, serialnumber, sales_items_temp.description, subtotal,total, tax, profit, discount_percent');
+			$this->con->from('sales_items_temp');
+			$this->con->join('items', 'sales_items_temp.item_id = items.item_id');
+			$this->con->where('sale_id = '.$value['sale_id']);
+			$data['details'][$key] = $this->con->get()->result_array();
 		}
 		
 		return $data;
@@ -50,19 +52,21 @@ class Detailed_sales extends Report
 	
 	public function getSummaryData(array $inputs)
 	{
-		$this->db->select('sum(subtotal) as subtotal, sum(total) as total, sum(tax) as tax, sum(profit) as profit');
-		$this->db->from('sales_items_temp');
-		$this->db->where('sale_date BETWEEN "'. $inputs['start_date']. '" and "'. $inputs['end_date'].'"');
+		$this->con->select('sum(subtotal) as subtotal, sum(total) as total, sum(tax) as tax, sum(profit) as profit');
+		$this->con->from('sales_items_temp');
+		$this->con->join('people as employee', 'sales_items_temp.employee_id = employee.person_id');
+		$this->con->join('people as customer', 'sales_items_temp.customer_id = customer.person_id', 'left');
+		$this->con->where('sale_date BETWEEN "'. $inputs['start_date']. '" and "'. $inputs['end_date'].'"');
 		if ($inputs['sale_type'] == 'sales')
 		{
-			$this->db->where('quantity_purchased > 0');
+			$this->con->where('quantity_purchased > 0');
 		}
 		elseif ($inputs['sale_type'] == 'returns')
 		{
-			$this->db->where('quantity_purchased < 0');
+			$this->con->where('quantity_purchased < 0');
 		}
 		
-		return $this->db->get()->row_array();
+		return $this->con->get()->row_array();
 	}
 }
 ?>

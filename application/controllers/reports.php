@@ -337,31 +337,40 @@ class Reports extends Secure_area
 		$data = $this->_get_common_report_data();
 		$this->load->view("reports/date_input",$data);	
 	}
+
+	//
+	function get_locations($location='default'){
+		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
+		if($location!='all') return array($location);
+		foreach($db as $key=>$con)
+			$locations[]=$key;
+		return $locations;
+	}
 	
 	//Graphical summary sales report
-	function graphical_summary_sales($start_date, $end_date, $sale_type,$location='default')
+	function graphical_summary_sales($start_date,$end_date,$sale_type,$export_excel,$location='default')
 	{
-
 		$this->load->model('reports/Summary_sales');
 		$model = $this->Summary_sales;
-		$this->Sale->con=$model->stabledb($location,true);
-		$this->Sale->create_sales_items_temp_table();
-		$this->Receiving->con=$this->Sale->con;
-		$this->Receiving->create_receivings_items_temp_table();
 		//Fixes Eli para que mueestre ho o rango de fecha
-		$rangeDays = (date('m/d/Y', strtotime($start_date)) == date('m/d/Y', strtotime($end_date))) ? 'Today' : date('m/d/Y', strtotime($start_date)) .'-'.date('m/d/Y', strtotime($end_date)) ;
+		$rangeDays = (date('m/d/Y', strtotime($start_date)) == date('m/d/Y', strtotime($end_date))) ? 'Today' : date('m/d/Y', strtotime($start_date)).'-'.date('m/d/Y', strtotime($end_date));
 
-		$data = array(
-			"title" => $this->lang->line('reports_sales_summary_report'),
-			"data_file" => site_url("reports/graphical_summary_sales_graph/$start_date/$end_date/$sale_type/$location"),
-			"subtitle" => $rangeDays,
-			"location"=>$location,
-			"summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'sale_type' => $sale_type))
-		);
-		$this->load->view("partial/header");
-		$this->load->view("reports/graphical",$data);
-		$this->load->view("reports/graphical",$data);
-		$this->load->view("partial/footer");
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$this->Sale->con=$model->stabledb($location,true);
+			$this->Sale->create_sales_items_temp_table();
+			$this->Receiving->con=$this->Sale->con;
+			$this->Receiving->create_receivings_items_temp_table();
+			$data['data'][] = array(
+				"title" => $this->lang->line('reports_sales_summary_report'),
+				"data_file" => site_url("reports/graphical_summary_sales_graph/$start_date/$end_date/$sale_type/$location"),
+				"subtitle" => $rangeDays,
+				"location"=>$location,
+				"summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'sale_type' => $sale_type))
+			);
+		}
+		$data['view']='reports/graphical';
+		$this->load->view("reports/format_reports",$data);
 
 	}
 	
@@ -398,23 +407,25 @@ class Reports extends Secure_area
 	{
 		$this->load->model('reports/Summary_items');
 		$model = $this->Summary_items;
-		$this->Sale->con=$model->stabledb($location,true);
-		$this->Sale->create_sales_items_temp_table();
-		$this->Receiving->con=$this->Sale->con;
-		$this->Receiving->create_receivings_items_temp_table();
-
 		//Fixes Eli para que mueestre ho o rango de fecha
 		$rangeDays = (date('m/d/Y', strtotime($start_date)) == date('m/d/Y', strtotime($end_date))) ? 'Today' : date('m/d/Y', strtotime($start_date)) .'-'.date('m/d/Y', strtotime($end_date)) ;
 
-		$data = array(
-			"title" => $this->lang->line('reports_items_summary_report'),
-			"data_file" => site_url("reports/graphical_summary_items_graph/$start_date/$end_date/$sale_type/$location"),
-			"subtitle" => $rangeDays,
-			"location"=>$location,
-			"summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'sale_type' => $sale_type))
-		);
-
-		$this->load->view("reports/graphical",$data);
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$this->Sale->con=$model->stabledb($location,true);
+			$this->Sale->create_sales_items_temp_table();
+			$this->Receiving->con=$this->Sale->con;
+			$this->Receiving->create_receivings_items_temp_table();
+			$data['data'][] = array(
+				"title" => $this->lang->line('reports_items_summary_report'),
+				"data_file" => site_url("reports/graphical_summary_items_graph/$start_date/$end_date/$sale_type/$location"),
+				"subtitle" => $rangeDays,
+				"location"=>$location,
+				"summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'sale_type' => $sale_type))
+			);
+		}
+		$data['view']='reports/graphical';
+		$this->load->view("reports/format_reports",$data);
 	}
 	
 	//The actual graph data
@@ -449,22 +460,25 @@ class Reports extends Secure_area
 	{
 		$this->load->model('reports/Summary_categories');
 		$model = $this->Summary_categories;
-		$this->Sale->con=$model->stabledb($location,true);
-		$this->Sale->create_sales_items_temp_table();
-		$this->Receiving->con=$this->Sale->con;
-		$this->Receiving->create_receivings_items_temp_table();
 		//Fixes Eli para que mueestre ho o rango de fecha
 		$rangeDays = (date('m/d/Y', strtotime($start_date)) == date('m/d/Y', strtotime($end_date))) ? 'Today' : date('m/d/Y', strtotime($start_date)) .'-'.date('m/d/Y', strtotime($end_date)) ;
 
-		$data = array(
-			"title" => $this->lang->line('reports_categories_summary_report'),
-			"data_file" => site_url("reports/graphical_summary_categories_graph/$start_date/$end_date/$sale_type/$location"),
-			"subtitle" => $rangeDays,
-			"location"=>$location,
-			"summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'sale_type' => $sale_type))
-		);
-
-		$this->load->view("reports/graphical",$data);
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$this->Sale->con=$model->stabledb($location,true);
+			$this->Sale->create_sales_items_temp_table();
+			$this->Receiving->con=$this->Sale->con;
+			$this->Receiving->create_receivings_items_temp_table();
+			$data['data'][] = array(
+				"title" => $this->lang->line('reports_categories_summary_report'),
+				"data_file" => site_url("reports/graphical_summary_categories_graph/$start_date/$end_date/$sale_type/$location"),
+				"subtitle" => $rangeDays,
+				"location"=>$location,
+				"summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'sale_type' => $sale_type))
+			);
+		}
+		$data['view']="reports/graphical";
+		$this->load->view("reports/format_reports",$data);
 	}
 	
 	//The actual graph data
@@ -635,27 +649,29 @@ class Reports extends Secure_area
 	}
 	
 	//Graphical summary customers report
-	function graphical_summary_customers($start_date, $end_date, $sale_type,$location='default')
+	function graphical_summary_customers($start_date,$end_date,$sale_type,$location='default')
 	{
 		$this->load->model('reports/Summary_customers');
 		$model = $this->Summary_customers;
-		$this->Sale->con=$model->stabledb($location,true);
-		$this->Sale->create_sales_items_temp_table();
-		$this->Receiving->con=$this->Sale->con;
-		$this->Receiving->create_receivings_items_temp_table();
-
 		//Fixes Eli para que mueestre ho o rango de fecha
 		$rangeDays = (date('m/d/Y', strtotime($start_date)) == date('m/d/Y', strtotime($end_date))) ? 'Today' : date('m/d/Y', strtotime($start_date)) .'-'.date('m/d/Y', strtotime($end_date)) ;
 
-		$data = array(
-			"title" => $this->lang->line('reports_customers_summary_report'),
-			"data_file" => site_url("reports/graphical_summary_customers_graph/$start_date/$end_date/$sale_type/$location"),
-			"subtitle" => $rangeDays,
-			"location"=>$location,
-			"summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'sale_type' => $sale_type))
-		);
-
-		$this->load->view("reports/graphical",$data);
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$this->Sale->con=$model->stabledb($location,true);
+			$this->Sale->create_sales_items_temp_table();
+			$this->Receiving->con=$this->Sale->con;
+			$this->Receiving->create_receivings_items_temp_table();
+			$data['data'][] = array(
+				"title" => $this->lang->line('reports_customers_summary_report'),
+				"data_file" => site_url("reports/graphical_summary_customers_graph/$start_date/$end_date/$sale_type/$location"),
+				"subtitle" => $rangeDays,
+				"location"=>$location,
+				"summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'sale_type' => $sale_type))
+			);
+		}
+		$data['view']="reports/graphical";
+		$this->load->view("reports/format_reports",$data);
 	}
 	
 	//The actual graph data

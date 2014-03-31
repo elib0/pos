@@ -44,6 +44,7 @@ if($export_excel == 1){
 	<div class="summary_row"><?php echo $this->lang->line('reports_'.$name). ': '.to_currency($value); ?></div>
 <?php }?>
 </div>
+<div id="location_id" style="margin: 0 auto;text-align: center;">Location:<?=$location?></div>
 <?php 
 if($export_excel == 1){
 	$this->load->view("partial/footer_excel");

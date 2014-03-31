@@ -33,6 +33,7 @@ swfobject.embedSWF(
 	<div class="summary_row"><?php echo $this->lang->line('reports_'.$name). ': '.to_currency($value); ?></div>
 <?php }?>
 </div>
+<div id="location_id" style="margin: 0 auto;text-align: center;">Location:<?=$location?></div>
 <a class="linkBack" href="#">
     <div class="big_button" style="float: left;"><span>Back</span></div>
 </a>

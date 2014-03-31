@@ -33,6 +33,7 @@ class Reports extends Secure_area
 	function date_input_excel_export()
 	{
 		$data = $this->_get_common_report_data();
+		$data['report_name'] = ucwords( str_replace('_',' ',$this->uri->segment(2)) );
 		$this->load->view("reports/date_input_excel_export",$data);	
 	}
 	
@@ -334,7 +335,9 @@ class Reports extends Secure_area
 	//Input for reports that require only a date range. (see routes.php to see that all graphical summary reports route here)
 	function date_input()
 	{
+
 		$data = $this->_get_common_report_data();
+		$data['report_name'] = ucwords( str_replace('_',' ',$this->uri->segment(2)) );
 		$this->load->view("reports/date_input",$data);	
 	}
 
@@ -804,10 +807,6 @@ class Reports extends Secure_area
 	{
 		$data = $this->_get_common_report_data();
 		$data['specific_input_name'] = $this->lang->line('reports_customer');
-		$this->Sale->con=$model->stabledb($location,true);
-		$this->Sale->create_sales_items_temp_table();
-		$this->Receiving->con=$this->Sale->con;
-		$this->Receiving->create_receivings_items_temp_table();
 		$customers = array();
 		foreach($this->Customer->get_all()->result() as $customer)
 		{
@@ -817,11 +816,11 @@ class Reports extends Secure_area
 		$this->load->view("reports/specific_input",$data);	
 	}
 
-	function specific_customer($start_date, $end_date, $customer_id, $sale_type, $export_excel=0,$location='default')
+	function specific_customer($start_date, $end_date, $customer_id, $sale_type, $export_excel=0)
 	{
 		$this->load->model('reports/Specific_customer');
 		$model = $this->Specific_customer;
-		$this->Sale->con=$model->stabledb($location,true);
+		$this->Sale->con=$model->stabledb('default',true);
 		$this->Sale->create_sales_items_temp_table();
 		$this->Receiving->con=$this->Sale->con;
 		$this->Receiving->create_receivings_items_temp_table();
@@ -914,12 +913,13 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular_details",$data);
 	}
 	
-	function detailed_sales($start_date, $end_date, $sale_type, $export_excel=0,$location='default')
+	function detailed_sales($start_date, $end_date, $sale_type, $location='default')
 	{
 		$this->load->model('reports/Detailed_sales');
 		$model = $this->Detailed_sales;
 		$this->Sale->con=$model->stabledb($location,true);
 		$this->Sale->create_sales_items_temp_table();
+		$export_excel=0;
 		//$this->Receiving->con=$this->Sale->con;
 		//$this->Receiving->create_receivings_items_temp_table();
 		$headers = $model->getDataColumns();
@@ -955,8 +955,8 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular_details",$data);
 	}
 	
-	function detailed_receivings($start_date, $end_date, $sale_type, $export_excel=0,$location='default')
-	{
+	function detailed_receivings($start_date, $end_date, $sale_type, $location='default')
+	{	$export_excel=0;
 		$this->load->model('reports/Detailed_receivings');
 		$model = $this->Detailed_receivings;
 		$this->Sale->con=$model->stabledb($location,true);
@@ -998,7 +998,8 @@ class Reports extends Secure_area
 			
 	function excel_export()
 	{
-		$this->load->view("reports/excel_export",array());		
+		$data['report_name'] = ucwords( str_replace('_',' ',$this->uri->segment(2)) );
+		$this->load->view("reports/excel_export",$data);		
 	}
 	
 	function inventory_low($export_excel=0,$location='default')

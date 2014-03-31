@@ -132,7 +132,7 @@ else
         	<?php else: ?>
         		<select name="quantity" class="select-edit-item" ref="<?php echo $item['item_id']; ?>">
 	            <?php 
-	            for ($i=0; $i < $item['quantity_total']-$item['reorder']; $i++) {
+	            for ($i=0; $i < $item['quantity_total']; $i++) {
 	                $j = $i+1; 
 	                $selected = ($j == $item['quantity']) ? ' selected' : '';
 	                echo '<option value="'.$j.'"'.$selected.'>'.$j.'</option>';

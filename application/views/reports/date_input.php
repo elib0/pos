@@ -1,5 +1,5 @@
 <?php $this->load->view("partial/header"); ?>
-<div id="page_title" style="margin-bottom:8px;"><?php echo $this->lang->line('reports_report_input'); ?></div>
+<div id="page_title" style="margin-bottom:8px;"><?php echo $report_name.' '.$this->lang->line('reports_report_input'); ?></div>
 <?php
 if(isset($error))
 {
@@ -56,13 +56,13 @@ $(document).ready(function()
 		
 		if ($("#simple_radio").attr('checked'))
 		{
-			window.location = window.location+'/'+$("#report_date_range_simple option:selected").val() + '/' + sale_type+'/0/'+$('#locationbd').val();
+			window.location = window.location+'/'+$("#report_date_range_simple option:selected").val() + '/' + sale_type+'/'+$('#locationbd').val();
 		}
 		else
 		{
 			var start_date = $("#start_year").val()+'-'+$("#start_month").val()+'-'+$('#start_day').val();
 			var end_date = $("#end_year").val()+'-'+$("#end_month").val()+'-'+$('#end_day').val();
-			window.location = window.location+'/'+start_date + '/'+ end_date+ '/' + sale_type+'/0/'+$('#locationbd').val();
+			window.location = window.location+'/'+start_date + '/'+ end_date+ '/' + sale_type+'/'+$('#locationbd').val();
 		}
 	});
 	

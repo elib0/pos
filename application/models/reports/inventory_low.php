@@ -1,7 +1,7 @@
 <?php
 require_once("report.php");
 class Inventory_low extends Report
-{
+{	
 	function __construct()
 	{
 		parent::__construct();
@@ -14,12 +14,12 @@ class Inventory_low extends Report
 	
 	public function getData(array $inputs)
 	{
-		$this->db->select('name, item_number, quantity, reorder_level, description');
-		$this->db->from('items');
-		$this->db->where('quantity <= reorder_level and deleted=0');
-		$this->db->order_by('name');
+		$this->con->select('name, item_number, quantity, reorder_level, description');
+		$this->con->from('items');
+		$this->con->where('quantity <= reorder_level and deleted=0');
+		$this->con->order_by('name');
 		
-		return $this->db->get()->result_array();
+		return $this->con->get()->result_array();
 
 	}
 	

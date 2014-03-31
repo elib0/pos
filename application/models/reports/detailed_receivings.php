@@ -16,33 +16,33 @@ class Detailed_receivings extends Report
 	
 	public function getData(array $inputs)
 	{
-		$this->db->select('receiving_id, receiving_date, sum(quantity_purchased) as items_purchased, CONCAT(employee.first_name," ",employee.last_name) as employee_name, CONCAT(supplier.first_name," ",supplier.last_name) as supplier_name, sum(total) as total, sum(profit) as profit, payment_type, comment', false);
-		$this->db->from('receivings_items_temp');
-		$this->db->join('people as employee', 'receivings_items_temp.employee_id = employee.person_id');
-		$this->db->join('people as supplier', 'receivings_items_temp.supplier_id = supplier.person_id', 'left');
-		$this->db->where('receiving_date BETWEEN "'. $inputs['start_date']. '" and "'. $inputs['end_date'].'"');
+		$this->con->select('receiving_id, receiving_date, sum(quantity_purchased) as items_purchased, CONCAT(employee.first_name," ",employee.last_name) as employee_name, CONCAT(supplier.first_name," ",supplier.last_name) as supplier_name, sum(total) as total, sum(profit) as profit, payment_type, comment', false);
+		$this->con->from('receivings_items_temp');
+		$this->con->join('people as employee', 'receivings_items_temp.employee_id = employee.person_id');
+		$this->con->join('people as supplier', 'receivings_items_temp.supplier_id = supplier.person_id', 'left');
+		$this->con->where('receiving_date BETWEEN "'. $inputs['start_date']. '" and "'. $inputs['end_date'].'"');
 		if ($inputs['sale_type'] == 'sales')
 		{
-			$this->db->where('quantity_purchased > 0');
+			$this->con->where('quantity_purchased > 0');
 		}
 		elseif ($inputs['sale_type'] == 'returns')
 		{
-			$this->db->where('quantity_purchased < 0');
+			$this->con->where('quantity_purchased < 0');
 		}
-		$this->db->group_by('receiving_id');
-		$this->db->order_by('receiving_date');
+		$this->con->group_by('receiving_id');
+		$this->con->order_by('receiving_date');
 
 		$data = array();
-		$data['summary'] = $this->db->get()->result_array();
+		$data['summary'] = $this->con->get()->result_array();
 		$data['details'] = array();
 		
 		foreach($data['summary'] as $key=>$value)
 		{
-			$this->db->select('name, category, quantity_purchased, serialnumber,total, discount_percent');
-			$this->db->from('receivings_items_temp');
-			$this->db->join('items', 'receivings_items_temp.item_id = items.item_id');
-			$this->db->where('receiving_id = '.$value['receiving_id']);
-			$data['details'][$key] = $this->db->get()->result_array();
+			$this->con->select('name, category, quantity_purchased, serialnumber,total, discount_percent');
+			$this->con->from('receivings_items_temp');
+			$this->con->join('items', 'receivings_items_temp.item_id = items.item_id');
+			$this->con->where('receiving_id = '.$value['receiving_id']);
+			$data['details'][$key] = $this->con->get()->result_array();
 		}
 		
 		return $data;
@@ -50,18 +50,18 @@ class Detailed_receivings extends Report
 	
 	public function getSummaryData(array $inputs)
 	{
-		$this->db->select('sum(total) as total');
-		$this->db->from('receivings_items_temp');
-		$this->db->where('receiving_date BETWEEN "'. $inputs['start_date']. '" and "'. $inputs['end_date'].'"');
+		$this->con->select('sum(total) as total');
+		$this->con->from('receivings_items_temp');
+		$this->con->where('receiving_date BETWEEN "'. $inputs['start_date']. '" and "'. $inputs['end_date'].'"');
 		if ($inputs['sale_type'] == 'sales')
 		{
-			$this->db->where('quantity_purchased > 0');
+			$this->con->where('quantity_purchased > 0');
 		}
 		elseif ($inputs['sale_type'] == 'returns')
 		{
-			$this->db->where('quantity_purchased < 0');
+			$this->con->where('quantity_purchased < 0');
 		}
-		return $this->db->get()->row_array();
+		return $this->con->get()->row_array();
 	}
 }
 ?>

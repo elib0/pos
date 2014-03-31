@@ -5,7 +5,18 @@ if(isset($error))
 {
 	echo "<div class='error_message'>".$error."</div>";
 }
-?>
+?>	
+	 <div>
+		Location:
+		<?php
+		include('application/config/database.php');
+		$dbs = array();
+		foreach ($db as $key => $value) $dbs[$key] = ucwords($key);
+		//$dbs['all']='All';
+		if(count($dbs)>1) $dbs['all'] = ucwords('all');
+		echo form_dropdown('locationbd', $dbs,'', 'id="locationbd"');
+		?>
+	</div>
 	<div>
 		Export to Excel: <input type="radio" name="export_excel" id="export_excel_yes" value='1' /> Yes
 		<input type="radio" name="export_excel" id="export_excel_no" value='0' checked='checked' /> No
@@ -28,12 +39,9 @@ $(document).ready(function()
 	$("#generate_report").click(function()
 	{
 		var export_excel = 0;
-		if ($("#export_excel_yes").attr('checked'))
-		{
-			export_excel = 1;
-		}
+		if ($("#export_excel_yes").attr('checked')){ export_excel = 1; }
 		
-		window.location = window.location+'/' + export_excel;
+		window.location = window.location+'/' + export_excel+'/'+$('#locationbd').val();
 	});	
 });
 </script>

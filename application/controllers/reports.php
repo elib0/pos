@@ -296,6 +296,7 @@ class Reports extends Secure_area
 	//Graphical summary sales report
 	function graphical_summary_sales($start_date, $end_date, $sale_type)
 	{
+
 		$this->load->model('reports/Summary_sales');
 		$model = $this->Summary_sales;
 
@@ -308,8 +309,11 @@ class Reports extends Secure_area
 			"subtitle" => $rangeDays,
 			"summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'sale_type' => $sale_type))
 		);
-
+		$this->load->view("partial/header");
 		$this->load->view("reports/graphical",$data);
+		$this->load->view("reports/graphical",$data);
+		$this->load->view("partial/footer");
+
 	}
 	
 	//The actual graph data

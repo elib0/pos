@@ -1,5 +1,4 @@
 <?php
-$this->load->view("partial/header");
 ?>
 
 <table class="header-table">
@@ -38,5 +37,4 @@ swfobject.embedSWF(
 </a>
 <?php
 
-$this->load->view("partial/footer"); 
 ?>

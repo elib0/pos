@@ -784,10 +784,6 @@ class Reports extends Secure_area
 	{
 		$data = $this->_get_common_report_data();
 		$data['specific_input_name'] = $this->lang->line('reports_customer');
-		$this->Sale->con=$model->stabledb($location,true);
-		$this->Sale->create_sales_items_temp_table();
-		$this->Receiving->con=$this->Sale->con;
-		$this->Receiving->create_receivings_items_temp_table();
 		$customers = array();
 		foreach($this->Customer->get_all()->result() as $customer)
 		{
@@ -797,11 +793,11 @@ class Reports extends Secure_area
 		$this->load->view("reports/specific_input",$data);	
 	}
 
-	function specific_customer($start_date, $end_date, $customer_id, $sale_type, $export_excel=0,$location='default')
+	function specific_customer($start_date, $end_date, $customer_id, $sale_type, $export_excel=0)
 	{
 		$this->load->model('reports/Specific_customer');
 		$model = $this->Specific_customer;
-		$this->Sale->con=$model->stabledb($location,true);
+		$this->Sale->con=$model->stabledb('default',true);
 		$this->Sale->create_sales_items_temp_table();
 		$this->Receiving->con=$this->Sale->con;
 		$this->Receiving->create_receivings_items_temp_table();

@@ -314,6 +314,31 @@ class Employee extends Person
 
 	}
 
+	function get_search_suggestions_minimun($search,$limit=5)
+	{
+		$suggestions = array();
+
+		$this->con->from('employees');
+		$this->con->join('people','employees.person_id=people.person_id');
+		$this->con->where("(first_name LIKE '%".$this->con->escape_like_str($search)."%' or
+		last_name LIKE '%".$this->con->escape_like_str($search)."%' or
+		CONCAT(`first_name`,' ',`last_name`) LIKE '%".$this->con->escape_like_str($search)."%') and deleted=0");
+		$this->con->order_by("last_name", "asc");
+		$by_name = $this->con->get();
+		foreach($by_name->result() as $row)
+		{
+			$suggestions[]=$row->person_id.'|'.$row->first_name.' '.$row->last_name;
+		}
+
+		//only return $limit suggestions
+		if(count($suggestions > $limit))
+		{
+			$suggestions = array_slice($suggestions, 0,$limit);
+		}
+		return $suggestions;
+
+	}
+
 	/*
 	Preform a search on employees
 	*/

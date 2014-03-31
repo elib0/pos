@@ -419,8 +419,8 @@ class Sales extends Secure_area
 	function _reload($data=array())
 	{
 		$person_info = $this->Employee->get_logged_in_employee_info();
-		$data['employee'] = $this->sale_lib->get_employee();
-		$data['employee'] = ($this->sale_lib->get_employee() > 0) ? $this->sale_lib->get_employee() : '' ;
+		$employee = $this->Employee->get_info( $this->sale_lib->get_employee() );
+		$data['employee'] = $employee->first_name.' '.$employee->last_name;
 		$data['cart']=$this->sale_lib->get_cart();
 		$data['modes']=array(
 								'sale'=>$this->lang->line('sales_sale'),

@@ -79,5 +79,3 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = FALSE;
 $db['default']['stricton'] = FALSE;
-$db['default']['onlinehost'] = 'www.google.com';
-$db['default']['onlineport'] = '80';

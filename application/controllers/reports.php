@@ -893,12 +893,13 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular_details",$data);
 	}
 	
-	function detailed_sales($start_date, $end_date, $sale_type, $export_excel=0,$location='default')
+	function detailed_sales($start_date, $end_date, $sale_type, $location='default')
 	{
 		$this->load->model('reports/Detailed_sales');
 		$model = $this->Detailed_sales;
 		$this->Sale->con=$model->stabledb($location,true);
 		$this->Sale->create_sales_items_temp_table();
+		$export_excel=0;
 		//$this->Receiving->con=$this->Sale->con;
 		//$this->Receiving->create_receivings_items_temp_table();
 		$headers = $model->getDataColumns();
@@ -934,8 +935,8 @@ class Reports extends Secure_area
 		$this->load->view("reports/tabular_details",$data);
 	}
 	
-	function detailed_receivings($start_date, $end_date, $sale_type, $export_excel=0,$location='default')
-	{
+	function detailed_receivings($start_date, $end_date, $sale_type, $location='default')
+	{	$export_excel=0;
 		$this->load->model('reports/Detailed_receivings');
 		$model = $this->Detailed_receivings;
 		$this->Sale->con=$model->stabledb($location,true);

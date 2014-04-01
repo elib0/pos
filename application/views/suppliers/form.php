@@ -62,16 +62,44 @@ $(document).ready(function()
  		wrapper: "li",
 		rules: 
 		{
-			company_name: "required",
-			first_name: "required",
-			last_name: "required",
-    		email: "email"
+			company_name: {
+			    required: true,
+			    minlength: 4
+		    },
+		    first_name: {
+			    required: true,
+			    minlength: 3
+		    },
+		    last_name: {
+			    required: true,
+			    minlength: 3
+		    },
+    		email: {
+			    required: true,
+			    email: "email"
+		    },
+		    phone_number:
+			{
+				required:true,
+				number:true
+			}
    		},
 		messages: 
 		{
-     		company_name: "<?php echo $this->lang->line('suppliers_company_name_required'); ?>",
-     		last_name: "<?php echo $this->lang->line('common_last_name_required'); ?>",
-     		email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>"
+     		company_name: {
+			      required: "<?php echo $this->lang->line('suppliers_company_name_required'); ?>",
+			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
+    		},
+     		first_name: {
+			      required: "<?php echo $this->lang->line('common_first_name_required'); ?>",
+			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
+    		},
+    		last_name: {
+			      required: "<?php echo $this->lang->line('common_last_name_required'); ?>",
+			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
+    		},
+     		email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
+     		phone_number:"<?php echo $this->lang->line('common_phone_invalid_format');  ?>"
 		}
 	});
 });

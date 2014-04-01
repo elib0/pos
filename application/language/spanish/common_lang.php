@@ -35,6 +35,9 @@ $lang['common_no_persons_to_display']='No hay gente que mostrar';
 $lang['common_return_policy']='Política de reintegro';
 $lang['common_price']='Precio';
 $lang['common_welcome_message']= 'Bienvenido(a) a Open Source Point Of Sale. ¡Haz click en algún módulo; debajo, para empezar!';
+$lang['common_phone_invalid_format']='Sólo números en el campo de teléfono';
+$lang['common_at_least']='Al menos';
+$lang['common_at_characters']='caracteres mínimo'; 
 $lang['common_inv']='Inv';
 $lang['common_det']='Detalles';
 ?>

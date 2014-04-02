@@ -92,11 +92,9 @@ $this->load->view("partial/header");
         </tbody>
     </table>
     <div style="margin: 5px 0">
-        <a class="linkPrint" href="#">
-            <div class="big_button" style="float: left;"><span>Print</span></div>
-        </a>
-        <a id="btnSendToAdmin" href="index.php/inventories_compare/send_mail_to_admin">
-            <div class="big_button" style="float: left; margin-left: 5px"><span>Send to Administrator</span></div>
+        <a class="linkPrint" href="#"><div class="big_button"><span>Print</span></div></a>
+        <a id="btnSendToAdmin" href="index.php/inventories_compare/send_mail_to_admin" style="text-decoration: none">
+            <div class="big_button" style="margin-left: 5px;"><span>Send to Administrator</span></div>
         </a>
     </div>
 </div>

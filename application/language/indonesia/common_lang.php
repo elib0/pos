@@ -38,7 +38,8 @@ $lang['common_price']='Harga';
 $lang['common_welcome_message']= 'Selamat Datang di Open Source Point Of Sale, klik modul di bawah ini untuk memulai!';
 $lang['common_phone_invalid_format']='Hanya nomor dalam telepon';
 $lang['common_at_least']='setidak-tidaknya';
-$lang['common_at_characters']='minimum karakter'; 
+$lang['common_at_characters']='minimum karakter';
+$lang['common_first_name_only_char']='Anda tidak dapat menempatkan nomor di bidang ini'; 
 $lang['common_inv']='inv';
 $lang['common_det']='details';
 ?>

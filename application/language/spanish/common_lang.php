@@ -37,7 +37,8 @@ $lang['common_price']='Precio';
 $lang['common_welcome_message']= 'Bienvenido(a) a Open Source Point Of Sale. ¡Haz click en algún módulo; debajo, para empezar!';
 $lang['common_phone_invalid_format']='Sólo números en el campo de teléfono';
 $lang['common_at_least']='Al menos';
-$lang['common_at_characters']='caracteres mínimo'; 
+$lang['common_at_characters']='caracteres mínimo';
+$lang['common_first_name_only_char']='No puede colocar números en este campo';
 $lang['common_inv']='Inv';
 $lang['common_det']='Detalles';
 ?>

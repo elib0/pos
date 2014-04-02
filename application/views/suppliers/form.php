@@ -68,10 +68,12 @@ $(document).ready(function()
 		    },
 		    first_name: {
 			    required: true,
+			    regex:/^[a-zA-Z\s]+$/,
 			    minlength: 3
 		    },
 		    last_name: {
 			    required: true,
+			    regex:/^[a-zA-Z\s]+$/,
 			    minlength: 3
 		    },
     		email: {
@@ -92,10 +94,12 @@ $(document).ready(function()
     		},
      		first_name: {
 			      required: "<?php echo $this->lang->line('common_first_name_required'); ?>",
+			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
 			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
     		},
     		last_name: {
 			      required: "<?php echo $this->lang->line('common_last_name_required'); ?>",
+			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
 			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
     		},
      		email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",

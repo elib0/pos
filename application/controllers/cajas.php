@@ -8,9 +8,8 @@
 
      public function index($fastUserId = ''){
         $this->load->model('Caja');
-        $model = $this->Caja;
         $tabular_data = array();
-        $report_data = $model->getDetailsPayments();
+        $report_data = $this->Caja->getDetailsPayments();
 
         foreach($report_data as $row)
         {
@@ -19,8 +18,8 @@
 
         $data = array(
             "data" => $tabular_data,
-            "headers" => $model->getDataColumns(),
-            "summary_data" => $model->getCierreDetails(),
+            "headers" => $this->Caja->getDataColumns(),
+            "summary_data" => $this->Caja->getCierreDetails(),
             "fastUser"=> $fastUserId
         );
 

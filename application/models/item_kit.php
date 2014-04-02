@@ -1,14 +1,27 @@
 <?php
 class Item_kit extends CI_Model
 {
+	var $con;
+	
+	function __construct()
+    {
+        parent::__construct();
+        //Seleccion de DB
+        // $this->session->set_userdata(array('dblocation'=>'other'));
+        $db = $this->session->userdata('dblocation');
+        if($db)
+            $this->con = $this->load->database($db, true);
+        else
+            $this->con = $this->db;
+    }
 	/*
 	Determines if a given item_id is an item kit
 	*/
 	function exists($item_kit_id)
 	{
-		$this->db->from('item_kits');
-		$this->db->where('item_kit_id',$item_kit_id);
-		$query = $this->db->get();
+		$this->con->from('item_kits');
+		$this->con->where('item_kit_id',$item_kit_id);
+		$query = $this->con->get();
 
 		return ($query->num_rows()==1);
 	}
@@ -18,17 +31,17 @@ class Item_kit extends CI_Model
 	*/
 	function get_all($limit=10000, $offset=0)
 	{
-		$this->db->from('item_kits');
-		$this->db->order_by("name", "asc");
-		$this->db->limit($limit);
-		$this->db->offset($offset);
-		return $this->db->get();
+		$this->con->from('item_kits');
+		$this->con->order_by("name", "asc");
+		$this->con->limit($limit);
+		$this->con->offset($offset);
+		return $this->con->get();
 	}
 	
 	function count_all()
 	{
-		$this->db->from('item_kits');
-		return $this->db->count_all_results();
+		$this->con->from('item_kits');
+		return $this->con->count_all_results();
 	}
 
 	/*
@@ -36,10 +49,10 @@ class Item_kit extends CI_Model
 	*/
 	function get_info($item_kit_id)
 	{
-		$this->db->from('item_kits');
-		$this->db->where('item_kit_id',$item_kit_id);
+		$this->con->from('item_kits');
+		$this->con->where('item_kit_id',$item_kit_id);
 		
-		$query = $this->db->get();
+		$query = $this->con->get();
 
 		if($query->num_rows()==1)
 		{
@@ -51,7 +64,7 @@ class Item_kit extends CI_Model
 			$item_obj=new stdClass();
 
 			//Get all the fields from items table
-			$fields = $this->db->list_fields('item_kits');
+			$fields = $this->con->list_fields('item_kits');
 
 			foreach ($fields as $field)
 			{
@@ -67,10 +80,10 @@ class Item_kit extends CI_Model
 	*/
 	function get_multiple_info($item_kit_ids)
 	{
-		$this->db->from('item_kits');
-		$this->db->where_in('item_kit_id',$item_kit_ids);
-		$this->db->order_by("name", "asc");
-		return $this->db->get();
+		$this->con->from('item_kits');
+		$this->con->where_in('item_kit_id',$item_kit_ids);
+		$this->con->order_by("name", "asc");
+		return $this->con->get();
 	}
 
 	/*
@@ -80,16 +93,16 @@ class Item_kit extends CI_Model
 	{
 		if (!$item_kit_id or !$this->exists($item_kit_id))
 		{
-			if($this->db->insert('item_kits',$item_kit_data))
+			if($this->con->insert('item_kits',$item_kit_data))
 			{
-				$item_kit_data['item_kit_id']=$this->db->insert_id();
+				$item_kit_data['item_kit_id']=$this->con->insert_id();
 				return true;
 			}
 			return false;
 		}
 
-		$this->db->where('item_kit_id', $item_kit_id);
-		return $this->db->update('item_kits',$item_kit_data);
+		$this->con->where('item_kit_id', $item_kit_id);
+		return $this->con->update('item_kits',$item_kit_data);
 	}
 
 	/*
@@ -97,7 +110,7 @@ class Item_kit extends CI_Model
 	*/
 	function delete($item_kit_id)
 	{
-		return $this->db->delete('item_kits', array('item_kit_id' => $id)); 	
+		return $this->con->delete('item_kits', array('item_kit_id' => $id)); 	
 	}
 
 	/*
@@ -105,8 +118,8 @@ class Item_kit extends CI_Model
 	*/
 	function delete_list($item_kit_ids)
 	{
-		$this->db->where_in('item_kit_id',$item_kit_ids);
-		return $this->db->delete('item_kits');		
+		$this->con->where_in('item_kit_id',$item_kit_ids);
+		return $this->con->delete('item_kits');		
  	}
 
  	/*
@@ -116,10 +129,10 @@ class Item_kit extends CI_Model
 	{
 		$suggestions = array();
 
-		$this->db->from('item_kits');
-		$this->db->like('name', $search);
-		$this->db->order_by("name", "asc");
-		$by_name = $this->db->get();
+		$this->con->from('item_kits');
+		$this->con->like('name', $search);
+		$this->con->order_by("name", "asc");
+		$by_name = $this->con->get();
 		foreach($by_name->result() as $row)
 		{
 			$suggestions[]=$row->name;
@@ -138,10 +151,10 @@ class Item_kit extends CI_Model
 	{
 		$suggestions = array();
 
-		$this->db->from('item_kits');
-		$this->db->like('name', $search);
-		$this->db->order_by("name", "asc");
-		$by_name = $this->db->get();
+		$this->con->from('item_kits');
+		$this->con->like('name', $search);
+		$this->con->order_by("name", "asc");
+		$by_name = $this->con->get();
 		foreach($by_name->result() as $row)
 		{
 			$suggestions[]='KIT '.$row->item_kit_id.'|'.$row->name;
@@ -161,11 +174,11 @@ class Item_kit extends CI_Model
 	*/
 	function search($search)
 	{
-		$this->db->from('item_kits');
-		$this->db->where("name LIKE '%".$this->db->escape_like_str($search)."%' or 
-		description LIKE '%".$this->db->escape_like_str($search)."%'");
-		$this->db->order_by("name", "asc");
-		return $this->db->get();	
+		$this->con->from('item_kits');
+		$this->con->where("name LIKE '%".$this->con->escape_like_str($search)."%' or 
+		description LIKE '%".$this->con->escape_like_str($search)."%'");
+		$this->con->order_by("name", "asc");
+		return $this->con->get();	
 	}
 }
 ?>

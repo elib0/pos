@@ -1,15 +1,28 @@
 <?php
 class Giftcard extends CI_Model
 {
+	var $con;
+
+	function __construct()
+    {
+        parent::__construct();
+        //Seleccion de DB
+        // $this->session->set_userdata(array('dblocation'=>'other'));
+        $db = $this->session->userdata('dblocation');
+        if($db)
+            $this->con = $this->load->database($db, true);
+        else
+            $this->con = $this->db;
+    }
 	/*
 	Determines if a given giftcard_id is an giftcard
 	*/
 	function exists( $giftcard_id )
 	{
-		$this->db->from('giftcards');
-		$this->db->where('giftcard_id',$giftcard_id);
-		$this->db->where('deleted',0);
-		$query = $this->db->get();
+		$this->con->from('giftcards');
+		$this->con->where('giftcard_id',$giftcard_id);
+		$this->con->where('deleted',0);
+		$query = $this->con->get();
 
 		return ($query->num_rows()==1);
 	}
@@ -19,19 +32,19 @@ class Giftcard extends CI_Model
 	*/
 	function get_all($limit=10000, $offset=0)
 	{
-		$this->db->from('giftcards');
-		$this->db->where('deleted',0);
-		$this->db->order_by("giftcard_number", "asc");
-		$this->db->limit($limit);
-		$this->db->offset($offset);
-		return $this->db->get();
+		$this->con->from('giftcards');
+		$this->con->where('deleted',0);
+		$this->con->order_by("giftcard_number", "asc");
+		$this->con->limit($limit);
+		$this->con->offset($offset);
+		return $this->con->get();
 	}
 	
 	function count_all()
 	{
-		$this->db->from('giftcards');
-		$this->db->where('deleted',0);
-		return $this->db->count_all_results();
+		$this->con->from('giftcards');
+		$this->con->where('deleted',0);
+		return $this->con->count_all_results();
 	}
 
 	/*
@@ -39,11 +52,11 @@ class Giftcard extends CI_Model
 	*/
 	function get_info($giftcard_id)
 	{
-		$this->db->from('giftcards');
-		$this->db->where('giftcard_id',$giftcard_id);
-		$this->db->where('deleted',0);
+		$this->con->from('giftcards');
+		$this->con->where('giftcard_id',$giftcard_id);
+		$this->con->where('deleted',0);
 		
-		$query = $this->db->get();
+		$query = $this->con->get();
 
 		if($query->num_rows()==1)
 		{
@@ -55,7 +68,7 @@ class Giftcard extends CI_Model
 			$giftcard_obj=new stdClass();
 
 			//Get all the fields from giftcards table
-			$fields = $this->db->list_fields('giftcards');
+			$fields = $this->con->list_fields('giftcards');
 
 			foreach ($fields as $field)
 			{
@@ -71,11 +84,11 @@ class Giftcard extends CI_Model
 	*/
 	function get_giftcard_id($giftcard_number)
 	{
-		$this->db->from('giftcards');
-		$this->db->where('giftcard_number',$giftcard_number);
-		$this->db->where('deleted',0);
+		$this->con->from('giftcards');
+		$this->con->where('giftcard_number',$giftcard_number);
+		$this->con->where('deleted',0);
 
-		$query = $this->db->get();
+		$query = $this->con->get();
 
 		if($query->num_rows()==1)
 		{
@@ -90,11 +103,11 @@ class Giftcard extends CI_Model
 	*/
 	function get_multiple_info($giftcard_ids)
 	{
-		$this->db->from('giftcards');
-		$this->db->where_in('giftcard_id',$giftcard_ids);
-		$this->db->where('deleted',0);
-		$this->db->order_by("giftcard_number", "asc");
-		return $this->db->get();
+		$this->con->from('giftcards');
+		$this->con->where_in('giftcard_id',$giftcard_ids);
+		$this->con->where('deleted',0);
+		$this->con->order_by("giftcard_number", "asc");
+		return $this->con->get();
 	}
 
 	/*
@@ -104,16 +117,16 @@ class Giftcard extends CI_Model
 	{
 		if (!$giftcard_id or !$this->exists($giftcard_id))
 		{
-			if($this->db->insert('giftcards',$giftcard_data))
+			if($this->con->insert('giftcards',$giftcard_data))
 			{
-				$giftcard_data['giftcard_id']=$this->db->insert_id();
+				$giftcard_data['giftcard_id']=$this->con->insert_id();
 				return true;
 			}
 			return false;
 		}
 
-		$this->db->where('giftcard_id', $giftcard_id);
-		return $this->db->update('giftcards',$giftcard_data);
+		$this->con->where('giftcard_id', $giftcard_id);
+		return $this->con->update('giftcards',$giftcard_data);
 	}
 
 	/*
@@ -121,8 +134,8 @@ class Giftcard extends CI_Model
 	*/
 	function update_multiple($giftcard_data,$giftcard_ids)
 	{
-		$this->db->where_in('giftcard_id',$giftcard_ids);
-		return $this->db->update('giftcards',$giftcard_data);
+		$this->con->where_in('giftcard_id',$giftcard_ids);
+		return $this->con->update('giftcards',$giftcard_data);
 	}
 
 	/*
@@ -130,8 +143,8 @@ class Giftcard extends CI_Model
 	*/
 	function delete($giftcard_id)
 	{
-		$this->db->where('giftcard_id', $giftcard_id);
-		return $this->db->update('giftcards', array('deleted' => 1));
+		$this->con->where('giftcard_id', $giftcard_id);
+		return $this->con->update('giftcards', array('deleted' => 1));
 	}
 
 	/*
@@ -139,8 +152,8 @@ class Giftcard extends CI_Model
 	*/
 	function delete_list($giftcard_ids)
 	{
-		$this->db->where_in('giftcard_id',$giftcard_ids);
-		return $this->db->update('giftcards', array('deleted' => 1));
+		$this->con->where_in('giftcard_id',$giftcard_ids);
+		return $this->con->update('giftcards', array('deleted' => 1));
  	}
 
  	/*
@@ -150,11 +163,11 @@ class Giftcard extends CI_Model
 	{
 		$suggestions = array();
 
-		$this->db->from('giftcards');
-		$this->db->like('giftcard_number', $search);
-		$this->db->where('deleted',0);
-		$this->db->order_by("giftcard_number", "asc");
-		$by_number = $this->db->get();
+		$this->con->from('giftcards');
+		$this->con->like('giftcard_number', $search);
+		$this->con->where('deleted',0);
+		$this->con->order_by("giftcard_number", "asc");
+		$by_number = $this->con->get();
 		foreach($by_number->result() as $row)
 		{
 			$suggestions[]=$row->giftcard_number;
@@ -174,10 +187,10 @@ class Giftcard extends CI_Model
 	*/
 	function search($search)
 	{
-		$this->db->from('giftcards');
-		$this->db->where("giftcard_number LIKE '%".$this->db->escape_like_str($search)."%' and deleted=0");
-		$this->db->order_by("giftcard_number", "asc");
-		return $this->db->get();	
+		$this->con->from('giftcards');
+		$this->con->where("giftcard_number LIKE '%".$this->con->escape_like_str($search)."%' and deleted=0");
+		$this->con->order_by("giftcard_number", "asc");
+		return $this->con->get();	
 	}
 	
 	public function get_giftcard_value( $giftcard_number )
@@ -185,15 +198,15 @@ class Giftcard extends CI_Model
 		if ( !$this->exists( $this->get_giftcard_id($giftcard_number)))
 			return 0;
 		
-		$this->db->from('giftcards');
-		$this->db->where('giftcard_number',$giftcard_number);
-		return $this->db->get()->row()->value;
+		$this->con->from('giftcards');
+		$this->con->where('giftcard_number',$giftcard_number);
+		return $this->con->get()->row()->value;
 	}
 	
 	function update_giftcard_value( $giftcard_number, $value )
 	{
-		$this->db->where('giftcard_number', $giftcard_number);
-		$this->db->update('giftcards', array('value' => $value));
+		$this->con->where('giftcard_number', $giftcard_number);
+		$this->con->update('giftcards', array('value' => $value));
 	}
 }
 ?>

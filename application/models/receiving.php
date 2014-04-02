@@ -115,6 +115,12 @@ class Receiving extends CI_Model
 	//We create a temp table that allows us to do easy report/receiving queries
 	public function create_receivings_items_temp_table()
 	{
+		$db = $this->session->userdata('dblocation');
+        if($db)
+            $this->con = $this->load->database($db, true);
+        else
+            $this->con = $this->db;
+        
 		$this->con->query("CREATE TEMPORARY TABLE ".$this->con->dbprefix('receivings_items_temp')."
 		(SELECT date(receiving_time) as receiving_date, ".$this->con->dbprefix('receivings_items').".receiving_id, comment,payment_type, employee_id,
 		".$this->con->dbprefix('items').".item_id, ".$this->con->dbprefix('receivings').".supplier_id, quantity_purchased, item_cost_price, item_unit_price,

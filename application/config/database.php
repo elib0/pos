@@ -45,7 +45,7 @@
 | the active record class
 */
 
-$active_group = $_SESSION['dblocation'];
+$active_group = 'default';
 $active_record = TRUE;
 
 // $db['default']['hostname'] = 'localhost';
@@ -79,3 +79,19 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = FALSE;
 $db['default']['stricton'] = FALSE;
+
+$db['otra']['hostname'] = 'localhost';
+$db['otra']['username'] = 'root';
+$db['otra']['password'] = 'root';
+$db['otra']['database'] = 'possp2';
+$db['otra']['dbdriver'] = 'mysql';
+$db['otra']['dbprefix'] = 'ospos_';
+$db['otra']['pconnect'] = FALSE;
+$db['otra']['db_debug'] = TRUE;
+$db['otra']['cache_on'] = FALSE;
+$db['otra']['cachedir'] = '';
+$db['otra']['char_set'] = 'utf8';
+$db['otra']['dbcollat'] = 'utf8_general_ci';
+$db['otra']['swap_pre'] = '';
+$db['otra']['autoinit'] = FALSE;
+$db['otra']['stricton'] = FALSE;

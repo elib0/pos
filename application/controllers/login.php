@@ -9,6 +9,7 @@ class Login extends CI_Controller
 
 	function index($userId='')
 	{
+		$this->session->set_userdata('dblocation', $this->input->post('locationbd'));
 		if($this->Employee->is_logged_in())
 		{
 			redirect('inventories_compare');

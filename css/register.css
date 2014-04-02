@@ -48,9 +48,12 @@
 
 #add_item_form input
 {
- 	border: 1px solid #ccc;
- 	padding: 2px;
-
+ 	padding: 3px;
+ 	-webkit-border-radius: 5px;
+ 	-moz-border-radius: 5px;
+ 	border-radius: 5px;
+ 	color: #666;
+	border: 1px solid #CCC;
 }
 
 #item_label,#customer_label

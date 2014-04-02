@@ -30,8 +30,3 @@ swfobject.embedSWF(
 <?php }?>
 </div>
 <div id="location_id" style="margin:0 auto;text-align:center;">Location:<?=$location?></div>
-<?php if(isset($last)){ ?>
-<a class="linkBack" href="#">
-    <div class="big_button" style="float:left;"><span>Back</span></div>
-</a>
-<?php } ?>

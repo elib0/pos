@@ -1,12 +1,3 @@
-<?php 
-//OJB: Check if for excel export process
-if($export_excel == 1){
-	ob_start();
-	$this->load->view("partial/header_excel");
-}else{
-	$this->load->view("partial/header");
-} 
-?>
 <table class="header-table">
 	<tr>
 		<td><img src="images/logo.png" alt="Logo"></td>
@@ -20,7 +11,7 @@ if($export_excel == 1){
 	</tr>
 </table>
 <div id="table_holder">
-	<table class="tablesorter report" id="sortable_table">
+	<table class="tablesorter report">
 		<thead>
 			<tr>
 				<?php foreach ($headers as $header) { ?>
@@ -45,40 +36,20 @@ if($export_excel == 1){
 <?php }?>
 </div>
 <div id="location_id" style="margin: 0 auto;text-align: center;">Location:<?=$location?></div>
-<?php 
-if($export_excel == 1){
-	$this->load->view("partial/footer_excel");
-	$content = ob_end_flush();
-	
-	$filename = trim($filename);
-	$filename = str_replace(array(' ', '/', '\\'), '', $title);
-	$filename .= "_Export.xls";
-	header('Content-type: application/ms-excel');
-	header('Content-Disposition: attachment; filename='.$filename);
-	echo $content;
-	die();
-	
-}else{
-	echo '<a class="linkBack" href="#">
-    <div class="big_button" style="float: left;"><span>Back</span></div>
-	</a>';
-	$this->load->view("partial/footer"); 
+<?php
+if(!$export_excel){
 ?>
-
+<?php
+	if(isset($last)){
+?>
 <script type="text/javascript" language="javascript">
-function init_table_sorting()
-{
-	//Only init if there is more than one row
-	if($('.tablesorter tbody tr').length >1)
-	{
-		$("#sortable_table").tablesorter(); 
+	$('.tablesorter').each(function(){
+		if($(this).find('tr').length >1) $(this).tablesorter();
+	});
+</script>
+<?php
+	}else{
+		echo '<br/><hr/><br/>';
 	}
 }
-$(document).ready(function()
-{
-	init_table_sorting();
-});
-</script>
-<?php 
-} // end if not is excel export 
 ?>

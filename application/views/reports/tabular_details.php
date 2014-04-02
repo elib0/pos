@@ -1,11 +1,5 @@
-<?php 
-//OJB: Check if for excel export process
-if($export_excel == 1){
-	ob_start();
-	$this->load->view("partial/header_excel");
-}else{
-	$this->load->view("partial/header");
-} 
+<?php
+if(!isset($export_excel)) $export_excel=0;
 ?>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
@@ -22,12 +16,12 @@ if($export_excel == 1){
 		<tbody>
 			<?php foreach ($summary_data as $key=>$row) { ?>
 			<tr>
-				<td><a href="#" class="expand">+</a></td>
+				<td class="expand">+</td>
 				<?php foreach ($row as $cell) { ?>
 				<td><?php echo $cell; ?></td>
 				<?php } ?>
 			</tr>
-			<tr>
+			<tr class="hide">
 				<td colspan="100">
 				<table class="innertable">
 					<thead>
@@ -62,42 +56,34 @@ if($export_excel == 1){
 <?php }?>
 </div>
 <div id="location_id" style="margin: 0 auto;text-align: center;">Location:<?=$location?></div>
-<?php 
-if($export_excel == 1){
-	$this->load->view("partial/footer_excel");
-	$content = ob_end_flush();
-	
-	$filename = trim($filename);
-	$filename = str_replace(array(' ', '/', '\\'), '', $title);
-	$filename .= "_Export.xls";
-	header('Content-type: application/ms-excel');
-	header('Content-Disposition: attachment; filename='.$filename);
-	echo $content;
-	die();
-	
-}else{
-	$this->load->view("partial/footer"); 
+<?php
+if(!$export_excel){
+?>
+<?php
+	if(isset($last)){
 ?>
 <script type="text/javascript" language="javascript">
-$(document).ready(function()
-{
 	$(".tablesorter a.expand").click(function(event)
 	{
-		$(event.target).parent().parent().next().find('.innertable').toggle();
+		$(this).parent().parent().next().find('.innertable').toggle();
 		
-		if ($(event.target).text() == '+')
+		if ($(this).text() == '+')
 		{
-			$(event.target).text('-');
+			$(this).text('-');
 		}
 		else
 		{
-			$(event.target).text('+');
+			$(this).text('+');
 		}
 		return false;
 	});
-	
-});
+	$(".tablesorter td.expand").click(function(event){
+		$(this).text($(this).text()!='+'?'+':'-').parent().next().toggle();
+	});
 </script>
-<?php 
-} // end if not is excel export 
+<?php
+	}else{
+		echo '<br/><hr/><br/>';
+	}
+}
 ?>

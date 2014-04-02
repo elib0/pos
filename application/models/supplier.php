@@ -145,7 +145,6 @@ class Supplier extends Person
 	function get_search_suggestions($search,$limit=25)
 	{
 		$suggestions = array();
-
 		$this->con->from('suppliers');
 		$this->con->join('people','suppliers.person_id=people.person_id');
 		$this->con->where('deleted', 0);

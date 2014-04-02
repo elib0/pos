@@ -2,12 +2,24 @@
 <style>
 	#receivings_form{
 		position: relative;
-		background-color: hsl(0, 0%, 63%);
-		padding: 8px 0px 8px 0px;
+		background-color: #FFF;
+		padding: 8px;
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		border: 1px solid #CCC;
+		margin: 0 0 5px 0;
 	}
 	#receivings_form label{
 		font-weight: bold;
 	}
+
+	#reception{
+		-webkit-border-radius: 5px;
+		border-radius: 5px;
+		border: 1px solid #CCC;
+		height: 18px;
+	}
+
 </style>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $this->lang->line('recvs_register'); ?></div>
 
@@ -20,7 +32,7 @@ if(isset($error))
 
 <div id="register_wrapper">
 	<?php echo form_open("receivings/index/",array('id'=>'receivings_form')); ?>
-		<label for="reception">Search Dispatching</label>
+		<label for="reception">Search Dispatching:</label>&nbsp;
 		<?php echo form_input(array('name'=>'reception','id'=>'reception','size'=>'40'));?>
 		<div class="small_button" id="receivings_submit">
 			<span>Load Receivings</span>
@@ -28,7 +40,7 @@ if(isset($error))
 		<!-- <input type="submit" value="Load Receivings" id="receivings_submit"> -->
 	<?php echo form_close(); ?>
 	<?php echo form_open("receivings/change_mode",array('id'=>'mode_form')); ?>
-		<span><?php echo $this->lang->line('recvs_mode') ?></span>
+		<span><?php echo $this->lang->line('recvs_mode') ?>:</span>&nbsp;
 	<?php echo form_dropdown('mode',$modes,$mode,'onchange="$(\'#mode_form\').submit();"'); ?>
 	</form>
 	<?php echo form_open("receivings/add",array('id'=>'add_item_form')); ?>
@@ -61,14 +73,14 @@ if(isset($error))
 <table id="register">
 <thead>
 <tr>
-<th style="width:11%;"><?php echo $this->lang->line('common_delete'); ?></th>
+<th style="width:10%;"><?php echo $this->lang->line('common_delete'); ?></th>
 
-<th style="width:30%;"><?php echo $this->lang->line('recvs_item_name'); ?></th>
-<th style="width:11%;"><?php echo $this->lang->line('recvs_cost'); ?></th>
-<th style="width:11%;"><?php echo $this->lang->line('recvs_quantity'); ?></th>
-<th style="width:11%;"><?php echo $this->lang->line('recvs_discount'); ?></th>
-<th style="width:15%;">Sub Total</th>
-<th style="width:11%;"><?php echo $this->lang->line('recvs_edit'); ?></th>
+<th style="width:40%;"><?php echo $this->lang->line('recvs_item_name'); ?></th>
+<th style="width:10%;"><?php echo $this->lang->line('recvs_cost'); ?></th>
+<th style="width:10%;"><?php echo $this->lang->line('recvs_quantity'); ?></th>
+<th style="width:10%;"><?php echo $this->lang->line('recvs_discount'); ?></th>
+<th style="width:10%;">Sub Total</th>
+<th style="width:10%;"><?php echo $this->lang->line('recvs_edit'); ?></th>
 </tr>
 </thead>
 <tbody id="cart_contents">
@@ -122,7 +134,7 @@ else
 
 		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3'));?></td>
 		<td><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>
-		<td><?php echo form_submit("edit_item", $this->lang->line('sales_edit_item'));?></td>
+		<td><?php echo form_submit("edit_item", 'Update', 'class="small_button", style=" height: 26px"');?></td>
 		</tr>
 		</form>
 	<?php

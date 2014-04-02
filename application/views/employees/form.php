@@ -251,8 +251,16 @@ $(document).ready(function()
  		wrapper: "li",
 		rules:
 		{
-			first_name: "required",
-			last_name: "required",
+			first_name: {
+			    required: true,
+			    regex:/^[a-zA-Z\s]+$/,
+			    minlength: 3
+		    },
+		    last_name: {
+			    required: true,
+			     regex:/^[a-zA-Z\s]+$/,
+			    minlength: 3
+		    },
 			username:
 			{
 				required:true,
@@ -275,12 +283,28 @@ $(document).ready(function()
 			{
  				equalTo: "#password"
 			},
-    		email: "email"
+    		email: {
+			    required: true,
+			    email: "email"
+		    },
+    		phone_number:
+			{
+				required:true,
+				number:true
+			}
    		},
 		messages:
 		{
-     		first_name: "<?php echo $this->lang->line('common_first_name_required'); ?>",
-     		last_name: "<?php echo $this->lang->line('common_last_name_required'); ?>",
+     		first_name: {
+			      required: "<?php echo $this->lang->line('common_first_name_required'); ?>",
+			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
+			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
+    		},
+    		last_name: {
+			      required: "<?php echo $this->lang->line('common_last_name_required'); ?>",
+			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
+			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
+    		},
      		username:
      		{
      			required: "<?php echo $this->lang->line('employees_username_required'); ?>",
@@ -303,7 +327,8 @@ $(document).ready(function()
 			{
 				equalTo: "<?php echo $this->lang->line('employees_password_must_match'); ?>"
      		},
-     		email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>"
+     		email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
+     		phone_number:"<?php echo $this->lang->line('common_phone_invalid_format');  ?>"
 		}
 	});
 });

@@ -34,6 +34,11 @@ $this->load->view("partial/header");
 </style>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
+
+<div style="padding: 3px; margin: 3px 0 3px 0">
+    <?php echo $this->pagination->create_links();?>
+</div>
+
 <?=form_open('inventories_compare/save', array('id'=>'compare_form'))?>
 <div id="table_holder">
     <table class="tablesorter report compare-stock" id="sortable_table">

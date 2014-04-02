@@ -34,6 +34,11 @@ $this->load->view("partial/header");
 </style>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
+
+<div style="padding: 3px; margin: 3px 0 3px 0">
+    <?php echo $this->pagination->create_links();?>
+</div>
+
 <?=form_open('inventories_compare/save', array('id'=>'compare_form'))?>
 <div id="table_holder">
     <table class="tablesorter report compare-stock" id="sortable_table">
@@ -92,11 +97,9 @@ $this->load->view("partial/header");
         </tbody>
     </table>
     <div style="margin: 5px 0">
-        <a class="linkPrint" href="#">
-            <div class="big_button" style="float: left;"><span>Print</span></div>
-        </a>
-        <a id="btnSendToAdmin" href="index.php/inventories_compare/send_mail_to_admin">
-            <div class="big_button" style="float: left; margin-left: 5px"><span>Send to Administrator</span></div>
+        <a class="linkPrint" href="#"><div class="big_button"><span>Print</span></div></a>
+        <a id="btnSendToAdmin" href="index.php/inventories_compare/send_mail_to_admin" style="text-decoration: none">
+            <div class="big_button" style="margin-left: 5px;"><span>Send to Administrator</span></div>
         </a>
     </div>
 </div>

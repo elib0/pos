@@ -14,13 +14,11 @@ class Inventory_summary extends Report
 	
 	public function getData(array $inputs)
 	{
-		$this->db->select('name, item_number, quantity, reorder_level, description');
-		$this->db->from('items');
-		$this->db->where('deleted', 0);	
-		$this->db->order_by('name');
-		
-		return $this->db->get()->result_array();
-
+		$this->con->select('name, item_number, quantity, reorder_level, description');
+		$this->con->from('items');
+		$this->con->where('deleted', 0);	
+		$this->con->order_by('name');
+		return $this->con->get()->result_array();
 	}
 	
 	public function getSummaryData(array $inputs)

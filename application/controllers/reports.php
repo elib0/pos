@@ -698,16 +698,16 @@ class Reports extends Secure_area
 
 	function specific_customer($start_date,$end_date,$customer_id,$sale_type,$export_excel=0)
 	{
+		$location=$this->session->userdata('dblocation');
 		$_data['view']='reports/tabular_details';
 		$_data['export_excel']=$export_excel;
 		$rangeDays = $this->range_days($start_date,$end_date);
 
 		$this->load->model('reports/Specific_customer');
 		$model = $this->Specific_customer;
-		// $this->Sale->con=$model->stabledb('default',true);
-		$model->stabledb(false);
+		$this->Sale->con=$model->stabledb($location,true);
 		$this->Sale->create_sales_items_temp_table();
-		// $this->Receiving->con=$this->Sale->con;
+		$this->Receiving->con=$this->Sale->con;
 		$this->Receiving->create_receivings_items_temp_table();
 		$headers = $model->getDataColumns();
 		$report_data = $model->getData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'customer_id' =>$customer_id, 'sale_type' => $sale_type));
@@ -749,8 +749,12 @@ class Reports extends Secure_area
 		$this->load->view("reports/specific_input",$data);	
 	}
 
-	function specific_employee($start_date,$end_date,$employee_id,$sale_type, $export_excel=0,$location='default')
+	function specific_employee($start_date,$end_date,$employee_id,$sale_type, $export_excel=0)
 	{
+		$location=$this->session->userdata('dblocation');
+		$_data['view']='reports/tabular_details';
+		$_data['export_excel']=$export_excel;
+		$rangeDays = $this->range_days($start_date,$end_date);
 		$this->load->model('reports/Specific_employee');
 		$model = $this->Specific_employee;
 		$this->Sale->con=$model->stabledb($location,true);
@@ -769,8 +773,6 @@ class Reports extends Secure_area
 				$details_data[$key][] = array($drow['name'], $drow['category'], $drow['serialnumber'], $drow['description'], $drow['quantity_purchased'], to_currency($drow['subtotal']), to_currency($drow['total']), to_currency($drow['tax']),to_currency($drow['profit']), $drow['discount_percent'].'%');
 			}
 		}
-		//Fixes Eli para que mueestre ho o rango de fecha
-		$rangeDays = (date('m/d/Y', strtotime($start_date)) == date('m/d/Y', strtotime($end_date))) ? 'Today' : date('m/d/Y', strtotime($start_date)) .'-'.date('m/d/Y', strtotime($end_date)) ;
 		$employee_info = $this->Employee->get_info($employee_id);
 		$data = array(
 			"title" => $employee_info->first_name .' '. $employee_info->last_name.' '.$this->lang->line('reports_report'),
@@ -782,7 +784,8 @@ class Reports extends Secure_area
 			"overall_summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date,'employee_id' =>$employee_id, 'sale_type' => $sale_type)),
 			"export_excel" => $export_excel
 		);
-		$this->load->view("reports/tabular_details",$data);
+		$_data['list'][]=$data;
+		$this->load->view("reports/format_reports",$_data);
 	}
 
 	function detailed_sales($start_date,$end_date,$sale_type,$location='default')
@@ -875,46 +878,62 @@ class Reports extends Secure_area
 
 	function inventory_low($export_excel=0,$location='default')
 	{
+		$_data['view']='reports/tabular';
+		$_data['export_excel']=$export_excel;
 		$this->load->model('reports/Inventory_low');
 		$model = $this->Inventory_low;
-		$tabular_data = array();
-		$model->stabledb($location);
-		$report_data = $model->getData(array());
-		foreach($report_data as $row)
-		{
-			$tabular_data[] = array($row['name'], $row['item_number'], $row['description'], $row['quantity'], $row['reorder_level']);
+
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$tabular_data = array();
+			$model->stabledb($location,true);
+			$report_data = $model->getData(array());
+			foreach($report_data as $row)
+			{
+				$tabular_data[] = array($row['name'], $row['item_number'], $row['description'], $row['quantity'], $row['reorder_level']);
+			}
+			$data = array(
+				"title" => $this->lang->line('reports_low_inventory_report'),
+				"subtitle" => '',
+				"headers" => $model->getDataColumns(),
+				"data" => $tabular_data,
+				"location"=>$location,
+				"summary_data" => $model->getSummaryData(array()),
+				"export_excel" => $export_excel
+			);
+			$_data['list'][]=$data;
 		}
-		$data = array(
-			"title" => $this->lang->line('reports_low_inventory_report'),
-			"subtitle" => '',
-			"headers" => $model->getDataColumns(),
-			"data" => $tabular_data,
-			"location"=>$location,
-			"summary_data" => $model->getSummaryData(array()),
-			"export_excel" => $export_excel
-		);
-		$this->load->view("reports/tabular",$data);	
+		$this->load->view("reports/format_reports",$_data);
 	}
 
-	function inventory_summary($export_excel=0)
+	function inventory_summary($export_excel=0,$location='default')
 	{
+		$_data['view']='reports/tabular';
+		$_data['export_excel']=$export_excel;
 		$this->load->model('reports/Inventory_summary');
 		$model = $this->Inventory_summary;
-		$tabular_data = array();
-		$report_data = $model->getData(array());
-		foreach($report_data as $row)
-		{
-			$tabular_data[] = array($row['name'], $row['item_number'], $row['description'], $row['quantity'], $row['reorder_level']);
+
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$tabular_data = array();
+			$model->stabledb($location,true);
+			$report_data = $model->getData(array());
+			foreach($report_data as $row)
+			{
+				$tabular_data[] = array($row['name'], $row['item_number'], $row['description'], $row['quantity'], $row['reorder_level']);
+			}
+			$data = array(
+				"title" => $this->lang->line('reports_inventory_summary_report'),
+				"subtitle" => '',
+				"headers" => $model->getDataColumns(),
+				"data" => $tabular_data,
+				"summary_data" => $model->getSummaryData(array()),
+				"location"=>$location,
+				"export_excel" => $export_excel
+			);
+			$_data['list'][]=$data;
 		}
-		$data = array(
-			"title" => $this->lang->line('reports_inventory_summary_report'),
-			"subtitle" => '',
-			"headers" => $model->getDataColumns(),
-			"data" => $tabular_data,
-			"summary_data" => $model->getSummaryData(array()),
-			"export_excel" => $export_excel
-		);
-		$this->load->view("reports/tabular",$data);	
+		$this->load->view("reports/format_reports",$_data);
 	}
 	
 }

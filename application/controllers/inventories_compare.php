@@ -9,25 +9,31 @@ class Inventories_compare extends Secure_area
     }
 
     public function index(){
-        $this->load->model('reports/Inventory_compare');
-        $model = $this->Inventory_compare;
-        $tabular_data = array();
-        $report_data = $model->getData();
+        $is_admin=$this->Employee->get_logged_in_employee_info()->type_employees;
+        if ($is_admin=='Administrator'){
+            $this->load->model('reports/Inventory_compare');
+            $model = $this->Inventory_compare;
+            if (!$model->exist_inventory()){
+                $tabular_data = array();
+                $report_data = $model->getData();
 
-        foreach($report_data as $row)
-        {
-            $tabular_data[] = array($row['item_id'], character_limiter($row['name'], 16), $row['quantity']);
-        }
+                foreach($report_data as $row)
+                {
+                    $tabular_data[] = array($row['item_id'], character_limiter($row['name'], 16), $row['quantity']);
+                }
 
-        $data = array(
-            "title" => $this->lang->line('reports_items_summary_report'),
-            "subtitle" => 'Compare items stock '.date("m/d/Y"),
-            "headers" => $model->getDataColumns(),
-            "data" => $tabular_data
-            // "summary_data" => $model->getSummaryData( array('sale_type' => '0') )
-        );
+                $data = array(
+                    "title" => $this->lang->line('reports_items_summary_report'),
+                    "subtitle" => 'Compare items stock '.date("m/d/Y"),
+                    "headers" => $model->getDataColumns(),
+                    "data" => $tabular_data
+                    // "summary_data" => $model->getSummaryData( array('sale_type' => '0') )
+                );
 
-        $this->load->view("reports/compare_stock",$data);
+                $this->load->view("reports/compare_stock",$data);
+            }else{ redirect('home'); }
+        }else{ redirect('home'); }
+        
     }
 
     public function save(&$compare_data){
@@ -39,8 +45,40 @@ class Inventories_compare extends Secure_area
 
     function send_mail_to_admin(){
         $response = array('status'=>0, 'msg'=>'Error sending to administrator.');
-        // $this->load->library('email');
+        $obs=$this->input->post('obs');
+        $this->load->model('reports/Inventory_compare');
+        $model = $this->Inventory_compare;
+        $response['insert']=$model->save_inventory($obs);
+        if ($response['insert']){
+            $body=$this->input->post('report');
+            $head = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head><body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0"><center>';
+           // $head = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head><body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0"><center>';
+            // $body = '<p>Hola que hace</p>';
+            $footer = '</center></body></html>';
 
+
+            // $email = $this->Appconfig->get('email');
+            // $this->email->from($email, 'Fast I Repair');
+            // $this->email->to($email);
+
+            // $this->email->subject('Report Inventory Stock');
+            // $this->email->message($head.$body.$footer);
+
+            // if ($this->email->send()) {
+            //     $response['status'] = 1;
+            //     $response['msg'] = 'Email successfully sent al administrator!';
+            // }
+     
+            $email = 'skat0@hotmail.com';
+            $headers = 'From:pos@om-parts.com';
+            $subject = 'A message from Om Parts Inc. Corporate Web';
+
+            if (mail($email,$subject,$head.$body.$footer, $headers)) {
+                $response['status'] = 1;
+                $response['msg'] = 'Email successfully sent al administrator!';
+            }    
+        }        
+        // $this->load->library('email');
         // $config['protocol'] = 'mail';
         // $config['mailpath'] = '/usr/sbin/sendmail';
         // $config['charset'] = 'iso-8859-1';
@@ -48,36 +86,7 @@ class Inventories_compare extends Secure_area
         // $config['mailtype'] = 'html';
         // $config['priority'] = 5;
         // $config['charset'] = 'utf-8';
-
         // $this->email->initialize($config);
-
-
-        $head = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /></head><body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0"><center>';
-        $body = '<p>Hola que hace</p>';
-        $footer = '</center></body></html>';
-
-
-        // $email = $this->Appconfig->get('email');
-        // $this->email->from($email, 'Fast I Repair');
-        // $this->email->to($email);
-
-        // $this->email->subject('Report Inventory Stock');
-        // $this->email->message($head.$body.$footer);
-
-        // if ($this->email->send()) {
-        //     $response['status'] = 1;
-        //     $response['msg'] = 'Email successfully sent al administrator!';
-        // }
- 
-        $email = 'skat0@hotmail.com';
-        $headers = 'From:pos@om-parts.com';
-        $subject = 'A message from Om Parts Inc. Corporate Web';
-
-        if (mail($email,$subject, $body, $headers)) {
-            $response['status'] = 1;
-            $response['msg'] = 'Email successfully sent al administrator!';
-        }
-
         // echo $this->email->print_debugger();
 
         die( json_encode($response) );

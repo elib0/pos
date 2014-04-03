@@ -38,5 +38,22 @@ class Inventory_compare extends CI_Model
         if($this->con->insert('items_report',$compare_data)) $b = true;
         return $b;
     }
+    public function save_inventory($obs){
+        $b = false;
+        if(!$this->exist_inventory()){
+            $employee_id=$this->Employee->get_logged_in_employee_info()->person_id;
+            $data=array('date_register'=>date('Y-m-d H:i:s'),'observation'=>$obs,'person_id'=>$employee_id);
+            if($this->con->insert('observation_inventories',$data)) $b = true;
+        }
+        return $b;
+    }
+    public function exist_inventory(){
+        $b = true;
+        $this->con->select('id');
+        $this->con->from('observation_inventories');
+        $this->con->where('DATE(date_register)=DATE(NOW())');
+        if(!$this->con->get()->row_array()){ $b = false; }
+        return $b;
+    }
 }
 ?>

@@ -18,6 +18,13 @@ class Secure_area extends CI_Controller
 			if(!$this->Employee->has_permission($module_id,$this->Employee->get_logged_in_employee_info()->person_id))
 			{
 				redirect('no_access/'.$module_id);
+			}else{
+				 $is_admin=$this->Employee->get_logged_in_employee_info()->type_employees;
+        		if ($is_admin=='Administrator'){
+        			$this->load->model('reports/Inventory_compare');
+		            $model = $this->Inventory_compare;
+		            if (!$model->exist_inventory()){ redirect('inventories_compare'); }
+		        }
 			}
 		}
 		

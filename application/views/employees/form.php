@@ -50,27 +50,9 @@ $password_label_attributes = $person_info->person_id == "" ? array('class'=>'req
 <legend><?php echo $this->lang->line("employees_permission_info"); ?></legend>
 <p><?php echo $this->lang->line("employees_permission_desc"); ?></p>
 
-<select id="employee_profile_type">
+<select id="employee_profile_type" name="employee_profile_type">
 	<option>Profile type...</option>
 </select>
-<script type='text/javascript'>
-$(function(){
-	//Tipos de perfiles de usuario
-	var types={
-			Administrator:'*',
-			Seller:'[value=reports],[value=sales]'
-		},
-		options='';
-	$.each(types,function(key){
-		options+='<option value="'+key+'">'+key+'</option>';
-	});
-	$('#employee_profile_type').append(options).change(function(event){
-		if(!types[this.value]) return;
-		$('ul#permission_list :checkbox').removeAttr('checked')
-			.filter(types[this.value]).attr('checked','checked');
-	});
-});
-</script>
 <ul id="permission_list">
 <?php
 foreach($all_modules->result() as $module)
@@ -161,6 +143,20 @@ echo form_close();
 //validation and submit handling
 $(document).ready(function()
 {
+	//Tipos de perfiles de usuario
+	var types={
+			Administrator:'*',
+			Seller:'[value=reports],[value=sales]'
+		},
+		options='';
+	$.each(types,function(key){
+		options+='<option value="'+key+'">'+key+'</option>';
+	});
+	$('#employee_profile_type').append(options).change(function(event){
+		if(!types[this.value]) return;
+		$('ul#permission_list :checkbox').removeAttr('checked')
+			.filter(types[this.value]).attr('checked','checked');
+	});
 	//Funcionavilidad de los permisos
 	$('.permissions-option').click(function(event) {
 		var perm = this.value;

@@ -94,12 +94,13 @@ class Employees extends Person_controller
 		{
 			$employee_data=array(
 			'username'=>$this->input->post('username'),
-			'password'=>md5($this->input->post('password'))
+			'password'=>md5($this->input->post('password')),
+			'type_employees'=>$this->input->post('employee_profile_type')
 			);
 		}
 		else //Password not changed
 		{
-			$employee_data=array('username'=>$this->input->post('username'));
+			$employee_data=array('username'=>$this->input->post('username'),'type_employees'=>$this->input->post('employee_profile_type'));
 		}
 
 		if($id = $this->Employee->save($person_data,$employee_data,$full_permission_data,$employee_id))

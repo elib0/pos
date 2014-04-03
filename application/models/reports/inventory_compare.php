@@ -38,6 +38,7 @@ class Inventory_compare extends CI_Model
         if($this->con->insert('items_report',$compare_data)) $b = true;
         return $b;
     }
+
     public function save_inventory($obs){
         $b = false;
         if(!$this->exist_inventory()){
@@ -54,6 +55,12 @@ class Inventory_compare extends CI_Model
         $this->con->where('DATE(date_register)=DATE(NOW())');
         if(!$this->con->get()->row_array()){ $b = false; }
         return $b;
+    }
+
+    function count_all()
+    {
+        $this->con->from('items')->where('deleted',0);
+        return $this->con->count_all_results();
     }
 }
 ?>

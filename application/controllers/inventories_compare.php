@@ -33,7 +33,6 @@ class Inventories_compare extends Secure_area
                 $this->load->view("reports/compare_stock",$data);
             }else{ redirect('home'); }
         }else{ redirect('home'); }
-        
     }
 
     public function save(&$compare_data){

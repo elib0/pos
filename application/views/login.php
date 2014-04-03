@@ -40,7 +40,7 @@ foreach ($db as $key => $value) $dbs[$key] = ucwords($key); //Creo arreglo para 
 
 		<div class="form-row">
 			<div class="form_field_label"><?php echo form_label('Location:', 'locationbd'); ?></div>
-			<div class="form_field"><?php echo form_dropdown('locationbd', $dbs, $_SESSION['dblocation']); ?></div>
+			<div class="form_field"><?php echo form_dropdown('locationbd', $dbs, $this->input->post('locationbd')); ?></div>
 		</div>
 
 		<div class="form-row">

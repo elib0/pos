@@ -6,7 +6,6 @@ class Caja extends CI_Model{
     function __construct()
     {
         parent::__construct();
-        $this->load->database();
         $this->Sale->create_sales_items_temp_table();
         $this->Receiving->create_receivings_items_temp_table();
 

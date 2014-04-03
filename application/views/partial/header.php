@@ -95,14 +95,14 @@ html {
 				<a href="index.php/share_inventories">En pruebas</a>
 			</div> -->
 			<div class="menu_item">
-				<img src="<?php echo base_url().'images/menubar/schedule.png';?>" border="0" alt="Menubar Image" style="cursor: pointer" /></a><br />
+				<a href="index.php/employees/assistance"><img src="<?php echo base_url().'images/menubar/schedule.png';?>" border="0" alt="Menubar Image" style="cursor: pointer" /></a><br />
 				<a href="index.php/employees/assistance">Schedule</a>
 			</div>
 		</div>
 
 		<div id="menubar_footer">
 		<?php
-			echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (".$_SESSION['dblocation'].")| ";
+			echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (". $this->session->userdata('dblocation').")| ";
 
 			$people = $this->Employee->get_all();
 		?>

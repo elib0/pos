@@ -9,7 +9,7 @@ class Items extends Secure_area implements iData_controller
 	}
 
 	function set_location(){
-		$location = $_SESSION['dblocation'];
+		$location = $this->session->userdata('dblocation');
 		if($this->input->post('items_location')!=false){
 			$location = $this->input->post('items_location');
 		}elseif ($this->session->userdata('items_location')!=false) {

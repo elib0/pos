@@ -135,3 +135,20 @@ table.innertable tbody tr td
 {
 	background-color: #DDD;
 }
+
+table.tablesorter tbody td.expand{
+	background-color:#eee;
+	cursor: pointer;
+}
+table.tablesorter tbody td.expand a{
+	text-decoration:none;
+}
+table.tablesorter tbody tr.hide
+{
+	display: none;
+}
+table.tablesorter tbody tr.hide > td > table.innertable
+{
+	display: block;
+}
+

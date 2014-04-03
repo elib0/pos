@@ -5,11 +5,16 @@ class Login extends CI_Controller
 	{
 		parent::__construct();
 		// $this->output->enable_profiler(TRUE);
+		// 
+		if ($this->input->post('locationbd')) {
+			$this->session->set_userdata('dblocation', $this->input->post('locationbd'));
+		}else{
+			$this->session->set_userdata('dblocation', 'default');
+		}
 	}
 
 	function index($userId='')
-	{
-		$this->session->set_userdata('dblocation', $this->input->post('locationbd'));
+	{	
 		if($this->Employee->is_logged_in())
 		{
 			redirect('inventories_compare');

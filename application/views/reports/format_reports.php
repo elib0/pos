@@ -30,9 +30,8 @@ if($export_excel == 1){
 	die();
 }else{
 ?>
-	<a class="linkBack" href="#">
-    	<div class="big_button" style="float:left;"><span>Back</span></div>
-	</a>
+	<br/><br/>
+	<a class="linkBack big_button" href="#"><span>Back</span></a>
 	<br/><br/>
 <?php
 	$this->load->view("partial/footer");

@@ -10,15 +10,13 @@ class Inventories_compare extends Secure_area
 
     public function index(){
         $this->load->model('reports/Inventory_compare');
-        $model = $this->Inventory_compare;
         $tabular_data = array();
+        $model = $this->Inventory_compare;
         $report_data = $model->getData();
-
         foreach($report_data as $row)
         {
             $tabular_data[] = array($row['item_id'], character_limiter($row['name'], 16), $row['quantity']);
         }
-
         $data = array(
             "title" => $this->lang->line('reports_items_summary_report'),
             "subtitle" => 'Compare items stock '.date("m/d/Y"),

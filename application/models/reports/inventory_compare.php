@@ -38,5 +38,11 @@ class Inventory_compare extends CI_Model
         if($this->con->insert('items_report',$compare_data)) $b = true;
         return $b;
     }
+
+    function count_all()
+    {
+        $this->con->from('items')->where('deleted',0);
+        return $this->con->count_all_results();
+    }
 }
 ?>

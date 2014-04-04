@@ -4,7 +4,7 @@
 		<td>
 			<div id="receipt_header">
 				<div id="page_title" style="margin-bottom:8px;"><?php echo $title; ?></div>
-				<div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle; ?></div>
+				<div id="page_subtitle" style="margin-bottom:8px;"> <?php echo "$subtitle ($location)"; ?> </div>
 			</div>
 		</td>
 		<td></td>

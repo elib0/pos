@@ -39,15 +39,17 @@ if(isset($error))
 		<input type="radio" name="export_excel" id="export_excel_no" value='0' checked='checked' /> No
 	</div>
 
+<a class="linkBack big_button" style="height: auto" href="#"><span>Back</span></a>
+&nbsp;
 <?php
 echo form_button(array(
 	'name'=>'generate_report',
 	'id'=>'generate_report',
 	'content'=>$this->lang->line('common_submit'),
-	'class'=>'submit_button')
+	'class'=>'big_button',
+	'style'=>'height: auto;')
 );
 ?>
-
 <?php $this->load->view("partial/footer"); ?>
 
 <script type="text/javascript" language="javascript">

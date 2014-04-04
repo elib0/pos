@@ -7,7 +7,9 @@
 <?php echo form_dropdown('month', $months_of_year); ?><br>
 <?php echo form_label('Select Year:', 'year',$labels_attrib); ?><br>
 <?php echo form_dropdown('year', $years); ?><br>
-<input type="submit" value="Send" name="submit" id="submit" class="submit_button">
+<a class="linkBack big_button" style="height: auto" href="#"><span>Back</span></a>
+&nbsp;
+<input type="submit" value="Send" name="submit" id="submit" style="height: auto" class="big_button">
 <?php echo form_close(); ?>
 <script>
 	$(function() {

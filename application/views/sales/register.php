@@ -150,8 +150,8 @@ else
             <?php //echo form_button( array('value'=>$item['item_id'],'name'=>'item_broken','class'=>'item-broken','content'=>'Report Item') ); ?>
         </td> -->
 		</tr>
-		<tr>
-		<td style="color:#2F4F4F";><?php echo $this->lang->line('sales_description_abbrv').':';?></td>
+		<!-- <tr>
+		<td style="color:#2F4F4F";><?php echo $this->lang->line('sales_description_abbrv').':>';?></td>
 		<td colspan=2 style="text-align:left;">
 
 		<?php
@@ -179,7 +179,7 @@ else
 		<?php
         	if($item['is_serialized']==1)
         	{
-				echo $this->lang->line('sales_serial').':';
+				echo $this->lang->line('sales_serial').'::';
 			}
 		?>
 		</td>
@@ -197,7 +197,7 @@ else
 		</td>
 
 
-		</tr>
+		</tr> -->
 		<tr style="height:3px">
 		<td colspan=8 style="background-color:white"> </td>
 		</tr>
@@ -224,14 +224,16 @@ else
 		}else{
 			echo form_open("sales/select_customer",array('id'=>'select_customer_form'));
 			echo '<label id="customer_label" for="customer">'.$this->lang->line('sales_select_customer').'</label>';
-			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','value'=>$this->lang->line('sales_start_typing_customer_name')));
-			echo form_close();
-			echo '<div style="margin-top:5px;text-align:center;">';
-			echo '<h3 style="margin: 5px 0 5px 0">'.$this->lang->line('common_or').'</h3>';
+			
+			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30', 'class'=>'text_box', 'value'=>$this->lang->line('sales_start_typing_customer_name')));
+			
+			//echo '<div style="margin-top:5px;text-align:center;">';
+			//echo '<h3 style="margin: 5px 0 5px 0">'.$this->lang->line('common_or').'</h3>';
 			echo anchor("customers/view/-1/width:350",
-			"<div class='big_button' style='margin:0 auto;'><span>".$this->lang->line('sales_new_customer')."</span></div>",
+			"<div class='small_button' style='margin:0 auto;'><span>+</span></div>",
 			array('class'=>'thickbox none','title'=>$this->lang->line('sales_new_customer')));
-			echo '</div><div class="clearfix">&nbsp;</div>';
+			echo '<div class="clearfix">&nbsp;</div>';
+			echo form_close();
 		}
 	}else{
 		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses

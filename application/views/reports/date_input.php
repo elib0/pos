@@ -36,12 +36,16 @@ if(isset($error))
 	<div id='report_sale_type'>
 		<?php echo form_dropdown('sale_type',array('all' => $this->lang->line('reports_all'), 'sales' => $this->lang->line('reports_sales'), 'returns' => $this->lang->line('reports_returns')), 'all', 'id="sale_type"'); ?>
 	</div>
+	<a class="linkBack big_button" style="height: auto" href="#"><span>Back</span></a>
+	&nbsp;
 <?php
 echo form_button(array(
 	'name'=>'generate_report',
 	'id'=>'generate_report',
-	'content'=>$this->lang->line('common_submit'),
-	'class'=>'submit_button')
+	'content'=>'<span>'.$this->lang->line('common_submit').'</span>',
+	'class'=>'big_button',
+	'style'=>'height: auto;'
+	)
 );
 ?>
 

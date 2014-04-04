@@ -1,7 +1,6 @@
 <?php
  class Cajas extends CI_Controller
  {
-
     function __construct(){
         parent::__construct('cajas');
     }
@@ -9,6 +8,11 @@
      public function index($fastUserId = ''){
         $this->load->model('Caja');
         $tabular_data = array();
+        $con = $this->load->database($this->session->userdata('dblocation'), true);
+        $this->Sale->create_sales_items_temp_table($con);
+
+        $this->Receiving->create_receivings_items_temp_table($con);
+        $this->Caja->con=$con;
         $report_data = $this->Caja->getDetailsPayments();
 
         foreach($report_data as $row)

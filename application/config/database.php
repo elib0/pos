@@ -96,6 +96,22 @@ if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['
 	$db['default']['swap_pre'] = '';
 	$db['default']['autoinit'] = TRUE;
 	$db['default']['stricton'] = FALSE;
+
+	$db['loca_2']['hostname'] = 'localhost';
+	$db['loca_2']['username'] = 'maogcorp_loca2';
+	$db['loca_2']['password'] = 'possp';
+	$db['loca_2']['database'] = 'maogcorp_loca2';
+	$db['loca_2']['dbdriver'] = 'mysql';
+	$db['loca_2']['dbprefix'] = 'ospos_';
+	$db['loca_2']['pconnect'] = FALSE;
+	$db['loca_2']['db_debug'] = TRUE;
+	$db['loca_2']['cache_on'] = FALSE;
+	$db['loca_2']['cachedir'] = '';
+	$db['loca_2']['char_set'] = 'utf8';
+	$db['loca_2']['dbcollat'] = 'utf8_general_ci';
+	$db['loca_2']['swap_pre'] = '';
+	$db['loca_2']['autoinit'] = TRUE;
+	$db['loca_2']['stricton'] = FALSE;
 }
 
 

@@ -218,3 +218,13 @@ input,select
 .clearfix { display: inline-block; }
 html[xmlns] .clearfix {	display: block; }
 * html .clearfix { height: 1%; }
+
+
+.text_box{
+	border: 1px solid #CCC;
+	height: 18px;
+	margin: 0 3px 0 0;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+}

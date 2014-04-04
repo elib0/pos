@@ -211,7 +211,21 @@ else
 </div>
 
 <div id="overall_sale">
-	<?php
+
+		
+		<?php
+		// Only show this part if there is at least one payment entered.
+		if(count($payments) > 0)
+		{
+		?>
+			<div >
+				<div class='small_button' id='suspend_sale_button' ><span><?php echo $this->lang->line('sales_suspend_sale'); ?></span></div>
+				<div class='small_button' id='cancel_sale_button' ><span><?php echo $this->lang->line('sales_cancel_sale'); ?></span></div>
+			</div>
+			
+		<?php
+		}
+
 	echo form_open("sales/select_employee",array('id'=>'select_employee_form'));
 	echo '<label id="customer_label" for="employee">'.$this->lang->line('sales_select_employee').'</label>';
 	echo form_input(array('name'=>'employee','id'=>'employee','size'=>'30', 'value'=>$employee));
@@ -250,7 +264,7 @@ else
 	}
 	?>
 
-	<div id='sale_details'>
+	<div id='sale_details' style="border: 1px solid #001122">
 		<div class="float_left" style="width:55%;"><?php echo $this->lang->line('sales_sub_total'); ?>:</div>
 		<div id="general-sub-total" class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($subtotal); ?></div>
 		
@@ -283,9 +297,7 @@ else
 		
     	<div id="Cancel_sale">
 		<?php echo form_open("sales/cancel_sale",array('id'=>'cancel_sale_form')); ?>
-		<div class='big_button' id='cancel_sale_button' style='margin-top:5px;'>
-			<span><?php echo $this->lang->line('sales_cancel_sale'); ?></span>
-		</div>
+		
     	</form>
     	</div>
 		<div class="clearfix" style="margin-bottom:1px;">&nbsp;</div>
@@ -296,9 +308,9 @@ else
 		?>
 			<div id="finish_sale">
 				<?php echo form_open("sales/complete",array('id'=>'finish_sale_form')); ?>
-				<label id="comment_label" for="comment"><?php echo $this->lang->line('common_comments'); ?>:</label>
-				<?php echo form_textarea(array('name'=>'comment', 'id' => 'comment', 'value'=>$comment,'rows'=>'4','cols'=>'23'));?>
-				<br /><br />
+				<!-- <label id="comment_label" for="comment"><?php echo $this->lang->line('common_comments'); ?>:</label> -->
+				<?php //echo form_textarea(array('name'=>'comment', 'id' => 'comment', 'value'=>$comment,'rows'=>'4','cols'=>'23'));?>
+				<!-- <br /><br /> -->
 
 				<?php
 
@@ -316,7 +328,6 @@ else
 				{
 					echo "<div class='big_button' id='finish_sale_button'><span>".$this->lang->line('sales_complete_sale')."</span></div>";
 				}
-				echo "<br><div class='big_button' id='suspend_sale_button' style='margin: 5px 0'><span>".$this->lang->line('sales_suspend_sale')."</span></div>";
 				?>
 			</div>
 			</form>

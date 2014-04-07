@@ -113,14 +113,14 @@ class Receiving extends CI_Model
 	}
 
 	//We create a temp table that allows us to do easy report/receiving queries
-	public function create_receivings_items_temp_table()
+	public function create_receivings_items_temp_table($con=false)
 	{
-		// $db = $this->session->userdata('dblocation');
-        // if($db)
-           // $this->con = $this->load->database($db, true);
-        // else
-           // $this->con = $this->db;
-        
+  		if ($con) {
+  			$this->con = $con;
+  		}elseif(!$this->con){
+        	$this->con = $this->db;
+       	}
+		$this->con->query( 'DROP TABLE IF EXISTS '.$this->con->dbprefix('receivings_items_temp') );
 		$this->con->query("CREATE TEMPORARY TABLE ".$this->con->dbprefix('receivings_items_temp')."
 		(SELECT date(receiving_time) as receiving_date, ".$this->con->dbprefix('receivings_items').".receiving_id, comment,payment_type, employee_id,
 		".$this->con->dbprefix('items').".item_id, ".$this->con->dbprefix('receivings').".supplier_id, quantity_purchased, item_cost_price, item_unit_price,
@@ -133,7 +133,5 @@ class Receiving extends CI_Model
 		INNER JOIN ".$this->con->dbprefix('items')." ON  ".$this->con->dbprefix('receivings_items').'.item_id='.$this->con->dbprefix('items').'.item_id'."
 		GROUP BY receiving_id, item_id, line)");
 	}
-
-
 }
 ?>

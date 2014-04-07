@@ -48,10 +48,12 @@ a.none
 	position:relative;
 	width:100%;
 	/*background-color:#FFFFFF;*/
-	margin: 0;
 	padding: 0;
 	text-align:center;
-	min-height: 500px
+
+	margin: 0 auto -20px;
+	min-height: 500px;
+	height: 100%;
 }
 
 #content_area
@@ -190,10 +192,12 @@ a.none
 	color:#000;
 	background-color:#f4f4f4;
 	border-top:1px solid #CCC;
-	position:fixed;
-	left:0;
-	right:0;
-	bottom:0;
+	width:100%;
+
+	/*clear: both;
+	height:20px;
+	margin-top:-20px;
+	position: relative;*/
 }
 
 #footer a{

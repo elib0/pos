@@ -150,8 +150,8 @@ else
             <?php //echo form_button( array('value'=>$item['item_id'],'name'=>'item_broken','class'=>'item-broken','content'=>'Report Item') ); ?>
         </td> -->
 		</tr>
-		<tr>
-		<td style="color:#2F4F4F";><?php echo $this->lang->line('sales_description_abbrv').':';?></td>
+		<!-- <tr>
+		<td style="color:#2F4F4F";><?php echo $this->lang->line('sales_description_abbrv').':>';?></td>
 		<td colspan=2 style="text-align:left;">
 
 		<?php
@@ -179,7 +179,7 @@ else
 		<?php
         	if($item['is_serialized']==1)
         	{
-				echo $this->lang->line('sales_serial').':';
+				echo $this->lang->line('sales_serial').'::';
 			}
 		?>
 		</td>
@@ -197,7 +197,7 @@ else
 		</td>
 
 
-		</tr>
+		</tr> -->
 		<tr style="height:3px">
 		<td colspan=8 style="background-color:white"> </td>
 		</tr>
@@ -211,7 +211,21 @@ else
 </div>
 
 <div id="overall_sale">
-	<?php
+
+		
+		<?php
+		// Only show this part if there is at least one payment entered.
+		if(count($payments) > 0)
+		{
+		?>
+			<div >
+				<div class='small_button' id='suspend_sale_button' ><span><?php echo $this->lang->line('sales_suspend_sale'); ?></span></div>
+				<div class='small_button' id='cancel_sale_button' ><span><?php echo $this->lang->line('sales_cancel_sale'); ?></span></div>
+			</div>
+			
+		<?php
+		}
+
 	echo form_open("sales/select_employee",array('id'=>'select_employee_form'));
 	echo '<label id="customer_label" for="employee">'.$this->lang->line('sales_select_employee').'</label>';
 	echo form_input(array('name'=>'employee','id'=>'employee','size'=>'30', 'value'=>$employee));
@@ -224,14 +238,16 @@ else
 		}else{
 			echo form_open("sales/select_customer",array('id'=>'select_customer_form'));
 			echo '<label id="customer_label" for="customer">'.$this->lang->line('sales_select_customer').'</label>';
-			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','value'=>$this->lang->line('sales_start_typing_customer_name')));
-			echo form_close();
-			echo '<div style="margin-top:5px;text-align:center;">';
-			echo '<h3 style="margin: 5px 0 5px 0">'.$this->lang->line('common_or').'</h3>';
+			
+			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30', 'class'=>'text_box', 'value'=>$this->lang->line('sales_start_typing_customer_name')));
+			
+			//echo '<div style="margin-top:5px;text-align:center;">';
+			//echo '<h3 style="margin: 5px 0 5px 0">'.$this->lang->line('common_or').'</h3>';
 			echo anchor("customers/view/-1/width:350",
-			"<div class='big_button' style='margin:0 auto;'><span>".$this->lang->line('sales_new_customer')."</span></div>",
+			"<div class='small_button' style='margin:0 auto;'><span>+</span></div>",
 			array('class'=>'thickbox none','title'=>$this->lang->line('sales_new_customer')));
-			echo '</div><div class="clearfix">&nbsp;</div>';
+			echo '<div class="clearfix">&nbsp;</div>';
+			echo form_close();
 		}
 	}else{
 		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
@@ -248,7 +264,7 @@ else
 	}
 	?>
 
-	<div id='sale_details'>
+	<div id='sale_details' style="border: 1px solid #001122">
 		<div class="float_left" style="width:55%;"><?php echo $this->lang->line('sales_sub_total'); ?>:</div>
 		<div id="general-sub-total" class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($subtotal); ?></div>
 		
@@ -281,9 +297,7 @@ else
 		
     	<div id="Cancel_sale">
 		<?php echo form_open("sales/cancel_sale",array('id'=>'cancel_sale_form')); ?>
-		<div class='big_button' id='cancel_sale_button' style='margin-top:5px;'>
-			<span><?php echo $this->lang->line('sales_cancel_sale'); ?></span>
-		</div>
+		
     	</form>
     	</div>
 		<div class="clearfix" style="margin-bottom:1px;">&nbsp;</div>
@@ -294,9 +308,9 @@ else
 		?>
 			<div id="finish_sale">
 				<?php echo form_open("sales/complete",array('id'=>'finish_sale_form')); ?>
-				<label id="comment_label" for="comment"><?php echo $this->lang->line('common_comments'); ?>:</label>
-				<?php echo form_textarea(array('name'=>'comment', 'id' => 'comment', 'value'=>$comment,'rows'=>'4','cols'=>'23'));?>
-				<br /><br />
+				<!-- <label id="comment_label" for="comment"><?php echo $this->lang->line('common_comments'); ?>:</label> -->
+				<?php //echo form_textarea(array('name'=>'comment', 'id' => 'comment', 'value'=>$comment,'rows'=>'4','cols'=>'23'));?>
+				<!-- <br /><br /> -->
 
 				<?php
 
@@ -314,7 +328,6 @@ else
 				{
 					echo "<div class='big_button' id='finish_sale_button'><span>".$this->lang->line('sales_complete_sale')."</span></div>";
 				}
-				echo "<br><div class='big_button' id='suspend_sale_button' style='margin: 5px 0'><span>".$this->lang->line('sales_suspend_sale')."</span></div>";
 				?>
 			</div>
 			</form>

@@ -140,7 +140,7 @@ html {
 				?>
 			</ul>
 		</nav>
-		<?php echo anchor("cajas",$this->lang->line("common_logout"), 'rel="#logout_overlay"'); ?>
+		<?php echo anchor("cajas",$this->lang->line("common_logout"), 'rel="#logout_overlay", id="btnLogout"'); ?>
 		</div>
 
 		<div id="menubar_date">
@@ -175,7 +175,7 @@ html {
 	$(document).ready(function() {
 		mostrarHora();
 		//Control de enlaces logout
-		$('#menubar_footer #menu_changeuser a').click(function(e, href){
+		$('#menubar_footer #menu_changeuser a, #btnLogout').click(function(e, href){
 			var href = $(this).attr('href');
 			$('#realLogOut').attr('href', href);
 

@@ -126,3 +126,9 @@
 #menubar #menubar_footer a{
 	color: #FFF;
 }
+
+#menu_changelocation > span{
+	color: #396B98;
+	font-weight: bold;
+	text text-transform: uppercase;
+}

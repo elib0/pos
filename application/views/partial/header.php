@@ -115,7 +115,7 @@ html {
 			$people = $this->Employee->get_all();
 		?>
 		<nav id="menu_changelocation">
-			<?php echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (". $this->session->userdata('dblocation').")| "; ?>
+			<?php echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (<span>". $this->session->userdata('dblocation')."</span>)| "; ?>
 			<ul>
 				<?php
 					foreach($dbs as $db)
@@ -146,19 +146,6 @@ html {
 		<div id="menubar_date">
 			<?php echo date('F d, Y') ?>
 			<div id="time" style="display:inline;"></div>
-			<!-- <div id="state_server">
-				<?php
-					// include 'application/config/database.php';
-					// $url = $db[$active_group]['onlinehost'];
-					// $port = $db[$active_group]['onlineport'];
-					// $conn = @fsockopen($url, $port, $errno, $errstr, 30);
-					// if ($conn) { 
-					// 	echo '<div class="server-online"></div>'; 
-					// } else { 
-					// 	echo '<div class="server-offonline"></div>';  
-					// } 
-				?>
-			</div> -->
 		</div>
 		
 	</div>
@@ -208,15 +195,7 @@ html {
 			}).find('.ui-dialog-titlebar-close').attr('href',document.location);
 			//$('.ui-dialog').css('overflow', 'visible');
 			e.preventDefault();
+			return false;
 		});
-
-		// setInterval(function(){
-		// 	$.get('<?php echo site_url(); ?>/Employees/ajax_check_logged_in', function(data) {
-		// 		console.log(data);
-		// 		if (data==0) {
-		// 			location.reload();
-		// 		}
-		// 	});
-		// }, (1000*60)*5);
 	});
 </script>

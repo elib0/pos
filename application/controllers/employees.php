@@ -275,8 +275,9 @@ class Employees extends Person_controller
 
 	function set_location($location='default'){
 		$location = strtolower($location);
+		$url = $this->uri->segment(1);
 		$this->session->set_userdata('dblocation', $location);
-		redirect('home');
+		redirect($url);
 	}
 
 }

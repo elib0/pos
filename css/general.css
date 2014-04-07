@@ -168,6 +168,10 @@ label.required
 	background-color:#f68383;
 	border:1px solid #da3232;
 	font-weight:bold;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	padding:5px;
 }
 
 .warning_mesage

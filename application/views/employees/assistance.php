@@ -24,10 +24,10 @@ table.tablesorter tbody td{
 	<h3>Login:</h3>
 	<?php echo form_open($controller_name.'/open_day', array('id'=>'login', 'method'=>'POST')); ?>
 	<?php echo form_label('Nick Name:', 'name'); ?>
-	<input type="text" name="name" required>
+	<input type="text" name="name" class="text_box" required>
 	<?php echo form_label('Password:', 'password'); ?>
-	<input type="password" name="password" required>
-	<input type="submit" value="Login" id="submit">
+	<input type="password" name="password" class="text_box" required>
+	<input type="submit" value="Login" class="small_button" id="submit">
 	<?php echo form_close(); ?>
 	<h2>Employees Working Now:</h2>
 	<table class="tablesorter report share-inventorie-report" id="sortable_table">

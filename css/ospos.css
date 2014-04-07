@@ -25,13 +25,13 @@ body
 	margin-bottom: 100px;
 }
 
-a:not(.big_button){
+a:not(.big_button):not(.small_button){
 	color: #000;
 	text-decoration: underline;
 	font-size: 1em;
 }
 
-a:not(.big_button):hover{
+a:not(.big_button):not(.small_button):hover{
 	color: #003399;
 	text-decoration: none;
 	font-size: 1em;
@@ -92,16 +92,16 @@ a.none
 #title
 {
 	font-family: 'Fjalla One', sans-serif;
-	font-size:35px;
+	font-size:25px;
 	font-weight:bold;
 }
 
 #page_title
 {
 	margin-top:8px;
-	font-size:30px;
+	font-size:25px;
 	font-weight:bold;
-	text-align:center;
+	text-align:left;
 }
 
 #page_subtitle
@@ -251,4 +251,3 @@ a.none
 	position:relative;
 	font-weight: bold;
 }
-

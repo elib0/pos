@@ -102,11 +102,31 @@ html {
 
 		<div id="menubar_footer">
 		<?php
-			echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (". $this->session->userdata('dblocation').")| ";
+			include('application/config/database.php');
+			$dbs = array();
+			foreach ($db as $key => $value){
+				if ($key != $this->session->userdata('dblocation')) {
+					$dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
+				}
+			}
+			
+			// echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (". $this->session->userdata('dblocation').")| ";
 
 			$people = $this->Employee->get_all();
 		?>
-
+		<nav id="menu_changelocation">
+			<?php echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (". $this->session->userdata('dblocation').")| "; ?>
+			<ul>
+				<?php
+					foreach($dbs as $db)
+					{
+						?>
+						<li><?php echo anchor( "employees/set_location/".$db, $db ); ?></li>
+						<?php
+					}
+				?>
+			</ul>
+		</nav>
 		<nav id="menu_changeuser">
 			<?php echo $this->lang->line('common_changeuser').' | '; ?>
 			<ul>
@@ -168,7 +188,7 @@ html {
 	$(document).ready(function() {
 		mostrarHora();
 		//Control de enlaces logout
-		$('#menubar_footer a').click(function(e, href){
+		$('#menubar_footer #menu_changeuser a').click(function(e, href){
 			var href = $(this).attr('href');
 			$('#realLogOut').attr('href', href);
 

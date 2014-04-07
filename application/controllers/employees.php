@@ -273,5 +273,11 @@ class Employees extends Person_controller
 		die( json_encode($response) );
 	}
 
+	function set_location($location='default'){
+		$location = strtolower($location);
+		$this->session->set_userdata('dblocation', $location);
+		redirect('home');
+	}
+
 }
 ?>

@@ -102,11 +102,31 @@ html {
 
 		<div id="menubar_footer">
 		<?php
-			echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (". $this->session->userdata('dblocation').")| ";
+			include('application/config/database.php');
+			$dbs = array();
+			foreach ($db as $key => $value){
+				if ($key != $this->session->userdata('dblocation')) {
+					$dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
+				}
+			}
+			
+			// echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (". $this->session->userdata('dblocation').")| ";
 
 			$people = $this->Employee->get_all();
 		?>
-
+		<nav id="menu_changelocation">
+			<?php echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (<span>". $this->session->userdata('dblocation')."</span>)| "; ?>
+			<ul>
+				<?php
+					foreach($dbs as $db)
+					{
+						?>
+						<li><?php echo anchor( "employees/set_location/".$db, $db ); ?></li>
+						<?php
+					}
+				?>
+			</ul>
+		</nav>
 		<nav id="menu_changeuser">
 			<?php echo $this->lang->line('common_changeuser').' | '; ?>
 			<ul>
@@ -120,25 +140,12 @@ html {
 				?>
 			</ul>
 		</nav>
-		<?php echo anchor("cajas",$this->lang->line("common_logout"), 'rel="#logout_overlay"'); ?>
+		<?php echo anchor("cajas",$this->lang->line("common_logout"), 'rel="#logout_overlay", id="btnLogout"'); ?>
 		</div>
 
 		<div id="menubar_date">
 			<?php echo date('F d, Y') ?>
 			<div id="time" style="display:inline;"></div>
-			<!-- <div id="state_server">
-				<?php
-					// include 'application/config/database.php';
-					// $url = $db[$active_group]['onlinehost'];
-					// $port = $db[$active_group]['onlineport'];
-					// $conn = @fsockopen($url, $port, $errno, $errstr, 30);
-					// if ($conn) { 
-					// 	echo '<div class="server-online"></div>'; 
-					// } else { 
-					// 	echo '<div class="server-offonline"></div>';  
-					// } 
-				?>
-			</div> -->
 		</div>
 		
 	</div>
@@ -168,7 +175,7 @@ html {
 	$(document).ready(function() {
 		mostrarHora();
 		//Control de enlaces logout
-		$('#menubar_footer a').click(function(e, href){
+		$('#menubar_footer #menu_changeuser a, #btnLogout').click(function(e, href){
 			var href = $(this).attr('href');
 			$('#realLogOut').attr('href', href);
 
@@ -188,15 +195,7 @@ html {
 			}).find('.ui-dialog-titlebar-close').attr('href',document.location);
 			//$('.ui-dialog').css('overflow', 'visible');
 			e.preventDefault();
+			return false;
 		});
-
-		// setInterval(function(){
-		// 	$.get('<?php echo site_url(); ?>/Employees/ajax_check_logged_in', function(data) {
-		// 		console.log(data);
-		// 		if (data==0) {
-		// 			location.reload();
-		// 		}
-		// 	});
-		// }, (1000*60)*5);
 	});
 </script>

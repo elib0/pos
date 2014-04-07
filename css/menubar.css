@@ -69,18 +69,18 @@
 	top:8px;
 	height:45%;
 }
-#menu_changeuser{
+#menu_changeuser, #menu_changelocation{
 	display: inline;
 	margin:0px;
 	padding:0px;
 	cursor: pointer;
 }
 
-#menu_changeuser:hover ul{
+#menu_changeuser:hover ul,#menu_changelocation:hover ul{
 	display:block;
 }
 
-#menu_changeuser ul{
+#menu_changeuser ul, #menu_changelocation ul{
 	background: #000;
 	position:relative;
 	list-style: none;
@@ -92,12 +92,12 @@
 	z-index: 20;
 }
 
-#menu_changeuser ul>li{
+#menu_changeuser ul>li, #menu_changelocation ul>li{
 	margin:0px;
 	padding:0.6em;
 }
 
-#menu_changeuser ul>li:hover{
+#menu_changeuser ul>li:hover, #menu_changelocation ul>li:hover{
 	background: #003399;
 }
 
@@ -125,4 +125,10 @@
 
 #menubar #menubar_footer a{
 	color: #FFF;
+}
+
+#menu_changelocation > span{
+	color: #396B98;
+	font-weight: bold;
+	text text-transform: uppercase;
 }

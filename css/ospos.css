@@ -76,10 +76,10 @@ a.none
 	font-family: 'Fjalla One', sans-serif;
 	color:#FFF;
 	text-shadow:
-   -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-     1px 1px 0 #000;
+		-1px -1px 0 #000,
+		 1px -1px 0 #000,
+		-1px 1px 0 #000,
+		 1px 1px 0 #000;
 }
 
 #title
@@ -138,21 +138,21 @@ a.none
 #home_module_list
 {
 	position: relative;
-
+	margin: 0px 9px;
 }
 
 .module_item
 {
 	margin: 3px;
-    float: left;
-    width: 200px;
-    border: hsl(208, 45%, 75%) solid 1px;
-    height: 130px;
-    background-color: #396B98;
-    border-radius: 3px;
-    padding: 3px;
-    text-align: center;
-    padding-top: 20px;
+	float: left;
+	width: 200px;
+	border: hsl(208, 45%, 75%) solid 1px;
+	height: 130px;
+	background-color: #396B98;
+	border-radius: 3px;
+	padding: 3px;
+	text-align: center;
+	padding-top: 20px;
 	color: #FFF;
 
 	-webkit-transition: all 1.5s ease;

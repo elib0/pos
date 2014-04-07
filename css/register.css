@@ -105,10 +105,43 @@
 
 #sale_details
 {
-	position:relative;
-	width:100%;
-	margin-top:5px;
-	border-top:2px solid #000;
+	
+	width:98%;
+	margin-top:3px;
+	text-align: left;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	
+	font-size: 18px;
+}
+#sale_details .taxing
+{
+	background-color: #F5FAF5;
+	
+}
+#sale_details .total
+{
+	background-color: #FCAF3D;
+	
+}
+#sale_details .sales_sub_total
+{
+	background-color: #A6D1A1;
+	
+}
+
+#sale_details>div
+{
+	
+	padding: 2px;
+}
+#sale_details>div>div
+{
+	
+	float: right;
+	font-weight: bold;
 }
 
 #finish_sale
@@ -174,3 +207,86 @@
 	margin: 0 4px 8px 0;
 }
 
+#suspend_sale_button 
+{
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #F2A144), color-stop(1, #BF4508) );
+	background: -moz-linear-gradient( center top, #F2A144 5%, #BF4508 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F2A144', endColorstr='#BF4508');
+	color: #fff;
+	text-shadow: 1px 1px 0 #000;
+
+	-moz-box-shadow: inset 0 1px 0 0 #F2A144;
+	-webkit-box-shadow: inset 0 1px 0 0 #F2A144;
+	box-shadow: inset 0 1px 0 0 #F2A144;
+}
+
+#cancel_sale_button 
+{
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #F04A13), color-stop(1, #AB0900) );
+	background: -moz-linear-gradient( center top, #F04A13 5%, #AB0900 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F04A13', endColorstr='#AB0900');
+	color: #fff;
+	text-shadow: 1px 1px 0 #000;
+
+	-moz-box-shadow: inset 0 1px 0 0 #F04A13;
+	-webkit-box-shadow: inset 0 1px 0 0 #F04A13;
+	box-shadow: inset 0 1px 0 0 #F04A13;
+}
+
+#finish_sale_button, #add_payment_button {
+
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #1FC248), color-stop(1, #00A629) );
+	background: -moz-linear-gradient( center top, #1FC248 5%, #00A629 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1FC248', endColorstr='#00A629');
+	color: #fff;
+	text-shadow: 1px 1px 0 #000;
+
+	-moz-box-shadow: inset 0 1px 0 0 #1FC248;
+	-webkit-box-shadow: inset 0 1px 0 0 #1FC248;
+	box-shadow: inset 0 1px 0 0 #1FC248;
+
+}
+
+.payments_ {
+	width: 100%;
+	margin-top: 10px;
+	text-align: left;
+	font-size: 16px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #FCAF3D;
+}
+
+#registerDiv{
+	border-radius: 0px 0px 10px 10px;
+	-moz-border-radius: 0px 0px 10px 10px;
+	-webkit-border-radius: 0px 0px 10px 10px;
+	border: 0px solid #000000;
+
+	border: 1px solid #000;
+	padding-bottom: 10px;
+	background: #fff;
+
+}
+.payments_  .payments_total{
+	background-color: #FCAF3D;
+	
+}
+.payments_  .amount_due{
+	background-color: #FCDBA9;
+	
+}
+
+.payments_ div>div{
+	float: right;
+	font-weight: bold;
+	width: auto;
+	
+}
+#amount_tendered{
+	width: 95%;
+	font-size: 22px;
+	text-align: right;
+	font-weight: bold;
+}

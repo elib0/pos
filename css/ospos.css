@@ -284,7 +284,7 @@ a.none
 	list-style: circle;
 }
 
-.box-form-view ul li h3{
+.box-form-view h3{
 	color: #666;
 }
 
@@ -294,4 +294,15 @@ a.none
 
 .box-form-view ul ul li a:hover{
 	font-size: 11px;
+}
+
+.box-form-view td{
+	padding: 5px;
+}
+
+.box-form-view td label{
+	font-size: 11px;
+	font-weight: bold;
+	text-align: right;
+	color: #000;
 }

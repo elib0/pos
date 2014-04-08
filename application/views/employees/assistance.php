@@ -2,49 +2,66 @@
 
 
 
-<div class="employees-assistance box-form-view" style="border: 1px solid #000">
-<div id="title_bar">
 
 
-		<div id="title" class="float_left">Assistance Marker</div>
-	</div>
-	<h3>Login:</h3>
-	<?php echo form_open($controller_name.'/open_day', array('id'=>'login', 'method'=>'POST')); ?>
-	<?php echo form_label('Nick Name:', 'name'); ?>
-	<input type="text" name="name" class="text_box" required>
-	<?php echo form_label('Password:', 'password'); ?>
-	<input type="password" name="password" class="text_box" required>
-	<input type="submit" value="Login" class="small_button" id="submit">
-	<?php echo form_close(); ?>
-	<h2>Employees Working Now:</h2>
-	<table class="tablesorter report share-inventorie-report" id="sortable_table">
-		<thead>
-			<tr>
-				<th>User</th>
-				<th>Option</th>	
-			</tr>
-		</thead>
-		<tbody>
-			<?php if ($employees_working): ?>
-			<?php foreach ($employees_working->result() as $employee): ?>
-			<tr class="user-row">
-				<td><?php echo ucwords($employee->first_name.' '.$employee->last_name); ?></td>
-				<td>
-					<form id="form_close_day<?php echo $employee->employee_id ?>" action="index.php/<?php echo $controller_name; ?>/close_day" method="POST">
+<div id="page_title" style="margin-bottom:8px;">Assistance Marker</div>
+
+
+<div class="employees-assistance box-form-view">
+	<table border="1" style="width: 100%" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>
+			<h3 style="padding-left: 5px">Login:</h3>
+			<?php echo form_open($controller_name.'/open_day', array('id'=>'login', 'method'=>'POST')); ?>
+			<table border="0">
+				<tr>
+					<td><?=form_label('Nick Name:', 'name', array("class"=>"lable-form"))?></td>
+					<td><input type="text" name="name" class="text_box" required></td>
+					<td><?=form_label('Password:', 'password')?></td>
+					<td><input type="password" name="password" class="text_box" required></td>
+					<td><input type="submit" value="Login" class="small_button" id="submit"></td>
+				</tr>
+			</table>
+			<?php echo form_close(); ?>
+		</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>
+			<h2>Employees Working Now:</h2>
+				<table class="tablesorter report share-inventorie-report" id="sortable_table">
+					<thead>
+						<tr>
+						<th>User</th>
+						<th>Option</th>	
+						</tr>
+					</thead>
+					<tbody>
+						<?php if ($employees_working): ?>
+						<?php foreach ($employees_working->result() as $employee): ?>
+						<tr class="user-row">
+						<td><?php echo ucwords($employee->first_name.' '.$employee->last_name); ?></td>
+						<td>
+						<form id="form_close_day<?php echo $employee->employee_id ?>" action="index.php/<?php echo $controller_name; ?>/close_day" method="POST">
 						<button class="logout-button" user="<?php echo $employee->employee_id ?>"><?php echo $this->lang->line("common_logout"); ?></button>
 						<input type="password" name="logoutpass" id="logoutpass">
 						<input type="hidden" name="person_id" value="<?php echo $employee->employee_id; ?>">
 						<label for="logoutpass">Password</label>
-					</form>
-				</td>
-			</tr>
-			<?php endforeach ?>
-			<?php else: ?>
-			<tr>
-				<td colspan="2" class="td-info"><h2>No Employees Working</h2></td>
-			</tr>	
-			<?php endif; ?>
-		</tbody>
+						</form>
+						</td>
+						</tr>
+						<?php endforeach ?>
+						<?php else: ?>
+						<tr>
+						<td colspan="2" class="td-info"><h2>No Employees Working</h2></td>
+						</tr>	
+						<?php endif; ?>
+					</tbody>
+				</table>
+			</td>
+		</tr>
 	</table>
 </div>
 <script>

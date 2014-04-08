@@ -104,16 +104,16 @@ else
 		echo form_open( "sales/edit_item/$line", array('id'=>'edit_item'.$item['item_id']) );
 	?>
 		<tr id="<?php echo $item['item_id']; ?>" class="sale-line">
-		<td><?php echo anchor("sales/delete_item/$line",'['.$this->lang->line('common_delete').']');?></td>
+		<td><?php echo anchor("sales/delete_item/$line",$this->lang->line('common_delete'),"class='small_button'");?></td>
 		<td><?php echo $item['item_number']; ?></td>
-		<td style="align:center;"><?php echo $item['name']; ?><br /> [<?php echo $cur_item_info->quantity; ?> in stock]</td>
+		<td style="align:center; "><?php echo $item['name']; ?><br /><small> [<?php echo $cur_item_info->quantity; ?> in stock]</small></td>
 
 
 
 		<?php if ($items_module_allowed)
 		{
 		?>
-			<td><?php echo form_input(array('name'=>'price','value'=>$item['price'],'size'=>'6','class'=>'edit-item','ref'=>$item['item_id']));?></td>
+			<td><?php echo form_input(array('name'=>'price','value'=>$item['price'],'size'=>'6','class'=>'edit-item text_box','ref'=>$item['item_id']));?></td>
 		<?php
 		}
 		else
@@ -144,7 +144,7 @@ else
         	<?php //echo form_input(array('name'=>'quantity','value'=>$item['quantity'],'size'=>'2')); ?>
 		</td>
 
-		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3', 'class'=>'edit-item','ref'=>$item['item_id']));?></td>
+		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3', 'class'=>'edit-item text_box','ref'=>$item['item_id']));?></td>
 		<td class="sub-total"><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>
 		<!-- <td>
             <?php //echo form_submit("edit_item", $this->lang->line('sales_edit_item'));?>
@@ -383,14 +383,14 @@ else
 
 			</tr>
 			</thead>
-			<tbody id="payment_contents">
+			<tbody id="payment_contents" >
 			<?php
 				foreach($payments as $payment_id=>$payment)
 				{
 				echo form_open("sales/edit_payment/$payment_id",array('id'=>'edit_payment_form'.$payment_id));
 				?>
 	            <tr>
-	            <td><?php echo anchor( "sales/delete_payment/$payment_id", '['.$this->lang->line('common_delete').']' ); ?></td>
+	            <td><?php echo anchor( "sales/delete_payment/$payment_id", $this->lang->line('common_delete'),"class='small_button'" ); ?></td>
 
 							<td><?php echo $payment['payment_type']; ?></td>
 							<td style="text-align:right;"><?php echo to_currency( $payment['payment_amount'] ); ?></td>

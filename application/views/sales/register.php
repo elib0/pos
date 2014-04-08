@@ -104,7 +104,7 @@ else
 		echo form_open( "sales/edit_item/$line", array('id'=>'edit_item'.$item['item_id']) );
 	?>
 		<tr id="<?php echo $item['item_id']; ?>" class="sale-line">
-		<td><?php echo anchor("sales/delete_item/$line",$this->lang->line('common_delete'),"class='small_button'");?></td>
+		<td><?php echo anchor("sales/delete_item/$line",$this->lang->line('common_delete'),"class='small_buttonn'");?></td>
 		<td><?php echo $item['item_number']; ?></td>
 		<td style="align:center; "><?php echo $item['name']; ?><br /><small> [<?php echo $cur_item_info->quantity; ?> in stock]</small></td>
 

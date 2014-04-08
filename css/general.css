@@ -225,5 +225,7 @@ html[xmlns] .clearfix {	display: block; }
 	-moz-border-radius:5px;
 	border-radius:5px;
 }
-
-
+.upload_label{
+	font-size: 10px;
+	width: 306px;
+}

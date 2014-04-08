@@ -49,7 +49,7 @@
 #menubar_company_info
 {
 	position:absolute;
-	left:0px;
+	left:-10px;
 	top:0px;
 	width:250px;
 	height:55%;
@@ -70,7 +70,8 @@
 	height:45%;
 }
 #menu_changeuser, #menu_changelocation{
-	display: inline;
+	position:relative;
+	display:inline;
 	margin:0px;
 	padding:0px;
 	cursor: pointer;
@@ -81,14 +82,15 @@
 }
 
 #menu_changeuser ul, #menu_changelocation ul{
+	/*position:relative;
+	left: 13em;*/
+	position:absolute;
 	background: #000;
-	position:relative;
 	list-style: none;
 	width: 100px;
 	margin:0px;
 	padding:0px;
 	display:none;
-	left: 13em;
 	z-index: 20;
 }
 
@@ -128,7 +130,17 @@
 }
 
 #menu_changelocation > span{
+	position:relative;
 	color: #396B98;
 	font-weight: bold;
 	text text-transform: uppercase;
+}
+
+#menu_changelocation>span:before{
+	content:'(';
+	color:#fff;
+}
+#menu_changelocation>span:after{
+	content:')';
+	color:#fff;
 }

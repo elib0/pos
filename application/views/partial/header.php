@@ -75,9 +75,9 @@ html {
 <div id="menubar">
 	<div id="menubar_container">
 		<div id="menubar_company_info">
-		<span ><a href="index.php"><img src="images/logo.png" border="0" width="155px"/><?php //echo $this->config->item('company'); ?></a></span>
+		<span ><a href="index.php"><img src="images/<?php echo $this->Appconfig->get('logo')?>" border="0" width="155px"/><?php //echo $this->config->item('company'); ?></a></span>
 		</div>
-
+		
 		<div id="menubar_navigation">
 			<?php
 			foreach($allowed_modules->result() as $module)
@@ -115,17 +115,20 @@ html {
 			$people = $this->Employee->get_all();
 		?>
 		<nav id="menu_changelocation">
-			<?php echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (<span>". $this->session->userdata('dblocation')."</span>)| "; ?>
-			<ul>
-				<?php
-					foreach($dbs as $db)
-					{
-						?>
-						<li><?php echo anchor( "employees/set_location/".$db, $db ); ?></li>
-						<?php
-					}
-				?>
-			</ul>
+			<?=$this->lang->line('common_welcome').' '.$user_info->first_name.' '.$user_info->last_name.'!'?>
+			<span>
+				<?=$this->session->userdata('dblocation')?>
+				<ul>
+					<?php
+						foreach($dbs as $db)
+						{
+							?>
+							<li><?php echo anchor( "employees/set_location/".$db, $db ); ?></li>
+							<?php
+						}
+					?>
+				</ul>
+			</span> |
 		</nav>
 		<nav id="menu_changeuser">
 			<?php echo $this->lang->line('common_changeuser').' | '; ?>

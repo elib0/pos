@@ -21,9 +21,10 @@ if(isset($list)){
 if($export_excel == 1){
 	$this->load->view("partial/footer_excel");
 	$content = ob_end_flush();
-	$filename = trim($filename);
-	$filename = str_replace(array(' ', '/', '\\'), '', $title);
-	$filename .= "_Export.xls";
+	$date=date('Ymd_Hi');
+	$filename = trim($this->uri->segment(2));
+	// $filename = str_replace(array(' ', '/', '\\'), '', $title);
+	$filename .= "_export_$date.xls";
 	header('Content-type: application/ms-excel');
 	header('Content-Disposition: attachment; filename='.$filename);
 	echo $content;

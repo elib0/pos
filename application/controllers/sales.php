@@ -239,7 +239,7 @@ class Sales extends Secure_area
 
 				//Datos para la vista a generar
 				$data['receipt_title'] = $this->lang->line('sales_shipping');
-				$data['employee']=$emp_info->first_name.' '.$emp_info->last_name.' From: '.ucwords($_SESSION['dblocation']);
+				$data['employee']=$emp_info->first_name.' '.$emp_info->last_name.' From: '.ucwords($this->session->userdata('dblocation'));
 
 				//Registrar Location como customer "CALICHE"
 				include('application/config/database.php');

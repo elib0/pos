@@ -256,7 +256,7 @@ else
 		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
 		$dbs = array('...'=>'...');
 		foreach ($db as $key => $value){
-			if ( $key != $_SESSION['dblocation'] ) {
+			if ( $key != $this->session->userdata('dblocation') ) {
 				$dbs[$key] = ucwords($key);
 			}
 		}

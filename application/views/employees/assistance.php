@@ -17,26 +17,21 @@ table.tablesorter tbody td{
 }*/
 </style>
 
-<<<<<<< HEAD
 
 <div id="title" style="margin-bottom:8px;">Assistance Marker</div>
 
 
 <div class="employees-assistance box-form-view" style="border: 1px solid #000">
 	<!-- <div id="title_bar">
-=======
-<div class="employees-assistance">
-	<div id="title_bar">
->>>>>>> FETCH_HEAD
 		<div id="title" class="float_left">Assistance Marker</div>
-	</div>
+	</div> -->
 	<h3>Login:</h3>
 	<?php echo form_open($controller_name.'/open_day', array('id'=>'login', 'method'=>'POST')); ?>
 	<?php echo form_label('Nick Name:', 'name'); ?>
-	<input type="text" name="name" class="text_box" required>
+	<input type="text" name="name" required>
 	<?php echo form_label('Password:', 'password'); ?>
-	<input type="password" name="password" class="text_box" required>
-	<input type="submit" value="Login" class="small_button" id="submit">
+	<input type="password" name="password" required>
+	<input type="submit" value="Login" id="submit">
 	<?php echo form_close(); ?>
 	<h2>Employees Working Now:</h2>
 	<table class="tablesorter report share-inventorie-report" id="sortable_table">

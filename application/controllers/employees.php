@@ -273,12 +273,5 @@ class Employees extends Person_controller
 		die( json_encode($response) );
 	}
 
-	function set_location($location='default'){
-		$location = strtolower($location);
-		$url = $this->uri->segment(1);
-		$this->session->set_userdata('dblocation', $location);
-		redirect($url);
-	}
-
 }
 ?>

@@ -1,7 +1,7 @@
 <?php $this->load->view("partial/header"); ?>
 
 <style>
-input#search{
+/*input#search{
 	width: 380px;
 }
 .employees-assistance{
@@ -14,14 +14,14 @@ input#search{
 }
 table.tablesorter tbody td{
 	padding: 15px;
-}
+}*/
 </style>
 
 
 <div id="title" style="margin-bottom:8px;">Assistance Marker</div>
 
 
-<div class="employees-assistance box-form-view">
+<div class="employees-assistance box-form-view" style="border: 1px solid #000">
 	<!-- <div id="title_bar">
 		<div id="title" class="float_left">Assistance Marker</div>
 	</div> -->

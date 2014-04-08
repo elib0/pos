@@ -115,17 +115,20 @@ html {
 			$people = $this->Employee->get_all();
 		?>
 		<nav id="menu_changelocation">
-			<?php echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (<span>". $this->session->userdata('dblocation')."</span>)| "; ?>
-			<ul>
-				<?php
-					foreach($dbs as $db)
-					{
-						?>
-						<li><?php echo anchor( "employees/set_location/".$db, $db ); ?></li>
-						<?php
-					}
-				?>
-			</ul>
+			<?=$this->lang->line('common_welcome').' '.$user_info->first_name.' '.$user_info->last_name.'!'?>
+			<span>
+				<?=$this->session->userdata('dblocation')?>
+				<ul>
+					<?php
+						foreach($dbs as $db)
+						{
+							?>
+							<li><?php echo anchor( "employees/set_location/".$db, $db ); ?></li>
+							<?php
+						}
+					?>
+				</ul>
+			</span> |
 		</nav>
 		<nav id="menu_changeuser">
 			<?php echo $this->lang->line('common_changeuser').' | '; ?>

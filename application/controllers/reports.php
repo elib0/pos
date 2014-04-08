@@ -727,7 +727,7 @@ class Reports extends Secure_area
 			"subtitle" => $rangeDays,
 			"headers" => $model->getDataColumns(),
 			"summary_data" => $summary_data,
-			"location"=>'-location-',
+			"location"=>$location,
 			"details_data" => $details_data,
 			"overall_summary_data" => $model->getSummaryData(array('start_date'=>$start_date, 'end_date'=>$end_date,'customer_id' =>$customer_id, 'sale_type' => $sale_type)),
 			"export_excel" => $export_excel

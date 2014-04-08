@@ -79,7 +79,7 @@
 <script>
 	$(function() {
 		$('#submit').click(function(event) {
-			//if (confirm('Do you want to start to work ?')) {
+			if (confirm('Do you want to start to work ?')) {
 				$('#login').ajaxSubmit({
 					dataType:'json',
 					success:function(data)
@@ -94,12 +94,18 @@
 							}
 							
 						}else{
-							alert(data.message);
+							notif({
+							    type: "error",
+							    msg: data.message,
+							    width: "all",
+							    height: 100,
+							    position: "center"
+							});
 						}
 						$('#login input[type=text], #login input[type=password]').val('');
 					}
 				});
-			//}
+			}
 			return false;
 		});
 

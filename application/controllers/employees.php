@@ -236,7 +236,7 @@ class Employees extends Person_controller
 		$password = $this->input->post('password');
 
 		//Respuesta
-		$response = array('message'=>'Invalid User', 'status'=>0);
+		$response = array('message'=>'Wrong Password or Username, try Again!', 'status'=>0);
 
 		$row = $this->Employee->login_($username, $password);
 		if($row){
@@ -267,7 +267,7 @@ class Employees extends Person_controller
 			}
 		}else{
 			$response['status'] = -1;
-			$response['message'] = 'Wrong Password, try Again!';
+			$response['message'] = 'Wrong Password or Username, try Again!';
 		}
 
 		die( json_encode($response) );

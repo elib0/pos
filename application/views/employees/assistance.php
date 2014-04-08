@@ -1,33 +1,11 @@
 <?php $this->load->view("partial/header"); ?>
 
-<style>
-/*input#search{
-	width: 380px;
-}
-.employees-assistance{
-	margin: 2em 0 0 0;
-}
-.td-info{
-	text-align: center;
-	font-size: 24px;
-	font-weight: bold;
-}
-table.tablesorter tbody td{
-	padding: 15px;
-}*/
-</style>
-
-<<<<<<< HEAD
-
-<div id="title" style="margin-bottom:8px;">Assistance Marker</div>
 
 
 <div class="employees-assistance box-form-view" style="border: 1px solid #000">
-	<!-- <div id="title_bar">
-=======
-<div class="employees-assistance">
-	<div id="title_bar">
->>>>>>> FETCH_HEAD
+<div id="title_bar">
+
+
 		<div id="title" class="float_left">Assistance Marker</div>
 	</div>
 	<h3>Login:</h3>

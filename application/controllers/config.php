@@ -14,7 +14,56 @@ class Config extends Secure_area
 		
 	function save()
 	{
+		//carga de imagen
+		$config['upload_path'] = './images/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '10000';
+		$config['max_width']  = '2400';
+		$config['max_height']  = '1200';
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		//fin carga imagen
+		
+		try { 
+			$nameLogo['file_name']='';
+			
+			if ($this->upload->do_upload('logo')) {
+				$nameLogo = $this->upload->data();
+				$data = array('upload_status' => 1,'upload_message' => $nameLogo['file_name']);
+			}else{
+				
+				if ($this->upload->display_errors(true)=='1') {
+					$data = array('upload_status' => 2,'upload_message' => 'vacio');
+				}else{
+					$data = array('upload_status' => 0,'upload_message' => 'dimensiones malas o peso img');
+				}
+				
+			}
+		} catch (Exception $e) {
+			$data = array('upload_status' => -1,'upload_message' => 'no se cargo');
+			$nameLogo['file_name']='';
+		}
+
+		if ($nameLogo['file_name']!='') {
+
+			//redimension
+			$configR['image_library'] = 'gd2';
+			$configR['source_image']	= './images/'.$data['upload_message'];
+			$configR['create_thumb'] = false;
+			$configR['maintain_ratio'] = false;
+			$configR['width']	 = 240;
+			$configR['height']	= 120;
+			$this->load->library('image_lib', $configR); 
+			$this->image_lib->resize();
+			//fin redimension
+
+			$logo = $nameLogo['file_name'];
+		}else{
+			$logo = $this->input->post('logo_name');
+		}	
+
 		$batch_save_data=array(
+		'logo'=>$logo,
 		'company'=>$this->input->post('company'),
 		'address'=>$this->input->post('address'),
 		'phone'=>$this->input->post('phone'),
@@ -29,13 +78,40 @@ class Config extends Secure_area
 		'return_policy'=>$this->input->post('return_policy'),
 		'language'=>$this->input->post('language'),
 		'timezone'=>$this->input->post('timezone'),
-		'print_after_sale'=>$this->input->post('print_after_sale')	
+		'print_after_sale'=>$this->input->post('print_after_sale')
 		);
-		
-		if( $this->Appconfig->batch_save( $batch_save_data ) )
-		{
-			echo json_encode(array('success'=>true,'message'=>$this->lang->line('config_saved_successfully')));
+		//echo json_encode($batch_save_data);
+
+		switch ($data['upload_status']) {
+			case '0':
+				echo json_encode(array('success'=>false,'message'=>$data['upload_message']));
+				break;
+			case '1':
+					if( $this->Appconfig->batch_save( $batch_save_data ) )
+					{
+						echo json_encode(array('success'=>true,'data'=>$data,'message'=>$this->lang->line('config_saved_successfully')));
+					}
+				break;
+			case '2':
+					if( $this->Appconfig->batch_save( $batch_save_data ) )
+					{
+						echo json_encode(array('success'=>true,'data'=>$data,'message'=>$this->lang->line('config_saved_successfully')));
+					}
+				break;
+			case '-1':
+				echo json_encode(array('success'=>false,'message'=>$data['upload_message']));
+				break;
 		}
+
+		// if($data['upload_status']){
+		// 	if( $this->Appconfig->batch_save( $batch_save_data ) )
+		// 	{
+		// 		echo json_encode(array('success'=>true,'data'=>$data,'message'=>$this->lang->line('config_saved_successfully')));
+		// 	}
+		// }else{
+		// 	echo json_encode(array('success'=>false,'message'=>'error en la carga'));
+		// }
+		
 	}
 }
 ?>

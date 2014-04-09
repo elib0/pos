@@ -259,7 +259,8 @@ a.none
 	-webkit-border-radius: 5px; 
 	-moz-border-radius: 5px; 
 	border-radius: 5px; 
-	padding: 10px;	
+	padding: 10px;
+	margin: 0 0 10px 0;	
 }
 
 .box-form-view:after
@@ -305,4 +306,30 @@ a.none
 	font-weight: bold;
 	text-align: right;
 	color: #000;
+}
+
+.lable-form{
+	font-size: 11px;
+	font-weight: bold;
+	text-align: right;
+	color: #000;
+}
+
+hr{
+	border: 1px solid #f4f4f4;
+	margin: 5px 0 5px 0;
+}
+
+.sub-title-view{
+	background-color: #f4f4f4;
+	border-bottom: 1px solid #CCC; 
+	-webkit-border-radius: 3px; 
+	-moz-border-radius: 3px; 
+	border-radius: 3px; 
+	padding: 3px;
+	/*text-align: center;*/
+	margin: 20px 0 5px 0;
+	font-size: 11px;
+	color: #000;
+	font-weight: bold;
 }

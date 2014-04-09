@@ -30,7 +30,7 @@
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
 
 <?=form_open('inventories_compare/save', array('id'=>'compare_form'))?>
-<div id="table_holder" style="overflow: scroll;height: 450px;margin-bottom:5px;">
+<div id="table_holder" style="overflow: scroll;height: 450px; margin-bottom: 0px;">
     <table class="tablesorter report compare-stock" id="sortable_table">
         <thead>
             <tr style="text-align: center;">
@@ -66,19 +66,19 @@
                 </td>
                 <td>
                     <?=form_input(array('id'=>'check'.$row[0], 'name'=>'check'.$row[0], 'type'=>'checkbox'))?>
-                    <?=form_label('','check'.$row[0]);?>
+                    <?=form_label('', 'check'.$row[0]);?>
                 </td>
             </tr>
             <?php } ?>
         </tbody>
     </table>
 </div>
-<div>
-    <a class="linkPrint big_button" href="#">
-        <span>Print</span>
+<div style="margin: 5px 0">
+    <a class="linkPrint" href="#">
+        <div class="big_button" style="float: left;"><span>Print</span></div>
     </a>
-    <a id="btnSendToAdmin" class="big_button" href="index.php/inventories_compare/send_mail_to_admin">
-        <span>Send to Administrator</span>
+    <a id="btnSendToAdmin" href="index.php/inventories_compare/send_mail_to_admin">
+        <div class="big_button" style="float: left; margin-left: 5px"><span>Send to Administrator</span></div>
     </a>
 </div>
 <?=form_close()?>
@@ -126,6 +126,9 @@
                             height: 100,
                             position: "center"
                         });
+                        if (data['status'] == 1){
+                            window.location=((window.location+'').replace("inventories_compare","")+'home');
+                        } 
                     }
                 });
             return false;

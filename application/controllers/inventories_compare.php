@@ -9,8 +9,7 @@ class Inventories_compare extends Secure_area
     }
 
     public function index(){
-        $is_admin=$this->Employee->get_logged_in_employee_info()->type_employees;
-        if ($is_admin=='Administrator'){
+        if ($this->Employee->isAdmin()){
             $this->load->model('reports/Inventory_compare');
             $model = $this->Inventory_compare;
             if (!$model->exist_inventory()){

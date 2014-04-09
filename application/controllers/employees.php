@@ -52,6 +52,7 @@ class Employees extends Person_controller
 		$data['person_info']=$this->Employee->get_info($employee_id);
 		// $data['person_schedule']=$this->Schedule->get_schedule($employee_id);
 		$data['all_modules']=$this->Module->get_all_modules();
+		$data['module_profiles']=$this->Employee->getProfile_Employee('',true);
 		$this->load->view("employees/form",$data);
 	}
 
@@ -60,6 +61,10 @@ class Employees extends Person_controller
 	*/
 	function save($employee_id=-1)
 	{
+		if ($employee_id==-1 && $this->Employee->exists('',$this->input->post('username'))) {
+			echo json_encode(array('success'=>false,'message'=>$this->lang->line('employees_username_exist')));
+			return;
+		}
 		//Horario personal
 		$days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
 		$person_schedule = array();
@@ -271,6 +276,45 @@ class Employees extends Person_controller
 		}
 
 		die( json_encode($response) );
+	}
+	function profile_employee(){
+		$data['profiles']=$this->Employee->getProfile_Employee();
+		$data['controller_name']=strtolower(get_class());
+		//$data['form_width']=$this->get_form_width();
+		$this->load->view("employees/profiles",$data);
+	}
+	function form_profile_employee($per=-1){
+		if ($per!=-1){ $data['profile']=$this->Employee->getProfile_Employee($per); }
+		else $data['profile']='';
+		$data['all_modules']=$this->Module->get_all_modules();
+		$this->load->view("employees/profiles_form",$data);
+	}
+	function save_profile_employee($per=''){
+		if ($per=='' && $this->Employee->exists_profile($this->input->post('name'))){
+			echo json_encode(array('success'=>false,'message'=>$this->lang->line('employees_profile_per_name_e')));
+			return;
+		}//pos-name
+		if ($per==''){ $prodile_data = array('name'=>$this->input->post('name'),'new'=>true); }
+		else{ $prodile_data = array('name'=>$this->input->post('name'),'new'=>false,'last'=>$this->input->post('pos-name')); }
+		// $person_data = array('name'=>$this->input->post('name'));
+		$permission_data = $this->input->post("permissions")!=false ? $this->input->post("permissions"):array();
+		$full_permission_data = array();
+		foreach ($permission_data as $subpermission) {
+			$subpermissions = $this->input->post($subpermission)!=false? $this->input->post($subpermission):array();
+			$full_permission_data[$subpermission] = ( count($subpermissions) > 0 ) ? implode(',', $subpermissions) : 'none';
+		}
+		if($this->Employee->create_profile($prodile_data,$full_permission_data)){
+			//New employee
+			if($per==''){
+				echo json_encode(array('success'=>true,'message'=>$this->lang->line('employees_successful_adding').' '.
+				$prodile_data['name'],'person_id'=>$prodile_data['name']));
+			}else{ 
+				echo json_encode(array('success'=>true,'message'=>$this->lang->line('employees_successful_updating').' '.$prodile_data['name'],'person_id'=>$per));
+			}
+		}else{ //failure
+			echo json_encode(array('success'=>false,'message'=>$this->lang->line('employees_error_adding_updating').' '.
+			$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>-1));
+		}
 	}
 
 }

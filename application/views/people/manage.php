@@ -63,18 +63,17 @@ function post_person_form_submit(response)
 	<div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?></div>
 	<div id="new_button">
 		<?php
-		if($this->Employee->has_privilege('add', $controller_name)){
-			echo anchor("$controller_name/view/-1/width:$form_width",
-			"<div class='big_button' style='float: left;'><span>".$this->lang->line($controller_name.'_new')."</span></div>",
-			array('class'=>'thickbox none','title'=>$this->lang->line($controller_name.'_new')));
-		}
-		?>
-		<?php if ($controller_name =='customers') {?>
-			<?php echo anchor("$controller_name/excel_import/width:$form_width",
-			"<div class='big_button' style='float: left; margin:0 5px 0'><span>Excel Import</span></div>",
+		if ($controller_name =='employees') {
+			if($this->Employee->has_privilege('add', $controller_name)){
+				echo anchor("$controller_name/view/-1/width:$form_width",
+				"<div class='big_button' style='float: left;'><span>".$this->lang->line($controller_name.'_new')."</span></div>",
+				array('class'=>'thickbox none','title'=>$this->lang->line($controller_name.'_new')));
+			}	
+		}elseif ($controller_name =='customers') {
+			echo anchor("$controller_name/excel_import/width:$form_width",
+				"<div class='big_button' style='float: left; margin:0 5px 0'><span>Excel Import</span></div>",
 				array('class'=>'thickbox none','title'=>'Import Items from Excel'));
-			?>	
-		<?php } ?>
+		} ?>
 	</div>
 </div>
 <?php echo $this->pagination->create_links();?>
@@ -84,6 +83,12 @@ function post_person_form_submit(response)
 		<li class="float_left"><span><?php echo anchor("$controller_name/delete",$this->lang->line("common_delete"),array('id'=>'delete')); ?></span></li>
 		<?php endif; ?>
 		<li class="float_left"><span><a href="javascript:void(0)" id="email"><?php echo $this->lang->line("common_email");?></a></span></li>
+		<?php if ($this->Employee->isAdmin()){ ?>
+		 		<li class="float_left">
+		 			<span><a href="<?php  echo site_url($controller_name."/profile_employee"); ?>" ><?php echo $this->lang->line("employees_profile_per");?>
+		 			</a></span>
+	 			</li>
+		<?php } ?>
 		<li class="float_right">
 		<img src='<?php echo base_url()?>images/spinner_small.gif' alt='spinner' id='spinner' />
 		<?php echo form_open("$controller_name/search",array('id'=>'search_form')); ?>

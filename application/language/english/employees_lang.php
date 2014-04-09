@@ -11,6 +11,7 @@ $lang['employees_successful_deleted']='You have successfully deleted';
 $lang['employees_one_or_multiple']='employee(s)';
 $lang['employees_cannot_be_deleted']='Could not deleted selected employees, one or more of the employees has processed sales or you are trying to delete yourself :)';
 $lang['employees_username']='Username';
+$lang['employees_username_exist']='The user name exists';
 $lang['employees_password']='Password';
 $lang['employees_repeat_password']='Password Again';
 $lang['employees_username_required']='Username is a required field';
@@ -24,4 +25,9 @@ $lang['employees_permission_info']='Employee Permissions and Access';
 $lang['employees_permission_desc']='Check the boxes below to grant access to modules';
 $lang['employees_error_updating_demo_admin'] = 'You can not change the demo admin user';
 $lang['employees_error_deleting_demo_admin'] = 'You can not delete the demo admin user';
+$lang['employees_profile_per'] = 'Profiles';
+$lang['employees_profile_per_new'] = 'New Profiles';
+$lang['employees_profile_per_name'] = 'Profile name';
+$lang['employees_profile_per_name_e'] = 'This profile already exists';
+$lang['employees_profile_m'] = 'Modules';
 ?>

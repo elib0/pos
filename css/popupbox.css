@@ -84,8 +84,15 @@
 {
 	font-weight:bold;
 }
-
-#employee_permission_info span.small
+#employee_permission_info.profi #permission_list>li{
+  		float:left;
+  		height:55px;
+  		width: 300px;
+  		border: 1px solid #DDDDDD;
+}
+#employee_permission_info.profi #permission_list li ul li{ float:left; }
+#employee_permission_info.profi{ width: inherit; }
+#employee_permission_info.profi #employee_permission_info span.small
 {
 	font-style:italic;
 	font-size:80%;

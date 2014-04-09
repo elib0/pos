@@ -4,7 +4,7 @@
 
 <?php 
 	if(isset($error)){
-		echo "<div class='error_message'>".$error."</div>";
+		echo "<div class='error_message' style=' margin: 0 0 10px 0'>".$error."</div>";
 	}
 ?>
 

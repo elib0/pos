@@ -13,10 +13,12 @@ echo form_open('employees/save/'.$person_info->person_id,array('id'=>'employee_f
 <div class="field_row clearfix">
 <?php echo form_label($this->lang->line('employees_username').':', 'username',array('class'=>'required')); ?>
 	<div class='form_field'>
-	<?php echo form_input(array(
+	<?php 
+		$disabled=$person_info->username?"disabled":"";
+		echo form_input(array(
 		'name'=>'username',
 		'id'=>'username',
-		'value'=>$person_info->username));?>
+		'value'=>$person_info->username,$disabled=>$disabled));?>
 	</div>
 </div>
 
@@ -45,15 +47,15 @@ $password_label_attributes = $person_info->person_id == "" ? array('class'=>'req
 	</div>
 </div>
 </fieldset>
-
 <fieldset id="employee_permission_info">
 <legend><?php echo $this->lang->line("employees_permission_info"); ?></legend>
 <p><?php echo $this->lang->line("employees_permission_desc"); ?></p>
-
-<select id="employee_profile_type" name="employee_profile_type">
-	<option>Profile type...</option>
+<select id="employee_profile_type">
+	<option value="">Profile type...</option>
 </select>
-<ul id="permission_list">
+<input type="hidden" name="employee_profile_type" />
+<div id="radio" style="margin-top: 10px;"><input type="checkbox"  style="margin-right: 10px;">Ver Permisos</div>
+<ul id="permission_list" style="display: none;">
 <?php
 foreach($all_modules->result() as $module)
 {
@@ -62,6 +64,7 @@ foreach($all_modules->result() as $module)
 	<?php
 		$subpermissions = explode(',', $module->options);
 		$attribs = array(
+			'id'=>$module->module_id,
 			'name'=>'permissions[]',
 			'value'=>$module->module_id,
 			'class'=>'permissions-option',
@@ -76,6 +79,7 @@ foreach($all_modules->result() as $module)
 		foreach ($subpermissions as $subpermission) {
 			if ($subpermission != 'none' || $subpermission == '') {
 				$attribs = array(
+					'id'=>$module->module_id.'-'.$subpermission,
 					'name'=>$module->module_id.'[]',
 					'value'=>$subpermission,
 					'class'=>$module->module_id.'-option',
@@ -138,25 +142,39 @@ echo form_submit(array(
 );
 echo form_close();
 ?>
+<!-- <pre style="float: left;"><?=print_r($module_profiles)?></pre> -->
+<?php 
+	$retypes=''; 
+	// $retypes=implode(",",$module_profiles); 
+	foreach ($module_profiles as $key) {
+		$retypes.=implode("|",$key).']';
+	}
+?>
 <script type='text/javascript'>
 
 //validation and submit handling
 $(document).ready(function()
 {
 	//Tipos de perfiles de usuario
-	var types={
-			Administrator:'*',
-			Seller:'[value=reports],[value=sales]'
-		},
-		options='';
-	$.each(types,function(key){
-		options+='<option value="'+key+'">'+key+'</option>';
-	});
+	var type=[],htype=[],select='<?=$person_info->type_employees?>',options='',retypes='<?=$retypes?>';
+	var retypes2=retypes.split(']');
+	// $.each(types,function(key){
+	// 	options+='<option value="'+key+'" '+(select==key?'selected="selected"':'')+'>'+key+'</option>';
+	// });
+	for (var i=0;i<retypes2.length;i++){
+		var types=retypes2[i].split('|');
+		if (types[1]){ 
+			options+='<option value="'+i+'" '+(select==types[0].toLowerCase()?'selected="selected"':'')+'>'+types[0]+'</option>';
+			type[i]=types[1];
+			htype[i]=types[0].toLowerCase();
+		}
+	}
 	$('#employee_profile_type').append(options).change(function(event){
-		if(!types[this.value]) return;
-		$('ul#permission_list :checkbox').removeAttr('checked')
-			.filter(types[this.value]).attr('checked','checked');
+		if(!type[this.value]) return;
+		$('ul#permission_list :checkbox').removeAttr('checked').filter(type[this.value]).attr('checked','checked');
+		$('input[type="hidden"][name="employee_profile_type"]').val(htype[this.value]);
 	});
+
 	//Funcionavilidad de los permisos
 	$('.permissions-option').click(function(event) {
 		var perm = this.value;
@@ -171,6 +189,10 @@ $(document).ready(function()
 		if ($(this).is(':checked')){
 			$('input[type="checkbox"][value="'+perm[0]+'"].permissions-option').attr('checked','checked');
 		}
+	});
+	$('#radio input').change(function(event) {
+		if($(this).is(':checked')) $('#permission_list').css('display','block');
+		else $('#permission_list').css('display','none');
 	});
 	// $('#submit').click(function(e){
 	// 	var days = $('td.checkDays > input[type=checkbox]');
@@ -235,13 +257,12 @@ $(document).ready(function()
 		{
 			$(form).ajaxSubmit({
 			success:function(response)
-			{
-				tb_remove();
+			{   
+				if (response.success) tb_remove();
 				post_person_form_submit(response);
 			},
 			dataType:'json'
 		});
-
 		},
 		errorLabelContainer: "#error_message_box",
  		wrapper: "li",
@@ -249,12 +270,12 @@ $(document).ready(function()
 		{
 			first_name: {
 			    required: true,
-			    regex:/^[a-zA-Z\s]+$/,
+			    regex:/^[a-zA-Z\u00C0-\u00FF\s]+$/,
 			    minlength: 3
 		    },
 		    last_name: {
 			    required: true,
-			     regex:/^[a-zA-Z\s]+$/,
+			     regex:/^[a-zA-Z\u00C0-\u00FF\s]+$/,
 			    minlength: 3
 		    },
 			username:
@@ -265,14 +286,9 @@ $(document).ready(function()
 
 			password:
 			{
-				<?php
-				if($person_info->person_id == "")
-				{
-				?>
+				<?php if($person_info->person_id == "") { ?>
 				required:true,
-				<?php
-				}
-				?>
+				<?php } ?>
 				minlength: 8
 			},
 			repeat_password:
@@ -283,6 +299,7 @@ $(document).ready(function()
 			    required: true,
 			    email: "email"
 		    },
+		    employee_profile_type:{ required:true },
     		phone_number:
 			{
 				required:true,
@@ -309,14 +326,9 @@ $(document).ready(function()
 
 			password:
 			{
-				<?php
-				if($person_info->person_id == "")
-				{
-				?>
+				<?php if($person_info->person_id == "") { ?>
 				required:"<?php echo $this->lang->line('employees_password_required'); ?>",
-				<?php
-				}
-				?>
+				<?php } ?>
 				minlength: "<?php echo $this->lang->line('employees_password_minlength'); ?>"
 			},
 			repeat_password:
@@ -324,6 +336,7 @@ $(document).ready(function()
 				equalTo: "<?php echo $this->lang->line('employees_password_must_match'); ?>"
      		},
      		email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
+     		employee_profile_type:"Profile type is required",
      		phone_number:"<?php echo $this->lang->line('common_phone_invalid_format');  ?>"
 		}
 	});

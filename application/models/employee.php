@@ -19,11 +19,12 @@ class Employee extends Person
 	/*
 	Determines if a given person_id is an employee
 	*/
-	function exists($person_id)
-	{
+	function exists($person_id,$name_user='')
+	{	
 		$this->con->from('employees');
 		$this->con->join('people', 'people.person_id = employees.person_id');
-		$this->con->where('employees.person_id',$person_id);
+		if ($name_user!=''){ $this->con->where('employees.username',$name_user); }
+		else{ $this->con->where('employees.person_id',$person_id); }
 		$query = $this->con->get();
 
 		return ($query->num_rows()==1);
@@ -523,26 +524,29 @@ class Employee extends Person
 	/*
 	Determins whether the employee specified employee has access the specific module.
 	*/
-	function has_permission($module_id,$person_id)
-	{
-		//if no module_id is null, allow access
-		if($module_id==null)
-		{
-			return true;
-		}
-
-		$query = $this->con->get_where('permissions', array('person_id' => $person_id,'module_id'=>$module_id), 1);
-		return $query->num_rows() == 1;
-	}
-	function has_privilege_permi($module_id,$person_id,$privilege_name)
+	function has_permission($module_id,$person_id,$t=false)
 	{
 		//if no module_id is null, allow access
 		if($module_id==null){ return true; }
-
+		if(!$t) $query = $this->con->get_where('permissions', array('person_id' => $person_id,'module_id'=>$module_id), 1);
+		else $query = $this->con->get_where('employees_profile', array('profile_name' => $person_id,'module_id'=>$module_id), 1);
+		return $query->num_rows() == 1;
+	}
+	function has_privilege_permi($module_id,$person_id,$privilege_name,$t=false)
+	{
+		//if no module_id is null, allow access
+		if($module_id==null){ return true; }
 		//$query = $this->con->get_where('permissions', array('person_id' => $person_id,'module_id'=>$module_id,'privileges'=>$privilege_name), 1);
-		$this->con->from('permissions');
-		$this->con->like('privileges',$privilege_name);
-		$this->con->where(array('person_id' => $person_id,'module_id'=>$module_id));
+		if ($t){
+			$this->con->from('employees_profile');
+			$this->con->like('privileges',$privilege_name);
+			$this->con->where(array('profile_name' => $person_id,'module_id'=>$module_id));
+		}else{
+			$this->con->from('permissions');
+			$this->con->like('privileges',$privilege_name);
+			$this->con->where(array('person_id' => $person_id,'module_id'=>$module_id));			
+		}
+
 		$query=$this->con->get();
 		return $query->num_rows() == 1;
 	}
@@ -558,22 +562,85 @@ class Employee extends Person
 		return false;
 	}
 
-	// function permission_privileges($module_id,$person_id){
-	// 	$permissions = $this->con->get_where('permissions', array('person_id' => $person_id,'module_id'=>$module_id), 1);
-	// 	$options = $this->Module->get_options_module($module_id);
-	// 	$result = array();
-
-	// 	if ($permissions->num_rows() == 1) {
-	// 		$permission = explode(',', $permissions->row()->privileges);
-	// 		// foreach ($options as $options) {
-	// 			// $result[$options] = true;
-	// 		// }
-	// 		// return $result;
-	// 		return array_diff($options,$permission);
-	// 	}
-
-	// 	return false;
-	// }
+	function getProfile_Employee($id='',$t=false){
+		$this->con->select('profile_name,employees_profile.module_id,name_lang_key,privileges');
+		$this->con->from('employees_profile');
+		$this->con->join('modules', 'modules.module_id = employees_profile.module_id');
+		if ($id!=''){ $this->con->where('profile_name',$id); }
+		$this->con->order_by('profile_name','asc');
+		$query=$this->con->get();
+		$num =$query->num_rows();
+		if ($num > 0){
+			if ($id!=''){ return $query->row()->profile_name; }
+			else{
+				$arr=array();$i=0;
+				foreach ($query->result() as $row){	
+					if ($i==0) { $i++;
+						$arr[$i]['name']=ucwords($row->profile_name);
+						$arr[$i]['module']='';
+					}
+					if($t){
+						if ($arr[$i]['name']==ucwords($row->profile_name)){
+							$arr[$i]['module'].=($arr[$i]['module']!=''?',':'').'#'.$row->module_id;
+							if ($row->privileges!='none' && $row->privileges!='save'){
+								$privi=explode(',',$row->privileges);
+								foreach ($privi as $key) {
+									$arr[$i]['module'].=',#'.$row->module_id.'-'.$key;
+								}
+							}elseif($row->privileges=='save'){ $arr[$i]['module'].=',#'.$row->module_id.'-'.$row->privileges; }
+						}else{ $i++;
+							$arr[$i]['name']=ucwords($row->profile_name);
+							$arr[$i]['module']='#'.$row->module_id;
+							if ($row->privileges!='none' && $row->privileges!='save'){
+								$privi=explode(',',$row->privileges);
+								foreach ($privi as $key) {
+									$arr[$i]['module'].=',#'.$row->module_id.'-'.$key;
+								}
+							}elseif($row->privileges=='save'){ $arr[$i]['module'].=',#'.$row->module_id.'-'.$row->privileges; }
+						}
+					}else{
+						if ($arr[$i]['name']==ucwords($row->profile_name)){
+							$arr[$i]['module'].=($arr[$i]['module']!=''?', ':'').'<strong>'.$this->lang->line($row->name_lang_key).'</strong>';
+							if ($row->privileges!='none'){ $arr[$i]['module'].=' (<small>'.($row->privileges).'</small>)'; }
+						}else{ $i++;
+							$arr[$i]['name']=ucwords($row->profile_name);
+							$arr[$i]['module']='<strong>'.$this->lang->line($row->name_lang_key).'</strong>';
+							if ($row->privileges!='none'){ $arr[$i]['module'].=' (<small>'.($row->privileges).'</small>)'; }
+						}
+					}
+				}
+		    	return $arr;
+			}
+		}else{ return 'No profile avarible'; }
+	}
+	function exists_profile($person_id){	
+		$this->con->from('employees_profile');
+		$this->con->where('employees_profile.profile_name',$person_id); 
+		$query = $this->con->get();
+		return $query->num_rows()>0;
+	}
+	function create_profile($data,$permiso){	
+		$success=false;
+		//Now insert the new permissions
+		if($data['new'] || (!$data['new'] && $this->con->delete('employees_profile', array('profile_name' => $data['last'])))){
+			foreach($permiso as $allowed_module => $privileges)
+			{
+				$this->con->insert('employees_profile',
+				array(
+				'module_id'=>$allowed_module,
+				'profile_name'=>$data['name'],
+				'privileges'=>$privileges
+				));
+			}
+			$success=true;
+		}
+		return $success;
+	}
+	function isAdmin(){
+		$admin=$this->Employee->get_logged_in_employee_info()->type_employees;
+		if ($admin=='administrator'){ return true; }
+		else { return false; }
+	}
 
 }
 ?>

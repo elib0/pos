@@ -1,26 +1,39 @@
 <?php $this->load->view("partial/header"); ?>
+
 <div id="page_title" style="margin-bottom:8px;"><?php echo $report_name.' '.$this->lang->line('reports_report_input'); ?></div>
+
 <?php
-if(isset($error))
-{
-	echo "<div class='error_message'>".$error."</div>";
-}
+	if(isset($error)){
+		echo "<div class='error_message' style=' margin: 0 0 10px 0'>".$error."</div>";
+	}
 ?>	
-	 <div>
-		Location:
-		<?php
+
+<div class="box-form-view">
+
+	<?php 
 		include('application/config/database.php');
 		$dbs = array();
 		foreach ($db as $key => $value) $dbs[$key] = ucwords($key);
 		//$dbs['all']='All';
 		if(count($dbs)>1) $dbs['all'] = ucwords('all');
-		echo form_dropdown('locationbd', $dbs,'', 'id="locationbd"');
-		?>
-	</div>
+	?>
+
 	<div>
-		Export to Excel: <input type="radio" name="export_excel" id="export_excel_yes" value='1' /> Yes
+		<label class="lable-form" for="locationbd">Select a location:</label>&nbsp;
+		<?=form_dropdown('locationbd', $dbs,'', 'id="locationbd"')?>
+	</div>
+
+	<div class="sub-title-view">
+		Export to Excel:
+	</div>
+	
+	<div style="padding: 0 0 0 25px; font-size: 11px; font-weight: bold;">
+		<input type="radio" name="export_excel" id="export_excel_yes" value='1' /> Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="radio" name="export_excel" id="export_excel_no" value='0' checked='checked' /> No
 	</div>
+
+</div>
+
 <a class="linkBack big_button" style="height: auto" href="#"><span>Back</span></a>
 &nbsp;
 <?php

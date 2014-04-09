@@ -260,7 +260,8 @@ a.none
 	-moz-border-radius: 5px; 
 	border-radius: 5px; 
 	padding: 10px;
-	margin: 0 0 10px 0;	
+	margin: 0 0 10px 0;
+	min-height: 400px;	
 }
 
 .box-form-view:after
@@ -309,7 +310,7 @@ a.none
 }
 
 .lable-form{
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: bold;
 	text-align: right;
 	color: #000;
@@ -332,4 +333,10 @@ hr{
 	font-size: 11px;
 	color: #000;
 	font-weight: bold;
+}
+
+.box-form-view small{
+	color: #ccc;
+	font-size: 10px;
+	margin: 0 0 0 5px;
 }

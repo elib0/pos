@@ -1,16 +1,49 @@
 <?php $this->load->view("partial/header"); ?>
+
 <div id="page_title" style="margin-bottom:8px;"><?php echo 'Schedule Employee '.$this->lang->line('reports_report_input'); ?></div>
-<?php echo form_open($controller_name.'/report/'); ?>
-<?php echo form_label('Search a Employee:', 'search', $labels_attrib); ?><br>
-<input type="text" name ='search' id='search'/><br>
-<?php echo form_label('Select date:','month', $labels_attrib); ?><br>
-<?php echo form_dropdown('month', $months_of_year); ?><br>
-<?php echo form_label('Select Year:', 'year',$labels_attrib); ?><br>
-<?php echo form_dropdown('year', $years); ?><br>
+
+<div class="box-form-view">
+	<?php echo form_open($controller_name.'/report/'); ?>
+
+
+	<div>
+		<?php echo form_label('Employee:', 'search', array('class'=>'lable-form')); ?><small>(requested)</small>
+	</div>
+
+	<div>
+		<input type="text" name ='search' id='search' class="text_box" style="width: 50%" placeholder="Search ..." />
+	</div>
+
+	<div>
+		&nbsp;
+	</div>
+	
+	<div>
+		<?php echo form_label('Select date:','month', array('class'=>'lable-form')); ?><small>(requested)</small>
+	</div>
+
+	<div>
+		<?php echo form_dropdown('month', $months_of_year); ?>
+	</div>	
+
+	<div>
+		&nbsp;
+	</div>
+
+	<div>
+		<?php echo form_label('Select Year:', 'year', array('class'=>'lable-form')); ?><small>(requested)</small>
+	</div>
+
+	<div>
+		<?php echo form_dropdown('year', $years); ?>
+	</div>
+
+</div>
 <a class="linkBack big_button" style="height: auto" href="#"><span>Back</span></a>
 &nbsp;
-<input type="submit" value="Send" name="submit" id="submit" style="height: auto" class="big_button">
+<input type="submit" value="Submit" name="submit" id="submit" style="height: auto" class="big_button">
 <?php echo form_close(); ?>
+
 <script>
 	$(function() {
 		$("#search").autocomplete('index.php/<?php echo $controller_name; ?>/suggest/1',

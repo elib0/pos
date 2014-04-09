@@ -43,5 +43,6 @@ $lang['common_first_name_only_char']='Anda tidak dapat menempatkan nomor di bida
 $lang['common_inv']='inv';
 $lang['common_det']='details';
 $lang['common_logo']='Logo';
-$lang['common_logo_dimensiones']='Gambar harus maksimal 240px lebar dan 120px tinggi dan berat tidak lebih dari 2MB.';
+$lang['common_logo_dimensiones']='Gambar yang akan diubah ukurannya menjadi 240 px lebar dan 120 px yang tinggi dan berat tidak lebih dari 4MB.';
+$lang['common_image_faild']='Ini bukan file gambar yang valid. Silakan coba lagi';
 ?>

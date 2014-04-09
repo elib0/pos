@@ -17,16 +17,16 @@ class Config extends Secure_area
 		//carga de imagen
 		$config['upload_path'] = './images/';
 		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']	= '10000';
-		$config['max_width']  = '2400';
-		$config['max_height']  = '1200';
+		$config['max_size']	= '1000000';
+		$config['max_width']  = '3600';
+		$config['max_height']  = '2800';
 		$this->load->library('upload', $config);
 		$this->upload->initialize($config);
-		//fin carga imagen
-		
+		//fin carga imagen		
+
 		try { 
 			$nameLogo['file_name']='';
-			
+
 			if ($this->upload->do_upload('logo')) {
 				$nameLogo = $this->upload->data();
 				$data = array('upload_status' => 1,'upload_message' => $nameLogo['file_name']);
@@ -35,7 +35,7 @@ class Config extends Secure_area
 				if ($this->upload->display_errors(true)=='1') {
 					$data = array('upload_status' => 2,'upload_message' => 'vacio');
 				}else{
-					$data = array('upload_status' => 0,'upload_message' => 'dimensiones malas o peso img');
+					$data = array('upload_status' => 0,'upload_message' => $this->upload->display_errors(false,'',''));
 				}
 				
 			}
@@ -83,35 +83,16 @@ class Config extends Secure_area
 		//echo json_encode($batch_save_data);
 
 		switch ($data['upload_status']) {
-			case '0':
+			case '-1':case '0':
 				echo json_encode(array('success'=>false,'message'=>$data['upload_message']));
 				break;
-			case '1':
+			case '1':case '2':
 					if( $this->Appconfig->batch_save( $batch_save_data ) )
 					{
-						echo json_encode(array('success'=>true,'data'=>$data,'message'=>$this->lang->line('config_saved_successfully')));
+						echo json_encode(array('success'=>true,'Upstatus'=>$data['upload_status'],'data'=>$data,'message'=>$this->lang->line('config_saved_successfully')));
 					}
 				break;
-			case '2':
-					if( $this->Appconfig->batch_save( $batch_save_data ) )
-					{
-						echo json_encode(array('success'=>true,'data'=>$data,'message'=>$this->lang->line('config_saved_successfully')));
-					}
-				break;
-			case '-1':
-				echo json_encode(array('success'=>false,'message'=>$data['upload_message']));
-				break;
-		}
-
-		// if($data['upload_status']){
-		// 	if( $this->Appconfig->batch_save( $batch_save_data ) )
-		// 	{
-		// 		echo json_encode(array('success'=>true,'data'=>$data,'message'=>$this->lang->line('config_saved_successfully')));
-		// 	}
-		// }else{
-		// 	echo json_encode(array('success'=>false,'message'=>'error en la carga'));
-		// }
-		
+		}		
 	}
 }
 ?>

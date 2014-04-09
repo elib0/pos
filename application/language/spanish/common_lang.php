@@ -42,5 +42,6 @@ $lang['common_first_name_only_char']='No puede colocar números en este campo';
 $lang['common_inv']='Inv';
 $lang['common_det']='Detalles';
 $lang['common_logo']='Logo';
-$lang['common_logo_dimensiones']='Las imágenes deben tener un máximo de 240px de ancho y 120px de alto y no pesar más de 2mb.';
+$lang['common_logo_dimensiones']='La imágen sera redimensionada a 240px de ancho y 120px de alto y no pesar más de 4mb.';
+$lang['common_image_faild']='Este no es un archivo válido de imagen. Por favor intente de nuevo.';
 ?>

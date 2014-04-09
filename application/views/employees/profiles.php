@@ -9,7 +9,7 @@
 		?>
 	</div>
 </div>
-<div id="table_holder">
+<div id="table_holder" class="box-form-view">
 	<table class="tablesorter" id="sortable_table">
 		<thead>	<tr>
 			<th style="padding: 5px;"><?php echo $this->lang->line('employees_profile_per_name'); ?></th><th style="padding: 5px;"><?php echo $this->lang->line('employees_profile_m'); ?></th><th style="padding: 5px;"></th>

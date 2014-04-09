@@ -117,17 +117,14 @@ html {
 		<nav id="menu_changelocation">
 			<?=$this->lang->line('common_welcome').' '.$user_info->first_name.' '.$user_info->last_name.'!'?>
 			<span>
-				<?=$this->session->userdata('dblocation')?>
+				<?php echo $this->session->userdata('dblocation');
+				if ($this->Employee->isAdmin()){ ?>
 				<ul>
-					<?php
-						foreach($dbs as $db)
-						{
-							?>
+					<?php foreach($dbs as $db){ ?>
 							<li><?php echo anchor( "employees/set_location/".$db, $db ); ?></li>
-							<?php
-						}
-					?>
+					<?php } ?>
 				</ul>
+				<?php } ?>
 			</span> |
 		</nav>
 		<nav id="menu_changeuser">

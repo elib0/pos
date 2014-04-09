@@ -260,12 +260,12 @@ echo form_open_multipart('config/save/',array('id'=>'config_form'));
 		</div>
 	</div>
 </div>
-
+<!-- 
 <div class="field_row clearfix">	
 	<div class='form_field' style="margin-left: 149px">
 		<button id="reestablecer">Reestablecer logo original</button>
 	</div>
-</div>
+</div> -->
 
 <?php
 if($this->Employee->has_privilege('save', 'config')){ 
@@ -359,9 +359,6 @@ $(document).ready(function()
 			}else{
 				alert('<?=$this->lang->line('common_image_faild')?>'); 
 			};
-
-			
-
 		},
 		errorLabelContainer: "#error_message_box",
  		wrapper: "li",
@@ -376,7 +373,9 @@ $(document).ready(function()
     			number:true
     		},
     		email:"email",
-    		return_policy: "required"    		
+    		return_policy: "required"
+    		}
+    		
    		},
 		messages: 
 		{
@@ -389,7 +388,8 @@ $(document).ready(function()
     			number:"<?php echo $this->lang->line('config_default_tax_rate_number'); ?>"
     		},
      		email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
-     		return_policy:"<?php echo $this->lang->line('config_return_policy_required'); ?>"
+     		return_policy:"<?php echo $this->lang->line('config_return_policy_required'); ?>",
+     		logo:"<?php echo $this->lang->line('common_image_faild'); ?>"
 	
 		}
 	});

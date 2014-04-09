@@ -42,4 +42,6 @@ $lang['common_at_characters']='minimum karakter';
 $lang['common_first_name_only_char']='Anda tidak dapat menempatkan nomor di bidang ini'; 
 $lang['common_inv']='inv';
 $lang['common_det']='details';
+$lang['common_logo']='Logo';
+$lang['common_logo_dimensiones']='Gambar harus maksimal 240px lebar dan 120px tinggi dan berat tidak lebih dari 2MB.';
 ?>

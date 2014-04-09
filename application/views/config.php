@@ -1,7 +1,7 @@
 <?php $this->load->view("partial/header"); ?>
 <div id="page_title"><?php echo $this->lang->line('module_config'); ?></div>
 <?php
-echo form_open('config/save/',array('id'=>'config_form'));
+echo form_open_multipart('config/save/',array('id'=>'config_form'));
 ?>
 <div id="config_wrapper">
 <fieldset id="config_info">
@@ -250,12 +250,22 @@ echo form_open('config/save/',array('id'=>'config_form'));
 	</div>
 </div>
 
+<div class="field_row clearfix">	
+<?php echo form_label($this->lang->line('common_logo').':', 'logo',array('class'=>'wide')); ?>
+	<div class='form_field'>
+		<input type="file" name="logo" id="logo">
+		<input type="hidden" name="logo_name" id="logo_name" value="<?=$this->config->item('logo')?>">
+		<div class="upload_label">
+			<?php echo $this->lang->line('common_logo_dimensiones');?>
+		</div>
+	</div>
+</div>
 
 <?php
 if($this->Employee->has_privilege('save', 'config')){ 
 	echo form_submit(array(
-		'name'=>'submit',
-		'id'=>'submit',
+		'name'=>'submitC',
+		'id'=>'submitC',
 		'value'=>$this->lang->line('common_submit'),
 		'class'=>'submit_button float_right')
 	);
@@ -269,7 +279,7 @@ echo form_close();
 <div id="feedback_bar"></div>
 <script type='text/javascript'>
 //bloqueo de inputs en caso de que no pueda editar
-if ( $('#submit').length < 1) {
+if ( $('#submitC').length < 1) {
 	$('input, textarea, select').attr('disabled', 'disabled');
 };
 
@@ -278,13 +288,14 @@ $(document).ready(function()
 {
 	$('#config_form').validate({
 		submitHandler:function(form)
-		{
+		{ console.log('file: '+$('#logo').val()+' hidden: '+$('#logo_name').val());
 			$(form).ajaxSubmit({
 			success:function(response)
-			{
+			{ 
 				if(response.success)
 				{
-					set_feedback(response.message,'success_message',false);		
+					set_feedback(response.message,'success_message',false);
+					location.reload();		
 				}
 				else
 				{

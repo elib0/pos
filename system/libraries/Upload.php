@@ -918,14 +918,16 @@ class CI_Upload {
 	 * @param	string
 	 * @return	string
 	 */
-	public function display_errors($open = '<p>', $close = '</p>')
+	public function display_errors($num = '',$open = '<p>', $close = '</p>')
 	{
 		$str = '';
 		foreach ($this->error_msg as $val)
 		{
 			$str .= $open.$val.$close;
 		}
-
+		if ($num) {
+			return ($val=='You did not select a file to upload.')?1:2;
+		}
 		return $str;
 	}
 

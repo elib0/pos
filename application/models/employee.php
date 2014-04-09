@@ -445,7 +445,7 @@ class Employee extends Person
 			'employee_id' => $employee_id,
 			'date'      => date('Y-m-d'),
 			'login'     => date('H:i:s'),
-			'location'  => $_SESSION['dblocation']
+			'location'  => $this->session->userdata('dblocation')
 		);
 
 		$ewn = ( $this->session->userdata('employees_working_now') ) ? $this->session->userdata('employees_working_now') :  array(0);
@@ -474,7 +474,7 @@ class Employee extends Person
 		$this->con->where('employee_id', $employee_id); 				//Que sea el empleado logueado
 		$this->con->where('date = CURDATE()');							//Que la fecha sea hoy
 		$this->con->where('logout IS NULL');							//Que no tenga marcada la salida ya
-		$this->con->where("location = '".$_SESSION['dblocation']."'"); 	//Que sea la misma location
+		$this->con->where("location = '".$this->session->userdata('dblocation')."'"); 	//Que sea la misma location
 
 		if ( $this->db->update('employees_schedule', array('logout'=>date('H:i:s'))) ){
 			$b = true;
@@ -496,7 +496,6 @@ class Employee extends Person
 		$employee = $this->get_logged_in_employee_info();
 		if ( $employee = $this->close_day( $employee->person_id ) ) {
 			$this->session->sess_destroy();
-			unset($_SESSION['dblocation']);
 			redirect( $pageRedirect );
 		}
 	}

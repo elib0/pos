@@ -241,7 +241,7 @@ class Employees extends Person_controller
 		$password = $this->input->post('password');
 
 		//Respuesta
-		$response = array('message'=>'Invalid User', 'status'=>0);
+		$response = array('message'=>'Wrong Password or Username, try Again!', 'status'=>0);
 
 		$row = $this->Employee->login_($username, $password);
 		if($row){
@@ -272,7 +272,7 @@ class Employees extends Person_controller
 			}
 		}else{
 			$response['status'] = -1;
-			$response['message'] = 'Wrong Password, try Again!';
+			$response['message'] = 'Wrong Password or Username, try Again!';
 		}
 
 		die( json_encode($response) );
@@ -315,6 +315,13 @@ class Employees extends Person_controller
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('employees_error_adding_updating').' '.
 			$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>-1));
 		}
+	}
+
+	function set_location($location='default'){
+		$location = strtolower($location);
+		$url = $this->uri->segment(1);
+		$this->session->set_userdata('dblocation', $location);
+		redirect($url);
 	}
 
 }

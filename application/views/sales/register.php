@@ -72,6 +72,7 @@ else
     </div> -->
 
 </form>
+<div id="registerDiv">
 <table id="register">
 <thead>
 <tr>
@@ -103,16 +104,16 @@ else
 		echo form_open( "sales/edit_item/$line", array('id'=>'edit_item'.$item['item_id']) );
 	?>
 		<tr id="<?php echo $item['item_id']; ?>" class="sale-line">
-		<td><?php echo anchor("sales/delete_item/$line",'['.$this->lang->line('common_delete').']');?></td>
+		<td><?php echo anchor("sales/delete_item/$line",$this->lang->line('common_delete'),"class='small_button'");?></td>
 		<td><?php echo $item['item_number']; ?></td>
-		<td style="align:center;"><?php echo $item['name']; ?><br /> [<?php echo $cur_item_info->quantity; ?> in stock]</td>
+		<td style="align:center; "><?php echo $item['name']; ?><br /><small> [<?php echo $cur_item_info->quantity; ?> in stock]</small></td>
 
 
 
 		<?php if ($items_module_allowed)
 		{
 		?>
-			<td><?php echo form_input(array('name'=>'price','value'=>$item['price'],'size'=>'6','class'=>'edit-item','ref'=>$item['item_id']));?></td>
+			<td><?php echo form_input(array('name'=>'price','value'=>$item['price'],'size'=>'6','class'=>'edit-item text_box','ref'=>$item['item_id']));?></td>
 		<?php
 		}
 		else
@@ -143,7 +144,7 @@ else
         	<?php //echo form_input(array('name'=>'quantity','value'=>$item['quantity'],'size'=>'2')); ?>
 		</td>
 
-		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3', 'class'=>'edit-item','ref'=>$item['item_id']));?></td>
+		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3', 'class'=>'edit-item text_box','ref'=>$item['item_id']));?></td>
 		<td class="sub-total"><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>
 		<!-- <td>
             <?php //echo form_submit("edit_item", $this->lang->line('sales_edit_item'));?>
@@ -209,6 +210,7 @@ else
 </tbody>
 </table>
 </div>
+</div>
 
 <div id="overall_sale">
 
@@ -226,11 +228,12 @@ else
 		<?php
 		}
 
+	
+	echo '<div style="margin-top:5px;text-align:center;">';
 	echo form_open("sales/select_employee",array('id'=>'select_employee_form'));
 	echo '<label id="customer_label" for="employee">'.$this->lang->line('sales_select_employee').'</label>';
-	echo form_input(array('name'=>'employee','id'=>'employee','size'=>'30', 'value'=>$employee));
+	echo form_input(array('name'=>'employee','id'=>'employee','class'=>'text_box','size'=>'30', 'value'=>$employee));
 	echo form_close();
-	echo '<div style="margin-top:5px;text-align:center;">';
 	if ($mode=='sale' || $mode=='return'){
 		if (isset($customer)) {
 			echo $this->lang->line("sales_customer").': <b>'.$customer. '</b><br />';
@@ -246,14 +249,14 @@ else
 			echo anchor("customers/view/-1/width:350",
 			"<div class='small_button' style='margin:0 auto;'><span>+</span></div>",
 			array('class'=>'thickbox none','title'=>$this->lang->line('sales_new_customer')));
-			echo '<div class="clearfix">&nbsp;</div>';
+			//echo '<div class="clearfix">&nbsp;</div>';
 			echo form_close();
 		}
 	}else{
 		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
 		$dbs = array('...'=>'...');
 		foreach ($db as $key => $value){
-			if ( $key != $_SESSION['dblocation'] ) {
+			if ( $key != $this->session->userdata('dblocation') ) {
 				$dbs[$key] = ucwords($key);
 			}
 		}
@@ -264,28 +267,24 @@ else
 	}
 	?>
 
-	<div id='sale_details' style="border: 1px solid #001122">
-		<div class="float_left" style="width:55%;"><?php echo $this->lang->line('sales_sub_total'); ?>:</div>
-		<div id="general-sub-total" class="float_left" style="width:45%;font-weight:bold;"><?php echo to_currency($subtotal); ?></div>
+	<div id='sale_details' >
+		<div class="sales_sub_total" ><?php echo $this->lang->line('sales_sub_total'); ?>: <div ><?php echo to_currency($subtotal); ?></div></div>
+		
 		
 		<!-- combro de inpuestos opcional -->
-		<div class="float_left" style='width:55%;'>Taxing</div>
-		<div class="float_left" style="width:45%;font-weight:bold;">
-			<input id="taxing" type="checkbox" name="taxing" <?php echo $taxing; ?>>
-		</div>
+		<div class="taxing" >Taxing:<div ><input id="taxing" type="checkbox" name="taxing" <?php echo $taxing; ?>></div></div>
+		
 		<!-- FIN combro de inpuestos opcional -->
 
-		<div id="taxing-block">
-			<?php foreach($taxes as $name=>$value) { ?>
-			<div class="float_left" style='width:55%;'><?php echo $name; ?>:</div>
-			<div class="float_left taxes" style="width:45%;font-weight:bold;">
-				<?php echo to_currency($value); ?>
-			</div>
-			<?php }; ?>
-		</div>
+		
+		<?php foreach($taxes as $name=>$value) { ?>
+		<div class="taxing taxing-block" ><?php echo $name; ?>: <div ><?php echo to_currency($value); ?></div></div>
+		
+		<?php }; ?>
+		
 
-		<div class="float_left total" style='width:55%;'><?php echo $this->lang->line('sales_total'); ?>:</div>
-		<div class="float_left general-total" style="width:45%;font-weight:bold;"><?php echo to_currency($total); ?></div>
+		<div class=" total" ><?php echo $this->lang->line('sales_total'); ?>:<div ><?php echo to_currency($total); ?></div></div>
+		
 	</div>
 
 
@@ -334,16 +333,11 @@ else
 		<?php
 		}
 		?>
+	<div class="payments_">
+	    <div class="payments_total">Payments Total: <div><?=to_currency($payments_total); ?></div></div>
+	    <div class="amount_due">Amount Due: <div><?=to_currency($amount_due); ?></div></div>
+    </div>
 
-
-    <table width="100%"><tr>
-    <td style="width:55%; "><div class="float_left"><?php echo 'Payments Total:' ?></div></td>
-    <td style="width:45%; text-align:right;"><div class="float_left" style="text-align:right;font-weight:bold;"><?php echo to_currency($payments_total); ?></div></td>
-	</tr>
-	<tr>
-	<td style="width:55%; "><div class="float_left" ><?php echo 'Amount Due:' ?></div></td>
-	<td style="width:45%; text-align:right; "><div id="amount-due" class="float_left" style="text-align:right;font-weight:bold;"><?php echo to_currency($amount_due); ?></div></td>
-	</tr></table>
 
 	<div id="Payment_Types" >
 
@@ -360,11 +354,11 @@ else
 			</td>
 			</tr>
 			<tr>
-			<td>
-				<span id="amount_tendered_label"><?php echo $this->lang->line( 'sales_amount_tendered' ).': '; ?></span>
+			<td colspan="2">
+		<!-- 		<span id="amount_tendered_label"><?php echo $this->lang->line( 'sales_amount_tendered' ).': '; ?></span>
 			</td>
-			<td>
-				<?php echo form_input( array( 'name'=>'amount_tendered', 'id'=>'amount_tendered', 'value'=>to_currency_no_money($amount_due), 'size'=>'10' ) );	?>
+			<td> -->
+				<?=form_input( array( 'name'=>'amount_tendered', 'id'=>'amount_tendered','class'=>'text_box', 'value'=>to_currency_no_money($amount_due) ) );?>
 			</td>
 			</tr>
         	</table>
@@ -389,14 +383,14 @@ else
 
 			</tr>
 			</thead>
-			<tbody id="payment_contents">
+			<tbody id="payment_contents" >
 			<?php
 				foreach($payments as $payment_id=>$payment)
 				{
 				echo form_open("sales/edit_payment/$payment_id",array('id'=>'edit_payment_form'.$payment_id));
 				?>
 	            <tr>
-	            <td><?php echo anchor( "sales/delete_payment/$payment_id", '['.$this->lang->line('common_delete').']' ); ?></td>
+	            <td><?php echo anchor( "sales/delete_payment/$payment_id", $this->lang->line('common_delete'),"class='small_button'" ); ?></td>
 
 							<td><?php echo $payment['payment_type']; ?></td>
 							<td style="text-align:right;"><?php echo to_currency( $payment['payment_amount'] ); ?></td>
@@ -445,15 +439,15 @@ $(document).ready(function()
 
     //Para el cobro de taxes
     var b = '<?php echo $taxing ?>';
-    if (b !== 'checked') {$('#taxing-block').hide();}
+    if (b !== 'checked') {$('.taxing-block').hide();}
     $('#taxing').click(function(event) {
     	var cb = this;
     	var value = 1;
 
     	if ($(cb).is(':checked')) {
-    		$('#taxing-block').show();	
+    		$('.taxing-block').show();	
     	}else{
-			$('#taxing-block').hide();
+			$('.taxing-block').hide();
 			value = 0;	    		
     	}
 

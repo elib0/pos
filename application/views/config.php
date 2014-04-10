@@ -2,9 +2,26 @@
 
 <div id="page_title">Store Profile</div>
 
+<?php echo form_open_multipart('config/save/',array('id'=>'config_form')); ?>
+
+<div class="field_row clearfix">
+	<?php
+		if ($this->Employee->has_privilege('save', 'config')){ 
+			echo form_submit(
+				array(
+					'name'=>'submitC',
+					'id'=>'submitC',
+					'value'=>$this->lang->line('common_submit'),
+					'class'=>'small_button float_right'
+				)
+			);
+		}
+	?>
+</div>
+
 <div class="box-form-view">
 	<ul id="error_message_box"></ul>
-	<?php echo form_open_multipart('config/save/',array('id'=>'config_form')); ?>
+	
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">	

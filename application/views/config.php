@@ -400,10 +400,10 @@ if ( $('#submitC').length < 1) {
 	$('input, textarea, select').attr('disabled', 'disabled');
 };
 $('#reestablecer').click(function(event){
-
+	alert('aqui');
 	// $.ajax({
 	// 	type:"POST",
-	// 	url:"controlllers/cofig.php?",
+	// 	url:"controlllers/index.php/cofig/restablecer",
 	// 	dataType:"json",
 	// 	success:function(data){
 

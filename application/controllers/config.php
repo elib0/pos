@@ -11,7 +11,7 @@ class Config extends Secure_area
 	{
 		$this->load->view("config");
 	}
-		
+	
 	function save()
 	{
 		//carga de imagen
@@ -30,6 +30,9 @@ class Config extends Secure_area
 			if ($this->upload->do_upload('logo')) {
 				$nameLogo = $this->upload->data();
 				$data = array('upload_status' => 1,'upload_message' => $nameLogo['file_name']);
+				if($this->input->post('logo_name')!='logo.png'){
+					unlink('./images/'.$this->input->post('logo_name'));
+				}
 			}else{
 				
 				if ($this->upload->display_errors(true)=='1') {

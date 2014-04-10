@@ -167,3 +167,124 @@ input[type=text],input[type=password]
 	top:1px;
 }
 
+
+
+
+.clearfix:after
+{
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.clearfix { display: inline-block; }
+
+
+.box-login{
+	border: 1px solid #CCC;
+	margin:20px auto 0 auto; 
+	width:350px;
+	-webkit-border-radius: 5px; 
+	-moz-border-radius: 5px; 
+	border-radius: 5px;
+	-webkit-box-shadow: 0 0 10px #000;
+  	box-shadow: 0 0 10px #000;
+  	background-color: #FFF;
+}
+
+.box-title{
+	font-size: 14px;
+	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+	margin: 5px 0 5px 0;
+	padding: 10px;
+	text-align: justify;
+	border-bottom: 1px solid #f4f4f4;
+}
+
+.box-table{
+	font-size: 14px;
+	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+	margin: 5px 0;
+}
+
+.box-table td{
+	padding: 5px;
+}
+
+.box-bkg-label-location{
+	background-color: #f4f4f4;
+	-webkit-border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	font-size: 14px;
+	color: #666;
+	font-variant: bold;
+	text-align: left;
+	/*-webkit-border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	border-top-left-radius:0;
+	border-top-right-radius:0;
+	border-bottom-right-radius:5px;
+	border-bottom-left-radius:5px;*/
+}
+
+.box-bkg-drop-location{
+	background-color: #f4f4f4;
+	-webkit-border-bottom-left-radius:5px;
+	-webkit-border-bottom-right-radius:5px;
+	text-align: left;
+}
+
+.box-bkg-drop-location select{
+	width: 100%;
+}
+
+.icon-user{
+	background-color: #f4f4f4;
+	webkit-top-left-radius:5px;
+	-webkit-top-left-radius:5px;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	background-image: url('../images/login/user.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px;
+}
+
+.bkg-input-login{
+	background-color: #fff;
+	webkit-top-right-radius:5px;
+	-webkit-top-right-radius:5px;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+	border: 1px solid #f4f4f4;
+	padding: 0;
+}
+
+.bkg-input-login input{
+	background-color: #FFF;
+	-webkit-border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:0;
+	border-top-left-radius:0;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+	border-bottom-left-radius:0;
+	height: 20px;
+	float: left;
+	width: 100%;
+	border: 1px solid #FFF;
+}
+
+.icon-lock{
+	background-color: #f4f4f4;
+	webkit-top-left-radius:5px;
+	-webkit-top-left-radius:5px;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	background-image: url('../images/login/lock.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 30px;
+}
+

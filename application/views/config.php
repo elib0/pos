@@ -288,7 +288,7 @@ echo form_close();
 if ( $('#submitC').length < 1) {
 	$('input, textarea, select').attr('disabled', 'disabled');
 };
-$('#reestablecer').click(function(event) {
+$('#reestablecer').click(function(event){
 
 	// $.ajax({
 	// 	type:"POST",

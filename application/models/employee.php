@@ -417,7 +417,7 @@ class Employee extends Person
 		$i = 60*($h-floor($h)); 
 		$offset = sprintf('%+d:%02d', $h, $i); 
 		$this->db->query("SET time_zone='$offset'");
-		
+
 		$this->con->from('employees');
 		$this->con->join('schedules','employees.person_id=schedules.person_id');
 		$this->con->join('people','schedules.person_id=people.person_id');
@@ -506,6 +506,7 @@ class Employee extends Person
 		$pageRedirect = 'login/index';
 		if($otherUser != '') $pageRedirect .= '/'.$otherUser;
 		$employee = $this->get_logged_in_employee_info();
+		$this->close_day($employee->person_id);	//Marca hora de salida automatico
 		if ( $employee = $this->close_day( $employee->person_id ) ) {
 			$this->session->sess_destroy();
 			redirect( $pageRedirect );

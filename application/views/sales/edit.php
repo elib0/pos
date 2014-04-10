@@ -45,7 +45,7 @@
 		'name'=>'submit',
 		'id'=>'submit',
 		'value'=>$this->lang->line('common_submit'),
-		'class'=>'submit_button float_left')
+		'class'=>'small_button float_left')
 	);
 	?>
 	</form>

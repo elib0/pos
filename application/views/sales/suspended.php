@@ -35,7 +35,7 @@
 				echo form_open('sales/unsuspend');
 				echo form_hidden('suspended_sale_id', $suspended_sale['sale_id']);
 				?>
-				<input type="submit" name="submit" value="<?php echo $this->lang->line('sales_unsuspend'); ?>" id="submit" class="submit_button float_right"></td>
+				<input type="submit" name="submit" value="<?php echo $this->lang->line('sales_unsuspend'); ?>" id="submit" class="small_button float_right"></td>
 				</form>
 		</tr>
 	<?php

@@ -350,12 +350,26 @@
 		</div>
 
 	</div>
-	
 
-	<?php echo form_close(); ?>
 </div>
 
+<div class="field_row clearfix">
+	<?php
+		if ($this->Employee->has_privilege('save', 'config')){ 
+			echo form_submit(
+				array(
+					'name'=>'submitC',
+					'id'=>'submitC',
+					'value'=>$this->lang->line('common_submit'),
+					'class'=>'big_button float_left'
+				)
+			);
+		}
+	?>
+</div>
+<?php echo form_close(); ?>
 
+<!-- here -->
 
 
 <?php

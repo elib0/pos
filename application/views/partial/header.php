@@ -77,8 +77,6 @@ html {
 
 </head>
 <body>
-<div id="logout_overlay" class="overlay">
-</div>
 <div id="menubar">
 	<div id="menubar_container">
 		<div id="menubar_company_info">
@@ -164,6 +162,7 @@ html {
 <div id="content_area">
 <?php $hoy = date('Y-m-d'); ?>
 <script>
+(function($){
 	function mostrarHora(){
 		var hoy=new Date();
 		var h=hoy.getHours();
@@ -178,29 +177,31 @@ html {
 		setTimeout(function(){mostrarHora()},500);
 	}
 	//On dom ready
-	$(document).ready(function() {
+	$(function() {
 		mostrarHora();
 		//Control de enlaces logout
 		$('#menubar_footer #menu_changeuser a,#btnLogout').click(function(e,href){
-			var href = $(this).attr('href');
+			var href=$(this).attr('href');
 			$('#realLogOut').attr('href',href);
-			$('#logout_overlay').dialog({
-				width: 400,
-				height: 260,
-				modal: true,
-				resizable: false,
-				draggable: false,
-				hide: 'slide',
-				beforeclose: function(){ $('#logout_overlay').dialog("close"); return false;},
-				open: function() {
-					$("#logout_overlay").load(href);
+			$('<div id="logout_overlay" class="overlay"></div>').appendTo('body').dialog({
+				width:400,
+				height:260,
+				modal:true,
+				resizable:false,
+				draggable:false,
+				open:function(){
+					$(this).load(href);
+				},
+				close:function(){
+					$(this).remove();
+					$('#fxWrapper').remove();
 				}
 			}).parents('.ui-dialog').css({
 				'overflow':'visible'
 			}).find('.ui-dialog-titlebar-close').attr('href',document.location);
 			//$('.ui-dialog').css('overflow', 'visible');
-			e.preventDefault();
 			return false;
 		});
 	});
+})(jQueryOld);
 </script>

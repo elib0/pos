@@ -152,7 +152,7 @@ $options = 'id="dbselected"';
 		'name'=>'submit',
 		'id'=>'submit',
 		'value'=>$this->lang->line('common_submit'),
-		'class'=>'submit_button')
+		'class'=>'small_button')
 	);
 
 	echo form_close();

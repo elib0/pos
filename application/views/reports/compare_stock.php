@@ -1,31 +1,5 @@
 <?php $this->load->view("partial/header"); ?>
 <link rel="stylesheet" href="css/compare_stock.css" media="print">
-<style>
-    .compare-stock input{margin: 5px;}
-    .compare-stock input[type=text] {width: 90%;}
-    .compare-stock input[type=checkbox] {display: none;}
-    .compare-stock input[type=checkbox] + label {
-        background: #fff;
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        background: url(images/inputs/checkbox.png) 0px 0px no-repeat;
-        text-indent: -1000em;
-        cursor: pointer;
-        margin: 5px;
-    }
-    .compare-stock input[type=checkbox]:checked + label {
-        background: url(images/inputs/checkbox.png) 0px -16px no-repeat;
-    }
-   /* -webkit-border-top-left-radius:5px;
-    -webkit-border-top-right-radius:5px;
-    -webkit-border-bottom-right-radius:0;
-    -webkit-border-bottom-left-radius:0;
-    border-top-left-radius:5px;
-    border-top-right-radius:5px;
-    border-bottom-right-radius:0;
-    border-bottom-left-radius:0;*/
-</style>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
 
@@ -100,6 +74,7 @@
             window.print();
             return false;
         });
+        $('#menu_changelocation ul,#menu_changeuser,#btnLogout').remove();
         $('#btnSendToAdmin').click(function(){
             var array=$('#sortable_table input[type="text"]'),coment='';
             array.each(function(index) {

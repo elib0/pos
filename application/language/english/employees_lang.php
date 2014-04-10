@@ -26,8 +26,10 @@ $lang['employees_permission_desc']='Check the boxes below to grant access to mod
 $lang['employees_error_updating_demo_admin'] = 'You can not change the demo admin user';
 $lang['employees_error_deleting_demo_admin'] = 'You can not delete the demo admin user';
 $lang['employees_profile_per'] = 'Profiles';
-$lang['employees_profile_per_new'] = 'New Profiles';
+$lang['employees_profile_per_new'] = 'New Profile';
 $lang['employees_profile_per_name'] = 'Profile name';
 $lang['employees_profile_per_name_e'] = 'This profile already exists';
 $lang['employees_profile_m'] = 'Modules';
+$lang['employees_profile_SA'] = 'Select all';
+$lang['employees_profile_DA'] = 'Deselect all';
 ?>

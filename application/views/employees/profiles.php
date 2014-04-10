@@ -2,10 +2,14 @@
 <div id="title_bar">
 	<div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('employees_profile_per'); ?></div>
 	<div id="new_button">
+		<div id="to-back" class="big_button" style="margin: 0px 5px;float:left;">
+			<span><a href="javascript:void();" style="text-decoration: none;color: hsl(208, 45%, 41%);" >
+			Back</a></span>
+		</div>
 		<?php
 			echo anchor("$controller_name/form_profile_employee/-1/width:660",
 			"<div class='big_button' style='float: left;'><span>".$this->lang->line('employees_profile_per_new')."</span></div>",
-			array('class'=>'thickbox none','title'=>$this->lang->line($controller_name.'_new')));
+			array('class'=>'thickbox none','title'=>$this->lang->line('employees_profile_per_new')));
 		?>
 	</div>
 </div>
@@ -21,7 +25,7 @@
 			<tr>
 				<td width="30%" ><?=$row['name']?></td>
 				<td width="65%" ><?php echo $row['module']; ?></td>
-				<td width="5%"><?=anchor($controller_name."/form_profile_employee/".$row['name']."/width:660", $this->lang->line('common_edit'),array('class'=>'thickbox','title'=>'Edit Profile'))?></td>
+				<td width="5%"><?=anchor($controller_name."/form_profile_employee/".$row['name']."/width:660", $this->lang->line('common_edit'),array('class'=>'thickbox small_button','title'=>'Edit Profile'))?></td>
 			</tr>
 		<?php } }else{ echo '<tr><td colspan="3">'.$profiles.'</td></tr>'; } ?>
 		</tbody>
@@ -29,30 +33,6 @@
 </div>
 <div id="feedback_bar"></div>
 <script type="text/javascript">
-$(document).ready(function() 
-{ 
-    // init_table_sorting();
-    // enable_search('<?php echo site_url("$controller_name/suggest")?>','<?php echo $this->lang->line("common_confirm_search")?>');
-    
- //    function init_table_sorting()
-	// {
-	// 	//Only init if there is more than one row
-	// 	if($('.tablesorter tbody tr').length >1)
-	// 	{
-	// 		$("#sortable_table").tablesorter(
-	// 		{ 
-	// 			sortList: [[1,0]], 
-	// 			headers: 
-	// 			{ 
-	// 				0: { sorter: false}, 
-	// 				5: { sorter: false} 
-	// 			} 
-
-	// 		}); 
-	// 	}
-	// }
-
-	
-}); 
+$(document).ready(function() { $('#to-back').click(function() { history.back(1); }); }); 
 </script>
 <?php $this->load->view("partial/footer"); ?>

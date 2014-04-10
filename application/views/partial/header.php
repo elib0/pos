@@ -125,10 +125,10 @@ html {
 					<?php } ?>
 				</ul>
 				<?php } ?>
-			</span> |
+			</span> 
 		</nav>
 		<nav id="menu_changeuser">
-			<?php echo $this->lang->line('common_changeuser').' | '; ?>
+			|<?php echo $this->lang->line('common_changeuser').' | '; ?>
 			<ul>
 				<?php
 					foreach($people->result() as $person)

@@ -13,4 +13,19 @@ input[type=checkbox]{
 .linkPrint, #btnSendToAdmin{
     display: none;
 }
-
+.compare-stock input{margin: 5px;}
+.compare-stock input[type=text] {width: 90%;}
+.compare-stock input[type=checkbox] {display: none;}
+.compare-stock input[type=checkbox] + label {
+    background: #fff;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(images/inputs/checkbox.png) 0px 0px no-repeat;
+    text-indent: -1000em;
+    cursor: pointer;
+    margin: 5px;
+}
+.compare-stock input[type=checkbox]:checked + label {
+    background: url(images/inputs/checkbox.png) 0px -16px no-repeat;
+}

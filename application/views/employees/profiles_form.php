@@ -19,7 +19,13 @@
 </fieldset>
 <fieldset id="employee_permission_info" class="profi">
 <legend><?php echo $this->lang->line("employees_permission_info"); ?></legend>
-<p><?php echo $this->lang->line("employees_permission_desc"); ?></p>
+<p>
+	<?php echo $this->lang->line("employees_permission_desc"); ?>
+	<a id="all-che" class="small_button"><?php echo $this->lang->line('employees_profile_SA');?></a>
+	<a id="none-che" class="small_button"><?php echo $this->lang->line('employees_profile_DA');?></a>
+<!-- 	<input type="button" id="all-che" value="<?php echo $this->lang->line('employees_profile_SA');?>">
+	<input type="button" id="none-che" value="<?php echo $this->lang->line('employees_profile_DA');?>">
+ --></p>
 <ul id="permission_list">
 <?php
 foreach($all_modules->result() as $module)
@@ -90,20 +96,11 @@ $(document).ready(function()
 			$('input[type="checkbox"][value="'+perm[0]+'"].permissions-option').attr('checked','checked');
 		}
 	});
-
-	//Verifica  dia marcado para mostrar el selector de hora
-	$('table#employee_schedule input[type=checkbox]').change(function(){
-		var id = $(this).attr('name');
-
-		if( $(this).is(':checked') ){
-			$('select#in'+id).removeAttr('disabled');
-
-			// $('select#out'+id).html('').append('<option value="1">1</option>');
-			$('select#out'+id).removeAttr('disabled');
-		}else{
-			$('select#in'+id).attr('disabled', 'disabled').selectedIndex = 0;
-			$('select#out'+id).attr('disabled', 'disabled').val('0');
-		}
+	$('#all-che').click(function(){
+		$('input[type="checkbox"]').attr('checked','checked');
+	});
+	$('#none-che').click(function(){
+		$('input[type="checkbox"]').removeAttr('checked');
 	});
 	function post_person_form_submit(response){	console.log(response);
 		if(!response.success){ set_feedback(response.message,'error_message',true);	}

@@ -261,6 +261,12 @@ echo form_open_multipart('config/save/',array('id'=>'config_form'));
 	</div>
 </div>
 
+<!-- <div class="field_row clearfix">	
+	<div class='form_field' style="margin-left: 149px">
+		<button id="reestablecer">Reestablecer logo original</button>
+	</div>
+</div>
+ -->
 <?php
 if($this->Employee->has_privilege('save', 'config')){ 
 	echo form_submit(array(
@@ -282,28 +288,79 @@ echo form_close();
 if ( $('#submitC').length < 1) {
 	$('input, textarea, select').attr('disabled', 'disabled');
 };
+$('#reestablecer').click(function(event) {
+
+	// $.ajax({
+	// 	type:"POST",
+	// 	url:"controlllers/cofig.php?",
+	// 	dataType:"json",
+	// 	success:function(data){
+
+	// 		// if(data==1)
+	// 		// 	$.ajax({url:'views/tags/update.view.php?asyn&tag='+tag,success:function(){
+	// 		// 		$("#previewTag").dialog("close");
+	// 		// 		$('body #previewTag').remove();
+	// 		// 		document.location.hash='update';
+	// 		// 	}});
+	// 		// else
+	// 		// 	message("messages","Error",valores[1]);
+	// 	}
+	// });
+});
 
 //validation and submit handling
 $(document).ready(function()
 {
 	$('#config_form').validate({
 		submitHandler:function(form)
-		{ console.log('file: '+$('#logo').val()+' hidden: '+$('#logo_name').val());
-			$(form).ajaxSubmit({
-			success:function(response)
-			{ 
-				if(response.success)
-				{
-					set_feedback(response.message,'success_message',false);
-					location.reload();		
-				}
-				else
-				{
-					set_feedback(response.message,'error_message',true);		
-				}
-			},
-			dataType:'json'
-		});
+		{ //console.log('file: '+$('#logo').val()+' hidden: '+$('#logo_name').val());
+		var pass = '0';
+			if ($('#logo').val()) {
+				extensiones_permitidas = new Array(".gif", ".jpg", ".png"); 
+				
+				//recupero la extensión de este nombre de archivo 
+			    extension = ($('#logo').val().substring($('#logo').val().lastIndexOf("."))).toLowerCase(); 
+			    //compruebo si la extensión está entre las permitidas 
+			    permitida = false; 
+			    for (var i = 0; i < extensiones_permitidas.length; i++) { 
+			       if (extensiones_permitidas[i] == extension) { 
+			       permitida = true; 
+			       break; 
+			       } 
+			    }
+			    if (!permitida) { 
+			    	console.log('no permitido');
+			    	pass = '0';
+			    }else{
+			    	console.log('permitido');
+			    	pass = '1';
+			    }
+			}else
+				pass = '1';
+
+			if (pass=='1'){
+				$(form).ajaxSubmit({
+					success:function(response)
+					{ console.log(response);
+						if(response.success)
+						{
+							set_feedback(response.message,'success_message',false);
+							(response.Upstatus==1)?location.reload():'';
+									
+						}
+						else
+						{
+							set_feedback(response.message,'error_message',true);		
+						}
+					},
+					error:function(response){console.log(response);},
+					dataType:'json'
+				});
+			}else{
+				alert('<?=$this->lang->line('common_image_faild')?>'); 
+			};
+
+			
 
 		},
 		errorLabelContainer: "#error_message_box",

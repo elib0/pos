@@ -44,6 +44,6 @@ $lang['common_first_name_only_char']='You can\'t place number in this field';
 $lang['common_inv']='Manage';
 $lang['common_det']='Details';
 $lang['common_logo']='Logo';
-$lang['common_logo_dimensiones']='Images should be a maximum of 240px width and 120px height and weigh no more than 2MB.';
-
+$lang['common_logo_dimensiones']='The image will be resized to 240px width and 120px height and weigh no more than 4MB.'; 
+$lang['common_image_faild']='This is not a valid image file. Please try again';
 ?>

@@ -1,18 +1,26 @@
 <?php $this->load->view("partial/header"); ?>
+
 <div id="page_title" style="margin-bottom:8px;"><?php echo $this->lang->line('reports_report_input'); ?></div>
+
 <?php
-if(isset($error))
-{
-	echo "<div class='error_message'>".$error."</div>";
-}
+	if(isset($error)){
+		echo "<div class='error_message' style=' margin: 0 0 10px 0'>".$error."</div>";
+	}
 ?>
-	<?php echo form_label($this->lang->line('reports_date_range'), 'report_date_range_label', array('class'=>'required')); ?>
-	<div id='report_date_range_simple'>
+
+
+<div class="box-form-view">
+
+	<div class="sub-title-view">
+		<?php echo form_label($this->lang->line('reports_date_range'), 'report_date_range_label'); ?>:
+	</div>
+
+	<div id='report_date_range_simple' style="padding: 0 0 0 25px">
 		<input type="radio" name="report_type" id="simple_radio" value='simple' checked='checked'/>
 		<?php echo form_dropdown('report_date_range_simple',$report_date_range_simple, '', 'id="report_date_range_simple"'); ?>
 	</div>
 	
-	<div id='report_date_range_complex'>
+	<div id='report_date_range_complex' style="padding: 0 0 0 25px">
 		<input type="radio" name="report_type" id="complex_radio" value='complex' />
 		<?php echo form_dropdown('start_month',$months, $selected_month, 'id="start_month"'); ?>
 		<?php echo form_dropdown('start_day',$days, $selected_day, 'id="start_day"'); ?>
@@ -22,22 +30,33 @@ if(isset($error))
 		<?php echo form_dropdown('end_day',$days, $selected_day, 'id="end_day"'); ?>
 		<?php echo form_dropdown('end_year',$years, $selected_year, 'id="end_year"'); ?>
 	</div>
+
+	<div class="sub-title-view">
+		<?php echo form_label($specific_input_name, 'specific_input_name_label'); ?>:
+	</div>
 	
-	<?php echo form_label($specific_input_name, 'specific_input_name_label', array('class'=>'required')); ?>
-	
-	<div id='report_specific_input_data'>
+	<div id='report_specific_input_data' style="padding: 0 0 0 25px">
 		<?php echo form_dropdown('specific_input_data',$specific_input_data, '', 'id="specific_input_data"'); ?>
 	</div>
 	
-	<?php echo form_label($this->lang->line('reports_sale_type'), 'reports_sale_type_label', array('class'=>'required')); ?>
-	<div id='report_sale_type'>
+	<div class="sub-title-view">
+		<?php echo form_label($this->lang->line('reports_sale_type'), 'reports_sale_type_label'); ?>:
+	</div>
+
+	<div id='report_sale_type' style="padding: 0 0 0 25px">
 		<?php echo form_dropdown('sale_type',array('all' => $this->lang->line('reports_all'), 'sales' => $this->lang->line('reports_sales'), 'returns' => $this->lang->line('reports_returns')), 'all', 'id="sale_type"'); ?>
 	</div>
 	
-	<div>
-		Export to Excel: <input type="radio" name="export_excel" id="export_excel_yes" value='1' /> Yes
+	<div class="sub-title-view">
+		Export to Excel:
+	</div>
+
+	<div style="padding: 0 0 0 25px; font-size: 11px; font-weight: bold;">
+		<input type="radio" name="export_excel" id="export_excel_yes" value='1' /> Yes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<input type="radio" name="export_excel" id="export_excel_no" value='0' checked='checked' /> No
 	</div>
+
+</div>
 
 <a class="linkBack big_button" style="height: auto" href="#"><span>Back</span></a>
 &nbsp;

@@ -249,6 +249,7 @@ input[type=text],input[type=password]
 	background-image: url('../images/login/user.png');
 	background-repeat: no-repeat;
 	background-position: center;
+	width: 30px;
 }
 
 .bkg-input-login{
@@ -284,5 +285,6 @@ input[type=text],input[type=password]
 	background-image: url('../images/login/lock.png');
 	background-repeat: no-repeat;
 	background-position: center;
+	width: 30px;
 }
 

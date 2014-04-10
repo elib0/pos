@@ -28,10 +28,6 @@
 		<tr>
 			<td>&nbsp;</td>
 		</tr>
-		<?php 
-			
-			if ($employees_working): 
-		?>
 		<tr>
 			<td>
 				<h3>List of employees working right now</h3>
@@ -48,10 +44,11 @@
 							</tr>
 						</thead>
 						<tbody>
+							<?php if ($employees_working): ?>
 							<?php foreach ($employees_working->result() as $employee): ?>
 							
 							<form id="form_close_day<?php echo $employee->employee_id ?>" action="index.php/<?php echo $controller_name; ?>/close_day" method="POST">
-							<tr>
+							<tr class="user-row">
 								<td>
 									<?php echo ucwords($employee->first_name.' '.$employee->last_name); ?>
 								</td>
@@ -65,15 +62,15 @@
 							</tr>
 							</form>
 							<?php endforeach ?>
+							<?php else: ?>
+							<tr>
+								<td colspan="3" class="td-info"><small><em>There aren't employees working right now.</em></small></td>
+							</tr>
+							<?php endif; ?>
 						</tbody>
 					</table>
 			</td>
 		</tr>
-		<?php else: ?>
-		<tr>
-			<td><small><em>There aren't employees working right now.</em></small></td>
-		</tr>
-		<?php endif; ?>
 	</table>
 </div>
 <script>
@@ -86,13 +83,17 @@
 					{
 						// console.log(data);
 						if (data.status == 1) {
-							var form = '<td><form id="form_close_day'+data.user+'" action="index.php/<?php echo $controller_name; ?>/close_day" method="POST"><button class="logout-button" user="'+data.user+'"><?php echo $this->lang->line("common_logout"); ?></button><input type="password" name="logoutpass" id="logoutpass"><input type="hidden" name="person_id" value="'+data.user+'"><label for="logoutpass">Password</label></form></td>';
-							if ($('.user-row').length < 1) {
-								$('tbody').html('<tr class="user-row"><td>'+data.message+'</td>'+form);
+							var form = '<tr class="user-row"><form id="form_close_day'+data.user+'" action="index.php/<?php echo $controller_name; ?>/close_day" method="POST">';
+							form += '<td>'+data.message+'</td>';
+							form += '<td><input type="password" name="logoutpass" id="logoutpass"><input type="hidden" name="person_id" value="'+data.user+'"></td>';
+							form += '<td><button class="logout-button" user="'+data.user+'"><?php echo $this->lang->line("common_logout"); ?></button></td>';
+							form += '</form></tr>';
+
+							if ($('#sortable_table tbody .user-row').length < 1) {
+								$('#sortable_table tbody').html(form);
 							}else{
-								$('tbody').append('<tr class="user-row"><td>'+data.message+'</td>'+form);
+								$('#sortable_table tbody').append(form);
 							}
-							
 						}else{
 							notif({
 							    type: "error",
@@ -110,7 +111,7 @@
 		});
 
 
-		$$('tbody').on('click', '.logout-button', function(event) {
+		$$('#sortable_table tbody').on('click', '.logout-button', function(event) {
 			if (confirm('Do you want to finish to work ?')) {
 				var button = $$(this);
 
@@ -129,9 +130,9 @@
 								$('#logoutpass').val('');
 							break;
 							case 1:
-								button.parents('tr.user-row').remove();
-								if ($('.user-row').length < 1) {
-									$('tbody').html('<tr><td colspan="2" class="td-info"><h2>No have employees selected</h2></td></tr>');
+								button.parents('#sortable_table tbody tr.user-row').remove();
+								if ($('#sortable_table tbody .user-row').length < 1) {
+									$('#sortable_table tbody').html('<tr><td colspan="3" class="td-info"><small><em>There aren\'t employees working right now.</em></small></td></tr>');
 								}
 							break;
 						}

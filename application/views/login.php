@@ -23,59 +23,68 @@ foreach ($db as $key => $value) $dbs[$key] = ucwords($key); //Creo arreglo para 
 ?>
 
 <div>
-	<img src="<?=base_url()?>images/logo.png" alt="" />
+	<img src="<?=base_url()?>images/<?=file_exists('images/'.$this->Appconfig->get('logo'))?$this->Appconfig->get('logo'):'logo.png'?>" border="0" />
 </div>
 
-<?php echo form_open('login') ?>
-<div id="container">
-<?php echo validation_errors(); ?>
-	<div id="top">
-	<?php echo $this->lang->line('login_login'); ?>
+<div class="box-login">
+	<?php echo form_open('login') ?>
+	<div  class="box-title clearfix">
+		<?php 
+			if (trim(validation_errors())!=''){ 
+				echo validation_errors();
+		 	}else{ 
+		 		echo 'Welcome to Fast i repair System. To continue, please login using your username and password below.';
+		 	}
+		?>
 	</div>
-	<div id="login_form">
 
-		<div id="welcome_message">
-			<?php //echo $this->lang->line('login_welcome_message'); ?>
-		</div>
-
-		<div class="form-row">
-			<div class="form_field_label"><?php echo form_label('Location:', 'locationbd'); ?></div>
-			<div class="form_field"><?php echo form_dropdown('locationbd', $dbs, $this->input->post('locationbd')); ?></div>
-		</div>
-
-		<div class="form-row">
-			<div class="form_field_label"><?php echo $this->lang->line('login_username'); ?>:</div>
-			<div class="form_field">
-				<?php
-					echo form_input(array(
-						'name'=>'username',
-						'size'=>'20', 'value'=>$fastUser
-					));
-				?>
-			</div>
-		</div>
-
-		<div class="form-row">
-			<div class="form_field_label"><?php echo $this->lang->line('login_password'); ?>:</div>
-			<div class="form_field">
-				<?php 
-					echo form_password(array(
-						'name'=>'password',
-						'size'=>'20')
-					); 
-				?>
-			</div>
-		</div>
-		
-		<div class="form-row">
-			<?php echo form_submit('loginButton','Login', 'class = "form-button"'); ?>
-		</div>
-
-		<div class="form-row">
-			&nbsp;
-		</div>
-
+	<div  class="clearfix">
+		<table class="box-table" border="0" cellpadding="0" cellspacing="0" width="340px">
+			<tr>
+				<td colspan="2" class="box-bkg-label-location"><?php echo form_label('Select your location:', 'locationbd'); ?></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="box-bkg-drop-location"><?php echo form_dropdown('locationbd', $dbs, $this->input->post('locationbd')); ?></td>
+			</tr>
+			<tr>
+				<td colspan="2" height="1"></td>
+			</tr>
+			<tr>
+				<td class="icon-user"></td>
+				<td class="bkg-input-login"><?php
+						echo form_input(array(
+							'name'=>'username',
+							'size'=>'20', 
+							'value'=>$fastUser,
+							'placeholder'=>$this->lang->line('login_username')
+						));
+					?></td>
+			</tr>
+			<tr>
+				<td colspan="2" height="1"></td>
+			</tr>
+			<tr>
+				<td class="icon-lock"></td>
+				<td class="bkg-input-login"><?php 
+						echo form_password(array(
+							'name'=>'password',
+							'size'=>'20',
+							'placeholder'=>$this->lang->line('login_password'))
+						); 
+					?></td>
+			</tr>
+			<tr>
+				<td colspan="2" height="1"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><?php echo form_submit('loginButton','Login', 'class = "form-button"'); ?></td>
+			</tr>
+		</table>
 	</div>
+
+
+
+
 </div>
 <?php
 // include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses

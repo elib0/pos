@@ -7,7 +7,7 @@
 
 
 	<div>
-		<?php echo form_label('Employee:', 'search', array('class'=>'lable-form')); ?><small>(requested)</small>
+		<?php echo form_label('Employee:', 'search', array('class'=>'lable-form-required')); ?>
 	</div>
 
 	<div>
@@ -19,7 +19,7 @@
 	</div>
 	
 	<div>
-		<?php echo form_label('Select date:','month', array('class'=>'lable-form')); ?><small>(requested)</small>
+		<?php echo form_label('Select date:','month', array('class'=>'lable-form')); ?>
 	</div>
 
 	<div>
@@ -31,13 +31,16 @@
 	</div>
 
 	<div>
-		<?php echo form_label('Select Year:', 'year', array('class'=>'lable-form')); ?><small>(requested)</small>
+		<?php echo form_label('Select Year:', 'year', array('class'=>'lable-form')); ?>
 	</div>
 
 	<div>
 		<?php echo form_dropdown('year', $years); ?>
 	</div>
 
+</div>
+<div class="field_row clearfix" style="color: #FF0000; font-size: 11px">
+	The <strong>red</strong> field are required
 </div>
 <a class="linkBack big_button" style="height: auto" href="#"><span>Back</span></a>
 &nbsp;

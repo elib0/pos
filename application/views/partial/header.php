@@ -3,33 +3,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<base href="<?php echo base_url();?>" />
-	<title><?php echo $this->config->item('company');?></title>
-	<link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/ospos.css" />
-	<link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/ospos_print.css"  media="print"/>
-	<link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/jquery-ui.css" />
-	<link rel="stylesheet" rev="stylesheet" href="<?php echo base_url();?>css/notifIt.css" />
+	<base href="<?=base_url()?>" />
+	<title><?=$this->config->item('company')?></title>
+	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/ospos.css" />
+	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/ospos_print.css"  media="print"/>
+	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/jquery-ui.css" />
+	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/notifIt.css" />
 	<script>BASE_URL = '<?=site_url()?>';</script>
-	<script src="<?=base_url()?>js/jquery-1.10.2.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/notifIt.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery-1.2.6.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery-1.2.6.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="<?=base_url()?>js/jquery.formatCurrency.js" type="text/javascript"></script>
-	<script src="<?=base_url()?>js/jquery-ui.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.color.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.metadata.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.form.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.tablesorter.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.ajax_queue.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.bgiframe.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.autocomplete.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.validate.min.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.jkey-1.1.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/thickbox.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/common.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/manage_tables.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/swfobject.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/date.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/datepicker.js" type="text/javascript" language="javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery-ui.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.color.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.metadata.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.form.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.tablesorter.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.ajax_queue.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.bgiframe.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.autocomplete.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/jquery.jkey-1.1.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/common.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/manage_tables.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/swfobject.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/date.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/datepicker.js" type="text/javascript" charset="UTF-8"></script>
 
 <style type="text/css">
 html {
@@ -75,7 +75,7 @@ html {
 <div id="menubar">
 	<div id="menubar_container">
 		<div id="menubar_company_info">
-		<span ><a href="index.php"><img src="images/<?php echo (file_exists('images/'.$this->Appconfig->get('logo')))?$this->Appconfig->get('logo'):'logo.png'?>" border="0" width="155px"/><?php //echo $this->config->item('company'); ?></a></span>
+		<span ><a href="index.php"><img src="images/<?=file_exists('images/'.$this->Appconfig->get('logo'))?$this->Appconfig->get('logo'):'logo.png'?>" border="0" width="155px"/><?php //echo $this->config->item('company'); ?></a></span>
 		</div>
 		
 		<div id="menubar_navigation">
@@ -85,8 +85,8 @@ html {
 			?>
 			<div class="menu_item">
 				<a href="<?=site_url("$module->module_id")?>">
-				<img src="<?php echo base_url().'images/menubar/'.$module->module_id.'.png';?>" border="0" alt="Menubar Image" /></a><br />
-				<a href="<?php echo site_url("$module->module_id");?>"><?php echo $this->lang->line("module_".$module->module_id) ?></a>
+				<img src="<?=base_url().'images/menubar/'.$module->module_id.'.png'?>" border="0" alt="Menubar Image" /></a><br />
+				<a href="<?=site_url("$module->module_id")?>"><?=$this->lang->line("module_".$module->module_id)?></a>
 			</div>
 			<?php
 			}
@@ -95,7 +95,7 @@ html {
 				<a href="index.php/share_inventories">En pruebas</a>
 			</div> -->
 			<div class="menu_item">
-				<a href="index.php/employees/assistance"><img src="<?php echo base_url().'images/menubar/schedule.png';?>" border="0" alt="Menubar Image" style="cursor: pointer" /></a><br />
+				<a href="index.php/employees/assistance"><img src="<?=base_url().'images/menubar/schedule.png'?>" border="0" alt="Menubar Image" style="cursor: pointer" /></a><br />
 				<a href="index.php/employees/assistance">Schedule</a>
 			</div>
 		</div>
@@ -121,30 +121,30 @@ html {
 				if ($this->Employee->isAdmin()){ ?>
 				<ul>
 					<?php foreach($dbs as $db){ ?>
-							<li><?php echo anchor( "employees/set_location/".$db, $db ); ?></li>
+							<li><?=anchor("employees/set_location/".$db,$db)?></li>
 					<?php } ?>
 				</ul>
 				<?php } ?>
 			</span> 
 		</nav>
 		<nav id="menu_changeuser">
-			|<?php echo $this->lang->line('common_changeuser').' | '; ?>
+			|<?=$this->lang->line('common_changeuser')?> |
 			<ul>
 				<?php
 					foreach($people->result() as $person)
 					{
 						?>
-						<li><?php echo anchor( "cajas/index/".$person->person_id , $person->last_name.' '.$person->first_name, 'rel="#logout_overlay"' ); ?></li>
+						<li><?=anchor("cajas/index/".$person->person_id,$person->last_name.' '.$person->first_name,'rel="#logout_overlay"')?></li>
 						<?php
 					}
 				?>
 			</ul>
 		</nav>
-		<?php echo anchor("cajas",$this->lang->line("common_logout"), 'rel="#logout_overlay", id="btnLogout"'); ?>
+		<?=anchor("cajas",$this->lang->line("common_logout"),'rel="#logout_overlay", id="btnLogout"')?>
 		</div>
 
 		<div id="menubar_date">
-			<?php echo date('F d, Y') ?>
+			<?=date('F d, Y')?>
 			<div id="time" style="display:inline;"></div>
 		</div>
 		
@@ -170,7 +170,6 @@ html {
 		$("#menubar_date > #time").html( hora );
 		setTimeout(function(){mostrarHora()},500);
 	}
-
 	//On dom ready
 	$(document).ready(function() {
 		mostrarHora();

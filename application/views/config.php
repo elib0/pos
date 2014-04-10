@@ -5,6 +5,7 @@
 <?php echo form_open_multipart('config/save/',array('id'=>'config_form')); ?>
 
 <div class="field_row clearfix">
+
 	<?php
 		if ($this->Employee->has_privilege('save', 'config')){ 
 			echo form_submit(
@@ -17,6 +18,9 @@
 			);
 		}
 	?>
+
+	<a class="linkBack small_button" style="height: auto; float: right; width: 40px; margin: 0 5px 0 0" href="#"><span>Back</span></a>
+
 </div>
 
 <div class="box-form-view">
@@ -371,7 +375,12 @@
 </div>
 
 <div class="field_row clearfix">
+
+	<a class="linkBack big_button" style="height: auto; float: left; width: 60px; margin: 0 5px 0 0" href="#"><span>Back</span></a>
+
 	<?php
+
+		
 		if ($this->Employee->has_privilege('save', 'config')){ 
 			echo form_submit(
 				array(

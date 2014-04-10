@@ -600,7 +600,7 @@ class Employee extends Person
 						}
 					}else{
 						if ($arr[$i]['name']==ucwords($row->profile_name)){
-							$arr[$i]['module'].=($arr[$i]['module']!=''?', ':'').'<strong>'.$this->lang->line($row->name_lang_key).'</strong>';
+							$arr[$i]['module'].=($arr[$i]['module']!=''?'<br/>':'').'<strong>'.$this->lang->line($row->name_lang_key).'</strong>';
 							if ($row->privileges!='none'){ $arr[$i]['module'].=' (<small>'.($row->privileges).'</small>)'; }
 						}else{ $i++;
 							$arr[$i]['name']=ucwords($row->profile_name);

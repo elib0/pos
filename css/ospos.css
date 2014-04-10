@@ -316,6 +316,13 @@ a.none
 	color: #000;
 }
 
+.lable-form-required{
+	font-size: 12px;
+	font-weight: bold;
+	text-align: right;
+	color: #FF0000;
+}
+
 .sub-title-view{
 	background-color: #f4f4f4;
 	border-bottom: 1px solid #CCC; 

@@ -29,7 +29,7 @@
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">	
-				<?php echo form_label($this->lang->line('config_company').':', 'company',array('class'=>'lable-form')); ?>
+				<?php echo form_label($this->lang->line('config_company').':', 'company',array('class'=>'lable-form-required')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -42,11 +42,12 @@
 						);
 					?>
 				</div>
+				<small>(requested)</small>
 			</div>
 		</div>
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">	
-				<?php echo form_label($this->lang->line('config_phone').':', 'phone',array('class'=>'lable-form')); ?>
+				<?php echo form_label($this->lang->line('config_phone').':', 'phone',array('class'=>'lable-form-required')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -83,7 +84,7 @@
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">
-				<?php echo form_label('Company Email:', 'email',array('class'=>'lable-form')); ?>
+				<?php echo form_label('Company Email:', 'email',array('class'=>'lable-form-required')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -138,7 +139,7 @@
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div class="field_row clearfix">	
-				<?php echo form_label($this->lang->line('config_default_tax_rate_1').':', 'default_tax_1_rate',array('class'=>'lable-form','style'=>'width:70px;')); ?>
+				<?php echo form_label($this->lang->line('config_default_tax_rate_1').':', 'default_tax_1_rate',array('class'=>'lable-form-required','style'=>'width:70px;')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -223,7 +224,7 @@
 	</div>
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
-		<div class="sub-title-view">
+		<div class="sub-title-view" style="color: #FF0000">
 			<?php echo $this->lang->line('common_return_policy'); ?>
 		</div>
 	</div>
@@ -369,9 +370,11 @@
 				?>
 			</div>
 		</div>
-
 	</div>
+</div>
 
+<div class="field_row clearfix" style="color: #FF0000; font-size: 11px">
+	The <strong>red</strong> field are required
 </div>
 
 <div class="field_row clearfix">
@@ -487,9 +490,14 @@ $(document).ready(function()
 			company: "required",
 			address: "required",
     		phone: "required",
-    		default_tax_rate:
+    		default_tax_1_name: "required",
+    		default_tax_1_rate:
     		{
     			required:true,
+    			number:true
+    		},
+    		default_tax_2_rate:
+    		{
     			number:true
     		},
     		email:"email",
@@ -500,6 +508,7 @@ $(document).ready(function()
      		company: "<?php echo $this->lang->line('config_company_required'); ?>",
      		address: "<?php echo $this->lang->line('config_address_required'); ?>",
      		phone: "<?php echo $this->lang->line('config_phone_required'); ?>",
+     		default_tax_1_name: "<?php echo $this->lang->line('config_default_tax_rate_1'); ?> is a required field",
      		default_tax_rate:
     		{
     			required:"<?php echo $this->lang->line('config_default_tax_rate_required'); ?>",

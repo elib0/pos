@@ -82,7 +82,7 @@ html {
 <div id="menubar">
 	<div id="menubar_container">
 		<div id="menubar_company_info">
-		<span ><a href="index.php"><img src="images/<?=file_exists('images/'.$this->Appconfig->get('logo'))?$this->Appconfig->get('logo'):'logo.png'?>" border="0" width="155px"/><?php //echo $this->config->item('company'); ?></a></span>
+		<span ><a href="index.php"><img src="images/<?=file_exists('images/'.$this->Appconfig->get('logo'))?$this->Appconfig->get('logo'):'logo.png'?>" border="0" width="155px" height="80px"/><?php //echo $this->config->item('company'); ?></a></span>
 		</div>
 		
 		<div id="menubar_navigation">

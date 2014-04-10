@@ -51,8 +51,8 @@ class Config extends Secure_area
 			$configR['source_image']	= './images/'.$data['upload_message'];
 			$configR['create_thumb'] = false;
 			$configR['maintain_ratio'] = false;
-			$configR['width']	 = 240;
-			$configR['height']	= 120;
+			$configR['width']	 = 155;
+			$configR['height']	= 80;
 			$this->load->library('image_lib', $configR); 
 			$this->image_lib->resize();
 			//fin redimension

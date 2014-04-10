@@ -385,7 +385,12 @@ class Employee extends Person
 	*/
 	function login($username, $password)
 	{
-		$this->con->query('SET time_zone = "' . date_default_timezone_get() . '";');
+		$n = new DateTime(); 
+		$h = $n->getOffset()/3600; 
+		$i = 60*($h-floor($h)); 
+		$offset = sprintf('%+d:%02d', $h, $i); 
+		$this->db->query("SET time_zone='$offset'");
+
 		$this->con->from('employees');
 		$this->con->join('schedules','employees.person_id=schedules.person_id');
 		$this->con->where( array('employees.username' => $username,'employees.password'=>md5($password)) );
@@ -407,7 +412,12 @@ class Employee extends Person
 
 	function login_($username, $password)
 	{
-		$this->con->query('SET time_zone = "' . date_default_timezone_get() . '";');
+		$n = new DateTime(); 
+		$h = $n->getOffset()/3600; 
+		$i = 60*($h-floor($h)); 
+		$offset = sprintf('%+d:%02d', $h, $i); 
+		$this->db->query("SET time_zone='$offset'");
+		
 		$this->con->from('employees');
 		$this->con->join('schedules','employees.person_id=schedules.person_id');
 		$this->con->join('people','schedules.person_id=people.person_id');

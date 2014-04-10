@@ -1,16 +1,11 @@
-<?php $cs=count($headers)<8?ceil(8/count($headers)):1; ?>
-<table class="header-table">
-	<tr>
-		<td colspan="4" style="height:121px;"><img src="<?php echo base_url(); ?>images/logo.png" alt="Logo"></td>
-		<td colspan="2" style="text-align:center;">
-			<div id="receipt_header">
-				<div id="page_title" style="margin-bottom:6px;"><?php echo $title ?></div>
-				<div id="page_subtitle" style="margin-bottom:6px;"><?php echo $subtitle; ?></div>
-				<div id="page_subtitle" style="margin-bottom:6px;"><?php echo "($location)"; ?></div>
-			</div>
-		</td>
-	</tr>
-</table>
+<?php $cs=count($headers)>0?ceil(8/count($headers)):1; ?>
+<div style="text-align:center;">
+	<div id="receipt_header">
+		<div id="page_title" style="margin-bottom:6px;text-align:center;"><?=$title?></div>
+		<div id="page_subtitle" style="margin-bottom:6px;"><?=$subtitle?></div>
+		<div id="page_subtitle" style="margin-bottom:6px;"><?="($location)"?></div>
+	</div>
+</div>
 <?php if($export_excel){ ?><br/><?php } ?>
 <div id="table_holder">
 	<table class="tablesorter report" <?php if($export_excel) echo 'border="1"'; ?>>
@@ -33,19 +28,18 @@
 	</table>
 </div>
 <?php if($export_excel){ ?><br/><?php } ?>
-<table style="width:100%;"><tr><td colspan="<?php echo $cs*count($headers); ?>" style="text-align:center;">
-<div id="report_summary">
-<?php foreach($summary_data as $name=>$value) { ?>
-	<div class="summary_row" style="text-align:center;"><?php echo $this->lang->line('reports_'.$name). ': '.to_currency($value); ?></div>
-<?php }?>
+<div style="text-align:center;">
+	<div id="report_summary">
+	<?php foreach($summary_data as $name=>$value) { ?>
+		<div class="summary_row"><?php echo $this->lang->line('reports_'.$name). ': '.to_currency($value); ?></div>
+	<?php }?>
+	</div>
+	<div id="location_id" style="margin: 0 auto;\">Location:<?=$location?></div>
 </div>
-<div id="location_id" style="margin: 0 auto;text-align: center;">Location:<?=$location?></div>
-</td></tr></table>
 <?php
-if(!$export_excel){
-?>
-<?php
-	if(isset($last)){
+if(!isset($last)) echo '<br/><hr/><br/>';
+
+if(!$export_excel&&isset($last)){
 ?>
 <script type="text/javascript" language="javascript">
 	$('.tablesorter').each(function(){
@@ -53,8 +47,5 @@ if(!$export_excel){
 	});
 </script>
 <?php
-	}else{
-		echo '<br/><hr/><br/>';
-	}
 }
 ?>

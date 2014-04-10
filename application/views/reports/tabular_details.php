@@ -1,30 +1,30 @@
 <?php
 if(!isset($export_excel)) $export_excel=0;
 $hs=count($headers['summary'])+1;
-$cs=ceil(7/$hs);
+$cs=ceil(8/$hs);
 if($export_excel) $hs--;
 ?>
 <div style="text-align:center;">
-	<div id="page_title" style="margin-bottom:6px;"><?php echo $title ?></div>
-	<div id="page_subtitle" style="margin-bottom:6px;"> <?php echo $subtitle; ?> </div>
-	<div id="page_subtitle" style="margin-bottom:6px;"> <?php echo "($location)"; ?> </div>
+	<div id="page_title" style="margin-bottom:6px;text-align:center;"><?=$title?></div>
+	<div id="page_subtitle" style="margin-bottom:6px;"><?=$subtitle?></div>
+	<div id="page_subtitle" style="margin-bottom:6px;"><?="($location)"?></div>
 </div>
 <div id="table_holder">
 	<table class="tablesorter report" <?php if($export_excel) echo 'border="1"'; ?> id="sortable_table">
 		<thead>
 			<tr style="color:#FFFFFF;background-color:#396B98;">
-				<?php if(!$export_excel) echo "<th colspan=\"$cs\">+</th>"; ?>
+				<?=$export_excel?'':"<th colspan=\"$cs\">+</th>"?>
 				<?php foreach($headers['summary'] as $header){ ?>
-				<th colspan="<?php echo $cs; ?>"><?php echo $header; ?></th>
+				<th colspan="<?=$cs?>"><?=$header?></th>
 				<?php } ?>
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach($summary_data as $key=>$row){ ?>
 			<tr>
-				<?php if(!$export_excel) echo "<td colspan=\"$cs\" class=\"expand\">+</td>"; ?>
+				<?=$export_excel?'':"<td colspan=\"$cs\" class=\"expand\">+</td>"?>
 				<?php foreach ($row as $cell) { ?>
-				<td colspan="<?php echo $cs; ?>"><?php echo $cell; ?></td>
+				<td colspan="<?=$cs?>"><?=$cell?></td>
 				<?php } ?>
 			</tr>
 			<tr class="hide">
@@ -33,7 +33,7 @@ if($export_excel) $hs--;
 					<thead>
 						<tr style="color:#FFFFFF;background-color:#0a6184;">
 							<?php foreach ($headers['details'] as $header) { ?>
-							<th><?php echo $header; ?></th>
+							<th><?=$header?></th>
 							<?php } ?>
 						</tr>
 					</thead>
@@ -41,7 +41,7 @@ if($export_excel) $hs--;
 						<?php foreach ($details_data[$key] as $row2) { ?>
 							<tr style="background-color:#ccc;">
 								<?php foreach ($row2 as $cell) { ?>
-								<td><?php echo $cell; ?></td>
+								<td><?=$cell?></td>
 								<?php } ?>
 							</tr>
 						<?php } ?>
@@ -53,37 +53,24 @@ if($export_excel) $hs--;
 		</tbody>
 	</table>
 </div>
-<div id="report_summary" style="text-align:center;">
-<?php foreach($overall_summary_data as $name=>$value) { ?>
-	<div class="summary_row"><?php echo $this->lang->line('reports_'.$name). ': '.to_currency($value); ?></div>
-<?php }?>
+<div style="text-align:center;">
+	<div id="report_summary">
+	<?php foreach($overall_summary_data as $name=>$value){ ?>
+		<div class="summary_row"><?=$this->lang->line('reports_'.$name).': '.to_currency($value)?></div>
+	<?php }?>
+	</div>
+	<div id="location_id" style="margin:0 auto;">Location:<?=$location?></div>
 </div>
-<div id="location_id" style="margin: 0 auto;text-align: center;">Location:<?php echo $location; ?></div>
 <?php
-if(!$export_excel){
-	if(isset($last)){
+if(!isset($last)) echo '<br/><hr/><br/>';
+
+if(!$export_excel&&isset($last)){
 ?>
 <script type="text/javascript" language="javascript">
-	$(".tablesorter a.expand").click(function(event)
-	{
-		$(this).parent().parent().next().find('.innertable').toggle();
-		if ($(this).text() == '+')
-		{
-			$(this).text('-');
-		}
-		else
-		{
-			$(this).text('+');
-		}
-		return false;
-	});
 	$(".tablesorter td.expand").click(function(event){
 		$(this).text($(this).text()!='+'?'+':'-').parent().next().toggle();
 	});
 </script>
 <?php
-	}else{
-		echo '<br/><hr/><br/>';
-	}
 }
 ?>

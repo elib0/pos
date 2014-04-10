@@ -6,13 +6,19 @@
 	<base href="<?=base_url()?>" />
 	<title><?=$this->config->item('company')?></title>
 	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/ospos.css" />
-	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/ospos_print.css"  media="print"/>
+	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/ospos_print.css" media="print"/>
 	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/jquery-ui.css" />
 	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/notifIt.css" />
 	<script>BASE_URL = '<?=site_url()?>';</script>
+	<script src="<?=base_url()?>js/jquery.switch.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="<?=base_url()?>js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script>window.$$=window.jQueryNew=jQuerySwitch('jq2',jQuery);</script>
+	<!-- jquery new -->
 	<script src="<?=base_url()?>js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
+	<!-- end jquery new -->
 	<script src="<?=base_url()?>js/jquery-1.2.6.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script>window.jQueryOld=jQuerySwitch('jq1',jQuery);</script>
+	<!-- jquery old -->
 	<script src="<?=base_url()?>js/jquery.formatCurrency.js" type="text/javascript"></script>
 	<script src="<?=base_url()?>js/jquery-ui.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="<?=base_url()?>js/jquery.color.js" type="text/javascript" charset="UTF-8"></script>
@@ -30,6 +36,7 @@
 	<script src="<?=base_url()?>js/swfobject.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="<?=base_url()?>js/date.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="<?=base_url()?>js/datepicker.js" type="text/javascript" charset="UTF-8"></script>
+	<!-- end jquery old -->
 
 <style type="text/css">
 html {
@@ -174,10 +181,9 @@ html {
 	$(document).ready(function() {
 		mostrarHora();
 		//Control de enlaces logout
-		$('#menubar_footer #menu_changeuser a, #btnLogout').click(function(e, href){
+		$('#menubar_footer #menu_changeuser a,#btnLogout').click(function(e,href){
 			var href = $(this).attr('href');
-			$('#realLogOut').attr('href', href);
-
+			$('#realLogOut').attr('href',href);
 			$('#logout_overlay').dialog({
 				width: 400,
 				height: 260,

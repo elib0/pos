@@ -399,25 +399,25 @@
 if ( $('#submitC').length < 1) {
 	$('input, textarea, select').attr('disabled', 'disabled');
 };
-$('#reestablecer').click(function(event){
-	alert('aqui');
-	// $.ajax({
-	// 	type:"POST",
-	// 	url:"controlllers/index.php/cofig/restablecer",
-	// 	dataType:"json",
-	// 	success:function(data){
+// $('#reestablecer').click(function(event){
+// 	alert('aqui');
+// 	// $.ajax({
+// 	// 	type:"POST",
+// 	// 	url:"controlllers/index.php/cofig/restablecer",
+// 	// 	dataType:"json",
+// 	// 	success:function(data){
 
-	// 		// if(data==1)
-	// 		// 	$.ajax({url:'views/tags/update.view.php?asyn&tag='+tag,success:function(){
-	// 		// 		$("#previewTag").dialog("close");
-	// 		// 		$('body #previewTag').remove();
-	// 		// 		document.location.hash='update';
-	// 		// 	}});
-	// 		// else
-	// 		// 	message("messages","Error",valores[1]);
-	// 	}
-	// });
-});
+// 	// 		// if(data==1)
+// 	// 		// 	$.ajax({url:'views/tags/update.view.php?asyn&tag='+tag,success:function(){
+// 	// 		// 		$("#previewTag").dialog("close");
+// 	// 		// 		$('body #previewTag').remove();
+// 	// 		// 		document.location.hash='update';
+// 	// 		// 	}});
+// 	// 		// else
+// 	// 		// 	message("messages","Error",valores[1]);
+// 	// 	}
+// 	// });
+// });
 
 //validation and submit handling
 $(document).ready(function()

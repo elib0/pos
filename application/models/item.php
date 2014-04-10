@@ -73,7 +73,11 @@ class Item extends CI_Model
 
 		if($query->num_rows()==1)
 		{
-			return $query->row();
+			$field=$query->row();
+			//service items have not quantity counter, start with a default value
+			if($field->is_service) $field->quantity=10;
+
+			return $field;
 		}
 		else
 		{
@@ -85,6 +89,8 @@ class Item extends CI_Model
 
 			foreach ($fields as $field)
 			{
+				//service items have not quantity counter, start with a default value
+				//if($field->is_service) $field->quantity=10;
 				$item_obj->$field='';
 			}
 

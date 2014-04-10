@@ -185,15 +185,17 @@ class Items extends Secure_area implements iData_controller
 	function save($item_id=-1)
 	{
 		$item_data = array(
+		'is_locked'=>$this->input->post('is_locked')?1:0,
 		'name'=>$this->input->post('name'),
 		'description'=>$this->input->post('description'),
 		'category'=>$this->input->post('category'),
-		'supplier_id'=>$this->input->post('supplier_id')=='' ? null:$this->input->post('supplier_id'),
-		'item_number'=>$this->input->post('item_number')=='' ? null:$this->input->post('item_number'),
+		'supplier_id'=>$this->input->post('supplier_id')==''?null:$this->input->post('supplier_id'),
+		'item_number'=>$this->input->post('item_number')==''?null:$this->input->post('item_number'),
 		'cost_price'=>$this->input->post('cost_price'),
 		'unit_price'=>$this->input->post('unit_price'),
-		'quantity'=>$this->input->post('quantity'),
-		'reorder_level'=>$this->input->post('reorder_level'),
+		'is_service'=>$this->input->post('is_service')?1:0,
+		'quantity'=>$this->input->post('is_service')?0:$this->input->post('quantity'),
+		'reorder_level'=>$this->input->post('is_service')?0:$this->input->post('reorder_level'),
 		'location'=>$this->input->post('location'),
 		'allow_alt_description'=>$this->input->post('allow_alt_description'),
 		'is_serialized'=>$this->input->post('is_serialized')

@@ -7,7 +7,20 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 <legend><?php echo $this->lang->line("items_basic_information"); ?></legend>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_item_number').':', 'name',array('class'=>'wide')); ?>
+<?php echo form_checkbox(array(
+	'id'=>'is_locked',
+	'name'=>'is_locked',
+	'class'=>'wide',
+	'value'=>'is_locked',
+	'checked'=>$item_info->is_locked
+)); ?>
+	<spam>
+		<?php echo $this->lang->line('items_is_locked'); ?>
+	</spam>
+</div>
+
+<div class="field_row clearfix">
+<?php echo form_label($this->lang->line('items_item_number').':','name',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
 		'name'=>'item_number',
@@ -18,7 +31,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_name').':', 'name',array('class'=>'required wide')); ?>
+<?php echo form_label($this->lang->line('items_name').':','name',array('class'=>'required wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
 		'name'=>'name',
@@ -29,7 +42,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_category').':', 'category',array('class'=>'required wide')); ?>
+<?php echo form_label($this->lang->line('items_category').':','category',array('class'=>'required wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
 		'name'=>'category',
@@ -40,14 +53,14 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_supplier').':', 'supplier',array('class'=>'required wide')); ?>
+<?php echo form_label($this->lang->line('items_supplier').':','supplier',array('class'=>'required wide')); ?>
 	<div class='form_field'>
 	<?php echo form_dropdown('supplier_id', $suppliers, $selected_supplier);?>
 	</div>
 </div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_cost_price').':', 'cost_price',array('class'=>'required wide')); ?>
+<?php echo form_label($this->lang->line('items_cost_price').':','cost_price',array('class'=>'required wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
 		'name'=>'cost_price',
@@ -59,7 +72,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_unit_price').':', 'unit_price',array('class'=>'required wide')); ?>
+<?php echo form_label($this->lang->line('items_unit_price').':','unit_price',array('class'=>'required wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
 		'name'=>'unit_price',
@@ -71,7 +84,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_tax_1').':', 'tax_percent_1',array('class'=>'wide')); ?>
+<?php echo form_label($this->lang->line('items_tax_1').':','tax_percent_1',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
 		'name'=>'tax_names[]',
@@ -92,7 +105,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_tax_2').':', 'tax_percent_2',array('class'=>'wide')); ?>
+<?php echo form_label($this->lang->line('items_tax_2').':','tax_percent_2',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
 		'name'=>'tax_names[]',
@@ -112,9 +125,21 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 	</div>
 </div>
 
+<div class="field_row clearfix">
+<?php echo form_checkbox(array(
+	'id'=>'is_service',
+	'name'=>'is_service',
+	'class'=>'wide',
+	'value'=>'is_service',
+	'checked'=>$item_info->is_service
+)); ?>
+	<spam>
+		<?php echo $this->lang->line('items_is_service'); ?>
+	</spam>
+</div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_quantity').':', 'quantity',array('class'=>'required wide')); ?>
+<?php echo form_label($this->lang->line('items_quantity').':','quantity',array('class'=>'required wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
 		'name'=>'quantity',
@@ -125,7 +150,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_reorder_level').':', 'reorder_level',array('class'=>'required wide')); ?>
+<?php echo form_label($this->lang->line('items_reorder_level').':','reorder_level',array('class'=>'required wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
 		'name'=>'reorder_level',
@@ -136,7 +161,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div>
 
 <!-- <div class="field_row clearfix">	
-<?php echo form_label($this->lang->line('items_location').':', 'location',array('class'=>'wide')); ?>
+<?php echo form_label($this->lang->line('items_location').':','location',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo form_input(array(
 		'name'=>'location',
@@ -147,7 +172,7 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div> -->
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_description').':', 'description',array('class'=>'wide')); ?>
+<?php echo form_label($this->lang->line('items_description').':','description',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo form_textarea(array(
 		'name'=>'description',
@@ -160,19 +185,19 @@ echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form'));
 </div>
 
 <!-- <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_allow_alt_desciption').':', 'allow_alt_description',array('class'=>'wide')); ?>
+<?php echo form_label($this->lang->line('items_allow_alt_desciption').':','allow_alt_description',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo form_checkbox(array(
 		'name'=>'allow_alt_description',
 		'id'=>'allow_alt_description',
 		'value'=>1,
-		'checked'=>($item_info->allow_alt_description)? 1  :0)
+		'checked'=>($item_info->allow_alt_description)? 1 :0)
 	);?>
 	</div>
 </div>
 
 <div class="field_row clearfix">
-<?php echo form_label($this->lang->line('items_is_serialized').':', 'is_serialized',array('class'=>'wide')); ?>
+<?php echo form_label($this->lang->line('items_is_serialized').':','is_serialized',array('class'=>'wide')); ?>
 	<div class='form_field'>
 	<?php echo form_checkbox(array(
 		'name'=>'is_serialized',
@@ -196,15 +221,12 @@ echo form_submit(array(
 echo form_close();
 ?>
 <script type='text/javascript'>
-
 //validation and submit handling
-$(document).ready(function()
-{
-	$("#category").autocomplete("<?php echo site_url('items/suggest_category');?>",{max:100,minChars:0,delay:10});
-    $("#category").result(function(event, data, formatted){});
-	$("#category").search();
-
-
+$(function(){
+	$("#category")
+		.autocomplete("<?php echo site_url('items/suggest_category');?>",{max:100,minChars:0,delay:10})
+		.result(function(event,data,formatted){})
+		.search();
 	$('#item_form').validate({
 		submitHandler:function(form)
 		{
@@ -289,4 +311,12 @@ $(document).ready(function()
 		}
 	});
 });
+//new jQuery
+(function($){
+	$('#is_service').change(function(){
+		var checked=$(this).is(':checked');
+		$(this).parents('#item_form').find('#quantity,#reorder_level').prop('disabled',checked)
+			.parent().parent()[checked?'hide':'show']();
+	}).change();
+})(jQueryNew);
 </script>

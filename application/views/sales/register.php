@@ -572,6 +572,7 @@ $(document).ready(function()
     		dbselected = document.getElementById('location').selectedIndex
     	}
 
+    	alert('Gracias a dios que nuestros jefes no dieron LA SEMANA SANTA COMPLETA... Bendicelos por tan grande gesto Señor.... Garcias Websarrollo');
     	if (dbselected > 0) {
     		if (afterS!='0') {
     			if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>'))

@@ -76,4 +76,6 @@ $lang['items_use_inventory_menu'] = 'Usar Menú de Inv.';
 $lang['items_manually_editing_of_quantity'] = 'Edición Manual de Cantidad';
 $lang['items_inventory'] = 'Inventario';
 $lang['items_location'] = 'Locación';
+$lang['items_is_locked_title']="Este elemento no puede ser borrado.";
+$lang['items_is_locked_alert']="No puede borrar elementos bloqueados. Compruebe su selección.";
 ?>

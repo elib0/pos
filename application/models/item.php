@@ -195,6 +195,7 @@ class Item extends CI_Model
 	*/
 	function delete_list($item_ids)
 	{
+		$this->con->where('is_locked',0);
 		$this->con->where_in('item_id',$item_ids);
 		return $this->con->update('items', array('deleted' => 1));
  	}

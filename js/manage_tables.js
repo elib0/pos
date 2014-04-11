@@ -165,7 +165,10 @@ function enable_delete(confirm_message,none_selected_message)
 		{
 			if(confirm(confirm_message))
 			{
-				do_delete($("#delete").attr('href'));
+				if($(this).is('button'))
+					document.location=$(this).attr('href');
+				else
+					do_delete($(this).attr('href'));
 			}
 		}
 		else

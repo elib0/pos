@@ -111,6 +111,7 @@ table.tablesorter thead tr .header
 	background-repeat: no-repeat;
 	background-position: center right;
 	cursor: pointer;
+	padding-right:18px;
 }
 
 table.tablesorter tbody td
@@ -125,17 +126,17 @@ table.tablesorter tbody td
 
 table.tablesorter tbody td
 {
-	border-bottom:1px solid #DDDDDD;
+	border-bottom:1px solid #ddd;
 }
 
 table.tablesorter tbody td.over
 {
-	background-color:hsl(208, 45%, 82%);
+	background-color:hsl(208,45%,82%);
 }
 
 table.tablesorter tbody td.selected
 {
-	background-color:#8dbdd8;
+	background-color:#8bd;
 }
 
 table.tablesorter thead tr .headerSortUp
@@ -184,3 +185,12 @@ table.tablesorter tbody tr.hide > td > table.innertable
 	display: block;
 }
 
+table.tablesorter tbody tr.locked > td{
+	background:#eee;
+}
+table.tablesorter tbody tr.locked > td.over{
+	background:#edf;
+}
+table.tablesorter tbody tr.locked > td.over.selected{
+	background:#a9e;
+}

@@ -66,7 +66,7 @@ echo form_open('items/save_inventory/'.$item_info->item_id,array('id'=>'item_for
 	
 		'name'=>'quantity',
 		'id'=>'quantity',
-		'value'=>$item_info->quantity,
+		'value'=>($item_info->is_service?'unlimited':number_format($item_info->quantity)),
 		'style'       => 'border:none',
 		'readonly' => 'readonly'
 		);

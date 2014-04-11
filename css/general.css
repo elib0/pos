@@ -200,7 +200,7 @@ label.required
 input,select
 {
 	font-family:arial;
-	padding: 3px;
+	padding:3px;
 }
 
 .clearfix:after
@@ -219,11 +219,10 @@ html[xmlns] .clearfix {	display: block; }
 
 .text_box{
 	border: 1px solid #CCC;
-	height: 18px;
-	margin: 0 3px 0 0;
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
 	border-radius:5px;
+	margin:0 3px 0 0;
 }
 .upload_label{
 	font-size: 10px;

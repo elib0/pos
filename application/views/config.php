@@ -95,7 +95,7 @@
 				</div>
 			</div>
 		</div>
-		<div style="width: 500px; float: left">
+		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">	
 				<?php echo form_label('Company '.$this->lang->line('config_website').':', 'website',array('class'=>'lable-form', 'style'=>'width:110px')); ?>
 				<div>
@@ -135,7 +135,9 @@
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div class="field_row clearfix">	
+				<div style="height: 27px;">
 				<?php echo form_label($this->lang->line('config_default_tax_rate_1').':', 'default_tax_1_rate',array('class'=>'lable-form-required','style'=>'width:70px;')); ?>
+				</div>
 				<div>
 					<?php 
 						echo form_input(
@@ -161,7 +163,9 @@
 				</div>
 		</div>
 		<div class="field_row clearfix" style="margin: 0 0 5px 0">
+			<div style="height: 27px;">
 			<?php echo form_label($this->lang->line('config_default_tax_rate_2').':', 'default_tax_1_rate',array('class'=>'lable-form','style'=>'width:70px;')); ?>
+			</div>
 			<div>
 				<?php 
 					echo form_input(
@@ -186,8 +190,10 @@
 				?>&nbsp;%
 			</div>
 		</div>
-		<div class="field_row clearfix">	
+		<div class="field_row clearfix">
+			<div style="height: 27px;">
 			<?php echo form_label($this->lang->line('config_currency_symbol').':', 'currency_symbol',array('class'=>'lable-form','style'=>'width:110px;')); ?>
+			</div>
 			<div>
 				<?php 
 					echo form_input(
@@ -203,18 +209,39 @@
 			</div>
 		</div>
 		<div class="field_row clearfix">
-			<?php echo form_label($this->lang->line('config_print_after_sale').':', 'print_after_sale',array('class'=>'lable-form','style'=>'width:140px;')); ?>
-			<div>
-				<?php 
-					echo form_checkbox(
-						array(
-							'name'=>'print_after_sale',
-							'id'=>'print_after_sale',
-							'value'=>'print_after_sale',
-							'checked'=>$this->config->item('print_after_sale')
-						)
-					);
-				?>
+			<div  style="float: left;">
+				<div>
+				<?php echo form_label($this->lang->line('config_print_after_sale').':', 'print_after_sale',array('class'=>'lable-form','style'=>'width:250px;')); ?>
+				</div>
+				<div style="height: 27px;">
+					<?php 
+						echo form_checkbox(
+							array(
+								'name'=>'print_after_sale',
+								'id'=>'print_after_sale',
+								'value'=>'print_after_sale',
+								'checked'=>$this->config->item('print_after_sale')
+							)
+						);
+					?>
+				</div>
+			</div>
+			<div style="float: left;">
+				<div>
+				<?php echo form_label($this->lang->line('config_alert_after_sale').':', 'alert_after_sale',array('class'=>'lable-form','style'=>'width:270px;')); ?>
+				</div>
+				<div style="height: 27px;">
+					<?php 
+						echo form_checkbox(
+							array(
+								'name'=>'alert_after_sale',
+								'id'=>'alert_after_sale',
+								'value'=>'alert_after_sale',
+								'checked'=>$this->config->item('alert_after_sale')
+							)
+						);
+					?>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -252,8 +279,8 @@
 	</div>
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
-		<div class="field_row clearfix">	
-			<?php echo form_label($this->lang->line('config_language').':', 'language',array('class'=>'lable-form', 'style'=>'width:70px;')); ?>
+		<div class="field_row clearfix" style="float: left">	
+			<?php echo form_label($this->lang->line('config_language').':', 'language',array('class'=>'lable-form', 'style'=>'width:170px;')); ?>
 			<div>
 				<?php 
 					echo form_dropdown('language', 
@@ -268,7 +295,7 @@
 		</div>
 
 		<div class="field_row clearfix">	
-		<?php echo form_label($this->lang->line('config_timezone').':', 'timezone',array('class'=>'lable-form', 'style'=>'width:70px;')); ?>
+		<?php echo form_label($this->lang->line('config_timezone').':', 'timezone',array('class'=>'lable-form', 'style'=>'width:300px;')); ?>
 			<div>
 			<?php echo form_dropdown('timezone', 
 			 array(

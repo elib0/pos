@@ -45,4 +45,5 @@ $lang['common_det']='details';
 $lang['common_logo']='Logo';
 $lang['common_logo_dimensiones']='Gambar yang akan diubah ukurannya menjadi 240 px lebar dan 120 px yang tinggi dan berat tidak lebih dari 4MB.';
 $lang['common_image_faild']='Ini bukan file gambar yang valid. Silakan coba lagi';
+$lang['config_alert_after_sale']='Pesan konfirmasi setelah penjualan:';
 ?>

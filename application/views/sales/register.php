@@ -438,7 +438,7 @@ $(document).ready(function()
     });
 
     //Para el cobro de taxes
-    var b = '<?php echo $taxing ?>';
+    var b = '<?php echo $taxing ?>', afterS = '<?php echo $this->Appconfig->get('alert_after_sale') ?>';
     if (b !== 'checked') {$('.taxing-block').hide();}
     $('#taxing').click(function(event) {
     	var cb = this;
@@ -573,10 +573,15 @@ $(document).ready(function()
     	}
 
     	if (dbselected > 0) {
-			if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>'))
-			{
-				$('#finish_sale_form').submit();
-			}
+    		if (afterS!='0') {
+    			if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>'))
+				{
+					$('#finish_sale_form').submit();
+				}	
+    		}else{
+    			$('#finish_sale_form').submit();
+    		};
+			
 		}else{
 			// alert('You must select a database');
 			notif({

@@ -206,7 +206,7 @@ function get_item_data_row($item,$controller)
 	$controller_name=strtolower(get_class($CI));
 	$width = $controller->get_form_width();
 
-	$table_data_row='<tr class="'.($item->is_locked?'locked':'').'">';
+	$table_data_row='<tr'.($item->is_locked?' title="'.$CI->lang->line('items_is_locked_title').'" class="locked"':'').'>';
 	$table_data_row.="<td width='3%'><input class='".($item->is_locked?'locked':'')."' type='checkbox' id='item_$item->item_id' value='$item->item_id'/></td>";
 	$table_data_row.='<td width="15%">'.$item->item_number.'</td>';
 	$table_data_row.='<td width="20%">'.$item->name.'</td>';

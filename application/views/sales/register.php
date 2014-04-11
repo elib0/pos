@@ -37,9 +37,7 @@ if (isset($success))
 	<span><?php echo $this->lang->line('sales_mode') ?></span>
 <?php echo form_dropdown('mode',$modes,$mode,'onchange="$(\'#mode_form\').submit();"'); ?>
 <div id="show_suspended_sales_button">
-	<?php echo anchor("sales/suspended/width:425",
-	"<div class='small_button'><span style='font-size:73%;'>".$this->lang->line('sales_suspended_sales')."</span></div>",
-	array('class'=>'thickbox none','title'=>$this->lang->line('sales_suspended_sales')));
+	<?php echo anchor("sales/suspended/width:425","<span style='font-size:73%;'>".$this->lang->line('sales_suspended_sales')."</span>",array('class'=>'small_button none','title'=>$this->lang->line('sales_suspended_sales')));
 	?>
 </div>
 </form>
@@ -59,9 +57,7 @@ else
 </label>
 <?php echo form_input(array('name'=>'item','id'=>'item','size'=>'40'));?>
     <div id="new_item_button_register" >
-		<?php echo anchor("items/view/-1/width:360",
-		"<div class='small_button'><span>".$this->lang->line('sales_new_item')."</span></div>",
-		array('class'=>'thickbox none','title'=>$this->lang->line('sales_new_item')));
+		<?php echo anchor("items/view/-1/width:360","<span>".$this->lang->line('sales_new_item')."</span>",array('class'=>'small_button none','title'=>$this->lang->line('sales_new_item')));
 		?>
 	</div>
     <!-- <div id="item_broken_register">
@@ -242,13 +238,11 @@ else
 			echo form_open("sales/select_customer",array('id'=>'select_customer_form'));
 			echo '<label id="customer_label" for="customer">'.$this->lang->line('sales_select_customer').'</label>';
 			
-			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30', 'class'=>'text_box', 'value'=>$this->lang->line('sales_start_typing_customer_name')));
+			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','class'=>'text_box','style'=>'width:73%;','value'=>$this->lang->line('sales_start_typing_customer_name')));
 			
 			//echo '<div style="margin-top:5px;text-align:center;">';
 			//echo '<h3 style="margin: 5px 0 5px 0">'.$this->lang->line('common_or').'</h3>';
-			echo anchor("customers/view/-1/width:350",
-			"<div class='small_button' style='margin:0 auto;'><span>+</span></div>",
-			array('class'=>'thickbox none','title'=>$this->lang->line('sales_new_customer')));
+			echo anchor("customers/view/-1/width:350","<span>+</span>",array('class'=>'small_button none','title'=>$this->lang->line('sales_new_customer'),'style'=>'padding:4px 10px;'));
 			//echo '<div class="clearfix">&nbsp;</div>';
 			echo form_close();
 		}

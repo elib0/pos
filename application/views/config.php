@@ -134,7 +134,8 @@
 	</div>
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
-		<div class="field_row clearfix">	
+		<div>
+			<div class="field_row clearfix" style="float: left;margin-right: 70px;">
 				<div style="height: 27px;">
 				<?php echo form_label($this->lang->line('config_default_tax_rate_1').':', 'default_tax_1_rate',array('class'=>'lable-form-required','style'=>'width:70px;')); ?>
 				</div>
@@ -162,7 +163,7 @@
 					?>&nbsp;%
 				</div>
 		</div>
-		<div class="field_row clearfix" style="margin: 0 0 5px 0">
+		<div class="field_row clearfix" style="margin: 0 0 5px 0;float: left;margin-right: 80px;">
 			<div style="height: 27px;">
 			<?php echo form_label($this->lang->line('config_default_tax_rate_2').':', 'default_tax_1_rate',array('class'=>'lable-form','style'=>'width:70px;')); ?>
 			</div>
@@ -189,6 +190,7 @@
 					);
 				?>&nbsp;%
 			</div>
+		</div>
 		</div>
 		<div class="field_row clearfix">
 			<div style="height: 27px;">

@@ -77,84 +77,78 @@ html {
 
 </head>
 <body>
-<div id="menubar">
-	<div id="menubar_container">
-		<div id="menubar_company_info">
-		<span ><a href="index.php"><img src="images/<?=file_exists('images/'.$this->Appconfig->get('logo'))?$this->Appconfig->get('logo'):'logo.png'?>" border="0" width="155px" height="80px"/><?php //echo $this->config->item('company'); ?></a></span>
-		</div>
-		
-		<div id="menubar_navigation">
-			<?php
-			foreach($allowed_modules->result() as $module)
-			{
-			?>
-			<div class="menu_item">
-				<a href="<?=site_url("$module->module_id")?>">
-				<img src="<?=base_url().'images/menubar/'.$module->module_id.'.png'?>" border="0" alt="Menubar Image" /></a><br />
-				<a href="<?=site_url("$module->module_id")?>"><?=$this->lang->line("module_".$module->module_id)?></a>
-			</div>
-			<?php
-			}
-			?>
-			<!-- <div class="menu_item">
-				<a href="index.php/share_inventories">En pruebas</a>
-			</div> -->
-			<div class="menu_item">
-				<a href="index.php/employees/assistance"><img src="<?=base_url().'images/menubar/schedule.png'?>" border="0" alt="Menubar Image" style="cursor: pointer" /></a><br />
-				<a href="index.php/employees/assistance">Schedule</a>
-			</div>
-		</div>
-
-		<div id="menubar_footer">
-		<?php
-			include('application/config/database.php');
-			$dbs = array();
-			foreach ($db as $key => $value){
-				if ($key != $this->session->userdata('dblocation')) {
-					$dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
-				}
-			}
-			
-			// echo $this->lang->line('common_welcome')." $user_info->first_name $user_info->last_name! (". $this->session->userdata('dblocation').")| ";
-
-			$people = $this->Employee->get_all();
-		?>
-		<nav id="menu_changelocation">
-			<?=$this->lang->line('common_welcome').' '.$user_info->first_name.' '.$user_info->last_name.'!'?>
-			<span>
-				<?php echo $this->session->userdata('dblocation');
-				if ($this->Employee->isAdmin()){ ?>
-				<ul>
-					<?php foreach($dbs as $db){ ?>
-							<li><?=anchor("employees/set_location/".$db,$db)?></li>
-					<?php } ?>
-				</ul>
-				<?php } ?>
-			</span> 
-		</nav>
-		<nav id="menu_changeuser">
-			|<?=$this->lang->line('common_changeuser')?> |
-			<ul>
-				<?php
-					foreach($people->result() as $person)
-					{
-						?>
-						<li><?=anchor("cajas/index/".$person->person_id,$person->last_name.' '.$person->first_name,'rel="#logout_overlay"')?></li>
-						<?php
-					}
-				?>
-			</ul>
-		</nav>
-		<?=anchor("cajas",$this->lang->line("common_logout"),'rel="#logout_overlay", id="btnLogout"')?>
-		</div>
-
-		<div id="menubar_date">
-			<?=date('F d, Y')?>
-			<div id="time" style="display:inline;"></div>
-		</div>
-		
-	</div>
+<div id="menubar_date">
+	<?=date('F d, Y')?>
+	<div id="time" style="display:inline;"></div>
 </div>
+<nav class="main-menu">
+	<ul>
+		<?php
+		foreach($allowed_modules->result() as $module)
+		{
+		?>
+		<li class="menu_item">
+			<ul>
+				<li><a href="<?=site_url("$module->module_id")?>">
+					<img src="<?=base_url().'images/menubar/'.$module->module_id.'.png'?>" border="0" alt="Menubar Image" /></a>
+				</li>
+				<li><a href="<?=site_url("$module->module_id")?>"><?=$this->lang->line("module_".$module->module_id)?></a></li>
+			</ul>
+		</li>
+		<?php
+		}
+		?>
+		<li class="menu_item">
+			<ul>
+				<li><a href="index.php/employees/assistance"><img src="<?=base_url().'images/menubar/schedule.png'?>" border="0" alt="Menubar Image" style="cursor: pointer" /></a></li>
+				<li><a href="index.php/employees/assistance">Schedule</a></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+<nav class="user">
+	<a class="logo" href="index.php"><img src="images/<?=file_exists('images/'.$this->Appconfig->get('logo'))?$this->Appconfig->get('logo'):'logo.png'?>" border="0"/><?php //echo $this->config->item('company'); ?></a>
+	<?php
+		include('application/config/database.php');
+		$dbs = array();
+		foreach ($db as $key => $value){
+			if ($key != $this->session->userdata('dblocation')) {
+				$dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
+			}
+		}
+
+		$people = $this->Employee->get_all();
+	?>
+	<nav id="menu_changelocation">
+		<?=$this->lang->line('common_welcome').' '.$user_info->first_name.' '.$user_info->last_name.'!'?>
+		<span>
+			<?php echo $this->session->userdata('dblocation');
+			if ($this->Employee->isAdmin()){ ?>
+			<ul>
+				<?php foreach($dbs as $db){ ?>
+						<li><?=anchor("employees/set_location/".$db,$db)?></li>
+				<?php } ?>
+			</ul>
+			<?php } ?>
+		</span> 
+	</nav>
+	<nav id="menu_changeuser">
+		|<?=$this->lang->line('common_changeuser')?> |
+		<ul>
+			<?php
+				foreach($people->result() as $person)
+				{
+					?>
+					<li><?=anchor("cajas/index/".$person->person_id,$person->last_name.' '.$person->first_name,'rel="#logout_overlay"')?></li>
+					<?php
+				}
+			?>
+		</ul>
+	</nav>
+	<?=anchor("cajas",$this->lang->line("common_logout"),'rel="#logout_overlay", id="btnLogout"')?>
+	</div>
+</nav>
 <div id="overlay_cash">
 	<div class="contentWrap"></div>
 </div>
@@ -180,7 +174,7 @@ html {
 	$(function() {
 		mostrarHora();
 		//Control de enlaces logout
-		$('#menubar_footer #menu_changeuser a,#btnLogout').click(function(e,href){
+		$('nav.user #menu_changeuser a,#btnLogout').click(function(e,href){
 			var href=$(this).attr('href');
 			$('#realLogOut').attr('href',href);
 			$('<div id="logout_overlay" class="overlay"></div>').appendTo('body').dialog({

@@ -7,7 +7,7 @@
 	background-repeat: repeat-x;
 	width:100%;
 	height:107px;
-	color:#FFFFFF;
+	color:hsl(0, 0%, 100%);
 	text-align:left;
 	text-align:center;
 }
@@ -20,24 +20,24 @@
 	text-align:left;
 }
 
-.menu_item
+/*.menu_item
 {
 	float:left;
 	width:65px;
 	height:100%;
 	text-align:center;
-}
+}*/
 
 
 #menubar a:link, #menubar a:visited, #menubar a
 {
-	color:#000;
+	color:hsl(0, 0%, 0%);
 	text-decoration:none;
 }
 
 #menubar a:hover
 {
-	color:#003399;
+	color:hsl(220, 100%, 30%);
 	text-decoration:underline;
 }
 
@@ -48,11 +48,9 @@
 
 #menubar_company_info
 {
-	position:absolute;
-	left:-10px;
-	top:0px;
+	/*top:0px;
 	width:250px;
-	height:55%;
+	height:55%;*/
 }
 
 #company_title
@@ -85,7 +83,7 @@
 	/*position:relative;
 	left: 13em;*/
 	position:absolute;
-	background: #000;
+	background: hsl(0, 0%, 0%);
 	list-style: none;
 	width: 100px;
 	margin:0px;
@@ -100,7 +98,7 @@
 }
 
 #menu_changeuser ul>li:hover, #menu_changelocation ul>li:hover{
-	background: #003399;
+	background: hsl(220, 100%, 30%);
 }
 
 #menubar_footer
@@ -116,31 +114,159 @@
 
 #menubar_date
 {
-	position:absolute;
-	top:86px;
-	right:0px;
-	height:17%;
-	padding-top:3px;
-	font-size:8pt;
-	font-weight:bold;
+	right:10px;
+	color: hsl(0, 0%, 100%);
+	position: absolute;
+	font-size: 10pt;
+	z-index: 99999;
+	top: 2px;
 }
 
 #menubar #menubar_footer a{
-	color: #FFF;
+	color: hsl(0, 0%, 100%);
 }
 
 #menu_changelocation > span{
 	position:relative;
-	color: #396B98;
+	color: hsl(208, 45%, 41%);
 	font-weight: bold;
 	text text-transform: uppercase;
 }
 
 #menu_changelocation>span:before{
 	content:'(';
-	color:#fff;
+	color:hsl(0, 0%, 100%);
 }
 #menu_changelocation>span:after{
 	content:')';
-	color:#fff;
+	color:hsl(0, 0%, 100%);
 }
+
+/*Nuevo menu principal*/
+nav.user{
+	position: fixed;
+	width: 100%;
+	background-color: hsl(0, 0%, 20%);
+	color: hsl(0, 0%, 100%);
+	z-index: 50000;
+	top: 0;
+	text-align: center;
+	/*padding: 1em;*/
+}
+
+.logo{
+	float: left;
+	left: 1px;
+	top:1px;
+	display: inline-block;
+	margin: 0 1em;
+	padding: 0;
+}
+
+.logo img{
+	height: 53px;
+}
+
+nav.main-menu{
+	position: fixed;
+	top: 56px;
+	z-index: 9999;
+	/*border: 2px outset hsl(0, 0%, 0%);*/
+	/*padding: 5px;*/
+	height: 100%;
+	-webkit-box-shadow: -1px 0px 8px hsl(0, 0%, 60%) inset;
+	-moz-box-shadow: -1px 0px 8px hsl(0, 0%, 60%) inset;
+	box-shadow: -1px 0px 8px hsl(0, 0%, 60%) inset;
+	background-color: hsl(0, 0%, 100%);
+}
+
+nav.main-menu > ul{
+	list-style: none;
+}
+nav.main-menu > ul > li{
+	float: none;
+	/*margin: 5px 0;*/
+	padding: 2px;
+	/*width:75px;*/
+	height:100%;
+	text-align:center;
+	cursor: pointer;
+	border-bottom: 1px solid #ccc;
+}
+
+nav.main-menu > ul > li:hover{
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, hsl(0, 0%, 93%)), color-stop(1, hsl(0, 0%, 87%)) );
+	background: -moz-linear-gradient( center top, hsl(0, 0%, 93%) 5%, hsl(0, 0%, 87%) 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='hsl(0, 0%, 93%)', endColorstr='hsl(0, 0%, 87%)');
+	-webkit-box-shadow: -1px 0px 8px hsl(0, 0%, 60%) inset;
+	-moz-box-shadow: -1px 0px 8px hsl(0, 0%, 60%) inset;
+	box-shadow: -1px -1px 5px hsl(0, 0%, 80%) inset;
+}
+
+nav.main-menu > ul > li:hover:after{
+	content: '';
+	position: absolute;
+	/*top: 40px;*/
+	left: 100%;
+	margin-top: -34px;
+	width: 0; height: 0;
+	border-left: 12px solid hsl(0, 0%, 78%);
+	border-top: 12px solid transparent;
+	border-bottom: 12px solid transparent;
+}
+
+nav.main-menu ul li > ul{
+	display: table-row;
+}
+
+nav.main-menu ul li > ul > li{
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	text-align: left;
+	margin: 0 5px 0 0; 
+	/*padding: 5px*/
+}
+nav.main-menu ul li > ul > li:first-child{
+	width: 58px;
+}
+nav.main-menu ul li > ul > li:first-child img{
+	width: 70%;
+}
+nav.main-menu ul li > ul > li:last-child{
+	width: 90px;
+}
+nav.user a:not(.big_button):not(.small_button)
+{
+	color:hsl(0, 0%, 100%) !important;
+}
+
+nav.main-menu a, nav.main-menu a:active, nav.main-menu a:visited{
+	color: hsl(0, 0%, 0%) !important;
+	text-decoration: none !important;
+	font-size: 1.2em !important;
+	font-weight: bold;
+}
+
+@media screen and (max-width:1180px){
+	nav.main-menu a, nav.main-menu a:active, nav.main-menu a:visited{
+		color: hsl(0, 0%, 0%) !important;
+		text-decoration: none !important;
+		font-size: .9em !important;
+		font-weight: normal;
+	}
+	nav.main-menu ul li{
+		width:52px;
+		height:100%;
+	}
+	nav.main-menu ul li img{
+		width: 40%;
+	}
+	nav.main-menu ul li > ul > li{
+		display: block;
+	}
+	nav.main-menu > ul > li:hover:after{
+		margin-top: -40px;
+	}                      
+  
+} 

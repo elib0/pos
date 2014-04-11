@@ -11,7 +11,7 @@ class Config extends Secure_area
 	{
 		$this->load->view("config");
 	}
-	
+
 	function save()
 	{
 		//carga de imagen
@@ -81,7 +81,8 @@ class Config extends Secure_area
 		'return_policy'=>$this->input->post('return_policy'),
 		'language'=>$this->input->post('language'),
 		'timezone'=>$this->input->post('timezone'),
-		'print_after_sale'=>$this->input->post('print_after_sale')
+		'print_after_sale'=>$this->input->post('print_after_sale'),
+		'alert_after_sale'=>$this->input->post('alert_after_sale')
 		);
 		//echo json_encode($batch_save_data);
 

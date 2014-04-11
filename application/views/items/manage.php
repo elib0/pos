@@ -86,7 +86,6 @@ echo form_open("$controller_name/set_location", array('id'=>'form_items_location
 <?php $this->load->view("partial/footer"); ?>
 <script type="text/javascript">
 (function($){
-	$('.tablesorter tr.locked>td:first-child').attr('title',"<?=$this->lang->line('items_is_locked_title')?>");
 	$('.tablesorter tr.locked').click(function(){
 		var $checkbox=$('input:checkbox',this);
 		setTimeout(function(){$checkbox.change();},10);

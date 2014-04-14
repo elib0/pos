@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2014-04-14 09:12:16
+Date: 2014-03-24 11:13:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -249,14 +249,14 @@ CREATE TABLE `ospos_app_config` (
 -- ----------------------------
 -- Records of ospos_app_config
 -- ----------------------------
-INSERT INTO `ospos_app_config` VALUES ('address', '0');
+INSERT INTO `ospos_app_config` VALUES ('address', '3923 N McArthur\nWarr Acres\nOK 73122');
 INSERT INTO `ospos_app_config` VALUES ('company', 'Fast I Repair');
 INSERT INTO `ospos_app_config` VALUES ('default_tax_rate', '8');
 INSERT INTO `ospos_app_config` VALUES ('email', 'info@smokefreevapor.net');
-INSERT INTO `ospos_app_config` VALUES ('fax', '123');
+INSERT INTO `ospos_app_config` VALUES ('fax', '');
 INSERT INTO `ospos_app_config` VALUES ('phone', '405-603-3599');
-INSERT INTO `ospos_app_config` VALUES ('return_policy', 'All Sales Final\r\n');
-INSERT INTO `ospos_app_config` VALUES ('timezone', 'America/Caracas');
+INSERT INTO `ospos_app_config` VALUES ('return_policy', 'All Sales Final\n');
+INSERT INTO `ospos_app_config` VALUES ('timezone', 'America/Chicago');
 INSERT INTO `ospos_app_config` VALUES ('website', 'www.smokefreevapor.net');
 INSERT INTO `ospos_app_config` VALUES ('default_tax_1_rate', '8.365');
 INSERT INTO `ospos_app_config` VALUES ('default_tax_1_name', 'Sales Tax');
@@ -265,7 +265,6 @@ INSERT INTO `ospos_app_config` VALUES ('default_tax_2_name', '');
 INSERT INTO `ospos_app_config` VALUES ('currency_symbol', '$');
 INSERT INTO `ospos_app_config` VALUES ('language', 'english');
 INSERT INTO `ospos_app_config` VALUES ('print_after_sale', 'print_after_sale');
-INSERT INTO `ospos_app_config` VALUES ('logo', 'logo.png');
 
 -- ----------------------------
 -- Table structure for `ospos_customers`
@@ -285,10 +284,6 @@ CREATE TABLE `ospos_customers` (
 -- ----------------------------
 INSERT INTO `ospos_customers` VALUES ('2', null, '0', '0');
 INSERT INTO `ospos_customers` VALUES ('3', null, '1', '0');
-INSERT INTO `ospos_customers` VALUES ('46', null, '1', '0');
-INSERT INTO `ospos_customers` VALUES ('47', 'cuentapropia', '1', '1');
-INSERT INTO `ospos_customers` VALUES ('48', null, '1', '1');
-INSERT INTO `ospos_customers` VALUES ('53', null, '0', '1');
 
 -- ----------------------------
 -- Table structure for `ospos_employees`
@@ -301,7 +296,6 @@ CREATE TABLE `ospos_employees` (
   `id_schedule` int(1) DEFAULT '1',
   `deleted` int(1) NOT NULL DEFAULT '0',
   `lastChatActivity` int(2) NOT NULL,
-  `type_employees` varchar(20) DEFAULT NULL,
   UNIQUE KEY `username` (`username`),
   KEY `person_id` (`person_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -309,38 +303,9 @@ CREATE TABLE `ospos_employees` (
 -- ----------------------------
 -- Records of ospos_employees
 -- ----------------------------
-INSERT INTO `ospos_employees` VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', '1', '1', '0', '0', 'administrator');
-INSERT INTO `ospos_employees` VALUES ('speed', '21232f297a57a5a743894a0e4a801fc3', '4', '1', '0', '0', 'administrator');
-INSERT INTO `ospos_employees` VALUES ('gayTu', '5a690d842935c51f26f473e025c1b97a', '42', '1', '0', '0', 'administrator');
-INSERT INTO `ospos_employees` VALUES ('alberto', 'd852f92d887c3788efb8c08c38788969', '43', '1', '0', '0', 'administrator');
-INSERT INTO `ospos_employees` VALUES ('Rasta', '25d55ad283aa400af464c76d713c07ad', '45', '1', '0', '0', 'administrator');
-INSERT INTO `ospos_employees` VALUES ('mhernandez', '25d55ad283aa400af464c76d713c07ad', '50', '1', '1', '0', 'administrator');
-INSERT INTO `ospos_employees` VALUES ('gocanto', '25d55ad283aa400af464c76d713c07ad', '52', '1', '0', '0', 'administrator');
-INSERT INTO `ospos_employees` VALUES ('wfranco', '25d55ad283aa400af464c76d713c07ad', '54', '1', '0', '0', 'administrator');
-
--- ----------------------------
--- Table structure for `ospos_employees_profile`
--- ----------------------------
-DROP TABLE IF EXISTS `ospos_employees_profile`;
-CREATE TABLE `ospos_employees_profile` (
-  `profile_name` varchar(50) DEFAULT NULL,
-  `module_id` varchar(255) DEFAULT NULL,
-  `privileges` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of ospos_employees_profile
--- ----------------------------
-INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'customers', 'add,update,delete');
-INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'items', 'add,update,delete');
-INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'item_kits', 'add,update,delete');
-INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'suppliers', 'add,update,delete');
-INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'reports', 'none');
-INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'receivings', 'none');
-INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'sales', 'none');
-INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'employees', 'add,update,delete');
-INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'giftcards', 'add,update,delete');
-INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'config', 'save');
+INSERT INTO `ospos_employees` VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', '1', '1', '0', '0');
+INSERT INTO `ospos_employees` VALUES ('speed', '21232f297a57a5a743894a0e4a801fc3', '4', '1', '0', '0');
+INSERT INTO `ospos_employees` VALUES ('rramon', '25d55ad283aa400af464c76d713c07ad', '42', '1', '0', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_employees_schedule`
@@ -354,101 +319,26 @@ CREATE TABLE `ospos_employees_schedule` (
   `logout` time DEFAULT NULL,
   `location` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=262 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_employees_schedule
 -- ----------------------------
-INSERT INTO `ospos_employees_schedule` VALUES ('1', '1', '2014-02-01', '08:00:00', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('2', '1', '2014-02-02', '08:20:00', '13:57:22', 'other');
-INSERT INTO `ospos_employees_schedule` VALUES ('3', '1', '2014-02-03', '08:15:50', '13:57:22', 'other');
-INSERT INTO `ospos_employees_schedule` VALUES ('4', '1', '2014-02-04', '08:19:20', '13:57:22', 'other');
-INSERT INTO `ospos_employees_schedule` VALUES ('5', '1', '2014-02-05', '08:00:00', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('6', '1', '2014-02-06', '08:00:00', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('8', '1', '2014-02-08', '09:13:13', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('9', '1', '2014-02-09', '13:31:23', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('180', '1', '2014-03-05', '09:50:30', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('181', '1', '2014-03-05', '09:51:00', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('182', '1', '2014-03-05', '09:51:08', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('183', '1', '2014-03-05', '10:01:31', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('184', '1', '2014-03-05', '10:03:49', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('185', '1', '2014-03-05', '10:10:28', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('186', '4', '2014-03-05', '10:10:39', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('187', '1', '2014-03-25', '10:41:02', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('188', '4', '2014-03-25', '10:42:45', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('189', '1', '2014-03-25', '15:46:51', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('190', '1', '2014-03-25', '16:10:49', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('191', '1', '2014-03-25', '16:11:13', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('192', '1', '2014-03-26', '08:49:29', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('193', '1', '2014-03-26', '08:57:10', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('194', '1', '2014-03-26', '09:05:18', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('195', '1', '2014-03-26', '09:24:04', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('196', '1', '2014-03-26', '09:32:17', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('197', '1', '2014-03-26', '09:43:23', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('198', '43', '2014-03-26', '11:30:19', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('199', '1', '2014-03-27', '08:07:13', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('200', '1', '2014-03-27', '08:20:05', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('201', '1', '2014-03-27', '08:21:06', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('202', '1', '2014-03-27', '08:24:44', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('203', '1', '2014-03-27', '08:36:06', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('204', '1', '2014-03-27', '08:38:10', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('205', '1', '2014-03-27', '08:39:36', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('206', '1', '2014-03-27', '08:41:54', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('207', '1', '2014-03-27', '09:23:24', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('208', '1', '2014-03-27', '09:24:20', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('209', '1', '2014-03-27', '09:25:02', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('210', '1', '2014-03-27', '09:51:20', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('211', '1', '2014-03-27', '09:57:35', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('212', '1', '2014-03-27', '09:59:26', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('213', '1', '2014-03-27', '10:07:03', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('214', '1', '2014-03-27', '10:21:29', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('215', '1', '2014-03-31', '15:55:56', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('216', '1', '2014-04-08', '14:27:45', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('217', '1', '2014-04-08', '14:34:49', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('218', '1', '2014-04-08', '14:37:50', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('219', '1', '2014-04-08', '14:38:56', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('220', '1', '2014-04-08', '14:59:36', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('221', '1', '2014-04-08', '15:01:00', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('222', '1', '2014-04-08', '15:08:24', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('223', '1', '2014-04-08', '15:10:39', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('224', '1', '2014-04-08', '15:20:39', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('225', '1', '2014-04-08', '15:22:26', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('226', '1', '2014-04-08', '15:23:06', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('227', '1', '2014-04-08', '15:23:53', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('228', '1', '2014-04-08', '15:24:42', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('229', '1', '2014-04-08', '15:34:46', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('230', '1', '2014-04-08', '15:38:37', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('231', '1', '2014-04-08', '15:39:32', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('232', '1', '2014-04-08', '15:53:07', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('233', '1', '2014-04-08', '15:53:38', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('234', '1', '2014-04-08', '15:55:25', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('235', '1', '2014-04-08', '15:57:22', '13:57:22', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('236', '1', '2014-04-08', '16:19:21', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('237', '1', '2014-04-08', '16:20:01', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('238', '1', '2014-04-09', '09:27:36', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('239', '1', '2014-04-10', '14:00:10', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('240', '1', '2014-04-10', '14:02:25', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('241', '4', '2014-04-10', '14:03:07', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('242', '1', '2014-04-10', '14:05:13', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('243', '1', '2014-04-10', '14:11:28', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('244', '1', '2014-04-10', '14:33:00', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('245', '1', '2014-04-10', '14:37:32', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('246', '1', '2014-04-10', '14:38:11', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('247', '1', '2014-04-10', '14:43:26', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('248', '1', '2014-04-10', '14:46:01', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('249', '1', '2014-04-10', '14:51:21', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('250', '1', '2014-04-10', '14:52:01', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('251', '1', '2014-04-10', '14:56:25', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('252', '1', '2014-04-10', '15:02:09', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('253', '1', '2014-04-10', '16:03:18', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('254', '1', '2014-04-10', '16:09:09', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('255', '1', '2014-04-10', '16:10:31', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('256', '1', '2014-04-10', '16:12:07', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('257', '1', '2014-04-10', '16:14:55', '13:57:22', 'otra');
-INSERT INTO `ospos_employees_schedule` VALUES ('258', '1', '2014-04-11', '09:21:33', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('259', '1', '2014-04-11', '11:47:13', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('260', '1', '2014-04-11', '13:39:22', '13:57:22', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('261', '1', '2014-04-11', '13:57:27', null, 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('1', '1', '2014-02-01', '08:00:00', '16:31:31', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('2', '1', '2014-02-02', '08:20:00', '09:31:31', 'other');
+INSERT INTO `ospos_employees_schedule` VALUES ('3', '1', '2014-02-03', '08:15:50', '19:31:31', 'other');
+INSERT INTO `ospos_employees_schedule` VALUES ('4', '1', '2014-02-04', '08:19:20', '13:31:31', 'other');
+INSERT INTO `ospos_employees_schedule` VALUES ('5', '1', '2014-02-05', '08:00:00', '23:59:59', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('6', '1', '2014-02-06', '08:00:00', '13:00:31', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('8', '1', '2014-02-08', '09:13:13', '13:00:31', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('9', '1', '2014-02-09', '13:31:23', '14:50:00', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('180', '1', '2014-03-05', '09:50:30', '09:50:52', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('181', '1', '2014-03-05', '09:51:00', '09:51:19', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('182', '1', '2014-03-05', '09:51:08', '09:51:19', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('183', '1', '2014-03-05', '10:01:31', '10:03:45', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('184', '1', '2014-03-05', '10:03:49', '10:10:23', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('185', '1', '2014-03-05', '10:10:28', '12:16:41', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('186', '4', '2014-03-05', '10:10:39', '12:16:43', 'default');
 
 -- ----------------------------
 -- Table structure for `ospos_giftcards`
@@ -461,14 +351,12 @@ CREATE TABLE `ospos_giftcards` (
   `deleted` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`giftcard_id`),
   UNIQUE KEY `giftcard_number` (`giftcard_number`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of ospos_giftcards
 -- ----------------------------
-INSERT INTO `ospos_giftcards` VALUES ('48', '001', '600.13', '0');
-INSERT INTO `ospos_giftcards` VALUES ('49', '90', '78314.75', '0');
-INSERT INTO `ospos_giftcards` VALUES ('50', '140783', '986.00', '0');
+INSERT INTO `ospos_giftcards` VALUES ('48', '001', '1000.00', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_inventory`
@@ -484,7 +372,7 @@ CREATE TABLE `ospos_inventory` (
   PRIMARY KEY (`trans_id`),
   KEY `ospos_inventory_ibfk_1` (`trans_items`),
   KEY `ospos_inventory_ibfk_2` (`trans_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=521 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=475 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_inventory
@@ -963,52 +851,6 @@ INSERT INTO `ospos_inventory` VALUES ('471', '9', '1', '2014-02-04 08:13:34', 'P
 INSERT INTO `ospos_inventory` VALUES ('472', '104', '1', '2014-02-04 08:17:56', 'RECV 43', '8');
 INSERT INTO `ospos_inventory` VALUES ('473', '98', '1', '2014-02-06 07:47:26', 'POS 10', '-1');
 INSERT INTO `ospos_inventory` VALUES ('474', '106', '1', '2014-03-05 14:42:20', 'RECV 44', '2');
-INSERT INTO `ospos_inventory` VALUES ('475', '33', '1', '2014-03-26 09:01:43', 'Manual Edit of Quantity', '0');
-INSERT INTO `ospos_inventory` VALUES ('476', '131', '1', '2014-03-26 09:11:13', 'Manual Edit of Quantity', '20');
-INSERT INTO `ospos_inventory` VALUES ('477', '132', '1', '2014-03-26 09:34:19', 'Manual Edit of Quantity', '15');
-INSERT INTO `ospos_inventory` VALUES ('478', '69', '1', '2014-03-26 09:59:13', 'gustavo', '3');
-INSERT INTO `ospos_inventory` VALUES ('479', '69', '1', '2014-03-26 10:00:30', '', '-3');
-INSERT INTO `ospos_inventory` VALUES ('480', '69', '1', '2014-03-26 10:01:15', '', '-6');
-INSERT INTO `ospos_inventory` VALUES ('481', '133', '43', '2014-03-26 10:05:06', 'Manual Edit of Quantity', '9');
-INSERT INTO `ospos_inventory` VALUES ('482', '133', '43', '2014-03-26 10:20:11', 'Manual Edit of Quantity', '0');
-INSERT INTO `ospos_inventory` VALUES ('483', '9', '-1', '2014-03-26 10:20:38', 'POS 11', '-1');
-INSERT INTO `ospos_inventory` VALUES ('484', '106', '-1', '2014-03-26 10:24:38', 'POS 12', '-1');
-INSERT INTO `ospos_inventory` VALUES ('485', '65', '-1', '2014-03-26 10:52:15', 'POS 13', '-1');
-INSERT INTO `ospos_inventory` VALUES ('486', '59', '-1', '2014-03-26 10:52:15', 'POS 13', '-1');
-INSERT INTO `ospos_inventory` VALUES ('487', '59', '43', '2014-03-26 10:53:34', 'RECV 45', '1');
-INSERT INTO `ospos_inventory` VALUES ('488', '65', '43', '2014-03-26 10:53:34', 'RECV 45', '1');
-INSERT INTO `ospos_inventory` VALUES ('489', '50', '-1', '2014-03-26 10:55:39', 'POS 14', '-1');
-INSERT INTO `ospos_inventory` VALUES ('490', '65', '-1', '2014-03-26 10:55:39', 'POS 14', '-1');
-INSERT INTO `ospos_inventory` VALUES ('491', '68', '-1', '2014-03-26 10:55:39', 'POS 14', '-1');
-INSERT INTO `ospos_inventory` VALUES ('492', '16', '-1', '2014-03-26 10:59:10', 'POS 15', '-2');
-INSERT INTO `ospos_inventory` VALUES ('493', '69', '-1', '2014-03-26 10:59:10', 'POS 15', '-1');
-INSERT INTO `ospos_inventory` VALUES ('494', '69', '-1', '2014-03-26 11:03:01', 'POS 16', '-2');
-INSERT INTO `ospos_inventory` VALUES ('495', '59', '43', '2014-03-26 11:10:28', 'RECV 46', '1');
-INSERT INTO `ospos_inventory` VALUES ('496', '65', '43', '2014-03-26 11:10:28', 'RECV 46', '1');
-INSERT INTO `ospos_inventory` VALUES ('497', '43', '-1', '2014-03-26 11:11:07', 'POS 17', '-1');
-INSERT INTO `ospos_inventory` VALUES ('498', '43', '45', '2014-03-26 11:11:37', 'RECV 47', '1');
-INSERT INTO `ospos_inventory` VALUES ('499', '98', '-1', '2014-03-26 11:13:12', 'POS 18', '-1');
-INSERT INTO `ospos_inventory` VALUES ('500', '50', '-1', '2014-03-26 11:13:42', 'POS 19', '-18');
-INSERT INTO `ospos_inventory` VALUES ('501', '40', '-1', '2014-03-26 11:13:42', 'POS 19', '-3');
-INSERT INTO `ospos_inventory` VALUES ('502', '134', '1', '2014-03-26 11:19:45', 'Manual Edit of Quantity', '10');
-INSERT INTO `ospos_inventory` VALUES ('503', '135', '1', '2014-03-26 11:22:14', 'Manual Edit of Quantity', '30');
-INSERT INTO `ospos_inventory` VALUES ('504', '43', '45', '2014-03-26 11:22:17', 'RECV 48', '1');
-INSERT INTO `ospos_inventory` VALUES ('505', '34', '-1', '2014-03-26 11:32:07', 'POS 20', '-1');
-INSERT INTO `ospos_inventory` VALUES ('506', '61', '-1', '2014-03-26 11:32:47', 'POS 21', '-1');
-INSERT INTO `ospos_inventory` VALUES ('507', '87', '-1', '2014-03-26 13:14:04', 'POS 22', '-8');
-INSERT INTO `ospos_inventory` VALUES ('508', '87', '-1', '2014-03-26 13:15:05', 'POS 23', '-1');
-INSERT INTO `ospos_inventory` VALUES ('509', '69', '1', '2014-03-26 13:51:35', '', '10');
-INSERT INTO `ospos_inventory` VALUES ('510', '69', '1', '2014-03-26 13:54:10', 'MIHa', '5');
-INSERT INTO `ospos_inventory` VALUES ('511', '4', '-1', '2014-03-26 13:56:54', 'POS 24', '-1');
-INSERT INTO `ospos_inventory` VALUES ('512', '65', '-1', '2014-03-26 13:58:55', 'POS 25', '-1');
-INSERT INTO `ospos_inventory` VALUES ('513', '72', '-1', '2014-03-26 14:03:56', 'POS 26', '-4');
-INSERT INTO `ospos_inventory` VALUES ('514', '69', '1', '2014-03-26 15:30:06', 'Manual Edit of Quantity', '0');
-INSERT INTO `ospos_inventory` VALUES ('515', '98', '-1', '2014-04-04 10:39:16', 'POS 11', '-1');
-INSERT INTO `ospos_inventory` VALUES ('516', '108', '-1', '2014-04-04 10:39:16', 'POS 11', '-1');
-INSERT INTO `ospos_inventory` VALUES ('517', '111', '-1', '2014-04-04 10:39:16', 'POS 11', '-1');
-INSERT INTO `ospos_inventory` VALUES ('518', '98', '-1', '2014-04-11 14:51:33', 'POS 27', '-1');
-INSERT INTO `ospos_inventory` VALUES ('519', '108', '-1', '2014-04-11 14:52:06', 'POS 28', '-1');
-INSERT INTO `ospos_inventory` VALUES ('520', '106', '-1', '2014-04-11 15:41:15', 'POS 29', '-1');
 
 -- ----------------------------
 -- Table structure for `ospos_items`
@@ -1028,135 +870,128 @@ CREATE TABLE `ospos_items` (
   `item_id` int(10) NOT NULL AUTO_INCREMENT,
   `allow_alt_description` tinyint(1) NOT NULL,
   `is_serialized` tinyint(1) NOT NULL,
-  `is_service` tinyint(1) NOT NULL,
-  `is_locked` tinyint(1) NOT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `deleted` int(1) NOT NULL DEFAULT '0',
   `broken_quantity` int(15) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`item_id`),
   UNIQUE KEY `item_number` (`item_number`),
   KEY `ospos_items_ibfk_1` (`supplier_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=136 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=131 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_items
 -- ----------------------------
-INSERT INTO `ospos_items` VALUES ('Iphone 3G Digitizer', 'Digitizers', null, null, '', '13.00', '30.00', '156.00', '20.00', '', '1', '0', '0', '0', '0', '0', '2');
-INSERT INTO `ospos_items` VALUES ('Ipod 5', 'LCDs', null, null, '', '20.00', '35.00', '14.00', '10.00', '', '2', '0', '0', '0', '0', '0', '1');
-INSERT INTO `ospos_items` VALUES ('Repair Service', 'Services', null, null, '', '30.00', '30.00', '999.00', '1.00', '', '3', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3GS Digitizer', 'iPhone', null, null, '', '0.00', '50.00', '1.00', '3.00', '', '4', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Screen Protector', 'Accessories', null, null, '', '0.00', '10.00', '37.00', '10.00', '', '5', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('LifeProof Case', 'Accessories', null, null, '', '0.00', '85.00', '11.00', '5.00', '', '6', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Ipad Protect Case', 'Accessories', null, null, '', '0.00', '49.99', '5.00', '2.00', '', '7', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Iphone 3gs Back', 'Accessories', null, null, '', '0.00', '75.00', '111.00', '0.00', '', '8', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3G Digitizer', 'iPhone', null, '01020304', '', '0.00', '45.00', '2.00', '2.00', '', '9', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Ipad 2 Screen Black', 'Ipad', null, null, '', '0.00', '125.00', '33.00', '1.00', '', '10', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Ipad 2 Screen White ', 'Ipad', null, null, '', '0.00', '125.00', '121.00', '1.00', '', '11', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Ipad 3 Screen White', 'Ipad', null, null, '', '0.00', '200.00', '34.00', '0.00', '', '12', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('tiger blood', 'Ipad', null, null, '', '0.00', '200.00', '9.00', '0.00', '', '13', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Back White', 'iPhone', null, null, '', '0.00', '30.00', '10.00', '2.00', '', '14', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Back Black', 'iPhone', null, null, '', '0.00', '30.00', '10.00', '2.00', '', '15', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S Back white', 'iPhone', null, null, '', '0.00', '30.00', '2.00', '2.00', '', '16', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4s Back Black', 'iPhone', null, null, '', '0.00', '30.00', '9.00', '2.00', '', '17', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Black Screen', 'iPhone', null, null, '', '0.00', '79.95', '10.00', '3.00', '', '18', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM White Screen', 'iPhone', null, null, '', '0.00', '79.95', '10.00', '3.00', '', '19', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA White screen', 'iPhone', null, null, '', '0.00', '79.95', '143.00', '2.00', '', '20', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA Black Screen', 'iPhone', null, null, '', '0.00', '79.95', '5.00', '2.00', '', '21', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4s white Screen', 'iPhone', null, null, '', '0.00', '89.95', '7.00', '3.00', '', '22', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4s Black screen', 'iPhone', null, null, '', '0.00', '89.95', '9.00', '3.00', '', '23', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3gs lcd', 'iPhone', null, null, '', '0.00', '65.00', '213.00', '1.00', '', '24', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4s color set Pink', 'iPhone', null, null, '', '0.00', '120.00', '432.00', '1.00', '', '25', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM color set pink', 'iPhone', null, null, '', '0.00', '110.00', '654.00', '1.00', '', '26', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4s color set Red', 'iPhone', null, null, '', '0.00', '120.00', '54.00', '0.00', '', '27', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM color set red', 'iPhone', null, null, '', '0.00', '110.00', '55.00', '0.00', '', '28', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 gsm color front', 'iPhone', null, null, '', '0.00', '89.95', '65.00', '1.00', '', '29', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 gsm color back', 'iPhone', null, null, '', '0.00', '35.00', '4.00', '1.00', '', '30', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4s color front screen', 'iPhone', null, null, '', '0.00', '95.00', '7.00', '2.00', '', '31', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4s color back', 'iPhone', null, null, '', '0.00', '35.00', '6.00', '2.00', '', '32', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA color front screen', 'iPhone', null, '123456', '', '0.00', '89.95', '300.00', '0.00', '', '33', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA color backs', 'iPhone', null, null, '', '0.00', '35.00', '647.00', '0.00', '', '34', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA color backs', 'iPhone', null, null, '', '0.00', '35.00', '123.00', '0.00', '', '35', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Repair', 'iPhone', null, null, '', '0.00', '0.00', '-6.00', '0.00', '', '36', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Black Front', 'iPhone', null, null, '', '0.00', '75.00', '7.00', '2.00', '', '37', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM White Front', 'iPhone', null, null, '', '0.00', '75.00', '10.00', '2.00', '', '38', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA White Front', 'iPhone', null, null, '', '0.00', '75.00', '78.00', '2.00', '', '39', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA Black Front', 'iPhone', null, null, '', '0.00', '75.00', '2.00', '2.00', '', '40', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S Black Front', 'iPhone', null, null, '', '0.00', '75.00', '8.00', '2.00', '', '41', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S White Front', 'iPhone', null, null, '', '0.00', '75.00', '3.00', '2.00', '', '42', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM White Back', 'iPhone', null, null, '', '0.00', '45.00', '8.00', '2.00', '', '43', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3GS LCD', 'iPhone', null, null, '', '0.00', '45.00', '1.00', '0.00', '', '44', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3G Digitizer', 'iPhone', null, '010203', '', '0.00', '45.00', '743.00', '2.00', '', '45', '0', '1', '0', '0', '0', '4');
-INSERT INTO `ospos_items` VALUES ('Iphone 3G LCD', 'iPhone', null, null, '', '0.00', '25.00', '26.00', '2.00', '', '46', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S Black Back', 'iPhone', null, null, '', '0.00', '25.00', '7.00', '2.00', '', '47', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S White Back', 'iPhone', null, null, '', '0.00', '25.00', '324.00', '2.00', '', '48', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Black Back', 'iPhone', null, null, '', '0.00', '25.00', '9.00', '2.00', '', '49', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3GS Back Assembly', 'iPhone', null, null, '', '0.00', '75.00', '11.00', '0.00', '', '50', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 Home Flex', 'iPhone', null, null, '', '0.00', '45.00', '5.00', '2.00', '', '51', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Vibrator', 'iPhone', null, null, '', '0.00', '25.00', '435.00', '1.00', '', '52', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Audio Jack', 'iPhone', null, null, '', '0.00', '50.00', '34.00', '1.00', '', '53', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S Power Flex', 'iPhone', null, null, '', '0.00', '50.00', '5.00', '2.00', '', '54', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3GS Digitizer', 'ipad', null, null, '', '0.00', '100.00', '-4.00', '0.00', '', '55', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 Back Camera', 'iPhone', null, null, '', '0.00', '35.00', '2.00', '1.00', '', '56', '1', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Front Camera', 'iPhone', null, null, '', '0.00', '40.00', '67.00', '1.00', '', '57', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3GS Dock', 'iPhone', null, null, '', '0.00', '50.00', '4.00', '1.00', '', '58', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA Power Flex', 'iPhone', null, null, '', '0.00', '50.00', '6.00', '2.00', '', '59', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S Home Flex', 'iPhone', null, null, '', '0.00', '45.00', '5.00', '2.00', '', '60', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3GS Home Flex', 'iPhone', null, null, '', '0.00', '25.00', '87.00', '2.00', '', '61', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('CDMA Audio Jack', 'iPhone', null, null, '', '0.00', '50.00', '5.00', '2.00', '', '62', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 13', 'ipad', null, null, '', '0.00', '100.00', '17.00', '0.00', '', '63', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Power Flex', 'iPhone', null, null, '', '0.00', '50.00', '3.00', '1.00', '', '64', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3GS Battery', 'iPhone', null, null, '', '0.00', '40.00', '-3.00', '1.00', '', '65', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4G Battery', 'iPhone', null, null, '', '0.00', '40.00', '9.00', '2.00', '', '66', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S Battery', 'iPhone', null, null, '', '0.00', '35.00', '4.00', '1.00', '', '67', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA / 4S Vibrator', 'iPhone', null, null, '', '0.00', '35.00', '-2.00', '0.00', '', '68', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3G Dock', 'iPhone', null, null, '', '0.00', '35.00', '15.00', '0.00', '', '69', '0', '0', '0', '0', '0', '2');
-INSERT INTO `ospos_items` VALUES ('4 GSM Boom Box', 'iPhone', null, null, '', '0.00', '45.00', '98.00', '0.00', '', '70', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('CDMA / 4S Boom Box', 'iPhone', null, null, '', '0.00', '45.00', '32.00', '1.00', '', '71', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S Audio Jack', 'iPhone', null, null, '', '0.00', '50.00', '61.00', '0.00', '', '72', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Charging Dock', 'iPhone', null, null, '', '0.00', '45.00', '6.00', '2.00', '', '73', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('CDMA Dock Assembly', 'iPhone', null, null, '', '0.00', '45.00', '4.00', '2.00', '', '74', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S Charging Dock', 'iPhone', null, null, '', '0.00', '45.00', '4.00', '2.00', '', '75', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Life Proof Case', 'Accessories', null, null, '', '59.00', '89.99', '6.00', '5.00', '', '76', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('iPad Case', 'Accessories', null, null, '', '0.00', '49.99', '4.00', '2.00', '', '77', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('OtterBox Case', 'Accessories', null, null, '', '0.00', '49.99', '5.00', '2.00', '', '78', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Screen Protector', 'Accessories', null, null, '', '0.00', '10.00', '33.00', '20.00', '', '79', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S Color Front', 'iPhone', null, null, '', '0.00', '85.00', '3.00', '2.00', '', '80', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4S Color Back', 'iPhone', null, null, '', '0.00', '25.00', '5.00', '2.00', '', '81', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Ipad 3 Screen Black', 'iPhone', null, null, '', '0.00', '75.00', '19.00', '2.00', '', '82', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Color Back', 'iPhone', null, null, '', '0.00', '25.00', '4.00', '2.00', '', '83', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA Color Front', 'iPhone', null, null, '', '0.00', '75.00', '3.00', '2.00', '', '84', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA Color Back', 'iPhone', null, null, '', '0.00', '25.00', '2.00', '2.00', '', '85', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('itouch 4 Black Front', 'ipod', null, null, '', '0.00', '85.00', '9.00', '2.00', '', '86', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('itouch 4 White Front', 'ipod', null, null, '', '0.00', '85.00', '1.00', '2.00', '', '87', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Unlock Service', 'Repair', null, null, '', '0.00', '60.00', '90.00', '0.00', '', '88', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Repair Service', 'Repair', null, null, '', '0.00', '0.00', '63.00', '0.00', '', '89', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Data Cable', 'Accessories', null, null, '', '0.00', '10.00', '43.00', '0.00', '', '90', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('HTC EVO Assembly', 'HTC', null, null, '', '0.00', '105.00', '3.00', '1.00', '', '91', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Mytouch 4G Front Assembly', 'HTC', null, null, '', '0.00', '100.00', '3.00', '1.00', '', '92', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Mytouch 3G Slide', 'Phone', null, null, '', '15.00', '0.00', '1.00', '0.00', '', '93', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Battery Back Case', 'Accessories', null, null, '', '0.00', '0.00', '81.00', '1.00', '', '94', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Phone Case', 'Accessories', null, null, '', '0.00', '25.00', '13.00', '5.00', '', '95', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('culo', 'iPhone', null, null, '', '200.00', '100.00', '99.00', '2.00', '', '96', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Color Front', 'smoke', null, 'UEN', 'bdghkaghdagkasg', '30.00', '10.00', '6.00', '5.00', 'where', '97', '1', '1', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 1', 'Blackberry', null, null, '', '1200.00', '369.00', '30.00', '10.00', '', '98', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 2', 'Blackberry', null, null, '', '1200.00', '400.00', '214.00', '10.00', '', '99', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 4', 'Blackberry', null, null, '', '1200.00', '256.00', '89.00', '10.00', '', '100', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 5', 'Blackberry', null, null, '', '1200.00', '125.00', '123.00', '10.00', '', '101', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 6', 'Blackberry', null, null, '', '1200.00', '80.00', '40.00', '10.00', '', '102', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 7', 'Blackberry', null, null, '', '1200.00', '66.00', '586.00', '10.00', '', '103', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 8', 'Blackberry', null, null, '', '1200.00', '593.00', '158.00', '10.00', '', '104', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 9', 'Blackberry', null, null, '', '1200.00', '200.00', '50.00', '10.00', '', '105', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 10', 'Blackberry', null, null, '', '1200.00', '224.00', '17.00', '10.00', '', '106', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 11', 'Blackberry', null, null, '', '1200.00', '37.00', '42.00', '10.00', '', '107', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 12', 'Blackberry', null, null, '', '1200.00', '69.50', '32.00', '10.00', '', '108', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('harh disk', 'Blackberry', null, null, '', '1200.00', '80.90', '8.00', '10.00', '', '109', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 14', 'Blackberry', null, null, '', '1200.00', '200.00', '28.00', '10.00', '', '110', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 15', 'Blackberry', null, null, '', '1200.00', '156.00', '30.00', '10.00', '', '111', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 16', 'Blackberry', null, null, '', '1200.00', '187.00', '40.00', '10.00', '', '112', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('cornetas pioners  6\'\' 1/2', 'HTC', null, '140783', 'bellas', '100.00', '70.00', '20.00', '10.00', 'carabobo', '131', '1', '1', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('iPad 2 Power Flex', 'ipod', '44', null, '', '123.00', '12.00', '20.00', '10.00', '', '132', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('iPad 2 Home Button', 'hardware', '44', '9874569874569887456987456', 'aaaaaaaaaaaaaaaaaaa', '9856.00', '98569.00', '8.00', '50.00', 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', '133', '1', '1', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('mihaItem', 'Phone', '51', 'miha', '', '12.00', '25.99', '10.00', '5.00', '', '134', '1', '1', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('miha2Item', 'Phone', '49', 'miha2', '', '23.00', '29.00', '30.00', '5.00', '', '135', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Iphone 3G Digitizer', 'Digitizers', null, null, '', '13.00', '30.00', '156.00', '20.00', '', '1', '0', '0', '0', '2');
+INSERT INTO `ospos_items` VALUES ('Iphone 3G LCD', 'LCDs', null, null, '', '20.00', '35.00', '27.00', '10.00', '', '2', '0', '0', '0', '1');
+INSERT INTO `ospos_items` VALUES ('Repair Service', 'Services', null, null, '', '30.00', '30.00', '999.00', '1.00', '', '3', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3GS Digitizer', 'iPhone', null, null, '', '0.00', '50.00', '2.00', '3.00', '', '4', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Screen Protector', 'Accessories', null, null, '', '0.00', '10.00', '37.00', '10.00', '', '5', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('LifeProof Case', 'Accessories', null, null, '', '0.00', '85.00', '11.00', '5.00', '', '6', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Ipad Protect Case', 'Accessories', null, null, '', '0.00', '49.99', '5.00', '2.00', '', '7', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Iphone 3gs Back', 'Accessories', null, null, '', '0.00', '75.00', '111.00', '0.00', '', '8', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3G Digitizer', 'iPhone', null, '01020304', '', '0.00', '45.00', '3.00', '2.00', '', '9', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Ipad 2 Screen Black', 'Ipad', null, null, '', '0.00', '125.00', '33.00', '1.00', '', '10', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Ipad 2 Screen White ', 'Ipad', null, null, '', '0.00', '125.00', '121.00', '1.00', '', '11', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Ipad 3 Screen White', 'Ipad', null, null, '', '0.00', '200.00', '34.00', '0.00', '', '12', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Ipad 3 Screen Black', 'Ipad', null, null, '', '0.00', '200.00', '20.00', '0.00', '', '13', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Back White', 'iPhone', null, null, '', '0.00', '30.00', '10.00', '2.00', '', '14', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Back Black', 'iPhone', null, null, '', '0.00', '30.00', '10.00', '2.00', '', '15', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S Back white', 'iPhone', null, null, '', '0.00', '30.00', '4.00', '2.00', '', '16', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4s Back Black', 'iPhone', null, null, '', '0.00', '30.00', '9.00', '2.00', '', '17', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Black Screen', 'iPhone', null, null, '', '0.00', '79.95', '10.00', '3.00', '', '18', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM White Screen', 'iPhone', null, null, '', '0.00', '79.95', '10.00', '3.00', '', '19', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA White screen', 'iPhone', null, null, '', '0.00', '79.95', '143.00', '2.00', '', '20', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA Black Screen', 'iPhone', null, null, '', '0.00', '79.95', '5.00', '2.00', '', '21', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4s white Screen', 'iPhone', null, null, '', '0.00', '89.95', '7.00', '3.00', '', '22', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4s Black screen', 'iPhone', null, null, '', '0.00', '89.95', '9.00', '3.00', '', '23', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3gs lcd', 'iPhone', null, null, '', '0.00', '65.00', '213.00', '1.00', '', '24', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4s color set Pink', 'iPhone', null, null, '', '0.00', '120.00', '432.00', '1.00', '', '25', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM color set pink', 'iPhone', null, null, '', '0.00', '110.00', '654.00', '1.00', '', '26', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4s color set Red', 'iPhone', null, null, '', '0.00', '120.00', '54.00', '0.00', '', '27', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM color set red', 'iPhone', null, null, '', '0.00', '110.00', '55.00', '0.00', '', '28', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 gsm color front', 'iPhone', null, null, '', '0.00', '89.95', '65.00', '1.00', '', '29', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 gsm color back', 'iPhone', null, null, '', '0.00', '35.00', '4.00', '1.00', '', '30', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4s color front screen', 'iPhone', null, null, '', '0.00', '95.00', '7.00', '2.00', '', '31', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4s color back', 'iPhone', null, null, '', '0.00', '35.00', '6.00', '2.00', '', '32', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA color front screen', 'iPhone', null, null, '', '0.00', '89.95', '2367.00', '0.00', '', '33', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA color backs', 'iPhone', null, null, '', '0.00', '35.00', '648.00', '0.00', '', '34', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA color backs', 'iPhone', null, null, '', '0.00', '35.00', '123.00', '0.00', '', '35', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Repair', 'iPhone', null, null, '', '0.00', '0.00', '-6.00', '0.00', '', '36', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Black Front', 'iPhone', null, null, '', '0.00', '75.00', '7.00', '2.00', '', '37', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM White Front', 'iPhone', null, null, '', '0.00', '75.00', '10.00', '2.00', '', '38', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA White Front', 'iPhone', null, null, '', '0.00', '75.00', '78.00', '2.00', '', '39', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA Black Front', 'iPhone', null, null, '', '0.00', '75.00', '5.00', '2.00', '', '40', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S Black Front', 'iPhone', null, null, '', '0.00', '75.00', '8.00', '2.00', '', '41', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S White Front', 'iPhone', null, null, '', '0.00', '75.00', '3.00', '2.00', '', '42', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('iPad 2 Home Button', 'iPhone', null, null, '', '0.00', '45.00', '8.00', '2.00', '', '43', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3GS LCD', 'iPhone', null, null, '', '0.00', '45.00', '1.00', '0.00', '', '44', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3G Digitizer', 'iPhone', null, '010203', '', '0.00', '45.00', '743.00', '2.00', '', '45', '0', '1', '0', '4');
+INSERT INTO `ospos_items` VALUES ('4 GSM White Back', 'iPhone', null, null, '', '0.00', '25.00', '9.00', '2.00', '', '46', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S Black Back', 'iPhone', null, null, '', '0.00', '25.00', '7.00', '2.00', '', '47', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S White Back', 'iPhone', null, null, '', '0.00', '25.00', '324.00', '2.00', '', '48', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Black Back', 'iPhone', null, null, '', '0.00', '25.00', '9.00', '2.00', '', '49', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3GS Back Assembly', 'iPhone', null, null, '', '0.00', '75.00', '30.00', '0.00', '', '50', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 Home Flex', 'iPhone', null, null, '', '0.00', '45.00', '5.00', '2.00', '', '51', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Vibrator', 'iPhone', null, null, '', '0.00', '25.00', '435.00', '1.00', '', '52', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Audio Jack', 'iPhone', null, null, '', '0.00', '50.00', '34.00', '1.00', '', '53', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S Power Flex', 'iPhone', null, null, '', '0.00', '50.00', '5.00', '2.00', '', '54', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3GS Digitizer', 'ipad', null, null, '', '0.00', '100.00', '-4.00', '0.00', '', '55', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 Back Camera', 'iPhone', null, null, '', '0.00', '35.00', '2.00', '1.00', '', '56', '1', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Front Camera', 'iPhone', null, null, '', '0.00', '40.00', '67.00', '1.00', '', '57', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3GS Dock', 'iPhone', null, null, '', '0.00', '50.00', '4.00', '1.00', '', '58', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA Power Flex', 'iPhone', null, null, '', '0.00', '50.00', '5.00', '2.00', '', '59', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S Home Flex', 'iPhone', null, null, '', '0.00', '45.00', '5.00', '2.00', '', '60', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3GS Home Flex', 'iPhone', null, null, '', '0.00', '25.00', '88.00', '2.00', '', '61', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('CDMA Audio Jack', 'iPhone', null, null, '', '0.00', '50.00', '5.00', '2.00', '', '62', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('iPad 2 Power Flex', 'ipad', null, null, '', '0.00', '100.00', '21.00', '0.00', '', '63', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Power Flex', 'iPhone', null, null, '', '0.00', '50.00', '3.00', '1.00', '', '64', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3GS Battery', 'iPhone', null, null, '', '0.00', '40.00', '-2.00', '1.00', '', '65', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4G Battery', 'iPhone', null, null, '', '0.00', '40.00', '9.00', '2.00', '', '66', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S Battery', 'iPhone', null, null, '', '0.00', '35.00', '4.00', '1.00', '', '67', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA / 4S Vibrator', 'iPhone', null, null, '', '0.00', '35.00', '-1.00', '0.00', '', '68', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3G Dock', 'iPhone', null, null, '', '0.00', '35.00', '3.00', '0.00', '', '69', '0', '0', '0', '2');
+INSERT INTO `ospos_items` VALUES ('4 GSM Boom Box', 'iPhone', null, null, '', '0.00', '45.00', '98.00', '0.00', '', '70', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('CDMA / 4S Boom Box', 'iPhone', null, null, '', '0.00', '45.00', '32.00', '1.00', '', '71', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S Audio Jack', 'iPhone', null, null, '', '0.00', '50.00', '65.00', '0.00', '', '72', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Charging Dock', 'iPhone', null, null, '', '0.00', '45.00', '6.00', '2.00', '', '73', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('CDMA Dock Assembly', 'iPhone', null, null, '', '0.00', '45.00', '4.00', '2.00', '', '74', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S Charging Dock', 'iPhone', null, null, '', '0.00', '45.00', '4.00', '2.00', '', '75', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Life Proof Case', 'Accessories', null, null, '', '59.00', '89.99', '6.00', '5.00', '', '76', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('iPad Case', 'Accessories', null, null, '', '0.00', '49.99', '4.00', '2.00', '', '77', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('OtterBox Case', 'Accessories', null, null, '', '0.00', '49.99', '5.00', '2.00', '', '78', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Screen Protector', 'Accessories', null, null, '', '0.00', '10.00', '33.00', '20.00', '', '79', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S Color Front', 'iPhone', null, null, '', '0.00', '85.00', '3.00', '2.00', '', '80', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4S Color Back', 'iPhone', null, null, '', '0.00', '25.00', '5.00', '2.00', '', '81', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Color Front', 'iPhone', null, null, '', '0.00', '75.00', '7.00', '2.00', '', '82', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Color Back', 'iPhone', null, null, '', '0.00', '25.00', '4.00', '2.00', '', '83', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA Color Front', 'iPhone', null, null, '', '0.00', '75.00', '3.00', '2.00', '', '84', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA Color Back', 'iPhone', null, null, '', '0.00', '25.00', '2.00', '2.00', '', '85', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('itouch 4 Black Front', 'ipod', null, null, '', '0.00', '85.00', '9.00', '2.00', '', '86', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('itouch 4 White Front', 'ipod', null, null, '', '0.00', '85.00', '10.00', '2.00', '', '87', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Unlock Service', 'Repair', null, null, '', '0.00', '60.00', '90.00', '0.00', '', '88', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Repair Service', 'Repair', null, null, '', '0.00', '0.00', '63.00', '0.00', '', '89', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Data Cable', 'Accessories', null, null, '', '0.00', '10.00', '43.00', '0.00', '', '90', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('HTC EVO Assembly', 'HTC', null, null, '', '0.00', '105.00', '3.00', '1.00', '', '91', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Mytouch 4G Front Assembly', 'HTC', null, null, '', '0.00', '100.00', '3.00', '1.00', '', '92', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Mytouch 3G Slide', 'Phone', null, null, '', '15.00', '0.00', '1.00', '0.00', '', '93', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Battery Back Case', 'Accessories', null, null, '', '0.00', '0.00', '81.00', '1.00', '', '94', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Phone Case', 'Accessories', null, null, '', '0.00', '25.00', '13.00', '5.00', '', '95', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('culo', 'iPhone', null, null, '', '200.00', '100.00', '99.00', '2.00', '', '96', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('tiger blood', 'smoke', null, 'UEN', 'bdghkaghdagkasg', '30.00', '10.00', '10.00', '5.00', 'where', '97', '1', '1', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 1', 'Blackberry', null, null, '', '1200.00', '369.00', '33.00', '10.00', '', '98', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 2', 'Blackberry', null, null, '', '1200.00', '400.00', '214.00', '10.00', '', '99', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 4', 'Blackberry', null, null, '', '1200.00', '256.00', '89.00', '10.00', '', '100', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 5', 'Blackberry', null, null, '', '1200.00', '125.00', '123.00', '10.00', '', '101', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 6', 'Blackberry', null, null, '', '1200.00', '80.00', '40.00', '10.00', '', '102', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 7', 'Blackberry', null, null, '', '1200.00', '66.00', '586.00', '10.00', '', '103', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 8', 'Blackberry', null, null, '', '1200.00', '593.00', '158.00', '10.00', '', '104', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 9', 'Blackberry', null, null, '', '1200.00', '200.00', '50.00', '10.00', '', '105', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 10', 'Blackberry', null, null, '', '1200.00', '224.00', '20.00', '10.00', '', '106', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 11', 'Blackberry', null, null, '', '1200.00', '37.00', '42.00', '10.00', '', '107', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 12', 'Blackberry', null, null, '', '1200.00', '69.50', '34.00', '10.00', '', '108', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 13', 'Blackberry', null, null, '', '1200.00', '80.90', '18.00', '10.00', '', '109', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 14', 'Blackberry', null, null, '', '1200.00', '200.00', '28.00', '10.00', '', '110', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 15', 'Blackberry', null, null, '', '1200.00', '156.00', '31.00', '10.00', '', '111', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 16', 'Blackberry', null, null, '', '1200.00', '187.00', '40.00', '10.00', '', '112', '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_items_taxes`
@@ -1302,12 +1137,6 @@ INSERT INTO `ospos_items_taxes` VALUES ('127', 'Sales Tax', '8.365');
 INSERT INTO `ospos_items_taxes` VALUES ('128', 'Sales Tax', '8.365');
 INSERT INTO `ospos_items_taxes` VALUES ('129', 'Sales Tax', '8.365');
 INSERT INTO `ospos_items_taxes` VALUES ('130', 'Sales Tax', '8.365');
-INSERT INTO `ospos_items_taxes` VALUES ('131', 'Sales Tax', '8.365');
-INSERT INTO `ospos_items_taxes` VALUES ('132', 'Sales Tax', '8.365');
-INSERT INTO `ospos_items_taxes` VALUES ('133', 'azucar', '9.652');
-INSERT INTO `ospos_items_taxes` VALUES ('133', 'Sales Tax', '8.365');
-INSERT INTO `ospos_items_taxes` VALUES ('134', 'Sales Tax', '8.365');
-INSERT INTO `ospos_items_taxes` VALUES ('135', 'Sales Tax', '8.365');
 
 -- ----------------------------
 -- Table structure for `ospos_item_kits`
@@ -1318,15 +1147,12 @@ CREATE TABLE `ospos_item_kits` (
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`item_kit_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_item_kits
 -- ----------------------------
 INSERT INTO `ospos_item_kits` VALUES ('1', 'Primer kit', 'HOla');
-INSERT INTO `ospos_item_kits` VALUES ('2', 'ipad 2 64Gb', 'yeah');
-INSERT INTO `ospos_item_kits` VALUES ('3', 'Gustavo Ocanto', 'probando');
-INSERT INTO `ospos_item_kits` VALUES ('4', 'kit mal hecho', 'prueba');
 
 -- ----------------------------
 -- Table structure for `ospos_item_kit_items`
@@ -1345,14 +1171,6 @@ CREATE TABLE `ospos_item_kit_items` (
 -- ----------------------------
 INSERT INTO `ospos_item_kit_items` VALUES ('1', '21', '3.00');
 INSERT INTO `ospos_item_kit_items` VALUES ('1', '110', '1.00');
-INSERT INTO `ospos_item_kit_items` VALUES ('2', '68', '100.00');
-INSERT INTO `ospos_item_kit_items` VALUES ('3', '9', '2.00');
-INSERT INTO `ospos_item_kit_items` VALUES ('3', '45', '50.00');
-INSERT INTO `ospos_item_kit_items` VALUES ('3', '50', '1.00');
-INSERT INTO `ospos_item_kit_items` VALUES ('4', '9', '1.00');
-INSERT INTO `ospos_item_kit_items` VALUES ('4', '50', '1.00');
-INSERT INTO `ospos_item_kit_items` VALUES ('4', '69', '1.00');
-INSERT INTO `ospos_item_kit_items` VALUES ('4', '109', '1.00');
 
 -- ----------------------------
 -- Table structure for `ospos_modules`
@@ -1384,25 +1202,6 @@ INSERT INTO `ospos_modules` VALUES ('module_sales', 'module_sales_desc', '70', '
 INSERT INTO `ospos_modules` VALUES ('module_suppliers', 'module_suppliers_desc', '40', 'suppliers', 'add,update,delete');
 
 -- ----------------------------
--- Table structure for `ospos_observation_inventories`
--- ----------------------------
-DROP TABLE IF EXISTS `ospos_observation_inventories`;
-CREATE TABLE `ospos_observation_inventories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date_register` timestamp NULL DEFAULT NULL,
-  `observation` mediumtext,
-  `person_id` int(10) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of ospos_observation_inventories
--- ----------------------------
-INSERT INTO `ospos_observation_inventories` VALUES ('1', '2014-04-09 15:38:19', '', '1');
-INSERT INTO `ospos_observation_inventories` VALUES ('3', '2014-04-10 10:15:19', '', '1');
-INSERT INTO `ospos_observation_inventories` VALUES ('4', '2014-04-11 09:21:40', '', '1');
-
--- ----------------------------
 -- Table structure for `ospos_people`
 -- ----------------------------
 DROP TABLE IF EXISTS `ospos_people`;
@@ -1420,7 +1219,7 @@ CREATE TABLE `ospos_people` (
   `comments` text,
   `person_id` int(10) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`person_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_people
@@ -1429,19 +1228,7 @@ INSERT INTO `ospos_people` VALUES ('Alex', 'Kundalia', '555-555-5555', 'info@om-
 INSERT INTO `ospos_people` VALUES ('other', 'possp2', null, null, 'localhost', null, null, null, null, null, 'location', '2');
 INSERT INTO `ospos_people` VALUES ('Jv ', 'Soluciones', '', '', '', '', '', '', '', '', '', '3');
 INSERT INTO `ospos_people` VALUES ('speed', 'speed', '', '', '', '', '', '', '', '', '', '4');
-INSERT INTO `ospos_people` VALUES ('Gustavo', 'Ocanto', '', '', '', '', '', '', '', '', '', '46');
-INSERT INTO `ospos_people` VALUES ('jose9', 'melendez', '0saasdd', 'albertomelendez@aol.con', 'caracas', 'valencia', '999999', '99999', '9999', '9999', '9999', '47');
-INSERT INTO `ospos_people` VALUES ('Miharbi', 'Hernandez', '', 'miharbihernandez@gmail.com', '', '', '', '', '', '', '', '48');
-INSERT INTO `ospos_people` VALUES ('Gustavo', 'Ocanto', '04144284230', 'gustavoocanto@gmail.com', 'Av Bolivar Norte torre exterior', '', 'Valencia', 'Carabobo', '2001', 'Venezuela', '', '49');
-INSERT INTO `ospos_people` VALUES ('Miharbi', 'Hernandez', '', '', '', '', '', '', '', '', '', '50');
-INSERT INTO `ospos_people` VALUES ('dragon', 'drogas', 'asdadasdasdjlk', 'pedro@pedro.com', 'asdlkasjdlk', 'kaskjljasdlk', 'kajsdkljaskd', 'lkaskdjklasd', 'klaksjdlaksd', 'lkaksjdlasd', 'kalksjdlasd', '51');
-INSERT INTO `ospos_people` VALUES ('Gustavo', 'Ocanto', '4056017020', 'gustavoocanto@gmail.com', '2112 SW 74th St', '', 'Oklahoma City', 'Oklahoma', '73159', 'United States', '', '52');
-INSERT INTO `ospos_people` VALUES ('miharbito_db', 'miharbito_db', null, null, 'localhost', null, null, null, null, null, 'location', '53');
-INSERT INTO `ospos_people` VALUES ('Ramonaaaaa', 'Culo', '', '', '', '', '', '', '', '', '', '42');
-INSERT INTO `ospos_people` VALUES ('alberto', 'arsiniaga', '0412-9667450', 'maxtri@hotmail.com', 'los samanes', 'buenaventura', 'valencia', 'carabobo', '3210', 'venezuela', 'que ladilla no saber ingles', '43');
-INSERT INTO `ospos_people` VALUES ('adrian', 'esqueda', '234567887', 'a@a.com', '', '', '', '', '', '', '', '44');
-INSERT INTO `ospos_people` VALUES ('Yo', 'Era', '123456789333', 'yoera@choro.com', '', '', '', '', '', '', '', '45');
-INSERT INTO `ospos_people` VALUES ('Willem', 'Franco', '', 'willemfranco@gmail.com', '', '', '', '', '', '', '', '54');
+INSERT INTO `ospos_people` VALUES ('Ramon ', 'Rivas', '', '', '', '', '', '', '', '', '', '42');
 
 -- ----------------------------
 -- Table structure for `ospos_permissions`
@@ -1464,53 +1251,17 @@ INSERT INTO `ospos_permissions` VALUES ('items', '1', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('customers', '1', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('items', '4', 'none');
 INSERT INTO `ospos_permissions` VALUES ('sales', '4', 'none');
-INSERT INTO `ospos_permissions` VALUES ('giftcards', '42', 'add,update');
-INSERT INTO `ospos_permissions` VALUES ('employees', '42', 'add,update');
+INSERT INTO `ospos_permissions` VALUES ('customers', '42', 'update,delete');
+INSERT INTO `ospos_permissions` VALUES ('items', '42', 'add,delete');
 INSERT INTO `ospos_permissions` VALUES ('sales', '42', 'none');
-INSERT INTO `ospos_permissions` VALUES ('receivings', '42', 'none');
-INSERT INTO `ospos_permissions` VALUES ('reports', '42', 'none');
+INSERT INTO `ospos_permissions` VALUES ('employees', '42', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('config', '42', 'save');
 INSERT INTO `ospos_permissions` VALUES ('reports', '1', 'none');
 INSERT INTO `ospos_permissions` VALUES ('receivings', '1', 'none');
 INSERT INTO `ospos_permissions` VALUES ('sales', '1', 'none');
 INSERT INTO `ospos_permissions` VALUES ('employees', '1', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('giftcards', '1', 'add,delete,update');
 INSERT INTO `ospos_permissions` VALUES ('config', '1', 'save');
-INSERT INTO `ospos_permissions` VALUES ('employees', '43', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('sales', '43', 'none');
-INSERT INTO `ospos_permissions` VALUES ('receivings', '43', 'none');
-INSERT INTO `ospos_permissions` VALUES ('reports', '43', 'none');
-INSERT INTO `ospos_permissions` VALUES ('suppliers', '43', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('items', '43', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('item_kits', '43', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('customers', '43', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('customers', '54', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('giftcards', '43', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('config', '43', 'save');
-INSERT INTO `ospos_permissions` VALUES ('employees', '54', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('sales', '54', 'none');
-INSERT INTO `ospos_permissions` VALUES ('receivings', '54', 'none');
-INSERT INTO `ospos_permissions` VALUES ('reports', '54', 'none');
-INSERT INTO `ospos_permissions` VALUES ('suppliers', '54', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('item_kits', '54', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('items', '54', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('giftcards', '52', 'none');
-INSERT INTO `ospos_permissions` VALUES ('employees', '52', 'none');
-INSERT INTO `ospos_permissions` VALUES ('sales', '52', 'none');
-INSERT INTO `ospos_permissions` VALUES ('receivings', '52', 'none');
-INSERT INTO `ospos_permissions` VALUES ('reports', '52', 'none');
-INSERT INTO `ospos_permissions` VALUES ('suppliers', '52', 'none');
-INSERT INTO `ospos_permissions` VALUES ('item_kits', '52', 'none');
-INSERT INTO `ospos_permissions` VALUES ('items', '52', 'none');
-INSERT INTO `ospos_permissions` VALUES ('customers', '52', 'none');
-INSERT INTO `ospos_permissions` VALUES ('config', '52', 'none');
-INSERT INTO `ospos_permissions` VALUES ('sales', '45', 'none');
-INSERT INTO `ospos_permissions` VALUES ('reports', '45', 'none');
-INSERT INTO `ospos_permissions` VALUES ('giftcards', '54', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('config', '54', 'save');
-INSERT INTO `ospos_permissions` VALUES ('suppliers', '42', 'add,update');
-INSERT INTO `ospos_permissions` VALUES ('item_kits', '42', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('items', '42', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('customers', '42', 'add,update');
 
 -- ----------------------------
 -- Table structure for `ospos_receivings`
@@ -1526,7 +1277,7 @@ CREATE TABLE `ospos_receivings` (
   PRIMARY KEY (`receiving_id`),
   KEY `supplier_id` (`supplier_id`),
   KEY `employee_id` (`employee_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_receivings
@@ -1575,10 +1326,6 @@ INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:32:37', null, '1', '', '41
 INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:45:47', null, '1', '', '42', '0');
 INSERT INTO `ospos_receivings` VALUES ('2014-02-04 09:47:56', null, '1', 'jugjhjghjghjghjghjghj', '43', '0');
 INSERT INTO `ospos_receivings` VALUES ('2014-03-05 16:12:20', null, '1', '', '44', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:23:34', '51', '43', '', '45', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:40:28', '51', '43', '', '46', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:41:37', null, '45', '', '47', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:52:17', null, '45', 'yeah', '48', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_receivings_items`
@@ -1707,12 +1454,6 @@ INSERT INTO `ospos_receivings_items` VALUES ('42', '102', '', '', '6', '23', '12
 INSERT INTO `ospos_receivings_items` VALUES ('42', '103', '', '', '7', '78', '1200.00', '66.00', '0');
 INSERT INTO `ospos_receivings_items` VALUES ('43', '104', '', '', '1', '8', '1200.00', '593.00', '0');
 INSERT INTO `ospos_receivings_items` VALUES ('44', '106', '', '', '1', '2', '1200.00', '224.00', '0');
-INSERT INTO `ospos_receivings_items` VALUES ('45', '59', '', '', '1', '1', '0.00', '50.00', '0');
-INSERT INTO `ospos_receivings_items` VALUES ('45', '65', '', '', '2', '1', '0.00', '40.00', '0');
-INSERT INTO `ospos_receivings_items` VALUES ('46', '59', '', '', '1', '1', '0.00', '50.00', '0');
-INSERT INTO `ospos_receivings_items` VALUES ('46', '65', '', '', '2', '1', '0.00', '40.00', '0');
-INSERT INTO `ospos_receivings_items` VALUES ('47', '43', '', '', '1', '1', '0.00', '45.00', '0');
-INSERT INTO `ospos_receivings_items` VALUES ('48', '43', '', '', '1', '1', '0.00', '45.00', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_sales`
@@ -1730,7 +1471,7 @@ CREATE TABLE `ospos_sales` (
   PRIMARY KEY (`sale_id`),
   KEY `customer_id` (`customer_id`),
   KEY `employee_id` (`employee_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_sales
@@ -1745,25 +1486,6 @@ INSERT INTO `ospos_sales` VALUES ('2014-01-29 08:44:01', null, '1', '0', '7', 'C
 INSERT INTO `ospos_sales` VALUES ('2014-02-04 08:08:37', '3', '1', '0', '8', 'Check: $1000.00<br />Debit Card: $2330.98<br />Cash: $1550.00<br />', '0', '1');
 INSERT INTO `ospos_sales` VALUES ('2014-02-04 08:13:34', '2', '1', '0', '9', 'Cash: $48.15<br />', '2', '1');
 INSERT INTO `ospos_sales` VALUES ('2014-02-06 07:47:26', '2', '1', '0', '10', 'Cash: $399.87<br />', '2', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 10:20:38', '48', '-1', '0', '11', 'Cash: $48.15<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 10:24:38', null, '-1', '0', '12', 'Cash: $242.74<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 10:52:15', '53', '-1', '0', '13', 'Credit Card: -$830.00<br />Cash: $920.00<br />', '2', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 10:55:39', null, '-1', '0', '14', 'Cash: $160.50<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 10:59:10', '46', '-1', '0', '15', 'Check: $88.81<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 11:03:01', '53', '-1', '0', '16', 'Credit Card: $<br />Cash: $70.00<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 11:11:07', '2', '-1', '0', '17', 'Cash: $48.15<br />', '2', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 11:13:12', null, '-1', '0', '18', 'Gift Card:001: $399.87<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 11:13:42', null, '-1', '0', '19', 'Gift Card:90: $1685.25<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 11:32:07', null, '-1', '0', '20', 'Cash: $37.45<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 11:32:47', null, '-1', '0', '21', 'Cash: $26.75<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 13:14:04', '46', '-1', '0', '22', 'Credit Card: $727.60<br />', '1', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 13:15:05', '46', '-1', '0', '23', 'Cash: $90.95<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 13:56:54', null, '-1', '0', '24', 'Cash: $56.50<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 13:58:55', null, '-1', '0', '25', 'Credit Card: $100.00<br />Cash: -$57.20<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-03-26 14:03:56', null, '-1', '0', '26', 'Gift Card:140783: $214.00<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-04-11 14:51:33', null, '-1', '0', '27', 'Cash: $399.87<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-04-11 14:52:06', null, '-1', '0', '28', 'Cash: $75.31<br />', '0', '1');
-INSERT INTO `ospos_sales` VALUES ('2014-04-11 15:41:15', null, '-1', '0', '29', 'Cash: $242.74<br />', '0', '1');
 
 -- ----------------------------
 -- Table structure for `ospos_sales_items`
@@ -1800,30 +1522,6 @@ INSERT INTO `ospos_sales_items` VALUES ('8', '109', '', '', '2', '18.00', '1200.
 INSERT INTO `ospos_sales_items` VALUES ('8', '111', '', '', '3', '8.00', '1200.00', '156.00', '0');
 INSERT INTO `ospos_sales_items` VALUES ('9', '9', '', '', '1', '1.00', '0.00', '45.00', '0');
 INSERT INTO `ospos_sales_items` VALUES ('10', '98', '', '', '1', '1.00', '1200.00', '369.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('11', '9', '', '', '1', '1.00', '0.00', '45.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('12', '106', '', '', '1', '1.00', '1200.00', '224.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('13', '65', '', '', '1', '1.00', '0.00', '40.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('13', '59', '', '', '2', '1.00', '0.00', '50.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('14', '50', '', '', '1', '1.00', '0.00', '75.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('14', '65', '', '', '2', '1.00', '0.00', '40.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('14', '68', '', '', '3', '1.00', '0.00', '35.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('15', '16', '', '', '1', '2.00', '0.00', '30.00', '20');
-INSERT INTO `ospos_sales_items` VALUES ('15', '69', '', '', '2', '1.00', '0.00', '35.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('16', '69', '', '', '1', '2.00', '0.00', '35.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('17', '43', '', '', '1', '1.00', '0.00', '45.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('18', '98', '', '', '1', '1.00', '1200.00', '369.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('19', '50', '', '', '1', '18.00', '0.00', '75.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('19', '40', '', '', '2', '3.00', '0.00', '75.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('20', '34', '', '', '1', '1.00', '0.00', '35.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('21', '61', '', '', '1', '1.00', '0.00', '25.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('22', '87', '', '', '1', '8.00', '0.00', '85.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('23', '87', '', '', '1', '1.00', '0.00', '85.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('24', '4', '', '', '1', '1.00', '0.00', '50.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('25', '65', '', '', '2', '1.00', '0.00', '40.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('26', '72', '', '', '1', '4.00', '0.00', '50.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('27', '98', '', '', '1', '1.00', '1200.00', '369.00', '0');
-INSERT INTO `ospos_sales_items` VALUES ('28', '108', '', '', '1', '1.00', '1200.00', '69.50', '0');
-INSERT INTO `ospos_sales_items` VALUES ('29', '106', '', '', '1', '1.00', '1200.00', '224.00', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_sales_items_taxes`
@@ -1846,26 +1544,6 @@ INSERT INTO `ospos_sales_items_taxes` VALUES ('7', '110', '1', 'Sales Tax', '8.3
 INSERT INTO `ospos_sales_items_taxes` VALUES ('8', '106', '1', 'Sales Tax', '8.365');
 INSERT INTO `ospos_sales_items_taxes` VALUES ('8', '109', '2', 'Sales Tax', '8.365');
 INSERT INTO `ospos_sales_items_taxes` VALUES ('8', '111', '3', 'Sales Tax', '8.365');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('11', '9', '1', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('12', '106', '1', 'Sales Tax', '8.365');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('14', '50', '1', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('14', '65', '2', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('14', '68', '3', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('15', '16', '1', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('15', '69', '2', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('18', '98', '1', 'Sales Tax', '8.365');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('19', '40', '2', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('19', '50', '1', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('20', '34', '1', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('21', '61', '1', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('22', '87', '1', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('23', '87', '1', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('24', '4', '1', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('25', '65', '2', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('26', '72', '1', 'Sales Tax', '7.000');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('27', '98', '1', 'Sales Tax', '8.365');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('28', '108', '1', 'Sales Tax', '8.365');
-INSERT INTO `ospos_sales_items_taxes` VALUES ('29', '106', '1', 'Sales Tax', '8.365');
 
 -- ----------------------------
 -- Table structure for `ospos_sales_payments`
@@ -1893,28 +1571,6 @@ INSERT INTO `ospos_sales_payments` VALUES ('8', 'Debit Card', '2330.98');
 INSERT INTO `ospos_sales_payments` VALUES ('8', 'Cash', '1550.00');
 INSERT INTO `ospos_sales_payments` VALUES ('9', 'Cash', '48.15');
 INSERT INTO `ospos_sales_payments` VALUES ('10', 'Cash', '399.87');
-INSERT INTO `ospos_sales_payments` VALUES ('11', 'Cash', '48.15');
-INSERT INTO `ospos_sales_payments` VALUES ('12', 'Cash', '242.74');
-INSERT INTO `ospos_sales_payments` VALUES ('13', 'Credit Card', '-830.00');
-INSERT INTO `ospos_sales_payments` VALUES ('13', 'Cash', '920.00');
-INSERT INTO `ospos_sales_payments` VALUES ('14', 'Cash', '160.50');
-INSERT INTO `ospos_sales_payments` VALUES ('15', 'Check', '88.81');
-INSERT INTO `ospos_sales_payments` VALUES ('16', 'Credit Card', '0.00');
-INSERT INTO `ospos_sales_payments` VALUES ('16', 'Cash', '70.00');
-INSERT INTO `ospos_sales_payments` VALUES ('17', 'Cash', '48.15');
-INSERT INTO `ospos_sales_payments` VALUES ('18', 'Gift Card:001', '399.87');
-INSERT INTO `ospos_sales_payments` VALUES ('19', 'Gift Card:90', '1685.25');
-INSERT INTO `ospos_sales_payments` VALUES ('20', 'Cash', '37.45');
-INSERT INTO `ospos_sales_payments` VALUES ('21', 'Cash', '26.75');
-INSERT INTO `ospos_sales_payments` VALUES ('22', 'Credit Card', '727.60');
-INSERT INTO `ospos_sales_payments` VALUES ('23', 'Cash', '90.95');
-INSERT INTO `ospos_sales_payments` VALUES ('24', 'Cash', '56.50');
-INSERT INTO `ospos_sales_payments` VALUES ('25', 'Credit Card', '100.00');
-INSERT INTO `ospos_sales_payments` VALUES ('25', 'Cash', '-57.20');
-INSERT INTO `ospos_sales_payments` VALUES ('26', 'Gift Card:140783', '214.00');
-INSERT INTO `ospos_sales_payments` VALUES ('27', 'Cash', '399.87');
-INSERT INTO `ospos_sales_payments` VALUES ('28', 'Cash', '75.31');
-INSERT INTO `ospos_sales_payments` VALUES ('29', 'Cash', '242.74');
 
 -- ----------------------------
 -- Table structure for `ospos_sales_suspended`
@@ -1930,7 +1586,7 @@ CREATE TABLE `ospos_sales_suspended` (
   PRIMARY KEY (`sale_id`),
   KEY `customer_id` (`customer_id`),
   KEY `employee_id` (`employee_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_sales_suspended
@@ -2002,7 +1658,7 @@ CREATE TABLE `ospos_schedules` (
   `out` time NOT NULL,
   `person_id` int(11) NOT NULL,
   PRIMARY KEY (`schedule_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=326 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=184 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ospos_schedules
@@ -2029,44 +1685,11 @@ INSERT INTO `ospos_schedules` VALUES ('169', 'Tuesday', '00:00:00', '20:00:00', 
 INSERT INTO `ospos_schedules` VALUES ('170', 'Wednesday', '00:00:00', '20:00:00', '40');
 INSERT INTO `ospos_schedules` VALUES ('171', 'Thursday', '00:00:00', '19:00:00', '40');
 INSERT INTO `ospos_schedules` VALUES ('172', 'Friday', '00:00:00', '20:00:00', '40');
-INSERT INTO `ospos_schedules` VALUES ('320', 'Friday', '00:00:00', '20:00:00', '42');
-INSERT INTO `ospos_schedules` VALUES ('319', 'Thursday', '00:00:00', '20:00:00', '42');
+INSERT INTO `ospos_schedules` VALUES ('173', 'Tuesday', '00:00:00', '23:00:00', '42');
+INSERT INTO `ospos_schedules` VALUES ('174', 'Wednesday', '00:00:00', '20:00:00', '42');
+INSERT INTO `ospos_schedules` VALUES ('175', 'Thursday', '00:00:00', '20:00:00', '42');
+INSERT INTO `ospos_schedules` VALUES ('176', 'Friday', '00:00:00', '20:00:00', '42');
 INSERT INTO `ospos_schedules` VALUES ('183', 'Saturday', '00:00:00', '01:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('242', 'Saturday', '00:00:00', '20:00:00', '43');
-INSERT INTO `ospos_schedules` VALUES ('241', 'Friday', '00:00:00', '20:00:00', '43');
-INSERT INTO `ospos_schedules` VALUES ('240', 'Thursday', '00:00:00', '20:00:00', '43');
-INSERT INTO `ospos_schedules` VALUES ('239', 'Wednesday', '00:00:00', '20:00:00', '43');
-INSERT INTO `ospos_schedules` VALUES ('238', 'Tuesday', '00:00:00', '20:00:00', '43');
-INSERT INTO `ospos_schedules` VALUES ('237', 'Monday', '00:00:00', '20:00:00', '43');
-INSERT INTO `ospos_schedules` VALUES ('236', 'Sunday', '00:00:00', '20:00:00', '43');
-INSERT INTO `ospos_schedules` VALUES ('318', 'Wednesday', '14:00:00', '20:00:00', '42');
-INSERT INTO `ospos_schedules` VALUES ('325', 'Friday', '12:00:00', '15:00:00', '45');
-INSERT INTO `ospos_schedules` VALUES ('324', 'Thursday', '08:00:00', '17:00:00', '45');
-INSERT INTO `ospos_schedules` VALUES ('323', 'Wednesday', '08:00:00', '16:00:00', '45');
-INSERT INTO `ospos_schedules` VALUES ('322', 'Tuesday', '10:00:00', '12:00:00', '45');
-INSERT INTO `ospos_schedules` VALUES ('321', 'Monday', '08:00:00', '14:00:00', '45');
-INSERT INTO `ospos_schedules` VALUES ('282', 'Saturday', '00:00:00', '23:00:00', '50');
-INSERT INTO `ospos_schedules` VALUES ('281', 'Friday', '00:00:00', '23:00:00', '50');
-INSERT INTO `ospos_schedules` VALUES ('280', 'Thursday', '00:00:00', '23:00:00', '50');
-INSERT INTO `ospos_schedules` VALUES ('279', 'Wednesday', '00:00:00', '23:00:00', '50');
-INSERT INTO `ospos_schedules` VALUES ('278', 'Tuesday', '00:00:00', '23:00:00', '50');
-INSERT INTO `ospos_schedules` VALUES ('277', 'Monday', '00:00:00', '23:00:00', '50');
-INSERT INTO `ospos_schedules` VALUES ('276', 'Sunday', '00:00:00', '23:00:00', '50');
-INSERT INTO `ospos_schedules` VALUES ('275', 'Saturday', '05:00:00', '06:00:00', '52');
-INSERT INTO `ospos_schedules` VALUES ('274', 'Friday', '15:00:00', '16:00:00', '52');
-INSERT INTO `ospos_schedules` VALUES ('273', 'Thursday', '15:00:00', '16:00:00', '52');
-INSERT INTO `ospos_schedules` VALUES ('272', 'Wednesday', '03:00:00', '04:00:00', '52');
-INSERT INTO `ospos_schedules` VALUES ('271', 'Tuesday', '02:00:00', '03:00:00', '52');
-INSERT INTO `ospos_schedules` VALUES ('270', 'Monday', '02:00:00', '08:00:00', '52');
-INSERT INTO `ospos_schedules` VALUES ('269', 'Sunday', '07:00:00', '12:00:00', '52');
-INSERT INTO `ospos_schedules` VALUES ('298', 'Sunday', '00:00:00', '23:00:00', '54');
-INSERT INTO `ospos_schedules` VALUES ('299', 'Monday', '00:00:00', '23:00:00', '54');
-INSERT INTO `ospos_schedules` VALUES ('300', 'Tuesday', '00:00:00', '23:00:00', '54');
-INSERT INTO `ospos_schedules` VALUES ('301', 'Wednesday', '00:00:00', '23:00:00', '54');
-INSERT INTO `ospos_schedules` VALUES ('302', 'Thursday', '00:00:00', '23:00:00', '54');
-INSERT INTO `ospos_schedules` VALUES ('303', 'Friday', '00:00:00', '23:00:00', '54');
-INSERT INTO `ospos_schedules` VALUES ('304', 'Saturday', '00:00:00', '23:00:00', '54');
-INSERT INTO `ospos_schedules` VALUES ('317', 'Tuesday', '00:00:00', '23:00:00', '42');
 
 -- ----------------------------
 -- Table structure for `ospos_sessions`
@@ -2084,9 +1707,8 @@ CREATE TABLE `ospos_sessions` (
 -- ----------------------------
 -- Records of ospos_sessions
 -- ----------------------------
-INSERT INTO `ospos_sessions` VALUES ('769b197c72d83098b39eb90b6255c231', '192.168.1.130', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.116 Safari/537.36', '1397482838', 'a:2:{s:9:\"user_data\";s:0:\"\";s:10:\"dblocation\";s:7:\"default\";}');
-INSERT INTO `ospos_sessions` VALUES ('688770f33107f551b6985dd96ce2caa2', '192.168.1.130', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36', '1397248073', 'a:11:{s:9:\"user_data\";s:0:\"\";s:10:\"dblocation\";s:7:\"default\";s:9:\"person_id\";s:1:\"1\";s:21:\"employees_working_now\";a:2:{i:0;i:0;i:1;s:1:\"1\";}s:14:\"items_location\";s:7:\"default\";s:6:\"taxing\";i:1;s:4:\"cart\";a:0:{}s:8:\"customer\";i:-1;s:8:\"employee\";i:-1;s:8:\"payments\";a:0:{}s:9:\"sale_mode\";s:4:\"sale\";}');
-INSERT INTO `ospos_sessions` VALUES ('69c894bceaf1b9ae376812df520d792a', '192.168.1.130', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36', '1397239666', 'a:14:{s:9:\"user_data\";s:0:\"\";s:10:\"dblocation\";s:7:\"default\";s:9:\"person_id\";s:1:\"1\";s:21:\"employees_working_now\";a:2:{i:0;i:0;i:1;s:1:\"1\";}s:14:\"items_location\";s:7:\"default\";s:8:\"employee\";i:-1;s:4:\"cart\";a:0:{}s:9:\"sale_mode\";s:4:\"sale\";s:8:\"customer\";i:-1;s:6:\"taxing\";i:1;s:8:\"payments\";a:0:{}s:8:\"cartRecv\";a:0:{}s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;}');
+INSERT INTO `ospos_sessions` VALUES ('a366f72c1631561f73a93e47c2abd2d1', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36', '1395674885', 'a:3:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:14:\"items_location\";s:5:\"other\";}');
+INSERT INTO `ospos_sessions` VALUES ('0a62fc56ee1c1d6c7aa451c99a593c3b', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36', '1395436180', 'a:11:{s:9:\"user_data\";s:0:\"\";s:9:\"person_id\";s:1:\"1\";s:14:\"items_location\";s:5:\"other\";s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;s:8:\"employee\";i:-1;s:4:\"cart\";a:0:{}s:9:\"sale_mode\";s:8:\"shipping\";s:8:\"customer\";i:-1;s:6:\"taxing\";i:1;s:8:\"payments\";a:0:{}}');
 
 -- ----------------------------
 -- Table structure for `ospos_suppliers`
@@ -2107,9 +1729,6 @@ CREATE TABLE `ospos_suppliers` (
 INSERT INTO `ospos_suppliers` VALUES ('90', 'Ramon Tech', null, '0');
 INSERT INTO `ospos_suppliers` VALUES ('91', 'Ramon Tech', null, '1');
 INSERT INTO `ospos_suppliers` VALUES ('92', 'Ramon & Supplies', null, '0');
-INSERT INTO `ospos_suppliers` VALUES ('44', 'RasMen', null, '0');
-INSERT INTO `ospos_suppliers` VALUES ('49', 'Websarrollo, C.A', null, '0');
-INSERT INTO `ospos_suppliers` VALUES ('51', 'dragon de drogas', 'aksjdlkasjdlkasldlkasdlkasdlkjalsdjljaslkdjasdjlaksdjklajsdlkasdasdmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_transfers`
@@ -2122,7 +1741,7 @@ CREATE TABLE `ospos_transfers` (
   `date` date DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_transfers
@@ -2139,7 +1758,6 @@ INSERT INTO `ospos_transfers` VALUES ('9', 'default', 'other', '2014-01-20', '1'
 INSERT INTO `ospos_transfers` VALUES ('10', 'default', 'other', '2014-01-20', '1');
 INSERT INTO `ospos_transfers` VALUES ('11', 'default', 'other', '2014-01-22', '1');
 INSERT INTO `ospos_transfers` VALUES ('12', 'default', 'other', '2014-01-22', '1');
-INSERT INTO `ospos_transfers` VALUES ('13', 'default', 'miharbito_db', '2014-03-26', '1');
 
 -- ----------------------------
 -- Table structure for `ospos_transfer_items`
@@ -2151,7 +1769,7 @@ CREATE TABLE `ospos_transfer_items` (
   `item_id` int(10) NOT NULL,
   `quantity` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_transfer_items
@@ -2188,20 +1806,3 @@ INSERT INTO `ospos_transfer_items` VALUES ('29', '11', '109', '1');
 INSERT INTO `ospos_transfer_items` VALUES ('30', '11', '110', '7');
 INSERT INTO `ospos_transfer_items` VALUES ('31', '12', '2', '1');
 INSERT INTO `ospos_transfer_items` VALUES ('32', '12', '50', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('33', '13', '2', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('34', '13', '13', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('35', '13', '43', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('36', '13', '46', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('37', '13', '63', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('38', '13', '82', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('39', '13', '97', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('40', '13', '106', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('41', '13', '109', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('42', '13', '132', '1');
-INSERT INTO `ospos_transfer_items` VALUES ('43', '13', '133', '1');
-
--- ----------------------------
--- View structure for `ospos_sales_items_temp`
--- ----------------------------
-DROP VIEW IF EXISTS `ospos_sales_items_temp`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ospos_sales_items_temp` AS (select cast(`ospos_sales`.`sale_time` as date) AS `sale_date`,`ospos_sales_items`.`sale_id` AS `sale_id`,`ospos_sales`.`comment` AS `comment`,`ospos_sales`.`payment_type` AS `payment_type`,`ospos_sales`.`customer_id` AS `customer_id`,`ospos_sales`.`employee_id` AS `employee_id`,`ospos_items`.`item_id` AS `item_id`,`ospos_items`.`supplier_id` AS `supplier_id`,`ospos_sales_items`.`quantity_purchased` AS `quantity_purchased`,`ospos_sales_items`.`item_cost_price` AS `item_cost_price`,`ospos_sales_items`.`item_unit_price` AS `item_unit_price`,sum(`ospos_sales_items_taxes`.`percent`) AS `item_tax_percent`,`ospos_sales_items`.`discount_percent` AS `discount_percent`,((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) AS `subtotal`,`ospos_sales_items`.`line` AS `line`,`ospos_sales_items`.`serialnumber` AS `serialnumber`,`ospos_sales_items`.`description` AS `description`,round((((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) * (1 + (sum(`ospos_sales_items_taxes`.`percent`) / 100))),2) AS `total`,round((((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) * (sum(`ospos_sales_items_taxes`.`percent`) / 100)),2) AS `tax`,(((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) - (`ospos_sales_items`.`item_cost_price` * `ospos_sales_items`.`quantity_purchased`)) AS `profit` from ((((`ospos_sales_items` join `ospos_sales` on((`ospos_sales_items`.`sale_id` = `ospos_sales`.`sale_id`))) join `ospos_items` on((`ospos_sales_items`.`item_id` = `ospos_items`.`item_id`))) left join `ospos_suppliers` on((`ospos_items`.`supplier_id` = `ospos_suppliers`.`person_id`))) left join `ospos_sales_items_taxes` on(((`ospos_sales_items`.`sale_id` = `ospos_sales_items_taxes`.`sale_id`) and (`ospos_sales_items`.`item_id` = `ospos_sales_items_taxes`.`item_id`) and (`ospos_sales_items`.`line` = `ospos_sales_items_taxes`.`line`)))) group by `ospos_sales_items`.`sale_id`,`ospos_items`.`item_id`,`ospos_sales_items`.`line`) ;

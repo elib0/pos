@@ -108,7 +108,7 @@ class Sale extends CI_Model
 
 			$this->con->insert('sales_items',$sales_items_data);
 
-			$final_quantity = $cur_item_info->quantity - (($cur_item_info['is_service'])?0:$item['quantity']);
+			$final_quantity = $cur_item_info->is_service?0:($cur_item_info->quantity - $item['quantity']);
 			$item_data = array('quantity'=>$final_quantity);
 			$this->Item->save($item_data,$item['item_id']);
 

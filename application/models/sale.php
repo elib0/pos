@@ -108,8 +108,8 @@ class Sale extends CI_Model
 
 			$this->con->insert('sales_items',$sales_items_data);
 
-			//Update stock quantity
-			$item_data = array('quantity'=>$cur_item_info->quantity - $item['quantity']);
+			$final_quantity = $cur_item_info->quantity - (($cur_item_info['is_service'])?0:$item['quantity']);
+			$item_data = array('quantity'=>$final_quantity);
 			$this->Item->save($item_data,$item['item_id']);
 
 			//Ramel Inventory Tracking

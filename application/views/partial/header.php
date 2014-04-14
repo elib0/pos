@@ -88,21 +88,21 @@ html {
 		foreach($allowed_modules->result() as $module)
 		{
 		?>
-		<li class="menu_item">
-			<ul>
-				<li><a href="<?=site_url("$module->module_id")?>">
-					<img src="<?=base_url().'images/menubar/'.$module->module_id.'.png'?>" border="0" alt="Menubar Image" /></a>
+		<li class="menu_item" id="<?=$module->module_id?>">
+			<ul url="<?=site_url("$module->module_id")?>">
+				<li>
+					<img src="<?=base_url().'images/menubar/'.$module->module_id.'.png'?>" border="0" alt="Menubar Image" />
 				</li>
-				<li><a href="<?=site_url("$module->module_id")?>"><?=$this->lang->line("module_".$module->module_id)?></a></li>
+				<li><a><?=$this->lang->line("module_".$module->module_id)?></a></li>
 			</ul>
 		</li>
 		<?php
 		}
 		?>
-		<li class="menu_item">
+		<li class="menu_item" id="assistance">
 			<ul>
-				<li><a href="index.php/employees/assistance"><img src="<?=base_url().'images/menubar/schedule.png'?>" border="0" alt="Menubar Image" style="cursor: pointer" /></a></li>
-				<li><a href="index.php/employees/assistance">Schedule</a></li>
+				<li><img src="<?=base_url().'images/menubar/schedule.png'?>" border="0" alt="Menubar Image" style="cursor: pointer" /></li>
+				<li><a>Schedule</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -171,6 +171,23 @@ html {
 		$("#menubar_date > span").html( hora );
 		setTimeout(function(){mostrarHora()},500);
 	}
+
+	$('nav.main-menu ul>li>ul').click(function(event) {
+		var href=$(this).attr('url');
+		location.href=href;
+	});
+	
+	$('#assistance').click(function(event) {
+		location.href='index.php/employees/assistance';
+	});
+
+	if ('<?=$this->uri->segment(2)?>'=='assistance') {
+		$('#assistance').addClass('nav-main-menu-active');
+	}else{
+		$('nav.main-menu ul>li#<?=$this->uri->segment(1)?>').addClass('nav-main-menu-active');
+	};
+
+
 	//On dom ready
 	$(function() {
 		mostrarHora();
@@ -197,6 +214,7 @@ html {
 			//$('.ui-dialog').css('overflow', 'visible');
 			return false;
 		});
+
 	});
 })(jQueryOld);
 </script>

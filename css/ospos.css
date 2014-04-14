@@ -15,6 +15,10 @@
 	outline: transparent;
 }
 
+body,html{
+	min-width: 1024px;
+}
+
 body
 {
 	margin:0;

@@ -78,8 +78,9 @@ html {
 </head>
 <body>
 <div id="menubar_date">
+	<img src="images/menubar/clock.png" />
 	<?=date('F d, Y')?>
-	<div id="time" style="display:inline;"></div>
+	<span></span>
 </div>
 <nav class="main-menu">
 	<ul>
@@ -120,10 +121,10 @@ html {
 
 		$people = $this->Employee->get_all();
 	?>
-	<nav id="menu_changelocation">
+	<nav id="menu_changelocation" class="alternative-menu">
 		<?=$this->lang->line('common_welcome').' '.$user_info->first_name.' '.$user_info->last_name.'!'?>
 		<span>
-			<?php echo $this->session->userdata('dblocation');
+			<?php echo '('.$this->session->userdata('dblocation').')';
 			if ($this->Employee->isAdmin()){ ?>
 			<ul>
 				<?php foreach($dbs as $db){ ?>
@@ -133,8 +134,8 @@ html {
 			<?php } ?>
 		</span> 
 	</nav>
-	<nav id="menu_changeuser">
-		|<?=$this->lang->line('common_changeuser')?> |
+	<nav id="menu_changeuser" class="alternative-menu">
+		|<span><?=$this->lang->line('common_changeuser')?></span> |
 		<ul>
 			<?php
 				foreach($people->result() as $person)
@@ -146,7 +147,7 @@ html {
 			?>
 		</ul>
 	</nav>
-	<?=anchor("cajas",$this->lang->line("common_logout"),'rel="#logout_overlay", id="btnLogout"')?>
+	<a href="index.php/cajas" rel="#logout_overlay " id="btnLogout"><?php echo $this->lang->line("common_logout") ?><img width="20" height="20" src="images/menubar/off.png"/></a>
 	</div>
 </nav>
 <div id="overlay_cash">
@@ -167,7 +168,7 @@ html {
 		if(m <= 9) m = '0'+m;
 
 		var hora = h+":"+m+":"+s
-		$("#menubar_date > #time").html( hora );
+		$("#menubar_date > span").html( hora );
 		setTimeout(function(){mostrarHora()},500);
 	}
 	//On dom ready

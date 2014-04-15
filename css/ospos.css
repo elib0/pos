@@ -156,9 +156,9 @@ a.none
 	margin: 3px;
 	float: left;
 	width: 200px;
-	border: hsl(208, 45%, 75%) solid 1px;
+	border: hsl(0, 0%, 77%) solid 1px;
 	height: 130px;
-	background-color: #396B98;
+	background-color: hsl(0, 0%, 20%);
 	border-radius: 3px;
 	padding: 3px;
 	text-align: center;
@@ -174,7 +174,7 @@ a.none
 
 .module_item:hover{
 	cursor: pointer;
-	background-color: hsl(208, 45%, 65%);
+	background-color: hsl(0, 0%, 77%);
 }
 
 #config_wrapper

@@ -78,15 +78,19 @@
 	-webkit-box-shadow: 1px 1px 8px #000;
 	-moz-box-shadow: 1px 1px 8px #000;
 	box-shadow: 1px 1px 8px #000;
-	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, hsl(0, 0%, 93%)), color-stop(1, hsl(0, 0%, 87%)) );
-	background: -moz-linear-gradient( center top, hsl(0, 0%, 93%) 5%, hsl(0, 0%, 87%) 100% );
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='hsl(0, 0%, 93%)', endColorstr='hsl(0, 0%, 87%)');
 }
 
 .alternative-menu > ul > li, .alternative-menu > span > ul > li{
 	margin:0px;
 	padding:0.6em;
 	border-bottom: 1px solid hsl(0, 0%, 80%);
+	background-color: #fff;
+}
+
+.alternative-menu > ul > li:hover, .alternative-menu > span > ul > li:hover{
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, hsl(0, 0%, 93%)), color-stop(1, hsl(0, 0%, 87%)) );
+	background: -moz-linear-gradient( center top, hsl(0, 0%, 93%) 5%, hsl(0, 0%, 87%) 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='hsl(0, 0%, 93%)', endColorstr='hsl(0, 0%, 87%)');
 }
 
 .alternative-menu > ul > li a, .alternative-menu > span > ul > li a{

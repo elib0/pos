@@ -78,7 +78,6 @@ html {
 </head>
 <body>
 <div id="menubar_date">
-	<img src="images/menubar/clock.png" />
 	<?=date('F d, Y')?>
 	<span></span>
 </div>
@@ -121,33 +120,38 @@ html {
 
 		$people = $this->Employee->get_all();
 	?>
-	<nav id="menu_changelocation" class="alternative-menu">
-		<?=$this->lang->line('common_welcome').' '.$user_info->first_name.' '.$user_info->last_name.'!'?>
-		<span>
-			<?php echo '('.$this->session->userdata('dblocation').')';
-			if ($this->Employee->isAdmin()){ ?>
-			<ul>
-				<?php foreach($dbs as $db){ ?>
-						<li><?=anchor("employees/set_location/".$db,$db)?></li>
+	<div class="container-menus">
+		<nav id="menu_changelocation">
+			<span>User:</span><?=' '.$user_info->first_name.' '.$user_info->last_name; ?>
+		</nav>
+		<nav id="menu_location" class="alternative-menu">
+			<span>
+				<?php echo '<span>Location: </span>'.$this->session->userdata('dblocation');
+				if ($this->Employee->isAdmin()){ ?>
+				<ul>
+					<?php foreach($dbs as $db){ ?>
+							<li><?=anchor("employees/set_location/".$db,$db)?></li>
+					<?php } ?>
+				</ul>
 				<?php } ?>
+			</span> 
+		</nav>
+		<nav id="menu_changeuser" class="alternative-menu">
+			<span><?=$this->lang->line('common_changeuser')?></span>
+			<ul>
+				<?php
+					foreach($people->result() as $person)
+					{
+						?>
+						<li><?=anchor("cajas/index/".$person->person_id,$person->last_name.' '.$person->first_name,'rel="#logout_overlay"')?></li>
+						<?php
+					}
+				?>
 			</ul>
-			<?php } ?>
-		</span> 
-	</nav>
-	<nav id="menu_changeuser" class="alternative-menu">
-		|<span><?=$this->lang->line('common_changeuser')?></span> |
-		<ul>
-			<?php
-				foreach($people->result() as $person)
-				{
-					?>
-					<li><?=anchor("cajas/index/".$person->person_id,$person->last_name.' '.$person->first_name,'rel="#logout_overlay"')?></li>
-					<?php
-				}
-			?>
-		</ul>
-	</nav>
-	<a href="index.php/cajas" rel="#logout_overlay " id="btnLogout"><?php echo $this->lang->line("common_logout") ?><img width="20" height="20" src="images/menubar/off.png"/></a>
+		</nav>
+		<nav id="menu_logout">
+			<a href="index.php/cajas" rel="#logout_overlay " id="btnLogout"><?php echo $this->lang->line("common_logout") ?></a>
+		</nav>
 	</div>
 </nav>
 <div id="overlay_cash">

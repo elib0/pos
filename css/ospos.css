@@ -24,12 +24,12 @@ body
 	margin:0;
 	padding:0;
 	/*background: url(../images/background.png);*/
-	background-color: #fafafa;
+	background-color: hsl(0, 0%, 98%);
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
 a:not(.big_button):not(.small_button){
-	color: #000;
+	color: hsl(0, 0%, 0%);
 	text-decoration: none !important;
 	font-size: 1em;
 }
@@ -84,12 +84,12 @@ a.none
 
 #title, #page_title{
 	font-family: 'Fjalla One', sans-serif;
-	color:#FFF;
+	color:hsl(0, 0%, 100%);
 	text-shadow:
-		-1px -1px 0 #000,
-		 1px -1px 0 #000,
-		-1px 1px 0 #000,
-		 1px 1px 0 #000;
+		-1px -1px 0 hsl(0, 0%, 0%),
+		 1px -1px 0 hsl(0, 0%, 0%),
+		-1px 1px 0 hsl(0, 0%, 0%),
+		 1px 1px 0 hsl(0, 0%, 0%);
 }
 
 #title
@@ -112,7 +112,7 @@ a.none
 	margin-top:8px;
 	font-size:16px;
 	font-weight:bold;
-	color:#000000;
+	color:hsl(0, 0%, 0%);
 	text-align:center;
 }
 
@@ -156,14 +156,13 @@ a.none
 	margin: 3px;
 	float: left;
 	width: 200px;
-	border: hsl(208, 45%, 75%) solid 1px;
+	border: hsl(0, 0%, 77%) solid 1px;
 	height: 130px;
-	background-color: #396B98;
+	background-color: hsl(0, 0%, 20%);
 	border-radius: 3px;
 	padding: 3px;
 	text-align: center;
 	padding-top: 20px;
-	color: #FFF;
 
 	-webkit-transition: all 1.5s ease;
 	-moz-transition: all 1.5s ease;
@@ -174,7 +173,7 @@ a.none
 
 .module_item:hover{
 	cursor: pointer;
-	background-color: hsl(208, 45%, 65%);
+	background-color: hsl(0, 0%, 77%);
 }
 
 #config_wrapper
@@ -197,9 +196,9 @@ a.none
 	padding:1.5em;
 	text-align:center;
 	font-size:12px;
-	color:#000;
-	background-color:#f4f4f4;
-	border-top:1px solid #CCC;
+	color:hsl(0, 0%, 0%);
+	background-color:hsl(0, 0%, 96%);
+	border-top:1px solid hsl(0, 0%, 80%);
 	width:99%;
 	position:fixed;
 	bottom: 0;
@@ -207,12 +206,12 @@ a.none
 
 #footer a{
 	text-decoration: underline;
-	color: #000;
+	color: hsl(0, 0%, 0%);
 }
 
 #footer a:hover{
 	text-decoration:none;
-	color: #003399;
+	color: hsl(220, 100%, 30%);
 }
 
 
@@ -227,7 +226,7 @@ a.none
 
 
 .middle-black-bar{
-	background-color: #000; 
+	background-color: hsl(0, 0%, 0%); 
 	-webkit-border-radius: 5px; 
 	-moz-border-radius: 5px; 
 	border-radius: 5px; 
@@ -238,12 +237,12 @@ a.none
 
 .middle-black-bar label{
 	font-weight: bold;
-	color: #FFF;
+	color: hsl(0, 0%, 100%);
 }
 
 .middle-gray-bar{
-	background-color: #FFF;
-	border: 1px solid #CCC; 
+	background-color: hsl(0, 0%, 100%);
+	border: 1px solid hsl(0, 0%, 80%); 
 	-webkit-border-radius: 5px; 
 	-moz-border-radius: 5px; 
 	border-radius: 5px; 
@@ -257,8 +256,8 @@ a.none
 
 
 .box-form-view{
-	background-color: #FFF;
-	border: 1px solid #CCC; 
+	background-color: hsl(0, 0%, 100%);
+	border: 1px solid hsl(0, 0%, 80%); 
 	-webkit-border-radius: 5px; 
 	-moz-border-radius: 5px; 
 	border-radius: 5px; 
@@ -290,7 +289,7 @@ a.none
 }
 
 .box-form-view h3{
-	color: #666;
+	color: hsl(0, 0%, 40%);
 }
 
 .box-form-view ul ul li a{
@@ -309,26 +308,26 @@ a.none
 	font-size: 11px;
 	font-weight: bold;
 	text-align: right;
-	color: #000;
+	color: hsl(0, 0%, 0%);
 }
 
 .lable-form{
 	font-size: 12px;
 	font-weight: bold;
 	text-align: right;
-	color: #000;
+	color: hsl(0, 0%, 0%);
 }
 
 .lable-form-required{
 	font-size: 12px;
 	font-weight: bold;
 	text-align: right;
-	color: #FF0000;
+	color: hsl(0, 100%, 50%);
 }
 
 .sub-title-view{
-	background-color: #f4f4f4;
-	border-bottom: 1px solid #CCC; 
+	background-color: hsl(0, 0%, 96%);
+	border-bottom: 1px solid hsl(0, 0%, 80%); 
 	-webkit-border-radius: 3px; 
 	-moz-border-radius: 3px; 
 	border-radius: 3px; 
@@ -336,12 +335,12 @@ a.none
 	/*text-align: center;*/
 	margin: 20px 0 5px 0;
 	font-size: 11px;
-	color: #000;
+	color: hsl(0, 0%, 0%);
 	font-weight: bold;
 }
 
 .box-form-view small{
-	color: #ccc;
+	color: hsl(0, 0%, 80%);
 	font-size: 10px;
 	margin: 0 0 0 5px;
 }

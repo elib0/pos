@@ -5,6 +5,7 @@
 <?php echo form_open_multipart('config/save/',array('id'=>'config_form')); ?>
 
 <div class="field_row clearfix">
+
 	<?php
 		if ($this->Employee->has_privilege('save', 'config')){ 
 			echo form_submit(
@@ -15,16 +16,19 @@
 					'class'=>'small_button float_right'
 				)
 			);
-		}
-		if ($this->Employee->isAdmin()){
-			echo anchor("backup/index/width:200/height:180",
-			"<div class='big_button' style='float: left;'><span>".$this->lang->line('config_backup')."</span></div>",
-			array('class'=>'thickbox none','title'=>$this->lang->line('recvs_complete_receiving'))); 				
-			echo anchor("backup/recover/width:400/height:400",
-			"<div class='big_button' style='float: left;'><span>".$this->lang->line('config_recover')."</span></div>",
-			array('class'=>'thickbox none','title'=>$this->lang->line('config_recover'))); 
+			if ($this->Employee->isAdmin()){
+				echo anchor("backup/index/width:200/height:180",
+				"<div class='big_button' style='float: left;'><span>".$this->lang->line('config_backup')."</span></div>",
+				array('class'=>'thickbox none','title'=>$this->lang->line('recvs_complete_receiving'))); 				
+				echo anchor("backup/recover/width:400/height:400",
+				"<div class='big_button' style='float: left;'><span>".$this->lang->line('config_recover')."</span></div>",
+				array('class'=>'thickbox none','title'=>$this->lang->line('config_recover'))); 
+			}
 		}
 	?>
+
+	<a class="linkBack small_button" style="height: auto; float: right; width: 40px; margin: 0 5px 0 0" href="#"><span>Back</span></a>
+
 </div>
 
 <div class="box-form-view">
@@ -33,7 +37,7 @@
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">	
-				<?php echo form_label($this->lang->line('config_company').':', 'company',array('class'=>'lable-form-required')); ?>
+				<?php echo form_label($this->lang->line('config_company').':', 'company',array('class'=>'lable-form')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -46,12 +50,11 @@
 						);
 					?>
 				</div>
-				<small>(requested)</small>
 			</div>
 		</div>
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">	
-				<?php echo form_label($this->lang->line('config_phone').':', 'phone',array('class'=>'lable-form-required')); ?>
+				<?php echo form_label($this->lang->line('config_phone').':', 'phone',array('class'=>'lable-form')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -88,7 +91,7 @@
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">
-				<?php echo form_label('Company Email:', 'email',array('class'=>'lable-form-required')); ?>
+				<?php echo form_label('Company Email:', 'email',array('class'=>'lable-form')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -103,7 +106,7 @@
 				</div>
 			</div>
 		</div>
-		<div style="width: 250px; float: left">
+		<div style="width: 500px; float: left">
 			<div class="field_row clearfix">	
 				<?php echo form_label('Company '.$this->lang->line('config_website').':', 'website',array('class'=>'lable-form', 'style'=>'width:110px')); ?>
 				<div>
@@ -142,11 +145,8 @@
 	</div>
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
-		<div>
-			<div class="field_row clearfix" style="float: left;margin-right: 70px;">
-				<div style="height: 27px;">
-				<?php echo form_label($this->lang->line('config_default_tax_rate_1').':', 'default_tax_1_rate',array('class'=>'lable-form-required','style'=>'width:70px;')); ?>
-				</div>
+		<div class="field_row clearfix">	
+				<?php echo form_label($this->lang->line('config_default_tax_rate_1').':', 'default_tax_1_rate',array('class'=>'lable-form','style'=>'width:70px;')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -171,10 +171,8 @@
 					?>&nbsp;%
 				</div>
 		</div>
-		<div class="field_row clearfix" style="margin: 0 0 5px 0;float: left;margin-right: 80px;">
-			<div style="height: 27px;">
+		<div class="field_row clearfix" style="margin: 0 0 5px 0">
 			<?php echo form_label($this->lang->line('config_default_tax_rate_2').':', 'default_tax_1_rate',array('class'=>'lable-form','style'=>'width:70px;')); ?>
-			</div>
 			<div>
 				<?php 
 					echo form_input(
@@ -199,11 +197,8 @@
 				?>&nbsp;%
 			</div>
 		</div>
-		</div>
-		<div class="field_row clearfix">
-			<div style="height: 27px;">
+		<div class="field_row clearfix">	
 			<?php echo form_label($this->lang->line('config_currency_symbol').':', 'currency_symbol',array('class'=>'lable-form','style'=>'width:110px;')); ?>
-			</div>
 			<div>
 				<?php 
 					echo form_input(
@@ -219,45 +214,24 @@
 			</div>
 		</div>
 		<div class="field_row clearfix">
-			<div  style="float: left;">
-				<div>
-				<?php echo form_label($this->lang->line('config_print_after_sale').':', 'print_after_sale',array('class'=>'lable-form','style'=>'width:250px;')); ?>
-				</div>
-				<div style="height: 27px;">
-					<?php 
-						echo form_checkbox(
-							array(
-								'name'=>'print_after_sale',
-								'id'=>'print_after_sale',
-								'value'=>'print_after_sale',
-								'checked'=>$this->config->item('print_after_sale')
-							)
-						);
-					?>
-				</div>
-			</div>
-			<div style="float: left;">
-				<div>
-				<?php echo form_label($this->lang->line('config_alert_after_sale').':', 'alert_after_sale',array('class'=>'lable-form','style'=>'width:270px;')); ?>
-				</div>
-				<div style="height: 27px;">
-					<?php 
-						echo form_checkbox(
-							array(
-								'name'=>'alert_after_sale',
-								'id'=>'alert_after_sale',
-								'value'=>'alert_after_sale',
-								'checked'=>$this->config->item('alert_after_sale')
-							)
-						);
-					?>
-				</div>
+			<?php echo form_label($this->lang->line('config_print_after_sale').':', 'print_after_sale',array('class'=>'lable-form','style'=>'width:140px;')); ?>
+			<div>
+				<?php 
+					echo form_checkbox(
+						array(
+							'name'=>'print_after_sale',
+							'id'=>'print_after_sale',
+							'value'=>'print_after_sale',
+							'checked'=>$this->config->item('print_after_sale')
+						)
+					);
+				?>
 			</div>
 		</div>
 	</div>
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
-		<div class="sub-title-view" style="color: #FF0000">
+		<div class="sub-title-view">
 			<?php echo $this->lang->line('common_return_policy'); ?>
 		</div>
 	</div>
@@ -289,8 +263,8 @@
 	</div>
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
-		<div class="field_row clearfix" style="float: left">	
-			<?php echo form_label($this->lang->line('config_language').':', 'language',array('class'=>'lable-form', 'style'=>'width:170px;')); ?>
+		<div class="field_row clearfix">	
+			<?php echo form_label($this->lang->line('config_language').':', 'language',array('class'=>'lable-form', 'style'=>'width:70px;')); ?>
 			<div>
 				<?php 
 					echo form_dropdown('language', 
@@ -305,7 +279,7 @@
 		</div>
 
 		<div class="field_row clearfix">	
-		<?php echo form_label($this->lang->line('config_timezone').':', 'timezone',array('class'=>'lable-form', 'style'=>'width:300px;')); ?>
+		<?php echo form_label($this->lang->line('config_timezone').':', 'timezone',array('class'=>'lable-form', 'style'=>'width:70px;')); ?>
 			<div>
 			<?php echo form_dropdown('timezone', 
 			 array(
@@ -403,15 +377,18 @@
 				?>
 			</div>
 		</div>
-	</div>
-</div>
 
-<div class="field_row clearfix" style="color: #FF0000; font-size: 11px">
-	The <strong>red</strong> field are required
+	</div>
+
 </div>
 
 <div class="field_row clearfix">
+
+	<a class="linkBack big_button" style="height: auto; float: left; width: 60px; margin: 0 5px 0 0" href="#"><span>Back</span></a>
+
 	<?php
+
+		
 		if ($this->Employee->has_privilege('save', 'config')){ 
 			echo form_submit(
 				array(
@@ -436,25 +413,25 @@
 if ( $('#submitC').length < 1) {
 	$('input, textarea, select').attr('disabled', 'disabled');
 };
-// $('#reestablecer').click(function(event){
-// 	alert('aqui');
-// 	// $.ajax({
-// 	// 	type:"POST",
-// 	// 	url:"controlllers/index.php/cofig/restablecer",
-// 	// 	dataType:"json",
-// 	// 	success:function(data){
+$('#reestablecer').click(function(event){
 
-// 	// 		// if(data==1)
-// 	// 		// 	$.ajax({url:'views/tags/update.view.php?asyn&tag='+tag,success:function(){
-// 	// 		// 		$("#previewTag").dialog("close");
-// 	// 		// 		$('body #previewTag').remove();
-// 	// 		// 		document.location.hash='update';
-// 	// 		// 	}});
-// 	// 		// else
-// 	// 		// 	message("messages","Error",valores[1]);
-// 	// 	}
-// 	// });
-// });
+	// $.ajax({
+	// 	type:"POST",
+	// 	url:"controlllers/cofig.php?",
+	// 	dataType:"json",
+	// 	success:function(data){
+
+	// 		// if(data==1)
+	// 		// 	$.ajax({url:'views/tags/update.view.php?asyn&tag='+tag,success:function(){
+	// 		// 		$("#previewTag").dialog("close");
+	// 		// 		$('body #previewTag').remove();
+	// 		// 		document.location.hash='update';
+	// 		// 	}});
+	// 		// else
+	// 		// 	message("messages","Error",valores[1]);
+	// 	}
+	// });
+});
 
 //validation and submit handling
 $(document).ready(function()
@@ -518,14 +495,9 @@ $(document).ready(function()
 			company: "required",
 			address: "required",
     		phone: "required",
-    		default_tax_1_name: "required",
-    		default_tax_1_rate:
+    		default_tax_rate:
     		{
     			required:true,
-    			number:true
-    		},
-    		default_tax_2_rate:
-    		{
     			number:true
     		},
     		email:"email",
@@ -536,7 +508,6 @@ $(document).ready(function()
      		company: "<?php echo $this->lang->line('config_company_required'); ?>",
      		address: "<?php echo $this->lang->line('config_address_required'); ?>",
      		phone: "<?php echo $this->lang->line('config_phone_required'); ?>",
-     		default_tax_1_name: "<?php echo $this->lang->line('config_default_tax_rate_1'); ?> is a required field",
      		default_tax_rate:
     		{
     			required:"<?php echo $this->lang->line('config_default_tax_rate_required'); ?>",

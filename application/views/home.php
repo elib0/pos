@@ -6,17 +6,15 @@
 	foreach($allowed_modules->result() as $module)
 	{
 	?>
-	<div class="module_item">
-		<a href="<?php echo site_url("$module->module_id");?>">
+	<a href="<?php echo site_url("$module->module_id");?>">
+		<div class="module_item">	
 			<img src="<?php echo base_url().'images/menubar/'.$module->module_id.'.png';?>" border="0" alt="Menubar Image" />
-		</a>
-		<br/>
-		<a href="<?php echo site_url("$module->module_id");?>">
+			<br/>
 			<?php echo $this->lang->line("module_".$module->module_id) ?>
-		</a>
-		<br/>
-		<?php echo $this->lang->line('module_'.$module->module_id.'_desc');?>
-	</div>
+			<br/>
+			<?php echo $this->lang->line('module_'.$module->module_id.'_desc');?>
+		</div>
+	</a>
 	<?php
 	}
 	?>

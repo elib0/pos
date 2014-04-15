@@ -8,6 +8,7 @@
     -o-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
     overflow: hidden;
+    z-index: 99999999;
 }
 #ui_notifIt p{
     text-align: center;

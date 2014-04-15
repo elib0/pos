@@ -1,73 +1,25 @@
-#menubar
+#menubar_date
 {
-	position:relative;
-	margin:0px;
-	padding:0px;
-	background-image: url("../images/menubar/menubar_bg.gif");
-	background-repeat: repeat-x;
-	width:100%;
-	height:107px;
-	color:hsl(0, 0%, 100%);
-	text-align:left;
-	text-align:center;
+	right:10px;
+	color: #FFF;
+	position: absolute;
+	font-size: 10pt;
+	z-index: 99999;
+	top: 2px;
+	display: table-cell;
+	vertical-align: top;
 }
 
-#menubar_container
-{
-	position:relative;
-	margin:0 auto;
-	width:875px;
-	text-align:left;
+#menubar_date div{
+	display: inline-block;
 }
 
-/*.menu_item
-{
-	float:left;
-	width:65px;
-	height:100%;
-	text-align:center;
-}*/
-
-
-#menubar a:link, #menubar a:visited, #menubar a
-{
-	color:hsl(0, 0%, 0%);
-	text-decoration:none;
+#menu_changelocation.alternative-menu > span{
+	color: hsl(208, 45%, 41%);
+	/*text-transform: uppercase;*/
 }
 
-#menubar a:hover
-{
-	color:hsl(220, 100%, 30%);
-	text-decoration:underline;
-}
-
-.menu_item
-{
-	font-size:8pt;
-}
-
-#menubar_company_info
-{
-	/*top:0px;
-	width:250px;
-	height:55%;*/
-}
-
-#company_title
-{
-	font-size:14pt;
-	font-weight:bold;
-}
-
-#menubar_navigation
-{
-	position:relative;
-	width:725px;
-	left:148px;
-	top:8px;
-	height:45%;
-}
-#menu_changeuser, #menu_changelocation{
+.alternative-menu,.alternative-menu > span{
 	position:relative;
 	display:inline;
 	margin:0px;
@@ -75,71 +27,45 @@
 	cursor: pointer;
 }
 
-#menu_changeuser:hover ul,#menu_changelocation:hover ul{
-	display:block;
+.alternative-menu:hover span{
+	font-weight: bold;
 }
 
-#menu_changeuser ul, #menu_changelocation ul{
-	/*position:relative;
-	left: 13em;*/
+.alternative-menu span:after{
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -8px;
+	width: 0; height: 0;
+	border-top: 8px solid #FFF;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
+	z-index: 30;
+}
+
+.alternative-menu > ul, .alternative-menu > span > ul{
 	position:absolute;
-	background: hsl(0, 0%, 0%);
+	background-color: #000;
 	list-style: none;
 	width: 100px;
-	margin:0px;
-	padding:0px;
+	margin:0;
+	padding:0;
 	display:none;
 	z-index: 20;
 }
 
-#menu_changeuser ul>li, #menu_changelocation ul>li{
+.alternative-menu:hover > ul, .alternative-menu:hover > span > ul{
+	display:block;
+}
+
+.alternative-menu > ul > li, .alternative-menu > span > ul > li{
 	margin:0px;
 	padding:0.6em;
 }
 
-#menu_changeuser ul>li:hover, #menu_changelocation ul>li:hover{
+.alternative-menu > ul > li:hover, .alternative-menu > span > ul > li:hover{
 	background: hsl(220, 100%, 30%);
-}
-
-#menubar_footer
-{
-	position:absolute;
-	top:86px;
-	left:0px;
-	height:17%;
-	padding-top:3px;
-	font-size:8pt;
-	font-weight:bold;
-}
-
-#menubar_date
-{
-	right:10px;
-	color: hsl(0, 0%, 100%);
-	position: absolute;
-	font-size: 10pt;
-	z-index: 99999;
-	top: 2px;
-}
-
-#menubar #menubar_footer a{
-	color: hsl(0, 0%, 100%);
-}
-
-#menu_changelocation > span{
-	position:relative;
-	color: hsl(208, 45%, 41%);
-	font-weight: bold;
-	text text-transform: uppercase;
-}
-
-#menu_changelocation>span:before{
-	content:'(';
-	color:hsl(0, 0%, 100%);
-}
-#menu_changelocation>span:after{
-	content:')';
-	color:hsl(0, 0%, 100%);
 }
 
 /*Nuevo menu principal*/
@@ -178,6 +104,7 @@ nav.main-menu{
 	-moz-box-shadow: -1px 0px 8px hsl(0, 0%, 60%) inset;
 	box-shadow: -1px 0px 8px hsl(0, 0%, 60%) inset;
 	background-color: hsl(0, 0%, 100%);
+	font-weight: bold;
 }
 
 nav.main-menu > ul{
@@ -189,6 +116,7 @@ nav.main-menu > ul > li{
 	padding: 2px;
 	/*width:75px;*/
 	height:100%;
+	font-size:8pt;
 	text-align:center;
 	cursor: pointer;
 	border-bottom: 1px solid #ccc;
@@ -204,6 +132,27 @@ nav.main-menu > ul > li:hover{
 }
 
 nav.main-menu > ul > li:hover:after{
+	content: '';
+	position: absolute;
+	/*top: 40px;*/
+	left: 100%;
+	margin-top: -34px;
+	width: 0; height: 0;
+	border-left: 12px solid hsl(0, 0%, 78%);
+	border-top: 12px solid transparent;
+	border-bottom: 12px solid transparent;
+}
+
+.nav-main-menu-active{
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, hsl(0, 0%, 93%)), color-stop(1, hsl(0, 0%, 87%)) );
+	background: -moz-linear-gradient( center top, hsl(0, 0%, 93%) 5%, hsl(0, 0%, 87%) 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='hsl(0, 0%, 93%)', endColorstr='hsl(0, 0%, 87%)');
+	-webkit-box-shadow: -1px 0px 8px hsl(0, 0%, 60%) inset;
+	-moz-box-shadow: -1px 0px 8px hsl(0, 0%, 60%) inset;
+	box-shadow: -1px -1px 5px hsl(0, 0%, 80%) inset;
+}
+
+.nav-main-menu-active:after{
 	content: '';
 	position: absolute;
 	/*top: 40px;*/
@@ -256,17 +205,22 @@ nav.main-menu a, nav.main-menu a:active, nav.main-menu a:visited{
 		font-weight: normal;
 	}
 	nav.main-menu ul li{
-		width:52px;
+		/*padding: 2px 0;*/
+		width:62px;
 		height:100%;
 	}
-	nav.main-menu ul li img{
-		width: 40%;
+	nav.main-menu ul li > ul > li:last-child {
+		width: 100%;
+	}
+	nav.main-menu ul li > ul > li:first-child img{
+		width: 48%;
 	}
 	nav.main-menu ul li > ul > li{
 		display: block;
+		text-align: center;
 	}
 	nav.main-menu > ul > li:hover:after{
-		margin-top: -40px;
+		margin-top: -35px;
 	}                      
   
 } 

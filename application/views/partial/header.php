@@ -78,8 +78,9 @@ html {
 </head>
 <body>
 <div id="menubar_date">
+	<img src="images/menubar/clock.png" />
 	<?=date('F d, Y')?>
-	<div id="time" style="display:inline;"></div>
+	<span></span>
 </div>
 <nav class="main-menu">
 	<ul>
@@ -87,21 +88,21 @@ html {
 		foreach($allowed_modules->result() as $module)
 		{
 		?>
-		<li class="menu_item">
-			<ul>
-				<li><a href="<?=site_url("$module->module_id")?>">
-					<img src="<?=base_url().'images/menubar/'.$module->module_id.'.png'?>" border="0" alt="Menubar Image" /></a>
+		<li class="menu_item" id="<?=$module->module_id?>">
+			<ul url="<?=site_url("$module->module_id")?>">
+				<li>
+					<img src="<?=base_url().'images/menubar/'.$module->module_id.'.png'?>" border="0" alt="Menubar Image" />
 				</li>
-				<li><a href="<?=site_url("$module->module_id")?>"><?=$this->lang->line("module_".$module->module_id)?></a></li>
+				<li><a><?=$this->lang->line("module_".$module->module_id)?></a></li>
 			</ul>
 		</li>
 		<?php
 		}
 		?>
-		<li class="menu_item">
+		<li class="menu_item" id="assistance">
 			<ul>
-				<li><a href="index.php/employees/assistance"><img src="<?=base_url().'images/menubar/schedule.png'?>" border="0" alt="Menubar Image" style="cursor: pointer" /></a></li>
-				<li><a href="index.php/employees/assistance">Schedule</a></li>
+				<li><img src="<?=base_url().'images/menubar/schedule.png'?>" border="0" alt="Menubar Image" style="cursor: pointer" /></li>
+				<li><a>Schedule</a></li>
 			</ul>
 		</li>
 	</ul>
@@ -120,10 +121,10 @@ html {
 
 		$people = $this->Employee->get_all();
 	?>
-	<nav id="menu_changelocation">
+	<nav id="menu_changelocation" class="alternative-menu">
 		<?=$this->lang->line('common_welcome').' '.$user_info->first_name.' '.$user_info->last_name.'!'?>
 		<span>
-			<?php echo $this->session->userdata('dblocation');
+			<?php echo '('.$this->session->userdata('dblocation').')';
 			if ($this->Employee->isAdmin()){ ?>
 			<ul>
 				<?php foreach($dbs as $db){ ?>
@@ -133,8 +134,8 @@ html {
 			<?php } ?>
 		</span> 
 	</nav>
-	<nav id="menu_changeuser">
-		|<?=$this->lang->line('common_changeuser')?> |
+	<nav id="menu_changeuser" class="alternative-menu">
+		|<span><?=$this->lang->line('common_changeuser')?></span> |
 		<ul>
 			<?php
 				foreach($people->result() as $person)
@@ -146,7 +147,7 @@ html {
 			?>
 		</ul>
 	</nav>
-	<?=anchor("cajas",$this->lang->line("common_logout"),'rel="#logout_overlay", id="btnLogout"')?>
+	<a href="index.php/cajas" rel="#logout_overlay " id="btnLogout"><?php echo $this->lang->line("common_logout") ?><img width="20" height="20" src="images/menubar/off.png"/></a>
 	</div>
 </nav>
 <div id="overlay_cash">
@@ -167,9 +168,26 @@ html {
 		if(m <= 9) m = '0'+m;
 
 		var hora = h+":"+m+":"+s
-		$("#menubar_date > #time").html( hora );
+		$("#menubar_date > span").html( hora );
 		setTimeout(function(){mostrarHora()},500);
 	}
+
+	$('nav.main-menu ul>li>ul').click(function(event) {
+		var href=$(this).attr('url');
+		location.href=href;
+	});
+	
+	$('#assistance').click(function(event) {
+		location.href='index.php/employees/assistance';
+	});
+
+	if ('<?=$this->uri->segment(2)?>'=='assistance') {
+		$('#assistance').addClass('nav-main-menu-active');
+	}else{
+		$('nav.main-menu ul>li#<?=$this->uri->segment(1)?>').addClass('nav-main-menu-active');
+	};
+
+
 	//On dom ready
 	$(function() {
 		mostrarHora();
@@ -196,6 +214,7 @@ html {
 			//$('.ui-dialog').css('overflow', 'visible');
 			return false;
 		});
+
 	});
 })(jQueryOld);
 </script>

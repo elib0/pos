@@ -216,16 +216,16 @@ function get_item_data_row($item,$controller)
 	$table_data_row.='<td width="14%">'.$tax_percents.'</td>';
 	$table_data_row.='<td width="14%">'.($item->is_service?"&#x221E;":number_format($item->quantity)).'</td>';
 	if($CI->Employee->has_privilege('update', $controller_name)){
-		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item->item_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox small_button','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item->item_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
 	}else{
 		$table_data_row .= '<td width="5%"></td>';
 	}
-	$table_data_row.='<td width="10%">'.anchor($controller_name."/count_details/$item->item_id/width:$width", $CI->lang->line('common_det'),array('class'=>'thickbox small_button','title'=>$CI->lang->line($controller_name.'_details_count'))).'</td>';//inventory details
+	$table_data_row.='<td width="10%">'.anchor($controller_name."/count_details/$item->item_id/width:$width", $CI->lang->line('common_det'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_details_count'))).'</td>';//inventory details
 	//Ramel Inventory Tracking
 	if($item->is_service){
 		$table_data_row .= '<td width="10%"></td>';
 	}else{
-		$table_data_row.='<td width="10%">'.anchor($controller_name."/inventory/$item->item_id/width:$width", $CI->lang->line('common_inv'),array('class'=>'thickbox small_button','title'=>$CI->lang->line($controller_name.'_count')));
+		$table_data_row.='<td width="10%">'.anchor($controller_name."/inventory/$item->item_id/width:$width", $CI->lang->line('common_inv'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_count')));
 	}
 
 	$table_data_row.='</tr>';
@@ -286,14 +286,14 @@ function get_giftcard_data_row($giftcard,$controller)
 	$width = $controller->get_form_width();
 
 	$table_data_row='<tr>';
-	$table_data_row.="<td width='3%'><input type='checkbox' id='giftcard_$giftcard->giftcard_id' value='".$giftcard->giftcard_id."'/></td>";
+	$table_data_row.="<td width='3%'><input type='checkbox' id='giftcard_$giftcard->giftcard_id' value='$giftcard->giftcard_id'/></td>";
 	$table_data_row.='<td width="15%">'.$giftcard->giftcard_number.'</td>';
 	$table_data_row.='<td width="20%">'.to_currency($giftcard->value).'</td>';
+	$table_data_row .= '<td width="5%">';
 	if($CI->Employee->has_privilege('update', $controller_name)){
-		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$giftcard->giftcard_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox small_button','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
-	}else{
-		$table_data_row .= '<td width="5%"></td>';
+		$table_data_row.=anchor("$controller_name/view/$giftcard->giftcard_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button','title'=>$CI->lang->line($controller_name.'_update')));
 	}
+	$table_data_row .= '</td>';
 
 	$table_data_row.='</tr>';
 	return $table_data_row;
@@ -353,11 +353,11 @@ function get_item_kit_data_row($item_kit,$controller)
 	$width = $controller->get_form_width();
 
 	$table_data_row='<tr>';
-	$table_data_row.="<td width='3%'><input type='checkbox' id='item_kit_$item_kit->item_kit_id' value='".$item_kit->item_kit_id."'/></td>";
+	$table_data_row.="<td width='3%'><input type='checkbox' id='item_kit_$item_kit->item_kit_id' value='$item_kit->item_kit_id'/></td>";
 	$table_data_row.='<td width="15%">'.$item_kit->name.'</td>';
 	$table_data_row.='<td width="20%">'.character_limiter($item_kit->description, 25).'</td>';
 	if($CI->Employee->has_privilege('update', $controller_name)){
-		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item_kit->item_kit_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox small_button','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item_kit->item_kit_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
 	}else{
 		$table_data_row .= '<td width="5%"></td>';
 	}

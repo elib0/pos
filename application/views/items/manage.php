@@ -3,15 +3,15 @@
 	<div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?>(<span><?php echo $items_location ?></span>)</div>
 	<div id="new_button">
 		<?php
-		if($this->Employee->has_privilege('add', $controller_name)){  
+		if($this->Employee->has_privilege('add',$controller_name)){  
 			echo anchor("$controller_name/view/-1/width:$form_width",
-			"<div class='big_button' style='float: left; margin: 0 5px 0 0'><span>".$this->lang->line($controller_name.'_new')."</span></div>",
-			array('class'=>'thickbox none','title'=>$this->lang->line($controller_name.'_new')));
+			"<span>".$this->lang->line($controller_name.'_new')."</span>",
+			array('class'=>'big_button thickbox','title'=>$this->lang->line($controller_name.'_new')));
 		}
 		?>
 		<?php echo anchor("$controller_name/excel_import/width:$form_width",
-		"<div class='big_button' style='float: left;'><span>Excel Import</span></div>",
-		array('class'=>'thickbox none','title'=>'Import Items from Excel'));
+		'<span>Excel Import</span>',
+		array('class'=>'big_button thickbox','title'=>'Import Items from Excel'));
 		?>
 	</div>
 </div>
@@ -29,8 +29,8 @@ echo form_open("$controller_name/set_location", array('id'=>'form_items_location
 
 <div class="middle-black-bar">
 	<div>
-		<label for="locationbd" style="display: inline;"><?=form_label('Location:', 'locationbd')?></label>
-		<?=form_dropdown('items_location', $dbs,$items_location, 'id="locationbd" style="display: inline;"');?>
+		<label for="locationbd" style="display: inline;"><?=form_label('Location:','locationbd')?></label>
+		<?=form_dropdown('items_location', $dbs,$items_location, 'id="locationbd" style="display:inline;"');?>
 	</div>
 </div>
 <?php echo form_close(); ?>
@@ -42,12 +42,12 @@ echo form_open("$controller_name/set_location", array('id'=>'form_items_location
 
 <div id="titleTextImg" class="middle-gray-bar">
 	<div style="float:left;">Search Options :</div>
-	<a id="imageDivLink" href="javascript:show_hide_search_filter('search_filter_section', 'imageDivLink');" style="outline:none;">
-	<img src="
-	<?php echo isset($search_section_state)?  ( ($search_section_state)? base_url().'images/minus.png' : base_url().'images/plus.png') : base_url().'images/plus.png';?>" style="border:0;outline:none;padding:0px;margin:0px;position:relative;top:-5px;"></a>
+	<a id="imageDivLink" href="javascript:show_hide_search_filter('search_filter_section','imageDivLink');" style="outline:none;">
+		<img src="<?=base_url().(isset($search_section_state)&&$search_section_state?'images/minus.png':'images/plus.png')?>" style="border:0;outline:none;padding:0px;margin:0px;position:relative;top:-5px;">
+	</a>
 </div>
 
-<div id="search_filter_section" style="text-align: right; font-weight: bold; height: 30px; font-size: 12px; display: <?php echo isset($search_section_state)?  ( ($search_section_state)? 'block' : 'none') : 'none';?>;">
+<div id="search_filter_section" style="text-align: right; font-weight: bold; height: 30px; font-size: 12px; display:<?=isset($search_section_state)&&$search_section_state?'block':'none'?>;">
 	<?php echo form_open("$controller_name/refresh",array('id'=>'items_filter_form')); ?>
 	<?php echo form_label($this->lang->line('items_low_inventory_items').' '.':', 'low_inventory');?>
 	<?php echo form_checkbox(array('name'=>'low_inventory','id'=>'low_inventory','value'=>1,'checked'=> isset($low_inventory)?  ( ($low_inventory)? 1 : 0) : 0)).' | ';?>
@@ -59,8 +59,8 @@ echo form_open("$controller_name/set_location", array('id'=>'form_items_location
 	</form>
 </div>
 
-<div style="padding: 3px; margin: 3px 0 3px 0">
-	<?php echo $this->pagination->create_links();?>
+<div style="padding:3px;margin:3px 0;">
+	<?=$this->pagination->create_links()?>
 </div>
 
 <div id="table_action_header">
@@ -71,9 +71,9 @@ echo form_open("$controller_name/set_location", array('id'=>'form_items_location
 		<li class="float_left"><?=anchor("$controller_name/bulk_edit/width:$form_width",$this->lang->line("items_bulk_edit"),array('id'=>'bulk_edit','title'=>$this->lang->line('items_edit_multiple_items'),'class'=>'small_button'))?></li>
 		<li class="float_left"><?=anchor("$controller_name/generate_barcodes",$this->lang->line("items_generate_barcodes"),array('id'=>'generate_barcodes','class'=>'small_button','target'=>'_blank','title'=>$this->lang->line('items_generate_barcodes')))?></li>
 		<li class="float_right">
-		<img src='<?=base_url()?>images/spinner_small.gif' alt='spinner' id='spinner' />
+		<img src='<?=base_url()?>images/spinner_small.gif' alt='spinner' id='spinner'/>
 		<?=form_open("$controller_name/search",array('id'=>'search_form'))?>
-		<input type="text" name ='search' id='search' placeholder="Search ..." style ="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #CCC "/>
+		<input type="text" name='search' id='search' placeholder="Search ..." style="-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;border:1px solid #CCC"/>
 		</form>
 		</li>
 	</ul>

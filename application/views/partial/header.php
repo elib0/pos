@@ -15,6 +15,7 @@
 	<script>window.$$=window.jQueryNew=jQuerySwitch('jq2',jQuery);</script>
 	<!-- jquery new -->
 	<script src="<?=base_url()?>js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="<?=base_url()?>js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
 	<!-- end jquery new -->
 	<script src="<?=base_url()?>js/jquery-1.2.6.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.jQueryOld=jQuerySwitch('jq1',jQuery);</script>
@@ -30,7 +31,6 @@
 	<script src="<?=base_url()?>js/jquery.autocomplete.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="<?=base_url()?>js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="<?=base_url()?>js/jquery.jkey-1.1.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="<?=base_url()?>js/common.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="<?=base_url()?>js/manage_tables.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="<?=base_url()?>js/swfobject.js" type="text/javascript" charset="UTF-8"></script>

@@ -30,7 +30,7 @@ body
 
 a:not(.big_button):not(.small_button){
 	color: #000;
-	text-decoration: underline;
+	text-decoration: none !important;
 	font-size: 1em;
 }
 

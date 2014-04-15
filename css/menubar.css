@@ -1,22 +1,43 @@
 #menubar_date
 {
 	right:10px;
-	color: #FFF;
+	color: hsl(0, 0%, 100%);
 	position: absolute;
 	font-size: 10pt;
 	z-index: 99999;
 	top: 2px;
-	display: table-cell;
-	vertical-align: top;
+	padding: 14px 24px;
+	background: transparent url(../images/menubar/clock.png) no-repeat left center;
 }
 
 #menubar_date div{
 	display: inline-block;
 }
 
-#menu_changelocation.alternative-menu > span{
-	color: hsl(208, 45%, 41%);
+#menu_changelocation, #menu_logout,#menubar_date, #menu_changeuser,#menu_location{
+	-webkit-background-size: 20px auto !important;
+	background-size: 20px auto !important;
+}
+
+#menu_location{
+	background: transparent url(../images/menubar/location.png) no-repeat left center;
+}
+
+#menu_changelocation{
+	background: transparent url(../images/menubar/user.png) no-repeat left center;
+}
+
+#menu_changeuser{
+	background: transparent url(../images/menubar/change_user.png) no-repeat left center;
+}
+#menu_logout{
+	background: transparent url(../images/menubar/logout.png) no-repeat left center;
+}
+
+#menu_changelocation > span, #menu_location > span > span{
+	color: hsl(240, 1%, 32%);
 	/*text-transform: uppercase;*/
+	font-weight: bold;
 }
 
 .alternative-menu,.alternative-menu > span{
@@ -27,9 +48,9 @@
 	cursor: pointer;
 }
 
-.alternative-menu:hover span{
+/*.alternative-menu:hover span{
 	font-weight: bold;
-}
+}*/
 
 .alternative-menu span:after{
 	content: '';
@@ -38,7 +59,7 @@
 	left: 50%;
 	margin-left: -8px;
 	width: 0; height: 0;
-	border-top: 8px solid #FFF;
+	border-top: 8px solid hsl(240, 1%, 32%);
 	border-right: 8px solid transparent;
 	border-left: 8px solid transparent;
 	z-index: 30;
@@ -46,26 +67,29 @@
 
 .alternative-menu > ul, .alternative-menu > span > ul{
 	position:absolute;
-	background-color: #000;
+	background-color: #FFF;
+	color: #000;
 	list-style: none;
 	width: 100px;
 	margin:0;
 	padding:0;
 	display:none;
 	z-index: 20;
+	min-width: 150px;
+	margin-left: -15px;
 }
 
 .alternative-menu:hover > ul, .alternative-menu:hover > span > ul{
 	display:block;
+	-webkit-box-shadow: 1px 1px 8px #000;
+	-moz-box-shadow: 1px 1px 8px #000;
+	box-shadow: 1px 1px 8px #000;
 }
 
 .alternative-menu > ul > li, .alternative-menu > span > ul > li{
 	margin:0px;
 	padding:0.6em;
-}
-
-.alternative-menu > ul > li:hover, .alternative-menu > span > ul > li:hover{
-	background: hsl(220, 100%, 30%);
+	border-bottom: 1px solid hsl(0, 0%, 80%);
 }
 
 /*Nuevo menu principal*/
@@ -78,6 +102,20 @@ nav.user{
 	top: 0;
 	text-align: center;
 	/*padding: 1em;*/
+}
+
+nav.user > div.container-menus{
+	margin-top: 6px;
+}
+
+nav.user > div.container-menus > nav{
+	border-right: 1px solid hsl(0, 0%, 30%);
+	display: inline-block;
+	padding: 10px 25px;
+}
+
+nav.user > div.container-menus > nav:last-child{
+	border-right: none;
 }
 
 .logo{
@@ -112,14 +150,12 @@ nav.main-menu > ul{
 }
 nav.main-menu > ul > li{
 	float: none;
-	/*margin: 5px 0;*/
 	padding: 2px;
-	/*width:75px;*/
 	height:100%;
 	font-size:8pt;
 	text-align:center;
 	cursor: pointer;
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid hsl(0, 0%, 80%);
 }
 
 nav.main-menu > ul > li:hover{
@@ -134,7 +170,6 @@ nav.main-menu > ul > li:hover{
 nav.main-menu > ul > li:hover:after{
 	content: '';
 	position: absolute;
-	/*top: 40px;*/
 	left: 100%;
 	margin-top: -34px;
 	width: 0; height: 0;
@@ -185,9 +220,9 @@ nav.main-menu ul li > ul > li:first-child img{
 nav.main-menu ul li > ul > li:last-child{
 	width: 90px;
 }
-nav.user a:not(.big_button):not(.small_button)
+#menu_logout a:not(.big_button):not(.small_button)
 {
-	color:hsl(0, 0%, 100%) !important;
+	color:hsl(0, 0%, 100%);
 }
 
 nav.main-menu a, nav.main-menu a:active, nav.main-menu a:visited{
@@ -223,4 +258,10 @@ nav.main-menu a, nav.main-menu a:active, nav.main-menu a:visited{
 		margin-top: -35px;
 	}                      
   
-} 
+}
+
+@media screen and (max-width:1080px){
+	#menubar_date{
+		display: none;
+	}
+}

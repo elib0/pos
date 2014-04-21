@@ -77,10 +77,6 @@ html {
 
 </head>
 <body>
-<div id="menubar_date">
-	<?=date('F d, Y')?>
-	<span></span>
-</div>
 <nav class="main-menu">
 	<ul>
 		<?php
@@ -152,6 +148,10 @@ html {
 		<nav id="menu_logout">
 			<a href="index.php/cajas" rel="#logout_overlay " id="btnLogout"><?php echo $this->lang->line("common_logout") ?></a>
 		</nav>
+	</div>
+	<div id="menubar_date">
+		<?=date('F d, Y')?>
+		<span></span>
 	</div>
 </nav>
 <div id="overlay_cash">

@@ -2,40 +2,40 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<base href="<?=base_url()?>" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title><?=$this->config->item('company')?></title>
-	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/ospos.css" />
-	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/ospos_print.css" media="print"/>
-	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/jquery-ui.css" />
-	<link rel="stylesheet" rev="stylesheet" href="<?=base_url()?>css/notifIt.css" />
+	<link rel="stylesheet" rev="stylesheet" href="css/ospos.css" />
+	<link rel="stylesheet" rev="stylesheet" href="css/ospos_print.css" media="print"/>
+	<link rel="stylesheet" rev="stylesheet" href="css/jquery-ui.css" />
+	<link rel="stylesheet" rev="stylesheet" href="css/notifIt.css" />
 	<script>BASE_URL = '<?=site_url()?>';</script>
-	<script src="<?=base_url()?>js/jquery.switch.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script>window.$$=window.jQueryNew=jQuerySwitch('jq2',jQuery);</script>
+	<script src="js/jquery.switch.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script>window.$$=window.jQueryNew=jQuerySwitch('jQueryNew',jQuery);</script>
 	<!-- jquery new -->
-	<script src="<?=base_url()?>js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
 	<!-- end jquery new -->
-	<script src="<?=base_url()?>js/jquery-1.2.6.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script>window.jQueryOld=jQuerySwitch('jq1',jQuery);</script>
+	<script src="js/jquery-1.2.6.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script>window.jQueryOld=jQuerySwitch('jQueryOld',jQuery);</script>
 	<!-- jquery old -->
-	<script src="<?=base_url()?>js/jquery.formatCurrency.js" type="text/javascript"></script>
-	<script src="<?=base_url()?>js/jquery-ui.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.color.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.metadata.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.form.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.tablesorter.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.ajax_queue.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.bgiframe.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.autocomplete.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/jquery.jkey-1.1.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/common.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/manage_tables.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/swfobject.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/date.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="<?=base_url()?>js/datepicker.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.formatCurrency.js" type="text/javascript"></script>
+	<script src="js/jquery-ui.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.color.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.metadata.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.form.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.tablesorter.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.ajax_queue.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.bgiframe.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.autocomplete.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.jkey-1.1.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/common.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/manage_tables.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/swfobject.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/date.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/datepicker.js" type="text/javascript" charset="UTF-8"></script>
 	<!-- end jquery old -->
 
 <style type="text/css">

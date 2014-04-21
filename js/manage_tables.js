@@ -1,17 +1,49 @@
+(function($,w){
+
 function checkbox_click(event)
 {
 	event.stopPropagation();
 	do_email(enable_email.url);
-	if($(event.target).attr('checked'))
-	{
-		$(event.target).parent().parent().find("td").addClass('selected').css("backgroundColor","");		
-	}
-	else
-	{
-		$(event.target).parent().parent().find("td").removeClass();		
-	}
+	var $target=$(event.target);
+	$target.prop('checked').change();
 }
+w.checkbox_click=checkbox_click;
 
+function enable_select_all()
+{
+	//Keep track of enable_select_all has been called
+	if(!enable_select_all.enabled)
+		enable_select_all.enabled=true;
+	$('#select_all').change(function(){
+		$(".tablesorter tbody :checkbox").prop('checked',this.checked).change();
+	});
+}
+enable_select_all.enabled=false;
+w.enable_select_all=enable_select_all;
+
+function enable_row_selection(rows)
+{
+	//Keep track of enable_row_selection has been called
+	if(!enable_row_selection.enabled)
+		enable_row_selection.enabled=true;
+	if(typeof rows=="undefined")
+		rows=$(".tablesorter tbody tr");
+	rows.click(function row_click(event){
+		var checkbox = $(this).find(":checkbox");
+		checkbox.prop('checked',!checkbox.prop('checked')).change();
+		do_email(enable_email.url);
+	}).find(":checkbox").change(function(){
+		$(this).parents('tr')[this.checked?'addClass':'removeClass']('selected');
+	});
+}
+enable_row_selection.enabled=false;
+w.enable_row_selection=enable_row_selection;
+
+})(jQueryNew,window);
+
+
+jQuerySwitch('jQueryOld');
+//-- jquery old --//
 function enable_search_form(suggest_url,confirm_search_message, activeResult){
 	$('#search').click(function()
     {
@@ -240,79 +272,6 @@ function enable_bulk_edit(none_selected_message)
 	});
 }
 enable_bulk_edit.enabled=false;
-
-function enable_select_all()
-{
-	//Keep track of enable_select_all has been called
-	if(!enable_select_all.enabled)
-		enable_select_all.enabled=true;
-
-	$('#select_all').click(function()
-	{
-		if($(this).attr('checked'))
-		{	
-			$("#sortable_table tbody :checkbox").each(function()
-			{
-				$(this).attr('checked',true);
-				$(this).parent().parent().find("td").addClass('selected').css("backgroundColor","");
-
-			});
-		}
-		else
-		{
-			$("#sortable_table tbody :checkbox").each(function()
-			{
-				$(this).attr('checked',false);
-				$(this).parent().parent().find("td").removeClass();				
-			});    	
-		}
-	 });	
-}
-enable_select_all.enabled=false;
-
-function enable_row_selection(rows)
-{
-	//Keep track of enable_row_selection has been called
-	if(!enable_row_selection.enabled)
-		enable_row_selection.enabled=true;
-	
-	if(typeof rows =="undefined")
-		rows=$("#sortable_table tbody tr");
-	
-	rows.hover(
-		function row_over()
-		{
-			$(this).find("td").addClass('over').css("backgroundColor","");
-			$(this).css("cursor","pointer");
-		},
-		
-		function row_out()
-		{
-			if(!$(this).find("td").hasClass("selected"))
-			{
-				$(this).find("td").removeClass();
-			}
-		}
-	);
-	
-	rows.click(function row_click(event)
-	{	
-
-		var checkbox = $(this).find(":checkbox");
-		checkbox.attr('checked',!checkbox.attr('checked'));
-		do_email(enable_email.url);
-		
-		if(checkbox.attr('checked'))
-		{
-			$(this).find("td").addClass('selected').css("backgroundColor","");
-		}
-		else
-		{
-			$(this).find("td").removeClass();
-		}
-	});
-}
-enable_row_selection.enabled=false;
 
 function update_sortable_table()
 {

@@ -18,18 +18,19 @@ $(document).ready(function(){
 
 //add thickbox to href & area elements that have a class of .thickbox
 function tb_init(domChunk){
-	$(domChunk).click(function(){
-	var t = this.title || this.name || null;
-	var a = this.href || this.alt;
-	var g = this.rel || false;
-	tb_show(t,a,g);
-	this.blur();
-	return false;
-	});
+	if(!tb_init.fn) tb_init.fn=function(){
+		var t = this.title || this.name || null;
+		var a = this.href || this.alt;
+		var g = this.rel || false;
+		tb_show(t,a,g);
+		this.blur();
+		return false;
+	};
+	if($.fn.on)	$(document).off('click',domChunk,tb_init.fn).on('click',domChunk,tb_init.fn);
+	else $(domChunk).click(tb_init.fn);
 }
 
 function tb_show(caption, url, imageGroup) {//function called when the user clicks on a thickbox link
-
 	try {
 		if (typeof document.body.style.maxHeight === "undefined") {//if IE 6
 			$("body","html").css({height: "100%", width: "100%"});
@@ -44,29 +45,23 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 				$("#TB_overlay").click(tb_remove);
 			}
 		}
-
 		if(tb_detectMacXFF()){
 			$("#TB_overlay").addClass("TB_overlayMacFFBGHack");//use png overlay so hide flash
 		}else{
 			$("#TB_overlay").addClass("TB_overlayBG");//use background and opacity
 		}
-
 		if(caption===null){caption="";}
 		$("body").append("<div id='TB_load'><img src='"+imgLoader.src+"' /></div>");//add loader to the page
 		$('#TB_load').show();//show loader
-
 		var baseURL;
 		if(url.indexOf("?")!==-1){ //ff there is a query string involved
 			baseURL = url.substr(0, url.indexOf("?"));
 		}else{
 			baseURL = url;
 		}
-
 		var urlString = /\.jpg$|\.jpeg$|\.png$|\.gif$|\.bmp$/;
 		var urlType = baseURL.toLowerCase().match(urlString);
-
 		if(urlType == '.jpg' || urlType == '.jpeg' || urlType == '.png' || urlType == '.gif' || urlType == '.bmp'){//code to show images
-
 			TB_PrevCaption = "";
 			TB_PrevURL = "";
 			TB_PrevHTML = "";
@@ -95,11 +90,9 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 						}
 				}
 			}
-
 			imgPreloader = new Image();
 			imgPreloader.onload = function(){
 			imgPreloader.onload = null;
-
 			// Resizing large images - orginal by Christian Montoya edited by me.
 			var pagesize = tb_getPageSize();
 			var x = pagesize[0] - 150;
@@ -122,13 +115,10 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 				}
 			}
 			// End Resizing
-
 			TB_WIDTH = imageWidth + 30;
 			TB_HEIGHT = imageHeight + 60;
 			$("#TB_window").append("<a href='' id='TB_ImageOff' title='Close'><img id='TB_Image' src='"+url+"' width='"+imageWidth+"' height='"+imageHeight+"' alt='"+caption+"'/></a>" + "<div id='TB_caption'>"+caption+"<div id='TB_secondLine'>" + TB_imageCount + TB_PrevHTML + TB_NextHTML + "</div></div><div id='TB_closeWindow'><a href='#' id='TB_closeWindowButton' title='Close'>X</a></div>");
-
 			$("#TB_closeWindowButton").click(tb_remove);
-
 			if (!(TB_PrevHTML === "")) {
 				function goPrev(){
 					if($(document).unbind("click",goPrev)){$(document).unbind("click",goPrev);}
@@ -139,7 +129,6 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 				}
 				$("#TB_prev").click(goPrev);
 			}
-
 			if (!(TB_NextHTML === "")) {
 				function goNext(){
 					$("#TB_window").remove();
@@ -149,7 +138,6 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 				}
 				$("#TB_next").click(goNext);
 			}
-
 			document.onkeydown = function(e){
 				if (e == null) { // ie
 					keycode = event.keyCode;
@@ -170,13 +158,11 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 					}
 				}
 			};
-
 			tb_position();
 			$("#TB_load").remove();
 			$("#TB_ImageOff").click(tb_remove);
 			$("#TB_window").css({display:"block"}); //for safari using css instead of show
 			};
-
 			imgPreloader.src = url;
 		}else{//code to show html
 			var params = tb_parseUrl(url);
@@ -185,7 +171,6 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 			TB_HEIGHT = (params['height']*1) + 40 || dims.height*.85;//default to 85% of window height
 			ajaxContentW = TB_WIDTH - 30;
 			ajaxContentH = TB_HEIGHT - 45;
-
 			if(url.indexOf('TB_iframe') != -1){// either iframe or ajax window
 					urlNoQuery = url.split('TB_');
 					$("#TB_iframeContent").remove();
@@ -212,7 +197,6 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 			}
 
 			$("#TB_closeWindowButton").click(tb_remove);
-
 				if(url.indexOf('TB_inline') != -1){
 					$("#TB_ajaxContent").append($('#' + params['inlineId']).children());
 					$("#TB_window").unload(function () {
@@ -235,9 +219,7 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 						$("#TB_window").css({display:"block"});
 					});
 				}
-
 		}
-
 		if(!params['modal']){
 			document.onkeyup = function(e){
 				if (e == null) { // ie
@@ -250,7 +232,6 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 				}	
 			};
 		}
-
 	} catch(e) {
 		//nothing here
 	}
@@ -312,7 +293,6 @@ function tb_parseUrl( url ) {
 		Params[key] = val;
 	}
 	return Params;
-
 }
 
 function tb_getPageSize(){

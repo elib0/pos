@@ -50,22 +50,6 @@ html {
 	display: none;
 }
 
-.server-offline, .server-online{
-	width: 24px;
-	height: 24px;
-	border-radius: 50%;
-	display: inline-block;
-	position: absolute;
-}
-
-.server-online{
-	background-color: #80FF00;
-}
-
-.server-offline{
-	background-color: #FF4242;
-}
-
 #logout_overlay {
 	text-align: center;
 }

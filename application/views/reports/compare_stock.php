@@ -4,7 +4,7 @@
 <div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
 
 <?=form_open('inventories_compare/save', array('id'=>'compare_form'))?>
-<div id="table_holder" style="overflow: scroll;height: 450px; margin-bottom: 0px;">
+<div id="table_holder" style="overflow: scroll;height: 430px; margin-bottom: 0px;">
     <table class="tablesorter report compare-stock" id="sortable_table">
         <thead>
             <tr style="text-align: center;">

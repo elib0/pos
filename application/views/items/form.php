@@ -245,8 +245,8 @@ $(function(){
 		});
 
 		},
-		errorLabelContainer: "#error_message_box",
- 		wrapper: "li",
+		errorLabelContainer:"#error_message_box",
+ 		wrapper:"li",
 		rules:
 		{
 			name:"required",

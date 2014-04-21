@@ -54,7 +54,7 @@ $password_label_attributes = $person_info->person_id == "" ? array('class'=>'req
 	<option value="">Profile type...</option>
 </select>
 <input type="hidden" name="employee_profile_type" />
-<div id="radio" style="margin-top: 10px;"><input type="checkbox"  style="margin-right: 10px;">Ver Permisos</div>
+<div id="radio" style="margin-top: 10px;"><input type="checkbox"  style="margin-right: 10px;">See permissions</div>
 <ul id="permission_list" style="display: none;">
 <?php
 foreach($all_modules->result() as $module)

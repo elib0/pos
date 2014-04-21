@@ -2,6 +2,15 @@
 class Appconfig extends CI_Model 
 {
 	
+	function __construct()
+    {
+        parent::__construct();
+        //Seleccion de DB
+        // $this->session->set_userdata(array('dblocation'=>'other'));
+        $db = $this->session->userdata('dblocation');
+        if($db)
+            $this->db = $this->load->database($db, true);
+    }
 	function exists($key)
 	{
 		$this->db->from('app_config');	
@@ -76,6 +85,26 @@ class Appconfig extends CI_Model
 	{
 		return $this->db->empty_table('app_config'); 
 	}
-}
 
+	function recoverAll($data){
+		$db_debug = $this->db->db_debug;
+		$this->db->db_debug = FALSE;
+		if (is_array($data)){
+			foreach ($data as $key) {
+				if ($key!=''){
+					$this->db->query($key);
+					if ($this->db->_error_number()!=0){
+						$this->db->db_debug = $db_debug;
+						return false;
+					}	
+				} 	
+			}
+			$this->db->db_debug = $db_debug;				
+			return true;	
+		}else{
+			$this->db->db_debug = $db_debug;
+		 	return false;
+		}
+	}
+}
 ?>

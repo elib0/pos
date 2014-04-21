@@ -61,10 +61,10 @@ function post_giftcard_form_submit(response)
 	<div id="new_button">
 
 		<?php
-		if($this->Employee->has_privilege('add', $controller_name)){
+		if($this->Employee->has_privilege('add',$controller_name)){
 			echo anchor("$controller_name/view/-1/width:$form_width",
-			"<div class='big_button' style='float: left;'><span>".$this->lang->line($controller_name.'_new')."</span></div>",
-			array('class'=>'thickbox none','title'=>$this->lang->line($controller_name.'_new')));	
+				"<span>".$this->lang->line($controller_name.'_new')."</span>",
+				array('title'=>$this->lang->line($controller_name.'_new'),'class'=>'big_button thickbox','style'=>'float:left;'));
 		} 
 		
 		?>
@@ -75,9 +75,7 @@ function post_giftcard_form_submit(response)
 	<ul>
 		<?php if($this->Employee->has_privilege('delete', $controller_name)):  ?>
 		<li class="float_left">
-			<span>
-			<?php echo anchor("$controller_name/delete",$this->lang->line("common_delete"),array('id'=>'delete')); ?>
-			</span>
+			<?=anchor("$controller_name/delete",'<span>'.$this->lang->line("common_delete").'</span>',array('id'=>'delete'))?>
 		</li>
 		<?php endif; ?>
 		<li class="float_right">
@@ -90,7 +88,7 @@ function post_giftcard_form_submit(response)
 </div>
 
 <div id="table_holder">
-<?php echo $manage_table; ?>
+<?=$manage_table?>
 </div>
 <div id="feedback_bar"></div>
 <?php $this->load->view("partial/footer"); ?>

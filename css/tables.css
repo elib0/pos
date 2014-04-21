@@ -129,15 +129,21 @@ table.tablesorter tbody td
 	border-bottom:1px solid #ddd;
 }
 
-table.tablesorter tbody td.over
+table.tablesorter tbody tr:hover > td
 {
 	background-color:hsl(208,45%,82%);
 }
 
-table.tablesorter tbody td.selected
+table.tablesorter tbody tr.selected > td
 {
 	background-color:#8bd;
 }
+
+table.tablesorter tbody tr.selected:hover > td
+{
+	background-color:hsl(208,50%,65%);
+}
+
 
 table.tablesorter thead tr .headerSortUp
 {
@@ -188,9 +194,12 @@ table.tablesorter tbody tr.hide > td > table.innertable
 table.tablesorter tbody tr.locked > td{
 	background:#eee;
 }
-table.tablesorter tbody tr.locked > td.over{
-	background:#edf;
+table.tablesorter tbody tr.locked:hover > td{
+	background:#dce;
 }
-table.tablesorter tbody tr.locked > td.over.selected{
+table.tablesorter tbody tr.locked.selected > td{
 	background:#a9e;
+}
+table.tablesorter tbody tr.locked.selected:hover > td{
+	background:#97f;
 }

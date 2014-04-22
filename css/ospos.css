@@ -45,7 +45,6 @@ a.none
 	text-decoration:none;
 }
 
-<<<<<<< HEAD
 /*tooltip*/
 .tooltip {
 	display:none;
@@ -59,9 +58,6 @@ a.none
 	z-index: 9999999999999999;
 }
 
-
-=======
->>>>>>> 06d4673dfd0d2c6c67f321b0c2da65cbcabb301e
 #content_area_wrapper
 {
 	position:relative;

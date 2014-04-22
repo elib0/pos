@@ -20,13 +20,14 @@ class Inventory_compare extends CI_Model
         return array($lang['reports_item_id'] = 'Id', $this->lang->line('reports_item'), $lang['reports_item_in_stock'] = 'In Stock', $lang['reports_comment_item'] = 'Comment', $lang['reports_checked'] = 'Checked');
     }
 
-    public function getData()
+    public function getData($where='')
     {
         $this->con->select('item_id, name, sum(quantity) as quantity');
         $this->con->from('items');
         // $this->con->join('items', 'sales_items_temp.item_id = items.item_id');
         $this->con->where('quantity > 0');
         $this->con->where('deleted = 0');
+        if ($where!='') $this->con->where('item_id '.$where);
         $this->con->group_by('item_id');
         $this->con->order_by('quantity DESC');
 

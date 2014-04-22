@@ -36,4 +36,5 @@ $lang['config_backup_notxt'] = 'Sorry, the file format you income is not allowed
 $lang['config_recover_error_file'] = 'Excuse me, but there was an error in running the file, make sure the file is correct, remember that an error in this process can seriously affect system operation.';
 $lang['config_recover_reload_after'] = 'Please wait while the changes are checked.';
 $lang['config_recover_exit_file'] = 'Recovery was performed successfully.';
+$lang['config_backup_auto_file'] = 'System';
 ?>

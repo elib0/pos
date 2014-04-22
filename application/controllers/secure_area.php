@@ -26,12 +26,22 @@ class Secure_area extends CI_Controller
 		        }
 			}
 		}
-		
+		//Modelos a utilizar
+		$this->load->model('reports/Inventory_low');
+		$this->load->model('receiving');
 		
 		//load up global data
 		$logged_in_employee_info=$this->Employee->get_logged_in_employee_info();
 		$data['allowed_modules']=$this->Module->get_allowed_modules($logged_in_employee_info->person_id);
 		$data['user_info']=$logged_in_employee_info;
+
+		//Notificaciones
+		$data['notifications']['inventory_low']['url']= 'reports/inventory_low/0/';
+		$data['notifications']['inventory_low']['data']= $this->Inventory_low->getData(array());
+		$data['notifications']['shippings']['url'] = 'receivings';
+		$data['notifications']['shippings']['data'] = $this->Receiving->get_all_shippings();
+
+		//Carga de variables
 		$this->load->vars($data);
 	}
 }

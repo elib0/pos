@@ -13,7 +13,7 @@ class Backup extends Secure_area {
 			$this->load->view('config/backup', $data);
 		}
 	}
-	function confirm($cover='-1',$file=''){
+	function confirm($cover='-1',$file='',$getS=''){
 		$username = $this->Employee->get_logged_in_employee_info()->username;
 		$password = $this->input->post("password");
 		if(!$this->Employee->login($username,$password) && $cover!='-5'){
@@ -27,13 +27,14 @@ class Backup extends Secure_area {
 					echo json_encode(array('success'=>true,'message'=>$this->lang->line('config_backup_s')));
 				}
 			}elseif($cover=='-5'){
+				$auto=(isset($getS) && $getS!='')?'['.$this->lang->line('config_backup_auto_file').']':'';
 				$bd=$this->session->userdata('dblocation');
 				$this->load->helper('download');
-				$data=&file_get_contents("file-bakups/".$bd.' '.$file.".sql"); 
+				$data=&file_get_contents("file-bakups/".$bd.' '.$file.$auto.".sql"); 
 				force_download('backup.sql',$data);
 				redirect('config');
 			}elseif($cover=='-7'){
-				$this->ejecuteBackup();
+				$this->ejecuteBackup(true);
 				$ched=$this->input->post('recover-backup');
 				$mod='';
 				if ($ched){
@@ -88,7 +89,7 @@ class Backup extends Secure_area {
 		$data=preg_replace("/;\r?\n/", ";#;;;", $data);
 		return $data;
 	}
-	function ejecuteBackup(){
+	function ejecuteBackup($x=false){
 		// Carga la clase de utilidades de base de datos
 		$this->load->dbutil();
 		// Crea una copia de seguridad de toda la base de datos y la asigna a una variable
@@ -98,10 +99,10 @@ class Backup extends Secure_area {
 		// Carga el asistente de archivos y escribe el archivo en su servidor
 		$this->load->helper('file');
 		// echo $_SERVER['SERVER_NAME'];
-		if (file_exists('file-bakups/'.$bd.' '.$date.'.sql')){
-			return false;
-		}else{
-			write_file('file-bakups/'.$bd.' '.$date.'.sql', $file);	
+		if (file_exists('file-bakups/'.$bd.' '.$date.'.sql')){ return false; }
+		else{
+			$auto=$x?'['.$this->lang->line('config_backup_auto_file').']':'';
+			write_file('file-bakups/'.$bd.' '.$date.$auto.'.sql', $file);	
 			return true;
 		}
 	}

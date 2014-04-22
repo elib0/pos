@@ -191,8 +191,11 @@ $(document).ready(function(){
 	});
 	$('#dow').click(function() {
 		if ($('#radio input').is(':checked')){
-			var dir=(window.location+'').split('index.php');
-			window.location=dir[0]+'index.php/backup/confirm/-5'+'/'+$('input[name="list-back"]:checked').val();
+			var dir=(window.location+'').split('index.php'),filename=$('input[name="list-back"]:checked').val();
+			if (filename.indexOf('[')!=-1){
+				filename=filename.replace('[<?php echo $this->lang->line("config_backup_auto_file"); ?>]',"")+"/1";
+			}
+			window.location=dir[0]+'index.php/backup/confirm/-5'+'/'+filename;
 		}
 	});
 	$('#datab').change(function() {

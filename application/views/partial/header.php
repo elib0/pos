@@ -101,6 +101,13 @@ html {
 		$people = $this->Employee->get_all();
 	?>
 	<div class="container-menus">
+		<nav id="notifications">
+			<?php foreach ($notifications as $notification => $data): ?>
+				<div class="notification-<?php echo $notification ?>">
+				<?=anchor($data['url'],count($data['data']))?>
+				</div>
+			<?php endforeach ?>
+		</nav>
 		<nav id="menu_changelocation">
 			<span>User:</span><?=' '.$user_info->first_name.' '.$user_info->last_name; ?>
 		</nav>

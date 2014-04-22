@@ -291,7 +291,7 @@ function get_giftcard_data_row($giftcard,$controller)
 	$table_data_row.='<td width="20%">'.to_currency($giftcard->value).'</td>';
 	$table_data_row .= '<td width="5%">';
 	if($CI->Employee->has_privilege('update', $controller_name)){
-		$table_data_row.=anchor("$controller_name/view/$giftcard->giftcard_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button','title'=>$CI->lang->line($controller_name.'_update')));
+		$table_data_row.=anchor("$controller_name/view/$giftcard->giftcard_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update')));
 	}
 	$table_data_row .= '</td>';
 

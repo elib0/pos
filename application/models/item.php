@@ -255,6 +255,7 @@ class Item extends CI_Model
 
 		$this->con->from('items');
 		$this->con->where('deleted',0);
+		$this->con->where('item_id >',0);
 		$this->con->like('name', $search);
 		$this->con->order_by("name", "asc");
 		$this->con->limit($limit);
@@ -266,6 +267,7 @@ class Item extends CI_Model
 
 		$this->con->from('items');
 		$this->con->where('deleted',0);
+		$this->con->where('item_id >',0);
 		$this->con->like('item_number', $search);
 		$this->con->order_by("item_number", "asc");
 		$this->con->limit($limit);

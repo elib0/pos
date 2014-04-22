@@ -16,7 +16,7 @@
 }
 
 body,html{
-	min-width: 1024px;
+	min-width: 975px;
 }
 
 body
@@ -45,6 +45,7 @@ a.none
 	text-decoration:none;
 }
 
+<<<<<<< HEAD
 /*tooltip*/
 .tooltip {
 	display:none;
@@ -59,6 +60,8 @@ a.none
 }
 
 
+=======
+>>>>>>> 06d4673dfd0d2c6c67f321b0c2da65cbcabb301e
 #content_area_wrapper
 {
 	position:relative;
@@ -80,9 +83,9 @@ a.none
 #content_area
 {
 	position:relative;
-	margin:70px auto;
 	width:875px;
 	text-align:left;
+	margin:auto;
 
 }
 
@@ -114,7 +117,6 @@ a.none
 
 #page_title
 {
-	margin-top:8px;
 	text-align:left;
 	font-weight:bold;
 	font-size:25px;

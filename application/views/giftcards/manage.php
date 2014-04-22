@@ -57,17 +57,9 @@ function post_giftcard_form_submit(response)
 
 </script>
 <div id="title_bar">
-	<div id="title" class="float_left"><?php echo $this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name); ?></div>
+	<div id="title" class="float_left"><?=$this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name)?></div>
 	<div id="new_button">
-
-		<?php
-		if($this->Employee->has_privilege('add',$controller_name)){
-			echo anchor("$controller_name/view/-1/width:$form_width",
-				"<span>".$this->lang->line($controller_name.'_new')."</span>",
-				array('title'=>$this->lang->line($controller_name.'_new'),'class'=>'big_button thickbox','style'=>'float:left;'));
-		} 
-		
-		?>
+		<?=$this->Employee->has_privilege('add',$controller_name)?anchor("$controller_name/view/-1/width:$form_width","<span>".$this->lang->line($controller_name.'_new')."</span>",array('title'=>$this->lang->line($controller_name.'_new'),'class'=>'big_button thickbox','style'=>'float:left;')):''?>
 	</div>
 </div>
 <?php echo $this->pagination->create_links();?>
@@ -79,8 +71,8 @@ function post_giftcard_form_submit(response)
 		</li>
 		<?php endif; ?>
 		<li class="float_right">
-		<img src='<?php echo base_url()?>images/spinner_small.gif' alt='spinner' id='spinner' />
-		<?php echo form_open("$controller_name/search",array('id'=>'search_form')); ?>
+		<img src='images/spinner_small.gif' alt='spinner' id='spinner' />
+		<?=form_open("$controller_name/search",array('id'=>'search_form'))?>
 		<input type="text" name ='search' id='search' placeholder="Search ..."  style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #CCC " />
 		</form>
 		</li>

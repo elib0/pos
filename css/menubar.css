@@ -261,7 +261,17 @@ nav#notifications div a{
 	background-color: #A6D1A1;
 }
 
-@media screen and (max-width:1180px){
+#content_area_wrapper {
+	margin-left: 165px;
+	margin-top: 65px;
+	width:auto;
+}
+
+@media screen and (max-width:1100px){
+	#content_area_wrapper {
+		margin-left: 80px;
+	}
+
 	nav.main-menu a, nav.main-menu a:active, nav.main-menu a:visited{
 		color: hsl(0, 0%, 0%) !important;
 		text-decoration: none !important;
@@ -289,7 +299,7 @@ nav#notifications div a{
   
 }
 
-@media screen and (max-width:1080px){
+@media screen and (max-width:1120px){
 	#menubar_date{
 		display: none;
 	}

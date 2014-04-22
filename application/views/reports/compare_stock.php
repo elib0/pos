@@ -9,8 +9,6 @@
         <thead>
             <tr style="text-align: center;">
                 <?php 
-                    $size = count($headers);
-                    $i = 0;
                     foreach ($headers as $header) { 
                         switch ($header) {
                             case 'Id': $style = ' style=" border-top-left-radius:5px;-webkit-border-top-left-radius:5px; width:5%; padding: 5px" '; 
@@ -26,7 +24,7 @@
                         }
                 ?>
                 <th <?php echo $style; ?> ><?php echo $header; ?></th>
-                <?php $i++; } ?>
+                <?php } ?>
             </tr>
         </thead>
         <tbody>
@@ -55,11 +53,10 @@
         <div class="big_button" style="float: left; margin-left: 5px"><span>Send to Administrator</span></div>
     </a>
 </div>
-<?=form_close()?>
-<?php $this->load->view("partial/footer"); ?>
+<?=form_close()
+$this->load->view("partial/footer"); ?>
 <script>
     $(document).ready(function() {
-        $('#menubar_navigation').css('display','none');
         $('input[type=checkbox]').change(function(){
             var id = $(this).attr('id');
             id = id.slice(5, id.length);
@@ -74,18 +71,18 @@
             window.print();
             return false;
         });
-        $('#menu_changelocation ul,#menu_changeuser,#btnLogout').remove();
+        $('nav.main-menu,#menu_location ul,#menu_changeuser,#menu_logout').remove();
         $('#btnSendToAdmin').click(function(){
             var array=$('#sortable_table input[type="text"]'),coment='';
             array.each(function(index) {
                  if ($(this).val()!='' && $(this).val()!='no comments'){ 
-                    coment+='<li>'+$(this).attr('name').replace("comment","")+' - '+$(this).val()+'</li>';
+                    coment+='<li>'+$(this).attr('name').replace("comment","")+' -|- '+$(this).val()+'</li>';
                 }
             });
             $.ajax({
                     url: $(this).attr('href'),
                     type: 'POST',
-                    data: {'report': $('#sortable_table').html(),'obs':coment},
+                    data: {'obs':coment},
                     dataType: 'json',
                     success: function (data) {
                         console.log(data);
@@ -93,7 +90,8 @@
                         if (data['status'] == 1){
                             $('#menubar_navigation').css('display','block');
                             type_msg='success';
-                        } 
+                        }
+                        // $('#odioodio').html(data['email']);
                         notif({
                             type: type_msg,
                             msg: data['msg'],
@@ -101,9 +99,8 @@
                             height: 100,
                             position: "center"
                         });
-                        if (data['status'] == 1){
-                            window.location=((window.location+'').replace("inventories_compare","")+'home');
-                        } 
+                        setTimeout(function(){ location.reload(); },1500);
+                        
                     }
                 });
             return false;

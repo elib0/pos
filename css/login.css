@@ -1,25 +1,25 @@
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
 
 h1{
-	font-family: 'Fjalla One', sans-serif;
 	color: #FFF;
 	text-shadow:
    -1px -1px 0 #000,
     1px -1px 0 #000,
     -1px 1px 0 #000,
      1px 1px 0 #000;
+	font-family: 'Fjalla One', sans-serif;
 }
 body
 {
-	text-align:center;
 	background: url(../images/background.png);
+	text-align:center;
 }
 #container
 {
 	position:relative;
-	margin-left:auto;
-	margin-right:auto;
 	margin-top:20px;
+	margin-right:auto;
+	margin-left:auto;
 	width:360px;
 
 }
@@ -27,58 +27,58 @@ body
 #top
 {
 	position:relative;
+	padding:2px;
 	width:100%;
 	height:20px;
-	padding:2px;
-	background-color:#CCC;
-	text-align:center;
-	font-family:Verdana;
-	color:white;
-	font-size:12pt;
-	-webkit-border-top-left-radius:5px;
-	-webkit-border-top-right-radius:5px;
-	border-top-left-radius:5px;
-	border-top-right-radius:5px;
 	border: 1px solid #CCC;
+	-webkit-border-top-left-radius:5px;
+	border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	border-top-right-radius:5px;
+	background-color:#CCC;
+	color:white;
+	text-align:center;
+	font-size:12pt;
+	font-family:Verdana;
 }
 
 #login_form
 {
 	position:relative;
+	padding:2px;
 	width:100%;
 	height:150px;
-	padding:2px;
-	font-family:Verdana;
-	color:white;
-	font-size:10pt;
-	background-color:#fafafa;
-	-webkit-border-bottom-right-radius:5px;
-	-webkit-border-bottom-left-radius:5px;
-	border-bottom-right-radius:5px;
-	border-bottom-left-radius:5px;
 	border: 1px solid #CCC;
 	border-top: none;
+	-webkit-border-bottom-right-radius:5px;
+	border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	border-bottom-left-radius:5px;
+	background-color:#fafafa;
+	color:white;
+	font-size:10pt;
+	font-family:Verdana;
 }
 
 #welcome_message
 {
-	text-align:center;
 	margin-top:10px;
 	margin-bottom:20px;
+	text-align:center;
 }
 
 .error
 {
 	margin:0 auto;
-	border:3px solid #d3153b;
-	background-color:#fbe6f2;
+	margin-bottom:20px;
 	padding:5px;
 	width:80%;
-	text-align:center;
-	font-size:14px;
-	margin-bottom:20px;
+	border:3px solid #d3153b;
 	-webkit-border-radius:5px;
 	border-radius:5px;
+	background-color:#fbe6f2;
+	text-align:center;
+	font-size:14px;
 
 }
 
@@ -87,8 +87,8 @@ body
 	float:left;
 	margin-left:20px;
 	width:30%;
-	font-size: 1.0em;
-	color: #666;;
+	color: #666;
+	font-size: 1.0em;;
 }
 
 .form_field
@@ -106,28 +106,25 @@ body
 
 input[type=text],input[type=password]
 {
-	font-family:Arial;
 	height: 1.5em;
+	border:1px solid #ccc;
 	-webkit-border-radius:5px;
 	border-radius:5px;
-	border:1px solid #ccc;
 	background-color:#FFF;
+	font-family:Arial;
 }
 
 .form-row{
-	height: 20px;
-	padding: 5px 0 5px 0;
 	margin: 0;
+	padding: 5px 0 5px 0;
+	height: 20px;
 }
 
 .form-button{
-	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
-	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
-	background-color:#ededed;
+	display:inline-block;
+	width:100px;
+	height:30px;
+	border:1px solid #dcdcdc;
 	-webkit-border-top-left-radius:6px;
 	-moz-border-radius-topleft:6px;
 	border-top-left-radius:6px;
@@ -140,28 +137,31 @@ input[type=text],input[type=password]
 	-webkit-border-bottom-left-radius:6px;
 	-moz-border-radius-bottomleft:6px;
 	border-bottom-left-radius:6px;
-	text-indent:0;
-	border:1px solid #dcdcdc;
-	display:inline-block;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	background-color:#ededed;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
 	color:#396B98;
-	font-family:arial;
-	font-size:13px;
+	text-align:center;
+	text-decoration:none;
+	text-indent:0;
+	text-shadow:1px 1px 0px #ffffff;
 	font-weight:bold;
 	font-style:normal;
-	height:30px;
+	font-size:13px;
+	font-family:arial;
 	line-height:25px;
-	width:100px;
-	text-decoration:none;
-	text-align:center;
-	text-shadow:1px 1px 0px #ffffff;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
 	cursor: pointer;
 }
 
 .form-button:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 	background-color:#dfdfdf;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 }.form-button:active {
 	position:relative;
 	top:1px;
@@ -172,41 +172,41 @@ input[type=text],input[type=password]
 
 .clearfix:after
 {
-	content: ".";
 	display: block;
-	clear: both;
 	visibility: hidden;
-	line-height: 0;
+	clear: both;
 	height: 0;
+	content: ".";
+	line-height: 0;
 }
 .clearfix { display: inline-block; }
 
 
 .box-login{
-	border: 1px solid #CCC;
 	margin:20px auto 0 auto; 
 	width:350px;
+	border: 1px solid #CCC;
 	-webkit-border-radius: 5px; 
 	-moz-border-radius: 5px; 
 	border-radius: 5px;
+  	background-color: #FFF;
 	-webkit-box-shadow: 0 0 10px #000;
   	box-shadow: 0 0 10px #000;
-  	background-color: #FFF;
 }
 
 .box-title{
-	font-size: 14px;
-	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 	margin: 5px 0 5px 0;
 	padding: 10px;
-	text-align: justify;
 	border-bottom: 1px solid #f4f4f4;
+	text-align: justify;
+	font-size: 14px;
+	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 }
 
 .box-table{
+	margin: 5px 0;
 	font-size: 14px;
 	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-	margin: 5px 0;
 }
 
 .box-table td{
@@ -214,13 +214,13 @@ input[type=text],input[type=password]
 }
 
 .box-bkg-label-location{
-	background-color: #f4f4f4;
 	-webkit-border-top-left-radius:5px;
 	-webkit-border-top-right-radius:5px;
-	font-size: 14px;
+	background-color: #f4f4f4;
 	color: #666;
-	font-variant: bold;
 	text-align: left;
+	font-variant: bold;
+	font-size: 14px;
 	/*-webkit-border-bottom-right-radius:5px;
 	-webkit-border-bottom-left-radius:5px;
 	border-top-left-radius:0;
@@ -230,9 +230,9 @@ input[type=text],input[type=password]
 }
 
 .box-bkg-drop-location{
-	background-color: #f4f4f4;
-	-webkit-border-bottom-left-radius:5px;
 	-webkit-border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:5px;
+	background-color: #f4f4f4;
 	text-align: left;
 }
 
@@ -241,50 +241,50 @@ input[type=text],input[type=password]
 }
 
 .icon-user{
-	background-color: #f4f4f4;
-	webkit-top-left-radius:5px;
-	-webkit-top-left-radius:5px;
+	width: 30px;
 	border-top-left-radius:5px;
 	border-bottom-left-radius:5px;
+	background-color: #f4f4f4;
 	background-image: url('../images/login/user.png');
-	background-repeat: no-repeat;
 	background-position: center;
-	width: 30px;
+	background-repeat: no-repeat;
+	webkit-top-left-radius:5px;
+	-webkit-top-left-radius:5px;
 }
 
 .bkg-input-login{
+	padding: 0;
+	border: 1px solid #f4f4f4;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
 	background-color: #fff;
 	webkit-top-right-radius:5px;
 	-webkit-top-right-radius:5px;
-	border-top-right-radius:5px;
-	border-bottom-right-radius:5px;
-	border: 1px solid #f4f4f4;
-	padding: 0;
 }
 
 .bkg-input-login input{
-	background-color: #FFF;
-	-webkit-border-bottom-right-radius:5px;
-	-webkit-border-bottom-left-radius:0;
-	border-top-left-radius:0;
-	border-top-right-radius:5px;
-	border-bottom-right-radius:5px;
-	border-bottom-left-radius:0;
-	height: 20px;
 	float: left;
 	width: 100%;
+	height: 20px;
 	border: 1px solid #FFF;
+	border-top-left-radius:0;
+	border-top-right-radius:5px;
+	-webkit-border-bottom-right-radius:5px;
+	border-bottom-right-radius:5px;
+	-webkit-border-bottom-left-radius:0;
+	border-bottom-left-radius:0;
+	background-color: #FFF;
 }
 
 .icon-lock{
-	background-color: #f4f4f4;
-	webkit-top-left-radius:5px;
-	-webkit-top-left-radius:5px;
+	width: 30px;
 	border-top-left-radius:5px;
 	border-bottom-left-radius:5px;
+	background-color: #f4f4f4;
 	background-image: url('../images/login/lock.png');
-	background-repeat: no-repeat;
 	background-position: center;
-	width: 30px;
+	background-repeat: no-repeat;
+	webkit-top-left-radius:5px;
+	-webkit-top-left-radius:5px;
 }
 

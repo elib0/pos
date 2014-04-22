@@ -1,9 +1,30 @@
 $(document).ready(function() {
 	$('.linkBack').click(function(){
-		console.log('gustavo gay ');
 	    history.back(1);
 	    return false;
 	});
+
+	//All Title attributes
+	$('a').hover(function(){
+            // Hover over code
+            var title = $(this).attr('title');
+            if (title) {
+            	$(this).data('tipText', title).removeAttr('title');
+	            $('<p class="tooltip"></p>')
+	            .text(title)
+	            .appendTo('body')
+	            .fadeIn('slow');
+            };
+    }, function() {
+            // Hover out code
+            $(this).attr('title', $(this).data('tipText'));
+            $('.tooltip').remove();
+    }).mousemove(function(e) {
+            var mousex = e.pageX + 20; //Get X coordinates
+            var mousey = e.pageY + 10; //Get Y coordinates
+            $('.tooltip')
+            .css({ top: mousey, left: mousex })
+    });
 });
 
 function get_dimensions() 

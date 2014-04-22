@@ -104,7 +104,7 @@ html {
 		<nav id="notifications">
 			<?php foreach ($notifications as $notification => $data): ?>
 				<div class="notification-<?php echo $notification ?>">
-				<?=anchor($data['url'],count($data['data']))?>
+				<?=anchor($data['url'],count($data['data']), 'title="'.$data['title'].'"')?>
 				</div>
 			<?php endforeach ?>
 		</nav>

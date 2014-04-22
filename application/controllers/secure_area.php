@@ -13,6 +13,12 @@ class Secure_area extends CI_Controller
 		{
 			redirect('login');
 		}
+
+		//Verificar cambio de location
+		if (!$this->session->userdata('dblocation')){
+			// $location = $this->session->userdata('dblocation');
+			$this->session->set_userdata('dblocation', 'default');
+		}
 		
 		if($module_id != 'invetories_compare' && $module_id != 'share_inventories'){
 			if(!$this->Employee->has_permission($module_id,$this->Employee->get_logged_in_employee_info()->person_id))
@@ -37,8 +43,10 @@ class Secure_area extends CI_Controller
 
 		//Notificaciones
 		$data['notifications']['inventory_low']['url']= 'reports/inventory_low/0/';
+		$data['notifications']['inventory_low']['title']= 'Number products with low stock!';
 		$data['notifications']['inventory_low']['data']= $this->Inventory_low->getData(array());
 		$data['notifications']['shippings']['url'] = 'receivings';
+		$data['notifications']['shippings']['title'] = 'Delivery to receive';
 		$data['notifications']['shippings']['data'] = $this->Receiving->get_all_shippings();
 
 		//Carga de variables

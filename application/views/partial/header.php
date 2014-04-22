@@ -14,8 +14,10 @@
 	<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.$$=window.jQueryNew=jQuerySwitch('jQueryNew',jQuery);</script>
 	<!-- jquery new -->
+	<script src="js/jquery.form.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
 	<!-- end jquery new -->
 	<script src="js/jquery-1.2.6.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.jQueryOld=jQuerySwitch('jQueryOld',jQuery);</script>
@@ -24,12 +26,12 @@
 	<script src="js/jquery-ui.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.color.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.metadata.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="js/jquery.form.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.form.old.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.tablesorter.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.ajax_queue.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.bgiframe.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.autocomplete.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/jquery.validate.min.old.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.jkey-1.1.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/common.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/manage_tables.js" type="text/javascript" charset="UTF-8"></script>

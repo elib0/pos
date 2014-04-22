@@ -42,7 +42,6 @@ w.enable_row_selection=enable_row_selection;
 })(jQueryNew,window);
 
 
-jQuerySwitch('jQueryOld');
 //-- jquery old --//
 function enable_search_form(suggest_url,confirm_search_message, activeResult){
 	$('#search').click(function()
@@ -99,7 +98,7 @@ function enable_search(suggest_url,confirm_search_message, activeResult)
 
 	$('#search').click(function()
     {
-    	$(this).attr('value','');
+    	this.value='';
     });
 
     $("#search").autocomplete(suggest_url,{max:100,delay:10, selectFirst: false});

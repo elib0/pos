@@ -90,7 +90,13 @@ html {
 </nav>
 
 <nav class="user">
-	<a class="logo" href="index.php"><img src="images/<?=file_exists('images/'.$this->Appconfig->get('logo'))?$this->Appconfig->get('logo'):'logo.png'?>" border="0"/><?php //echo $this->config->item('company'); ?></a>
+	<div class="logo">
+		<a href="index.php"><img src="images/<?=file_exists('images/'.$this->Appconfig->get('logo'))?$this->Appconfig->get('logo'):'logo.png'?>" border="0"/><?php //echo $this->config->item('company'); ?></a>
+	</div>
+	<div id="menubar_date">
+		<?=date('F d, Y')?>
+		<span></span>
+	</div>
 	<?php
 		include('application/config/database.php');
 		$dbs = array();
@@ -141,10 +147,6 @@ html {
 		<nav id="menu_logout">
 			<a href="index.php/cajas" rel="#logout_overlay " id="btnLogout"><?php echo $this->lang->line("common_logout") ?></a>
 		</nav>
-	</div>
-	<div id="menubar_date">
-		<?=date('F d, Y')?>
-		<span></span>
 	</div>
 </nav>
 <div id="overlay_cash">

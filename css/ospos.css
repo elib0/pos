@@ -11,12 +11,12 @@
 @import url(editsale.css);
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
 
-:focus{
-	outline: transparent;
+body,html{
+	min-width: 983px;
 }
 
-body,html{
-	min-width: 975px;
+:focus{
+	outline: transparent;
 }
 
 body
@@ -205,9 +205,10 @@ a.none
 #footer
 {
 	position:fixed;
-	bottom: 0;
+	bottom:0;
 	padding:1.5em;
 	width:99%;
+	min-width:975px;
 	border-top:1px solid #CCC;
 	background-color:#f4f4f4;
 	color:#000;

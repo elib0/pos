@@ -7,8 +7,8 @@ nav.user{
 	padding:4px;
 	min-width:975px;
 	z-index:50000;
-	background-color:hsl(0, 0%, 20%);
-	color:hsl(0, 0%, 100%);
+	background-color:hsl(0,0%,20%);
+	color:hsl(0,0%,100%);
 	text-align:center;
 }
 
@@ -19,7 +19,7 @@ nav.user > div.container-menus{
 nav.user > div.container-menus > nav{
 	display:inline-block;
 	padding:10px 25px;
-	border-right:1px solid hsl(0, 0%, 30%);
+	border-right:1px solid hsl(0,0%,30%);
 }
 
 nav.user > div.container-menus > nav:last-child{
@@ -44,7 +44,7 @@ nav.user > div.container-menus > nav:last-child{
 	padding-left:25px;
 	width:100px;
 	background:transparent url(../images/menubar/clock.png) no-repeat left center;
-	color:hsl(0, 0%, 100%);
+	color:hsl(0,0%,100%);
 	font-size:10pt;
 }
 
@@ -52,7 +52,7 @@ nav.user > div.container-menus > nav:last-child{
 	display:inline-block;
 }
 
-#menu_changelocation, #menu_logout,#menubar_date, #menu_changeuser,#menu_location{
+#menu_changelocation,#menu_logout,#menubar_date,#menu_changeuser,#menu_location{
 	-webkit-background-size:20px auto !important;
 	background-size:20px auto !important;
 }
@@ -72,14 +72,14 @@ nav.user > div.container-menus > nav:last-child{
 	background:transparent url(../images/menubar/logout.png) no-repeat left center;
 }
 
-#menu_changelocation > span, #menu_location > span > span{
-	color:hsl(240, 1%, 32%);
+#menu_changelocation > span,#menu_location > span > span{
+	color:hsl(240,1%,32%);
 	font-weight:bold;
 }
 
 #menu_logout a:not(.big_button):not(.small_button)
 {
-	color:hsl(0, 0%, 100%);
+	color:hsl(0,0%,100%);
 }
 
 .alternative-menu,.alternative-menu > span{
@@ -97,13 +97,13 @@ nav.user > div.container-menus > nav:last-child{
 	z-index:30;
 	margin-left:-8px;
 	width:0; height:0;
-	border-top:8px solid hsl(240, 1%, 32%);
+	border-top:8px solid hsl(240,1%,32%);
 	border-right:8px solid transparent;
 	border-left:8px solid transparent;
 	content:'';
 }
 
-.alternative-menu > ul, .alternative-menu > span > ul{
+.alternative-menu > ul,.alternative-menu > span > ul{
 	position:absolute;
 	right:-50px;
 	left:-55px;
@@ -116,27 +116,27 @@ nav.user > div.container-menus > nav:last-child{
 	list-style:none;
 }
 
-.alternative-menu:hover > ul, .alternative-menu:hover > span > ul{
+.alternative-menu:hover > ul,.alternative-menu:hover > span > ul{
 	display:block;
 	-webkit-box-shadow:1px 1px 8px #000;
 	-moz-box-shadow:1px 1px 8px #000;
 	box-shadow:1px 1px 8px #000;
 }
 
-.alternative-menu > ul > li, .alternative-menu > span > ul > li{
+.alternative-menu > ul > li,.alternative-menu > span > ul > li{
 	margin:0px;
 	padding:0.6em;
-	border-bottom:1px solid hsl(0, 0%, 80%);
+	border-bottom:1px solid hsl(0,0%,80%);
 	background-color:#fff;
 }
 
-.alternative-menu > ul > li:hover, .alternative-menu > span > ul > li:hover{
+.alternative-menu > ul > li:hover,.alternative-menu > span > ul > li:hover{
 	background:-webkit-gradient(linear,left top,left bottom,color-stop(0.05,hsl(0,0%,93%)),color-stop(1,hsl(0,0%,87%)));
 	background:-moz-linear-gradient(center top,hsl(0,0%,93%) 5%,hsl(0,0%,87%) 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='hsl(0,0%,93%)',endColorstr='hsl(0,0%,87%)');
 }
 
-.alternative-menu > ul > li a, .alternative-menu > span > ul > li a{
+.alternative-menu > ul > li a,.alternative-menu > span > ul > li a{
 	display:block;
 	width:100%;
 	height:100%;
@@ -173,10 +173,10 @@ nav.main-menu{
 	top:55px;
 	z-index:9999;
 	height:100%;
-	background-color:hsl(0, 0%, 100%);
-	-webkit-box-shadow:-1px 0px 8px hsl(0, 0%, 60%) inset;
-	-moz-box-shadow:-1px 0px 8px hsl(0, 0%, 60%) inset;
-	box-shadow:-1px 0px 8px hsl(0, 0%, 60%) inset;
+	background-color:hsl(0,0%,100%);
+	-webkit-box-shadow:-1px 0px 8px hsl(0,0%,60%) inset;
+	-moz-box-shadow:-1px 0px 8px hsl(0,0%,60%) inset;
+	box-shadow:-1px 0px 8px hsl(0,0%,60%) inset;
 	font-weight:bold;
 }
 
@@ -188,7 +188,7 @@ nav.main-menu > ul > li{
 	float:none;
 	padding:2px;
 	height:100%;
-	border-bottom:1px solid hsl(0, 0%, 80%);
+	border-bottom:1px solid hsl(0,0%,80%);
 	text-align:center;
 	font-size:8pt;
 	cursor:pointer;
@@ -197,9 +197,9 @@ nav.main-menu > ul > li{
 nav.main-menu > ul > li:hover,.nav-main-menu-active{
 	background:-webkit-gradient(linear,left top,left bottom,color-stop(0.05,hsl(0,0%,93%)),color-stop(1,hsl(0,0%,87%)));
 	background:-moz-linear-gradient(center top,hsl(0,0%,93%) 5%,hsl(0,0%,87%) 100%);
-	-webkit-box-shadow:-1px 0px 8px hsl(0, 0%, 60%) inset;
-	-moz-box-shadow:-1px 0px 8px hsl(0, 0%, 60%) inset;
-	box-shadow:-1px -1px 5px hsl(0, 0%, 80%) inset;
+	-webkit-box-shadow:-1px 0px 8px hsl(0,0%,60%) inset;
+	-moz-box-shadow:-1px 0px 8px hsl(0,0%,60%) inset;
+	box-shadow:-1px -1px 5px hsl(0,0%,80%) inset;
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='hsl(0,0%,93%)',endColorstr='hsl(0,0%,87%)');
 }
 
@@ -245,7 +245,7 @@ nav.main-menu a,nav.main-menu a:active,nav.main-menu a:visited{
 }
 
 @media screen and (max-width:1100px){
-	nav.main-menu a, nav.main-menu a:active, nav.main-menu a:visited{
+	nav.main-menu a,nav.main-menu a:active,nav.main-menu a:visited{
 		font-weight:normal;
 		font-size:.9em !important;
 	}
@@ -254,7 +254,7 @@ nav.main-menu a,nav.main-menu a:active,nav.main-menu a:visited{
 		/*padding:2px 0;*/
 		width:62px;
 	}
-	nav.main-menu ul li > ul > li:last-child {
+	nav.main-menu ul li > ul > li:last-child{
 		width:100%;
 	}
 	nav.main-menu ul li > ul > li:first-child img{
@@ -277,7 +277,7 @@ nav.main-menu a,nav.main-menu a:active,nav.main-menu a:visited{
 }
 
 @media screen and (max-width:1100px){
-	#content_area_wrapper {
+	#content_area_wrapper{
 		margin-left:80px;
 	}
 }

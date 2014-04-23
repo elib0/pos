@@ -53,7 +53,7 @@
         <div class="big_button" style="float: left; margin-left: 5px"><span>Send to Administrator</span></div>
     </a>
 </div>
-<?=form_close()
+<?php  echo form_close();
 $this->load->view("partial/footer"); ?>
 <script>
     $(document).ready(function() {

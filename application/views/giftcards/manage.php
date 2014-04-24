@@ -1,4 +1,31 @@
 <?php $this->load->view("partial/header"); ?>
+<div id="title_bar">
+	<div id="title" class="float_left"><?=$this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name)?></div>
+	<div id="new_button">
+		<?=$this->Employee->has_privilege('add',$controller_name)?anchor("$controller_name/view/-1/width:$form_width/height:$form_height","<span>".$this->lang->line($controller_name.'_new')."</span>",array('title'=>$this->lang->line($controller_name.'_new'),'class'=>'big_button thickbox','style'=>'float:left;')):''?>
+	</div>
+</div>
+<?php echo $this->pagination->create_links();?>
+<div id="table_action_header">
+	<ul>
+		<?php if($this->Employee->has_privilege('delete', $controller_name)):  ?>
+		<li class="float_left">
+			<?=anchor("$controller_name/delete",'<span>'.$this->lang->line("common_delete").'</span>',array('id'=>'delete'))?>
+		</li>
+		<?php endif; ?>
+		<li class="float_right">
+		<img src='images/spinner_small.gif' alt='spinner' id='spinner' />
+		<?=form_open("$controller_name/search",array('id'=>'search_form'))?>
+		<input type="text" name ='search' id='search' placeholder="Search ..."  style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #CCC " />
+		</form>
+		</li>
+	</ul>
+</div>
+
+<div id="table_holder">
+<?=$manage_table?>
+</div>
+<div id="feedback_bar"></div>
 <script type="text/javascript">
 $(document).ready(function()
 {
@@ -56,31 +83,4 @@ function post_giftcard_form_submit(response)
 }
 
 </script>
-<div id="title_bar">
-	<div id="title" class="float_left"><?=$this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name)?></div>
-	<div id="new_button">
-		<?=$this->Employee->has_privilege('add',$controller_name)?anchor("$controller_name/view/-1/width:$form_width","<span>".$this->lang->line($controller_name.'_new')."</span>",array('title'=>$this->lang->line($controller_name.'_new'),'class'=>'big_button thickbox','style'=>'float:left;')):''?>
-	</div>
-</div>
-<?php echo $this->pagination->create_links();?>
-<div id="table_action_header">
-	<ul>
-		<?php if($this->Employee->has_privilege('delete', $controller_name)):  ?>
-		<li class="float_left">
-			<?=anchor("$controller_name/delete",'<span>'.$this->lang->line("common_delete").'</span>',array('id'=>'delete'))?>
-		</li>
-		<?php endif; ?>
-		<li class="float_right">
-		<img src='images/spinner_small.gif' alt='spinner' id='spinner' />
-		<?=form_open("$controller_name/search",array('id'=>'search_form'))?>
-		<input type="text" name ='search' id='search' placeholder="Search ..."  style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #CCC " />
-		</form>
-		</li>
-	</ul>
-</div>
-
-<div id="table_holder">
-<?=$manage_table?>
-</div>
-<div id="feedback_bar"></div>
 <?php $this->load->view("partial/footer"); ?>

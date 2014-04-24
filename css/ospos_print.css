@@ -42,3 +42,6 @@ body
 .linkBack{
 	display:none;
 }
+nav.main-menu, nav.user{
+	display: none;
+}

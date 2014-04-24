@@ -3,21 +3,19 @@
 	#receivings_form{
 		position: relative;
 		background-color: hsl(0, 0%, 63%);
-		padding: 8px 0px 8px 0px;
+		padding: 8px 0 8px 0;
 	}
 	#receivings_form label{
 		font-weight: bold;
 	}
 </style>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $this->lang->line('recvs_register'); ?></div>
-
 <?php
 if(isset($error))
 {
 	echo "<div class='error_message'>".$error."</div>";
 }
 ?>
-
 <div id="register_wrapper">
 	<?php echo form_open("receivings/index/",array('id'=>'receivings_form')); ?>
 		<label for="reception">Search Dispatching</label>
@@ -26,9 +24,7 @@ if(isset($error))
 			<span>Load Receivings</span>
 		</div>
 	<?php echo form_close(); ?>
-
 <!-- Receiving Items List -->
-
 <table id="register">
 <thead>
 <tr>
@@ -57,14 +53,11 @@ else
 	?>
 		<tr>
 		<td style="align:center;"><?php echo $item['name']; ?><br />
-
 		<?php
 			echo $item['description'];
       		echo form_hidden('description',$item['description']);
 		?>
 		<br />
-
-
 		<?php if ($items_module_allowed)
 		{
 		?>
@@ -88,8 +81,6 @@ else
         	echo form_hidden(array('name'=>'quantity','value'=>$item['quantity']));
 		?>
 		</td>
-
-
 		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3'));?></td>
 		<td><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>
 		</tr>
@@ -101,9 +92,7 @@ else
 </tbody>
 </table>
 </div>
-
 <!-- Overall Receiving -->
-
 <div id="overall_sale">
 	<?php
 	if(isset($supplier))
@@ -131,7 +120,6 @@ else
 		    <?php echo form_hidden(array('name'=>'payment_type','value'=>'Cash')); ?>
         </td>
         </tr>
-
         <tr>
         <td>
 		</td><td>
@@ -140,15 +128,12 @@ else
 		?>
         </td>
         </tr>
-
         </table>
         <br />
 		<?php echo "<div class='small_button' id='finish_sale_button' style='float:right;margin-top:5px;'><span>".$this->lang->line('recvs_complete_receiving')."</span></div>";
 		?>
 		</div>
-
 		</form>
-
 	    <?php echo form_open("receivings/cancel_receiving",array('id'=>'cancel_sale_form')); ?>
 			    <div class='small_button' id='cancel_sale_button' style='float:left;margin-top:5px;'>
 					<span>Reset </span>
@@ -158,14 +143,9 @@ else
 	<?php
 	}
 	?>
-
 </div>
 <div class="clearfix" style="margin-bottom:30px;">&nbsp;</div>
-
-
 <?php $this->load->view("partial/footer"); ?>
-
-
 <script type="text/javascript" language="javascript">
 $(document).ready(function()
 {
@@ -179,37 +159,30 @@ $(document).ready(function()
 			return row[1];
 		}
     });
-
     $('#receivings_submit').click(function(event) {
     	var form = $('#receivings_form');
     	form.attr('action', form.attr('action')+'/'+$('#reception').val());
     	window.location = form.attr('action');
     	return false;
     });
-
     $('#reception').keypress(function(event) {
     	if (event.which == 13) {
     		 $('#receivings_submit').click();
-    	};
+    	}
     });
-
     $("#item").result(function(event, data, formatted)
     {
 		$("#add_item_form").submit();
     });
-
 	$('#item').focus();
-
 	$('#item').blur(function()
     {
     	$(this).attr('value',"<?php echo $this->lang->line('sales_start_typing_item_name'); ?>");
     });
-
 	$('#item,#supplier').click(function()
     {
     	$(this).attr('value','');
     });
-
     $("#supplier").autocomplete('<?php echo site_url("receivings/supplier_search"); ?>',
     {
     	minChars:0,
@@ -219,17 +192,14 @@ $(document).ready(function()
 			return row[1];
 		}
     });
-
     $("#supplier").result(function(event, data, formatted)
     {
 		$("#select_supplier_form").submit();
     });
-
     $('#supplier').blur(function()
     {
     	$(this).attr('value',"<?php echo $this->lang->line('recvs_start_typing_supplier_name'); ?>");
     });
-
     $("#finish_sale_button").click(function()
     {
     	setTimeout(function(){
@@ -247,7 +217,6 @@ $(document).ready(function()
     	// 	$('#finish_sale_form').submit();
     	// }
     });
-
     $("#cancel_sale_button").click(function()
     {
     	setTimeout(function(){
@@ -265,10 +234,7 @@ $(document).ready(function()
     	// 	$('#cancel_sale_form').submit();
     	// }
     });
-
-
 });
-
 function post_item_form_submit(response)
 {
 	if(response.success)
@@ -277,7 +243,6 @@ function post_item_form_submit(response)
 		$("hsl(180, 43%, 77%)_item_form").submit();
 	}
 }
-
 function post_person_form_submit(response)
 {
 	if(response.success)
@@ -286,5 +251,4 @@ function post_person_form_submit(response)
 		$("#select_supplier_form").submit();
 	}
 }
-
 </script>

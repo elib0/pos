@@ -32,7 +32,7 @@ class Receiving extends CI_Model
 		return ($query->num_rows()==1);
 	}
 
-	function save ($items,$supplier_id,$employee_id,$comment,$payment_type,$receiving_id=false)
+	function save($items,$supplier_id,$employee_id,$comment,$payment_type,$receiving_id=false)
 	{
 		if(count($items)==0)
 			return -1;
@@ -111,17 +111,6 @@ class Receiving extends CI_Model
 		$this->con->where('receiving_id',$receiving_id);
 		return $this->Supplier->get_info($this->con->get()->row()->supplier_id);
 	}
-
-	function get_all_shippings(){
-		//Usa conexion DB ya que es la base de datos centralizada de shippings
-    	$this->db->select('sales.*');
-    	$this->db->from('sales');
-    	$this->db->join('people', 'people.person_id = sales.customer_id');
-    	$this->db->where('people.first_name', $this->session->userdata('dblocation'));
-    	$this->db->where('sales.mode', 2);
-    	$this->db->where('sales.status', 1);
-    	return $this->db->get()->result_array();
-    }
 
 	//We create a temp table that allows us to do easy report/receiving queries
 	public function create_receivings_items_temp_table($con=false)

@@ -31,14 +31,19 @@ if(isset($error))
 ?>
 
 <div id="register_wrapper">
-	<?php echo form_open("receivings/index/",array('id'=>'receivings_form')); ?>
+	<?php
+	if ($this->Transfers->available()): 
+		echo form_open("receivings/index/",array('id'=>'receivings_form')); 
+	?>
 		<label for="reception">Search Dispatching:</label>&nbsp;
 		<?php echo form_input(array('name'=>'reception','id'=>'reception','size'=>'40'));?>
 		<div class="small_button" id="receivings_submit">
 			<span>Load Receivings</span>
 		</div>
-		<!-- <input type="submit" value="Load Receivings" id="receivings_submit"> -->
-	<?php echo form_close(); ?>
+	<?php 
+		echo form_close();
+	endif; 
+	?>
 	<?php echo form_open("receivings/change_mode",array('id'=>'mode_form')); ?>
 		<span><?php echo $this->lang->line('recvs_mode') ?>:</span>&nbsp;
 	<?php echo form_dropdown('mode',$modes,$mode,'onchange="$(\'#mode_form\').submit();"'); ?>

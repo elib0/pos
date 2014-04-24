@@ -261,6 +261,7 @@ class Sales extends Secure_area
 					'taxable'=>0
 				);
 				//Customer by Location
+				$location = $customer_id;
 				$customer = $this->Customer->get_info_by_name($customer_id);
 				if (!$customer) {
 					$this->Customer->save($person_data,$customer_data,-1);
@@ -306,6 +307,11 @@ class Sales extends Secure_area
 				$this->email->subject($this->lang->line('sales_receipt'));
 				$this->email->message($this->load->view("sales/receipt_email",$data, true));	
 				$this->email->send();
+			}
+
+			if ( $this->sale_lib->get_mode() == 'shipping') {
+				$this->load->model('Transfers');
+				$this->Transfers->save($data['cart'], $location,$employee_id,$comment,$data['payments']);
 			}
 		}
 		$this->load->view("sales/receipt",$data);
@@ -418,15 +424,21 @@ class Sales extends Secure_area
 	
 	function _reload($data=array())
 	{
+		$this->load->model('Transfers');
 		$person_info = $this->Employee->get_logged_in_employee_info();
 		$employee = $this->Employee->get_info( $this->sale_lib->get_employee() );
 		$data['employee'] = $employee->first_name.' '.$employee->last_name;
 		$data['cart']=$this->sale_lib->get_cart();
 		$data['modes']=array(
 								'sale'=>$this->lang->line('sales_sale'),
-								'return'=>$this->lang->line('sales_return'),
-								'shipping'=>$this->lang->line('sales_shipping'),
+								'return'=>$this->lang->line('sales_return')
 							);
+
+		//Si tiene su bd configurada para transferencias entre tiendas
+		if ($this->Transfers->available()) {
+			$data['modes']['shipping'] = $this->lang->line('sales_shipping');
+		}
+
 		$data['mode']=$this->sale_lib->get_mode();
 		$data['subtotal']=$this->sale_lib->get_subtotal();
 		$data['taxes']=$this->sale_lib->get_taxes();

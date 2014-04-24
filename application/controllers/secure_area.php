@@ -34,8 +34,8 @@ class Secure_area extends CI_Controller
 		}
 		//Modelos a utilizar
 		$this->load->model('reports/Inventory_low');
-		$this->load->model('receiving');
-		
+		$this->load->model('Transfers');
+
 		//load up global data
 		$logged_in_employee_info=$this->Employee->get_logged_in_employee_info();
 		$data['allowed_modules']=$this->Module->get_allowed_modules($logged_in_employee_info->person_id);
@@ -43,11 +43,13 @@ class Secure_area extends CI_Controller
 
 		//Notificaciones
 		$data['notifications']['inventory_low']['url']= 'reports/inventory_low/0/';
-		$data['notifications']['inventory_low']['title']= 'Number products with low stock!';
+		$data['notifications']['inventory_low']['title']= 'Products with low stock!';
 		$data['notifications']['inventory_low']['data']= $this->Inventory_low->getData(array());
-		$data['notifications']['shippings']['url'] = 'receivings';
-		$data['notifications']['shippings']['title'] = 'Delivery to receive';
-		$data['notifications']['shippings']['data'] = $this->Receiving->get_all_shippings();
+		if ($this->Transfers->available()) {
+			$data['notifications']['shippings']['url'] = 'receivings';
+			$data['notifications']['shippings']['title'] = 'Delivery to receive';
+			$data['notifications']['shippings']['data'] = $this->Transfers->get_my_reception();
+		}
 
 		//Carga de variables
 		$this->load->vars($data);

@@ -17,7 +17,7 @@ class Backup extends Secure_area {
 		$username = $this->Employee->get_logged_in_employee_info()->username;
 		$password = $this->input->post("password");
 		if(!$this->Employee->login($username,$password) && $cover!='-5'){
-			echo json_encode(array('success'=>false,'message'=>$this->lang->line('config_backup_n').'**'.$username.'**'.$password));
+			echo json_encode(array('success'=>false,'message'=>$this->lang->line('config_backup_n')));
 		}else{
 			if (!$this->Employee->isAdmin()) redirect('home');
 			if ($cover=='-1'){
@@ -79,6 +79,8 @@ class Backup extends Secure_area {
 			foreach ($data['files'] as $key) {
 				if (strpos($key,$bd)!==false) $data['numF']++;
 			}
+			krsort($data['files']);
+			$data['display']=$data['numF']>0?'display:none;':'';
 			$data['fastUser'] = $this->Employee->get_logged_in_employee_info()->username;
 			$data['referen']=true;
 			$this->load->view('config/backup', $data);

@@ -10,12 +10,12 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 	<ul id="error_msg_back"></ul>
 	<div id="login_form">
 		<div class="form-row">
-			<div class="form_field_label"><?php echo $this->lang->line('login_username'); ?>:</div>
-			<div class="form_field">
+			<div class="form_field_label" style="float: none;"><?php echo $this->lang->line('login_username'); ?>:</div>
+			<div class="form_field" style="float: none;">
 				<?php
 					echo form_input(array(
 						'name'=>'username',
-						'size'=>'20', 
+						'size'=>'26', 
 						'value'=>$fastUser,
 						'disabled'=>'disabled'
 					));
@@ -23,18 +23,18 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 			</div>
 		</div>
 		<div class="form-row">
-			<div class="form_field_label"><?php echo $this->lang->line('login_password'); ?>:</div>
-			<div class="form_field">
+			<div class="form_field_label" style="float: none;"><?php echo $this->lang->line('login_password'); ?>:</div>
+			<div class="form_field" style="float: none;">
 				<?php 
 					echo form_password(array(
 						'name'=>'password',
 						'id'=>'password',
-						'size'=>'20')
+						'size'=>'26')
 					); 
 				?>
 			</div>
 		</div>
-		<div class="form-row">
+		<div class="form-row" style="text-align: center;margin-top: 20px;">
 			<?php echo form_submit('confirm-button',$this->lang->line('recvs_complete_receiving'), 'class = "big_button" id="b-login-c"'); ?>
 		</div>
 	</div>
@@ -77,7 +77,7 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 </script>
 <?php }else{ ?>
 <?php echo form_open_multipart('backup/confirm/-7',array('id'=>'recover-form')); ?>
-<div class="box-form-view">
+<div class="box-form-view" style="min-height: initial;">
 	<ul id="error_msg_back"></ul>	
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div style="width: 250px; float: left">
@@ -108,28 +108,14 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 			</div>
 		</div>
 	</div>
-	<div id="file-ext" class="field_row clearfix" style="margin: 0 0 5px 0">
-		<div style="width: 100%; float: left; margin-top: 5px">
-			<div class="field_row clearfix">
-			<?php echo form_label($this->lang->line('config_recover_fe').':'); ?>
-			<div class='form_field' style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; ">
-				<input type="file" name="datab" id="datab">
-				<input type="hidden" name="logo_name" id="logo_name" value="<?=$this->config->item('logo')?>">
-				<div class="upload_label">
-					<?php echo $this->lang->line('config_recover_f');?>
-				</div>
-			</div>
-			</div>
-		</div>
-	</div>
 	<?php if ($numF>0){ ?>
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div id="radio" style="margin-top: 10px;"><input type="checkbox"  name="recover-backup" style="margin-right: 10px;"><?php echo $this->lang->line('config_recover_f_backup'); ?></div>
 	</div>
-	<div id="option-backup" class="field_row clearfix" style="display:none; margin: 0 0 5px 0">
+	<div id="option-backup" class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div class="sub-title-view"> <?php echo $this->lang->line('config_backup_info'); ?> </div>
 	</div>
-	<div id="list-backup" class="field_row clearfix" style="display:none;margin: 0 0 5px 0">
+	<div id="list-backup" class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div class="field_row clearfix" style="margin: 0 0 5px 0">
 			<label style="float: none;"><?php echo $this->lang->line('config_backup_list').':'; ?></label>
 			<div><ul id="back-locationes">
@@ -148,6 +134,20 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 		</div>
 	</div>
 	<?php } ?>
+	<div id="file-ext" class="field_row clearfix" style="<?php echo $display ?>margin: 0 0 5px 0">
+		<div style="width: 100%; float: left; margin-top: 5px">
+			<div class="field_row clearfix">
+			<?php echo form_label($this->lang->line('config_recover_fe').':'); ?>
+			<div class='form_field' style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; ">
+				<input type="file" name="datab" id="datab">
+				<input type="hidden" name="logo_name" id="logo_name" value="<?=$this->config->item('logo')?>">
+				<div class="upload_label">
+					<?php echo $this->lang->line('config_recover_f');?>
+				</div>
+			</div>
+			</div>
+		</div>
+	</div>
 <div class="field_row clearfix">
 	<?php
 		echo form_submit(
@@ -179,14 +179,14 @@ $(document).ready(function(){
 
 	$('#radio input').change(function(event) {
 		if($(this).is(':checked')){
+			$('#option-backup,#list-backup,#dow').css('display','none');
+			$('#file-ext').css('display','block');
+			$('#datab').attr('name','datab');			
+		}else{
 			$('#option-backup,#list-backup,#dow').css('display','block');
 			$('#file-ext').css('display','none');
 			$('#datab').attr('name','bdata');
 			$('#error_msg_back label[for="datab"]').parents('li').remove();
-		}else{
-			$('#option-backup,#list-backup,#dow').css('display','none');
-			$('#file-ext').css('display','block');
-			$('#datab').attr('name','datab');
 		}
 	});
 	$('#dow').click(function() {
@@ -210,7 +210,7 @@ $(document).ready(function(){
 			submitHandler:function(form)
 			{
 				if (confirm("<?php echo $this->lang->line('config_backup_emer'); ?>")){
-					$('#datab').attr('name','datab');
+					$('#datab').attr('name','bdata');
 					$(form).ajaxSubmit({
 						success:function(response)
 						{   

@@ -18,12 +18,15 @@ nav.user > div.container-menus{
 
 nav.user > div.container-menus > nav{
 	display:inline-block;
-	padding:10px 25px;
+	padding:10px 15px;
 	border-right:1px solid hsl(0,0%,30%);
 }
-
 nav.user > div.container-menus > nav:last-child{
 	border-right:none;
+}
+nav.user > div.container-menus > nav:not(#notifications){
+	padding-left:35px;
+	background-position:10px center;
 }
 
 .logo{

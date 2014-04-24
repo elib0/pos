@@ -18,8 +18,9 @@ $(document).ready(function(){
 
 //add thickbox to href & area elements that have a class of .thickbox
 function tb_init(domChunk){
+	var $=window.jQueryNew||jQuery;
 	if(!tb_init.fn) tb_init.fn=function(){
-		var t = this.title || this.name || null;
+		var t = this.title || $(this).data('title') || this.name || null;
 		var a = this.href || this.alt;
 		var g = this.rel || false;
 		tb_show(t,a,g);

@@ -78,6 +78,7 @@ class Transfers extends CI_Model
         $this->con->where('transfer_items.transfer_id', $reception_id);
         $this->con->where('transfers.status', 1);
         $this->con->where('transfers.receiver', $this->session->userdata('dblocation'));
+        $this->db->limit(1);
         return $this->con->get();
     }
 

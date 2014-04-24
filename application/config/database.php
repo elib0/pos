@@ -114,4 +114,19 @@ if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['
 	$db['loca_2']['stricton'] = FALSE;
 }
 
-
+//Obligatorioa para envio de items a otras tiendas
+$db['transactions']['hostname'] = '192.168.1.130';
+$db['transactions']['username'] = 'root';
+$db['transactions']['password'] = 'root';
+$db['transactions']['database'] = 'possp_transactions';
+$db['transactions']['dbdriver'] = 'mysql';
+$db['transactions']['dbprefix'] = 'ospos_';
+$db['transactions']['pconnect'] = FALSE;
+$db['transactions']['db_debug'] = TRUE;
+$db['transactions']['cache_on'] = FALSE;
+$db['transactions']['cachedir'] = '';
+$db['transactions']['char_set'] = 'utf8';
+$db['transactions']['dbcollat'] = 'utf8_general_ci';
+$db['transactions']['swap_pre'] = '';
+$db['transactions']['autoinit'] = FALSE;
+$db['transactions']['stricton'] = FALSE;

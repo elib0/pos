@@ -18,6 +18,7 @@ class Giftcards extends Secure_area implements iData_controller
 		
 		$data['controller_name']=strtolower(get_class());
 		$data['form_width']=$this->get_form_width();
+		$data['form_height']=$this->get_form_height();
 		$data['manage_table']=get_giftcards_manage_table( $this->Giftcard->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
 		// $data['access'] = $this->Employee->permission_privileges('giftcards', 1);
 		$this->load->view('giftcards/manage',$data);
@@ -48,6 +49,11 @@ class Giftcards extends Secure_area implements iData_controller
 
 	function view($giftcard_id=-1)
 	{
+		$data['seller']=($giftcard_id=='sell');
+		if($data['seller']){
+			//alguna validacion para vendedores, si es requerido
+			$giftcard_id=-1;
+		}
 		$data['giftcard_info']=$this->Giftcard->get_info($giftcard_id);
 
 		$this->load->view("giftcards/form",$data);
@@ -104,6 +110,10 @@ class Giftcards extends Secure_area implements iData_controller
 	function get_form_width()
 	{
 		return 360;
+	}
+	function get_form_height()
+	{
+		return 200;
 	}
 }
 ?>

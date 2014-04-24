@@ -5,7 +5,7 @@
 <legend><?=$this->lang->line("giftcards_basic_information")?></legend>
 
 <div class="field_row clearfix">
-<?=form_label($this->lang->line('giftcards_giftcard_number').':', 'name',array('class'=>'required wide'))?>
+<?=form_label($this->lang->line('giftcards_giftcard_number').':','name',array('class'=>'required wide'))?>
 	<div class='form_field'>
 	<?=form_input(array(
 		'name'=>'giftcard_number',

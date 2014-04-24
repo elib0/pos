@@ -102,8 +102,8 @@ class Receivings extends Secure_area
 
 	function complete($other=0)
 	{
-		$this->load->model('Share_inventory');
-		$this->Share_inventory->set_reception_status($other,0);
+		$this->load->model('Transfers');
+		$this->Transfers->complete_reception($other);
 
 		$data['cart']=$this->receiving_lib->get_cart();
 		$data['total']=$this->receiving_lib->get_total();
@@ -169,6 +169,8 @@ class Receivings extends Secure_area
 
 	function _reload($data=array(), $cart = 0)
 	{
+		$this->load->model('Transfers');
+
 		$person_info = $this->Employee->get_logged_in_employee_info();
 		$data['cart']=$this->receiving_lib->get_cart($cart);
 		$data['modes']=array('receive'=>$this->lang->line('recvs_receiving'),'return'=>$this->lang->line('recvs_return'));
@@ -193,8 +195,10 @@ class Receivings extends Secure_area
 			// $this->receiving_lib->empty_cart();
 			$this->load->view("receivings/receiving",$data);
 		}else{
-			$data['reception_id'] = $cart;
-			$this->load->view("receivings/receiving_",$data);
+			if ($this->Transfers->available()) {
+				$data['reception_id'] = $cart;
+				$this->load->view("receivings/receiving_",$data);
+			}
 		}
 	}
 

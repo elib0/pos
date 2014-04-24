@@ -101,7 +101,7 @@ html {
 		include('application/config/database.php');
 		$dbs = array();
 		foreach ($db as $key => $value){
-			if ($key != $this->session->userdata('dblocation')) {
+			if ($key != $this->session->userdata('dblocation') && $key != 'transactions') {
 				$dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
 			}
 		}

@@ -13,8 +13,9 @@
 	<?php 
 		include('application/config/database.php');
 		$dbs = array();
-		foreach ($db as $key => $value) $dbs[$key] = ucwords($key);
-		//$dbs['all']='All';
+		foreach ($db as $key => $value){
+			if($key != 'transactions') $dbs[$key]=ucwords($key); //Creo arreglo para mis <option>
+		}
 		if(count($dbs)>1) $dbs['all'] = ucwords('all');
 	?>
 

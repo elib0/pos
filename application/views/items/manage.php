@@ -16,8 +16,9 @@
 <?php
 include('application/config/database.php');
 $dbs = array();
-foreach ($db as $key => $value) $dbs[$key]=ucwords($key); //Creo arreglo para mis <option>
-
+foreach ($db as $key => $value){
+	if($key != 'transactions') $dbs[$key]=ucwords($key); //Creo arreglo para mis <option>
+}
 echo form_open("$controller_name/set_location",array('id'=>'form_items_location'));
 // echo form_label('Location:', 'locationbd');		
 // echo form_dropdown('items_location', $dbs,$items_location, 'id="locationbd"');		

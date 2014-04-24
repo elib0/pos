@@ -35,7 +35,7 @@ if (isset($success))
 <div id="register_wrapper">
 <?php echo form_open("sales/change_mode",array('id'=>'mode_form')); ?>
 	<span><?=$this->lang->line('sales_mode')?></span>
-<?php echo form_dropdown('mode',$modes,$mode,'onchange="$(\'#mode_form\').submit();"'); ?>
+<?php echo form_dropdown('mode',$modes,$mode,'onchange="$(this.form).submit();"'); ?>
 
 <div id="new_button">
 </div>
@@ -252,7 +252,7 @@ else
 		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
 		$dbs = array('...'=>'...');
 		foreach ($db as $key => $value){
-			if ( $key != $this->session->userdata('dblocation') ) {
+			if ( $key != $this->session->userdata('dblocation') && $key != 'transactions' ) {
 				$dbs[$key] = ucwords($key);
 			}
 		}

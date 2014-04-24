@@ -10,11 +10,10 @@ class Receiving_lib
 
 	function get_cart($cart_num = 0)
 	{
-
 		if($cart_num > 0){
 			$this->empty_cart();
-			$this->CI->load->model('Share_inventory');
-			$cart = $this->CI->Share_inventory->get_reception_detail($cart_num);
+			$this->CI->load->model('Transfers');
+			$cart = $this->CI->Transfers->get_my_reception_detail($cart_num);
 
 			// $this->CI->session->set_userdata('cartRecvId',$cart_num); //Numero del carrito, Si no es pre cargado es 0
 			if ( $cart->num_rows() > 0 ) {

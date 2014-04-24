@@ -40,7 +40,7 @@ function get_people_manage_table_data_rows($people,$controller)
 
 	if($people->num_rows()==0)
 	{
-		$table_data_rows.="<tr><td colspan='6'><div class='warning_message' style='padding:7px;'>".$CI->lang->line('common_no_persons_to_display')."</div></tr></tr>";
+		$table_data_rows.='<tr><td colspan="6"><div class="warning_message" style="padding:7px;">'.$CI->lang->line('common_no_persons_to_display').'</div></tr></tr>';
 	}
 
 	return $table_data_rows;
@@ -284,6 +284,7 @@ function get_giftcard_data_row($giftcard,$controller)
 	$CI =& get_instance();
 	$controller_name=strtolower(get_class($CI));
 	$width = $controller->get_form_width();
+	$height= $controller->get_form_height();
 
 	$table_data_row='<tr>';
 	$table_data_row.="<td width='3%'><input type='checkbox' id='giftcard_$giftcard->giftcard_id' value='$giftcard->giftcard_id'/></td>";
@@ -291,7 +292,7 @@ function get_giftcard_data_row($giftcard,$controller)
 	$table_data_row.='<td width="20%">'.to_currency($giftcard->value).'</td>';
 	$table_data_row .= '<td width="5%">';
 	if($CI->Employee->has_privilege('update', $controller_name)){
-		$table_data_row.=anchor("$controller_name/view/$giftcard->giftcard_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update')));
+		$table_data_row.=anchor("$controller_name/view/$giftcard->giftcard_id/width:$width/height:$height", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update')));
 	}
 	$table_data_row .= '</td>';
 

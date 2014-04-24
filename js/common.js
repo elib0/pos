@@ -10,22 +10,22 @@
 		if(!title) return;
 		this.title='';
 		$(this).data('title',title);
-        var $tooltip=$('<p class="tooltip"></p>');
-        $(this).data('tooltip',$tooltip);
-        $tooltip.text(title).appendTo('body').fadeIn('slow');
-    }).on('mousemove','[title]',function(e){
-        var $tooltip=$(this).data('tooltip');
-        if(!$tooltip) return;
-        var mousex=e.pageX+20;//Get X coordinates
-        var mousey=e.pageY+10;//Get Y coordinates
-        if($tooltip.outerWidth()+mousex>=$(window).width()-5) mousex=e.pageX-10-$tooltip.outerWidth();
-        if($tooltip.outerHeight()+mousey>=$(window).height()-5) mousey=e.pageY-$tooltip.outerHeight();
-        $tooltip.css({top:mousey,left:mousex});
-    }).on('mouseleave','[title]',function(){
+		var $tooltip=$('<p class="tooltip"></p>');
+		$(this).data('tooltip',$tooltip);
+		$tooltip.text(title).appendTo('body').fadeIn('fast');
+	}).on('mousemove','[title]',function(e){
+		var $tooltip=$(this).data('tooltip');
+		if(!$tooltip) return;
+		var mousex=e.pageX+20;//Get X coordinates
+		var mousey=e.pageY+10;//Get Y coordinates
+		if($tooltip.outerWidth()+mousex>=$(window).width()-5) mousex=e.pageX-10-$tooltip.outerWidth();
+		if($tooltip.outerHeight()+mousey>=$(window).height()-5) mousey=e.pageY-$tooltip.outerHeight();
+		$tooltip.css({top:mousey,left:mousex});
+	}).on('mouseleave','[title]',function(){
 		//mouse out
-        var $tooltip=$(this).data('tooltip');
-        if(!$tooltip) return;
-        $(this).data('tooltip',null);
+		var $tooltip=$(this).data('tooltip');
+		if(!$tooltip) return;
+		$(this).data('tooltip',null);
 		$tooltip.remove();
 	});
 })(jQueryNew);

@@ -87,7 +87,7 @@ a.none{
 	height:50px;
 }
 
-#title,#page_title{
+#title,#page_title,#TB_ajaxWindowTitle {
 	color:#FFF;
 	text-shadow:
 		-1px -1px 0 #000,
@@ -103,7 +103,7 @@ a.none{
 	font-family:'Fjalla One',sans-serif;
 }
 
-#page_title{
+#page_title,#TB_ajaxWindowTitle {
 	text-align:left;
 	font-weight:bold;
 	font-size:25px;

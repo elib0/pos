@@ -1,38 +1,42 @@
-<div id="required_fields_message"><?=$this->lang->line('common_fields_required_message')?></div>
-<ul id="error_message_box"></ul>
 <?=form_open('giftcards/save/'.$giftcard_info->giftcard_id,array('id'=>'giftcard_form'))?>
-<fieldset id="giftcard_basic_info" style="padding:5px;">
-<legend><?=$this->lang->line("giftcards_basic_information")?></legend>
-
-<div class="field_row clearfix">
-<?=form_label($this->lang->line('giftcards_giftcard_number').':','name',array('class'=>'required wide'))?>
-	<div class='form_field'>
-	<?=form_input(array(
-		'name'=>'giftcard_number',
-		'id'=>'giftcard_number',
-		'value'=>$giftcard_info->giftcard_number
-	))?>
+<div>
+	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+		<div>
+			<?=form_label($this->lang->line('giftcards_giftcard_number').':', 'name',array('class'=>'lable-form-required'))?>
+			<div>
+			<?=form_input(array(
+				'name'=>'giftcard_number',
+				'id'=>'giftcard_number',
+				'value'=>$giftcard_info->giftcard_number,
+				'class'=>'text_box'
+			))?>
+			</div>
+		</div>
 	</div>
+	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+		<div>
+			<?=form_label($this->lang->line('giftcards_card_value').':','name',array('class'=>'lable-form-required'))?>
+			<div>
+			<?=form_input(array(
+				'name'=>'value',
+				'id'=>'value',
+				'value'=>$giftcard_info->value,
+				'class'=>'text_box'
+			))?>
+			</div>
+		</div>
+	</div>	
 </div>
-
-<div class="field_row clearfix">
-<?=form_label($this->lang->line('giftcards_card_value').':','name',array('class'=>'required wide'))?>
-	<div class='form_field'>
-	<?=form_input(array(
-		'name'=>'value',
-		'id'=>'value',
-		'value'=>$giftcard_info->value
-	))?>
-	</div>
+<div class="field_row clearfix" style="color: #FF0000; font-size: 11px">
+	<?=$this->lang->line('common_fields_required_message')?>
 </div>
-
+<ul id="error_message_box"></ul>
 <?=form_submit(array(
 	'name'=>'submit',
 	'id'=>'submit',
 	'value'=>$this->lang->line('common_submit'),
 	'class'=>'small_button float_right'
 ))?>
-</fieldset>
 <?=form_close()?>
 <script type='text/javascript'>
 //validation and submit handling

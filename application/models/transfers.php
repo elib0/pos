@@ -1,13 +1,20 @@
 <?php
 class Transfers extends CI_Model
 {
-    var $con;
-    private $db = 'transactions';
+    var $con = false;
+    private $dbgroup = 'transactions';
 
     function __construct()
     {
         parent::__construct();
-        $this->con = $this->load->database($this->db, true); //Unica base de dato centralizada
+
+        //Verifica grupo de conexion para transacciones
+        include('application/config/database.php');
+        if (isset( $db[$this->dbgroup] )){
+            $this->con = $this->load->database($this->dbgroup, true); //Unica base de dato centralizada
+        }else{
+            show_error('Please set the Connection group and database transactions');
+        }
     }
 
     function save($items,$customer_id,$employee_id,$comment,$payments,$sale_id=false)
@@ -92,7 +99,8 @@ class Transfers extends CI_Model
 
     public function available(){
         $this->load->dbutil();
-        return $this->dbutil->database_exists('possp_transactions');
+
+        return $this->dbutil->database_exists('possp_transactions') && $this->con;
     }
 }
 ?>

@@ -309,9 +309,9 @@ class Sales extends Secure_area
 				$this->email->send();
 			}
 
-			if ( $this->sale_lib->get_mode() == 'shipping') {
+			if ( $this->sale_lib->get_mode() == 'shipping' ) {
 				$this->load->model('Transfers');
-				$this->Transfers->save($data['cart'], $location,$employee_id,$comment,$data['payments']);
+				$data['sale_id'] = $this->Transfers->save($data['cart'], $location,$employee_id,$comment,$data['payments']);
 			}
 		}
 		$this->load->view("sales/receipt",$data);

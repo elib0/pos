@@ -46,7 +46,7 @@ class Secure_area extends CI_Controller
 		$data['notifications']['inventory_low']['title']= 'Products with low stock!';
 		$data['notifications']['inventory_low']['data']= $this->Inventory_low->getData(array());
 		if ($this->Transfers->available()) {
-			$data['notifications']['shippings']['url'] = 'receivings';
+			$data['notifications']['shippings']['url'] = 'reports/shippings';
 			$data['notifications']['shippings']['title'] = 'Delivery to receive';
 			$data['notifications']['shippings']['data'] = $this->Transfers->get_my_reception();
 		}

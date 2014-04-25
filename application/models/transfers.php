@@ -79,21 +79,26 @@ class Transfers extends CI_Model
         $this->con->update('transfers', array('status' => $status));
     }
 
-    public function get_my_reception_detail($reception_id){
+    public function get_my_reception_detail($reception_id = 0){
         $this->con->from('transfer_items');
         $this->con->join('transfers', 'transfers.transfer_id = transfer_items.transfer_id');
-        $this->con->where('transfer_items.transfer_id', $reception_id);
-        $this->con->where('transfers.status', 1);
-        $this->con->where('transfers.receiver', $this->session->userdata('dblocation'));
+        
+        //Si no hay ID devulve todos las transacciones
+        if ($reception_id > 0) {
+            $this->con->where('transfers.transfer_id', $reception_id);
+        }
+
+        // $this->con->where('transfers.status', 1);
+        // $this->con->where('transfers.receiver', $this->session->userdata('dblocation'));
         $this->db->limit(1);
         return $this->con->get();
     }
 
     public function get_my_reception(){
         $this->con->from('transfers');
-        $this->con->where('receiver', $this->session->userdata('dblocation'));
-        $this->con->where('status', 1);
-        // $this->con->order_by('date', 'desc');
+        // $this->con->where('receiver', $this->session->userdata('dblocation'));
+        // $this->con->where('status', 1);
+        $this->con->order_by('date', 'desc');
         return $this->con->get()->result_array();
     }
 

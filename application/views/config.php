@@ -27,7 +27,7 @@
 			<div class="field_row clearfix">	
 				<?php echo form_label($this->lang->line('config_backup').':', 'backup-label',array('class'=>'lable-form')); 
 					if ($this->Employee->isAdmin()){
-						echo anchor("backup/index/width:200/height:180",
+						echo anchor("backup/index/width:350/height:180",
 						"<div class='big_button' style='padding: 8px 25px;margin-right: 10px;'><span>".$this->lang->line('config_backup')."</span></div>",
 						array('class'=>'thickbox none','title'=>$this->lang->line('recvs_complete_receiving'))); 				
 						echo anchor("backup/recover/width:400/height:400",

@@ -878,7 +878,8 @@ class Reports extends Secure_area
 
 	function shippings(){
 		$this->load->model('Transfers');
-		$data['title'] = 'Reporte de items por recibir';
+		$data['title'] = $this->lang->line('reports_report').' '.$this->lang->line('reports_receiving_orders');
+		$data['sub_title'] = $this->lang->line('reports_you_have').' '.$this->lang->line('reports_receiving_orders');
 		$data['location'] = $this->session->userdata('dblocation');
 		// $data['transfers'] = $this->Transfers->get_my_reception_detail();
 		$data['query'] = $this->Transfers->con->last_query();

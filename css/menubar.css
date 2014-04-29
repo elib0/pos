@@ -154,6 +154,7 @@ nav#notifications div{
 	border-radius:5px;
 	font-weight:bold;
 	padding-top:4px;
+	color: #000;
 }
 
 nav#notifications div a{

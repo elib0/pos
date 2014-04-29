@@ -2,6 +2,7 @@
 $lang['reports_reports'] = 'Reports';
 $lang['reports_report'] = 'Report';
 $lang['reports_welcome_message'] = 'Welcome to the reports panel. Please select a report to view.';
+$lang['reports_receiving_orders'] = 'Receiving Orders';
 $lang['reports_sales_summary_report'] = 'Sales Summary Report';
 $lang['reports_categories_summary_report'] = 'Categories Summary Report';
 $lang['reports_customers_summary_report'] = 'Customers Summary Report';
@@ -84,4 +85,9 @@ $lang['reports_detailed_receivings_report'] = 'Detailed Receivings Report';
 $lang['reports_sale_type'] = 'Sale Type';
 $lang['reports_all'] = 'All';
 $lang['reports_returns'] = 'Returns';
+$lang['reports_you_have'] = 'You have';
+$lang['reports_orders'] = 'Orders';
+$lang['reports_order'] = 'Order';
+$lang['reports_sender_from'] = 'Sender From';
+$lang['reports_sent'] = 'Sent';
 ?>

@@ -6,7 +6,7 @@ nav.user{
 	right:0;
 	padding:4px;
 	min-width:975px;
-	z-index:50000;
+	z-index:910;
 	background-color:hsl(0,0%,20%);
 	color:hsl(0,0%,100%);
 	text-align:center;
@@ -175,7 +175,7 @@ nav#notifications div a{
 nav.main-menu{
 	position:fixed;
 	top:55px;
-	z-index:9999;
+	z-index:900;
 	height:100%;
 	background-color:hsl(0,0%,100%);
 	-webkit-box-shadow:-1px 0px 8px hsl(0,0%,60%) inset;

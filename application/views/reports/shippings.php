@@ -27,7 +27,7 @@
 				<?php foreach ($notifications['shippings']['data'] as $transaction): ?>
 				<tr>
 					<td class="expand"><span class="small_button thickbox">+</span></td>
-					<td><a title="Click para recibir el orden" href="index.php/receivings/index/<?php echo $transaction['transfer_id']; ?>" title="">TRAN <?php echo $transaction['transfer_id'] ?></a></td>
+					<td><a title="<?php echo $this->lang->line('reports_processing_order') ?>" href="index.php/receivings/index/<?php echo $transaction['transfer_id']; ?>" title="">TRAN <?php echo $transaction['transfer_id'] ?></a></td>
 					<td><?php echo $transaction['date'] ?></td>
 					<td><?php echo $transaction['sender'] ?></td>
 					<td><?php echo $transaction['comment'] ?></td>

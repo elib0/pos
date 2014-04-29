@@ -36,10 +36,7 @@
 	margin-bottom: 5px;
 }
 
-#employee_schedule{
-	border: 2px groove threedface;
-	width: 100%;
-}
+#employee_schedule{ width: 100%; }
 #employee_schedule tr>td, #employee_schedule tr>th{
 	text-align: center;
 	padding: 5px;
@@ -73,26 +70,18 @@
 	top:3px;
 }
 
-#employee_permission_info
-{
-	float:left;
-	width:47%;
-	margin-left:5px;
-	padding:5px;
-}
 #employee_permission_info p
 {
 	font-weight:bold;
 }
-#employee_permission_info.profi #permission_list>li{
+#employee_permission_info #permission_list>li{
   		float:left;
   		height:55px;
   		width: 300px;
   		border: 1px solid #DDDDDD;
 }
-#employee_permission_info.profi #permission_list li ul li{ float:left; }
-#employee_permission_info.profi{ width: inherit; }
-#employee_permission_info.profi #employee_permission_info span.small
+#employee_permission_info #permission_list li ul li{ float:left; }
+#employee_permission_info #employee_permission_info span.small
 {
 	font-style:italic;
 	font-size:80%;

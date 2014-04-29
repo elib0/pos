@@ -13,4 +13,8 @@ $lang['customers_cannot_be_deleted']='Could not deleted selected customers, one 
 $lang['customers_basic_information']='Customer Information';
 $lang['customers_account_number']='Account #';
 $lang['customers_taxable']='Taxable';
+$lang['customers_excel']='Excel Import';
+$lang['customers_dow_excel']='Download Import Excel Template (CSV)';
+$lang['customers_resq_excel']='Import customers from Excel sheet';
+$lang['customers_excel_title']='Import Items from Excel';
 ?>

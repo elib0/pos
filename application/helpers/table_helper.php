@@ -131,7 +131,7 @@ function get_supplier_data_row($supplier,$controller)
 	$table_data_row.='<td width="17%">'.character_limiter($supplier->phone_number,13).'</td>';
 
 	if($CI->Employee->has_privilege('update', $controller_name)){
-		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$supplier->person_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox small_button','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$supplier->person_id/width:570/height:425", $CI->lang->line('common_edit'),array('class'=>'thickbox small_button','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
 	}else{
 		$table_data_row .= '<td width="5%"></td>';
 	}

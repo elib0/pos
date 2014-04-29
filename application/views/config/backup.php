@@ -118,7 +118,7 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 	<div id="list-backup" class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div class="field_row clearfix" style="margin: 0 0 5px 0">
 			<label style="float: none;"><?php echo $this->lang->line('config_backup_list').':'; ?></label>
-			<div><ul id="back-locationes" style="list-style:none;">
+			<div><ul id="back-locationes" style="list-style:none;margin-left: 10px;">
 				<?php 
 				$bd=$this->session->userdata('dblocation');$a=0;
 				foreach ($files as $key) {
@@ -126,7 +126,7 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 						$key=str_replace('.sql','',$key);
 						$key=str_replace($bd.' ','',$key);
 				?>	
-						<li><input type="radio" name="list-back" value="<?php echo $key?>" <?php echo ($a==0?'checked=checked':'');$a++; ?>><?php echo $key; ?></li>
+						<li><input type="radio" name="list-back" value="<?php echo $key?>" <?php echo ($a==0?'checked=checked':'');$a++; ?> ><?php echo $key; ?></li>
 						
 				<?php }
 				 } ?>

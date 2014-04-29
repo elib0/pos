@@ -117,7 +117,7 @@ html {
 				if ( $noti_num > 0 ){ //Si tiene notificaciones se pone como enlace
 					echo anchor($data['url'],$noti_num, 'title="'.$data['title'].'"');
 				}else{
-					echo $noti_num;
+					echo '<span title="'.$data['title'].'">'.$noti_num.'</span>';
 				}
 				?>
 				</div>

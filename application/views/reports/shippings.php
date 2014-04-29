@@ -26,7 +26,7 @@
 			<?php if (count($notifications['shippings']['data'])): ?>
 				<?php foreach ($notifications['shippings']['data'] as $transaction): ?>
 				<tr>
-					<td class="expand">+</td>
+					<td class="expand"><span class="small_button thickbox">+</span></td>
 					<td><a title="Click para recibir el orden" href="index.php/receivings/index/<?php echo $transaction['transfer_id']; ?>" title="">TRAN <?php echo $transaction['transfer_id'] ?></a></td>
 					<td><?php echo $transaction['date'] ?></td>
 					<td><?php echo $transaction['sender'] ?></td>
@@ -66,15 +66,15 @@
 				<?php endforeach; ?>
 			<?php else: ?>
 				<tr>
-					<td colspan="5">No hay notificaciones de tranferencias</td>
+					<td colspan="5"><?php echo $this->lang->line('reports_no_have_orders'); ?></td>
 				</tr>
 			<?php endif ?>
 		</tbody>
 	</table>
 </div>
 <script type="text/javascript" language="javascript">
-	$(".tablesorter td.expand").click(function(event){
-		$(this).text($(this).text()!='+'?'+':'-').parent().next().toggle();
+	$(".tablesorter td.expand span").click(function(event){
+		$(this).text($(this).text()!='+'?'+':'-').parents('tr').next().toggle();
 	});
 </script>
 <?php $this->load->view("partial/footer"); ?>

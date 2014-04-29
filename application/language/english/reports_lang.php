@@ -90,4 +90,5 @@ $lang['reports_orders'] = 'Orders';
 $lang['reports_order'] = 'Order';
 $lang['reports_sender_from'] = 'Sender From';
 $lang['reports_sent'] = 'Sent';
+$lang['reports_no_have_orders'] = 'No pending orders!';
 ?>

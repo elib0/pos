@@ -129,7 +129,7 @@ table.tablesorter tbody td
 	border-bottom:1px solid #ddd;
 }
 
-table.tablesorter tbody tr:hover > td
+table.tablesorter tbody tr:not(.hide):hover > td
 {
 	background-color:hsl(208,45%,82%);
 }

@@ -4,7 +4,7 @@
 	border: 1px solid black;
 	background-color: white;
 	overflow: hidden;
-	z-index: 99999;
+	z-index: 1000001;
 }
 
 .ac_results ul 

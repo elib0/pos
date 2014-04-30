@@ -42,8 +42,8 @@ if (isset($success))
 <div id="show_suspended_sales_button">
 	<?php
 	// if($this->Employee->has_privilege('add','giftcards')){
-		echo anchor("giftcards/view/-1/width:".(isset($form_width)?$form_width:360),
-			"<span style='font-size:75%;'>".$this->lang->line('giftcards_new')."</span>",
+		echo anchor('giftcards/view/sale/width:'.(isset($form_width)?$form_width:360).'/height:'.(isset($form_height)?$form_height:175),
+			'<span style="font-size:75%;">Gift Card</span>',
 			array('title'=>$this->lang->line('giftcards_new'),'class'=>'small_button thickbox','style'=>'float:left;'));
 	// }
 	?>
@@ -149,8 +149,8 @@ else
 			<?php //echo form_input(array('name'=>'quantity','value'=>$item['quantity'],'size'=>'2')); ?>
 		</td>
 
-		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3', 'class'=>'edit-item text_box required','ref'=>$item['item_id']));?></td>
-		<td class="sub-total"><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>
+		<td><?=form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3', 'class'=>'edit-item text_box required','ref'=>$item['item_id']))?></td>
+		<td class="sub-total"><?=to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100)?></td>
 		<!-- <td>
 			<?php //echo form_submit("edit_item", $this->lang->line('sales_edit_item'));?>
 			<?php //echo form_button( array('value'=>$item['item_id'],'name'=>'item_broken','class'=>'item-broken','content'=>'Report Item') ); ?>
@@ -221,18 +221,19 @@ else
 	if(count($payments) > 0)
 	{
 	?>
-		<div>
-			<div class='small_button' id='suspend_sale_button' ><span><?=$this->lang->line('sales_suspend_sale')?></span></div>
-			<div class='small_button' id='cancel_sale_button' ><span><?=$this->lang->line('sales_cancel_sale')?></span></div>
-		</div>
+	<div>
+		<div class='small_button' id='suspend_sale_button'><span><?=$this->lang->line('sales_suspend_sale')?></span></div>
+		<div class='small_button' id='cancel_sale_button'><span><?=$this->lang->line('sales_cancel_sale')?></span></div>
+	</div>
 	<?php
 	}
-
-	echo '<div style="margin-top:5px;text-align:center;">';
-	echo form_open("sales/select_employee",array('id'=>'select_employee_form'));
-	echo '<label id="customer_label" for="employee">'.$this->lang->line('sales_select_employee').'</label>';
-	echo form_input(array('name'=>'employee','id'=>'employee','class'=>'text_box','size'=>'30','value'=>$employee));
-	echo form_close();
+	?>
+	<div style="margin-top:5px;text-align:center;">
+	<?=form_open("sales/select_employee",array('id'=>'select_employee_form'))?>
+	<label id="customer_label" for="employee"><?=$this->lang->line('sales_select_employee')?></label>
+	<?=form_input(array('name'=>'employee','id'=>'employee','class'=>'text_box','size'=>'30','value'=>$employee))?>
+	<?=form_close()?>
+	<?php
 	if ($mode=='sale' || $mode=='return'){
 		if (isset($customer)) {
 			echo $this->lang->line("sales_customer").': <b>'.$customer. '</b><br/>';
@@ -320,20 +321,20 @@ else
 		}
 		?>
 	<div class="payments_">
-		<div class="payments_total">Payments Total: <div><?=to_currency($payments_total); ?></div></div>
-		<div class="amount_due">Amount Due: <div><?=to_currency($amount_due); ?></div></div>
+		<div class="payments_total">Payments Total: <div><?=to_currency($payments_total)?></div></div>
+		<div class="amount_due">Amount Due: <div><?=to_currency($amount_due)?></div></div>
 	</div>
 
-	<div id="Payment_Types" >
+	<div id="Payment_Types">
 		<div style="height:100px;">
-			<?php echo form_open("sales/add_payment",array('id'=>'add_payment_form')); ?>
+			<?=form_open("sales/add_payment",array('id'=>'add_payment_form'))?>
 			<table width="100%">
 			<tr>
 			<td>
-				<?php echo $this->lang->line('sales_payment').': ';?>
+				<?=$this->lang->line('sales_payment').': '?>
 			</td>
 			<td>
-				<?php echo form_dropdown( 'payment_type', $payment_options, array(), 'id="payment_types"' ); ?>
+				<?=form_dropdown('payment_type',$payment_options,array(),'id="payment_types"')?>
 			</td>
 			</tr>
 			<tr>
@@ -359,9 +360,9 @@ else
 			<table id="register">
 			<thead>
 			<tr>
-				<th style="width:11%;"><?php echo $this->lang->line('common_delete'); ?></th>
-				<th style="width:60%;"><?php echo 'Type'; ?></th>
-				<th style="width:18%;"><?php echo 'Amount'; ?></th>
+				<th style="width:11%;"><?=$this->lang->line('common_delete')?></th>
+				<th style="width:60%;"><?='Type'?></th>
+				<th style="width:18%;"><?='Amount'?></th>
 			</tr>
 			</thead>
 			<tbody id="payment_contents">
@@ -410,7 +411,7 @@ $(document).ready(function(){
 	});
 
 	//Para el cobro de taxes
-	var b = '<?php echo $taxing ?>', afterS = '<?php echo $this->Appconfig->get('alert_after_sale') ?>';
+	var b = '<?=$taxing?>', afterS = '<?=$this->Appconfig->get('alert_after_sale')?>';
 	if (b !== 'checked') {$('.taxing-block').hide();}
 	$('#taxing').click(function(event) {
 		var cb = this;
@@ -421,22 +422,21 @@ $(document).ready(function(){
 			$('.taxing-block').hide();
 			value = 0;				
 		}
-		$.get('index.php/sales/set_taxing', {taxing: value}, function(data) {
+		$.get('index.php/sales/set_taxing',{taxing:value},function(data){
 			set_amounts();
 		});
 	});
 
-	$('.select-edit-item').change(function(event) {
+	$('.select-edit-item').change(function(event){
 		var ref = $(this).attr('ref');
 		$('#edit_item'+ref).ajaxSubmit({
-			success:function(response)
-			{
+			success:function(response){
 				set_amounts(ref);
 			}
 		});
 	});
 
-	$('.edit-item').blur(function(event) {
+	$('.edit-item').blur(function(event){
 		var ref = $(this).attr('ref');
 		
 		$('#edit_item'+ref).ajaxSubmit({
@@ -447,53 +447,47 @@ $(document).ready(function(){
 		});
 	});
 
-	$(function() {
-		$("#employee").autocomplete('index.php/employees/suggest/1',
-			{
-				max:100,
-				delay:10,
-				selectFirst: false,
-				formatItem: function(row) {
-					console.log(row);
-					return row[1];
-				}
+	$(function(){
+		$("#employee").autocomplete('index.php/employees/suggest/1',{
+			max:100,
+			delay:10,
+			selectFirst: false,
+			formatItem: function(row) {
+				console.log(row);
+				return row[1];
 			}
-		).result(function(event, data, formatted){
+		}).result(function(event,data,formatted){
 			$("#select_employee_form").submit();
 		});
 	});
 
-	$('#item').focus().autocomplete('<?php echo site_url("sales/item_search"); ?>',
-	{
+	$('#item').focus().autocomplete('<?=site_url("sales/item_search")?>',{
 		minChars:0,
 		max:100,
 		selectFirst: false,
 	   	delay:10,
-		formatItem: function(row) {
+		formatItem:function(row){
 			return row[1];
 		}
-	}).blur(function()
-	{
-		$(this).attr('value',"<?php echo $this->lang->line('sales_start_typing_item_name'); ?>");
-	}).result(function(event, data, formatted)
-	{
+	}).blur(function(){
+		$(this).attr('value',"<?=$this->lang->line('sales_start_typing_item_name')?>");
+	}).result(function(event,data,formatted){
 		$("#add_item_form").submit();
 	});
 
-	$('#item,#customer').click(function()
-	{
+	$('#item,#customer').click(function(){
 		$(this).attr('value','');
 	});
 
 	//Envia formulario de customer idependientemente del formato de customer
 	$('#location').change(function(event){
-		if ( $(this).val() != '...') {
+		if($(this).val()!='...'){
 			// $("#select_customer_form").submit();
 			$("#select_customer_form").ajaxSubmit();
 		};
 	});
 
-	$("#customer").autocomplete('<?php echo site_url("sales/customer_search"); ?>',{
+	$("#customer").autocomplete('<?=site_url("sales/customer_search")?>',{
 		minChars:0,
 		delay:10,
 		max:100,
@@ -511,7 +505,7 @@ $(document).ready(function(){
 	});
 
 	$('#email_receipt').change(function(){
-		$.post('<?=site_url("sales/set_email_receipt")?>',{email_receipt: $('#email_receipt').is(':checked')?1:0});
+		$.post('<?=site_url("sales/set_email_receipt")?>',{email_receipt:$('#email_receipt').is(':checked')?1:0});
 	});
 
 	$("#finish_sale_button").click(function()
@@ -532,7 +526,6 @@ $(document).ready(function(){
 			}else{
 				$('#finish_sale_form').submit();
 			};
-			
 		}else{
 			// alert('You must select a database');
 			notif({
@@ -612,7 +605,6 @@ function set_amounts(line){
 					$(this).html(taxes[index]).formatCurrency();					
 				});
 			}
-			
 		}
 	});
 }
@@ -625,22 +617,18 @@ function post_item_form_submit(response){
 }
 
 function post_person_form_submit(response){
-	if(response.success)
-	{
+	if(response.success){
 		$("#customer").attr("value",response.person_id);
 		$("#select_customer_form").submit();
 	}
 }
 
 function checkPaymentTypeGiftcard(){
-	if ($("#payment_types").val()=="<?php echo $this->lang->line('sales_giftcard'); ?>")
-	{
-		$("#amount_tendered_label").html("<?php echo $this->lang->line('sales_giftcard_number'); ?>");
+	if ($("#payment_types").val()=="<?=$this->lang->line('sales_giftcard')?>"){
+		$("#amount_tendered_label").html("<?=$this->lang->line('sales_giftcard_number')?>");
 		$("#amount_tendered").val('').focus();
-	}
-	else
-	{
-		$("#amount_tendered_label").html("<?php echo $this->lang->line('sales_amount_tendered'); ?>");
+	}else{
+		$("#amount_tendered_label").html("<?=$this->lang->line('sales_amount_tendered')?>");
 	}
 }
 </script>

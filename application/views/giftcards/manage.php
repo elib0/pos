@@ -31,13 +31,13 @@ $(document).ready(function(){
 	enable_select_all();
 	enable_checkboxes();
 	enable_row_selection();
-	enable_search('<?php echo site_url("$controller_name/suggest")?>','<?php echo $this->lang->line("common_confirm_search")?>');
-	enable_delete('<?php echo $this->lang->line($controller_name."_confirm_delete")?>','<?php echo $this->lang->line($controller_name."_none_selected")?>');
+	enable_search('<?=site_url("$controller_name/suggest")?>','<?=$this->lang->line("common_confirm_search")?>');
+	enable_delete('<?=$this->lang->line($controller_name."_confirm_delete")?>','<?=$this->lang->line($controller_name."_none_selected")?>');
 });
 
 function init_table_sorting(){
 	//Only init if there is more than one row
-	if($('.tablesorter tbody tr').length >1){
+	if($('.tablesorter tbody tr').length>1){
 		$("#sortable_table").tablesorter({
 			sortList:[[1,0]],
 			headers:{

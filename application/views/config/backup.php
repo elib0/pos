@@ -1,39 +1,38 @@
-<style type="text/css" media="screen">
-	#back-locationes li input[type="radio"]:checked{
-		background-color: #f4f4f4;
-	}
-</style>
 <?php 
 if (!$referen){
 echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
-<div id="container">
-	<ul id="error_msg_back"></ul>
+<div>
 	<div id="login_form">
-		<div class="form-row">
-			<div class="form_field_label" style="float: none;"><?php echo $this->lang->line('login_username'); ?>:</div>
-			<div class="form_field" style="float: none;">
-				<?php
-					echo form_input(array(
-						'name'=>'username',
-						'size'=>'26', 
-						'value'=>$fastUser,
-						'disabled'=>'disabled'
-					));
-				?>
+		<div class="field_row clearfix" style="margin: 0 0 5px 0">
+			<div>
+				<?php echo form_label($this->lang->line('login_username').':', 'name',array('class'=>'lable-form-required')); ?>
+				<div>
+					<?php
+						echo form_input(array(
+							'name'=>'username',
+							'value'=>$fastUser,
+							'disabled'=>'disabled',
+							'class'=>'text_box'
+						));
+					?>
+				</div>
 			</div>
 		</div>
-		<div class="form-row">
-			<div class="form_field_label" style="float: none;"><?php echo $this->lang->line('login_password'); ?>:</div>
-			<div class="form_field" style="float: none;">
-				<?php 
-					echo form_password(array(
-						'name'=>'password',
-						'id'=>'password',
-						'size'=>'26')
-					); 
-				?>
+		<div class="field_row clearfix" style="margin: 0 0 5px 0">
+			<div>
+				<?php echo form_label($this->lang->line('login_password').':', 'name',array('class'=>'lable-form-required')); ?>
+				<div>
+					<?php 
+						echo form_password(array(
+							'name'=>'password',
+							'id'=>'password',
+							'class'=>'text_box'
+						)); 
+					?>
+				</div>
 			</div>
 		</div>
+		<ul id="error_msg_back"></ul>
 		<div class="form-row" style="text-align: center;margin-top: 20px;">
 			<?php echo form_submit('confirm-button',$this->lang->line('recvs_complete_receiving'), 'class = "big_button" id="b-login-c"'); ?>
 		</div>
@@ -51,7 +50,7 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 						console.log(response);
 						var clas =response.success?'success_message':'error_message';
 						set_feedback(response.message,'success_message',response.success);
-						location.reload();
+						setTimeout(function(){location.reload();},1000);
 					},
 					dataType:'json',
 					contents:function(data){
@@ -77,36 +76,37 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 </script>
 <?php }else{ ?>
 <?php echo form_open_multipart('backup/confirm/-7',array('id'=>'recover-form')); ?>
-<div class="box-form-view" style="min-height: initial;">
-	<ul id="error_msg_back"></ul>	
+<div>	
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
-		<div style="width: 250px; float: left">
-			<div class="field_row clearfix">	
-				<?php echo form_label($this->lang->line('login_username').':'); ?>
-				<div>
-					<?php 
-						echo form_input(array(
-							'name'=>'username',
-							'size'=>'20', 
-							'value'=>$fastUser,
-							'disabled'=>'disabled'
-						));
-					?>
-				</div>
+		<div>
+			<?php echo form_label($this->lang->line('login_username').':', 'name',array('class'=>'lable-form-required')); ?>
+			<div>
+				<?php 
+					echo form_input(array(
+						'name'=>'username',
+						'size'=>'20', 
+						'value'=>$fastUser,
+						'disabled'=>'disabled',
+						'class'=>'text_box'
+					));
+				?>
 			</div>
-			<div class="field_row clearfix">	
-				<?php echo form_label($this->lang->line('login_password').':'); ?>
-				<div>
-					<?php 
-						echo form_password(array(
-							'name'=>'password',
-							'id'=>'password',
-							'size'=>'20')
-						); 
-					?>
-				</div>
+		</div>	
+	</div>	
+	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+		<div>
+			<?php echo form_label($this->lang->line('login_password').':', 'name',array('class'=>'lable-form-required')); ?>
+			<div>
+				<?php 
+					echo form_password(array(
+						'name'=>'password',
+						'id'=>'password',
+						'size'=>'20',
+						'class'=>'text_box'
+					)); 
+				?>
 			</div>
-		</div>
+		</div>	
 	</div>
 	<?php if ($numF>0){ ?>
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
@@ -118,7 +118,7 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 	<div id="list-backup" class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div class="field_row clearfix" style="margin: 0 0 5px 0">
 			<label style="float: none;"><?php echo $this->lang->line('config_backup_list').':'; ?></label>
-			<div><ul id="back-locationes">
+			<div><ul id="back-locationes" style="list-style:none;margin-left: 10px;">
 				<?php 
 				$bd=$this->session->userdata('dblocation');$a=0;
 				foreach ($files as $key) {
@@ -126,7 +126,7 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 						$key=str_replace('.sql','',$key);
 						$key=str_replace($bd.' ','',$key);
 				?>	
-						<li><input type="radio" name="list-back" value="<?php echo $key?>" <?php echo ($a==0?'checked=checked':'');$a++; ?>><?php echo $key; ?></li>
+						<li><input type="radio" name="list-back" value="<?php echo $key?>" <?php echo ($a==0?'checked=checked':'');$a++; ?> ><?php echo $key; ?></li>
 						
 				<?php }
 				 } ?>
@@ -137,27 +137,26 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 	<div id="file-ext" class="field_row clearfix" style="<?php echo $display ?>margin: 0 0 5px 0">
 		<div style="width: 100%; float: left; margin-top: 5px">
 			<div class="field_row clearfix">
-			<?php echo form_label($this->lang->line('config_recover_fe').':'); ?>
+			<?php echo form_label($this->lang->line('config_recover_fe').':', 'name',array('class'=>'lable-form-required')); ?>
 			<div class='form_field' style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; ">
-				<input type="file" name="datab" id="datab">
+				<input type="file" name="bdata" id="datab">
 				<input type="hidden" name="logo_name" id="logo_name" value="<?=$this->config->item('logo')?>">
-				<div class="upload_label">
-					<?php echo $this->lang->line('config_recover_f');?>
-				</div>
+				<div class="upload_label"> <?php echo $this->lang->line('config_recover_f');?> </div>
 			</div>
 			</div>
 		</div>
 	</div>
-<div class="field_row clearfix">
-	<?php
+	<ul id="error_msg_back"></ul>
+	<div class="field_row clearfix" style="text-align: center;">
+		<?php
 		echo form_submit(
 			array(
 				'name'=>'sendto',
 				'id'=>'sendto',
 				'value'=>$this->lang->line('config_recover'),
-				'class'=>'big_button float_left'
-			)
-		);
+				'class'=>'big_button',
+				'style'=>'display: inline-block;'
+			));
 		if ($numF>0){ 
 			echo form_button(
 				array(
@@ -165,12 +164,12 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 					'id'=>'dow',
 					'value'=>'dow',
 					'content' => $this->lang->line('config_backup_dow'),
-					'class'=>'big_button float_left',
-					'style'=>'display:none;'
+					'class'=>'big_button',
+					'style'=>'display: inline-block; margin-left: 20px;'
 				)
 			);
-		}
-	?>
+		} ?>
+	</div>
 </div>
 <?php echo form_close(); ?>
 <script type='text/javascript'>
@@ -183,14 +182,15 @@ $(document).ready(function(){
 			$('#file-ext').css('display','block');
 			$('#datab').attr('name','datab');			
 		}else{
-			$('#option-backup,#list-backup,#dow').css('display','block');
+			$('#option-backup,#list-backup').css('display','block');
+			$('#dow').css('display','inline-block');
 			$('#file-ext').css('display','none');
 			$('#datab').attr('name','bdata');
 			$('#error_msg_back label[for="datab"]').parents('li').remove();
 		}
 	});
 	$('#dow').click(function() {
-		if ($('#radio input').is(':checked')){
+		if (!$('#radio input').is(':checked')){
 			var dir=(window.location+'').split('index.php'),filename=$('input[name="list-back"]:checked').val();
 			if (filename.indexOf('[')!=-1){
 				filename=filename.replace('[<?php echo $this->lang->line("config_backup_auto_file"); ?>]',"")+"/1";
@@ -214,14 +214,12 @@ $(document).ready(function(){
 					$(form).ajaxSubmit({
 						success:function(response)
 						{   
-							alert(response.message);
-							alert("<?php echo $this->lang->line('config_recover_reload_after'); ?>");
+							alert(response.message+"\n<?php echo $this->lang->line('config_recover_reload_after'); ?>");
 							location.reload();
 						},
 						error:function(data){
 							// console.log(data);
-							alert("<?php echo $this->lang->line('config_recover_error_file')?>");
-							alert("<?php echo $this->lang->line('config_recover_reload_after'); ?>");
+							alert("<?php echo $this->lang->line('config_recover_error_file')?>\n<?php echo $this->lang->line('config_recover_reload_after'); ?>");
 							location.reload();
 						},
 						dataType:'json'
@@ -244,7 +242,7 @@ $(document).ready(function(){
 				},
 				datab:
 				{
-					required:"<?php echo $this->lang->line('employees_password_required'); ?>"
+					required:"<?php echo $this->lang->line('config_recover_fe'); ?>"
 				}
 			}
 		});

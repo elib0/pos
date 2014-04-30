@@ -123,9 +123,6 @@ class Suppliers extends Person_controller
 	/*
 	get the width for the add/edit form
 	*/
-	function get_form_width()
-	{			
-		return 360;
-	}
+	function get_form_width(){ return '570/height:425'; }
 }
 ?>

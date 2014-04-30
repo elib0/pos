@@ -37,7 +37,7 @@ class Backup extends Secure_area {
 				$this->ejecuteBackup(true);
 				$ched=$this->input->post('recover-backup');
 				$mod='';
-				if ($ched){
+				if (!$ched){
 					$bd=$this->session->userdata('dblocation');
 					$file=$this->input->post('list-back');
 					$data=&file_get_contents("file-bakups/".$bd.' '.$file.".sql");

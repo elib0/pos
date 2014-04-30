@@ -1,105 +1,100 @@
-<?php
-echo form_open('employees/save/'.$person_info->person_id,array('id'=>'employee_form'));
-?>
-<div id="required_fields_message"><?php echo $this->lang->line('common_fields_required_message'); ?></div>
-<ul id="error_message_box"></ul>
-<fieldset id="employee_basic_info">
-<legend><?php echo $this->lang->line("employees_basic_information"); ?></legend>
-<?php $this->load->view("people/form_basic_info"); ?>
-</fieldset>
-
-<fieldset id="employee_login_info">
-<legend><?php echo $this->lang->line("employees_login_info"); ?></legend>
-<div class="field_row clearfix">
-<?php echo form_label($this->lang->line('employees_username').':', 'username',array('class'=>'required')); ?>
-	<div class='form_field'>
-	<?php 
-		$disabled=$person_info->username?"disabled":"";
-		echo form_input(array(
-		'name'=>'username',
-		'id'=>'username',
-		'value'=>$person_info->username,$disabled=>$disabled));?>
+<?php echo form_open('employees/save/'.$person_info->person_id,array('id'=>'employee_form')); ?>
+<div>
+	<h3><?php echo $this->lang->line("employees_basic_information"); ?></h3><hr>	
+	<?php $this->load->view("people/form_basic_info"); ?>		
+</div>
+<div>
+	<h3><?php echo $this->lang->line("employees_login_info"); ?></h3><hr>
+	<div class="field_row clearfix">
+		<div style="width: 180px; float: left">
+			<div class="field_row clearfix">
+				<?php echo form_label($this->lang->line('employees_username').':', 'username',array('class'=>'lable-form-required')); ?>
+				<div >
+				<?php 
+					$disabled=$person_info->username?"disabled":"";
+					echo form_input(array(
+					'name'=>'username',
+					'id'=>'username',
+					'value'=>$person_info->username,$disabled=>$disabled,
+					'class'=>'text_box'
+				));?>
+				</div>
+			</div>
+		</div>
+		<div style="width: 180px; float: left">
+			<div class="field_row clearfix">
+				<?php $password_label_attributes = $person_info->person_id == "" ? array('class'=>'lable-form-required'):array('class'=>'lable-form');
+				echo form_label($this->lang->line('employees_password').':', 'password',$password_label_attributes); ?>
+				<div>
+				<?php echo form_password(array(
+					'name'=>'password',
+					'id'=>'password',
+					'class'=>'text_box'
+				));?>
+				</div>
+			</div>
+		</div>
+		<div style="width: 180px; float: left">
+			<div class="field_row clearfix">
+				<?php echo form_label($this->lang->line('employees_repeat_password').':', 'repeat_password',$password_label_attributes); ?>
+				<div >
+				<?php echo form_password(array(
+					'name'=>'repeat_password',
+					'id'=>'repeat_password',
+					'class'=>'text_box'
+				));?>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
-
-<?php
-$password_label_attributes = $person_info->person_id == "" ? array('class'=>'required'):array();
-?>
-
-<div class="field_row clearfix">
-<?php echo form_label($this->lang->line('employees_password').':', 'password',$password_label_attributes); ?>
-	<div class='form_field'>
-	<?php echo form_password(array(
-		'name'=>'password',
-		'id'=>'password'
-	));?>
-	</div>
-</div>
-
-
-<div class="field_row clearfix">
-<?php echo form_label($this->lang->line('employees_repeat_password').':', 'repeat_password',$password_label_attributes); ?>
-	<div class='form_field'>
-	<?php echo form_password(array(
-		'name'=>'repeat_password',
-		'id'=>'repeat_password'
-	));?>
-	</div>
-</div>
-</fieldset>
-<fieldset id="employee_permission_info">
-<legend><?php echo $this->lang->line("employees_permission_info"); ?></legend>
-<p><?php echo $this->lang->line("employees_permission_desc"); ?></p>
-<select id="employee_profile_type">
-	<option value="">Profile type...</option>
-</select>
-<input type="hidden" name="employee_profile_type" />
-<div id="radio" style="margin-top: 10px;"><input type="checkbox"  style="margin-right: 10px;">See permissions</div>
-<ul id="permission_list" style="display: none;">
-<?php
-foreach($all_modules->result() as $module)
-{
-?>
-	<li>
-	<?php
-		$subpermissions = explode(',', $module->options);
-		$attribs = array(
-			'id'=>$module->module_id,
-			'name'=>'permissions[]',
-			'value'=>$module->module_id,
-			'class'=>'permissions-option',
-			'checked'=>$this->Employee->has_permission($module->module_id,$person_info->person_id)
-		);
-		echo form_checkbox($attribs);
-	?>
-	<span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
-	<span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
-	<ul class="module-options">
-		<?php 
-		foreach ($subpermissions as $subpermission) {
-			if ($subpermission != 'none' || $subpermission == '') {
+<div id="employee_permission_info">
+	<h3><?php echo $this->lang->line("employees_permission_info"); ?></h3><hr>
+	<p><?php echo $this->lang->line("employees_permission_desc"); ?></p>
+	<select id="employee_profile_type">
+		<option value=""><?php echo $this->lang->line('employees_profi'); ?>...</option>
+	</select>
+	<input type="hidden" name="employee_profile_type" />
+	<div id="radio" style="margin-top: 10px;"><input type="checkbox"  style="margin-right: 10px;"><?php echo $this->lang->line('employees_see'); ?></div>
+	<ul id="permission_list" style="display: none;">
+		<?php foreach($all_modules->result() as $module) { ?>
+		<li>
+			<?php
+				$subpermissions = explode(',', $module->options);
 				$attribs = array(
-					'id'=>$module->module_id.'-'.$subpermission,
-					'name'=>$module->module_id.'[]',
-					'value'=>$subpermission,
-					'class'=>$module->module_id.'-option',
-					'checked'=>$this->Employee->has_privilege_permi($module->module_id,$person_info->person_id,$subpermission));
-				echo "<li>";
+					'id'=>$module->module_id,
+					'name'=>'permissions[]',
+					'value'=>$module->module_id,
+					'class'=>'permissions-option',
+					'checked'=>$this->Employee->has_permission($module->module_id,$person_info->person_id)
+				);
 				echo form_checkbox($attribs);
-				echo form_label(ucwords($subpermission));
-				echo "</li>";
-			}
-		}
-		?>
+			?>
+			<span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
+			<span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
+			<ul class="module-options">
+				<?php 
+				foreach ($subpermissions as $subpermission) {
+					if ($subpermission != 'none' || $subpermission == '') {
+						$attribs = array(
+							'id'=>$module->module_id.'-'.$subpermission,
+							'name'=>$module->module_id.'[]',
+							'value'=>$subpermission,
+							'class'=>$module->module_id.'-option',
+							'checked'=>$this->Employee->has_privilege_permi($module->module_id,$person_info->person_id,$subpermission));
+						echo "<li>";
+						echo form_checkbox($attribs);
+						echo form_label(ucwords($subpermission));
+						echo "</li>";
+					}
+				}
+				?>
+			</ul>
+		</li>
+		<?php } ?>
 	</ul>
-	</li>
-<?php
-	//Dias de la semana para armar el horario
-	$days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
-}
-?>
-</ul>
-</fieldset>
+</div>
+<?php $days = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'); ?>
 <table id="employee_schedule">
 	<tr>
 		<?php foreach($days as $day) echo '<th>'.$day.'</th>'; ?>
@@ -116,10 +111,12 @@ foreach($all_modules->result() as $module)
 	<tr>
 		<?php
 			$horas = array();
-			for ($i=0; $i < 23; $i++) {
-				$horas[] = $i;
-			}
-			foreach($days as $day) echo '<td>'.form_dropdown('in'.$day, $horas, $this->Schedule->workable_day_hour($day, 'in', $person_info->person_id), 'id="in'.strtolower($day).'"').'</td>';
+			for ($i=0; $i < 23; $i++) { $horas[] = $i; }
+			foreach($days as $day){
+				$select=$this->Schedule->workable_day_hour($day, 'in', $person_info->person_id);
+				$disabled=$select===false?'disabled="disabled"':'';
+				echo '<td>'.form_dropdown('in'.$day, $horas,$select, 'id="in'.strtolower($day).'" '.$disabled).'</td>';
+			} 
 		?>
 		<td>In</td>
 	</tr>
@@ -127,12 +124,19 @@ foreach($all_modules->result() as $module)
 		<?php
 			unset($horas[0]);
 			$horas[] = 23;
-			foreach($days as $day) echo '<td>'.form_dropdown('out'.$day, $horas, $this->Schedule->workable_day_hour($day, 'out', $person_info->person_id), 'id="out'.strtolower($day).'"').'</td>';
+			foreach($days as $day){
+				$select=$this->Schedule->workable_day_hour($day, 'out', $person_info->person_id);
+				$disabled=$select===false?'disabled="disabled"':'';
+				echo '<td>'.form_dropdown('out'.$day, $horas,$select, 'id="out'.strtolower($day).'" '.$disabled).'</td>';
+			} 
 		?>
 		<td>Out</td>
 	</tr>
-
 </table>
+<div class="field_row clearfix requested">
+	<?=$this->lang->line('common_fields_required_message')?>
+</div>
+<ul id="error_message_box"></ul>
 <?php
 echo form_submit(array(
 	'name'=>'submit',
@@ -140,27 +144,17 @@ echo form_submit(array(
 	'value'=>$this->lang->line('common_submit'),
 	'class'=>'small_button float_right')
 );
-echo form_close();
-?>
-<!-- <pre style="float: left;"><?=print_r($module_profiles)?></pre> -->
+echo form_close(); ?>
 <?php 
 	$retypes=''; 
-	// $retypes=implode(",",$module_profiles); 
 	foreach ($module_profiles as $key) {
 		$retypes.=implode("|",$key).']';
 	}
 ?>
 <script type='text/javascript'>
-
-//validation and submit handling
-$(document).ready(function()
-{
-	//Tipos de perfiles de usuario
+$(document).ready(function(){
 	var type=[],htype=[],select='<?=$person_info->type_employees?>',options='',retypes='<?=$retypes?>';
 	var retypes2=retypes.split(']');
-	// $.each(types,function(key){
-	// 	options+='<option value="'+key+'" '+(select==key?'selected="selected"':'')+'>'+key+'</option>';
-	// });
 	for (var i=0;i<retypes2.length;i++){
 		var types=retypes2[i].split('|');
 		if (types[1]){ 
@@ -190,31 +184,10 @@ $(document).ready(function()
 			$('input[type="checkbox"][value="'+perm[0]+'"].permissions-option').attr('checked','checked');
 		}
 	});
-	$('#radio input').change(function(event) {
+	$('#radio input').click(function(event) {
 		if($(this).is(':checked')) $('#permission_list').css('display','block');
 		else $('#permission_list').css('display','none');
 	});
-	// $('#submit').click(function(e){
-	// 	var days = $('td.checkDays > input[type=checkbox]');
-	// 	var hours = $('td.checkDays > input[type=checkbox]');
-
-	// 	var jsonObject = {};
-	// 	$.each(days, function(i, value){
-	// 		var status = ( $(this).is(':checked') ) ? 1 : 0; //Compruebo si esta marcado
-	// 		jsonObject[i] = {
-	// 			active: status,
-	// 			timeIn: 0,
-	// 			timeOut: 23
-	// 		}
-	// 	});
-
-	// 	var json = JSON.stringify(jsonObject);
-	// 	console.log(json);
-	// 	return false;
-	// });
-
-	//Desactivo la seleccion de horas hasta q el usuario marque algun dia
-	// $('table#employee_schedule select').attr('disabled', 'disabled');
 
 	//Verifica  dia marcado para mostrar el selector de hora
 	$('table#employee_schedule input[type=checkbox]').change(function(){

@@ -4,12 +4,12 @@
 	<div id="new_button">
 		<?php
 		if($this->Employee->has_privilege('add',$controller_name)){  
-			echo anchor("$controller_name/view/-1/width:$form_width",
+			echo anchor("$controller_name/view/-1/width:660/height:465",
 			"<span>".$this->lang->line($controller_name.'_new')."</span>",
 			array('class'=>'big_button thickbox','title'=>$this->lang->line($controller_name.'_new')));
 		}
 		?>
-		<?=anchor("$controller_name/excel_import/width:$form_width",'<span>Excel Import</span>',array('class'=>'big_button thickbox','title'=>'Import Items from Excel'))?>
+		<?php echo anchor("$controller_name/excel_import/width:450/height:165",'<span>Excel Import</span>',array('class'=>'big_button thickbox','title'=>'Import Items from Excel'))?>
 	</div>
 </div>
 
@@ -20,9 +20,6 @@ foreach ($db as $key => $value){
 	if($key != 'transactions') $dbs[$key]=ucwords($key); //Creo arreglo para mis <option>
 }
 echo form_open("$controller_name/set_location",array('id'=>'form_items_location'));
-// echo form_label('Location:', 'locationbd');		
-// echo form_dropdown('items_location', $dbs,$items_location, 'id="locationbd"');		
-
 ?>
 
 <div class="middle-black-bar">
@@ -61,7 +58,7 @@ echo form_open("$controller_name/set_location",array('id'=>'form_items_location'
 		<?php if($this->Employee->has_privilege('delete', $controller_name)):  ?>
 		<li class="float_left"><?=form_button(array('href'=>"$controller_name/delete",'id'=>'delete','class'=>'small_button'),$this->lang->line("common_delete"))?></li>
 		<?php endif ?>
-		<li class="float_left"><?=anchor("$controller_name/bulk_edit/width:$form_width",$this->lang->line("items_bulk_edit"),array('id'=>'bulk_edit','title'=>$this->lang->line('items_edit_multiple_items'),'class'=>'small_button'))?></li>
+		<li class="float_left"><?=anchor("$controller_name/bulk_edit/width:$form_width",$this->lang->line("items_bulk_edit"),array('id'=>'bulk_edit','title'=>$this->lang->line('items_bulk_edit'),'class'=>'small_button'))?></li>
 		<li class="float_left"><?=anchor("$controller_name/generate_barcodes",$this->lang->line("items_generate_barcodes"),array('id'=>'generate_barcodes','class'=>'small_button','target'=>'_blank','title'=>$this->lang->line('items_generate_barcodes')))?></li>
 		<li class="float_right">
 		<img src='<?=base_url()?>images/spinner_small.gif' alt='spinner' id='spinner'/>
@@ -148,9 +145,9 @@ function post_item_form_submit(response)
 		//This is an update, just update one row
 		if(jQuery.inArray(response.item_id,get_visible_checkbox_ids()) != -1)
 		{
-			update_row(response.item_id,'<?php echo site_url("$controller_name/get_row")?>');
+			//update_row(response.item_id,'<?php echo site_url("$controller_name/get_row")?>');
 			set_feedback(response.message,'success_message',false);
-
+			setTimeout(function() { location.reload(); }, 1000);
 		}
 		else //refresh entire table
 		{
@@ -171,12 +168,14 @@ function post_bulk_form_submit(response)
 	}
 	else
 	{
-		var selected_item_ids=get_selected_values();
-		for(k=0;k<selected_item_ids.length;k++)
-		{
-			update_row(selected_item_ids[k],'<?php echo site_url("$controller_name/get_row")?>');
-		}
+		//var selected_item_ids=get_selected_values();
+		// for(k=0;k<selected_item_ids.length;k++)
+		// { 	
+		// 	//update_row(selected_item_ids[k],'<?php echo site_url("$controller_name/get_row")?>');
+		// }
 		set_feedback(response.message,'success_message',false);
+		setTimeout(function() { location.reload(); }, 1000);
+
 	}
 }
 

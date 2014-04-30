@@ -32,4 +32,6 @@ $lang['employees_profile_per_name_e'] = 'This profile already exists';
 $lang['employees_profile_m'] = 'Modules';
 $lang['employees_profile_SA'] = 'Select all';
 $lang['employees_profile_DA'] = 'Deselect all';
+$lang['employees_see'] = 'See permissions';
+$lang['employees_profi'] = 'Profile type';
 ?>

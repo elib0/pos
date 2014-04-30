@@ -36,10 +36,7 @@
 	margin-bottom: 5px;
 }
 
-#employee_schedule{
-	border: 2px groove threedface;
-	width: 100%;
-}
+#employee_schedule{ width: 100%; }
 #employee_schedule tr>td, #employee_schedule tr>th{
 	text-align: center;
 	padding: 5px;
@@ -73,26 +70,18 @@
 	top:3px;
 }
 
-#employee_permission_info
-{
-	float:left;
-	width:47%;
-	margin-left:5px;
-	padding:5px;
-}
 #employee_permission_info p
 {
 	font-weight:bold;
 }
-#employee_permission_info.profi #permission_list>li{
+#employee_permission_info #permission_list>li{
   		float:left;
   		height:55px;
   		width: 300px;
   		border: 1px solid #DDDDDD;
 }
-#employee_permission_info.profi #permission_list li ul li{ float:left; }
-#employee_permission_info.profi{ width: inherit; }
-#employee_permission_info.profi #employee_permission_info span.small
+#employee_permission_info #permission_list li ul li{ float:left; }
+#employee_permission_info #employee_permission_info span.small
 {
 	font-style:italic;
 	font-size:80%;
@@ -136,5 +125,11 @@ legend{
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #ccc;
-	background-color: #fafafa;;
+	background-color: #fafafa;
 }
+#details_items_po table { border-collapse:collapse; }
+#details_items_po .noBorderTop {border-top: 1px transparent solid; }
+#details_items_po .noBorderLeft {border-left: 1px transparent solid; }
+#details_items_po .noBorderRigth {border-right: 1px transparent solid; }
+#details_items_po .noBorderBottom {border-bottom: 1px transparent solid; }
+#details_items_po table th,#details_items_po table td {border: 1px #f0f0f0 solid; }

@@ -1,13 +1,20 @@
 <?php
 class Transfers extends CI_Model
 {
-    var $con;
-    private $db = 'transactions';
+    var $con = false;
+    private $dbgroup = 'transactions';
 
     function __construct()
     {
         parent::__construct();
-        $this->con = $this->load->database($this->db, true); //Unica base de dato centralizada
+
+        //Verifica grupo de conexion para transacciones
+        include('application/config/database.php');
+        if (isset( $db[$this->dbgroup] )){
+            $this->con = $this->load->database($this->dbgroup, true); //Unica base de dato centralizada
+        }else{
+            show_error('Please set the Connection group and database transactions');
+        }
     }
 
     function save($items,$customer_id,$employee_id,$comment,$payments,$sale_id=false)
@@ -72,10 +79,15 @@ class Transfers extends CI_Model
         $this->con->update('transfers', array('status' => $status));
     }
 
-    public function get_my_reception_detail($reception_id){
+    public function get_my_reception_detail($reception_id = 0){
         $this->con->from('transfer_items');
         $this->con->join('transfers', 'transfers.transfer_id = transfer_items.transfer_id');
-        $this->con->where('transfer_items.transfer_id', $reception_id);
+        
+        //Si no hay ID devulve todos las transacciones
+        if ($reception_id > 0) {
+            $this->con->where('transfers.transfer_id', $reception_id);
+        }
+
         $this->con->where('transfers.status', 1);
         $this->con->where('transfers.receiver', $this->session->userdata('dblocation'));
         $this->db->limit(1);
@@ -86,13 +98,14 @@ class Transfers extends CI_Model
         $this->con->from('transfers');
         $this->con->where('receiver', $this->session->userdata('dblocation'));
         $this->con->where('status', 1);
-        // $this->con->order_by('date', 'desc');
+        $this->con->order_by('date', 'desc');
         return $this->con->get()->result_array();
     }
 
     public function available(){
         $this->load->dbutil();
-        return $this->dbutil->database_exists('possp_transactions');
+
+        return $this->dbutil->database_exists('possp_transactions') && $this->con;
     }
 }
 ?>

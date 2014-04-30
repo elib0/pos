@@ -112,7 +112,14 @@ html {
 		<nav id="notifications">
 			<?php foreach ($notifications as $notification => $data): ?>
 				<div class="notification-<?php echo $notification ?>">
-				<?=anchor($data['url'],count($data['data']), 'title="'.$data['title'].'"')?>
+				<?php
+				$noti_num = count($data['data']);
+				if ( $noti_num > 0 ){ //Si tiene notificaciones se pone como enlace
+					echo anchor($data['url'],$noti_num, 'title="'.$data['title'].'"');
+				}else{
+					echo '<span title="'.$data['title'].'">'.$noti_num.'</span>';
+				}
+				?>
 				</div>
 			<?php endforeach ?>
 		</nav>

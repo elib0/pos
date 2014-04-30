@@ -245,7 +245,7 @@ else
 			
 			//echo '<div style="margin-top:5px;text-align:center;">';
 			//echo '<h3 style="margin: 5px 0 5px 0">'.$this->lang->line('common_or').'</h3>';
-			echo anchor("customers/view/-1/width:350","<span>+</span>",array('class'=>'small_button thickbox','title'=>$this->lang->line('sales_new_customer'),'style'=>'padding:4px 10px;'));
+			echo anchor("customers/view/-1/width:600/height:420","<span>+</span>",array('class'=>'small_button thickbox','title'=>$this->lang->line('sales_new_customer'),'style'=>'padding:4px 10px;'));
 			//echo '<div class="clearfix">&nbsp;</div>';
 			echo form_close();
 		}

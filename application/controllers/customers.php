@@ -193,9 +193,6 @@ class Customers extends Person_controller
 	/*
 	get the width for the add/edit form
 	*/
-	function get_form_width()
-	{			
-		return 350;
-	}
+	function get_form_width(){ return '600/height:420'; }
 }
 ?>

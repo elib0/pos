@@ -134,7 +134,13 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
 #TB_ajaxContent p{
 	padding:5px 0px 5px 0px;
 }
-
+#TB_ajaxContent div hr{
+	margin-bottom: 5px;
+}
+#TB_ajaxContent div input[type="radio"],
+#TB_ajaxContent div input[type="checkbox"]{
+	margin-right: 10px;
+}
 #TB_load{
 	position: fixed;
 	display:none;

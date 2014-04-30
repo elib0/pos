@@ -4,7 +4,11 @@ a, a:hover, a:visited, a:active{
 
 .field_row
 {
-	margin: 0 0 10px 0;
+	margin: 0 0 3px 0;
+}
+.requested{
+	color: #FF0000; 
+	font-size: 11px
 }
 
 .field_row label

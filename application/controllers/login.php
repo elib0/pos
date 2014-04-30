@@ -5,9 +5,10 @@ class Login extends CI_Controller
 	{
 		parent::__construct();
 		// $this->output->enable_profiler(TRUE);
-		// 
 		if ($this->input->post('locationbd')) {
 			$this->session->set_userdata('dblocation', $this->input->post('locationbd'));
+		}elseif($this->session->userdata('dblocation')){
+			$this->session->set_userdata('dblocation', $this->session->userdata('dblocation'));
 		}else{
 			$this->session->set_userdata('dblocation', 'default');
 		}

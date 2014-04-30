@@ -64,22 +64,6 @@ if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['
 	$db['default']['swap_pre'] = '';
 	$db['default']['autoinit'] = FALSE;
 	$db['default']['stricton'] = FALSE;
-
-	$db['otra']['hostname'] = 'localhost';
-	$db['otra']['username'] = 'root';
-	$db['otra']['password'] = 'root';
-	$db['otra']['database'] = 'possp2';
-	$db['otra']['dbdriver'] = 'mysql';
-	$db['otra']['dbprefix'] = 'ospos_';
-	$db['otra']['pconnect'] = FALSE;
-	$db['otra']['db_debug'] = TRUE;
-	$db['otra']['cache_on'] = FALSE;
-	$db['otra']['cachedir'] = '';
-	$db['otra']['char_set'] = 'utf8';
-	$db['otra']['dbcollat'] = 'utf8_general_ci';
-	$db['otra']['swap_pre'] = '';
-	$db['otra']['autoinit'] = FALSE;
-	$db['otra']['stricton'] = FALSE;
 }else{
 	$db['default']['hostname'] = 'localhost';
 	$db['default']['username'] = 'maogcorp_possp';
@@ -96,22 +80,32 @@ if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['
 	$db['default']['swap_pre'] = '';
 	$db['default']['autoinit'] = TRUE;
 	$db['default']['stricton'] = FALSE;
+}
 
-	$db['loca_2']['hostname'] = 'localhost';
-	$db['loca_2']['username'] = 'maogcorp_loca2';
-	$db['loca_2']['password'] = 'possp';
-	$db['loca_2']['database'] = 'maogcorp_loca2';
-	$db['loca_2']['dbdriver'] = 'mysql';
-	$db['loca_2']['dbprefix'] = 'ospos_';
-	$db['loca_2']['pconnect'] = FALSE;
-	$db['loca_2']['db_debug'] = TRUE;
-	$db['loca_2']['cache_on'] = FALSE;
-	$db['loca_2']['cachedir'] = '';
-	$db['loca_2']['char_set'] = 'utf8';
-	$db['loca_2']['dbcollat'] = 'utf8_general_ci';
-	$db['loca_2']['swap_pre'] = '';
-	$db['loca_2']['autoinit'] = TRUE;
-	$db['loca_2']['stricton'] = FALSE;
+//Carga grupos de db para diferentes locaciones
+$conn = mysql_connect($db['default']['hostname'], $db['default']['username'], $db['default']['password']);
+if ($conn) {
+	if (mysql_select_db($db['default']['database'])) {
+		$query = "SELECT * FROM ".$db['default']['dbprefix']."locations WHERE active = '1'";
+
+		$result = mysql_query($query);
+
+		while ($row = mysql_fetch_assoc($result)) {
+			foreach ($row as $key => $value) {
+				if ($key == 'name')$group_name = $value;
+				$db[$group_name][$key] = $value;
+			}
+			$db[$group_name]['pconnect'] = $db['default']['pconnect'];
+			$db[$group_name]['db_debug'] = $db['default']['db_debug'];
+			$db[$group_name]['cache_on'] = $db['default']['cache_on'];
+			$db[$group_name]['cachedir'] = $db['default']['cachedir'];
+			$db[$group_name]['char_set'] = $db['default']['char_set'];
+			$db[$group_name]['dbcollat'] = $db['default']['dbcollat'];
+			$db[$group_name]['swap_pre'] = $db['default']['swap_pre'];
+			$db[$group_name]['autoinit'] = $db['default']['autoinit'];
+			$db[$group_name]['stricton'] = $db['default']['stricton'];
+		}
+	}
 }
 
 //Obligatorioa para envio de items a otras tiendas

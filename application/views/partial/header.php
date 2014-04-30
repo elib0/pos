@@ -131,8 +131,9 @@ html {
 				<?php echo '<span>Location: </span>'.$this->session->userdata('dblocation');
 				if ($this->Employee->isAdmin()){ ?>
 				<ul>
-					<?php foreach($dbs as $db){ ?>
-							<li><?=anchor("employees/set_location/".$db,$db)?></li>
+					<?php 
+					foreach($dbs as $db){ ?>
+					<li><?=anchor("employees/set_location/".$db,$db)?></li>
 					<?php } ?>
 				</ul>
 				<?php } ?>

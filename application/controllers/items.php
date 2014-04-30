@@ -486,9 +486,6 @@ class Items extends Secure_area implements iData_controller
 	/*
 	get the width for the add/edit form
 	*/
-	function get_form_width()
-	{
-		return '660/height:465';
-	}
+	function get_form_width(){ return '660/height:465'; }
 }
 ?>

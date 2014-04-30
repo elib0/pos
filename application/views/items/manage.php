@@ -145,9 +145,9 @@ function post_item_form_submit(response)
 		//This is an update, just update one row
 		if(jQuery.inArray(response.item_id,get_visible_checkbox_ids()) != -1)
 		{
-			update_row(response.item_id,'<?php echo site_url("$controller_name/get_row")?>');
+			//update_row(response.item_id,'<?php echo site_url("$controller_name/get_row")?>');
 			set_feedback(response.message,'success_message',false);
-
+			setTimeout(function() { location.reload(); }, 1000);
 		}
 		else //refresh entire table
 		{
@@ -168,12 +168,14 @@ function post_bulk_form_submit(response)
 	}
 	else
 	{
-		var selected_item_ids=get_selected_values();
-		for(k=0;k<selected_item_ids.length;k++)
-		{
-			update_row(selected_item_ids[k],'<?php echo site_url("$controller_name/get_row")?>');
-		}
+		//var selected_item_ids=get_selected_values();
+		// for(k=0;k<selected_item_ids.length;k++)
+		// { 	
+		// 	//update_row(selected_item_ids[k],'<?php echo site_url("$controller_name/get_row")?>');
+		// }
 		set_feedback(response.message,'success_message',false);
+		setTimeout(function() { location.reload(); }, 1000);
+
 	}
 }
 

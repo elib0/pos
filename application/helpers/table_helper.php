@@ -358,7 +358,7 @@ function get_item_kit_data_row($item_kit,$controller)
 	$table_data_row.='<td width="15%">'.$item_kit->name.'</td>';
 	$table_data_row.='<td width="20%">'.character_limiter($item_kit->description, 25).'</td>';
 	if($CI->Employee->has_privilege('update', $controller_name)){
-		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item_kit->item_kit_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$item_kit->item_kit_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'thickbox small_button','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
 	}else{
 		$table_data_row .= '<td width="5%"></td>';
 	}

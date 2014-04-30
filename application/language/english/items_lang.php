@@ -84,4 +84,5 @@ $lang['items_inventory_manipulation_title_note'] = 'Notes';
 $lang['items_inventory_manipulation_note'] = 'Use negative numbers (-) to subtract from the inventory';
 $lang['items_is_locked_title']="This item can't be deleted.";
 $lang['items_is_locked_alert']="You can't delete locked items. Check your selection.";
+$lang['items_supplier_id_required']="Supplier is required.";
 ?>

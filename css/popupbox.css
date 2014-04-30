@@ -125,5 +125,11 @@ legend{
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	border: 1px solid #ccc;
-	background-color: #fafafa;;
+	background-color: #fafafa;
 }
+#details_items_po table { border-collapse:collapse; }
+#details_items_po .noBorderTop {border-top: 1px transparent solid; }
+#details_items_po .noBorderLeft {border-left: 1px transparent solid; }
+#details_items_po .noBorderRigth {border-right: 1px transparent solid; }
+#details_items_po .noBorderBottom {border-bottom: 1px transparent solid; }
+#details_items_po table th,#details_items_po table td {border: 1px #f0f0f0 solid; }

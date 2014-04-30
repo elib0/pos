@@ -137,7 +137,7 @@ function do_search(show_feedback,on_complete)
 				
 		$('#spinner').hide();
 		//re-init elements in new table, as table tbody children were replaced
-		tb_init('#sortable_table a.thickbox');
+		// tb_init('#sortable_table a.thickbox');
 		update_sortable_table();	
 		enable_row_selection();		
 		$('#sortable_table tbody :checkbox').click(checkbox_click);
@@ -303,7 +303,7 @@ function reinit_row(checkbox_id)
 	enable_row_selection(new_row);
 	//Re-init some stuff as we replaced row
 	update_sortable_table();
-	tb_init(new_row.find("a.thickbox"));
+	// tb_init(new_row.find("a.thickbox"));
 	//re-enable e-mail
 	new_checkbox.click(checkbox_click);	
 }

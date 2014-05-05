@@ -148,7 +148,18 @@ class Sale extends CI_Model
 		{
 			return -1;
 		}
-
+		//si finalizo la venta y hay giftcards se les agrega el monto pagado
+		$first_gc=true;
+		foreach($items as $line=>$row){
+			if($row['item_id']<0){
+				if($first_gc){
+					$this->load->model('giftcard');
+					$first_gc=false;
+				}
+				$gift_card=array('giftcard_number'=>$row['item_number'],'value'=>$row['price']);
+				$this->Giftcard->save($gift_card,false,true);
+			}
+		}
 		return $sale_id;
 	}
 

@@ -218,7 +218,7 @@ class Sale_lib
 				$maxkey = $item['line'];
 			}
 
-			if($item['item_id']==$item_id)
+			if($item['item_id']==$item_id&&$item_id>0)
 			{
 				$itemalreadyinsale=TRUE;
 				$updatekey=$item['line'];
@@ -227,13 +227,20 @@ class Sale_lib
 
 		$insertkey=$maxkey+1;
 
+		if($item_id==-1&&$serialnumber){
+			$item_number=$serialnumber;
+			$serialnumber=null;
+			$quantity=1;
+		}else{	
+			$item_number=$this->CI->Item->get_info($item_id)->item_number;
+		}
 		//array/cart records are identified by $insertkey and item_id is just another field.
 		$item = array(($insertkey)=>
 		array(
 			'item_id'               =>$item_id,
 			'line'                  =>$insertkey,
 			'name'                  =>$this->CI->Item->get_info($item_id)->name,
-			'item_number'           =>$this->CI->Item->get_info($item_id)->item_number,
+			'item_number'           =>$item_number,
 			'description'           =>$description!=null ? $description: $this->CI->Item->get_info($item_id)->description,
 			'serialnumber'          =>$serialnumber!=null ? $serialnumber: '',
 			'allow_alt_description' =>$this->CI->Item->get_info($item_id)->allow_alt_description,
@@ -288,16 +295,16 @@ class Sale_lib
 	function get_quantity_already_added($item_id)
 	{
 		$items = $this->get_cart();
-		$quanity_already_added = 0;
+		$quantity_already_added = 0;
 		foreach ($items as $item)
 		{
 			if($item['item_id']==$item_id)
 			{
-				$quanity_already_added+=$item['quantity'];
+				$quantity_already_added+=$item['quantity'];
 			}
 		}
 		
-		return $quanity_already_added;
+		return $quantity_already_added;
 	}
 	
 	function get_item_id($line_to_get)

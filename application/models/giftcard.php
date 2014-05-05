@@ -17,14 +17,20 @@ class Giftcard extends CI_Model
 	/*
 	Determines if a given giftcard_id is an giftcard
 	*/
-	function exists( $giftcard_id )
+	function exists( $giftcard_id, $giftcard_number=false )
 	{
-		$this->con->from('giftcards');
-		$this->con->where('giftcard_id',$giftcard_id);
-		$this->con->where('deleted',0);
-		$query = $this->con->get();
-
-		return ($query->num_rows()==1);
+		$query=false;
+		if($giftcard_id){
+			$this->con->from('giftcards');
+			$this->con->where('giftcard_id',$giftcard_id);
+			$query = $this->con->get();
+		}
+		if(!$query||!$query->num_rows()>0){
+			$this->con->from('giftcards');
+			$this->con->where('giftcard_number',$giftcard_number);
+			$query = $this->con->get();
+		}
+		return ($query->num_rows()>0)?$query:false;
 	}
 
 	/*
@@ -113,20 +119,38 @@ class Giftcard extends CI_Model
 	/*
 	Inserts or updates a giftcard
 	*/
-	function save(&$giftcard_data,$giftcard_id=false)
+	function save(&$giftcard_data,$giftcard_id=false,$add=false)
 	{
-		if (!$giftcard_id or !$this->exists($giftcard_id))
-		{
-			if($this->con->insert('giftcards',$giftcard_data))
-			{
-				$giftcard_data['giftcard_id']=$this->con->insert_id();
-				return true;
+		$update=false;
+		//si no se envia value, solo se crean giftcards nuevas o se restauran borradas
+		$value=isset($giftcard_data['value']);
+		if($query=$this->exists($giftcard_id,$giftcard_data['giftcard_number'])){
+			$giftcard_id=false;
+			$row=current($query->result());
+			$giftcard_id=$row->giftcard_id;
+			if($row->deleted){//la restauramos si fue borrada
+				$update=true;
+				$giftcard_data['deleted']=0;
+				$row->value=0;
 			}
-			return false;
+			if(!$value) $giftcard_data['value']=0;
+			//si es adición, se le suma el valor actual
+			if($add) $giftcard_data['value']+=$row->value;
+			//si ha cambiado el valor lo actualizamos
+			if($giftcard_data['value']!=$row->value) $update=true;
+		}else{
+			$giftcard_id=false;
 		}
-
-		$this->con->where('giftcard_id', $giftcard_id);
-		return $this->con->update('giftcards',$giftcard_data);
+		if(!$giftcard_id){//si no existe la intentamos crear
+			if(!$value) $giftcard_data['value']=0;//si no hay valor la iniciamos en cero
+			if($this->con->insert('giftcards',$giftcard_data)){
+				$giftcard_id=$this->con->insert_id();
+				$giftcard_data['new']=true;
+			}
+		}
+		if(!$update) return $giftcard_id;
+		$this->con->where('giftcard_id',$giftcard_id);
+		return $this->con->update('giftcards',$giftcard_data)?$giftcard_id:false;
 	}
 
 	/*

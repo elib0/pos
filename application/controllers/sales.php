@@ -430,9 +430,9 @@ class Sales extends Secure_area
 		$data['employee'] = $employee->first_name.' '.$employee->last_name;
 		$data['cart']=$this->sale_lib->get_cart();
 		$data['modes']=array(
-								'sale'=>$this->lang->line('sales_sale'),
-								'return'=>$this->lang->line('sales_return')
-							);
+			'sale'=>$this->lang->line('sales_sale'),
+			'return'=>$this->lang->line('sales_return')
+		);
 
 		//Si tiene su bd configurada para transferencias entre tiendas
 		if ($this->Transfers->available()) {

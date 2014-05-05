@@ -12,7 +12,7 @@
 @import url(http://fonts.googleapis.com/css?family=Fjalla+One);
 
 body,html{
-	min-width:983px;
+	min-width:900px;
 }
 
 :focus{
@@ -20,7 +20,6 @@ body,html{
 }
 
 body{
-	margin:0;
 	padding:0;
 	font-family:"Helvetica Neue","Helvetica",Helvetica,Arial,sans-serif;
 	/*background:url(../images/background.png);*/
@@ -184,29 +183,6 @@ a.none{
 	padding:10px;
 	width:70%;
 	text-align:left;
-}
-
-#footer{
-	position:fixed;
-	bottom:0;
-	padding:1.5em;
-	width:99%;
-	min-width:975px;
-	border-top:1px solid #CCC;
-	background-color:#f4f4f4;
-	color:#000;
-	text-align:center;
-	font-size:12px;
-}
-
-#footer a{
-	color:#000;
-	text-decoration:underline;
-}
-
-#footer a:hover{
-	color:#003399;
-	text-decoration:none;
 }
 
 

@@ -175,6 +175,8 @@ nav#notifications div a{
 nav.main-menu{
 	position:fixed;
 	top:55px;
+	left:0;
+	width:155px;
 	z-index:900;
 	height:100%;
 	background-color:hsl(0,0%,100%);
@@ -248,7 +250,27 @@ nav.main-menu a,nav.main-menu a:active,nav.main-menu a:visited{
 	font-size:1.2em !important;
 }
 
+#footer{
+	position:fixed;
+	left:155px;
+	right:0;
+	bottom:0;
+	padding:1.5em 0;
+	min-width:918px;
+	border-top:1px solid #CCC;
+	background-color:#f4f4f4;
+	color:#000;
+	text-align:center;
+	font-size:12px;
+}
+
 @media screen and (max-width:1100px){
+	#footer{
+		left:65px;
+	}
+	nav.main-menu{
+		width:66px;
+	}
 	nav.main-menu a,nav.main-menu a:active,nav.main-menu a:visited{
 		font-weight:normal;
 		font-size:.9em !important;
@@ -274,14 +296,24 @@ nav.main-menu a,nav.main-menu a:active,nav.main-menu a:visited{
 }
 
 /*Otros*/
+#footer a{
+	color:#000;
+	text-decoration:underline;
+}
+#footer a:hover{
+	color:#003399;
+	text-decoration:none;
+}
 
 #content_area_wrapper{
-	margin:65px 0 55px 165px;
 	width:auto;
 }
 
+body{
+	margin:65px 0 55px 165px;
+}
 @media screen and (max-width:1100px){
-	#content_area_wrapper{
+	body{
 		margin-left:80px;
 	}
 }

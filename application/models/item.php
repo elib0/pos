@@ -76,6 +76,8 @@ class Item extends CI_Model
 			$field=$query->row();
 			//service items have not quantity counter, start with a default value
 			if($field->is_service) $field->quantity=10;
+			//special items (<0) have not stock, 1 as default value
+			if($field->item_id<0) $field->quantity=1;
 
 			return $field;
 		}

@@ -49,7 +49,7 @@ class Giftcards extends Secure_area implements iData_controller
 
 	function view($giftcard_id=-1)
 	{
-		$data['seller']=($giftcard_id=='sell');
+		$data['seller']=($giftcard_id=='sale');
 		if($data['seller']){
 			//alguna validacion para vendedores, si es requerido
 			$giftcard_id=-1;
@@ -59,32 +59,42 @@ class Giftcards extends Secure_area implements iData_controller
 		$this->load->view("giftcards/form",$data);
 	}
 	
-	function save($giftcard_id=-1)
+	function save($giftcard_id=false)
 	{
-		$giftcard_data = array(
-		'giftcard_number'=>$this->input->post('giftcard_number'),
-		'value'=>$this->input->post('value')
-		);
-
-		if( $this->Giftcard->save( $giftcard_data, $giftcard_id ) )
-		{
+		$selling=!!$this->input->post('giftcard_sale');//detectar si es una venta
+		$value=$this->input->post('value');
+		$giftcard_number=$this->input->post('giftcard_number');
+		$giftcard_data=array('giftcard_number'=>$giftcard_number);
+		//se le agrega el valor si no es una venta
+		if(!$selling) $giftcard_data['value']=$value;
+		$giftcard_id=$this->Giftcard->save($giftcard_data,$giftcard_id,$selling);
+		if($giftcard_id){
+			if($selling){
+				$this->load->library('Sale_lib');
+				$this->sale_lib->add_item(-1,1,0,$value,null,$giftcard_number);//venta de giftcard
+			}
 			//New giftcard
-			if($giftcard_id==-1)
+			if(isset($giftcard_data['new']))
 			{
-				echo json_encode(array('success'=>true,'message'=>$this->lang->line('giftcards_successful_adding').' '.
-				$giftcard_data['giftcard_number'],'giftcard_id'=>$giftcard_data['giftcard_id']));
-				$giftcard_id = $giftcard_data['giftcard_id'];
+				$success=$this->lang->line('giftcards_successful_adding');
 			}
 			else //previous giftcard
 			{
-				echo json_encode(array('success'=>true,'message'=>$this->lang->line('giftcards_successful_updating').' '.
-				$giftcard_data['giftcard_number'],'giftcard_id'=>$giftcard_id));
+				$success=$this->lang->line('giftcards_successful_updating');
 			}
+			echo json_encode(array(
+				'success'=>true,
+				'message'=>$success.' '.$giftcard_data['giftcard_number'],
+				'giftcard_id'=>$giftcard_id
+			));
 		}
 		else//failure
 		{
-			echo json_encode(array('success'=>false,'message'=>$this->lang->line('giftcards_error_adding_updating').' '.
-			$giftcard_data['giftcard_number'],'giftcard_id'=>-1));
+			echo json_encode(array(
+				'success'=>false,
+				'message'=>$this->lang->line('giftcards_error_adding_updating').' '.$giftcard_data['giftcard_number'],
+				'giftcard_id'=>false
+			));
 		}
 
 	}

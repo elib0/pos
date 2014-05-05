@@ -459,9 +459,10 @@ $(document).ready(function(){
 		}).result(function(event,data,formatted){
 			$("#select_employee_form").submit();
 		});
+		$('#item').focus();
 	});
 
-	$('#item').focus().autocomplete('<?=site_url("sales/item_search")?>',{
+	$('#item').autocomplete('<?=site_url("sales/item_search")?>',{
 		minChars:0,
 		max:100,
 		selectFirst: false,

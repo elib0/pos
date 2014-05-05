@@ -1,8 +1,13 @@
 <?=form_open('giftcards/save/'.$giftcard_info->giftcard_id,array('id'=>'giftcard_form'))?>
+<?=$seller?form_input(array(
+	'name'=>'giftcard_sale',
+	'type'=>'hidden',
+	'value'=>1
+)):''?>
 <div>
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div>
-			<?=form_label($this->lang->line('giftcards_giftcard_number').':', 'name',array('class'=>'lable-form-required'))?>
+			<?=form_label($this->lang->line('giftcards_giftcard_number').':','name',array('class'=>'lable-form-required'))?>
 			<div>
 			<?=form_input(array(
 				'name'=>'giftcard_number',
@@ -41,45 +46,45 @@
 <script type='text/javascript'>
 //validation and submit handling
 (function($){
+	var sell=<?=$seller?'true':'false'?>;
+	$('#giftcard_number').focus();
 	$('#giftcard_form').validate({
-		submitHandler:function(form)
-		{
+		submitHandler:function(form){
 			$(form).ajaxSubmit({
-			success:function(response)
-			{
-				tb_remove();
-				post_giftcard_form_submit(response);
-			},
-			dataType:'json'
-		});
-
+				success:function(response){
+					tb_remove();
+					if(response.success){
+						if(sell)
+							window.location='index.php/sales';
+						else
+							post_giftcard_form_submit(response);
+					}else{
+						alert(response.message);
+					}
+				},
+				dataType:'json'
+			});
 		},
 		errorLabelContainer:"#error_message_box",
- 		wrapper: "li",
-		rules:
-		{
-			giftcard_number:
-			{
+ 		wrapper:"li",
+		rules:{
+			giftcard_number:{
 				required:true,
 				number:true
 			},
-			value:
-			{
+			value:{
 				required:true,
 				number:true
 			}
    		},
-		messages:
-		{
-			giftcard_number:
-			{
-				required:"<?php echo $this->lang->line('giftcards_number_required'); ?>",
-				number:"<?php echo $this->lang->line('giftcards_number'); ?>"
+		messages:{
+			giftcard_number:{
+				required:"<?=$this->lang->line('giftcards_number_required')?>",
+				number:"<?=$this->lang->line('giftcards_number')?>"
 			},
-			value:
-			{
-				required:"<?php echo $this->lang->line('giftcards_value_required'); ?>",
-				number:"<?php echo $this->lang->line('giftcards_value'); ?>"
+			value:{
+				required:"<?=$this->lang->line('giftcards_value_required')?>",
+				number:"<?=$this->lang->line('giftcards_value')?>"
 			}
 		}
 	});

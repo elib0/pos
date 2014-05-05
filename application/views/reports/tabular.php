@@ -1,9 +1,12 @@
-<?php $cs=count($headers)>0?ceil(8/count($headers)):1; ?>
+<?php 
+	$numTh=count($headers); $i=0;
+	$cs=$numTh>0?ceil(8/count($headers)):1; 
+?>
 <div style="text-align:center;">
 	<div id="receipt_header">
 		<div id="page_title" style="margin-bottom:6px;text-align:center;"><?=$title?></div>
 		<div id="page_subtitle" style="margin-bottom:6px;"><?=$subtitle?></div>
-		<div id="page_subtitle" style="margin-bottom:6px;"><?="($location)"?></div>
+		<div id="page_subtitle" style="margin-bottom:6px;"><?="Location: $location"?></div>
 	</div>
 </div>
 <?php if($export_excel){ ?><br/><?php } ?>
@@ -11,9 +14,13 @@
 	<table class="tablesorter report" <?php if($export_excel) echo 'border="1"'; ?>>
 		<thead>
 			<tr style="color:#FFFFFF;background-color:#396B98;">
-				<?php foreach ($headers as $header) { ?>
-				<th colspan="<?php echo $cs; ?>"><?php echo $header; ?></th>
-				<?php } ?>
+				<?php foreach ($headers as $header) { 
+						if ($i==0)	$border_ra="border-top-left-radius:5px;-webkit-border-top-left-radius:5px;";
+						elseif (($i+1)==$numTh)	$border_ra="border-top-right-radius:5px;-webkit-border-top-right-radius:5px;";
+						else $border_ra='';
+				?>
+				<th colspan="<?php echo $cs; ?>" style="padding: 5px;<?php echo $border_ra;?>"><?php echo $header; ?></th>
+				<?php $i++; } ?>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,7 +41,6 @@
 		<div class="summary_row"><?php echo $this->lang->line('reports_'.$name). ': '.to_currency($value); ?></div>
 	<?php }?>
 	</div>
-	<div id="location_id" style="margin: 0 auto;\">Location:<?=$location?></div>
 </div>
 <?php
 if(!isset($last)) echo '<br/><hr/><br/>';

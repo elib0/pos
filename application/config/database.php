@@ -105,8 +105,6 @@ if ($conn) {
 				$db[$group_name]['stricton'] = $db['default']['stricton'];
 			}
 		}
-
-		
 	}
 }
 

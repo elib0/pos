@@ -21,23 +21,6 @@
 
 <div class="box-form-view">
 	<ul id="error_message_box"></ul>
-	
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
-		<div>
-			<div class="field_row clearfix">	
-				<?php echo form_label($this->lang->line('config_backup').':', 'backup-label',array('class'=>'lable-form')); 
-					if ($this->Employee->isAdmin()){
-						echo anchor("backup/index/width:350/height:180",
-						"<div class='big_button' style='padding: 8px 25px;margin-right: 10px;'><span>".$this->lang->line('config_backup')."</span></div>",
-						array('class'=>'thickbox none','title'=>$this->lang->line('recvs_complete_receiving'))); 				
-						echo anchor("backup/recover/width:400/height:400",
-						"<div class='big_button' style='padding: 8px 25px;'><span>".$this->lang->line('config_recover')."</span></div>",
-						array('class'=>'thickbox none','title'=>$this->lang->line('config_recover'))); 
-					}
-				?>
-			</div>
-		</div>
-	</div>
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">	
@@ -407,6 +390,25 @@
 				'Pacific/Tongatapu'=>'(GMT+13:00) Nuku\'alofa',
 				'Pacific/Kiritimati'=>'(GMT+14:00) Kiritimati'
 				), $this->config->item('timezone') ? $this->config->item('timezone') : date_default_timezone_get());
+				?>
+			</div>
+		</div>
+	</div>
+	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+		<div class="sub-title-view"><?php echo $this->lang->line('config_system_back'); ?></div>
+	</div>
+	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+		<div>
+			<div class="field_row clearfix">	
+				<?php  
+					if ($this->Employee->isAdmin()){
+						echo anchor("backup/index/width:350/height:180",
+						"<div class='big_button' style='padding: 8px 25px;margin-right: 10px;'><span>".$this->lang->line('config_backup')."</span></div>",
+						array('class'=>'thickbox none','title'=>$this->lang->line('config_backup'))); 				
+						echo anchor("backup/recover/width:400/height:400",
+						"<div class='big_button' style='padding: 8px 25px;'><span>".$this->lang->line('config_recover')."</span></div>",
+						array('class'=>'thickbox none','title'=>$this->lang->line('config_recover'))); 
+					}
 				?>
 			</div>
 		</div>

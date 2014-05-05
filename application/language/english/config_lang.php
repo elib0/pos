@@ -37,4 +37,6 @@ $lang['config_recover_error_file'] = 'Excuse me, but there was an error in runni
 $lang['config_recover_reload_after'] = 'Please wait while the changes are checked.';
 $lang['config_recover_exit_file'] = 'Recovery was performed successfully.';
 $lang['config_backup_auto_file'] = 'System';
+$lang['config_system_back'] = 'System Backup';
+$lang['config_wait_back'] = 'Backup in progress, please wait. The dialog will close automatically';
 ?>

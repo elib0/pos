@@ -32,6 +32,9 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 				</div>
 			</div>
 		</div>
+		<div class="field_row clearfix" id="msg_after_cong" style="display: none">	
+			<?php echo form_label($this->lang->line('config_wait_back'), 'language',array('class'=>'lable-form', 'style'=>'width:200px;')); ?>
+		</div>
 		<ul id="error_msg_back"></ul>
 		<div class="form-row" style="text-align: center;margin-top: 20px;">
 			<?php echo form_submit('confirm-button',$this->lang->line('recvs_complete_receiving'), 'class = "big_button" id="b-login-c"'); ?>
@@ -42,8 +45,9 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 <script type='text/javascript'>
 	$(document).ready(function(){
 		$('#form-back').validate({
-			submitHandler:function(form)
+			submitHandler:function(form)			
 			{	$('#b-login-c').attr('disabled','disabled');
+				$('#msg_after_cong').css('display','block');
 				$('#form-back').ajaxSubmit({
 					success:function(response)
 					{   

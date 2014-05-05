@@ -20,6 +20,7 @@ $(document).ready(function(){
 function tb_init(domChunk){
 	var $=window.jQueryNew||jQuery;
 	if(!tb_init.fn) tb_init.fn=function(){
+		console.log(this);
 		var t = this.title || $(this).data('title') || this.name || null;
 		var a = this.href || this.alt;
 		var g = this.rel || false;
@@ -30,6 +31,13 @@ function tb_init(domChunk){
 	if($.fn.on)	$(document).off('click',domChunk,tb_init.fn).on('click',domChunk,tb_init.fn);
 	else $(domChunk).click(tb_init.fn);
 }
+(function($){
+	$.fn.thickbox=function(){
+		console.log('thickbox');
+		tb_init.fn.call($(this)[0]);
+		return this;
+	};
+})(window.jQueryNew||jQuery);
 
 function tb_show(caption, url, imageGroup) {//function called when the user clicks on a thickbox link
 	try {

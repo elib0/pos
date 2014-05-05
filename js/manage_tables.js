@@ -39,6 +39,28 @@ function enable_row_selection(rows)
 enable_row_selection.enabled=false;
 w.enable_row_selection=enable_row_selection;
 
+function enable_bulk_edit(none_selected_message)
+{
+	//Keep track of enable_bulk_edit has been called
+	if(!enable_bulk_edit.enabled)
+		enable_bulk_edit.enabled=true;
+	
+	$('#bulk_edit').click(function(event)
+	{
+		event.preventDefault();
+		if($("#sortable_table tbody :checkbox:checked").length>0)
+		{
+			$(this).thickbox().blur();
+		}
+		else
+		{
+			alert(none_selected_message);
+		}
+	});
+}
+enable_bulk_edit.enabled=false;
+w.enable_bulk_edit=enable_bulk_edit;
+
 })(jQueryNew,window);
 
 
@@ -249,28 +271,6 @@ function do_delete(url)
 
 	},"json");
 }
-
-function enable_bulk_edit(none_selected_message)
-{
-	//Keep track of enable_bulk_edit has been called
-	if(!enable_bulk_edit.enabled)
-		enable_bulk_edit.enabled=true;
-	
-	$('#bulk_edit').click(function(event)
-	{
-		event.preventDefault();
-		if($("#sortable_table tbody :checkbox:checked").length >0)
-		{
-			tb_show($(this).attr('title'),$(this).attr('href'),false);
-			$(this).blur();
-		}
-		else
-		{
-			alert(none_selected_message);
-		}
-	});
-}
-enable_bulk_edit.enabled=false;
 
 function update_sortable_table()
 {

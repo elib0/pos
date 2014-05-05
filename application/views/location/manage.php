@@ -2,16 +2,16 @@
 <div id="title_bar">
 	<div id="title" class="float_left"><?=$title?></div>
 	<div id="new_button">
-		<a href="index.php/locations/view/0/width:660/height:365" class="thickbox none" title="New Location"><div class="big_button" style="float: left;"><span>New Location</span></div></a>
+		<a href="index.php/locations/view/0/width:460/height:365" class="thickbox none" title="<?php echo $this->lang->line('location_new_location') ?>"><div class="big_button" style="float: left;"><span><?php echo $this->lang->line('location_new_location') ?></span></div></a>
 	</div>
 </div>
 <div id="table_action_header">
 	<ul>
-		<li class="float_left"><span><a href="index.php/locations/delete" id="delete">Disable</a></span></li>
+		<li class="float_left"><span><a href="index.php/locations/delete" id="delete"><?php echo $this->lang->line('location_disable') ?></a></span></li>
 		<li class="float_right">
 			<img src="images/spinner_small.gif" alt="spinner" id="spinner">
-			<form action="index.php/locations/search" method="post" accept-charset="utf-8" id="search_form">
-				<input type="text" name="search" id="search" placeholder="Search ..." style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #CCC " autocomplete="off" class="ac_input">
+			<form action="index.php/locations/suggest" method="post" accept-charset="utf-8" id="search_form">
+				<input type="text" name="search" id="search" placeholder="<?php echo $this->lang->line('location_search') ?>" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #CCC " autocomplete="off" class="ac_input">
 			</form>
 		</li>
 	</ul>
@@ -21,12 +21,12 @@
 		<thead>
 			<tr style="color:#FFFFFF;background-color:#396B98;">
 				<th colspan="1"><input type="checkbox" id="select_all"></th>
-				<th colspan="1">Group Connection</th>
-				<th colspan="1">Host</th>
-				<th colspan="1">DataBase Name</th>
-				<th colspan="1">DataBase Driver</th>
-				<th colspan="1">Active</th>
-				<th colspan="1">Actions</th>
+				<th colspan="1"><?php echo $this->lang->line('location_group_connection') ?></th>
+				<th colspan="1"><?php echo $this->lang->line('location_host') ?></th>
+				<th colspan="1"><?php echo $this->lang->line('location_database') ?></th>
+				<th colspan="1"><?php echo $this->lang->line('location_driver') ?></th>
+				<th colspan="1"><?php echo $this->lang->line('location_active') ?></th>
+				<th colspan="1"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -39,15 +39,15 @@
 				<td><?php echo $value['hostname'] ?></td>
 				<td><?php echo $value['database'] ?></td>
 				<td><?php echo $value['dbdriver'] ?></td>
-				<td><?php echo ($value['active']) ? 'yes' : 'no' ; ?></td>
+				<td><?php echo ($value['active']) ? $this->lang->line('location_yes') : $this->lang->line('location_no') ; ?></td>
 				<td>
-					<?php echo anchor('locations/view/'.$value['name'].'/width:660/height:365', 'Edit', 'class="small_button thickbox", title="Edit Location"'); ?>
+					<?php echo anchor('locations/view/'.$value['id'].'/width:460/height:365', 'Edit', 'class="small_button thickbox", title="'.$this->lang->line('location_edit').'"'); ?>
 				</td>
 			</tr>
 			<?php endforeach ?>
 		<?php else: ?>
 			<tr>
-				<td colspan="7">No tieenes locaciones registradas</td>
+				<td colspan="7"><?php echo $this->lang->line('location_no_have_locations') ?></td>
 			</tr>
 		<?php endif ?>
 		</form>
@@ -58,15 +58,13 @@
 	$(document).ready(function() {
 		init_table_sorting();
 		enable_select_all();
+		enable_search('<?=site_url("locations/suggest")?>','<?=$this->lang->line("location_search")?>');
 
 		$('#delete').click(function(event) {
-			console.log('pa ya voy');
 			$('#form_delete_location').submit();
 			return false;
 		});
 	});
-
-
 
 	function init_table_sorting()
 	{

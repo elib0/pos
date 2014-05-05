@@ -10,9 +10,8 @@ class Locations extends Secure_area {
 
 	public function index()
 	{
-		$data['title'] = 'Administrador de locaciones';
+		$data['title'] = $this->lang->line('location_title');
 		$data['sub_title'] = 'Tantas locaciones registradas';
-		// $data['location'] = $this->session->userdata('dblocation');
 		$data['locations'] = $this->Location->get_all_locations();
 
 		$this->load->view('location/manage', $data);
@@ -26,36 +25,39 @@ class Locations extends Secure_area {
 	}
 
 	public function save($location_id=-1){
+		if ( $this->input->post('id') ) $location_id = $this->input->post('id');
 		$location_data = array(
 		'name'=>$this->input->post('location'),
 		'hostname'=>$this->input->post('hostname'),
 		'username'=>$this->input->post('username'),
 		'password'=>$this->input->post('password'),
-		'database'=>$this->input->post('database'),
 		'dbdriver'=>$this->input->post('dbdriver'),
-		'dbprefix'=>$this->input->post('dbprefix'),
 		'active'=>$this->input->post('active')?1:0
 		);
+
+		if ($location_id <= 0) { //Solo si es insert
+			$location_data['database']=$this->input->post('database');
+		}
 
 		if($this->Location->save($location_data,$location_id))
 		{
 			//New location
-			if($location_id==-1)
+			if($location_id < 1)
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_adding').' '.
-				$location_data['name'],'item_id'=>$location_data['item_id']));
+				$location_data['name'],'location_id'=>$location_data['item_id']));
 				$location_id = $location_data['item_id'];
 			}
 			else //previous location
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_updating').' '.
-				$location_data['name'],'item_id'=>$location_id));
+				$location_data['name'],'location_id'=>$location_id));
 			}
 		}
 		else//failure
 		{
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('items_error_adding_updating').' '.
-			$location_data['name'],'item_id'=>-1));
+			$location_data['name'],'location_id'=>-1));
 		}
 	}
 
@@ -63,6 +65,12 @@ class Locations extends Secure_area {
 		// $response = array('status'=>0, 'message'=>'No se han podido borrar');
 		$this->Location->delete( $this->input->get_post('location') );
 		redirect('locations');
+	}
+
+	function suggest()
+	{
+		$suggestions = $this->Location->get_search_suggestions($this->input->post('q'),$this->input->post('limit'));
+		echo implode("\n",$suggestions);
 	}
 }
 

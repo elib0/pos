@@ -43,9 +43,13 @@ class Location extends CI_Model {
 		}
 	}
 
-	public function get_location($location_id = 0){
-		$this->load_locations();
-		return ($location_id != '0') ? $this->dbs[$location_id] : array('id'=>'','name'=>'','hostname'=>'','username'=>'','database'=>'','dbdriver'=>'','dbprefix'=>'','active'=>false);
+	public function get_location($location_id = false){
+		$this->con->from('locations');
+		$this->con->where('id', $location_id);
+		$this->con->limit(1);
+		$query = $this->con->get();
+
+		return ($query->num_rows() == 1) ? $query->row_array() : array('id'=>'','name'=>'','hostname'=>'localhost','username'=>'root','database'=>'','dbdriver'=>'','dbprefix'=>'','active'=>false);
 	}
 
 	public function get_all_locations(){
@@ -61,15 +65,50 @@ class Location extends CI_Model {
 		return ($query->num_rows()==1);
 	}
 
-	public function save(&$location_data,$location_id=false){
-		if (!$location_id or !$this->exists($location_id))
-		{
-			if($this->con->insert('locations',$location_data))
+	public function save(&$location_data,$location_id=-1){
+		//Cargo utilidad de respaldo de DB
+		$this->load->dbutil();
+
+		$b = false;
+		if ($this->dbutil->database_exists($location_data['database'])) {
+			if ($location_id < 1 or !$this->exists($location_id))
 			{
-				$location_data['id']=$this->con->insert_id();
-				return true;
+				if($this->con->insert('locations',$location_data))
+				{
+					$location_data['id']=$this->con->insert_id();
+
+					//Creacion de la nueva BD
+					// $query = $this->con->query('CREATE DATABASE IF NOT EXISTS '.$location_data['database']);
+					// if ($query) {
+					// 	$backup =& $this->dbutil->backup( array(
+					// 		'format'=>'sql',
+			  //               'filename'    => 'temp.sql',    
+			  //               'add_drop'    => TRUE,
+			  //               'add_insert'  => FALSE
+			  //             	)
+					// 	);
+					// 	$newdb = $this->load->database($location_data['name'], true);
+
+					// 	$backup=preg_replace("/;\s*$/","", $backup);
+					// 	$backup=preg_replace("/;\r?\n/", ";#;;;", $backup);
+					// 	$res=explode('#;;;',$backup);
+
+					// 	if (is_array($backup)){
+					// 		foreach ($backup as $key) {
+					// 			if ($key!=''){
+					// 				$newdb->query($key);
+					// 				if ($newdb->_error_number()!=0){
+					// 					$newdb->db_debug = $db_debug;
+					// 				}	
+					// 			} 	
+					// 		}
+					// 		$newdb->db_debug = $db_debug;				
+					// 		$b = true;	
+					// 	}
+					// }
+				}
+				return $location_id;
 			}
-			return false;
 		}
 
 		$this->con->where('id', $location_id);
@@ -80,6 +119,20 @@ class Location extends CI_Model {
 		$data = array('active'=>0);
 		$this->con->where_in('id', $location_id);
 		$this->con->update('locations', $data);
+	}
+
+	public function get_search_suggestions($search,$limit=5){
+		$suggestions = array();
+		$this->con->from('locations');
+		$this->con->where("CONCAT(name, ' ', hostname, ' ', dbdriver) = '".$search."'");
+		$this->con->order_by("name", "asc");
+		$by_name = $this->con->get();
+		foreach($by_name->result() as $row)
+		{
+			$suggestions[]=$row->name;
+		}
+
+		return $suggestions;
 	}
 
 }

@@ -88,23 +88,25 @@ if ($conn) {
 	if (mysql_select_db($db['default']['database'])) {
 		$query = "SELECT * FROM ".$db['default']['dbprefix']."locations WHERE active = '1'";
 
-		$result = mysql_query($query);
-
-		while ($row = mysql_fetch_assoc($result)) {
-			foreach ($row as $key => $value) {
-				if ($key == 'name')$group_name = $value;
-				$db[$group_name][$key] = $value;
+		if ($result = mysql_query($query)) {
+			while ($row = mysql_fetch_assoc($result)) {
+				foreach ($row as $key => $value) {
+					if ($key == 'name')$group_name = $value;
+					$db[$group_name][$key] = $value;
+				}
+				$db[$group_name]['pconnect'] = $db['default']['pconnect'];
+				$db[$group_name]['db_debug'] = $db['default']['db_debug'];
+				$db[$group_name]['cache_on'] = $db['default']['cache_on'];
+				$db[$group_name]['cachedir'] = $db['default']['cachedir'];
+				$db[$group_name]['char_set'] = $db['default']['char_set'];
+				$db[$group_name]['dbcollat'] = $db['default']['dbcollat'];
+				$db[$group_name]['swap_pre'] = $db['default']['swap_pre'];
+				$db[$group_name]['autoinit'] = $db['default']['autoinit'];
+				$db[$group_name]['stricton'] = $db['default']['stricton'];
 			}
-			$db[$group_name]['pconnect'] = $db['default']['pconnect'];
-			$db[$group_name]['db_debug'] = $db['default']['db_debug'];
-			$db[$group_name]['cache_on'] = $db['default']['cache_on'];
-			$db[$group_name]['cachedir'] = $db['default']['cachedir'];
-			$db[$group_name]['char_set'] = $db['default']['char_set'];
-			$db[$group_name]['dbcollat'] = $db['default']['dbcollat'];
-			$db[$group_name]['swap_pre'] = $db['default']['swap_pre'];
-			$db[$group_name]['autoinit'] = $db['default']['autoinit'];
-			$db[$group_name]['stricton'] = $db['default']['stricton'];
 		}
+
+		
 	}
 }
 

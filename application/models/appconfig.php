@@ -87,6 +87,7 @@ class Appconfig extends CI_Model
 	}
 
 	function recoverAll($data){
+		$b = false;
 		$db_debug = $this->db->db_debug;
 		$this->db->db_debug = FALSE;
 		if (is_array($data)){
@@ -99,12 +100,11 @@ class Appconfig extends CI_Model
 					}	
 				} 	
 			}
-			$this->db->db_debug = $db_debug;				
-			return true;	
-		}else{
-			$this->db->db_debug = $db_debug;
-		 	return false;
+			$b = true;
 		}
+
+		$this->db->db_debug = $db_debug;
+	 	return $b;
 	}
 }
 ?>

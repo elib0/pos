@@ -27,7 +27,17 @@
 		$('#save').click(function(event) {
 			$('#location_form').ajaxSubmit({
 				success: function(data){
-					post_location_form_submit(data);
+					var alert = 'error';
+					if (data.success) {
+						alert = 'success';
+					}
+					notif({
+						type: alert,
+						msg: data.message,
+						width: "all",
+						height: 100,
+						position: "center"
+					});
 				},dataType:'json'
 			});
 			return false;

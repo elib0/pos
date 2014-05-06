@@ -67,6 +67,13 @@ class Locations extends Secure_area {
 		redirect('locations');
 	}
 
+	function search()
+	{
+		$search=$this->input->post('search');
+		$data_rows=get_locations_manage_table_data_rows($this->Location->search($search),$this);
+		echo $data_rows;
+	}
+
 	function suggest()
 	{
 		$suggestions = $this->Location->get_search_suggestions($this->input->post('q'),$this->input->post('limit'));

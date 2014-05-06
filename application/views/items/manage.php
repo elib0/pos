@@ -105,7 +105,7 @@ $(function(){
 	$('#generate_barcodes').click(function()
 	{
 		var selected = get_selected_values();
-		if (selected.length == 0){
+		if (selected.length === 0){
 			alert('<?=$this->lang->line('items_must_select_item_for_barcode')?>');
 			return false;
 		}

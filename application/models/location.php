@@ -70,7 +70,7 @@ class Location extends CI_Model {
 		$this->load->dbutil();
 
 		$b = false;
-		if ($this->dbutil->database_exists($location_data['database'])) {
+		// if ($this->dbutil->database_exists($location_data['database'])) {
 			if ($location_id < 1 or !$this->exists($location_id))
 			{
 				if($this->con->insert('locations',$location_data))
@@ -109,7 +109,7 @@ class Location extends CI_Model {
 				}
 				return $location_id;
 			}
-		}
+		// }
 
 		$this->con->where('id', $location_id);
 		return $this->con->update('locations',$location_data);
@@ -121,13 +121,24 @@ class Location extends CI_Model {
 		$this->con->update('locations', $data);
 	}
 
+	function search($search)
+	{
+		$this->con->from('locations');
+		$this->con->where("(name LIKE '%".$this->con->escape_like_str($search)."%' or
+		hostname LIKE '%".$this->con->escape_like_str($search)."%' or
+		dbdriver LIKE '%".$this->con->escape_like_str($search)."%')");
+		$this->con->order_by("name", "asc");
+		return $this->con->get();
+	}
+
 	public function get_search_suggestions($search,$limit=5){
 		$suggestions = array();
 		$this->con->from('locations');
-		$this->con->where("CONCAT(name, ' ', hostname, ' ', dbdriver) = '".$search."'");
+		// $this->con->where("CONCAT(name, ' ', hostname, ' ', dbdriver) = '".$search."'");
+		$this->con->where('name', $search);
 		$this->con->order_by("name", "asc");
-		$by_name = $this->con->get();
-		foreach($by_name->result() as $row)
+		$query = $this->con->get();
+		foreach($query->result() as $row)
 		{
 			$suggestions[]=$row->name;
 		}

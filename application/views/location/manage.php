@@ -10,7 +10,7 @@
 		<li class="float_left"><span><a href="index.php/locations/delete" id="delete"><?php echo $this->lang->line('location_disable') ?></a></span></li>
 		<li class="float_right">
 			<img src="images/spinner_small.gif" alt="spinner" id="spinner">
-			<form action="index.php/locations/suggest" method="post" accept-charset="utf-8" id="search_form">
+			<form action="index.php/locations/search" method="post" accept-charset="utf-8" id="search_form">
 				<input type="text" name="search" id="search" placeholder="<?php echo $this->lang->line('location_search') ?>" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; border: 1px solid #CCC " autocomplete="off" class="ac_input">
 			</form>
 		</li>
@@ -41,7 +41,9 @@
 				<td><?php echo $value['dbdriver'] ?></td>
 				<td><?php echo ($value['active']) ? $this->lang->line('location_yes') : $this->lang->line('location_no') ; ?></td>
 				<td>
+					<div class='warning_message' style='padding:7px;'>
 					<?php echo anchor('locations/view/'.$value['id'].'/width:460/height:365', 'Edit', 'class="small_button thickbox", title="'.$this->lang->line('location_edit').'"'); ?>
+					</div>
 				</td>
 			</tr>
 			<?php endforeach ?>

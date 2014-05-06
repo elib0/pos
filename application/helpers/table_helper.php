@@ -232,6 +232,45 @@ function get_item_data_row($item,$controller)
 	return $table_data_row;
 }
 
+
+/*
+Gets the html data rows for the items.
+*/
+function get_locations_manage_table_data_rows($locations,$controller)
+{
+	$CI =& get_instance();
+	$table_data_rows='';
+
+	foreach($locations->result() as $location)
+	{
+		$table_data_rows.=get_location_data_row($location,$controller);
+	}
+
+	if($locations->num_rows()==0)
+	{
+		$table_data_rows.="<tr><td colspan='7'><div class='warning_message' style='padding:7px;'>".$CI->lang->line('location_no_have_locations')."</div></tr></tr>";
+	}
+
+	return $table_data_rows;
+}
+
+function get_location_data_row($location,$controller)
+{
+	$CI =& get_instance();
+
+	$table_data_row ='<tr>';
+	
+	$table_data_row .= '<td>'.form_checkbox('location[]', $location->id).'</td>';
+	$table_data_row .= '<td>'.$location->name.'</td>';
+	$table_data_row .= '<td>'.$location->hostname.'</td>';
+	$table_data_row .= '<td>'.$location->database.'</td>';
+	$table_data_row .= '<td>'.$location->dbdriver.'</td>';
+	$table_data_row .= '<td>'.($location->active) ? $CI->lang->line('location_yes') : $CI->lang->line('location_no').'</td>';
+	$table_data_row .= '<td>'.anchor('locations/view/'.$location->id.'/width:460/height:365', 'Edit', 'class="small_button thickbox", title="'.$CI->lang->line('location_edit').'"').'</td>';
+
+	$table_data_row.='</tr>';
+	return $table_data_row;
+}
 /*
 Gets the html table to manage giftcards.
 */

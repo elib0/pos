@@ -159,7 +159,7 @@ label.required
 
 .warning_message
 {
-	background-color:#fff;
+	/*background-color:#fff;*/
 	text-align:center;
 	font-weight:bold;
 	font-size:11px;

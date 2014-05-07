@@ -5,13 +5,6 @@ class Location extends CI_Model {
 	public $con;
 	private $dbs = array();
 
-	// //Constantes
-	// const PCONNECT = true;
-	// const CACHE_ON = false;
-	// const CHAR_SET = 'utf8';
-	// const DBCOLLAT = 'utf8_general_ci';
-	// const SWAP_PRE = '';
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -25,7 +18,6 @@ class Location extends CI_Model {
 	private function load_locations(){
 		$this->con->select('name,id,hostname,username,password,database,dbdriver,dbprefix,active');
 		$this->con->from('locations');
-		// $this->con->where('active', 1);
 		$query = $this->con->get()->result_array();
 
 		if (count($query) > 0) { 
@@ -35,11 +27,6 @@ class Location extends CI_Model {
 					$this->dbs[$group_name][$key] = $value;
 				}
 			}
-			// $this->dbs[$group_name]['pconnect'] = $this::PCONNECT;
-			// $this->dbs[$group_name]['cache_on'] = $this::CACHE_ON;
-			// $this->dbs[$group_name]['char_set'] = $this::CHAR_SET;
-			// $this->dbs[$group_name]['dbcollat'] = $this::DBCOLLAT;
-			// $this->dbs[$group_name]['swap_pre'] = $this::SWAP_PRE;
 		}
 	}
 
@@ -65,51 +52,53 @@ class Location extends CI_Model {
 		return ($query->num_rows()==1);
 	}
 
-	public function save(&$location_data,$location_id=-1){
-		//Cargo utilidad de respaldo de DB
-		$this->load->dbutil();
+	public function save(&$location_data,$location_id=0){
+		if ($location_id < 1 or !$this->exists($location_id))
+		{
+			$b = 0;
+			$conn = mysql_connect($location_data['hostname'], $location_data['username'], $location_data['password']);
+			if ($conn) {
+				if ($this->con->insert('locations',$location_data)) {
+					$location_id = $this->con->insert_id();
+					$query = $this->con->query('CREATE DATABASE IF NOT EXISTS '.$location_data['database']);
+					if ($query) {
+						if (mysql_select_db($location_data['database'], $conn)) {
+							//Cargo mi base de datos sin datos para la nueva location
+							$this->load->dbutil();
+							$tables = array(
+								$this->con->dbprefix('app_config'),
+								$this->con->dbprefix('modules'),
+								$this->con->dbprefix('employees_profile')
+							);
+							$backup1 =& $this->dbutil->backup(array('format'=>'sql','tables'=>$tables,'add_drop'=>false));
+							$backup2 =& $this->dbutil->backup(array('format'=>'sql','add_insert'=>FALSE,'add_drop'=>false, 'ignore'=>$tables));
+							$backup = $backup1.$backup2;
+							//A continuacion limpiamos la cadena sql y la separamos a un arreglo
+							$backup=preg_replace("/;\s*$/","", $backup);
+							$backup=preg_replace("/;\r?\n/", ";#;;;", $backup);
+							$res=explode('#;;;',$backup);
 
-		$b = false;
-		// if ($this->dbutil->database_exists($location_data['database'])) {
-			if ($location_id < 1 or !$this->exists($location_id))
-			{
-				if($this->con->insert('locations',$location_data))
-				{
-					$location_data['id']=$this->con->insert_id();
+							foreach ($res as $query) {
+								if ($query!=''){
+									$result = mysql_query($query,$conn);
+								}
+							}
+							mysql_close($conn);
 
-					//Creacion de la nueva BD
-					// $query = $this->con->query('CREATE DATABASE IF NOT EXISTS '.$location_data['database']);
-					// if ($query) {
-					// 	$backup =& $this->dbutil->backup( array(
-					// 		'format'=>'sql',
-			  //               'filename'    => 'temp.sql',    
-			  //               'add_drop'    => TRUE,
-			  //               'add_insert'  => FALSE
-			  //             	)
-					// 	);
-					// 	$newdb = $this->load->database($location_data['name'], true);
-
-					// 	$backup=preg_replace("/;\s*$/","", $backup);
-					// 	$backup=preg_replace("/;\r?\n/", ";#;;;", $backup);
-					// 	$res=explode('#;;;',$backup);
-
-					// 	if (is_array($backup)){
-					// 		foreach ($backup as $key) {
-					// 			if ($key!=''){
-					// 				$newdb->query($key);
-					// 				if ($newdb->_error_number()!=0){
-					// 					$newdb->db_debug = $db_debug;
-					// 				}	
-					// 			} 	
-					// 		}
-					// 		$newdb->db_debug = $db_debug;				
-					// 		$b = true;	
-					// 	}
-					// }
+							//inserta el usuario en sesion
+							// $person_id = $this->Employee->get_logged_in_employee_info()->person_id;
+							
+							$b = $location_id; //Correcto
+						}
+					}else{
+						$b = -2; //nose creo la tabla
+					}
+				}else{
+					$b = -1; //error al insertar datos del servidor
 				}
-				return $location_id;
 			}
-		// }
+			return $b;
+		}
 
 		$this->con->where('id', $location_id);
 		return $this->con->update('locations',$location_data);

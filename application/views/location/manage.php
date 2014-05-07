@@ -2,7 +2,7 @@
 <div id="title_bar">
 	<div id="title" class="float_left"><?=$title?></div>
 	<div id="new_button">
-		<a href="index.php/locations/view/0/width:460/height:365" class="thickbox none" title="<?php echo $this->lang->line('location_new_location') ?>"><div class="big_button" style="float: left;"><span><?php echo $this->lang->line('location_new_location') ?></span></div></a>
+		<a href="index.php/locations/view/0/width:550/height:280" class="thickbox none" title="<?php echo $this->lang->line('location_new_location') ?>"><div class="big_button" style="float: left;"><span><?php echo $this->lang->line('location_new_location') ?></span></div></a>
 	</div>
 </div>
 <div id="table_action_header">
@@ -42,7 +42,7 @@
 				<td><?php echo ($value['active']) ? $this->lang->line('location_yes') : $this->lang->line('location_no') ; ?></td>
 				<td>
 					<div class='warning_message' style='padding:7px;'>
-					<?php echo anchor('locations/view/'.$value['id'].'/width:460/height:365', 'Edit', 'class="small_button thickbox", title="'.$this->lang->line('location_edit').'"'); ?>
+					<?php echo anchor('locations/view/'.$value['id'].'/width:600/height:280', 'Edit', 'class="small_button thickbox", title="'.$this->lang->line('location_edit').'"'); ?>
 					</div>
 				</td>
 			</tr>
@@ -77,7 +77,7 @@
 				sortList:[[1,0]],
 				headers:{
 					0:{sorter:false},
-					4:{sorter:false}
+					6:{sorter:false}
 				}
 
 			});

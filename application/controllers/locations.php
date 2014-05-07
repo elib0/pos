@@ -24,7 +24,7 @@ class Locations extends Secure_area {
 		$this->load->view('location/form', $data);
 	}
 
-	public function save($location_id=-1){
+	public function save($location_id=0){
 		if ( $this->input->post('id') ) $location_id = $this->input->post('id');
 		$location_data = array(
 		'name'=>$this->input->post('location'),
@@ -39,31 +39,31 @@ class Locations extends Secure_area {
 			$location_data['database']=$this->input->post('database');
 		}
 
-		if($this->Location->save($location_data,$location_id))
+		$response = $this->Location->save($location_data,$location_id);
+		if(is_bool($response) === true)
 		{
-			//New location
-			if($location_id < 1)
-			{
-				echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_adding').' '.
-				$location_data['name'],'location_id'=>$location_data['item_id']));
-				$location_id = $location_data['item_id'];
+			if ($response) { //Locacion previa
+				echo json_encode(array('success'=>true,'message'=>'Locacion actualizada','location_id'=>$location_id));
+			}else{
+				echo json_encode(array('success'=>true,'message'=>'Imposible actualizar','location_id'=>$location_id));
 			}
-			else //previous location
-			{
-				echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_updating').' '.
-				$location_data['name'],'location_id'=>$location_id));
+		}else{//New location
+			if ($response > 0) {
+				echo json_encode(array('success'=>true,'message'=>'Locacion insertada','location_id'=>$location_id));
+			}elseif($response == 0){
+				echo json_encode(array('success'=>false,'message'=>'Datos de conexion erroneos','location_id'=>$response));
+			}elseif($response == -1){
+				echo json_encode(array('success'=>false,'message'=>'Error al registrar la locacion','location_id'=>$response));
+			}elseif($response == -2){
+				echo json_encode(array('success'=>false,'message'=>'Error al crear la base de datos','location_id'=>$response));
 			}
-		}
-		else//failure
-		{
-			echo json_encode(array('success'=>false,'message'=>$this->lang->line('items_error_adding_updating').' '.
-			$location_data['name'],'location_id'=>-1));
 		}
 	}
 
 	public function delete(){
 		// $response = array('status'=>0, 'message'=>'No se han podido borrar');
-		$this->Location->delete( $this->input->get_post('location') );
+		// $this->Location->delete( $this->input->get_post('location') );
+		$this->Location->delete( $_POST['location'] );
 		redirect('locations');
 	}
 

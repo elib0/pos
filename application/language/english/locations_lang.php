@@ -21,6 +21,10 @@ $lang['location_general_info']='General info';
 $lang['location_advanced_information']='Advanced Information';
 $lang['location_location_name']='Location Name';
 $lang['location_user']='User';
-$lang['location_password']='password';
+$lang['location_password']='Password';
 $lang['location_save']='Save';
+
+//Messages
+$lang['location_save']='Save';
+
 ?>

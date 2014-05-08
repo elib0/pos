@@ -94,36 +94,27 @@ class Employees extends Person_controller
 			$full_permission_data[$subpermission] = ( count($subpermissions) > 0 ) ? implode(',', $subpermissions) : 'none';
 		}
 
+		if ($employee_id==-1) $nameuser_emer=$this->input->post('username');
+		else $nameuser_emer=$this->input->post('nameuser');
 		//Password has been changed OR first time password set
-		if($this->input->post('password')!='')
-		{
+		if($this->input->post('password')!=''){
 			$employee_data=array(
-			'username'=>$this->input->post('username'),
+			'username'=>$nameuser_emer,
 			'password'=>md5($this->input->post('password')),
 			'type_employees'=>$this->input->post('employee_profile_type')
 			);
+		}else{ //Password not changed
+			$employee_data=array('username'=>$nameuser_emer,'type_employees'=>$this->input->post('employee_profile_type'));
 		}
-		else //Password not changed
-		{
-			$employee_data=array('username'=>$this->input->post('username'),'type_employees'=>$this->input->post('employee_profile_type'));
-		}
-
 		if($id = $this->Employee->save($person_data,$employee_data,$full_permission_data,$employee_id))
-		{
-			//New employee
-			if($employee_id==-1)
-			{
-				if($this->Schedule->save($person_schedule, $id)){
-					echo json_encode(array('success'=>true,'message'=>$this->lang->line('employees_successful_adding').' '.
-					$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$employee_data['person_id']));
-				}
-			}
-			else //previous employee
-			{
-				if($this->Schedule->save($person_schedule, $employee_id)){
-					echo json_encode(array('success'=>true,'message'=>$this->lang->line('employees_successful_updating').' '.
-					$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$employee_id));
-				}
+		{	if ($employee_id!=-1){
+				$id=$employee_id;
+				$msg_post_subt=$this->lang->line('employees_successful_adding');
+				$a=true;
+			}else{ $msg_post_subt=$this->lang->line('employees_successful_updating'); $a=false; }	
+			$dat=$this->uploadImagen_photo(md5($id),$a);
+			if($this->Schedule->save($person_schedule, $id)){
+				echo json_encode(array('success'=>true,'message'=>$msg_post_subt.' '.$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$id,'image'=>$dat));
 			}
 		}
 		else//failure
@@ -322,6 +313,68 @@ class Employees extends Person_controller
 		$url = $this->uri->segment(1);
 		$this->session->set_userdata('dblocation', $location);
 		redirect($url);
+	}
+	function uploadImagen_photo($id,$e){
+		if ($this->input->post('photop')!=0){
+			$codeBase64=$this->input->post('protocapture');
+			if ($codeBase64 && $codeBase64!=""){
+				$this->load->helper('base64');
+				if ($e) rename('./images/employees/'.$id.".jpg",'./images/employees/temp_'.$id.".jpg");
+				if (imagenBase64('employees/'.$id.".jpg",$codeBase64)){
+					unlink('./images/employees/temp_'.$id.".jpg"); 
+					return true;
+				}else{
+					if ($e) rename('./images/employees/temp_'.$id.".jpg",'./images/employees/'.$id.".jpg");
+					return false;
+				}
+			}return 'no imagen';
+		}else{
+			//carga de imagen
+			$config['upload_path'] = './images/employees';
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size']	= '1000000';
+			$config['max_width']  = '3600';
+			$config['max_height']  = '2800';
+			$config['file_name']  = $id.".jpg";
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+			try { 
+				$nameLogo['file_name']='';
+				if ($e) rename($config['upload_path'].'/'.$config['file_name'],$config['upload_path'].'/temp_'.$config['file_name']);
+				if ($this->upload->do_upload('photo_e')) {
+					$nameLogo = $this->upload->data();
+					if ($e) unlink($config['upload_path'].'/temp_'.$config['file_name']);
+					$data = array('upload_status' => 1,'upload_message' => $nameLogo['file_name']);
+				}else{
+					if ($e) rename($config['upload_path'].'/temp_'.$config['file_name'],$config['upload_path'].'/'.$config['file_name']);
+					if ($this->upload->display_errors(true)=='1') {
+						$data = array('upload_status' => 2,'upload_message' => 'vacio');
+					}else{
+						$data = array('upload_status' => 0,'upload_message' => $this->upload->display_errors(false,'',''));
+					}
+					
+				}
+			} catch (Exception $e) {
+				$data = array('upload_status' => -1,'upload_message' => 'no se cargo');
+				$nameLogo['file_name']='';
+			}
+
+			if ($nameLogo['file_name']!='') {
+				//redimension
+				$configR['image_library'] = 'gd2';
+				$configR['source_image']	= $config['upload_path'].'/'.$config['file_name'];
+				$configR['create_thumb'] = false;
+				$configR['maintain_ratio'] = false;
+				$configR['width']	 = 140;
+				$configR['height']	= 140;
+				$this->load->library('image_lib', $configR); 
+				$this->image_lib->resize();
+				//fin redimension
+				// $logo = $nameLogo['file_name'];
+			}
+			// }else{ $logo = $this->input->post('logo_name'); }
+			return $data;
+		}
 	}
 
 }

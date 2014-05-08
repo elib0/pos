@@ -34,4 +34,7 @@ $lang['employees_profile_SA'] = 'Select all';
 $lang['employees_profile_DA'] = 'Deselect all';
 $lang['employees_see'] = 'See permissions';
 $lang['employees_profi'] = 'Profile type';
+$lang['employees_photo'] = 'Photo';
+$lang['employees_photo_g'] = 'Photograph';
+$lang['employees_photo_capture'] = 'Capture';
 ?>

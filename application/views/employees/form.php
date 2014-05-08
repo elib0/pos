@@ -1,7 +1,41 @@
-<?php echo form_open('employees/save/'.$person_info->person_id,array('id'=>'employee_form')); ?>
+<?php echo form_open_multipart('employees/save/'.$person_info->person_id,array('id'=>'employee_form')); ?>
 <div>
 	<h3><?php echo $this->lang->line("employees_basic_information"); ?></h3><hr>	
-	<?php $this->load->view("people/form_basic_info"); ?>		
+	<?php $this->load->view("people/form_basic_info"); ?>
+	<div class="field_row clearfix">
+		<div class="field_row clearfix">
+			<?php echo form_label($this->lang->line('employees_photo').':', 'photo_label',array('class'=>'lable-form','style'=>'float:none;','style'=>'float:none;')); ?>
+		</div>
+		<div class="field_row clearfix">
+			<input type="radio" name="photop" value="0" checked="checked">	
+			<?php echo form_label($this->lang->line('config_recover_fe'), 'photo_label',array('class'=>'lable-form','style'=>'float:none;')); ?>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" value="1" name="photop" >	
+			<?php echo form_label($this->lang->line('employees_photo_g'), 'photo_label',array('class'=>'lable-form','style'=>'float:none;')); ?>
+		</div>
+		<div id="filee" class="field_row clearfix">
+			<div class='form_field' style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; ">
+				<input type="file" name="photo_e" id="photo_e">
+				<div class="upload_label"><?php echo $this->lang->line('common_logo_dimensiones');?></div>
+			</div>	
+		</div>
+		<div id="filei" class="field_row clearfix" style="display: none;">
+			<video id="video" width="180" height="140" autoplay></video>
+			<?php
+			echo form_button(
+					array(
+						'name'=>'snap',
+						'id'=>'snap',
+						'value'=>'snap',
+						'content' => $this->lang->line('employees_photo_capture'),
+						'class'=>'big_button',
+						'style'=>'display: inline-block; margin: 0 20px;'
+					)
+				);
+			?>
+			<canvas id="canvas" width="180" height="140"></canvas>
+			<input type="hidden" name="protocapture" id="protocapture"/>
+		</div>
+	</div>
 </div>
 <div>
 	<h3><?php echo $this->lang->line("employees_login_info"); ?></h3><hr>
@@ -11,13 +45,17 @@
 				<?php echo form_label($this->lang->line('employees_username').':', 'username',array('class'=>'lable-form-required')); ?>
 				<div >
 				<?php 
-					$disabled=$person_info->username?"disabled":"";
+					if($person_info->username){ $disabled="disabled"; ?>
+					<input type="hidden" name="nameuser" value="<?php echo $person_info->username; ?>">
+				<?php
+					}else $disabled="";
 					echo form_input(array(
 					'name'=>'username',
 					'id'=>'username',
 					'value'=>$person_info->username,$disabled=>$disabled,
 					'class'=>'text_box'
-				));?>
+				));
+				?>
 				</div>
 			</div>
 		</div>
@@ -54,7 +92,7 @@
 	<select id="employee_profile_type">
 		<option value=""><?php echo $this->lang->line('employees_profi'); ?>...</option>
 	</select>
-	<input type="hidden" name="employee_profile_type" />
+	<input type="hidden" name="employee_profile_type" value="<?=$person_info->type_employees?>" />
 	<div id="radio" style="margin-top: 10px;"><input type="checkbox"  style="margin-right: 10px;"><?php echo $this->lang->line('employees_see'); ?></div>
 	<ul id="permission_list" style="display: none;">
 		<?php foreach($all_modules->result() as $module) { ?>
@@ -139,8 +177,8 @@
 <ul id="error_message_box"></ul>
 <?php
 echo form_submit(array(
-	'name'=>'submit',
-	'id'=>'submit',
+	'name'=>'sendto',
+	'id'=>'sendto',	
 	'value'=>$this->lang->line('common_submit'),
 	'class'=>'small_button float_right')
 );
@@ -153,7 +191,13 @@ echo form_close(); ?>
 ?>
 <script type='text/javascript'>
 $(document).ready(function(){
-	var type=[],htype=[],select='<?=$person_info->type_employees?>',options='',retypes='<?=$retypes?>';
+	var canvas=document.getElementById('canvas'),video=document.getElementById('video'),localW=null;
+		context = canvas.getContext("2d"),videoStado=false,
+		videoObj = {video: true, audio: false},
+		errBack = function(error) {
+			console.log("Video capture error: ", error.code); 
+		};
+	var type=[],htype=[],select='<?=$person_info->type_employees?>',options='',retypes='<?=$retypes?>',urlImg="";
 	var retypes2=retypes.split(']');
 	for (var i=0;i<retypes2.length;i++){
 		var types=retypes2[i].split('|');
@@ -206,8 +250,7 @@ $(document).ready(function(){
 
 	//Verifica la hora de entrada para liberar la hora de salida y valida
 	$('select[id^="in"]').change(function(){
-		var id = $(this).attr('id');
-		var val = $(this).val();
+		var id = $(this).attr('id'),val = $(this).val();
 		id = id.slice(2, id.length);
 		val = parseInt(val);
 		// console.log(val);
@@ -224,18 +267,94 @@ $(document).ready(function(){
 		if(val < val2) $('select#out'+id).val(val2); //Validacion hora de salida de acuerdo a la de entrada
 		// $('select#out'+id).removeAttr('disabled');
 	});
+	
+	$('input[type="radio"][name="photop"]').change(function(e) {
+		if ($(this).val()!=0){
+			if (conectar()){
+				$('#filee').css('display', 'none');
+				$('#filei').css('display', 'block');
+				$("#snap").click(function() {
+					context.drawImage(video, 0, 0, 180, 140);
+					urlImg=canvas.toDataURL("image/png");
+				});
+			}
+		}else{
+			$('#filee').css('display', 'block');
+			$('#filei').css('display', 'none');
+			desconecta();
+			$('#protocapture').val("");
+		}
+	});
+
+	function hasGetUserMedia() {
+        navigator.getUserMedia = navigator.getUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.msGetUserMedia;
+        if (navigator.getUserMedia) {return true;} else {return false;}
+    }
+    function hasURL() {
+        window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+        if (window.URL && window.URL.createObjectURL) {return true;} else {return false;}
+    }
+    function setStream(stream) {
+        video.src = window.URL.createObjectURL(stream);
+        video.play();
+        videoStado=true;
+        localW=stream;
+    }
+    function conectar() {
+        if (!hasGetUserMedia() || !hasURL()) { alert("Tu navegador no soporta getUserMedia()"); return false;}
+        navigator.getUserMedia( videoObj, setStream, errBack );
+        return true;
+    }
+    function desconecta(){
+    	canvas.width = canvas.width;
+		//context.clearRect(0, 0, canvas.width, canvas.height);
+		urlImg="";
+    	video.pause();	
+    	// video.stop();
+		video.mozSrcObject=null;
+		localW.stop();
+		video.src = "";
+		videoStado=false;
+    }
+    $('#TB_overlay,#TB_closeAjaxWindow').click(function(event) {
+    	if (videoStado) desconecta();
+    });
 
 	$('#employee_form').validate({
 		submitHandler:function(form)
-		{
-			$(form).ajaxSubmit({
-			success:function(response)
-			{   
-				if (response.success) tb_remove();
-				post_person_form_submit(response);
-			},
-			dataType:'json'
-		});
+		{	var pass=false;
+			if ($('input[type="radio"][name="photop"]:checked').val()!=0){
+				if (urlImg!=""){
+					pass=true;
+					$('#protocapture').val(urlImg);
+				}else pass=false;
+			}else{
+				$('#protocapture').val("");
+				if ($('#photo_e').val()) {
+					extensiones_permitidas = new Array(".gif", ".jpg", ".png"); 
+					//recupero la extensión de este nombre de archivo 
+				    extension = ($('#photo_e').val().substring($('#photo_e').val().lastIndexOf("."))).toLowerCase(); 
+				    //compruebo si la extensión está entre las permitidas 
+				    pass = false; 
+				    for (var i = 0; i < extensiones_permitidas.length; i++) { 
+				       if (extensiones_permitidas[i] == extension) { pass = true; break; } 
+				    }
+				}else pass = true;
+			}
+			if (pass){			
+				$('#employee_form').ajaxSubmit({
+					success:function(response)
+					{   if (response.success) tb_remove();
+						post_person_form_submit(response);
+					},
+					error:function(response){ console.log(response); },
+					dataType:'json'
+				});
+			}else{ alert('<?php echo $this->lang->line("common_image_faild"); ?>');  }
+			return false;
 		},
 		errorLabelContainer: "#error_message_box",
  		wrapper: "li",

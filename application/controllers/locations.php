@@ -43,19 +43,19 @@ class Locations extends Secure_area {
 		if(is_bool($response) === true)
 		{
 			if ($response) { //Locacion previa
-				echo json_encode(array('success'=>true,'message'=>'Locacion actualizada','location_id'=>$location_id));
+				echo json_encode(array('success'=>true,'message'=>$this->lang->line('location_updated'),'location_id'=>$location_id));
 			}else{
-				echo json_encode(array('success'=>true,'message'=>'Imposible actualizar','location_id'=>$location_id));
+				echo json_encode(array('success'=>true,'message'=>$this->lang->line('location_no_updated'),'location_id'=>$location_id));
 			}
 		}else{//New location
 			if ($response > 0) {
-				echo json_encode(array('success'=>true,'message'=>'Locacion insertada','location_id'=>$location_id));
+				echo json_encode(array('success'=>true,'message'=>$this->lang->line('location_created'),'location_id'=>$location_id));
 			}elseif($response == 0){
-				echo json_encode(array('success'=>false,'message'=>'Datos de conexion erroneos','location_id'=>$response));
+				echo json_encode(array('success'=>false,'message'=>$this->lang->line('location_connection_error'),'location_id'=>$response));
 			}elseif($response == -1){
-				echo json_encode(array('success'=>false,'message'=>'Error al registrar la locacion','location_id'=>$response));
+				echo json_encode(array('success'=>false,'message'=>$this->lang->line('location_create_error'),'location_id'=>$response));
 			}elseif($response == -2){
-				echo json_encode(array('success'=>false,'message'=>'Error al crear la base de datos','location_id'=>$response));
+				echo json_encode(array('success'=>false,'message'=>$this->lang->line('location_create_db_error'),'location_id'=>$response));
 			}
 		}
 	}

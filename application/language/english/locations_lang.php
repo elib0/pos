@@ -25,6 +25,13 @@ $lang['location_password']='Password';
 $lang['location_save']='Save';
 
 //Messages
-$lang['location_save']='Save';
+$lang['location_try_again']='Please trye again';
+$lang['location_updated']='Location updated successfully';
+$lang['location_no_updated']='Location update Impossible! '.$lang['location_try_again'];
+$lang['location_created']='Location created correctly!';
+$lang['location_connection_error']='Error in the data connection! '.$lang['location_try_again'];
+$lang['location_create_error']='Error on register location! '.$lang['location_try_again'];
+$lang['location_create_db_error']='Error creating new database! '.$lang['location_try_again'];
+
 
 ?>

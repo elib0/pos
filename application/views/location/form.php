@@ -43,6 +43,9 @@
 			<li><?php echo form_label($this->lang->line('location_active').':', 'active').'<br>'.form_checkbox('active', !$data['active'], $data['active']); ?></li>
 		</ul>
 	</div>
+	<div>
+		<ul id="error_message_box"></ul>
+	</div>
 	<?php echo form_submit(array(
 	'name'=>'save',
 	'id'=>'save',
@@ -52,13 +55,15 @@
 </div>
 <?php echo form_close(); ?>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#save').click(function(event) {
-			$('#location_form').ajaxSubmit({
+$(document).ready(function() {
+	$('#location_form').validate({
+		submitHandler:function(form)
+		{
+			$(form).ajaxSubmit({
 				success: function(data){
 					var alert = 'error';
 					var width = 400;
-					console.log(data);
+
 					if (data.success) {
 						alert = 'success';
 						width = "all";
@@ -72,8 +77,53 @@
 					});
 				},dataType:'json'
 			});
-			return false;
-		});
-			
+		},
+		errorLabelContainer: "#error_message_box",
+ 		wrapper: "li",
+		rules: 
+		{
+			location: {
+			    required: true,
+			    regex:/^[a-zA-Z\s]+$/,
+			    minlength: 3,
+			    max: 10
+		    },
+		    hostname: {
+			    required: true,
+			    regex:/^[a-zA-Z\s]+$/,
+			    minlength: 3,
+			    max: 15
+		    },
+			username: {
+			    required: true,
+			    regex:/^[a-zA-Z\s]+$/,
+			    minlength: 3,
+			    max: 20
+		    },
+    		database:
+			{
+				required:true,
+			    regex:/^[a-zA-Z\s]+$/,
+				minlength: 3,
+			    max: 10
+			}
+   		},
+		messages: 
+		{
+			location: {
+			      required: "<?php echo $this->lang->line('common_first_name_required'); ?>",
+			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
+			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
+    		},
+    		hostname: {
+			      required: "<?php echo $this->lang->line('common_last_name_required'); ?>",
+			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
+			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
+    		},
+     		username: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
+     		database:"<?php echo $this->lang->line('common_phone_invalid_format');  ?>"
+		}
 	});
+			
+});
 </script>

@@ -16,6 +16,19 @@ class Employee extends Person
         else
             $this->con = $this->db;
     }
+
+    /**
+     * Fuerza a cambio de base de datos
+     * @param [Mixed] $location [description]
+     */
+    function set_location($location = null){
+    	if (is_string($location)) {
+    		$this->con = $this->load->database($location, true);
+    	}else{
+    		$this->con = $location;
+    	}
+    }
+
 	/*
 	Determines if a given person_id is an employee
 	*/

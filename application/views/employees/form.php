@@ -1,4 +1,4 @@
-<?php echo form_open_multipart('employees/save/'.$person_info->person_id,array('id'=>'employee_form')); ?>
+<?php echo form_open_multipart('employees/save/'.($person_info->person_id?$person_info->person_id:'-1'),array('id'=>'employee_form')); ?>
 <div>
 	<h3><?php echo $this->lang->line("employees_basic_information"); ?></h3><hr>	
 	<?php $this->load->view("people/form_basic_info"); ?>

@@ -322,7 +322,7 @@ class Employees extends Person_controller
 				$this->load->helper('base64');
 				if ($e) rename('./images/employees/'.$id.".jpg",'./images/employees/temp_'.$id.".jpg");
 				if (imagenBase64('employees/'.$id.".jpg",$codeBase64)){
-					unlink('./images/employees/temp_'.$id.".jpg"); 
+					if ($e) unlink('./images/employees/temp_'.$id.".jpg"); 
 					return true;
 				}else{
 					if ($e) rename('./images/employees/temp_'.$id.".jpg",'./images/employees/'.$id.".jpg");

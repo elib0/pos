@@ -110,7 +110,8 @@ class Employees extends Person_controller
 		{	if ($employee_id!=-1){
 				$id=$employee_id;
 				$msg_post_subt=$this->lang->line('employees_successful_adding');
-				$a=true;
+				if (file_exists('./images/employees/'.md5($id).'.jpg')) $a=true;
+				else $a=false;
 			}else{ $msg_post_subt=$this->lang->line('employees_successful_updating'); $a=false; }	
 			$dat=$this->uploadImagen_photo(md5($id),$a);
 			if($this->Schedule->save($person_schedule, $id)){
@@ -321,7 +322,7 @@ class Employees extends Person_controller
 				$this->load->helper('base64');
 				if ($e) rename('./images/employees/'.$id.".jpg",'./images/employees/temp_'.$id.".jpg");
 				if (imagenBase64('employees/'.$id.".jpg",$codeBase64)){
-					unlink('./images/employees/temp_'.$id.".jpg"); 
+					if ($e) unlink('./images/employees/temp_'.$id.".jpg"); 
 					return true;
 				}else{
 					if ($e) rename('./images/employees/temp_'.$id.".jpg",'./images/employees/'.$id.".jpg");

@@ -22,7 +22,7 @@
 				)
 			);
 		}else $displayNonePhoto="style"; ?>
-		<div id="filel" class="field_row clearfix" <?php echo $displayNonePhoto; ?>>
+		<div id="filel" class="field_row clearfix" <?php echo $displayNonePhoto; ?>> 
 			<input type="radio" name="photop" value="0" checked="checked">	
 			<?php echo form_label($this->lang->line('config_recover_fe'), 'photo_label',array('class'=>'lable-form','style'=>'float:none;')); ?>&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="radio" value="1" name="photop" >	

@@ -207,23 +207,38 @@ class Items extends Secure_area implements iData_controller
 
 		if($this->Item->save($item_data,$item_id))
 		{
+			if ($item_id!=-1){
+				$id=$item_id;
+				$msg_post_subt=$this->lang->line('employees_successful_adding');
+				if (!is_dir('./images/items/'.md5($id).'/')){
+					mkdir('./images/items/'.md5($id).'/');
+					$a=false;
+				}else{ $a=true; }
+			}else{
+				$id=$item_data['item_id'];
+				mkdir('./images/items/'.md5($id).'/');
+				$a=false; 
+			}
+			for ($i=0; $i < 5; $i++) { 
+				$dat[]=$this->uploadImagen_photo(md5($id),$a,$i);			
+			}
 			//New item
 			if($item_id==-1)
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_adding').' '.
-				$item_data['name'],'item_id'=>$item_data['item_id']));
-				$item_id = $item_data['item_id'];
+				$item_data['name'],'item_id'=>$item_data['item_id'],'pictures'=>$dat));
+				// $item_id = $item_data['item_id'];
 			}
 			else //previous item
 			{
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_updating').' '.
-				$item_data['name'],'item_id'=>$item_id));
+				$item_data['name'],'item_id'=>$id,'pictures'=>$dat));
 			}
 
 			$inv_data = array
 			(
 				'trans_date'=>date('Y-m-d H:i:s'),
-				'trans_items'=>$item_id,
+				'trans_items'=>$id,
 				'trans_user'=>$employee_id,
 				'trans_comment'=>$this->lang->line('items_manually_editing_of_quantity'),
 				'trans_inventory'=>$cur_item_info ? $this->input->post('quantity') - $cur_item_info->quantity : $this->input->post('quantity')
@@ -239,7 +254,7 @@ class Items extends Secure_area implements iData_controller
 					$items_taxes_data[] = array('name'=>$tax_names[$k], 'percent'=>$tax_percents[$k] );
 				}
 			}
-			$this->Item_taxes->save($items_taxes_data, $item_id);
+			$this->Item_taxes->save($items_taxes_data, $id);
 		}
 		else//failure
 		{
@@ -482,7 +497,55 @@ class Items extends Secure_area implements iData_controller
 			echo json_encode( array('success'=>false, 'message'=>'Error') );
 		}
 	}
+	function uploadImagen_photo($id,$e,$i){
+		//carga de imagen
+		$config['upload_path'] = './images/items/'.$id;
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '1000000';
+		$config['max_width']  = '3600';
+		$config['max_height']  = '2800';
+		$config['file_name']  = $id."_".$i.".jpg";
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		try { 
+			$nameLogo['file_name']='';
+			if ($e && file_exists($config['upload_path'].'/'.$config['file_name']))
+				rename($config['upload_path'].'/'.$config['file_name'],$config['upload_path'].'/temp_'.$config['file_name']);
+			else $e=false;
+			if ($this->upload->do_upload('photo_'.$i)) {
+				$nameLogo = $this->upload->data();
+				if ($e) unlink($config['upload_path'].'/temp_'.$config['file_name']);
+				$data = array('upload_status' => 1,'upload_message' => $nameLogo['file_name']);
+			}else{
+				if ($e) rename($config['upload_path'].'/temp_'.$config['file_name'],$config['upload_path'].'/'.$config['file_name']);
+				if ($this->upload->display_errors(true)=='1') {
+					$data = array('upload_status' => 2,'upload_message' => 'vacio');
+				}else{
+					$data = array('upload_status' => 0,'upload_message' => $this->upload->display_errors(false,'',''));
+				}
+				
+			}
+		} catch (Exception $e) {
+			$data = array('upload_status' => -1,'upload_message' => 'no se cargo');
+			$nameLogo['file_name']='';
+		}
 
+		if ($nameLogo['file_name']!='') {
+			//redimension
+			$configR['image_library'] = 'gd2';
+			$configR['source_image']	= $config['upload_path'].'/'.$config['file_name'];
+			$configR['create_thumb'] = false;
+			$configR['maintain_ratio'] = false;
+			$configR['width']	 = 140;
+			$configR['height']	= 140;
+			$this->load->library('image_lib', $configR); 
+			$this->image_lib->resize();
+			//fin redimension
+			// $logo = $nameLogo['file_name'];
+		}
+		// }else{ $logo = $this->input->post('logo_name'); }
+		return $data;
+	}
 	/*
 	get the width for the add/edit form
 	*/

@@ -1,4 +1,4 @@
-<?php echo form_open('items/save/'.$item_info->item_id,array('id'=>'item_form')); ?>
+<?php echo form_open_multipart('items/save/'.$item_info->item_id,array('id'=>'item_form')); ?>
 <!-- <div id="item_basic_info"> -->
 <div>
 	<h3><?php echo $this->lang->line("items_basic_information"); ?></h3><hr>
@@ -48,7 +48,7 @@
 			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('items_supplier').':', 'supplier',array('class'=>'lable-form-required')); ?>
 				<div>
-				<?php echo form_dropdown('supplier_id', $suppliers, $selected_supplier);?>
+				<?php echo form_dropdown('supplier_id', $suppliers, $selected_supplier,'style="width:200px;"');?>
 				</div>
 			</div>
 		</div>
@@ -80,6 +80,21 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="field_row clearfix">
+		<div class="field_row clearfix">
+			<?php echo form_label($this->lang->line('items_pictures').':', 'photo_label',array('class'=>'lable-form','style'=>'float:none;','style'=>'float:none;')); ?>
+		</div>
+		<?php 
+			for ($i=0; $i < 5; $i++) { 
+				echo '<div class="field_row clearfix" >
+						<div class="form_field" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; ">
+							<input type="file" name="photo_'.$i.'" id="photo_'.$i.'">
+							<div class="upload_label">'.$this->lang->line("common_logo_dimensiones").'</div>
+						</div>	
+					</div>';
+			}
+		?>
 	</div>
 	<div class="field_row clearfix">
 		<div style="width: 210px; float: left">
@@ -242,8 +257,8 @@
 </div>
 <ul id="error_message_box"></ul>
 <?php echo form_submit(array(
-	'name'=>'submit',
-	'id'=>'submit',
+	'name'=>'enviar',
+	'id'=>'enviar',
 	'value'=>$this->lang->line('common_submit'),
 	'class'=>'small_button float_right'
 )); ?>
@@ -262,16 +277,29 @@ $(function(){
 			make sure the hidden field #item_number gets set
 			to the visible scan_item_number value
 			*/
-			$('#item_number').val($('#scan_item_number').val());
-			$(form).ajaxSubmit({
-			success:function(response)
-			{
-				tb_remove();
-				post_item_form_submit(response);
-			},
-			dataType:'json'
-		});
-
+			var pass=true,extensiones_permitidas = new Array(".gif", ".jpg", ".png"); ;
+			for (var i = 0; i <5; i++) {
+				if ($('#photo_'+i).val()) {
+					//recupero la extensión de este nombre de archivo 
+				    extension = ($('#photo_'+i).val().substring($('#photo_'+i).val().lastIndexOf("."))).toLowerCase(); 
+				    //compruebo si la extensión está entre las permitidas 
+				    pass = false; 
+				    for (var i = 0; i < extensiones_permitidas.length; i++) { 
+				       if (extensiones_permitidas[i] == extension) { pass = true; break; } 
+				    }
+				}
+			};
+			if (pass){
+				$('#item_number').val($('#scan_item_number').val());
+				$(form).ajaxSubmit({
+					success:function(response)
+					{
+						tb_remove();
+						post_item_form_submit(response);
+					},
+					dataType:'json'
+				});
+			}else{ alert('<?php echo $this->lang->line("common_image_faild"); ?>');  }
 		},
 		errorLabelContainer:"#error_message_box",
  		wrapper:"li",

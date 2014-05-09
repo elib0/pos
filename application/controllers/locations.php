@@ -25,7 +25,7 @@ class Locations extends Secure_area {
 	}
 
 	public function save($location_id=0){
-		if ( $this->input->post('id') ) $location_id = $this->input->post('id');
+		$location_id = ($this->input->post('id')) ? $this->input->post('id') : 0;
 		$location_data = array(
 		'name'=>$this->input->post('location'),
 		'hostname'=>$this->input->post('hostname'),

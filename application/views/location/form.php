@@ -61,20 +61,18 @@ $(document).ready(function() {
 		{
 			$(form).ajaxSubmit({
 				success: function(data){
-					var alert = 'error';
-					var width = 400;
-
+					console.log(data);
 					if (data.success) {
-						alert = 'success';
-						width = "all";
+						post_item_form_submit(data);
+					}else{
+						notif({
+							type: 'error',
+							msg: data.message,
+							width: 400,
+							height: 100,
+							position: "right"
+						});
 					}
-					notif({
-						type: alert,
-						msg: data.message,
-						width: width,
-						height: 100,
-						position: "right"
-					});
 				},dataType:'json'
 			});
 		},
@@ -85,38 +83,38 @@ $(document).ready(function() {
 			location: {
 			    required: true,
 			    regex:/^[a-zA-Z\s]+$/,
-			    minlength: 3,
-			    max: 10
+			    minlength: 5,
+			    maxlength: 10
 		    },
 		    hostname: {
 			    required: true,
 			    regex:/^[a-zA-Z\s]+$/,
-			    minlength: 3,
-			    max: 15
+			    minlength: 5,
+			    maxlength: 15
 		    },
 			username: {
 			    required: true,
 			    regex:/^[a-zA-Z\s]+$/,
 			    minlength: 3,
-			    max: 20
+			    maxlength: 10
 		    },
     		database:
 			{
 				required:true,
 			    regex:/^[a-zA-Z\s]+$/,
-				minlength: 3,
-			    max: 10
+				minlength: 5,
+			    maxlength: 10
 			}
    		},
 		messages: 
 		{
 			location: {
-			      required: "<?php echo $this->lang->line('common_first_name_required'); ?>",
+			      required: "Location name is required!",
 			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
 			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
     		},
     		hostname: {
-			      required: "<?php echo $this->lang->line('common_last_name_required'); ?>",
+			      required: "A Host or Ip are required!",
 			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
 			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
     		},

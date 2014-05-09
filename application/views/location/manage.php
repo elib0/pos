@@ -2,7 +2,7 @@
 <div id="title_bar">
 	<div id="title" class="float_left"><?=$title?></div>
 	<div id="new_button">
-		<a href="index.php/locations/view/0/width:550/height:280" class="thickbox none" title="<?php echo $this->lang->line('location_new_location') ?>"><div class="big_button" style="float: left;"><span><?php echo $this->lang->line('location_new_location') ?></span></div></a>
+		<a href="index.php/locations/view/0/width:550/height:300" class="thickbox none" title="<?php echo $this->lang->line('location_new_location') ?>"><div class="big_button" style="float: left;"><span><?php echo $this->lang->line('location_new_location') ?></span></div></a>
 	</div>
 </div>
 <div id="table_action_header">
@@ -42,7 +42,7 @@
 				<td><?php echo ($value['active']) ? $this->lang->line('location_yes') : $this->lang->line('location_no') ; ?></td>
 				<td>
 					<div class='warning_message' style='padding:7px;'>
-					<?php echo anchor('locations/view/'.$value['id'].'/width:600/height:280', 'Edit', 'class="small_button thickbox", title="'.$this->lang->line('location_edit').'"'); ?>
+					<?php echo anchor('locations/view/'.$value['id'].'/width:600/height:300', 'Edit', 'class="small_button thickbox", title="'.$this->lang->line('location_edit').'"'); ?>
 					</div>
 				</td>
 			</tr>
@@ -56,6 +56,7 @@
 		</tbody>
 	</table>
 </div>
+<div id="feedback_bar"></div>
 <script type="text/javascript">
 	$(document).ready(function() {
 		init_table_sorting();
@@ -63,7 +64,10 @@
 		enable_search('<?=site_url("locations/suggest")?>','<?=$this->lang->line("location_search")?>');
 
 		$('#delete').click(function(event) {
-			$('#form_delete_location').submit();
+			if($('#form_delete_location input[type=checkbox]:checked').length > 0) {
+				$('#form_delete_location').submit();
+			};
+			
 			return false;
 		});
 	});
@@ -82,6 +86,12 @@
 
 			});
 		}
+	}
+
+	function post_item_form_submit(response)
+	{
+		tb_remove();
+		set_feedback(response.message,'success_message',false);
 	}
 </script>
 <?php $this->load->view("partial/footer"); ?>

@@ -110,7 +110,8 @@ class Employees extends Person_controller
 		{	if ($employee_id!=-1){
 				$id=$employee_id;
 				$msg_post_subt=$this->lang->line('employees_successful_adding');
-				$a=true;
+				if (file_exists('./images/employees/'.md5($id).'.jpg')) $a=true;
+				else $a=false;
 			}else{ $msg_post_subt=$this->lang->line('employees_successful_updating'); $a=false; }	
 			$dat=$this->uploadImagen_photo(md5($id),$a);
 			if($this->Schedule->save($person_schedule, $id)){

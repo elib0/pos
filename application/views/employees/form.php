@@ -6,13 +6,29 @@
 		<div class="field_row clearfix">
 			<?php echo form_label($this->lang->line('employees_photo').':', 'photo_label',array('class'=>'lable-form','style'=>'float:none;','style'=>'float:none;')); ?>
 		</div>
-		<div class="field_row clearfix">
+		<?php if ($person_info->person_id && file_exists('./images/employees/'.md5($person_info->person_id).'.jpg')){ ?>
+		<div id="fileb" style="margin-bottom: 10px; background-repeat:no-repeat; width: 180px; height: 140px; background-image: url('./images/employees/<?php echo md5($person_info->person_id) ?>.jpg')">
+		</div>
+		<?php 
+			$displayNonePhoto='style="display:none;"';
+			echo form_button(
+				array(
+					'name'=>'change',
+					'id'=>'change',
+					'value'=>'change',
+					'content' => $this->lang->line('employees_photo_change'),
+					'class'=>'big_button',
+					'style'=>'display: inline-block; margin: 0 20px;'
+				)
+			);
+		}else $displayNonePhoto="style"; ?>
+		<div id="filel" class="field_row clearfix" <?php echo $displayNonePhoto; ?>>
 			<input type="radio" name="photop" value="0" checked="checked">	
 			<?php echo form_label($this->lang->line('config_recover_fe'), 'photo_label',array('class'=>'lable-form','style'=>'float:none;')); ?>&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="radio" value="1" name="photop" >	
 			<?php echo form_label($this->lang->line('employees_photo_g'), 'photo_label',array('class'=>'lable-form','style'=>'float:none;')); ?>
 		</div>
-		<div id="filee" class="field_row clearfix">
+		<div id="filee" class="field_row clearfix" <?php echo $displayNonePhoto; ?>>
 			<div class='form_field' style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; ">
 				<input type="file" name="photo_e" id="photo_e">
 				<div class="upload_label"><?php echo $this->lang->line('common_logo_dimensiones');?></div>
@@ -247,7 +263,11 @@ $(document).ready(function(){
 			$('select#out'+id).attr('disabled', 'disabled').val('0');
 		}
 	});
-
+	$('#change').click(function() {
+		$('#filel,#filee').css('display','block');
+		$('#fileb').css('display','none');
+		$(this).css('display','none');
+	});
 	//Verifica la hora de entrada para liberar la hora de salida y valida
 	$('select[id^="in"]').change(function(){
 		var id = $(this).attr('id'),val = $(this).val();
@@ -304,7 +324,11 @@ $(document).ready(function(){
         localW=stream;
     }
     function conectar() {
-        if (!hasGetUserMedia() || !hasURL()) { alert("Tu navegador no soporta getUserMedia()"); return false;}
+        if (!hasGetUserMedia() || !hasURL()) { 
+        	alert("<?php echo $this->lang->line('employees_photo_capture_no_support')?>"); 
+        	$('input[type="radio"][name="photop"][value="0"]').attr('checked','checked');
+        	return false;
+        }
         navigator.getUserMedia( videoObj, setStream, errBack );
         return true;
     }

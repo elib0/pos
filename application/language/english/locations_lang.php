@@ -1,6 +1,8 @@
 <?php
+$lang['module_locations']='Manage Locations';
 $lang['location_title']='Manage Locations';
 $lang['location_new_location']='Create a new Location';
+$lang['location_enable']='Enable';
 $lang['location_disable']='Disable';
 $lang['location_search']='Search ...';
 

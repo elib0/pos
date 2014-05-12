@@ -4,7 +4,7 @@ class Locations extends Secure_area {
 
 	public function __construct()
 	{
-		parent::__construct();
+		parent::__construct('locations');
 		$this->load->model('Location');
 	}
 
@@ -13,6 +13,7 @@ class Locations extends Secure_area {
 		$data['title'] = $this->lang->line('location_title');
 		$data['sub_title'] = 'Tantas locaciones registradas';
 		$data['locations'] = $this->Location->get_all_locations();
+		$data['controller_name']=strtolower(get_class());
 
 		$this->load->view('location/manage', $data);
 	}
@@ -45,7 +46,7 @@ class Locations extends Secure_area {
 			if ($response) { //Locacion previa
 				echo json_encode(array('success'=>true,'message'=>$this->lang->line('location_updated'),'location_id'=>$location_id));
 			}else{
-				echo json_encode(array('success'=>true,'message'=>$this->lang->line('location_no_updated'),'location_id'=>$location_id));
+				echo json_encode(array('success'=>false,'message'=>$this->lang->line('location_no_updated'),'location_id'=>$location_id));
 			}
 		}else{//New location
 			if ($response > 0) {
@@ -60,10 +61,13 @@ class Locations extends Secure_area {
 		}
 	}
 
-	public function delete(){
-		// $response = array('status'=>0, 'message'=>'No se han podido borrar');
-		// $this->Location->delete( $this->input->get_post('location') );
-		$this->Location->delete( $_POST['location'] );
+	public function enable(){
+		$this->Location->toggle_enable( $this->input->post('locations'), 1);
+		redirect('locations');
+	}
+
+	public function disable(){
+		$this->Location->toggle_enable( $this->input->post('locations'), 0);
 		redirect('locations');
 	}
 

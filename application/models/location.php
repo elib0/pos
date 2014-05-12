@@ -53,10 +53,11 @@ class Location extends CI_Model {
 	}
 
 	public function save(&$location_data,$location_id=0){
+		$conn = @mysql_connect($location_data['hostname'], $location_data['username'], $location_data['password']);
+
 		if ($location_id < 1 or !$this->exists($location_id))
 		{
 			$b = 0;
-			$conn = @mysql_connect($location_data['hostname'], $location_data['username'], $location_data['password']);
 			if ($conn) {
 				if ($this->con->insert('locations',$location_data)) {
 					$location_id = $this->con->insert_id();
@@ -86,29 +87,29 @@ class Location extends CI_Model {
 							mysql_close($conn);
 
 							//inserta el usuario en sesion
-							// $person = $this->Employee->get_logged_in_employee_info();
-							// $person_data = array(
-							// 	'first_name'=>$person->first_name,
-							// 	'last_name'=>$person->last_name,
-							// 	'email'=>$person->email,
-							// 	'phone_number'=>$person->phone_number,
-							// 	'address_1'=>$person->address_1,
-							// 	'address_2'=>$person->address_2,
-							// 	'city'=>$person->city,
-							// 	'state'=>$person->state,
-							// 	'zip'=>$person->zip,
-							// 	'country'=>$person->country,
-							// 	'comments'=>$person->comments
-							// );
+							$person = $this->Employee->get_logged_in_employee_info();
+							$person_data = array(
+								'first_name'=>$person->first_name,
+								'last_name'=>$person->last_name,
+								'email'=>$person->email,
+								'phone_number'=>$person->phone_number,
+								'address_1'=>$person->address_1,
+								'address_2'=>$person->address_2,
+								'city'=>$person->city,
+								'state'=>$person->state,
+								'zip'=>$person->zip,
+								'country'=>$person->country,
+								'comments'=>$person->comments
+							);
 
-							// $employee_data=array(
-							// 'username'=>$person->username,
-							// 'password'=>$person->password,
-							// 'type_employees'=>$person->employee_profile_type
-							// );
+							$employee_data=array(
+							'username'=>$person->username,
+							'password'=>$person->password,
+							'type_employees'=>$person->employee_profile_type
+							);
 
-							// $new_db_group = $this->load->database($location_data['name'], true);
-							// $this->Employee->set_location($location_data['name'])->save($person_data, $employee_data,array());
+							$new_db_group = $this->load->database($location_data['name'], true);
+							$this->Employee->set_location($new_db_group)->save($person_data, $employee_data,array());
 							
 							$b = $location_id; //Correcto
 						}
@@ -122,14 +123,22 @@ class Location extends CI_Model {
 			return $b;
 		}
 
-		$this->con->where('id', $location_id);
-		return $this->con->update('locations',$location_data);
+		if ($conn) {
+			$this->con->where('id', $location_id);
+			return $this->con->update('locations',$location_data);
+		}else{
+			return false;
+		}
 	}
 
-	public function delete($location_id = null){
-		$data = array('active'=>0);
-		$this->con->where_in('id', $location_id);
-		$this->con->update('locations', $data);
+	public function toggle_enable($location_id = null, $value = 0){
+		if ($location_id) {
+			$data = array('active'=>$value);
+			$this->con->where_in('id', $location_id);
+			return $this->con->update('locations', $data);
+		}
+
+		return false;
 	}
 
 	function search($search)

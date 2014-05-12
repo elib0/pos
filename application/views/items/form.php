@@ -89,7 +89,7 @@
 			for ($i=0; $i < 5; $i++) { 
 				echo '<div class="field_row clearfix" >
 						<div class="form_field" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; ">
-							<input type="file" name="photo_'.$i.'" id="photo_'.$i.'">
+							<input type="file" name="photo[]" id="photo_'.$i.'" multiple>
 							<div class="upload_label">'.$this->lang->line("common_logo_dimensiones").'</div>
 						</div>	
 					</div>';

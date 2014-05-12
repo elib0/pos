@@ -219,9 +219,9 @@ class Items extends Secure_area implements iData_controller
 				mkdir('./images/items/'.md5($id).'/');
 				$a=false; 
 			}
-			for ($i=0; $i < 5; $i++) { 
-				$dat[]=$this->uploadImagen_photo(md5($id),$a,$i);			
-			}
+			//for ($i=0; $i < 5; $i++) { 
+				$dat[]=$this->uploadImagen_photo(md5($id),$a);			
+			//}
 			//New item
 			if($item_id==-1)
 			{
@@ -497,53 +497,75 @@ class Items extends Secure_area implements iData_controller
 			echo json_encode( array('success'=>false, 'message'=>'Error') );
 		}
 	}
-	function uploadImagen_photo($id,$e,$i){
+	function uploadImagen_photo($id,$e){
 		//carga de imagen
 		$config['upload_path'] = './images/items/'.$id;
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']	= '1000000';
 		$config['max_width']  = '3600';
 		$config['max_height']  = '2800';
-		$config['file_name']  = $id."_".$i.".jpg";
-		$this->load->library('upload', $config);
+		//$config['file_name']  = $id."_".$i.".jpg";
+		for ($i=0; $i < 5; $i++){ 
+			$config['file_name'][$i]  = $id."_".$i.".jpg";
+			if ($e && file_exists($config['upload_path'].'/'.$config['file_name'][$i]))
+				rename($config['upload_path'].'/'.$config['file_name'][$i],$config['upload_path'].'/temp_'.$config['file_name'][$i]);
+		}
+		$this->load->library('upload');
 		$this->upload->initialize($config);
-		try { 
-			$nameLogo['file_name']='';
-			if ($e && file_exists($config['upload_path'].'/'.$config['file_name']))
-				rename($config['upload_path'].'/'.$config['file_name'],$config['upload_path'].'/temp_'.$config['file_name']);
-			else $e=false;
-			if ($this->upload->do_upload('photo_'.$i)) {
-				$nameLogo = $this->upload->data();
-				if ($e) unlink($config['upload_path'].'/temp_'.$config['file_name']);
+		try {
+			if($this->upload->do_multi_upload("photo")){
+				$nameLogo=$this->upload->get_multi_upload_data();
+				for ($i=0; $i < 5; $i++) { 
+					if ($e && file_exists($config['upload_path'].'/temp_'.$config['file_name'][$i])){
+						if (file_exists($config['upload_path'].'/'.$config['file_name'][$i]))
+							unlink($config['upload_path'].'/temp_'.$config['file_name'][$i]);
+						else rename($config['upload_path'].'/temp_'.$config['file_name'][$i],$config['upload_path'].'/'.$config['file_name'][$i]);
+					}
+				}
 				$data = array('upload_status' => 1,'upload_message' => $nameLogo['file_name']);
 			}else{
-				if ($e) rename($config['upload_path'].'/temp_'.$config['file_name'],$config['upload_path'].'/'.$config['file_name']);
-				if ($this->upload->display_errors(true)=='1') {
-					$data = array('upload_status' => 2,'upload_message' => 'vacio');
-				}else{
-					$data = array('upload_status' => 0,'upload_message' => $this->upload->display_errors(false,'',''));
-				}
-				
+				$data = array('upload_status' => 2,'upload_message' => 'vacio');
 			}
 		} catch (Exception $e) {
 			$data = array('upload_status' => -1,'upload_message' => 'no se cargo');
-			$nameLogo['file_name']='';
 		}
+		// try { 
+		// 	$nameLogo['file_name']='';
+		// 	if ($e && file_exists($config['upload_path'].'/'.$config['file_name']))
+		// 		rename($config['upload_path'].'/'.$config['file_name'],$config['upload_path'].'/temp_'.$config['file_name']);
+		// 	else $e=false;
+		// 	if ($this->upload->do_upload('photo_'.$i)) {
+		// 		$nameLogo = $this->upload->data();
+		// 		if ($e) unlink($config['upload_path'].'/temp_'.$config['file_name']);
+		// 		$data = array('upload_status' => 1,'upload_message' => $nameLogo['file_name']);
+		// 	}else{
+		// 		if ($e) rename($config['upload_path'].'/temp_'.$config['file_name'],$config['upload_path'].'/'.$config['file_name']);
+		// 		if ($this->upload->display_errors(true)=='1') {
+		// 			$data = array('upload_status' => 2,'upload_message' => 'vacio');
+		// 		}else{
+		// 			$data = array('upload_status' => 0,'upload_message' => $this->upload->display_errors(false,'',''));
+		// 		}
+				
+		// 	}
+		// } catch (Exception $e) {
+		// 	$data = array('upload_status' => -1,'upload_message' => 'no se cargo');
+		// 	$nameLogo['file_name']='';
+		// }
 
-		if ($nameLogo['file_name']!='') {
-			//redimension
-			$configR['image_library'] = 'gd2';
-			$configR['source_image']	= $config['upload_path'].'/'.$config['file_name'];
-			$configR['create_thumb'] = false;
-			$configR['maintain_ratio'] = false;
-			$configR['width']	 = 140;
-			$configR['height']	= 140;
-			$this->load->library('image_lib', $configR); 
-			$this->image_lib->resize();
-			//fin redimension
-			// $logo = $nameLogo['file_name'];
+		//redimension
+		if (isset($nameLogo) && is_array($nameLogo)){
+			for ($i=0; $i < count($nameLogo); $i++) { 	
+				$configR['image_library'] = 'gd';
+				$configR['source_image']	= $config['upload_path'].'/'.$nameLogo['file_name'][$i];
+	//			$configR['create_thumb'] = false;
+				$configR['maintain_ratio'] = true;
+				$configR['width']	 = 140;
+				$configR['height']	= 140;
+				$this->load->library('image_lib', $configR); 
+				$this->image_lib->resize();
+				$this->image_lib->clear();
+			}
 		}
-		// }else{ $logo = $this->input->post('logo_name'); }
 		return $data;
 	}
 	/*

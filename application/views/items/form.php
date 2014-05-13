@@ -85,16 +85,22 @@
 		<div class="field_row clearfix">
 			<?php echo form_label($this->lang->line('items_pictures').':', 'photo_label',array('class'=>'lable-form','style'=>'float:none;','style'=>'float:none;')); ?>
 		</div>
-		<?php 
-			for ($i=0; $i < 5; $i++) { 
-				echo '<div class="field_row clearfix" >
-						<div class="form_field" style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; ">
-							<input type="file" name="photo[]" id="photo_'.$i.'" multiple>
-							<div class="upload_label">'.$this->lang->line("common_logo_dimensiones").'</div>
-						</div>	
-					</div>';
-			}
-		?>
+		<div id="previewPhotos">
+			<center>
+				<?php
+				if ($item_info->item_id && is_dir('./images/items/'.md5($item_info->item_id).'/')) $band=true; 
+				for ($i=0; $i < 5; $i++) {  $bgImage="";
+					if (file_exists('./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg'))
+						$bgImage='style="background-image: url(\'./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg\')"';
+					echo '<div class="photo_add" attr="'.$i.'" '.$bgImage.'>
+							<input type="file" name="photo[]" id="photo_'.$i.'" class="invisible" multiple disabled="disabled">
+							<input type="hidden" name="photo_hi_'.$i.'" id="photo_hi_'.$i.'" value="'.$i.'" disabled="disabled">
+						</div>';
+				}
+				?>
+			</center>
+			<div class="upload_label"><?php echo $this->lang->line("common_logo_dimensiones"); ?></div>
+		</div>
 	</div>
 	<div class="field_row clearfix">
 		<div style="width: 210px; float: left">
@@ -266,40 +272,45 @@
 <script type='text/javascript'>
 //validation and submit handling
 $(function(){
+	var pass=true,extensiones_permitidas = new Array(".gif", ".jpg", ".png");
 	$("#category")
 		.autocomplete("<?php echo site_url('items/suggest_category');?>",{max:100,minChars:0,delay:10})
 		.result(function(event,data,formatted){})
 		.search();
+	$('span.width_label_photo,span.height_label_photo').html(250);
+	$('.photo_add').click(function() {
+		$('input:file',this).removeAttr('disabled').click();
+	});
+	$('.photo_add input:file').change(function(){
+		if($(this).val()){
+			console.log($(this).attr('id'));
+			if (validaImagen($(this).val())){
+				$(this).next('input').removeAttr('disabled');
+				$(this).parents('div.photo_add').addClass('photo_add_active');	
+			}else{ 
+				alert('<?php echo $this->lang->line("common_image_faild"); ?>'); 
+				$(this).removeAttr('value');
+				$(this).attr('disabled','disabled').next('input').attr('disabled','disabled');
+				$(this).parents('div.photo_add').removeClass('photo_add_active');	
+			}
+		}else{
+			$(this).attr('disabled','disabled').next('input').attr('disabled','disabled');
+			$(this).parents('div.photo_add').removeClass('photo_add_active');	
+		}
+	});
 	$('#item_form').validate({
 		submitHandler:function(form)
 		{
-			/*
-			make sure the hidden field #item_number gets set
-			to the visible scan_item_number value
-			*/
-			var pass=true,extensiones_permitidas = new Array(".gif", ".jpg", ".png"); ;
-			for (var i = 0; i <5; i++) {
-				if ($('#photo_'+i).val()) {
-					//recupero la extensión de este nombre de archivo 
-				    extension = ($('#photo_'+i).val().substring($('#photo_'+i).val().lastIndexOf("."))).toLowerCase(); 
-				    //compruebo si la extensión está entre las permitidas 
-				    pass = false; 
-				    for (var i = 0; i < extensiones_permitidas.length; i++) { 
-				       if (extensiones_permitidas[i] == extension) { pass = true; break; } 
-				    }
-				}
-			};
-			if (pass){
-				$('#item_number').val($('#scan_item_number').val());
-				$(form).ajaxSubmit({
-					success:function(response)
-					{
-						tb_remove();
-						post_item_form_submit(response);
-					},
-					dataType:'json'
-				});
-			}else{ alert('<?php echo $this->lang->line("common_image_faild"); ?>');  }
+			$('#item_number').val($('#scan_item_number').val());
+			$(form).ajaxSubmit({
+				success:function(response){ 
+					console.log(response);
+					tb_remove();
+					post_item_form_submit(response);
+				},
+				dataType:'json'
+			});
+			return false;
 		},
 		errorLabelContainer:"#error_message_box",
  		wrapper:"li",
@@ -307,29 +318,23 @@ $(function(){
 		{
 			name:"required",
 			category:"required",
-			cost_price:
-			{
+			cost_price:{
 				required:true,
 				number:true
 			},
-
-			unit_price:
-			{
+			unit_price:{
 				required:true,
 				number:true
 			},
-			tax_percent:
-			{
+			tax_percent:{
 				required:true,
 				number:true
 			},
-			quantity:
-			{
+			quantity:{
 				required:true,
 				number:true
 			},
-			reorder_level:
-			{
+			reorder_level:{
 				required:true,
 				number:true
 			},
@@ -339,28 +344,23 @@ $(function(){
 		{
 			name:"<?php echo $this->lang->line('items_name_required'); ?>",
 			category:"<?php echo $this->lang->line('items_category_required'); ?>",
-			cost_price:
-			{
+			cost_price:{
 				required:"<?php echo $this->lang->line('items_cost_price_required'); ?>",
 				number:"<?php echo $this->lang->line('items_cost_price_number'); ?>"
 			},
-			unit_price:
-			{
+			unit_price:{
 				required:"<?php echo $this->lang->line('items_unit_price_required'); ?>",
 				number:"<?php echo $this->lang->line('items_unit_price_number'); ?>"
 			},
-			tax_percent:
-			{
+			tax_percent:{
 				required:"<?php echo $this->lang->line('items_tax_percent_required'); ?>",
 				number:"<?php echo $this->lang->line('items_tax_percent_number'); ?>"
 			},
-			quantity:
-			{
+			quantity:{
 				required:"<?php echo $this->lang->line('items_quantity_required'); ?>",
 				number:"<?php echo $this->lang->line('items_quantity_number'); ?>"
 			},
-			reorder_level:
-			{
+			reorder_level:{
 				required:"<?php echo $this->lang->line('items_reorder_level_required'); ?>",
 				number:"<?php echo $this->lang->line('items_reorder_level_number'); ?>"
 			},
@@ -370,6 +370,10 @@ $(function(){
 
 		}
 	});
+	function validaImagen(imagen){
+		var ext=imagen.split('.').pop().toLowerCase();
+		return ['jpg','jpeg','png','gif'].indexOf(ext)>=0;
+	}
 });
 //new jQuery
 (function($){

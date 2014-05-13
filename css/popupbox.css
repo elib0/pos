@@ -133,3 +133,23 @@ legend{
 #details_items_po .noBorderRigth {border-right: 1px transparent solid; }
 #details_items_po .noBorderBottom {border-bottom: 1px transparent solid; }
 #details_items_po table th,#details_items_po table td {border: 1px #f0f0f0 solid; }
+.photo_add{
+	display:inline-block;
+	margin:0 10px 10px; 
+	background-repeat:no-repeat; 
+	width: 100px; height: 100px; 
+	background-size:90%;
+	background-position:50%;
+	border: 1px #c0c0c0 dashed;
+	background-image: url('../images/addplus.png');
+}
+.invisible{
+	margin: 0px !important;
+	padding: 0px !important;
+	width: 0px !important;
+	float: none !important;
+	height: 0px !important;
+	z-index: -50px !important;
+	overflow: hidden !important;
+}
+.photo_add_active{ background-image: url('../images/upload_file_.png') !important; }

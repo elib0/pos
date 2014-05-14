@@ -3,7 +3,7 @@
 	<div id="title" class="float_left"><?=$title?></div>
 	<?php if ($this->Employee->has_privilege('add', $controller_name)): ?>
 		<div id="new_button">
-			<a href="index.php/<?php echo $controller_name ?>/view/0/width:550/height:300" class="thickbox none" title="<?php echo $this->lang->line('location_new_location') ?>"><div class="big_button" style="float: left;"><span><?php echo $this->lang->line('location_new_location') ?></span></div></a>
+			<a href="index.php/<?php echo $controller_name ?>/view/0/width:600/height:300" class="thickbox none" title="<?php echo $this->lang->line('location_new_location') ?>"><div class="big_button" style="float: left;"><span><?php echo $this->lang->line('location_new_location') ?></span></div></a>
 		</div>
 	<?php endif ?>
 </div>
@@ -67,21 +67,29 @@
 </div>
 <div id="feedback_bar"></div>
 <script type="text/javascript">
-	$(document).ready(function() {
+	(function($){
 		init_table_sorting();
 		enable_select_all();
 		enable_search('<?=site_url("locations/suggest")?>','<?=$this->lang->line("location_search")?>');
 
-		$('#enable, #disable').click(function(event) {
+		$('#enable, #disable').on('click',function(event) {
 			var url = $(this).attr('href');
 			// console.log($('input:checked').length);
 			if($('#sortable_table input:checked').length > 0) {
 				$('#form_delete_location').attr('action', url);
 				$('#form_delete_location').submit();
+			}else{
+				notif({
+				    type: "error",
+				    msg: '<?=$this->lang->line("location_least_one")?>',
+				    width: "all",
+				    height: 100,
+				    position: "center"
+				});
 			}
 			return false;
 		});
-	});
+	})(jQueryNew);
 
 	function init_table_sorting()
 	{
@@ -101,7 +109,7 @@
 
 	function post_item_form_submit(response)
 	{
-		tb_remove();
+		tb_remove(true);
 		set_feedback(response.message,'success_message',false);
 	}
 </script>

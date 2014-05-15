@@ -104,9 +104,9 @@ class Location extends CI_Model {
 								);
 
 								$employee_data=array(
-								'username'=>$person->username,
-								'password'=>$person->password,
-								'type_employees'=>$person->employee_profile_type
+									'username'=>$person->username,
+									'password'=>$person->password,
+									'type_employees'=>$person->employee_profile_type
 								);
 
 								$new_db_group = $this->load->database($location_data['name'], true);

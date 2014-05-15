@@ -26,8 +26,15 @@ $lang['location_user']='User';
 $lang['location_password']='Password';
 $lang['location_save']='Save';
 
-//Messages
-$lang['location_try_again']='Please trye again';
+//General Messages
+$lang['location_try_again']='Please try again!';
+$lang['location_is_required']='is required!';
+//Validation Messages
+$lang['location_location_required']='Location name '.$lang['location_is_required'];
+$lang['location_host_required']='A Host or Ip '.$lang['location_is_required'];
+$lang['location_username_required']='User name '.$lang['location_is_required'];
+$lang['location_db_required']='Database name '.$lang['location_is_required'];
+//Alert, Errors and Warning Messages
 $lang['location_updated']='Location updated successfully';
 $lang['location_no_updated']='Error in the data connection update Impossible! '.$lang['location_try_again'];
 $lang['location_created']='Location created correctly!';
@@ -35,7 +42,5 @@ $lang['location_connection_error']='Error in the data connection or this locatio
 $lang['location_create_error']='Error on register location! '.$lang['location_try_again'];
 $lang['location_create_db_error']='Error creating new database! '.$lang['location_try_again'];
 $lang['location_least_one']='You must select at least one location';
-
-
 
 ?>

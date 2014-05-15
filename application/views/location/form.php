@@ -82,26 +82,25 @@ $(document).ready(function() {
 		{
 			location: {
 			    required: true,
-			    regex:/^[a-zA-Z\s]+$/,
+			    regex:/^[a-zA-Z]+$/,
 			    minlength: 5,
 			    maxlength: 10
 		    },
 		    hostname: {
 			    required: true,
-			    regex:/^[a-zA-Z\s]+$/,
+			    regex:/^[a-zA-Z1-9\.]+$/,
 			    minlength: 5,
 			    maxlength: 15
 		    },
 			username: {
 			    required: true,
-			    regex:/^[a-zA-Z\s]+$/,
 			    minlength: 3,
 			    maxlength: 10
 		    },
     		database:
 			{
 				required:true,
-			    regex:/^[a-zA-Z\s]+$/,
+			    regex:/^[a-zA-Z_]+$/,
 				minlength: 5,
 			    maxlength: 10
 			}
@@ -109,17 +108,20 @@ $(document).ready(function() {
 		messages: 
 		{
 			location: {
-			      required: "Location name is required!",
-			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
+			      required: "<?php echo $this->lang->line('location_location_required'); ?>",
+			      regex:"Only letters allowed, Try Again!",
 			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
     		},
     		hostname: {
-			      required: "A Host or Ip are required!",
-			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
+			      required: "<?php echo $this->lang->line('location_host_required'); ?>",
+			      regex:"Only letters and numbers points allowed, Try Again!",
 			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
     		},
-     		username: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
-     		database:"<?php echo $this->lang->line('common_phone_invalid_format');  ?>"
+     		username: "<?php echo $this->lang->line('location_username_required'); ?>",
+     		database:{
+     			required: "<?php echo $this->lang->line('location_db_required'); ?>",
+		      	regex:"Only letters allowed, Try Again!",
+     		}
 		}
 	});
 			

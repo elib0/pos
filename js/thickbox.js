@@ -263,8 +263,8 @@ function tb_remove(reload) {
 	document.onkeydown = "";
 	document.onkeyup = "";
 	if (reload) {
-		windows.location.reload();
-	};
+		location.reload();
+	}
 	return false;
 }
 

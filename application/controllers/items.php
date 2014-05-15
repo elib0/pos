@@ -561,6 +561,13 @@ class Items extends Secure_area implements iData_controller
 		}
 		return $data;
 	}
+	function delete_picture($id,$i){
+		if (file_exists('./images/items/'.md5($id).'/'.md5($id).'_'.$i.'.jpg')){
+			if (unlink('./images/items/'.md5($id).'/'.md5($id).'_'.$i.'.jpg'))
+				echo json_encode( array('success'=>true));
+			else echo json_encode( array('success'=>false, 'message'=>'Error'));
+		}else echo json_encode( array('success'=>false, 'message'=>'no file'));
+	}
 	/*
 	get the width for the add/edit form
 	*/

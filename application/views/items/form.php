@@ -89,13 +89,18 @@
 			<center>
 				<?php
 				if ($item_info->item_id && is_dir('./images/items/'.md5($item_info->item_id).'/')) $band=true; 
-				for ($i=0; $i < 5; $i++) {  $bgImage="";
-					if (file_exists('./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg'))
+				for ($i=0; $i < 5; $i++) {  $bgImage="";$span="";
+					if (file_exists('./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg')){
 						$bgImage='style="background-image: url(\'./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg\')"';
-					echo '<div class="photo_add" attr="'.$i.'" '.$bgImage.'>
-							<input type="file" name="photo[]" id="photo_'.$i.'" class="invisible" multiple disabled="disabled">
-							<input type="hidden" name="photo_hi_'.$i.'" id="photo_hi_'.$i.'" value="'.$i.'" disabled="disabled">
-						</div>';
+						$span='<span></span>';
+					}
+					echo '<div class="photo_add">
+								'.$span.'
+								<div attr="'.$i.'" '.$bgImage.'>
+									<input type="file" name="photo[]" id="photo_'.$i.'" class="invisible" multiple disabled="disabled">
+									<input type="hidden" name="photo_hi_'.$i.'" id="photo_hi_'.$i.'" value="'.$i.'" disabled="disabled">
+								</div>
+						  </div>';
 				}
 				?>
 			</center>
@@ -278,24 +283,42 @@ $(function(){
 		.result(function(event,data,formatted){})
 		.search();
 	$('span.width_label_photo,span.height_label_photo').html(250);
-	$('.photo_add').click(function() {
+	$('.photo_add>div').click(function() {
 		$('input:file',this).removeAttr('disabled').click();
+	});
+	$('.photo_add span').click(function(e) {
+		e.preventDefault();
+		if (confirm('<?php echo $this->lang->line("items_confirm_delete_picture"); ?>')){
+			var url=$('#item_form').attr('action').split('save');
+			var div=$(this).next('div');
+			$$.ajax({
+				url: url[0]+'delete_picture'+url[1]+'/'+div.attr('attr'),
+				dataType: 'json',
+				success: function(data){
+					if(data.success){
+						div.removeAttr('style').prev('span').remove();
+					}else{
+						alert('Excuse me, but there was an error please try again');
+						location.reload();
+					}
+				}
+			});
+		}
 	});
 	$('.photo_add input:file').change(function(){
 		if($(this).val()){
-			console.log($(this).attr('id'));
 			if (validaImagen($(this).val())){
 				$(this).next('input').removeAttr('disabled');
-				$(this).parents('div.photo_add').addClass('photo_add_active');	
+				$(this).parents('div[attr]').addClass('photo_add_active');	
 			}else{ 
 				alert('<?php echo $this->lang->line("common_image_faild"); ?>'); 
 				$(this).removeAttr('value');
 				$(this).attr('disabled','disabled').next('input').attr('disabled','disabled');
-				$(this).parents('div.photo_add').removeClass('photo_add_active');	
+				$(this).parents('div[attr]').removeClass('photo_add_active');	
 			}
 		}else{
 			$(this).attr('disabled','disabled').next('input').attr('disabled','disabled');
-			$(this).parents('div.photo_add').removeClass('photo_add_active');	
+			$(this).parents('div[attr]').removeClass('photo_add_active');	
 		}
 	});
 	$('#item_form').validate({

@@ -16,6 +16,19 @@
 						'class'=>'text_box'
 					)); ?>
 				</td>
+				<td rowspan="4" width="200">
+					<?php  
+						for ($i=0; $i < 5; $i++) { 
+							if (file_exists('./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg')){
+								echo '<div class="photo_add">
+											<div style="background-image:url(\'./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg\')">
+											</div>
+									  </div>';
+							  	break;
+							}
+						}
+					?>
+				</td>
 			</tr>
 			<tr>
 				<td><?php echo form_label($this->lang->line('items_name').':', 'items_name',array('class'=>'lable-form')); ?></td>

@@ -206,17 +206,20 @@ html {
 				width:400,
 				height:260,
 				modal:true,
+				title:'<h3 id="title">Close Session Details</h3>',
 				resizable:false,
 				draggable:false,
 				open:function(){
 					$(this).load(href);
+					$('a.ui-dialog-titlebar-close').css({'position':'static','float':'right'});
 				},
 				close:function(){
 					$(this).remove();
 					$('#fxWrapper').remove();
 				}
 			}).parents('.ui-dialog').css({
-				'overflow':'visible'
+				'overflow':'visible',
+				'border-radius':'10px'
 			}).find('.ui-dialog-titlebar-close').attr('href',document.location);
 			//$('.ui-dialog').css('overflow', 'visible');
 			return false;

@@ -83,7 +83,7 @@ $(document).ready(function() {
 			location: {
 			    required: true,
 			    regex:/^[a-zA-Z]+$/,
-			    minlength: 5,
+			    minlength: 4,
 			    maxlength: 10
 		    },
 		    hostname: {

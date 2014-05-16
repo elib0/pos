@@ -70,6 +70,10 @@ class Location extends CI_Model {
 								$tables = array(
 									$this->con->dbprefix('app_config'),
 									$this->con->dbprefix('modules'),
+									$this->con->dbprefix('employees'),
+									$this->con->dbprefix('employees_schedule'),
+									$this->con->dbprefix('people'),
+									$this->con->dbprefix('permissions'),
 									$this->con->dbprefix('employees_profile')
 								);
 								$backup1 =& $this->dbutil->backup(array('format'=>'sql','tables'=>$tables,'add_drop'=>false));
@@ -85,32 +89,35 @@ class Location extends CI_Model {
 										$result = mysql_query($query,$conn);
 									}
 								}
+								$person_id = $this->Employee->get_logged_in_employee_info()->person_id;
+								// $query = "DELETE FROM ".$this->con->dbprefix('employees').", ".$this->con->dbprefix('people').", ".$this->con->dbprefix('permissions')." WHERE person_id NOT IN ($person_id)";
+								// mysql_query($query,$conn);
 								mysql_close($conn);
 
-								//inserta el usuario en sesion
-								$person = $this->Employee->get_logged_in_employee_info();
-								$person_data = array(
-									'first_name'=>$person->first_name,
-									'last_name'=>$person->last_name,
-									'email'=>$person->email,
-									'phone_number'=>$person->phone_number,
-									'address_1'=>$person->address_1,
-									'address_2'=>$person->address_2,
-									'city'=>$person->city,
-									'state'=>$person->state,
-									'zip'=>$person->zip,
-									'country'=>$person->country,
-									'comments'=>$person->comments
-								);
+								// //inserta el usuario en sesion
+								// $person_id = $this->Employee->get_logged_in_employee_info()->person_id;
+								// $person_data = array(
+								// 	'first_name'=>$person->first_name,
+								// 	'last_name'=>$person->last_name,
+								// 	'email'=>$person->email,
+								// 	'phone_number'=>$person->phone_number,
+								// 	'address_1'=>$person->address_1,
+								// 	'address_2'=>$person->address_2,
+								// 	'city'=>$person->city,
+								// 	'state'=>$person->state,
+								// 	'zip'=>$person->zip,
+								// 	'country'=>$person->country,
+								// 	'comments'=>$person->comments
+								// );
 
-								$employee_data=array(
-									'username'=>$person->username,
-									'password'=>$person->password,
-									'type_employees'=>$person->employee_profile_type
-								);
+								// $employee_data=array(
+								// 	'username'=>$person->username,
+								// 	'password'=>$person->password,
+								// 	'type_employees'=>$person->employee_profile_type
+								// );
 
-								$new_db_group = $this->load->database($location_data['name'], true);
-								$this->Employee->set_location($new_db_group)->save($person_data, $employee_data,array());
+								// $new_db_group = $this->load->database($location_data['name'], true);
+								// $this->Employee->set_location($new_db_group)->save($person_data, $employee_data,array());
 								
 								$b = $location_id; //Correcto
 							}

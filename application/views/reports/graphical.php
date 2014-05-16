@@ -1,6 +1,6 @@
 <div id="receipt_header" style="text-align:center;">
 	<div id="page_title" style="margin-bottom:8px;text-align:center;"><?php echo $title; ?></div>
-	<div id="page_subtitle" style="margin-bottom:8px;"> <?php echo "$subtitle ($location)"; ?> </div>
+	<div class="page_subtitle" style="margin-bottom:8px;"> <?php echo "$subtitle ($location)"; ?> </div>
 </div>
 <div id="chart_wrapper">
 	<div id="chart<?=$location?>"></div>

@@ -40,7 +40,7 @@ $this->load->view("partial/header");
 </style>
 <?php print_r($session).' Cantidad de elementos:'.count($session); ?>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
-<div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
+<div class="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
 <?php echo form_open(site_url("$controller_name/search"),array('id'=>'search_form', 'method'=>'GET')); ?>
 	<label for="search">Search Item</label>
 	<input type="text" name ='search' id='search' placeholder="Search Item by Name"/>

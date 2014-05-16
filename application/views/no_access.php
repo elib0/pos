@@ -22,10 +22,16 @@
 		font-weight: bold;
 		margin-bottom: 100px;
 	}
+
+	section.no-access > div > div{
+		background-image: url(./images/menubar/logout.png);
+		-webkit-background-size: 65%;
+		background-size: 65%;
+	}
 </style>
 	<section class="no-access">
 		<div class="photo_add">
-			<div style="background-image: url('./images/menubar/logout.png'); background-size: 65%;"></div>
+			<div></div>
 		</div>
 		<p><?php echo $this->lang->line('error_no_permission_module').' '.$module_name; ?></p>
 	</section>

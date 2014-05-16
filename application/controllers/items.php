@@ -547,7 +547,7 @@ class Items extends Secure_area implements iData_controller
 		//redimension
 		if (isset($nameLogo) && is_array($nameLogo)){
 			$this->load->library('image_lib');
-			$configR['image_library'] = 'NetPBM';
+			$configR['image_library'] = 'gd';
 			$configR['maintain_ratio'] = true;
 			$configR['width']	 = 250;
 			$configR['height']	= 250;

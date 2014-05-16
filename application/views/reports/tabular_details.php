@@ -6,8 +6,8 @@ if($export_excel) $hs--;
 ?>
 <div style="text-align:center;">
 	<div id="page_title" style="margin-bottom:6px;text-align:center;"><?=$title?></div>
-	<div id="page_subtitle" style="margin-bottom:6px;"><?=$subtitle?></div>
-	<div id="page_subtitle" style="margin-bottom:6px;"><?="($location)"?></div>
+	<div class="page_subtitle" style="margin-bottom:6px;"><?=$subtitle?></div>
+	<div class="page_subtitle" style="margin-bottom:6px;"><?="($location)"?></div>
 </div>
 <div id="table_holder">
 	<table class="tablesorter report" <?php if($export_excel) echo 'border="1"'; ?> id="sortable_table">

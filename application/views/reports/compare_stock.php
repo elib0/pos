@@ -1,7 +1,7 @@
 <?php $this->load->view("partial/header"); ?>
 <link rel="stylesheet" href="css/compare_stock.css" media="print">
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
-<div id="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
+<div class="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
 
 <?=form_open('inventories_compare/save', array('id'=>'compare_form'))?>
 <div id="table_holder" style="overflow: scroll;height: 430px; margin-bottom: 0px;">

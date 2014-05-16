@@ -5,8 +5,8 @@
 <div style="text-align:center;">
 	<div id="receipt_header">
 		<div id="page_title" style="margin-bottom:6px;text-align:center;"><?=$title?></div>
-		<div id="page_subtitle" style="margin-bottom:6px;"><?=$subtitle?></div>
-		<div id="page_subtitle" style="margin-bottom:6px;"><?="Location: $location"?></div>
+		<div class="page_subtitle" style="margin-bottom:6px;"><?=$subtitle?></div>
+		<div class="page_subtitle" style="margin-bottom:6px;"><?="Location: $location"?></div>
 	</div>
 </div>
 <?php if($export_excel){ ?><br/><?php } ?>

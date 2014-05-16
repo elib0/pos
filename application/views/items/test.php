@@ -23,7 +23,7 @@ $total_general = 0;
         </td>
         <td>
             <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
-            <div id="page_subtitle" style="margin-bottom:8px;">
+            <div class="page_subtitle" style="margin-bottom:8px;">
                 <?php echo $subtitle ?><br>
                 <div id="employee"><?php echo $this->lang->line('employees_employee').": ".$employee ?></div>
             </div>

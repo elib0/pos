@@ -497,7 +497,7 @@ class Items extends Secure_area implements iData_controller
 			echo json_encode( array('success'=>false, 'message'=>'Error') );
 		}
 	}
-	function uploadImagen_photo($id,$e){
+	function uploadImagen_photo($id,$e){ $a=0;
 		//carga de imagen
 		$config['upload_path'] = './images/items/'.$id;
 		$config['allowed_types'] = 'gif|jpg|png';
@@ -505,68 +505,68 @@ class Items extends Secure_area implements iData_controller
 		$config['max_width']  = '3600';
 		$config['max_height']  = '2800';
 		//$config['file_name']  = $id."_".$i.".jpg";
-		for ($i=0; $i < 5; $i++){ 
-			$config['file_name'][$i]  = $id."_".$i.".jpg";
-			if ($e && file_exists($config['upload_path'].'/'.$config['file_name'][$i]))
-				rename($config['upload_path'].'/'.$config['file_name'][$i],$config['upload_path'].'/temp_'.$config['file_name'][$i]);
+		for ($i=0; $i < 5; $i++){ $name[$i]=$id."_".$i.".jpg";
+			if ($this->input->post('photo_hi_'.$i)!==false){
+				$config['file_name'][$a++]  = $name[$i];
+				if ($e && file_exists($config['upload_path'].'/'.$name[$i]))
+					rename($config['upload_path'].'/'.$name[$i],$config['upload_path'].'/temp_'.$name[$i]);
+			} 
 		}
 		$this->load->library('upload');
-		$this->upload->initialize($config);
 		try {
-			if($this->upload->do_multi_upload("photo")){
-				$nameLogo=$this->upload->get_multi_upload_data();
+			$this->upload->initialize($config);
+			$this->upload->do_multi_upload("photo");
+			$nameLogo=$this->upload->get_multi_upload_data();
+			if(count($nameLogo)>0){
 				for ($i=0; $i < 5; $i++) { 
-					if ($e && file_exists($config['upload_path'].'/temp_'.$config['file_name'][$i])){
-						if (file_exists($config['upload_path'].'/'.$config['file_name'][$i]))
-							unlink($config['upload_path'].'/temp_'.$config['file_name'][$i]);
-						else rename($config['upload_path'].'/temp_'.$config['file_name'][$i],$config['upload_path'].'/'.$config['file_name'][$i]);
+					if ($e && file_exists($config['upload_path'].'/temp_'.$name[$i])){
+						if (file_exists($config['upload_path'].'/'.$name[$i])){
+							unlink($config['upload_path'].'/temp_'.$name[$i]);
+						}else{
+							rename($config['upload_path'].'/temp_'.$name[$i],$config['upload_path'].'/'.$name[$i]);
+						} 
 					}
 				}
-				$data = array('upload_status' => 1,'upload_message' => $nameLogo['file_name']);
+				$data = array('upload_status' => 1,'upload_message' => $nameLogo);
 			}else{
 				$data = array('upload_status' => 2,'upload_message' => 'vacio');
+				for ($i=0; $i < 5; $i++) {
+					if (file_exists($config['upload_path'].'/temp_'.$name[$i])){
+						rename($config['upload_path'].'/temp_'.$name[$i],$config['upload_path'].'/'.$name[$i]);
+					}
+				}				
 			}
 		} catch (Exception $e) {
+			for ($i=0; $i < 5; $i++) {
+				if (file_exists($config['upload_path'].'/temp_'.$name[$i])){
+					rename($config['upload_path'].'/temp_'.$name[$i],$config['upload_path'].'/'.$name[$i]);
+				}
+			}
 			$data = array('upload_status' => -1,'upload_message' => 'no se cargo');
 		}
-		// try { 
-		// 	$nameLogo['file_name']='';
-		// 	if ($e && file_exists($config['upload_path'].'/'.$config['file_name']))
-		// 		rename($config['upload_path'].'/'.$config['file_name'],$config['upload_path'].'/temp_'.$config['file_name']);
-		// 	else $e=false;
-		// 	if ($this->upload->do_upload('photo_'.$i)) {
-		// 		$nameLogo = $this->upload->data();
-		// 		if ($e) unlink($config['upload_path'].'/temp_'.$config['file_name']);
-		// 		$data = array('upload_status' => 1,'upload_message' => $nameLogo['file_name']);
-		// 	}else{
-		// 		if ($e) rename($config['upload_path'].'/temp_'.$config['file_name'],$config['upload_path'].'/'.$config['file_name']);
-		// 		if ($this->upload->display_errors(true)=='1') {
-		// 			$data = array('upload_status' => 2,'upload_message' => 'vacio');
-		// 		}else{
-		// 			$data = array('upload_status' => 0,'upload_message' => $this->upload->display_errors(false,'',''));
-		// 		}
-				
-		// 	}
-		// } catch (Exception $e) {
-		// 	$data = array('upload_status' => -1,'upload_message' => 'no se cargo');
-		// 	$nameLogo['file_name']='';
-		// }
-
 		//redimension
 		if (isset($nameLogo) && is_array($nameLogo)){
+			$this->load->library('image_lib');
+			$configR['image_library'] = 'gd';
+			$configR['maintain_ratio'] = true;
+			$configR['width']	 = 250;
+			$configR['height']	= 250;
 			for ($i=0; $i < count($nameLogo); $i++) { 	
-				$configR['image_library'] = 'gd';
-				$configR['source_image']	= $config['upload_path'].'/'.$nameLogo['file_name'][$i];
+				$configR['source_image']	= $config['upload_path'].'/'.$nameLogo[$i]['file_name'];
 	//			$configR['create_thumb'] = false;
-				$configR['maintain_ratio'] = true;
-				$configR['width']	 = 140;
-				$configR['height']	= 140;
-				$this->load->library('image_lib', $configR); 
+				$this->image_lib->initialize($configR);  
 				$this->image_lib->resize();
 				$this->image_lib->clear();
 			}
 		}
 		return $data;
+	}
+	function delete_picture($id,$i){
+		if (file_exists('./images/items/'.md5($id).'/'.md5($id).'_'.$i.'.jpg')){
+			if (unlink('./images/items/'.md5($id).'/'.md5($id).'_'.$i.'.jpg'))
+				echo json_encode( array('success'=>true));
+			else echo json_encode( array('success'=>false, 'message'=>'Error'));
+		}else echo json_encode( array('success'=>false, 'message'=>'no file'));
 	}
 	/*
 	get the width for the add/edit form

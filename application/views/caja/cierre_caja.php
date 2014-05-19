@@ -1,4 +1,3 @@
-<h3 id="title">Close Session Details</h3>
 <div class="logoutdetails-content">
     <table class="tablesorter report" id="sortable_table">
         <thead>

@@ -250,7 +250,8 @@ function tb_showIframe(){
 	$("#TB_window").css({display:"block"});
 }
 
-function tb_remove() {
+function tb_remove(reload) {
+	reload = reload || false;
 	$("#TB_imageOff").unbind("click");
 	$("#TB_closeWindowButton").unbind("click");
 	$("#TB_window").fadeOut("fast",function(){$('#TB_window,#TB_overlay,#TB_HideSelect').trigger("unload").unbind().remove();});
@@ -261,6 +262,9 @@ function tb_remove() {
 	}
 	document.onkeydown = "";
 	document.onkeyup = "";
+	if (reload) {
+		location.reload();
+	}
 	return false;
 }
 

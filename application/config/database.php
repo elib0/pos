@@ -83,7 +83,7 @@ if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['
 }
 
 //Carga grupos de db para diferentes locaciones
-$conn = mysql_connect($db['default']['hostname'], $db['default']['username'], $db['default']['password']);
+$conn = @mysql_connect($db['default']['hostname'], $db['default']['username'], $db['default']['password']);
 if ($conn) {
 	if (mysql_select_db($db['default']['database'])) {
 		$query = "SELECT * FROM ".$db['default']['dbprefix']."locations WHERE active = '1'";

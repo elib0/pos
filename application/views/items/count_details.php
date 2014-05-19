@@ -4,7 +4,7 @@
 	<div class="field_row clearfix">
 		<table align="center" border="0">
 			<tr>
-				<td><?php echo form_label($this->lang->line('items_item_number').':', 'items_number',array('class'=>'lable-formlable-form')); ?></td>
+				<td><?php echo form_label($this->lang->line('items_item_number').':', 'items_number',array('class'=>'lable-form')); ?></td>
 				<td>
 					<?php 
 					echo form_input(array (
@@ -15,6 +15,19 @@
 						'readonly' => 'readonly',
 						'class'=>'text_box'
 					)); ?>
+				</td>
+				<td rowspan="4" width="200">
+					<?php  
+						for ($i=0; $i < 5; $i++) { 
+							if (file_exists('./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg')){
+								echo '<div class="photo_add" style="border:1px transparent solid;">
+											<div style="background-image:url(\'./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg\')">
+											</div>
+									  </div>';
+							  	break;
+							}
+						}
+					?>
 				</td>
 			</tr>
 			<tr>
@@ -65,7 +78,7 @@
 </div>
 <?php echo form_close(); ?>
 <div id="details_items_po">
-	<h3><?php echo "Inventory Data Tracking"; ?></h3><hr>
+	<h3><?php echo $this->lang->line('items_inventory_tracking'); ?></h3><hr>
 	<table border="0" align="center" width="100%" >
 		<tr align="center" style="font-weight:bold">
 			<th width="15%" class="noBorderTop noBorderLeft">Date</th>

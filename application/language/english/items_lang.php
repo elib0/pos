@@ -86,4 +86,7 @@ $lang['items_is_locked_title']="This item can't be deleted.";
 $lang['items_is_locked_alert']="You can't delete locked items. Check your selection.";
 $lang['items_supplier_id_required']="Supplier is required.";
 $lang['items_pictures']="Pictures";
+$lang['items_pictures_main']="Main Pictures";
+$lang['items_confirm_delete_picture']="Does this sure to delete this picture? This action is irreversible";
+$lang['items_inventory_tracking']="Inventory Data Tracking";
 ?>

@@ -1,12 +1,12 @@
 <?php $this->load->view("partial/header"); ?>
 <div style="text-align:center;">
 	<div id="page_title" style="margin-bottom:6px;text-align:center;"><?=$title?></div>
-	<div id="page_subtitle" style="margin-bottom:6px;">
+	<div class="page_subtitle" style="margin-bottom:6px;">
 	<?php
 	$order = (count($notifications['shippings']['data']) > 1) ? $this->lang->line('reports_orders') : $this->lang->line('reports_order');
 	echo $this->lang->line('reports_you_have').' '.count($notifications['shippings']['data']).' '.$order; 
 	?></div>
-	<!-- <div id="page_subtitle" style="margin-bottom:6px;"><?="($location)"?></div> -->
+	<!-- <div class="page_subtitle" style="margin-bottom:6px;"><?="($location)"?></div> -->
 </div>
 <div id="table_holder">
 	<table class="tablesorter report" id="sortable_table">

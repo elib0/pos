@@ -44,100 +44,116 @@ class Location extends CI_Model {
 		return $this->dbs;
 	}
 
-	function exists($location_id)
+	function exists($location_name)
 	{
-		$this->con->from('locations')->where('id', $location_id);
+		$this->con->from('locations')->where('name', $location_name);
 		$query = $this->con->get();
 
 		return ($query->num_rows()==1);
 	}
 
 	public function save(&$location_data,$location_id=0){
-		if ($location_id < 1 or !$this->exists($location_id))
+		$conn = @mysql_connect($location_data['hostname'], $location_data['username'], $location_data['password']);
+
+		if ($location_id < 1)
 		{
 			$b = 0;
-			$conn = @mysql_connect($location_data['hostname'], $location_data['username'], $location_data['password']);
 			if ($conn) {
-				if ($this->con->insert('locations',$location_data)) {
-					$location_id = $this->con->insert_id();
-					$query = $this->con->query('CREATE DATABASE IF NOT EXISTS '.$location_data['database']);
-					if ($query) {
-						if (mysql_select_db($location_data['database'], $conn)) {
-							//Cargo mi base de datos sin datos para la nueva location
-							$this->load->dbutil();
-							$tables = array(
-								$this->con->dbprefix('app_config'),
-								$this->con->dbprefix('modules'),
-								$this->con->dbprefix('employees_profile')
-							);
-							$backup1 =& $this->dbutil->backup(array('format'=>'sql','tables'=>$tables,'add_drop'=>false));
-							$backup2 =& $this->dbutil->backup(array('format'=>'sql','add_insert'=>FALSE,'add_drop'=>false, 'ignore'=>$tables));
-							$backup = $backup1.$backup2;
-							//A continuacion limpiamos la cadena sql y la separamos a un arreglo
-							$backup=preg_replace("/;\s*$/","", $backup);
-							$backup=preg_replace("/;\r?\n/", ";#;;;", $backup);
-							$res=explode('#;;;',$backup);
+				if (!$this->exists($location_data['name'])) {
+					if ($this->con->insert('locations',$location_data)) {
+						$location_id = $this->con->insert_id();
+						$query = $this->con->query('CREATE DATABASE IF NOT EXISTS '.$location_data['database']);
+						if ($query) {
+							if (mysql_select_db($location_data['database'], $conn)) {
+								//Cargo mi base de datos sin datos para la nueva location
+								$this->load->dbutil();
+								$tables = array(
+									$this->con->dbprefix('app_config'),
+									$this->con->dbprefix('modules'),
+									$this->con->dbprefix('employees'),
+									$this->con->dbprefix('employees_schedule'),
+									$this->con->dbprefix('people'),
+									$this->con->dbprefix('permissions'),
+									$this->con->dbprefix('employees_profile')
+								);
+								$backup1 =& $this->dbutil->backup(array('format'=>'sql','tables'=>$tables,'add_drop'=>false));
+								$backup2 =& $this->dbutil->backup(array('format'=>'sql','add_insert'=>FALSE,'add_drop'=>false, 'ignore'=>$tables));
+								$backup = $backup1.$backup2;
+								//A continuacion limpiamos la cadena sql y la separamos a un arreglo
+								$backup=preg_replace("/;\s*$/","", $backup);
+								$backup=preg_replace("/;\r?\n/", ";#;;;", $backup);
+								$res=explode('#;;;',$backup);
 
-							foreach ($res as $query) {
-								if ($query!=''){
-									$result = mysql_query($query,$conn);
+								foreach ($res as $query) {
+									if ($query!=''){
+										$result = mysql_query($query,$conn);
+									}
 								}
+								$person_id = $this->Employee->get_logged_in_employee_info()->person_id;
+								// $query = "DELETE FROM ".$this->con->dbprefix('employees').", ".$this->con->dbprefix('people').", ".$this->con->dbprefix('permissions')." WHERE person_id NOT IN ($person_id)";
+								// mysql_query($query,$conn);
+								mysql_close($conn);
+
+								// //inserta el usuario en sesion
+								// $person_id = $this->Employee->get_logged_in_employee_info()->person_id;
+								// $person_data = array(
+								// 	'first_name'=>$person->first_name,
+								// 	'last_name'=>$person->last_name,
+								// 	'email'=>$person->email,
+								// 	'phone_number'=>$person->phone_number,
+								// 	'address_1'=>$person->address_1,
+								// 	'address_2'=>$person->address_2,
+								// 	'city'=>$person->city,
+								// 	'state'=>$person->state,
+								// 	'zip'=>$person->zip,
+								// 	'country'=>$person->country,
+								// 	'comments'=>$person->comments
+								// );
+
+								// $employee_data=array(
+								// 	'username'=>$person->username,
+								// 	'password'=>$person->password,
+								// 	'type_employees'=>$person->employee_profile_type
+								// );
+
+								// $new_db_group = $this->load->database($location_data['name'], true);
+								// $this->Employee->set_location($new_db_group)->save($person_data, $employee_data,array());
+								
+								$b = $location_id; //Correcto
 							}
-							mysql_close($conn);
-
-							//inserta el usuario en sesion
-							// $person = $this->Employee->get_logged_in_employee_info();
-							// $person_data = array(
-							// 	'first_name'=>$person->first_name,
-							// 	'last_name'=>$person->last_name,
-							// 	'email'=>$person->email,
-							// 	'phone_number'=>$person->phone_number,
-							// 	'address_1'=>$person->address_1,
-							// 	'address_2'=>$person->address_2,
-							// 	'city'=>$person->city,
-							// 	'state'=>$person->state,
-							// 	'zip'=>$person->zip,
-							// 	'country'=>$person->country,
-							// 	'comments'=>$person->comments
-							// );
-
-							// $employee_data=array(
-							// 'username'=>$person->username,
-							// 'password'=>$person->password,
-							// 'type_employees'=>$person->employee_profile_type
-							// );
-
-							// $new_db_group = $this->load->database($location_data['name'], true);
-							// $this->Employee->set_location($location_data['name'])->save($person_data, $employee_data,array());
-							
-							$b = $location_id; //Correcto
+						}else{
+							$b = -2; //nose creo la tabla
 						}
 					}else{
-						$b = -2; //nose creo la tabla
+						$b = -1; //error al insertar datos del servidor
 					}
-				}else{
-					$b = -1; //error al insertar datos del servidor
 				}
 			}
 			return $b;
 		}
 
-		$this->con->where('id', $location_id);
-		return $this->con->update('locations',$location_data);
+		if ($conn) {
+			$this->con->where('id', $location_id);
+			return $this->con->update('locations',$location_data);
+		}else{
+			return false;
+		}
 	}
 
-	public function delete($location_id = null){
-		$data = array('active'=>0);
-		$this->con->where_in('id', $location_id);
-		$this->con->update('locations', $data);
+	public function toggle_enable($location_id = null, $value = 0){
+		if ($location_id) {
+			$data = array('active'=>$value);
+			$this->con->where_in('id', $location_id);
+			return $this->con->update('locations', $data);
+		}
+
+		return false;
 	}
 
 	function search($search)
 	{
 		$this->con->from('locations');
-		$this->con->where("(name LIKE '%".$this->con->escape_like_str($search)."%' or
-		hostname LIKE '%".$this->con->escape_like_str($search)."%' or
-		dbdriver LIKE '%".$this->con->escape_like_str($search)."%')");
+		$this->con->where("name LIKE '%".$this->con->escape_like_str($search)."%'");
 		$this->con->order_by("name", "asc");
 		return $this->con->get();
 	}

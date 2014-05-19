@@ -1,5 +1,6 @@
 <?php
-class No_Access extends CI_Controller 
+require_once ("secure_area.php");
+class No_Access extends Secure_area 
 {
 	function __construct()
 	{

@@ -20,7 +20,7 @@
 			<tbody>
 				<?php $num=count($items_info); $url=str_replace('/index.php', "",site_url());
 					for ($i=0; $i < $num; $i++) {  
-						$imagen='<img src="'.$url.'/images/no_image.png" width="120"/><br/><span id="itemsNoImagenSpan">No Image</span>'; 
+						$imagen='<img src="'.$url.'/images/no_image2.png" width="120"/>'; 
 						$tuId=md5($location.'-'.$items_info[$i]['item_id']); 
 						for ($j=0; $j < 5; $j++) { 
 							if (file_exists('./images/items/'.$tuId.'/'.$tuId.'_'.$j.'.jpg')){

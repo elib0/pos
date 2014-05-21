@@ -232,3 +232,11 @@ html[xmlns] .clearfix {	display: block; }
 	width: 306px;
 	font-size: 10px;
 }
+#itemsNoImagenSpan{
+    font-size: 14px;
+    font-weight: bold;
+    color: #f2f2f2;
+    position: relative;
+    top: -50px;
+    left: 25px;
+}

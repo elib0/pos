@@ -19,7 +19,9 @@
 			</thead>
 			<tbody>
 				<?php $num=count($items_info); $url=str_replace('/index.php', "",site_url());
-					for ($i=0; $i < $num; $i++) {  $imagen=''; $tuId=md5($location.'-'.$items_info[$i]['item_id']); 
+					for ($i=0; $i < $num; $i++) {  
+						$imagen='<img src="'.$url.'/images/no_image.png" width="120"/><br/><span id="itemsNoImagenSpan">No Image</span>'; 
+						$tuId=md5($location.'-'.$items_info[$i]['item_id']); 
 						for ($j=0; $j < 5; $j++) { 
 							if (file_exists('./images/items/'.$tuId.'/'.$tuId.'_'.$j.'.jpg')){
 										$imagen= '<img src="'.$url.'/images/items/'.$tuId.'/'.$tuId.'_'.$j.'.jpg" width="120"/>';
@@ -56,7 +58,7 @@
 										<th width="20%">'.$this->lang->line('items_reorder_level').':</td>
 										<td width="30%">'.$items_info[$i]['reorder_level'].'</td>
 										<th width="20%">'.$this->lang->line('items_description').':</td>
-										<td width="30%">'.$items_info[$i]['description'].'</td>
+										<td width="30%">'.($items_info[$i]['description']?$items_info[$i]['description']:'"not provided"').'</td>
 									</tr>
 								</tbody>
 							</table>							

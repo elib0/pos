@@ -24,8 +24,8 @@
 	}
 
 	section.no-access > div > div{
-		background-image: url(./images/menubar/logout.png);
-		-webkit-background-size: 65%;
+		background-image: url(./images/no_access.png);
+		-webkit-background-size: 332px 442px;
 		background-size: 65%;
 	}
 </style>

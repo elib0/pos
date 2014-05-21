@@ -46,6 +46,7 @@ $lang['giftcards_cannot_be_deleted']='Could not deleted selected giftcards, one 
 $lang['giftcards_none'] = 'None';
 $lang['giftcards_supplier'] = 'Supplier';
 $lang['giftcards_generate_barcodes'] = 'Generate Barcodes';
+$lang['giftcards_barcodes'] = 'Barcodes';
 $lang['giftcards_must_select_giftcard_for_barcode'] = 'You must select at least 1 giftcard to generate barcodes';
 $lang['giftcards_excel_import_failed'] = 'Excel import failed';
 $lang['giftcards_allow_alt_desciption'] = 'Allow Alt Description';

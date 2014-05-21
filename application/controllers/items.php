@@ -210,17 +210,17 @@ class Items extends Secure_area implements iData_controller
 			if ($item_id!=-1){
 				$id=$item_id;
 				$msg_post_subt=$this->lang->line('employees_successful_adding');
-				if (!is_dir('./images/items/'.md5($id).'/')){
-					mkdir('./images/items/'.md5($id).'/');
+				if (!is_dir('./images/items/'.md5($this->session->userdata('dblocation').'-'.$id).'/')){
+					mkdir('./images/items/'.md5($this->session->userdata('dblocation').'-'.$id).'/');
 					$a=false;
 				}else{ $a=true; }
 			}else{
 				$id=$item_data['item_id'];
-				mkdir('./images/items/'.md5($id).'/');
+				mkdir('./images/items/'.md5($this->session->userdata('dblocation').'-'.$id).'/');
 				$a=false; 
 			}
 			//for ($i=0; $i < 5; $i++) { 
-				$dat[]=$this->uploadImagen_photo(md5($id),$a);			
+				$dat[]=$this->uploadImagen_photo(md5($this->session->userdata('dblocation').'-'.$id),$a);			
 			//}
 			//New item
 			if($item_id==-1)
@@ -547,7 +547,7 @@ class Items extends Secure_area implements iData_controller
 		//redimension
 		if (isset($nameLogo) && is_array($nameLogo)){
 			$this->load->library('image_lib');
-			$configR['image_library'] = 'gd';
+			$configR['image_library'] = 'GD2';
 			$configR['maintain_ratio'] = true;
 			$configR['width']	 = 250;
 			$configR['height']	= 250;
@@ -562,8 +562,8 @@ class Items extends Secure_area implements iData_controller
 		return $data;
 	}
 	function delete_picture($id,$i){
-		if (file_exists('./images/items/'.md5($id).'/'.md5($id).'_'.$i.'.jpg')){
-			if (unlink('./images/items/'.md5($id).'/'.md5($id).'_'.$i.'.jpg'))
+		if (file_exists('./images/items/'.md5($this->session->userdata('dblocation').'-'.$id).'/'.md5($this->session->userdata('dblocation').'-'.$id).'_'.$i.'.jpg')){
+			if (unlink('./images/items/'.md5($this->session->userdata('dblocation').'-'.$id).'/'.md5($this->session->userdata('dblocation').'-'.$id).'_'.$i.'.jpg'))
 				echo json_encode( array('success'=>true));
 			else echo json_encode( array('success'=>false, 'message'=>'Error'));
 		}else echo json_encode( array('success'=>false, 'message'=>'no file'));

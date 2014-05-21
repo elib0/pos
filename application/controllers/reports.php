@@ -60,8 +60,10 @@ class Reports extends Secure_area
 	function get_locations($location='default'){
 		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
 		if($location!='all') return array($location);
-		foreach($db as $key=>$con)
-			$locations[]=$key;
+		foreach($db as $key=>$con){
+			if ($key!='transactions')
+				$locations[]=$key;
+		}
 		return $locations;
 	}
 
@@ -946,33 +948,22 @@ class Reports extends Secure_area
 		}
 		$this->load->view("reports/format_reports",$_data);
 	}
-	function inventory_details_items($export_excel=0,$id){
+	function inventory_details_items($export_excel=0,$location){
 		$_data['view']='reports/details_items';
 		$_data['export_excel']=$export_excel;
-		$_data['location']=$this->session->userdata('dblocation');
-		$this->load->model('item');
-		$model = $this->Item;
-		$locations=$this->get_locations();
-		$_data['data']['item_info']=$model->get_info($id);
-		// foreach($locations as $location){
-		// 	$tabular_data = array();
-		// 	$model->stabledb($location,true);
-		// 	$report_data = $model->getData(array());
-		// 	// foreach($report_data as $row)
-		// 	// {
-		// 	// 	$tabular_data[] = array($row['name'], $row['item_number'], $row['description'], $row['quantity'], $row['reorder_level']);
-		// 	// }
-		// 	// $data = array(
-		// 	// 	"title" => $this->lang->line('reports_inventory_summary_report'),
-		// 	// 	"subtitle" => '',
-		// 	// 	"headers" => $model->getDataColumns(),
-		// 	// 	"data" => $tabular_data,
-		// 	// 	"summary_data" => $model->getSummaryData(array()),
-		// 	// 	"location"=>$location,
-		// 	// 	"export_excel" => $export_excel
-		// 	// );
-		// 	$_data['list'][]=$data;
-		// }
+		// $_data['location']=$this->session->userdata('dblocation');
+		$this->load->model('reports/Inventory_low');
+		$model = $this->Inventory_low;
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$model->stabledb($location,true);			
+			$data = array(
+				"items_info" => $model->get_infoData(),
+				"location"=>$location,
+				"export_excel" => $export_excel
+			);
+			$_data['list'][]=$data;
+		}
 		$this->load->view("reports/format_reports",$_data);
 	}
 	

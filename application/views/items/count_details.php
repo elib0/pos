@@ -17,11 +17,11 @@
 					)); ?>
 				</td>
 				<td rowspan="4" width="200">
-					<?php  
+					<?php  $tuId=md5($this->session->userdata('dblocation').'-'.$item_info->item_id);
 						for ($i=0; $i < 5; $i++) { 
-							if (file_exists('./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg')){
+							if (file_exists('./images/items/'.$tuId.'/'.$tuId.'_'.$i.'.jpg')){
 								echo '<div class="photo_add" style="border:1px transparent solid;">
-											<div style="background-image:url(\'./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg\')">
+											<div style="background-image:url(\'./images/items/'.$tuId.'/'.$tuId.'_'.$i.'.jpg\')">
 											</div>
 									  </div>';
 							  	break;

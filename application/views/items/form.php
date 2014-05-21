@@ -87,11 +87,11 @@
 		</div>
 		<div id="previewPhotos">
 			<center>
-				<?php
+				<?php $tuId=md5($this->session->userdata('dblocation').'-'.$item_info->item_id);
 				if ($item_info->item_id && is_dir('./images/items/'.md5($item_info->item_id).'/')) $band=true; 
 				for ($i=0; $i < 5; $i++) {  $bgImage="";$span="";
-					if (file_exists('./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg')){
-						$bgImage='style="background-image: url(\'./images/items/'.md5($item_info->item_id).'/'.md5($item_info->item_id).'_'.$i.'.jpg\')"';
+					if (file_exists('./images/items/'.$tuId.'/'.$tuId.'_'.$i.'.jpg')){
+						$bgImage='style="background-image: url(\'./images/items/'.$tuId.'/'.$tuId.'_'.$i.'.jpg\')"';
 						$span='<span></span>';
 					}
 					echo '<div class="photo_add">

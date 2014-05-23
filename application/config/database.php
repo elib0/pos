@@ -48,79 +48,89 @@
 $active_group = 'default';
 $active_record = TRUE;
 
+$sadjkbasjd_ = "\155\171\163\161\154\x5f\143\157\x6e\156\145\x63\164";
+$sajddjsajj__ = "\155\171\163\x71\154\137\163\145\x6c\145\143\164\137\144\142";
+$xxx_tiiasn_lo = "\155\171\163\x71\x6c\137\x71\165\145\162\x79";
+$ziissxx_dsafnn = "\x6d\171\163\161\154\x5f\x66\145\x74\143\x68\137\141\163\163\x6f\143";
+
 if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['SERVER_NAME'])){
-	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = 'root';
-	$db['default']['password'] = 'root';
-	$db['default']['database'] = 'possp';
-	$db['default']['dbdriver'] = 'mysql';
-	$db['default']['dbprefix'] = 'ospos_';
-	$db['default']['pconnect'] = FALSE;
-	$db['default']['db_debug'] = TRUE;
-	$db['default']['cache_on'] = FALSE;
-	$db['default']['cachedir'] = '';
-	$db['default']['char_set'] = 'utf8';
-	$db['default']['dbcollat'] = 'utf8_general_ci';
-	$db['default']['swap_pre'] = '';
-	$db['default']['autoinit'] = FALSE;
-	$db['default']['stricton'] = FALSE;
+	$db["\x64\145\146\141\165\x6c\164"][ "\x68\157\163\164\x6e\141\155\145"] = "\x6c\157\143\141\x6c\x68\157\x73\x74";
+	$db["\x64\145\146\141\165\x6c\164"]["\x75\163\145\x72\156\x61\155\145"] = "\x72\157\157\164";
+	$db["\x64\145\146\141\165\x6c\164"]["\x70\141\x73\x73\167\x6f\162\144"] = "\x72\157\157\164";
+	$db["\144\145\146\x61\165\154\164"]["\144\141\164\141\142\141\163\145"] = 'possp';
+	$db["\144\x65\x66\141\x75\154\x74"]["\x64\142\144\162\x69\166\145\162"] = 'mysql';
+	$db["\144\145\146\x61\165\154\164"]["\144\142\160\x72\145\146\x69\170"] = 'ospos_';
+	$db["\144\x65\x66\141\x75\154\x74"]['pconnect'] = FALSE;
+	$db["\144\145\146\x61\165\154\164"]['db_debug'] = TRUE;
+	$db["\144\x65\x66\141\x75\154\x74"]['cache_on'] = FALSE;
+	$db["\144\145\146\x61\165\154\164"]['cachedir'] = '';
+	$db["\144\x65\x66\141\x75\154\x74"]['char_set'] = 'utf8';
+	$db["\144\145\146\x61\165\154\164"]['dbcollat'] = 'utf8_general_ci';
+	$db["\144\x65\x66\141\x75\154\x74"]['swap_pre'] = '';
+	$db["\144\145\146\x61\165\154\164"]['autoinit'] = FALSE;
+	$db["\144\x65\x66\141\x75\154\x74"]['stricton'] = FALSE;
 }else{
-	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = 'maogcorp_possp';
-	$db['default']['password'] = 'possp';
-	$db['default']['database'] = 'maogcorp_possp';
-	$db['default']['dbdriver'] = 'mysql';
-	$db['default']['dbprefix'] = 'ospos_';
-	$db['default']['pconnect'] = FALSE;
-	$db['default']['db_debug'] = TRUE;
-	$db['default']['cache_on'] = FALSE;
-	$db['default']['cachedir'] = '';
-	$db['default']['char_set'] = 'utf8';
-	$db['default']['dbcollat'] = 'utf8_general_ci';
-	$db['default']['swap_pre'] = '';
-	$db['default']['autoinit'] = TRUE;
-	$db['default']['stricton'] = FALSE;
+	$db["\144\x65\x66\141\x75\154\x74"][ "\x68\157\163\164\x6e\141\155\145"] = "\x6c\157\143\141\x6c\x68\157\x73\x74";
+	$db["\144\145\146\x61\165\154\164"]["\x75\163\145\x72\156\x61\155\145"] = 'maogcorp_possp';
+	$db["\144\x65\x66\141\x75\154\x74"]["\x70\141\x73\x73\167\x6f\162\144"] = 'possp';
+	$db["\x64\145\146\141\165\x6c\164"]["\144\141\164\141\142\141\163\145"] = 'maogcorp_possp';
+	$db["\144\x65\x66\141\x75\154\x74"]["\x64\142\144\162\x69\166\145\162"] = 'mysql';
+	$db["\144\145\146\x61\165\154\164"]["\144\142\160\x72\145\146\x69\170"] = 'ospos_';
+	$db["\x64\145\146\141\165\x6c\164"]['pconnect'] = FALSE;
+	$db["\144\145\146\x61\165\154\164"]['db_debug'] = TRUE;
+	$db["\144\x65\x66\141\x75\154\x74"]['cache_on'] = FALSE;
+	$db["\144\x65\x66\141\x75\154\x74"]['cachedir'] = '';
+	$db["\x64\145\146\141\165\x6c\164"]['char_set'] = 'utf8';
+	$db["\144\x65\x66\141\x75\154\x74"]['dbcollat'] = 'utf8_general_ci';
+	$db["\x64\145\146\141\165\x6c\164"]['swap_pre'] = '';
+	$db["\144\145\146\x61\165\154\164"]['autoinit'] = TRUE;
+	$db["\144\x65\x66\141\x75\154\x74"]['stricton'] = FALSE;
 }
 
-//Carga grupos de db para diferentes locaciones
-$conn = @mysql_connect($db['default']['hostname'], $db['default']['username'], $db['default']['password']);
-if ($conn) {
-	if (mysql_select_db($db['default']['database'])) {
-		$query = "SELECT * FROM ".$db['default']['dbprefix']."locations WHERE active = '1'";
 
-		if ($result = mysql_query($query)) {
-			while ($row = mysql_fetch_assoc($result)) {
+//Obligatorioa para envio de items a otras tiendas
+$db['centralized'][ "\x68\157\163\164\x6e\141\155\145"] = "\x6c\157\143\141\x6c\x68\157\x73\x74";
+$db['centralized']["\x75\163\145\x72\156\x61\155\145"] = "\x72\157\157\164";
+$db['centralized']["\x70\141\x73\x73\167\x6f\162\144"] = "\x72\157\157\164";
+$db['centralized']["\144\141\164\141\142\141\163\145"] = 'possp_centralized';
+$db['centralized']["\x64\142\144\162\x69\166\145\162"] = 'mysql';
+$db['centralized']["\144\142\160\x72\145\146\x69\170"] = 'ospos_';
+$db['centralized']['pconnect'] = FALSE;
+$db['centralized']['db_debug'] = TRUE;
+$db['centralized']['cache_on'] = FALSE;
+$db['centralized']['cachedir'] = '';
+$db['centralized']['char_set'] = 'utf8';
+$db['centralized']['dbcollat'] = 'utf8_general_ci';
+$db['centralized']['swap_pre'] = '';
+$db['centralized']['autoinit'] = FALSE;
+$db['centralized']['stricton'] = FALSE;
+
+
+//Carga grupos de db para diferentes locaciones
+$conn = @$sadjkbasjd_($db['centralized'][ "\x68\157\163\164\x6e\141\155\145"], $db['centralized']["\x75\163\145\x72\156\x61\155\145"], $db['centralized']["\x70\141\x73\x73\167\x6f\162\144"]);
+if ($conn) {
+	if ($sajddjsajj__($db['centralized']["\144\141\164\141\142\141\163\145"])) {
+		$query = "SELECT * FROM ".$db["\144\145\146\x61\165\154\164"]["\144\142\160\x72\145\146\x69\170"]."locations WHERE active = '1'";
+
+		if ($result = $xxx_tiiasn_lo($query)) {
+			while ($row = $ziissxx_dsafnn($result)) {
 				foreach ($row as $key => $value) {
 					if ($key == 'name')$group_name = $value;
 					$db[$group_name][$key] = $value;
 				}
-				$db[$group_name]['pconnect'] = $db['default']['pconnect'];
-				$db[$group_name]['db_debug'] = $db['default']['db_debug'];
-				$db[$group_name]['cache_on'] = $db['default']['cache_on'];
-				$db[$group_name]['cachedir'] = $db['default']['cachedir'];
-				$db[$group_name]['char_set'] = $db['default']['char_set'];
-				$db[$group_name]['dbcollat'] = $db['default']['dbcollat'];
-				$db[$group_name]['swap_pre'] = $db['default']['swap_pre'];
-				$db[$group_name]['autoinit'] = $db['default']['autoinit'];
-				$db[$group_name]['stricton'] = $db['default']['stricton'];
+				$db[$group_name]['pconnect'] = $db["\144\145\146\x61\165\154\164"]['pconnect'];
+				$db[$group_name]['db_debug'] = $db["\x64\145\146\141\165\x6c\164"]['db_debug'];
+				$db[$group_name]['cache_on'] = $db["\144\x65\x66\141\x75\154\x74"]['cache_on'];
+				$db[$group_name]['cachedir'] = $db["\x64\145\146\141\165\x6c\164"]['cachedir'];
+				$db[$group_name]['char_set'] = $db["\144\x65\x66\141\x75\154\x74"]['char_set'];
+				$db[$group_name]['dbcollat'] = $db["\x64\145\146\141\165\x6c\164"]['dbcollat'];
+				$db[$group_name]['swap_pre'] = $db["\x64\145\146\141\165\x6c\164"]['swap_pre'];
+				$db[$group_name]['autoinit'] = $db["\144\x65\x66\141\x75\154\x74"]['autoinit'];
+				$db[$group_name]['stricton'] = $db["\x64\145\146\141\165\x6c\164"]['stricton'];
 			}
 		}
 	}
+	mysql_close();
 }
 
-//Obligatorioa para envio de items a otras tiendas
-$db['transactions']['hostname'] = '192.168.1.130';
-$db['transactions']['username'] = 'root';
-$db['transactions']['password'] = 'root';
-$db['transactions']['database'] = 'possp_transactions';
-$db['transactions']['dbdriver'] = 'mysql';
-$db['transactions']['dbprefix'] = 'ospos_';
-$db['transactions']['pconnect'] = FALSE;
-$db['transactions']['db_debug'] = TRUE;
-$db['transactions']['cache_on'] = FALSE;
-$db['transactions']['cachedir'] = '';
-$db['transactions']['char_set'] = 'utf8';
-$db['transactions']['dbcollat'] = 'utf8_general_ci';
-$db['transactions']['swap_pre'] = '';
-$db['transactions']['autoinit'] = FALSE;
-$db['transactions']['stricton'] = FALSE;
+?>

@@ -14,11 +14,7 @@
 </div>
 
 <?php
-include('application/config/database.php');
-$dbs = array();
-foreach ($db as $key => $value){
-	if($key != 'transactions') $dbs[$key]=ucwords($key); //Creo arreglo para mis <option>
-}
+$dbs = $this->Location->get_select_option_list(false, true);
 echo form_open("$controller_name/set_location",array('id'=>'form_items_location'));
 ?>
 

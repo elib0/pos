@@ -4,16 +4,28 @@ class Location extends CI_Model {
 
 	public $con;
 	private $dbs = array();
+	private $dbgroup = 'centralized';
 
-	public function __construct()
-	{
-		parent::__construct();
-		$db = $this->session->userdata('dblocation');
-        if($db)
-            $this->con = $this->load->database($db, true);
-        else
-        	$this->con = $this->db;
-	}
+	// public function __construct()
+	// {
+	// 	parent::__construct();
+	// 	$db = $this->session->userdata('dblocation');
+ //        if($db)
+ //            $this->con = $this->load->database($db, true);
+ //        else
+ //        	$this->con = $this->db;
+	// }
+	 function __construct()
+    {
+        parent::__construct();
+
+        include('application/config/database.php');
+        if (isset( $db[$this->dbgroup] )){
+            $this->con = $this->load->database($this->dbgroup, true); //Unica base de dato centralizada
+        }else{
+            show_error('Please set the Connection group and database '.$this->dbgroup);
+        }
+    }
 
 	private function load_locations(){
 		$this->con->select('name,id,hostname,username,password,database,dbdriver,dbprefix,active');
@@ -172,6 +184,27 @@ class Location extends CI_Model {
 
 		return $suggestions;
 	}
+
+	public function get_select_option_list($empty_option=false, $show_all=false){
+		include('application/config/database.php');
+		$dbs = array();
+		if ($empty_option) $dbs = array('...'=>'...');
+		$show_all = (!$show_all) ? $this->session->userdata('dblocation') : '...';
+
+		foreach ($db as $key => $value){
+			if ($key != $show_all && $key != $this->dbgroup) {
+				$dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
+			}
+		}
+
+		return $dbs;
+	}
+
+	public function available(){
+        $this->load->dbutil();
+
+        return $this->dbutil->database_exists('possp_'.$this->dbgroup) && $this->con;
+    }
 
 }
 

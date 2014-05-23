@@ -2,7 +2,7 @@
 class Transfers extends CI_Model
 {
     var $con = false;
-    private $dbgroup = 'transactions';
+    private $dbgroup = 'centralized';
 
     function __construct()
     {
@@ -105,7 +105,7 @@ class Transfers extends CI_Model
     public function available(){
         $this->load->dbutil();
 
-        return $this->dbutil->database_exists('possp_transactions') && $this->con;
+        return $this->dbutil->database_exists('possp_'.$this->dbgroup) && $this->con;
     }
 }
 ?>

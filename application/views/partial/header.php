@@ -98,14 +98,7 @@ html {
 		<span></span>
 	</div>
 	<?php
-		include('application/config/database.php');
-		$dbs = array();
-		foreach ($db as $key => $value){
-			if ($key != $this->session->userdata('dblocation') && $key != 'transactions') {
-				$dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
-			}
-		}
-
+		$dbs = $this->Location->get_select_option_list();
 		$people = $this->Employee->get_all();
 	?>
 	<div class="container-menus">

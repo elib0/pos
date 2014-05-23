@@ -5,7 +5,6 @@ class Locations extends Secure_area {
 	public function __construct()
 	{
 		parent::__construct('locations');
-		$this->load->model('Location');
 	}
 
 	public function index()

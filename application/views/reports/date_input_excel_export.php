@@ -3,21 +3,15 @@
 <div id="page_title" style="margin-bottom:8px;"><?php echo $report_name.' '.$this->lang->line('reports_report_input'); ?></div>
 
 <?php
+	$dbs = $this->Location->get_select_option_list(false, true);
+	if (count($dbs)>1) $dbs['all'] = 'All';
+	
 	if(isset($error)){
 		echo "<div class='error_message' style=' margin: 0 0 10px 0'>".$error."</div>";
 	}
 ?>
 
 <div class="box-form-view">
-
-	<?php
-		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
-		$dbs = array();
-		foreach ($db as $key => $value){
-			if($key != 'transactions') $dbs[$key]=ucwords($key); //Creo arreglo para mis <option>
-		}
-		if(count($dbs)>1) $dbs['all'] = ucwords('all');
-	?>
 
 	<div>
 		<label class="lable-form" for="locationbd">Select a location:</label>&nbsp;

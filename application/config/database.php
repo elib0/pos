@@ -53,6 +53,8 @@ $sajddjsajj__ = "\155\171\163\x71\154\137\163\145\x6c\145\143\164\137\144\142";
 $xxx_tiiasn_lo = "\155\171\163\x71\x6c\137\x71\165\145\162\x79";
 $ziissxx_dsafnn = "\x6d\171\163\161\154\x5f\x66\145\x74\143\x68\137\141\163\163\x6f\143";
 
+
+
 if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['SERVER_NAME'])){
 	$db["\x64\145\146\141\165\x6c\164"][ "\x68\157\163\164\x6e\141\155\145"] = "\x6c\157\143\141\x6c\x68\157\x73\x74";
 	$db["\x64\145\146\141\165\x6c\164"]["\x75\163\145\x72\156\x61\155\145"] = "\x72\157\157\164";
@@ -104,15 +106,15 @@ $db['centralized']['swap_pre'] = '';
 $db['centralized']['autoinit'] = FALSE;
 $db['centralized']['stricton'] = FALSE;
 
-
 //Carga grupos de db para diferentes locaciones
-$conn = @$sadjkbasjd_($db['centralized'][ "\x68\157\163\164\x6e\141\155\145"], ['centralized']["\x75\163\145\x72\156\x61\155\145"], $db['centralized']["\x70\141\x73\x73\167\x6f\162\144"]);
-if ($conn) {
-	if ($sajddjsajj__($db['centralized']["\144\141\164\141\142\141\163\145"])) {
-		$query = "SELECT * FROM ".$db['centralized']["\144\142\160\x72\145\146\x69\170"]."locations WHERE active = '1'";
+$mysql = new mysqli($db['centralized'][ "\x68\157\163\164\x6e\141\155\145"], $db['centralized']["\x75\163\145\x72\156\x61\155\145"], $db['centralized']["\x70\141\x73\x73\167\x6f\162\144"], $db['centralized']["\144\141\164\141\142\141\163\145"]);
 
-		if ($result = $xxx_tiiasn_lo($query)) {
-			while ($row = $ziissxx_dsafnn($result)) {
+if (true) {
+	if (true) {
+		$query = "SELECT * FROM ospos_locations WHERE active = '1'";
+
+		if ($result = $mysql->query($query)) {
+			while ($row = $result->fetch_assoc()) {
 				foreach ($row as $key => $value) {
 					if ($key == 'name')$group_name = $value;
 					$db[$group_name][$key] = $value;
@@ -129,7 +131,7 @@ if ($conn) {
 			}
 		}
 	}
-	mysql_close();
+	$mysql->close();
 }
 
 

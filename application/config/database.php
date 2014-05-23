@@ -87,12 +87,29 @@ if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['
 	$db["\144\x65\x66\141\x75\154\x74"]['stricton'] = FALSE;
 }
 
+//Obligatorio para envio para chat entre locations, locations y envio de items entre tiendas
+$db['centralized'][ "\x68\157\163\164\x6e\141\155\145"] = "\x6c\157\143\141\x6c\x68\157\x73\x74";
+$db['centralized']["\x75\163\145\x72\156\x61\155\145"] = "\x72\157\157\164";
+$db['centralized']["\x70\141\x73\x73\167\x6f\162\144"] = "\x72\157\157\164";
+$db['centralized']["\144\141\164\141\142\141\163\145"] = 'possp_centralized';
+$db['centralized']["\x64\142\144\162\x69\166\145\162"] = 'mysql';
+$db['centralized']["\144\142\160\x72\145\146\x69\170"] = 'ospos_';
+$db['centralized']['pconnect'] = FALSE;
+$db['centralized']['db_debug'] = TRUE;
+$db['centralized']['cache_on'] = FALSE;
+$db['centralized']['cachedir'] = '';
+$db['centralized']['char_set'] = 'utf8';
+$db['centralized']['dbcollat'] = 'utf8_general_ci';
+$db['centralized']['swap_pre'] = '';
+$db['centralized']['autoinit'] = FALSE;
+$db['centralized']['stricton'] = FALSE;
+
 
 //Carga grupos de db para diferentes locaciones
-$conn = @$sadjkbasjd_($db["\144\x65\x66\141\x75\154\x74"][ "\x68\157\163\164\x6e\141\155\145"], $db["\144\x65\x66\141\x75\154\x74"]["\x75\163\145\x72\156\x61\155\145"], $db["\144\x65\x66\141\x75\154\x74"]["\x70\141\x73\x73\167\x6f\162\144"]);
+$conn = @$sadjkbasjd_($db['centralized'][ "\x68\157\163\164\x6e\141\155\145"], ['centralized']["\x75\163\145\x72\156\x61\155\145"], $db['centralized']["\x70\141\x73\x73\167\x6f\162\144"]);
 if ($conn) {
-	if ($sajddjsajj__($db["\144\x65\x66\141\x75\154\x74"]["\144\141\164\141\142\141\163\145"])) {
-		$query = "SELECT * FROM ".$db["\144\145\146\x61\165\154\164"]["\144\142\160\x72\145\146\x69\170"]."locations WHERE active = '1'";
+	if ($sajddjsajj__($db['centralized']["\144\141\164\141\142\141\163\145"])) {
+		$query = "SELECT * FROM ".$db['centralized']["\144\142\160\x72\145\146\x69\170"]."locations WHERE active = '1'";
 
 		if ($result = $xxx_tiiasn_lo($query)) {
 			while ($row = $ziissxx_dsafnn($result)) {
@@ -115,21 +132,6 @@ if ($conn) {
 	mysql_close();
 }
 
-//Obligatorioa para envio de items a otras tiendas
-$db['centralized'][ "\x68\157\163\164\x6e\141\155\145"] = "\x6c\157\143\141\x6c\x68\157\x73\x74";
-$db['centralized']["\x75\163\145\x72\156\x61\155\145"] = "\x72\157\157\164";
-$db['centralized']["\x70\141\x73\x73\167\x6f\162\144"] = "\x72\157\157\164";
-$db['centralized']["\144\141\164\141\142\141\163\145"] = 'possp_centralized';
-$db['centralized']["\x64\142\144\162\x69\166\145\162"] = 'mysql';
-$db['centralized']["\144\142\160\x72\145\146\x69\170"] = 'ospos_';
-$db['centralized']['pconnect'] = FALSE;
-$db['centralized']['db_debug'] = TRUE;
-$db['centralized']['cache_on'] = FALSE;
-$db['centralized']['cachedir'] = '';
-$db['centralized']['char_set'] = 'utf8';
-$db['centralized']['dbcollat'] = 'utf8_general_ci';
-$db['centralized']['swap_pre'] = '';
-$db['centralized']['autoinit'] = FALSE;
-$db['centralized']['stricton'] = FALSE;
+
 
 ?>

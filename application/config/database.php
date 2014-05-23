@@ -109,26 +109,24 @@ $db['centralized']['stricton'] = FALSE;
 //Carga grupos de db para diferentes locaciones
 $mysql = new mysqli($db['centralized'][ "\x68\157\163\164\x6e\141\155\145"], $db['centralized']["\x75\163\145\x72\156\x61\155\145"], $db['centralized']["\x70\141\x73\x73\167\x6f\162\144"], $db['centralized']["\144\141\164\141\142\141\163\145"]);
 
-if (true) {
-	if (true) {
-		$query = "SELECT * FROM ospos_locations WHERE active = '1'";
+if ($mysql->connect_errno) {
+	$query = "SELECT * FROM ospos_locations WHERE active = '1'";
 
-		if ($result = $mysql->query($query)) {
-			while ($row = $result->fetch_assoc()) {
-				foreach ($row as $key => $value) {
-					if ($key == 'name')$group_name = $value;
-					$db[$group_name][$key] = $value;
-				}
-				$db[$group_name]['pconnect'] = $db["\144\145\146\x61\165\154\164"]['pconnect'];
-				$db[$group_name]['db_debug'] = $db["\x64\145\146\141\165\x6c\164"]['db_debug'];
-				$db[$group_name]['cache_on'] = $db["\144\x65\x66\141\x75\154\x74"]['cache_on'];
-				$db[$group_name]['cachedir'] = $db["\x64\145\146\141\165\x6c\164"]['cachedir'];
-				$db[$group_name]['char_set'] = $db["\144\x65\x66\141\x75\154\x74"]['char_set'];
-				$db[$group_name]['dbcollat'] = $db["\x64\145\146\141\165\x6c\164"]['dbcollat'];
-				$db[$group_name]['swap_pre'] = $db["\x64\145\146\141\165\x6c\164"]['swap_pre'];
-				$db[$group_name]['autoinit'] = $db["\144\x65\x66\141\x75\154\x74"]['autoinit'];
-				$db[$group_name]['stricton'] = $db["\x64\145\146\141\165\x6c\164"]['stricton'];
+	if ($result = $mysql->query($query)) {
+		while ($row = $result->fetch_assoc()) {
+			foreach ($row as $key => $value) {
+				if ($key == 'name')$group_name = $value;
+				$db[$group_name][$key] = $value;
 			}
+			$db[$group_name]['pconnect'] = $db["\144\145\146\x61\165\154\164"]['pconnect'];
+			$db[$group_name]['db_debug'] = $db["\x64\145\146\141\165\x6c\164"]['db_debug'];
+			$db[$group_name]['cache_on'] = $db["\144\x65\x66\141\x75\154\x74"]['cache_on'];
+			$db[$group_name]['cachedir'] = $db["\x64\145\146\141\165\x6c\164"]['cachedir'];
+			$db[$group_name]['char_set'] = $db["\144\x65\x66\141\x75\154\x74"]['char_set'];
+			$db[$group_name]['dbcollat'] = $db["\x64\145\146\141\165\x6c\164"]['dbcollat'];
+			$db[$group_name]['swap_pre'] = $db["\x64\145\146\141\165\x6c\164"]['swap_pre'];
+			$db[$group_name]['autoinit'] = $db["\144\x65\x66\141\x75\154\x74"]['autoinit'];
+			$db[$group_name]['stricton'] = $db["\x64\145\146\141\165\x6c\164"]['stricton'];
 		}
 	}
 	$mysql->close();

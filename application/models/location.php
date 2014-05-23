@@ -86,7 +86,9 @@ class Location extends CI_Model {
 									$this->con->dbprefix('employees_schedule'),
 									$this->con->dbprefix('people'),
 									$this->con->dbprefix('permissions'),
-									$this->con->dbprefix('employees_profile')
+									$this->con->dbprefix('employees_profile'),
+									$this->con->dbprefix('items'),
+									$this->con->dbprefix('items_taxes')
 								);
 								$backup1 =& $this->dbutil->backup(array('format'=>'sql','tables'=>$tables,'add_drop'=>false));
 								$backup2 =& $this->dbutil->backup(array('format'=>'sql','add_insert'=>FALSE,'add_drop'=>false, 'ignore'=>$tables));
@@ -101,11 +103,20 @@ class Location extends CI_Model {
 										$result = mysql_query($query,$conn);
 									}
 								}
-								$person_id = $this->Employee->get_logged_in_employee_info()->person_id;
-								// $query = "DELETE FROM ".$this->con->dbprefix('employees').", ".$this->con->dbprefix('people').", ".$this->con->dbprefix('permissions')." WHERE person_id NOT IN ($person_id)";
-								// mysql_query($query,$conn);
+								//Stock en 0
+								mysql_query('UPDATE ospos_items SET `quantity` = 0, `deleted` = 0, broken_quantity = 0;',$conn);
+
+								//Limpieza de empleados
+								mysql_query('DELETE FROM ospos_people WHERE person_id != 1;',$conn);
+								mysql_query('DELETE FROM ospos_employees WHERE person_id != 1;',$conn);
+								mysql_query('DELETE FROM ospos_employees_schedule WHERE employee_id != 1;',$conn);
+								mysql_query('DELETE FROM ospos_permissions WHERE person_id != 1;',$conn);
 								mysql_close($conn);
 
+								// $person_id = $this->Employee->get_logged_in_employee_info()->person_id;
+								// $query = "DELETE FROM ".$this->con->dbprefix('employees').", ".$this->con->dbprefix('people').", ".$this->con->dbprefix('permissions')." WHERE person_id NOT IN ($person_id)";
+								// mysql_query($query,$conn);
+								
 								// //inserta el usuario en sesion
 								// $person_id = $this->Employee->get_logged_in_employee_info()->person_id;
 								// $person_data = array(

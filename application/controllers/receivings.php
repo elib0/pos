@@ -120,7 +120,7 @@ class Receivings extends Secure_area
 		{
 			$data['amount_tendered'] = $this->input->post('amount_tendered');
 			$data['amount_change'] = to_currency($data['amount_tendered'] - round($data['total'], 2));
-		}
+		}else $data['amount_tendered']=0;
 		$data['employee']=$emp_info->first_name.' '.$emp_info->last_name;
 
 		if($supplier_id!=-1)
@@ -130,7 +130,7 @@ class Receivings extends Secure_area
 		}
 
 		//SAVE receiving to database
-		$data['receiving_id']='RECV '.$this->Receiving->save($data['cart'], $supplier_id,$employee_id,$comment,$payment_type);
+		$data['receiving_id']='RECV '.$this->Receiving->save($data['cart'], $supplier_id,$employee_id,$comment,$payment_type,$data['amount_tendered']);
 		
 		if ($data['receiving_id'] == 'RECV -1')
 		{

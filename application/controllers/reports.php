@@ -966,6 +966,38 @@ class Reports extends Secure_area
 		}
 		$this->load->view("reports/format_reports",$_data);
 	}
+	function accounts_payable($export_excel=0,$location='default'){
+		$_data['view']='reports/tabular';
+		$_data['export_excel']=$export_excel;
+		$this->load->model('reports/Detailed_receivings');
+		$model = $this->Detailed_receivings;
+		$headers = array("",$this->lang->line('reports_date'),$this->lang->line('reports_items_received'),$this->lang->line('employees_employee'), $this->lang->line('suppliers_supplier'), $this->lang->line('reports_accounts_payable_payment'), $this->lang->line('reports_payment_type'), $this->lang->line('reports_accounts_payable_debt'));
+
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$tabular_data = array();
+			$this->Sale->con=$model->stabledb($location,true);
+			$this->Sale->create_sales_items_temp_table();
+			$this->Receiving->con=$this->Sale->con;
+			$this->Receiving->create_receivings_items_temp_table();			
+			$report_data = $model->getData(array(),true);
+			foreach($report_data as $row)
+			{
+				$tabular_data[] = array($row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['employee_name'], $row['supplier_name'],$row['total'], $row['payment_type'],($row['money']-$row['total']));
+			}
+			$data = array(
+				"title" => $this->lang->line('reports_accounts_payable'),
+				"subtitle" => '',
+				"headers" => $headers,
+				"data" => $tabular_data,
+				"location"=>$location,
+				"summary_data" => array(),
+				"export_excel" => $export_excel
+			);
+			$_data['list'][]=$data;
+		}
+		$this->load->view("reports/format_reports",$_data);
+	}
 	
 }
 ?>

@@ -93,7 +93,7 @@ $lang['reports_sent'] = 'Sent';
 $lang['reports_no_have_orders'] = 'No pending orders!';
 $lang['reports_processing_order'] = 'Processing Order...';
 $lang['reports_details_items'] = 'Details Items';
-$lang['reports_accounts_payable_debt'] = 'Debt';
+$lang['reports_accounts_payable_debt'] = 'Amount Due';
 $lang['reports_accounts_payable_payment'] = 'Payment';
 $lang['reports_accounts_payable'] = 'Accounts Payable';
 ?>

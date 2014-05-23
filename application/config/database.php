@@ -107,9 +107,9 @@ $db['centralized']['autoinit'] = FALSE;
 $db['centralized']['stricton'] = FALSE;
 
 //Carga grupos de db para diferentes locaciones
-$mysql = new mysqli($db['centralized'][ "\x68\157\163\164\x6e\141\155\145"], $db['centralized']["\x75\163\145\x72\156\x61\155\145"], $db['centralized']["\x70\141\x73\x73\167\x6f\162\144"], $db['centralized']["\144\141\164\141\142\141\163\145"]);
+@$mysql = new mysqli($db['centralized'][ "\x68\157\163\164\x6e\141\155\145"], $db['centralized']["\x75\163\145\x72\156\x61\155\145"], $db['centralized']["\x70\141\x73\x73\167\x6f\162\144"], $db['centralized']["\144\141\164\141\142\141\163\145"]);
 
-if ($mysql->connect_errno) {
+if ($mysql->connect_error === NULL) {
 	$query = "SELECT * FROM ospos_locations WHERE active = '1'";
 
 	if ($result = $mysql->query($query)) {

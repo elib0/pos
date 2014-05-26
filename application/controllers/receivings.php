@@ -161,6 +161,7 @@ class Receivings extends Secure_area
 			$supplier_info=$this->Supplier->get_info($supplier_id);
 			$data['supplier']=$supplier_info->first_name.' '.$supplier_info->last_name;
 		}
+		$data['preload'] = $receiving_id;
 		$data['receiving_id']='RECV '.$receiving_id;
 		$this->load->view("receivings/receipt",$data);
 		$this->receiving_lib->clear_all();

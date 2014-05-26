@@ -123,6 +123,26 @@
 			</div>
 			</div>
 		</div>
+		<div class="field_row clearfix" style="margin: 0 0 5px 0">
+			<div class="field_row clearfix">	
+				<?php echo form_label($this->lang->line('config_address').':', 'addresslabel',array('class'=>'lable-form-required','style'=>'width:130px;')); ?>
+				<div>
+					<?php 
+						echo form_textarea(
+							array(
+								'name'=>'address',
+								'id'=>'address',
+								'rows'=>'4',
+								'cols'=>'17',
+								'value'=>$this->config->item('address'),
+								'class'=>'text_box',
+								'style'=>'width:98%; height: 60px; margin: 0 0 0 8px'
+							)
+						);
+					?>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">

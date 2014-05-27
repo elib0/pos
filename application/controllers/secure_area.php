@@ -49,7 +49,7 @@ class Secure_area extends CI_Controller
 		}
 		$data['notifications']['accounts_payable']['url']= 'reports/accounts_payable/0/';
 		$data['notifications']['accounts_payable']['title']= $this->lang->line('reports_accounts_payable');
-		$data['notifications']['accounts_payable']['data']= $this->Detailed_receivings->getData(array(),true);
+		$data['notifications']['accounts_payable']['data']= array_merge($this->Detailed_receivings->getData(array(),true), $this->Transfers->transfers_receivable());
 		//Carga de variables
 		$this->load->vars($data);
 	}

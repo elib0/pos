@@ -2,8 +2,7 @@
 	$(document).on('click','.linkBack',function(){
 		history.back(1);
 		return false;
-	});
-	$(document).on('click','.linkPrint',function(){ 
+	}).on('click','.linkPrint',function(){ 
 		window.print();
 		return false;
 	});

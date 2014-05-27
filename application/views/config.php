@@ -306,7 +306,6 @@
 					echo form_dropdown('language', 
 						array(
 							'english'  => 'English',
-							'indonesia'    => 'Indonesia',
 							'spanish'   => 'Spanish'), 
 							$this->config->item('language')
 						);

@@ -103,7 +103,6 @@ class Transfers extends CI_Model
         FROM $tranfer_table 
         JOIN $tranfer_item_table ON $tranfer_table.transfer_id = $tranfer_item_table.transfer_id
         WHERE $tranfer_table.$acum = '".$this->session->userdata('dblocation')."' GROUP BY ospos_transfers.transfer_id;";
-
         $result = $this->con->query($query);
         if ($result->num_rows() > 0)  {
             return $result;

@@ -102,12 +102,7 @@ class Transfers extends CI_Model
             $tranfer_table.payment_type AS payment_type 
         FROM $tranfer_table 
         JOIN $tranfer_item_table ON $tranfer_table.transfer_id = $tranfer_item_table.transfer_id
-<<<<<<< HEAD
-        WHERE $tranfer_table.receiver = '".$this->session->userdata('dblocation')."' GROUP BY ospos_transfers.transfer_id;";
-
-=======
         WHERE $tranfer_table.$acum = '".$this->session->userdata('dblocation')."' GROUP BY ospos_transfers.transfer_id;";
->>>>>>> a205d1213ee684ac4513014c58f86e92e1b936ed
         $result = $this->con->query($query);
         if ($result->num_rows() > 0)  {
             return $result->result_array();

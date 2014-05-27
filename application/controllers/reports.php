@@ -1022,16 +1022,14 @@ class Reports extends Secure_area
 		foreach($locations as $location){
 			$tabular_data = array();
 			$report_data = $model->transfers_receivable('sender');
-			if ($report_data!==false){			
-				foreach($report_data->result_array() as $row){
-					$payme=0;
-					$num=explode('<br />',$row['payment_type']);
-					foreach ($num as $value) {
-						$num2=explode('$',$value);
-						if (isset($num2[1])) $payme=$payme+$num2[1];
-					}
-					$tabular_data[] = array($row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['supplier_name'],$payme, $row['payment_type'],($row['total']-$payme));
+			foreach($report_data as $row){
+				$payme=0;
+				$num=explode('<br />',$row['payment_type']);
+				foreach ($num as $value) {
+					$num2=explode('$',$value);
+					if (isset($num2[1])) $payme=$payme+$num2[1];
 				}
+				$tabular_data[] = array($row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['supplier_name'],$payme, $row['payment_type'],($row['total']-$payme));
 			}
 			$data = array(
 				"title" => $this->lang->line('reports_accounts_receivable'),

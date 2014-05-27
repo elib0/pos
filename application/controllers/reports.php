@@ -967,6 +967,7 @@ class Reports extends Secure_area
 		$this->load->view("reports/format_reports",$_data);
 	}
 	function accounts_payable($export_excel=0,$location='default'){
+		$this->load->model('Transfers');
 		$_data['view']='reports/tabular';
 		$_data['export_excel']=$export_excel;
 		$this->load->model('reports/Detailed_receivings');
@@ -981,10 +982,26 @@ class Reports extends Secure_area
 			$this->Receiving->con=$this->Sale->con;
 			$this->Receiving->create_receivings_items_temp_table();			
 			$report_data = $model->getData(array(),true);
+			$report_data_transfer = $this->Transfers->transfers_receivable();
 			foreach($report_data as $row)
 			{
 				$tabular_data[] = array($row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['employee_name'], $row['supplier_name'],$row['total'], $row['payment_type'],($row['money']-$row['total']));
 			}
+			if ($report_data_transfer) {
+				foreach ($report_data_transfer->result_array() as $row) {
+					$row['money'] = $row['total'];
+
+					$cadena = preg_replace("/((\<*)[a-zA-Z]+(\:|\s*))/", '', $row['payment_type']);
+					$cadena = str_replace('$', '', $cadena);
+					$cadenas = explode('/>', $cadena);
+					unset($cadenas[count($cadenas)-1]);
+					
+					$row['employee_name'] = $this->Employee->get_logged_in_employee_info()->first_name;
+					$row['employee_name'] .= ' '.$this->Employee->get_logged_in_employee_info()->last_name;
+					$tabular_data[] = array('TRANS'.$row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['employee_name'], $row['supplier_name'],array_sum($cadenas), $row['payment_type'],$row['total']);
+				}
+			}
+			
 			$data = array(
 				"title" => $this->lang->line('reports_accounts_payable'),
 				"subtitle" => '',

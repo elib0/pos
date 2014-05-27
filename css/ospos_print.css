@@ -12,11 +12,12 @@ body
 #content_area
 {
 	width:100%;
+	margin: 0;
 }
 
 #content_area_wrapper
 {
-	border:0px;
+	border:0;
 }
 
 #sale_return_policy
@@ -39,9 +40,6 @@ body
 {
 	white-space:nowrap;
 }
-.linkBack{
-	display:none;
-}
-nav.main-menu, nav.user{
+nav.main-menu, nav.user,.linkBack,.linkPrint{
 	display: none;
 }

@@ -985,7 +985,7 @@ class Reports extends Secure_area
 			$report_data_transfer = $this->Transfers->transfers_receivable();
 			foreach($report_data as $row)
 			{
-				$tabular_data[] = array('RECV'.$row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['employee_name'], $row['supplier_name'],to_currency($row['total']), $row['payment_type'],(to_currency($row['money']-$row['total'])));
+				$tabular_data[] = array('RECV'.$row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['employee_name'], $row['supplier_name'],to_currency($row['total']), ($row['payment_type']) ? $row['payment_type'] : $this->lang->line('reports_no_payments'),(to_currency($row['money']-$row['total'])));
 			}
 			foreach ($report_data_transfer as $row) {
 				$cadena = preg_replace("/((\<*)[a-zA-Z]+(\:|\s*))/", '', $row['payment_type']);
@@ -1029,7 +1029,7 @@ class Reports extends Secure_area
 					$num2=explode('$',$value);
 					if (isset($num2[1])) $payme=$payme+$num2[1];
 				}
-				$tabular_data[] = array($row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['supplier_name'],$payme, $row['payment_type'],($row['total']-$payme));
+				$tabular_data[] = array($row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['supplier_name'],to_currency($payme), $row['payment_type'],(to_currency($row['total']-$payme)));
 			}
 			$data = array(
 				"title" => $this->lang->line('reports_accounts_receivable'),

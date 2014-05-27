@@ -985,7 +985,7 @@ class Reports extends Secure_area
 			$report_data_transfer = $this->Transfers->transfers_receivable();
 			foreach($report_data as $row)
 			{
-				$tabular_data[] = array($row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['employee_name'], $row['supplier_name'],$row['total'], $row['payment_type'],($row['money']-$row['total']));
+				$tabular_data[] = array($row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['employee_name'], $row['supplier_name'],to_currency($row['total']), $row['payment_type'],(to_currency($row['money']-$row['total'])));
 			}
 			if ($report_data_transfer) {
 				foreach ($report_data_transfer->result_array() as $row) {

@@ -42,7 +42,6 @@ $lang['reports_all_time'] = 'All Time';
 $lang['reports_detailed_sales_report'] = 'Detailed Sales Report';
 $lang['reports_comments'] = 'Comments';
 $lang['reports_discount'] = 'Discount';
-$lang['reports_payment_type'] = 'Payment Type';
 $lang['reports_sales'] = 'Sales';
 $lang['reports_categories'] = 'Categories';
 $lang['reports_customers'] = 'Customers';

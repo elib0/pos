@@ -3,6 +3,10 @@
 		history.back(1);
 		return false;
 	});
+	$(document).on('click','.linkPrint',function(){ 
+		window.print();
+		return false;
+	});
 	//All Title attributes (tooltips)
 	$(document).on('mouseenter','[title]',function(e){
 		//mouse over (hover)

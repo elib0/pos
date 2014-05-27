@@ -61,7 +61,7 @@ class Reports extends Secure_area
 		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
 		if($location!='all') return array($location);
 		foreach($db as $key=>$con){
-			if ($key!='transactions')
+			if ($key!='centralized')
 				$locations[]=$key;
 		}
 		return $locations;
@@ -1000,6 +1000,41 @@ class Reports extends Secure_area
 			
 			$data = array(
 				"title" => $this->lang->line('reports_accounts_payable'),
+				"subtitle" => '',
+				"headers" => $headers,
+				"data" => $tabular_data,
+				"location"=>$location,
+				"summary_data" => array(),
+				"export_excel" => $export_excel
+			);
+			$_data['list'][]=$data;
+		}
+		$this->load->view("reports/format_reports",$_data);
+	}
+	function accounts_receivable($export_excel=0,$location='default'){
+		$_data['view']='reports/tabular';
+		$_data['export_excel']=$export_excel;
+		$this->load->model('transfers');
+		$model = $this->Transfers;
+		$headers = array("",$this->lang->line('reports_date'),$this->lang->line('reports_items_received'), $this->lang->line('suppliers_supplier'), $this->lang->line('reports_accounts_payable_payment'), $this->lang->line('reports_payment_type'), $this->lang->line('reports_accounts_receivable_credit'));
+
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$tabular_data = array();
+			$report_data = $model->transfers_receivable('sender');
+			if ($report_data!==false){			
+				foreach($report_data->result_array() as $row){
+					$payme=0;
+					$num=explode('<br />',$row['payment_type']);
+					foreach ($num as $value) {
+						$num2=explode('$',$value);
+						if (isset($num2[1])) $payme=$payme+$num2[1];
+					}
+					$tabular_data[] = array($row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['supplier_name'],$payme, $row['payment_type'],($row['total']-$payme));
+				}
+			}
+			$data = array(
+				"title" => $this->lang->line('reports_accounts_receivable'),
 				"subtitle" => '',
 				"headers" => $headers,
 				"data" => $tabular_data,

@@ -96,4 +96,6 @@ $lang['reports_details_items'] = 'Details Items';
 $lang['reports_accounts_payable_debt'] = 'Amount Due';
 $lang['reports_accounts_payable_payment'] = 'Payment';
 $lang['reports_accounts_payable'] = 'Accounts Payable';
+$lang['reports_accounts_receivable'] = 'Accounts receivable';
+$lang['reports_accounts_receivable_credit'] = 'Credit';
 ?>

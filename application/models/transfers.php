@@ -94,7 +94,7 @@ class Transfers extends CI_Model
         return $this->con->get();
     }
 
-    public function transfers_receivable(){
+    public function transfers_receivable($acum='receiver'){
         $tranfer_table = $this->con->dbprefix('transfers');
         $tranfer_item_table = $this->con->dbprefix('transfer_items');
         $query = "SELECT $tranfer_table.transfer_id AS receiving_id,$tranfer_table.date AS receiving_date,COUNT($tranfer_item_table.id) AS items_purchased,$tranfer_table.receiver AS supplier_name,
@@ -102,7 +102,7 @@ class Transfers extends CI_Model
             $tranfer_table.payment_type AS payment_type 
         FROM $tranfer_table 
         JOIN $tranfer_item_table ON $tranfer_table.transfer_id = $tranfer_item_table.transfer_id
-        WHERE $tranfer_table.receiver = '".$this->session->userdata('dblocation')."' GROUP BY ospos_transfers.transfer_id;";
+        WHERE $tranfer_table.$acum = '".$this->session->userdata('dblocation')."' GROUP BY ospos_transfers.transfer_id;";
 
         $result = $this->con->query($query);
         if ($result->num_rows() > 0)  {

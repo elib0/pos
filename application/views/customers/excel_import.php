@@ -1,7 +1,7 @@
 <?php echo form_open_multipart('customers/do_excel_import/',array('id'=>'item_form')); ?>
 
 <div>
-	<h3><?php echo "Import"; ?></h3><hr>
+	<h3><?php echo $this->lang->line('customers_importar'); ?></h3><hr>
 		<div class="field_row clearfix">
 			<div>
 				<?php echo form_label('File path:', 'name',array('class'=>'wide')); ?>

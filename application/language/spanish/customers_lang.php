@@ -13,4 +13,9 @@ $lang['customers_cannot_be_deleted']='No se pudo borrar a los clientes seleccion
 $lang['customers_basic_information']='Información de Clientes';
 $lang['customers_account_number']='Cuenta #';
 $lang['customers_taxable']='Gravable';
+$lang['customers_excel']='Importar Excel';
+$lang['customers_dow_excel']='Descargar Plantilla Excel par importar (CSV)';
+$lang['customers_resq_excel']='Importar cliente desde Hoja de Excel';
+$lang['customers_excel_title']='Importar Cliente';
+$lang['customers_importar']='Importar';
 ?>

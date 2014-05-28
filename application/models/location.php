@@ -112,35 +112,6 @@ class Location extends CI_Model {
 								mysql_query('DELETE FROM ospos_employees_schedule WHERE employee_id != 1;',$conn);
 								mysql_query('DELETE FROM ospos_permissions WHERE person_id != 1;',$conn);
 								mysql_close($conn);
-
-								// $person_id = $this->Employee->get_logged_in_employee_info()->person_id;
-								// $query = "DELETE FROM ".$this->con->dbprefix('employees').", ".$this->con->dbprefix('people').", ".$this->con->dbprefix('permissions')." WHERE person_id NOT IN ($person_id)";
-								// mysql_query($query,$conn);
-								
-								// //inserta el usuario en sesion
-								// $person_id = $this->Employee->get_logged_in_employee_info()->person_id;
-								// $person_data = array(
-								// 	'first_name'=>$person->first_name,
-								// 	'last_name'=>$person->last_name,
-								// 	'email'=>$person->email,
-								// 	'phone_number'=>$person->phone_number,
-								// 	'address_1'=>$person->address_1,
-								// 	'address_2'=>$person->address_2,
-								// 	'city'=>$person->city,
-								// 	'state'=>$person->state,
-								// 	'zip'=>$person->zip,
-								// 	'country'=>$person->country,
-								// 	'comments'=>$person->comments
-								// );
-
-								// $employee_data=array(
-								// 	'username'=>$person->username,
-								// 	'password'=>$person->password,
-								// 	'type_employees'=>$person->employee_profile_type
-								// );
-
-								// $new_db_group = $this->load->database($location_data['name'], true);
-								// $this->Employee->set_location($new_db_group)->save($person_data, $employee_data,array());
 								
 								$b = $location_id; //Correcto
 							}

@@ -133,7 +133,9 @@ class Employee extends Person
 
 		if($query->num_rows()==1)
 		{
-			return $query->row();
+			$emp=$query->row();
+			$emp->location=$this->session->userdata('dblocation');
+			return $emp;
 		}
 		else
 		{
@@ -148,7 +150,7 @@ class Employee extends Person
 			{
 				$person_obj->$field='';
 			}
-
+			$person_obj->location=$this->session->userdata('dblocation');
 			return $person_obj;
 		}
 	}

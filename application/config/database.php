@@ -88,10 +88,10 @@ if ($conn) {
 	if (mysql_select_db($db['default']['database'])) {
 		$query = "SELECT * FROM ".$db['default']['dbprefix']."locations WHERE active = '1'";
 
-		if ($result = mysql_query($query)) {
-			while ($row = mysql_fetch_assoc($result)) {
-				foreach ($row as $key => $value) {
-					if ($key == 'name')$group_name = $value;
+		if($result = mysql_query($query)){
+			while($row = mysql_fetch_assoc($result)){
+				foreach($row as $key => $value){
+					if($key == 'name') $group_name = $value;
 					$db[$group_name][$key] = $value;
 				}
 				$db[$group_name]['pconnect'] = $db['default']['pconnect'];
@@ -109,7 +109,7 @@ if ($conn) {
 }
 
 //Obligatorioa para envio de items a otras tiendas
-$db['transactions']['hostname'] = '192.168.1.130';
+$db['transactions']['hostname'] = 'localhost';
 $db['transactions']['username'] = 'root';
 $db['transactions']['password'] = 'root';
 $db['transactions']['database'] = 'possp_transactions';

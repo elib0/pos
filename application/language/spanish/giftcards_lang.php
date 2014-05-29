@@ -46,6 +46,7 @@ $lang['giftcards_cannot_be_deleted']='No pude borrar las tarjetas seleccionadas.
 $lang['giftcards_none'] = 'Ninguno(a)';
 $lang['giftcards_supplier'] = 'Proveedor';
 $lang['giftcards_generate_barcodes'] = 'Generar Códigos de Barras';
+$lang['giftcards_barcodes'] = 'Código de Barra';
 $lang['giftcards_must_select_giftcard_for_barcode'] = 'Debes seleccionar por lo menos 1 tarjeta para generar códigos de barras';
 $lang['giftcards_excel_import_failed'] = 'Falló la exportación a Excel';
 $lang['giftcards_allow_alt_desciption'] = 'Permitir Descripción Alterna';

@@ -14,7 +14,7 @@
 		$reload=false;
 		while($friend=mysql_fetch_assoc($friends)){
 			
-			$fot_=str_replace(URLREPLACEMENT, FILESERVER, DOMINIO)."img/users/".$friend[c].'/'.$friend[p];
+			$fot_=FILESERVER."img/users/".$friend[c].'/'.$friend[p];
 			
 			$friend[n]=htmlentities(str_replace(chr(152),'',$friend[n]));
 			//echo htmlentities($friend[s]).' '.ord("'").' &apos;<br />';

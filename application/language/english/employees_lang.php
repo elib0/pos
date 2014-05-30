@@ -39,4 +39,9 @@ $lang['employees_photo_g'] = 'Capture picture';
 $lang['employees_photo_capture'] = 'Capture';
 $lang['employees_photo_change'] = 'Change';
 $lang['employees_photo_capture_no_support'] = 'Your browser does not support this option\nRecommended browsers:\nFirefox version 27.0.1 or higher\nChrome version 34 or higher\nOpera 20.0 or higher';
+$lang['employees_login_assistance'] = 'If you want to start to work you have to make login on below form.';
+$lang['employees_login_assistance_working'] = 'List of employees working right now.';
+$lang['employees_action'] = 'Action';
+$lang['employees_con_action'] = 'Do you want to start to work?';
+$lang['employees_assistance_marker'] = 'Assistance Marker';
 ?>

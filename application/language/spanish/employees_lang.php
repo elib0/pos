@@ -39,4 +39,9 @@ $lang['employees_photo_g'] = 'Capturar Imagen';
 $lang['employees_photo_capture'] = 'Capturar';
 $lang['employees_photo_change'] = 'Cambiar';
 $lang['employees_photo_capture_no_support'] = 'Tu navegador no soporta esta opción\nNavegadores recomendados:\nFirefox version 27.0.1 o superior\nChrome version 34 o superior\nOpera 20.0 o superior';
+$lang['employees_login_assistance'] = 'Si quieres empezar a trabajar tienes que hacer login en el formulario.';
+$lang['employees_login_assistance_working'] = 'Lista de empleados que trabajan en estos momentos.';
+$lang['employees_action'] = 'Acción';
+$lang['employees_con_action'] = '¿Quieres empezar a trabajar?';
+$lang['employees_assistance_marker'] = 'Marcador de Asistencia';
 ?>

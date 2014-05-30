@@ -1,12 +1,12 @@
 <?php $this->load->view("partial/header"); ?>
 
-<div id="page_title" style="margin-bottom:8px;">Assistance Marker</div>
+<div id="page_title" style="margin-bottom:8px;"><?php echo $this->lang->line('employees_assistance_marker'); ?></div>
 
 <div class="employees-assistance box-form-view" style="height: 500px">
 	<table border="0" style="width: 100%" cellspacing="0" cellpadding="0">
 		<tr>
 			<td>
-				<h3>If you want to start to work you have to make login on below form</h3>
+				<h3><?php echo $this->lang->line('employees_login_assistance'); ?></h3>
 			</td>
 		</tr>
 		<tr>
@@ -30,7 +30,7 @@
 		</tr>
 		<tr>
 			<td>
-				<h3>List of employees working right now</h3>
+				<h3><?php echo $this->lang->line('employees_login_assistance_working'); ?></h3>
 			</td>
 		</tr>	
 		<tr>
@@ -39,8 +39,8 @@
 						<thead>
 							<tr style="background-color: #396B98; color: #FFF; font-weight: bold">
 								<td width="30%">User</td>
-								<td>Password</td>	
-								<td>Action</td>	
+								<td><?php echo $this->lang->line('employees_password'); ?></td>	
+								<td><?php echo $this->lang->line('employees_action'); ?></td>	
 							</tr>
 						</thead>
 						<tbody>
@@ -76,7 +76,7 @@
 <script>
 	$(function() {
 		$('#submit').click(function(event) {
-			if (confirm('Do you want to start to work ?')) {
+			if (confirm('<?php echo $this->lang->line("employees_con_action"); ?>')) {
 				$('#login').ajaxSubmit({
 					dataType:'json',
 					success:function(data)

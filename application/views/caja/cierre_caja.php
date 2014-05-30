@@ -27,5 +27,5 @@
     </div><br>
     <a href=""></a>
 
-    <?php echo anchor("home/logout/".$fastUser, '<div class="big_button" style="margin:0 auto;"><span>'.$this->lang->line("common_logout").' Confirm'.'</span></div>', '$id="realLogOut"'); ?>
+    <?php echo anchor("home/logout/".$fastUser, '<div class="big_button" style="margin:0 auto;"><span>'.$this->lang->line("common_logout").$this->lang->line('recvs_complete_receiving').'</span></div>', '$id="realLogOut"'); ?>
 </div>

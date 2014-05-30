@@ -73,11 +73,6 @@
 	</div>
 	<!-- <div class="field_row clearfix"> -->
 	<?php
-	// include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
-	// $dbs = array('...'=>'...');
-	// foreach ($db as $key => $value){
-	// 	if($key != $this->session->userdata('dblocation') && $key != 'transactions') $dbs[$key] = ucwords($key);
-	// }
 	// $options = 'id="dbselected"';
 	// echo form_label('To:', 'newquantityTo');
 	?>

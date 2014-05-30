@@ -24,7 +24,7 @@
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">	
-				<?php echo form_label($this->lang->line('config_company').':', 'company',array('class'=>'lable-form-required')); ?>
+				<?php echo form_label($this->lang->line('config_company').':', 'company',array('class'=>'lable-form-required','style'=>'width: 160px;')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -42,7 +42,7 @@
 		</div>
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">	
-				<?php echo form_label($this->lang->line('config_phone').':', 'phone',array('class'=>'lable-form-required')); ?>
+				<?php echo form_label($this->lang->line('config_phone').':', 'phone',array('class'=>'lable-form-required','style'=>'width: 160px;')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -95,7 +95,7 @@
 		</div>
 		<div style="width: 250px; float: left">
 			<div class="field_row clearfix">	
-				<?php echo form_label('Company '.$this->lang->line('config_website').':', 'website',array('class'=>'lable-form', 'style'=>'width:110px')); ?>
+				<?php echo form_label('Company '.$this->lang->line('config_website').':', 'website',array('class'=>'lable-form', 'style'=>'width:160px')); ?>
 				<div>
 					<?php 
 						echo form_input(
@@ -123,6 +123,26 @@
 			</div>
 			</div>
 		</div>
+		<div class="field_row clearfix" style="margin: 0 0 5px 0">
+			<div class="field_row clearfix">	
+				<?php echo form_label($this->lang->line('config_address').':', 'addresslabel',array('class'=>'lable-form-required','style'=>'width:160px;')); ?>
+				<div>
+					<?php 
+						echo form_textarea(
+							array(
+								'name'=>'address',
+								'id'=>'address',
+								'rows'=>'4',
+								'cols'=>'17',
+								'value'=>$this->config->item('address'),
+								'class'=>'text_box',
+								'style'=>'width:98%; height: 60px; margin: 0 0 0 8px'
+							)
+						);
+					?>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0">
@@ -135,7 +155,7 @@
 		<div>
 			<div class="field_row clearfix" style="float: left;margin-right: 70px;">
 				<div style="height: 27px;">
-				<?php echo form_label($this->lang->line('config_default_tax_rate_1').':', 'default_tax_1_rate',array('class'=>'lable-form-required','style'=>'width:70px;')); ?>
+				<?php echo form_label($this->lang->line('config_default_tax_rate_1').':', 'default_tax_1_rate',array('class'=>'lable-form-required','style'=>'width:160px;')); ?>
 				</div>
 				<div>
 					<?php 
@@ -163,7 +183,7 @@
 		</div>
 		<div class="field_row clearfix" style="margin: 0 0 5px 0;float: left;margin-right: 80px;">
 			<div style="height: 27px;">
-			<?php echo form_label($this->lang->line('config_default_tax_rate_2').':', 'default_tax_1_rate',array('class'=>'lable-form','style'=>'width:70px;')); ?>
+			<?php echo form_label($this->lang->line('config_default_tax_rate_2').':', 'default_tax_1_rate',array('class'=>'lable-form','style'=>'width:160px;')); ?>
 			</div>
 			<div>
 				<?php 
@@ -192,7 +212,7 @@
 		</div>
 		<div class="field_row clearfix">
 			<div style="height: 27px;">
-			<?php echo form_label($this->lang->line('config_currency_symbol').':', 'currency_symbol',array('class'=>'lable-form','style'=>'width:110px;')); ?>
+			<?php echo form_label($this->lang->line('config_currency_symbol').':', 'currency_symbol',array('class'=>'lable-form','style'=>'width:160px;')); ?>
 			</div>
 			<div>
 				<?php 
@@ -286,7 +306,6 @@
 					echo form_dropdown('language', 
 						array(
 							'english'  => 'English',
-							'indonesia'    => 'Indonesia',
 							'spanish'   => 'Spanish'), 
 							$this->config->item('language')
 						);

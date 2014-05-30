@@ -12,7 +12,15 @@
 		margin-bottom: 1em;
 		clear: both;
 	}
+	.loader{
+		text-align: center;
+	}
 </style>
+<div class="loader">
+	<img src="images/loading.gif" width="230" height="230">
+	<br>
+	<h3><?php echo $this->lang->line('location_loading'); ?></h3>
+</div>
 <?php echo form_open('locations/save/',array('id'=>'location_form')); ?>
 <div>
 	<div>
@@ -56,12 +64,21 @@
 <?php echo form_close(); ?>
 <script type="text/javascript">
 $(document).ready(function() {
+	$('div.loader').hide();
+
 	$('#location_form').validate({
 		submitHandler:function(form)
 		{
 			$(form).ajaxSubmit({
+				beforeSubmit:function(){
+					//pone el loader
+					$('#location_form > div').hide('slow');
+					$('div.loader').show('fast');
+				},
 				success: function(data){
-					console.log(data);
+					// console.log(data);
+					$('div.loader').remove();
+					$('#location_form > div').show('fast');
 					if (data.success) {
 						post_item_form_submit(data);
 					}else{

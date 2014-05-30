@@ -61,7 +61,7 @@ class Reports extends Secure_area
 		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
 		if($location!='all') return array($location);
 		foreach($db as $key=>$con){
-			if ($key!='transactions')
+			if ($key!='centralized')
 				$locations[]=$key;
 		}
 		return $locations;
@@ -960,6 +960,84 @@ class Reports extends Secure_area
 			$data = array(
 				"items_info" => $model->get_infoData(),
 				"location"=>$location,
+				"export_excel" => $export_excel
+			);
+			$_data['list'][]=$data;
+		}
+		$this->load->view("reports/format_reports",$_data);
+	}
+	function accounts_payable($export_excel=0,$location='default'){
+		$this->load->model('Transfers');
+		$_data['view']='reports/tabular';
+		$_data['export_excel']=$export_excel;
+		$this->load->model('reports/Detailed_receivings');
+		$model = $this->Detailed_receivings;
+		$headers = array("",$this->lang->line('reports_date'),$this->lang->line('reports_items_received'),$this->lang->line('employees_employee'), $this->lang->line('suppliers_supplier'), $this->lang->line('reports_accounts_payable_payment'), $this->lang->line('reports_payment_type'), $this->lang->line('reports_accounts_payable_debt'));
+
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$tabular_data = array();
+			$this->Sale->con=$model->stabledb($location,true);
+			$this->Sale->create_sales_items_temp_table();
+			$this->Receiving->con=$this->Sale->con;
+			$this->Receiving->create_receivings_items_temp_table();			
+			$report_data = $model->getData(array(),true);
+			$report_data_transfer = $this->Transfers->transfers_receivable();
+			foreach($report_data as $row)
+			{
+				$tabular_data[] = array('RECV'.$row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['employee_name'], $row['supplier_name'],to_currency($row['total']), ($row['payment_type']) ? $row['payment_type'] : $this->lang->line('reports_no_payments'),(to_currency($row['money']-$row['total'])));
+			}
+			foreach ($report_data_transfer as $row) {
+				$cadena = preg_replace("/((\<*)[a-zA-Z]+(\:|\s*))/", '', $row['payment_type']);
+				$cadena = str_replace('$', '', $cadena);
+				$cadenas = explode('/>', $cadena);
+				unset($cadenas[count($cadenas)-1]);
+				
+				$row['employee_name'] = $this->Employee->get_logged_in_employee_info()->first_name;
+				$row['employee_name'] .= ' '.$this->Employee->get_logged_in_employee_info()->last_name;
+				$tabular_data[] = array('TRANS'.$row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['employee_name'], $row['supplier_name'],to_currency(array_sum($cadenas)), $row['payment_type'],to_currency($row['total']));
+			}
+			
+			$data = array(
+				"title" => $this->lang->line('reports_accounts_payable'),
+				"subtitle" => '',
+				"headers" => $headers,
+				"data" => $tabular_data,
+				"location"=>$location,
+				"summary_data" => array(),
+				"export_excel" => $export_excel
+			);
+			$_data['list'][]=$data;
+		}
+		$this->load->view("reports/format_reports",$_data);
+	}
+	function accounts_receivable($export_excel=0,$location='default'){
+		$_data['view']='reports/tabular';
+		$_data['export_excel']=$export_excel;
+		$this->load->model('transfers');
+		$model = $this->Transfers;
+		$headers = array("",$this->lang->line('reports_date'),$this->lang->line('reports_items_received'), $this->lang->line('suppliers_supplier'), $this->lang->line('reports_accounts_payable_payment'), $this->lang->line('reports_payment_type'), $this->lang->line('reports_accounts_receivable_credit'));
+
+		$locations=$this->get_locations($location);
+		foreach($locations as $location){
+			$tabular_data = array();
+			$report_data = $model->transfers_receivable('sender');
+			foreach($report_data as $row){
+				$payme=0;
+				$num=explode('<br />',$row['payment_type']);
+				foreach ($num as $value) {
+					$num2=explode('$',$value);
+					if (isset($num2[1])) $payme=$payme+$num2[1];
+				}
+				$tabular_data[] = array($row['receiving_id'],$row['receiving_date'], $row['items_purchased'], $row['supplier_name'],to_currency($payme), $row['payment_type'],(to_currency($row['total']-$payme)));
+			}
+			$data = array(
+				"title" => $this->lang->line('reports_accounts_receivable'),
+				"subtitle" => '',
+				"headers" => $headers,
+				"data" => $tabular_data,
+				"location"=>$location,
+				"summary_data" => array(),
 				"export_excel" => $export_excel
 			);
 			$_data['list'][]=$data;

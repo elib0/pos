@@ -6,8 +6,10 @@
 		<div class="field_row clearfix">
 			<?php echo form_label($this->lang->line('employees_photo').':', 'photo_label',array('class'=>'lable-form','style'=>'float:none;','style'=>'float:none;')); ?>
 		</div>
-		<?php if ($person_info->person_id && file_exists('./images/employees/'.md5($person_info->person_id).'.jpg')){ ?>
-		<div id="fileb" style="margin-bottom: 10px; background-repeat:no-repeat; width: 180px; height: 140px; background-image: url('./images/employees/<?php echo md5($person_info->person_id) ?>.jpg')">
+		<?php 
+		$tuId=md5($this->session->userdata('dblocation').'+'.($person_info->person_id?$person_info->person_id:''));
+		if ($person_info->person_id && file_exists('./images/employees/'.$tuId.'.jpg')){ ?>
+		<div id="fileb" style="margin-bottom: 10px; background-repeat:no-repeat; width: 180px; height: 140px; background-image: url('./images/employees/<?php echo $tuId; ?>.jpg')">
 		</div>
 		<?php 
 			$displayNonePhoto='style="display:none;"';

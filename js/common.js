@@ -2,6 +2,9 @@
 	$(document).on('click','.linkBack',function(){
 		history.back(1);
 		return false;
+	}).on('click','.linkPrint',function(){ 
+		window.print();
+		return false;
 	});
 	//All Title attributes (tooltips)
 	$('body').find('*:not(#chat)').on('mouseenter','[title]',function(e){

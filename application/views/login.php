@@ -17,11 +17,7 @@ $(document).ready(function()
 <body>
 
 <?php
-include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
-$dbs = array();
-foreach ($db as $key => $value){
-	if($key != 'transactions') $dbs[$key]=ucwords($key); //Creo arreglo para mis <option>
-}
+$dbs = $this->Location->get_select_option_list(false, true);
 ?>
 
 <div>

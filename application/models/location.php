@@ -4,16 +4,28 @@ class Location extends CI_Model {
 
 	public $con;
 	private $dbs = array();
+	private $dbgroup = 'centralized';
 
-	public function __construct()
-	{
-		parent::__construct();
-		$db = $this->session->userdata('dblocation');
-        if($db)
-            $this->con = $this->load->database($db, true);
-        else
-        	$this->con = $this->db;
-	}
+	// public function __construct()
+	// {
+	// 	parent::__construct();
+	// 	$db = $this->session->userdata('dblocation');
+ //        if($db)
+ //            $this->con = $this->load->database($db, true);
+ //        else
+ //        	$this->con = $this->db;
+	// }
+	 function __construct()
+    {
+        parent::__construct();
+
+        include('application/config/database.php');
+        if (isset( $db[$this->dbgroup] )){
+            $this->con = $this->load->database($this->dbgroup, true); //Unica base de dato centralizada
+        }else{
+            show_error('Please set the Connection group and database '.$this->dbgroup);
+        }
+    }
 
 	private function load_locations(){
 		$this->con->select('name,id,hostname,username,password,database,dbdriver,dbprefix,active');
@@ -74,7 +86,9 @@ class Location extends CI_Model {
 									$this->con->dbprefix('employees_schedule'),
 									$this->con->dbprefix('people'),
 									$this->con->dbprefix('permissions'),
-									$this->con->dbprefix('employees_profile')
+									$this->con->dbprefix('employees_profile'),
+									$this->con->dbprefix('items'),
+									$this->con->dbprefix('items_taxes')
 								);
 								$backup1 =& $this->dbutil->backup(array('format'=>'sql','tables'=>$tables,'add_drop'=>false));
 								$backup2 =& $this->dbutil->backup(array('format'=>'sql','add_insert'=>FALSE,'add_drop'=>false, 'ignore'=>$tables));
@@ -89,11 +103,20 @@ class Location extends CI_Model {
 										$result = mysql_query($query,$conn);
 									}
 								}
-								$person_id = $this->Employee->get_logged_in_employee_info()->person_id;
-								// $query = "DELETE FROM ".$this->con->dbprefix('employees').", ".$this->con->dbprefix('people').", ".$this->con->dbprefix('permissions')." WHERE person_id NOT IN ($person_id)";
-								// mysql_query($query,$conn);
+								//Stock en 0
+								mysql_query('UPDATE ospos_items SET `quantity` = 0, `deleted` = 0, broken_quantity = 0;',$conn);
+
+								//Limpieza de empleados
+								mysql_query('DELETE FROM ospos_people WHERE person_id != 1;',$conn);
+								mysql_query('DELETE FROM ospos_employees WHERE person_id != 1;',$conn);
+								mysql_query('DELETE FROM ospos_employees_schedule WHERE employee_id != 1;',$conn);
+								mysql_query('DELETE FROM ospos_permissions WHERE person_id != 1;',$conn);
 								mysql_close($conn);
 
+								// $person_id = $this->Employee->get_logged_in_employee_info()->person_id;
+								// $query = "DELETE FROM ".$this->con->dbprefix('employees').", ".$this->con->dbprefix('people').", ".$this->con->dbprefix('permissions')." WHERE person_id NOT IN ($person_id)";
+								// mysql_query($query,$conn);
+								
 								// //inserta el usuario en sesion
 								// $person_id = $this->Employee->get_logged_in_employee_info()->person_id;
 								// $person_data = array(
@@ -172,6 +195,27 @@ class Location extends CI_Model {
 
 		return $suggestions;
 	}
+
+	public function get_select_option_list($empty_option=false, $show_all=false){
+		include('application/config/database.php');
+		$dbs = array();
+		if ($empty_option) $dbs = array('...'=>'...');
+		$show_all = (!$show_all) ? $this->session->userdata('dblocation') : '...';
+
+		foreach ($db as $key => $value){
+			if ($key != $show_all && $key != $this->dbgroup) {
+				$dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
+			}
+		}
+
+		return $dbs;
+	}
+
+	public function available(){
+        $this->load->dbutil();
+
+        return $this->dbutil->database_exists('possp_'.$this->dbgroup) && $this->con;
+    }
 
 }
 

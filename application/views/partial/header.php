@@ -100,30 +100,27 @@ html {
 		<span></span>
 	</div>
 	<?php
-		include('application/config/database.php');
-		$dbs = array();
-		foreach ($db as $key => $value){
-			if ($key != $this->session->userdata('dblocation') && $key != 'transactions') {
-				$dbs[$key] = ucwords($key); //Creo arreglo para mis <option>
-			}
-		}
-
+		$dbs = $this->Location->get_select_option_list();
 		$people = $this->Employee->get_all();
 	?>
 	<div class="container-menus">
-		<nav id="notifications">
-			<?php foreach ($notifications as $notification => $data): ?>
-				<div class="notification-<?php echo $notification ?>">
-				<?php
-				$noti_num = count($data['data']);
-				if ( $noti_num > 0 ){ //Si tiene notificaciones se pone como enlace
-					echo anchor($data['url'],$noti_num, 'title="'.$data['title'].'"');
-				}else{
-					echo '<span title="'.$data['title'].'">'.$noti_num.'</span>';
-				}
-				?>
-				</div>
-			<?php endforeach ?>
+		<nav id="notifications" class="alternative-menu">
+			<?php 
+				$li='';$num=0;
+				foreach ($notifications as $notification => $data){
+					$noti_num = count($data['data']);
+					$num=$num+$noti_num;//clearfix
+					$li.='<li class="clearfix"><div class="notification-'.$notification.'" style="float:left;">'.$noti_num.'</div>';
+					if ( $noti_num > 0 ){ //Si tiene notificaciones se pone como enlace
+						$li.=anchor($data['url'],$data['title'],'style="float:right;max-width: 100px;"');
+					}else{
+						$li.='<label style="float:right;max-width: 100px;">'.$data['title'].'</label>';
+					}
+					$li.='</li>';
+				} 
+			?>
+			<div><?php echo $num; ?></div>
+			<ul><?php echo $li; ?></ul>
 		</nav>
 		<nav id="menu_changelocation">
 			<span>User:</span><?=' '.$user_info->first_name.' '.$user_info->last_name; ?>

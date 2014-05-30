@@ -112,8 +112,9 @@ class Employees extends Person_controller
 				$msg_post_subt=$this->lang->line('employees_successful_adding');
 				if (file_exists('./images/employees/'.md5($id).'.jpg')) $a=true;
 				else $a=false;
-			}else{ $msg_post_subt=$this->lang->line('employees_successful_updating'); $a=false; }	
-			$dat=$this->uploadImagen_photo(md5($id),$a);
+			}else{ $msg_post_subt=$this->lang->line('employees_successful_updating'); $a=false; }
+			$tuId=md5($this->session->userdata('dblocation').'+'.$id);
+			$dat=$this->uploadImagen_photo($tuId,$a);
 			if($this->Schedule->save($person_schedule, $id)){
 				echo json_encode(array('success'=>true,'message'=>$msg_post_subt.' '.$person_data['first_name'].' '.$person_data['last_name'],'person_id'=>$id,'image'=>$dat));
 			}

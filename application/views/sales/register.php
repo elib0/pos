@@ -251,12 +251,7 @@ else
 		}
 	}else{
 		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
-		$dbs = array('...'=>'...');
-		foreach ($db as $key => $value){
-			if ( $key != $this->session->userdata('dblocation') && $key != 'transactions' ) {
-				$dbs[$key] = ucwords($key);
-			}
-		}
+		$dbs = $this->Location->get_select_option_list(true);
 		echo form_open("sales/select_location",array('id'=>'select_customer_form'));
 		echo form_label('Receiving Location:', 'location', array('id'=>'customer_label'));
 		echo form_dropdown('location', $dbs, $this->sale_lib->get_customer(), 'id="location"');

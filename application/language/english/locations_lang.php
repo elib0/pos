@@ -1,5 +1,5 @@
 <?php
-$lang['module_locations']='Manage Locations';
+$lang['module_locations']='Locations';
 $lang['location_title']='Manage Locations';
 $lang['location_new_location']='Create a new Location';
 $lang['location_enable']='Enable';
@@ -25,6 +25,7 @@ $lang['location_location_name']='Location Name';
 $lang['location_user']='User';
 $lang['location_password']='Password';
 $lang['location_save']='Save';
+$lang['location_loading']='Creating a new location, Please Wait...';
 
 //General Messages
 $lang['location_try_again']='Please try again!';

@@ -33,8 +33,9 @@ if($export_excel == 1){
 ?>
 	<br/><br/>
 	<a class="linkBack big_button" href="#"><span>Back</span></a>
+	<a class="linkPrint big_button" href="#"><span>Print</span></a>
 	<br/><br/>
 <?php
 	$this->load->view("partial/footer");
-}
+} 
 ?>

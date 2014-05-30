@@ -179,7 +179,6 @@ echo form_open('backup/confirm/-1',array('id' =>'form-back')) ?>
 <script type='text/javascript'>
 //validation and submit handling
 $(document).ready(function(){
-
 	$('#radio input').change(function(event) {
 		if($(this).is(':checked')){
 			$('#option-backup,#list-backup,#dow').css('display','none');

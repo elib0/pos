@@ -155,6 +155,7 @@ nav#notifications div{
 	font-weight:bold;
 	padding-top:4px;
 	color: #000;
+	background-color:#ED0C11;
 }
 
 nav#notifications div a{
@@ -163,12 +164,16 @@ nav#notifications div a{
 	height:25px;
 }
 
-.notification-inventory_low{
+nav#notifications div.notification-inventory_low{
 	background-color:#FCAF3D;
 }
 
-.notification-shippings{
+nav#notifications div.notification-shippings{
 	background-color:#A6D1A1;
+}
+
+nav#notifications div.notification-accounts_payable{
+	background-color:#CB1245;
 }
 
 /*Menu Secundario*/
@@ -235,7 +240,7 @@ nav.main-menu ul li > ul > li{
 	/*padding:5px*/
 }
 nav.main-menu ul li > ul > li:first-child{
-	width:58px;
+	width:54px;
 }
 nav.main-menu ul li > ul > li:first-child img{
 	width:70%;

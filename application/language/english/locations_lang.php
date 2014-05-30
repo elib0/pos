@@ -1,5 +1,5 @@
 <?php
-$lang['module_locations']='Manage Locations';
+$lang['module_locations']='Locations';
 $lang['location_title']='Manage Locations';
 $lang['location_new_location']='Create a new Location';
 $lang['location_enable']='Enable';

@@ -1,16 +1,6 @@
 <?php
-session_start();
-include ("../includes/config.php");
-include ("../includes/functions.php");
-include ("../class/wconecta.class.php");
-include ("../includes/languages.config.php");
-
-define ('DBPATH',HOST);
-define ('DBUSER',USER);
-define ('DBPASS',PASS);
-define ('DBNAME',DATA);
-
-
+include ("config.php");
+include ("conn.class.php");
 
 global $dbh;
 $dbh = mysql_connect(DBPATH,DBUSER,DBPASS);
@@ -28,7 +18,7 @@ if ($_GET['action'] == "noty") {  typing(0);}
 
 function typing($status=1){
 	
-	mysql_query("REPLACE into `wschat_typing` ( `status`, `to`, `from`, `send`) 
+	mysql_query("REPLACE into `chat_typing` ( `status`, `to`, `from`, `send`) 
 									values ( '$status', '".$_POST[to]."', '".$_SESSION['ws-tags']['ws-user'][code]."', '1')")or die('asd');
 	
 }
@@ -52,7 +42,7 @@ function setUserChatStatus($status=''){
 	
 	mysql_query("UPDATE users SET chat_last_update = '".$time."', status_chat= '".($status==''?1:0)."'  WHERE id='".$_SESSION['ws-tags']['ws-user'][id]."'");
 	
-	mysql_query("update wschat_typing set status='0',send = '1'  where from='".$_SESSION['ws-tags']['ws-user'][code]."' and status='1' ")or die(mysql_error().' 2');
+	mysql_query("update chat_typing set chat_typing.status='0',chat_typing.send = '1'  where chat_typing.from='".$_SESSION['ws-tags']['ws-user'][code]."' and chat_typing.status='1' ")or die(mysql_error().' 2');
 	
 	
 }
@@ -60,7 +50,7 @@ function setUserChatStatus($status=''){
 
 function chatHeartbeat() {
 	
-	$sql = "select * from wschat where (to = '".$_SESSION['ws-tags']['ws-user'][code]."' AND recd = 0) order by id ASC";
+	$sql = "select * from chat where (chat.to = '".$_SESSION['ws-tags']['ws-user'][code]."' AND chat.recd = 0) order by id ASC";
 	$query = mysql_query($sql);
 	$items = '';
 
@@ -117,7 +107,7 @@ EOD;
 	}
 }
 
-	$sql = "update wschat set recd = 1 where to = '".$_SESSION['ws-tags']['ws-user'][code]."' and recd = 0";
+	$sql = "update chat set chat.recd = 1 where chat.to = '".$_SESSION['ws-tags']['ws-user'][code]."' and chat.recd = 0";
 	$query = mysql_query($sql);
 
 	if ($items != '') {
@@ -125,7 +115,7 @@ EOD;
 	}
 ///typing
 
-$_typings=mysql_query("SELECT * FROM wschat_typing WHERE to='".$_SESSION['ws-tags']['ws-user'][code]."' and send = '1' ")or die(mysql_error().' 1');
+$_typings=mysql_query("SELECT * FROM chat_typing WHERE chat_typing.to='".$_SESSION['ws-tags']['ws-user'][code]."' and chat_typing.send = '1' ")or die(mysql_error().' 1');
 
 $typingSalida='';
 
@@ -136,7 +126,7 @@ while($_typing=mysql_fetch_assoc($_typings)){
 }
 $typingSalida= substr($typingSalida, 0, -1);
 
-mysql_query("update wschat_typing set send='0' where to='".$_SESSION['ws-tags']['ws-user'][code]."' and send = '1'")or die(mysql_error().' 2');
+mysql_query("update chat_typing set chat_typing.send='0' where chat_typing.to='".$_SESSION['ws-tags']['ws-user'][code]."' and chat_typing.send = '1'")or die(mysql_error().' 2');
 
 ///	end typing
 	
@@ -206,7 +196,7 @@ EOD;
 
 	unset($_SESSION['ws-tags']['ws-user']['tsChatBoxes'][$_POST['to']]);
 
-	$sql = "insert into wschat (from,to,message,sent) values ('".mysql_real_escape_string($from)."', '".mysql_real_escape_string($to)."','".$messagesan."',NOW())";
+	$sql = "insert into chat (chat.from,chat.to,message,sent) values ('".mysql_real_escape_string($from)."', '".mysql_real_escape_string($to)."','".$messagesan."',NOW())";
 	
 	if(isFriend(campo("users", "md5(CONCAT(id, '_', email, '_', id))", $to, "id"))){
 		$query = mysql_query($sql);

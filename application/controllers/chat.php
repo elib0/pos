@@ -12,7 +12,7 @@ class Chat extends CI_Controller{
 		$this->load->model('chat_model');
 		$_logged=$this->chat_model->is_logged();
 		$this->con=$this->chat_model->getCon();
-		$this->user=$this->chat_model->getLoggedUser();
+		$this->user=$this->chat_model->getUser();
 		//Load the session library
 		$this->load->library('session');
 		$this->chat=$this->session->userdata('chat');
@@ -38,17 +38,23 @@ class Chat extends CI_Controller{
 			redirect('..');
 	}
 	function islogged(){
-		$this->print_json(array('logged'=>$this->chat_model->logged));
+		$this->print_json(array(
+			'logged'=>$this->chat_model->logged,
+			'status'=>$this->chat_model->getUser()->status_name,
+		));
 	}
 	function startchatsession(){
 		$items=array();
 		if(!empty($this->chat['openBoxes'])){
 			foreach($this->chat['openBoxes'] as $chatbox=>$void){
-				$items[]=chatBoxSession($chatbox);
+				foreach($this->chatBoxSession($chatbox) as $item){
+					$items[]=$item;
+				}
 			}
 		}
 		$data=array(
-			'username'=>$this->user->username,
+			'userid'=>$this->user->chat_id,
+			'username'=>$this->user->user,
 			'items'=>$items,
 		);
 		$this->print_json($data);
@@ -132,7 +138,8 @@ class Chat extends CI_Controller{
 		$this->print_json($data);
 	}
 	public function friendslist($update=false){
-		if(!$this->chat_model->is_logged()) $this->print_json(array());
+		$update=$this->input->post('update');
+		if(!$this->chat_model->logged) $this->print_json(array());
 		$list=$this->chat_model->getChatUsers($update);
 		$data=array(
 			'a'=>1,
@@ -185,22 +192,30 @@ class Chat extends CI_Controller{
 		$this->print_json(1);
 	}
 
-	public function getUsersList(){
+	private function chatBoxSession($chatbox){
+		$items='';
+		if (isset($this->chat['history'][$chatbox])) {
+			$items = $this->chat['history'][$chatbox];
+			// var_dump($items);
+		}
+		return $items;
+	}
+	private function getUsersList(){
 		$users=$this->chat_model->getUsers();
 		return array(
 			'listOfUsers'=>$users,
 			'user'=>$this->chat_model->getLoggedUser(),
 		);
 	}
-	public function get_db(){
+	private function get_db(){
 		include('application/config/database.php');
 		return $db;
 	}
-	public function getCon(){
+	private function getCon(){
 		$this->load->model('chat_model');
 		return $this->chat_model->con;
 	}
-	public function sanitize($text){
+	private function sanitize($text){
 		$text = htmlspecialchars($text, ENT_QUOTES);
 		$text = str_replace("\r\n","\n",$text);
 		$text = str_replace("\n\r","\n",$text);

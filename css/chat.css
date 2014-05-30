@@ -186,6 +186,15 @@
 	background-repeat:no-repeat;
 }
 
+.chatboxmessagecontent div.em{
+	display:inline-block;
+	width:16px;
+	height:16px;
+	overflow:hidden;
+	padding:0;
+	margin:2px 1px 0;
+}
+
 .chatboxmessagecontent .smile{
 	background-image:url(chat/emoticons.png);
 	background-position:-16px -16px;	

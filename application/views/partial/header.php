@@ -15,6 +15,7 @@
 	<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.$$=window.jQueryNew=jQuerySwitch('jQueryNew',jQuery);</script>
 	<!-- jquery new -->
+	<script src="js/jquery.local.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.form.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/thickbox.js" type="text/javascript" charset="UTF-8"></script>

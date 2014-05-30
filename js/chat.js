@@ -13,15 +13,16 @@ var chatboxFocus = new Array();
 var newMessages = new Array();
 var newMessagesWin = new Array();
 var chatBoxes = new Array();
+var chatpos=175;
 var jQ=window.$||window.jQuery;
 
 jQ(function(){
 	jQ.getJSON('index.php/chat/islogged',chat_init);
 });
 
-function chat_init(status){
+function chat_init(data){
 	jQ('#chatMainContainer').show();
-	updateChatMenu(status);
+	updateChatMenu(data.online?'enable':'disable');
 	listFriendsChat(1);
 	jQ('body>#chat').on('click','.listUserChat',function(){
 		chatWith(this.id,$(this).attr('u'));
@@ -54,22 +55,24 @@ function listFriendsChat(p){
 		p='';
 	}
 	jQ.ajax({
-		cache: false,
-		dataType: "json",
-		url: 'index.php/chat/friendslist/'+p,
+		url:'index.php/chat/friendslist',
+		dataType:'json',
+		cache:false,
+		type:'post',
+		data:{'update':p},
 		success: formatFriendsList
 	});
 }
 
 function formatFriendsList(data){
 	if(data!=null){ 
-		console.log(data);
+		// console.log(data);
 		switch(data.a*1){
 		case 1:
 			salida='';
 			jQ.each(data.f, function(i,item){ 
 				if(item){
-					salida+='<div id="'+item.c+'" u="'+item.u+'" status="'+item.s+'" title="'+item.s+'" class="listUserChat">';
+					salida+='<div id="'+item.c+'" u="'+item.u+'" status="'+item.t+'" title="'+item.t+'" class="listUserChat">';
 					// salida+='<a href="javascript:void(0)" class="listChat" title="'+item.n+'">';
 					//salida+='<img width="20" height="20" src="'+item.p+'" />'+item.s+'<div class="'+item.t+'">&nbsp;</div></a>';
 					salida+=item.u+'</div>';
@@ -93,9 +96,9 @@ function restructureChatBoxes(){
 		chatboxusr = chatBoxes[x];
 		if(jQ("#chatbox_"+chatboxusr).css('display') != 'none'){
 			if(align==0){
-				jQ("#chatbox_"+chatboxusr).css('right', '20px');
+				jQ("#chatbox_"+chatboxusr).css('right', chatpos+'px');
 			} else {
-				width = (align)*(225+7)+20;
+				width = (align)*(225+7)+chatpos;
 				jQ("#chatbox_"+chatboxusr).css('right', width+'px');
 			}
 			align++;
@@ -104,11 +107,12 @@ function restructureChatBoxes(){
 }
 
 function chatWith(chatuser,chatboxname) {
-	createChatBox(chatuser,0,chatboxname);
+	createChatBox(chatuser,0,chatboxname,1);
 	jQ("#chatbox_"+chatuser+" .chatboxtextarea").focus();
 }
 
-function createChatBox(chatboxusr,minimizeChatBox,chatboxname){
+function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
+	console.log([tmp,chatboxusr,chatboxname]);
 	if (jQ("#chatbox_"+chatboxusr).length > 0){
 		if (jQ("#chatbox_"+chatboxusr).css('display') == 'none'){
 			jQ("#chatbox_"+chatboxusr).css('display','block');
@@ -130,16 +134,16 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname){
 		}
 	}
 	if (chatBoxeslength == 0) {
-		jQ("#chatbox_"+chatboxusr).css('right', '20px');
+		jQ("#chatbox_"+chatboxusr).css('right', chatpos+'px');
 	} else {
-		width = (chatBoxeslength)*(225+7)+20;
+		width = (chatBoxeslength)*(225+7)+chatpos;
 		jQ("#chatbox_"+chatboxusr).css('right', width+'px');
 	}
 	chatBoxes.push(chatboxusr);
-	if (minimizeChatBox == 1) {
+	if (minimizeChatBox != 0) {
 		minimizedChatBoxes = new Array();
-		if (jQ.cookie('chatbox_minimized')) {
-			minimizedChatBoxes = jQ.cookie('chatbox_minimized').split(/\|/);
+		if (jQ.local('chatbox_minimized')) {
+			minimizedChatBoxes = jQ.local('chatbox_minimized').split(/\|/);
 		}
 		minimize = 0;
 		for (j=0;j<minimizedChatBoxes.length;j++) {
@@ -207,6 +211,7 @@ function chatHeartbeat(p){
 	data=null;
 	jQ.ajax({
 		url: "index.php/chat/chatheartbeat",
+		type:'post',
 		cache: false,
 		dataType: "json",
 		success: function(data){
@@ -215,21 +220,22 @@ function chatHeartbeat(p){
 					if (item){ // fix strange ie bug
 						chatboxusr = item.f;
 						if (jQ("#chatbox_"+item.f).length <= 0) {	
-							createChatBox(item.f,0,item.u);
+							createChatBox(item.f,0,item.u,2);
 						}
 						if (jQ("#chatbox_"+item.f).css('display') == 'none'){
 							jQ("#chatbox_"+item.f).css('display','block');
 							restructureChatBoxes();
 						}
 						if (item.s == 1) {
-							item.f = username;
+							item.f = userid;
+							item.u = username;
 						}
 						if (item.s == 2) {
-							jQ("#chatbox_"+item.f+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxinfo">'+item.m+'</span></div>');
+							jQ("#chatbox_"+item.f+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxinfo">'+emoticons(item.m)+'</span></div>');
 						} else {
 							newMessages[item.f] = true;
 							newMessagesWin[item.f] = true;
-							jQ("#chatbox_"+item.f+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+item.u+':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'+item.m+'</span></div>');
+							jQ("#chatbox_"+item.f+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+item.u+':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'+emoticons(item.m)+'</span></div>');
 						}
 						jQ("#chatbox_"+item.f+" .chatboxcontent").scrollTop(jQ("#chatbox_"+item.f+" .chatboxcontent")[0].scrollHeight);
 						itemsfound += 1;
@@ -277,26 +283,26 @@ function closeChatBox(chatboxusr) {
 function toggleChatBoxGrowth(chatboxusr) {
 	if (jQ('#chatbox_'+chatboxusr+' .chatboxcontent').css('display') == 'none') {  
 		var minimizedChatBoxes = new Array();
-		if (jQ.cookie('chatbox_minimized')) {
-			minimizedChatBoxes = jQ.cookie('chatbox_minimized').split(/\|/);
+		if (jQ.local('chatbox_minimized')) {
+			minimizedChatBoxes = jQ.local('chatbox_minimized').split(/\|/);
 		}
-		var newCookie = '';
+		var newLocal = '';
 		for (i=0;i<minimizedChatBoxes.length;i++) {
 			if (minimizedChatBoxes[i] != chatboxusr) {
-				newCookie += chatboxusr+'|';
+				newLocal += chatboxusr+'|';
 			}
 		}
-		newCookie = newCookie.slice(0, -1)
-		jQ.cookie('chatbox_minimized', newCookie);
+		newLocal = newLocal.slice(0, -1)
+		jQ.local('chatbox_minimized', newLocal);
 		jQ('#chatbox_'+chatboxusr+' .chatboxcontent').css('display','block');
 		jQ('#chatbox_'+chatboxusr+' .chatboxinput').css('display','block');
 		jQ("#chatbox_"+chatboxusr+" .chatboxcontent").scrollTop(jQ("#chatbox_"+chatboxusr+" .chatboxcontent")[0].scrollHeight);
 	} else {
-		var newCookie = chatboxusr;
-		if (jQ.cookie('chatbox_minimized')) {
-			newCookie += '|'+jQ.cookie('chatbox_minimized');
+		var newLocal = chatboxusr;
+		if (jQ.local('chatbox_minimized')) {
+			newLocal += '|'+jQ.local('chatbox_minimized');
 		}
-		jQ.cookie('chatbox_minimized',newCookie);
+		jQ.local('chatbox_minimized',newLocal);
 		jQ('#chatbox_'+chatboxusr+' .chatboxcontent').css('display','none');
 		jQ('#chatbox_'+chatboxusr+' .chatboxinput').css('display','none');
 	}
@@ -318,12 +324,12 @@ function checkChatBoxInputKey(event,chatboxtextarea,chatboxusr,chatboxname) {
 		if (message != '') { 
 			typing[chatboxusr]=false;
 			jQ.post("index.php/chat/stoptyping", {to: chatboxusr} );
-			message=message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&apos;");
+			// message=message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&apos;");
 			message=linkify(message);
-			message=emoticons(message);
 			jQ("#chatbox_"+chatboxusr+" .chatboxcontent")
-				.append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+chatboxname+': </span><span class="chatboxmessagecontent">'+message+'</span></div>')
+				.append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+username+': </span><span class="chatboxmessagecontent">'+emoticons(message)+'</span></div>')
 				.scrollTop(jQ("#chatbox_"+chatboxusr+" .chatboxcontent")[0].scrollHeight);
+			console.log(message);
 			jQ.post("index.php/chat/sendchat", {to: chatboxusr, message: message} , function(data){
 				//falta verificar error...
 			});
@@ -363,39 +369,43 @@ function linkify(text) {
 
 function emoticons(text) {
     var inputText = text;//el.html();
-    inputText = inputText.replace(/:-?\)/gim,		"<div class=smile></div>");
-	inputText = inputText.replace(/:-?D/gim,		"<div class=bigSmile></div>");
-	inputText = inputText.replace(/:-?\(/gim,		"<div class=sad></div>");
-	inputText = inputText.replace(/:-?P/gim,		"<div class=tongeOut></div>");
-	inputText = inputText.replace(/;-?\)/gim,		"<div class=wink></div>");
-	inputText = inputText.replace(/:-?o/gim,		"<div class=surprise></div>");
-	inputText = inputText.replace(/:-?s/gim,		"<div class=sick></div>");
-	inputText = inputText.replace(/:&apos;-?\(/gim,	"<div class=crying></div>");
-	inputText = inputText.replace(/8-?\)/gim,		"<div class=glasses></div>");
+    inputText = inputText.replace(/:-?\)/gim,		'<div class="em smile"></div>');
+	inputText = inputText.replace(/:-?D/gim,		'<div class="em bigSmile"></div>');
+	inputText = inputText.replace(/:-?\(/gim,		'<div class="em sad"></div>');
+	inputText = inputText.replace(/:-?P/gim,		'<div class="em tongeOut"></div>');
+	inputText = inputText.replace(/;-?\)/gim,		'<div class="em wink"></div>');
+	inputText = inputText.replace(/:-?o/gim,		'<div class="em surprise"></div>');
+	inputText = inputText.replace(/:-?s/gim,		'<div class="em sick"></div>');
+	inputText = inputText.replace(/:'-?\(/gim,	'<div class="em crying"></div>');
+	inputText = inputText.replace(/8-?\)/gim,		'<div class="em glasses"></div>');
 	return inputText;
 }
 
 function startChatSession(){
 	jQ.ajax({
 		url:"index.php/chat/startchatsession",
+		type:'post',
 		cache:false,
 		dataType:'json',
 		success:function(data){
+			console.log(['startchatsession',data]);
+			userid=data.userid;
 			username=data.username;
-			userDisplay = data.userDisplay;
 			jQ.each(data.items,function(i,item){
 				if(item){//fix strange ie bug
+				console.log(item);
 					chatboxusr = item.f;
 					if (jQ("#chatbox_"+chatboxusr).length <= 0) {
-						createChatBox(chatboxusr,1,item.fu);
+						createChatBox(chatboxusr,1,item.u,3);
 					}
 					if (item.s == 1) {
-						item.f = username;
+						item.f = userid;
+						item.u = username;
 					}
 					if (item.s == 2) {
-						jQ("#chatbox_"+chatboxusr+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxinfo">'+item.m+'</span></div>');
+						jQ("#chatbox_"+chatboxusr+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxinfo">'+emoticons(item.m)+'</span></div>');
 					}else{
-						jQ("#chatbox_"+chatboxusr+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+item.u+':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'+item.m+'</span></div>');
+						jQ("#chatbox_"+chatboxusr+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+item.u+':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'+emoticons(item.m)+'</span></div>');
 					}
 				}
 			});

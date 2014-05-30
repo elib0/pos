@@ -8,7 +8,7 @@ class Chat_model extends CI_Model{
 	private $usr=false;
 	private $loggedUsr=false;
 	private $con=false;
-	private $dbgroup='transactions';
+	private $dbgroup='centralized';
 	private $table='chat_users';
 	private $view='chat_users_view';
 	private $chat_view='chat_view';
@@ -29,13 +29,13 @@ class Chat_model extends CI_Model{
 	// --------------------------------------------------------------------
 
 	function cleanTyping($id=false){
-		if(!$id) $id=$this->getLoggedUser()->chat_id;
+		if(!$id) $id=$this->getUser()->chat_id;
 		$this->con->where('from_id',$id);
 		$query=$this->con->delete($this->typing);
 		return $query?true:false;
 	}
 	function disableUser($disabled=false){
-		$id=$this->getLoggedUser()->chat_id;
+		$id=$this->getUser()->chat_id;
 		$this->con->set('disabled',$disabled?1:0);
 		$this->con->where('chat_id',$id);
 		$this->con->update($this->table);
@@ -46,11 +46,11 @@ class Chat_model extends CI_Model{
 		$this->con->where('chat_id',$id);
 		$this->con->update($this->table);
 	}
-	function getChatId($user)
+	function getChatId($id,$location)
 	{
 		if(!$user) return false;
-		$this->con->where('user_id',$user->person_id);
-		$this->con->where('location',$user->location);
+		$this->con->where('user_id',$id);
+		$this->con->where('location',$location);
 		$query=$this->con->get($this->table);
 		if($query->num_rows() > 0)
 			return $query->row()->chat_id;
@@ -67,7 +67,7 @@ class Chat_model extends CI_Model{
 	function getChatUsers($update=false){
 		$this->updateUsers();
 		if($update) $this->updateLoggedUser();
-		$this->con->select('chat_id AS c,user AS u,username AS n,location AS l,status_name AS s');
+		$this->con->select('chat_id AS c,user AS u,username AS n,location AS l,status_name AS t');
 		$this->con->where('disabled',0);
 		$this->con->order_by('user_id','asc');
 		$query=$this->con->get($this->view);
@@ -90,12 +90,12 @@ class Chat_model extends CI_Model{
 	function getUser($id=false)
 	{
 		if(!$id&&!$this->usr){
-			if($this->usr) return $this->usr;
 			$user=$this->Employee->get_logged_in_employee_info();
-			$id=$this->setChatId($user);
+			// var_dump($user);
+			$id=$this->setChatId($user->person_id,$user->location);
 		}elseif(!$id&&$this->usr){
 			return $this->usr;
-		}
+		}elseif(!$id) return false;
 		$this->con->where('chat_id',$id);
 		$query=$this->con->get($this->view);
 		return $query?$query->row():false;
@@ -118,25 +118,20 @@ class Chat_model extends CI_Model{
 
 		return $result;
 	}//End of getUsers Function
-	function getLoggedUser()
-	{
-		return $user;
-	}
 	function is_logged()
 	{
 		if(!$this->logged){
 			return false;
 		}else{
-			return $this->getUser()->status_id!=0;
+			return $this->usr->status_id!=0;
 		}
 	}
-	function setChatId($user)
+	function setChatId($id=false,$location=false)
 	{
-		if(!$user) return false;
-		$id=$this->getChatId($user);
+		if(!$id) $id=$this->getChatId($id,$location);
 		if($id) return $id;
-		$this->con->set('user_id',$user->person_id);
-		$this->con->set('location',$user->location);
+		$this->con->set('user_id',$id);
+		$this->con->set('location',$location);
 		$this->con->set('status',1);
 		$this->con->set('disabled',0);
 		$this->con->insert($this->table);
@@ -151,8 +146,9 @@ class Chat_model extends CI_Model{
 	}
 	function setTyping($to=false,$status=true){
 		if(!$to) return false;
+		$this->updateLoggedUser();
 		$status=$status?1:0;
-		$from=$this->getLoggedUser()->chat_id;
+		$from=$this->getUser()->chat_id;
 		$query=$this->con->query("
 			INSERT INTO $this->prefix$this->typing SET
 				from_id=$from,
@@ -180,11 +176,10 @@ class Chat_model extends CI_Model{
 	}
 	function updateLoggedUser()
 	{
-		$emp=$this->getLoggedUser();
-		$id=$emp->person_id;
-		$location=$emp->location;
+		$id=$this->user->user_id;
+		$location=$this->user->location;
 		$data=array(
-			'username'=>$emp->username,
+			'username'=>$this->user->username,
 			'status'=>1,
 		);
 		$this->con->where('user_id',$id);

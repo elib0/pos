@@ -43,5 +43,6 @@ $lang['location_connection_error']='Error in the data connection or this locatio
 $lang['location_create_error']='Error on register location! '.$lang['location_try_again'];
 $lang['location_create_db_error']='Error creating new database! '.$lang['location_try_again'];
 $lang['location_least_one']='You must select at least one location';
-
+$lang['location_only_letters']='Only letters allowed, Try Again!';
+$lang['location_only_letters_numbers']='Only letters and numbers points allowed, Try Again!';
 ?>

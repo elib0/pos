@@ -43,5 +43,6 @@ $lang['location_connection_error']='Error en la conexión de datos o esta ubicac
 $lang['location_create_error']='Error en registrar la Ubicaci&oacute;n! '.$lang['location_try_again'];
 $lang['location_create_db_error']='Error creando la nueva base de datos! '.$lang['location_try_again'];
 $lang['location_least_one']='Debe seleccionar al menos una ubicaci&oacute;n';
-
+$lang['location_only_letters']='Sólo permite letras, vuelva a intentarlo!';
+$lang['location_only_letters_numbers']='Sólo permite letras y números, vuelva a intentarlo!';
 ?>

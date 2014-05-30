@@ -88,4 +88,14 @@ $lang['items_pictures']="Imágenes";
 $lang['items_pictures_main']="Imagen Principal";
 $lang['items_confirm_delete_picture']="¿Estás seguro que desea eliminar esta imagen? Esta acción es irreversible";
 $lang['items_inventory_tracking']="Seguimiento de datos del inventario";
+$lang['items_inventory_tracking']='Cantidad/Entrada Salida';
+$lang['items_observ']='Observaciones';
+$lang['items_share_sendto']='(Esta opción de enviar a otra Ubicación y se deducen en esta tienda!)';
+$lang['items_share_search']='Buscar Artículo';
+$lang['items_share_search_name']='Buscar Artículo por nombre';
+$lang['items_share_tex']='Utilice el cuadro de búsqueda para agregar articulos a TRANSFERIR';
+$lang['items_share_tex_error']='Debe tener al menos un artículo para transferir!';
+$lang['items_share_tex_error_data']='Debe seleccionar una base de datos';
+$lang['items_share_delete']='Eliminar todos los articulos';
+$lang['items_share_send']='Enviar';
 ?>

@@ -88,4 +88,14 @@ $lang['items_pictures']="Pictures";
 $lang['items_pictures_main']="Main Pictures";
 $lang['items_confirm_delete_picture']="Does this sure to delete this picture? This action is irreversible";
 $lang['items_inventory_tracking']="Inventory Data Tracking";
+$lang['items_q_i']='In/Out Qty';
+$lang['items_observ']='Remarks';
+$lang['items_share_sendto']='(This option to send to another location and are deducted in this store!)';
+$lang['items_share_search']='Search Item';
+$lang['items_share_search_name']='Search Item by Name';
+$lang['items_share_tex']='Use the search box to add an item to TRANSFER';
+$lang['items_share_tex_error']='You must have at least one item to transfer!';
+$lang['items_share_tex_error_data']='You must select a database';
+$lang['items_share_delete']='Delete All Items';
+$lang['items_share_send']='Send';
 ?>

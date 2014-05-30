@@ -1,49 +1,10 @@
-<?php
-$this->load->view("partial/header");
-?>
-<style>
-	#search{
-		width: 60%;
-	}
-	.td-info{
-		text-align: center;
-		font-size: 24px;
-		font-weight: bold;
-	}
-	.location-option, .delete-options{
-		display: inline-block;
-		margin: 5px 0;
-	}
-	.delete-options{
-		float: right;
-	}
-
-	#frmShareIvn input{margin: 5px;}
-    #frmShareIvn input[type=text] {width: 90%;}
-    #frmShareIvn input[type=checkbox] {display: none;}
-    #frmShareIvn input[type=checkbox] + label {
-        background: #fff;
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        background: url(images/inputs/checkbox.png) 0px 0px no-repeat;
-        text-indent: -1000em;
-        cursor: pointer;
-        margin: 5px;
-    }
-    #frmShareIvn input[type=checkbox]:checked + label {
-        background: url(images/inputs/checkbox.png) 0px -16px no-repeat;
-    }
-    #alert-message{
-    	background-color: #CCC;
-    }
-</style>
+<?php $this->load->view("partial/header"); ?>
 <?php print_r($session).' Cantidad de elementos:'.count($session); ?>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $title ?></div>
 <div class="page_subtitle" style="margin-bottom:8px;"><?php echo $subtitle ?></div>
 <?php echo form_open(site_url("$controller_name/search"),array('id'=>'search_form', 'method'=>'GET')); ?>
-	<label for="search">Search Item</label>
-	<input type="text" name ='search' id='search' placeholder="Search Item by Name"/>
+	<label for="search"><?php echo $this->lang->line('items_share_search'); ?></label>
+	<input type="text" name ='search' id='search' placeholder="<?php echo $this->lang->line('items_share_search_name'); ?>"/>
 <?php echo form_close() ?>
 <?=form_open(site_url("$controller_name/save_dispatch"), array('id'=>'frmShareIvn', 'method'=>'GET'))?>
 	<?php
@@ -59,7 +20,7 @@ $this->load->view("partial/header");
 	<div class="location-option">
 	<?php echo form_label('Receiving Location:', 'dbselected'); ?>
 	<?php echo form_dropdown('dbselected', $dbs, '...', $options); ?>
-	<h6 class="wire" style="display:inline-block">(This option to send to another location and are deducted in this store!)</h6>
+	<h6 class="wire" style="display:inline-block"><?php echo $this->lang->line('items_share_sendto'); ?></h6>
 	</div>
 	<div class="products-to-send">
 		<table class="tablesorter report share-inventorie-report" id="sortable_table">
@@ -72,16 +33,16 @@ $this->load->view("partial/header");
 	        </thead>
 	        <tbody>
 	            <tr>
-	            	<td colspan="5" class="td-info">Use the search box to add an item to TRANSFER</td>
+	            	<td colspan="5" class="td-info"><?php echo $this->lang->line('items_share_tex'); ?></td>
 	            </tr>
 	        </tbody>
 	    </table>
 	    <div class="delete-options">
 			<!-- <a href="#" id="deselectall">Delete All Items Selected</a> -->
-			<div class="big_button" style="float: left;" id="deselectall"><span>Delete All Items</span></div>
+			<div class="big_button" style="float: left;" id="deselectall"><span><?php echo $this->lang->line('items_share_delete'); ?></span></div>
 		</div>
 	    <a class="linkPrint" href="#" id="btnSubmit">
-	        <div class="big_button" style="float: left;"><span>Send</span></div>
+	        <div class="big_button" style="float: left;"><span><?php echo $this->lang->line('items_share_send'); ?></span></div>
 	    </a>
 	</div>
 <?=form_close()?>
@@ -89,7 +50,7 @@ $this->load->view("partial/header");
 $this->load->view("partial/footer");
 ?>
 <script>
-	var default_table_row = '<tr><td colspan="5" class="td-info">Use the search box to add an item to TRANSFER</td></tr>';
+	var default_table_row = '<tr><td colspan="5" class="td-info">'.$this->lang->line('items_share_tex');.'</td></tr>';
 
 	enable_search_form('<?php echo site_url("$controller_name/suggest")?>','<?php echo $this->lang->line("common_confirm_search")?>', false);
 	
@@ -133,7 +94,7 @@ $this->load->view("partial/footer");
 			}else{
 				notif({
 				    type: "warning",
-				    msg: "You must have at least one item to transfer!",
+				    msg: "<?php echo $this->lang->line('items_share_tex_error') ?>",
 				    width: "all",
 				    height: 100,
 				    position: "center"
@@ -143,7 +104,7 @@ $this->load->view("partial/footer");
 			// alert('You must select a database');
 			notif({
 			  type: "error",
-			  msg: "You must select a database",
+			  msg: "<?php echo $this->lang->line('items_share_tex_error_data'); ?>",
 			  width: "all",
 			  height: 100,
 			  position: "center"

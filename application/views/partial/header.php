@@ -44,18 +44,18 @@
 	<!-- end jquery old -->
 
 <style type="text/css">
-html {
+html{
     overflow: auto;
 }
 .ui-dialog .overlay{
 	display: block;
 	overflow: hidden;
 }
-.overlay {
+.overlay{
 	display: none;
 }
 
-#logout_overlay {
+#logout_overlay{
 	text-align: center;
 }
 
@@ -179,16 +179,16 @@ html {
 		setTimeout(function(){mostrarHora()},500);
 	}
 
-	$('nav.main-menu ul>li>ul').click(function(event) {
+	$('nav.main-menu ul>li>ul').click(function(event){
 		var href=$(this).attr('url');
 		location.href=href;
 	});
 	
-	$('#assistance').click(function(event) {
+	$('#assistance').click(function(event){
 		location.href='index.php/employees/assistance';
 	});
 
-	if ('<?=$this->uri->segment(2)?>'=='assistance') {
+	if ('<?=$this->uri->segment(2)?>'=='assistance'){
 		$('#assistance').addClass('nav-main-menu-active');
 	}else{
 		$('nav.main-menu ul>li#<?=$this->uri->segment(1)?>').addClass('nav-main-menu-active');
@@ -196,7 +196,7 @@ html {
 
 
 	//On dom ready
-	$(function() {
+	$(function(){
 		mostrarHora();
 		//Control de enlaces logout
 		$('nav.user #menu_changeuser a,#btnLogout').click(function(e,href){

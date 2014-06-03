@@ -7,7 +7,7 @@
 		return false;
 	});
 	//All Title attributes (tooltips)
-	$(document).on('mouseenter','[title]',function(e){
+	$('body').find('*:not(#chat)').on('mouseenter','[title]',function(e){
 		//mouse over (hover)
 		var title=this.title||$(this).data('title');
 		if(!title) return;

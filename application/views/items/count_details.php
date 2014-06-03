@@ -81,10 +81,10 @@
 	<h3><?php echo $this->lang->line('items_inventory_tracking'); ?></h3><hr>
 	<table border="0" align="center" width="100%" >
 		<tr align="center" style="font-weight:bold">
-			<th width="15%" class="noBorderTop noBorderLeft">Date</th>
-			<th width="25%" class="noBorderTop">Employee</th>
-			<th width="15%" class="noBorderTop">In/Out Qty</th>
-			<th width="45%" class="noBorderTop noBorderRigth">Remarks</th>
+			<th width="15%" class="noBorderTop noBorderLeft"><?php echo $this->lang->line('reports_date'); ?></th>
+			<th width="25%" class="noBorderTop"><?php echo $this->lang->line('employees_employee'); ?></th>
+			<th width="15%" class="noBorderTop"><?php echo $this->lang->('items_q_i'); ?></th>
+			<th width="45%" class="noBorderTop noBorderRigth"><?php echo $this->lang->line('items_observ'); ?></th>
 		</tr>
 		<?php 
 			$vector=$this->Inventory->get_inventory_data_for_item($item_info->item_id)->result_array();

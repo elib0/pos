@@ -1,21 +1,3 @@
-<style>
-	#location_form ul{
-		list-style-type: none;
-	}
-	#location_form ul li{
-		float: left;
-		min-width: 280px;
-		margin: .4em 0;
-	}
-	
-	#location_form > div > div{
-		margin-bottom: 1em;
-		clear: both;
-	}
-	.loader{
-		text-align: center;
-	}
-</style>
 <div class="loader">
 	<img src="images/loading.gif" width="230" height="230">
 	<br>
@@ -126,18 +108,18 @@ $(document).ready(function() {
 		{
 			location: {
 			      required: "<?php echo $this->lang->line('location_location_required'); ?>",
-			      regex:"Only letters allowed, Try Again!",
+			      regex:"<?php echo $this->lang->line('location_location_name').' '.$this->lang->line('location_location_name').' '.$this->lang->line('location_only_letters'); ?>",
 			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
     		},
     		hostname: {
 			      required: "<?php echo $this->lang->line('location_host_required'); ?>",
-			      regex:"Only letters and numbers points allowed, Try Again!",
+			      regex:"<?php echo $this->lang->line('location_only_letters_numbers'); ?>",
 			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
     		},
      		username: "<?php echo $this->lang->line('location_username_required'); ?>",
      		database:{
      			required: "<?php echo $this->lang->line('location_db_required'); ?>",
-		      	regex:"Only letters allowed, Try Again!",
+		      	regex:"<?php echo $this->lang->line('location_database').' '.$this->lang->line('location_only_letters'); ?>",
      		}
 		}
 	});

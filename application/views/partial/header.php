@@ -5,19 +5,22 @@
 	<base href="<?=base_url()?>" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title><?=$this->config->item('company')?></title>
-	<link rel="stylesheet" rev="stylesheet" href="css/ospos.css" />
-	<link rel="stylesheet" rev="stylesheet" href="css/ospos_print.css" media="print"/>
-	<link rel="stylesheet" rev="stylesheet" href="css/jquery-ui.css" />
-	<link rel="stylesheet" rev="stylesheet" href="css/notifIt.css" />
+	<link rel="stylesheet" type="text/css" href="css/ospos.css" />
+	<link rel="stylesheet" type="text/css" href="css/ospos_print.css" media="print"/>
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="css/notifIt.css" />
+	<link rel="stylesheet" type="text/css" href="css/chat.css" media="all" />
 	<script>BASE_URL = '<?=site_url()?>';</script>
 	<script src="js/jquery.switch.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.$$=window.jQueryNew=jQuerySwitch('jQueryNew',jQuery);</script>
 	<!-- jquery new -->
+	<script src="js/jquery.local.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.form.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
 	<!-- end jquery new -->
 	<script src="js/jquery-1.2.6.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.jQueryOld=jQuerySwitch('jQueryOld',jQuery);</script>
@@ -41,18 +44,18 @@
 	<!-- end jquery old -->
 
 <style type="text/css">
-html {
+html{
     overflow: auto;
 }
 .ui-dialog .overlay{
 	display: block;
 	overflow: hidden;
 }
-.overlay {
+.overlay{
 	display: none;
 }
 
-#logout_overlay {
+#logout_overlay{
 	text-align: center;
 }
 
@@ -72,7 +75,7 @@ html {
 		<li class="menu_item" id="<?=$module->module_id?>">
 			<ul url="<?=site_url("$module->module_id")?>">
 				<li>
-					<img src="<?=base_url().'images/menubar/'.$module->module_id.'.png'?>" border="0" alt="Menubar Image" />
+					<img src="images/menubar/<?=$module->module_id?>.png" border="0" alt="Menubar Image" />
 				</li>
 				<li><a><?=$this->lang->line("module_".$module->module_id)?></a></li>
 			</ul>
@@ -82,7 +85,7 @@ html {
 		?>
 		<li class="menu_item" id="assistance">
 			<ul>
-				<li><img src="<?=base_url().'images/menubar/schedule.png'?>" border="0" alt="Menubar Image" style="cursor: pointer" /></li>
+				<li><img src="images/menubar/schedule.png" border="0" alt="Menubar Image" style="cursor: pointer" /></li>
 				<li><a>Schedule</a></li>
 			</ul>
 		</li>
@@ -176,16 +179,16 @@ html {
 		setTimeout(function(){mostrarHora()},500);
 	}
 
-	$('nav.main-menu ul>li>ul').click(function(event) {
+	$('nav.main-menu ul>li>ul').click(function(event){
 		var href=$(this).attr('url');
 		location.href=href;
 	});
 	
-	$('#assistance').click(function(event) {
+	$('#assistance').click(function(event){
 		location.href='index.php/employees/assistance';
 	});
 
-	if ('<?=$this->uri->segment(2)?>'=='assistance') {
+	if ('<?=$this->uri->segment(2)?>'=='assistance'){
 		$('#assistance').addClass('nav-main-menu-active');
 	}else{
 		$('nav.main-menu ul>li#<?=$this->uri->segment(1)?>').addClass('nav-main-menu-active');
@@ -193,7 +196,7 @@ html {
 
 
 	//On dom ready
-	$(function() {
+	$(function(){
 		mostrarHora();
 		//Control de enlaces logout
 		$('nav.user #menu_changeuser a,#btnLogout').click(function(e,href){

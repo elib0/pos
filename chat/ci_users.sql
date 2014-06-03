@@ -10,27 +10,26 @@ Target Server Type    : MYSQL
 Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2014-05-21 14:08:02
+Date: 2014-05-21 14:08:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `chat`
+-- Table structure for `ci_users`
 -- ----------------------------
-DROP TABLE IF EXISTS `chat`;
-CREATE TABLE `chat` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `from` varchar(255) NOT NULL DEFAULT '',
-  `to` varchar(255) NOT NULL DEFAULT '',
-  `message` text NOT NULL,
-  `sent` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `recd` int(10) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `to` (`to`),
-  KEY `from` (`from`)
+DROP TABLE IF EXISTS `ci_users`;
+CREATE TABLE `ci_users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(255) NOT NULL,
+  `user_email` varchar(255) NOT NULL,
+  `user_password` varchar(255) NOT NULL,
+  `registered_date` datetime NOT NULL,
+  `status` int(5) NOT NULL,
+  `online` int(5) NOT NULL,
+  PRIMARY KEY (`user_id`,`user_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
--- Records of chat
+-- Records of ci_users
 -- ----------------------------

@@ -232,3 +232,42 @@ html[xmlns] .clearfix {	display: block; }
 	width: 306px;
 	font-size: 10px;
 }
+#search{ width: 60%; }
+.td-info{
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+}
+.location-option, .delete-options{
+	display: inline-block;
+	margin: 5px 0;
+}
+.delete-options{ float: right; }
+#frmShareIvn input{margin: 5px;}
+#frmShareIvn input[type=text] {width: 90%;}
+#frmShareIvn input[type=checkbox] {display: none;}
+#frmShareIvn input[type=checkbox] + label {
+    background: #fff;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url(images/inputs/checkbox.png) 0px 0px no-repeat;
+    text-indent: -1000em;
+    cursor: pointer;
+    margin: 5px;
+}
+#frmShareIvn input[type=checkbox]:checked + label {
+    background: url(images/inputs/checkbox.png) 0px -16px no-repeat;
+}
+#alert-message{ background-color: #CCC; }
+#location_form ul{ list-style-type: none; }
+#location_form ul li{
+	float: left;
+	min-width: 280px;
+	margin: .4em 0;
+}
+#location_form > div > div{
+	margin-bottom: 1em;
+	clear: both;
+}
+.loader{ text-align: center; }

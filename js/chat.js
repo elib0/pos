@@ -23,6 +23,8 @@ jQ(function(){
 function chat_init(data){
 	jQ('#chatMainContainer').show();
 	updateChatMenu(data.online?'enable':'disable');
+	startChatSession();
+	chatHeartbeat(1);
 	listFriendsChat(1);
 	jQ('body>#chat').on('click','.listUserChat',function(){
 		if(this.id!=userid) chatWith(this.id,$(this).attr('u'));
@@ -34,7 +36,8 @@ function chat_init(data){
 		jQ('#showChat,#hideChat').toggle();
 	});
 	jQ('#enable,#disable').click(function(){
-		changeStatus(this.id,this);
+		updateChatMenu(this.id);
+		// changeStatus(this.id,this);
 	});
 	jQ([window,document]).blur(function(){
 		windowFocus = false;
@@ -440,6 +443,8 @@ function changeStatus(status,that){
 	if(that) that.disabled=true;
 	jQ.getJSON('index.php/chat/'+status,function(){
 		updateChatMenu(status);
+		startChatSession();
+		chatHeartbeat(1);
 		listFriendsChat(1);
 	}).always(function(){
 		if(that) that.disabled=false;
@@ -447,22 +452,22 @@ function changeStatus(status,that){
 }
 function updateChatMenu(status){
 	if(status=='disable'){
-		jQ('#chatmsgs').hide();
+		jQ('#chatmsgs').fadeOut();
 		jQ('#chat #disable').hide(); 
 		jQ('#chat #enable').show();
 		jQ('#showChat').hide();
 		jQ('#hideChat').hide();
 		jQ('.chatListContainer').slideUp();
-		play=false;
+		// play=false;
 	}else{
-		jQ('#chatmsgs').show();
+		jQ('#chatmsgs').fadeIn();
 		jQ('#enable').hide(); 
 		jQ('#disable').show();
 		jQ('#showChat').hide(); 
 		jQ('#hideChat').show();
 		jQ('.chatListContainer').slideDown();
-		play=true;
-		startChatSession();
-		chatHeartbeat(1);
+		// play=true;
+		// startChatSession();
+		// chatHeartbeat(1);
 	}
 }

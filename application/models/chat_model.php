@@ -5,7 +5,8 @@ class Chat_model extends CI_Model{
 	 *
 	 */
 	public $logged=false;
-	private $usr=false;
+	private $user=false;
+	private $dbusr=false;
 	private $loggedUsr=false;
 	private $con=false;
 	private $dbgroup='centralized';
@@ -23,19 +24,20 @@ class Chat_model extends CI_Model{
 		//Redirect if not logged
 		$this->logged=(!!$this->session->userdata('person_id'));
 		$this->getCon();
-		if($this->logged) $this->usr=$this->getUser();
+		if($this->logged) $this->getUser();
+		// var_dump($this->user);
 	}
 
 	// --------------------------------------------------------------------
 
 	function cleanTyping($id=false){
-		if(!$id) $id=$this->getUser()->chat_id;
+		if(!$id) $id=$this->user->chat_id;
 		$this->con->where('from_id',$id);
 		$query=$this->con->delete($this->typing);
 		return $query?true:false;
 	}
 	function disableUser($disabled=false){
-		$id=$this->getUser()->chat_id;
+		$id=$this->user->chat_id;
 		$this->con->set('disabled',$disabled?1:0);
 		$this->con->where('chat_id',$id);
 		$this->con->update($this->table);
@@ -45,16 +47,6 @@ class Chat_model extends CI_Model{
 		$this->con->set('disabled',$disabled?0:1);
 		$this->con->where('chat_id',$id);
 		$this->con->update($this->table);
-	}
-	function getChatId($id,$location)
-	{
-		if(!$user) return false;
-		$this->con->where('user_id',$id);
-		$this->con->where('location',$location);
-		$query=$this->con->get($this->table);
-		if($query->num_rows() > 0)
-			return $query->row()->chat_id;
-		return false;
 	}
 	function getChats()
 	{
@@ -89,17 +81,22 @@ class Chat_model extends CI_Model{
 	}
 	function getUser($id=false)
 	{
-		if(!$id&&!$this->usr){
-			$user=$this->Employee->get_logged_in_employee_info();
-			// var_dump($user);
-			$id=$this->setChatId($user->person_id,$user->location);
-		}elseif(!$id&&$this->usr){
-			return $this->usr;
-		}elseif(!$id) return false;
+		if(!$id){
+			if($this->user) return $this->user;
+			else{
+				$this->dbusr=$this->Employee->get_logged_in_employee_info();
+				// var_dump($this->dbusr);
+				$id=$this->setChatId($this->dbusr->person_id,$this->dbusr->location);
+			}
+		}
+		if(!$id) return false;
+		// echo $id;
 		$this->con->where('chat_id',$id);
 		$query=$this->con->get($this->view);
-		return $query?$query->row():false;
-	}//End of getUser Function
+		// var_dump($query->row());
+		if($query) $this->user=$query->row();
+		return $this->user;
+	}
 	function getUsers($conditions=array(),$fields='')
 	{
 		$this->updateLoggedUser();
@@ -117,26 +114,38 @@ class Chat_model extends CI_Model{
 		$result = $this->con->get($this->view);
 
 		return $result;
-	}//End of getUsers Function
+	}
 	function is_logged()
 	{
 		if(!$this->logged){
 			return false;
 		}else{
-			return $this->usr->status_id!=0;
+			return $this->user->status_id!=0;
 		}
 	}
-	function setChatId($id=false,$location=false)
+	function setChatId($id,$location)
 	{
-		if(!$id) $id=$this->getChatId($id,$location);
-		if($id) return $id;
-		$this->con->set('user_id',$id);
-		$this->con->set('location',$location);
-		$this->con->set('status',1);
-		$this->con->set('disabled',0);
-		$this->con->insert($this->table);
-		$id=$this->con->insert_id();
-		return $id?$id:false;
+		if(!$id||!$location) return false;
+		// var_dump(array($id,$location));
+		$query=$this->con->query("
+			INSERT INTO $this->prefix$this->table SET
+				user_id=$id,
+				location='$location',
+				status=1,
+				disabled=0
+			ON DUPLICATE KEY UPDATE
+				status=1,
+				disabled=0
+		");
+		// echo $this->con->last_query();
+		$this->con->where('user_id',$id);
+		$this->con->where('location',$location);
+		$query=$this->con->get($this->table);
+		// var_dump($query->row());
+		// echo $this->con->last_query();
+		if($query->num_rows() > 0)
+			return $query->row()->chat_id;
+		return false;
 	}
 	function setStatus($chat_id=false,$status=1){
 		if(!$chat_id) return false;
@@ -148,7 +157,7 @@ class Chat_model extends CI_Model{
 		if(!$to) return false;
 		$this->updateLoggedUser();
 		$status=$status?1:0;
-		$from=$this->getUser()->chat_id;
+		$from=$this->user->chat_id;
 		$query=$this->con->query("
 			INSERT INTO $this->prefix$this->typing SET
 				from_id=$from,
@@ -171,30 +180,20 @@ class Chat_model extends CI_Model{
 		$this->con->update($this->table);
 
 		$this->con->set('typing',0);
-		$this->con->where('timediff(now(),date) > "00:05"');
+		$this->con->where('timediff(now(),date) > "00:02:30"');
 		$this->con->update($this->typing);
 	}
 	function updateLoggedUser()
 	{
+		if(!$this->user) return false;
 		$id=$this->user->user_id;
 		$location=$this->user->location;
 		$data=array(
-			'username'=>$this->user->username,
+			'username'=>$this->dbusr->username,
 			'status'=>1,
 		);
 		$this->con->where('user_id',$id);
 		$this->con->where('location',$location);
-		$query=$this->con->get($this->table);
-
-		if($query->num_rows()>0){
-			$this->con->where('user_id',$id);
-			$this->con->where('location',$location);
-			$this->con->update($this->table,$data);
-		}else{
-			$this->con->set('user_id',$id);
-			$this->con->set('location',$location);
-			$this->con->insert($this->table,$data);
-		}
-
-	}//End of updateLoggedUser Function
+		$this->con->update($this->table,$data);
+	}
 }

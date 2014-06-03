@@ -125,7 +125,7 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 	jQ("<div/>" ).attr("id","chatbox_"+chatboxusr)
 	.addClass("chatbox")
 	.html('<div class="chatboxhead"><div class="chatboxtitle">'+chatboxname+'</div><div class="minimize" onclick="javascript:toggleChatBoxGrowth(\''+chatboxusr+'\')"></div><div class="chatboxoptions"> <a href="javascript:void(0)" onclick="javascript:closeChatBox(\''+chatboxusr+'\')">X</a></div><br clear="all"/></div><div class="chatboxcontent"></div><div class="typing">'+chatboxname+' is typing...</div><div class="chatboxinput"><textarea class="chatboxtextarea" onkeyup="javascript:return checkChatBoxInputKey(event,this,\''+chatboxusr+'\',\''+chatboxname+'\');"></textarea></div>')
-	.appendTo('body');
+	.appendTo('#chatmsgs');
 	jQ("#chatbox_"+chatboxusr).css('bottom','0px');
 	chatBoxeslength = 0;
 	for(x in chatBoxes){
@@ -174,7 +174,9 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 	jQ("#chatbox_"+chatboxusr).show();
 }
 
+var chbt;//chatheartbeat timeout var
 function chatHeartbeat(p){
+	clearTimeout(chbt);
 	var itemsfound = 0;
 	if (windowFocus == false){
 		var blinkNumber = 0;
@@ -208,6 +210,8 @@ function chatHeartbeat(p){
 			}
 		}
 	}
+	var blink=jQ('#chatmsgs .chatboxblink').length>0;
+	jQ('#chat .chatConfig')[blink?'addClass':'removeClass']('chatboxblink');
 	data=null;
 	jQ.ajax({
 		url: "index.php/chat/chatheartbeat",
@@ -215,7 +219,8 @@ function chatHeartbeat(p){
 		cache: false,
 		dataType: "json",
 		success: function(data){
-			if(data!=null){
+			if(data){
+				console.log(['heartbeat',data]);
 				jQ.each(data.items, function(i,item){
 					if (item){ // fix strange ie bug
 						chatboxusr = item.f;
@@ -264,7 +269,7 @@ function chatHeartbeat(p){
 			}
 			if(play){
 				listFriendsChat(p);
-				setTimeout('chatHeartbeat();',chatHeartbeatTime);
+				chbt=setTimeout('chatHeartbeat();',chatHeartbeatTime);
 			}
 		}
 	});
@@ -430,18 +435,15 @@ function changeStatus(status,that){
 }
 function updateChatMenu(status){
 	if(status=='disable'){
-		for (x in chatBoxes) {
-			chatboxusr = chatBoxes[x];
-			jQ('#chatbox_'+chatboxusr).css('display','none');
-			jQ('#chatbox_'+chatboxusr+' .chatboxtextarea').val('');
-		}
-		jQ('#disable').hide(); 
-		jQ('#enable').show();
-		jQ('#showChat').hide(); 
+		jQ('#chatmsgs').hide();
+		jQ('#chat #disable').hide(); 
+		jQ('#chat #enable').show();
+		jQ('#showChat').hide();
 		jQ('#hideChat').hide();
 		jQ('.chatListContainer').slideUp();
 		play=false;
 	}else{
+		jQ('#chatmsgs').show();
 		jQ('#enable').hide(); 
 		jQ('#disable').show();
 		jQ('#showChat').hide(); 

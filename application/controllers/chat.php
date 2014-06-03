@@ -56,6 +56,7 @@ class Chat extends CI_Controller{
 			'userid'=>$this->user->chat_id,
 			'username'=>$this->user->user,
 			'items'=>$items,
+			'chat'=>$this->chat,
 		);
 		$this->print_json($data);
 	}
@@ -164,7 +165,7 @@ class Chat extends CI_Controller{
 		$from = $this->user->chat_id;
 		$to = $this->input->post('to');
 		$usr = $this->chat_model->getUser($to);
-		$name_to = "$usr->username ($usr->location)";
+		$name_to = $usr->user;
 		$message = $this->input->post('message');
 
 		$this->chat['openBoxes'][$to] = date('Y-m-d H:i:s');

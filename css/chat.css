@@ -66,7 +66,7 @@
 	z-index:1000;
 }
 
-.chatboxhead {
+.chatboxhead{
 	background-color: #f99d39;
 	padding:7px;
 	color: #ffffff;
@@ -89,13 +89,13 @@
 	cursor:pointer;
 }
 
-.chatboxblink {
+#chatMainContainer .chatConfig.chatboxblink,.chatboxblink{
 	background-color: #176689;
 	border-right:1px solid #176689;
 	border-left:1px solid #176689;
 }
 
-.chatboxcontent {
+.chatboxcontent{
 	font-family: arial,sans-serif;
 	font-size: 13px;
 	color: #333333;
@@ -120,7 +120,7 @@
     -moz-binding: url('xbl.xml#wordwrap'); /* Firefox (using XBL) */
 }
 
-.typing {
+.typing{
 	font-size:9px;
 	color:#999;
 	background-color:#FFF;
@@ -132,7 +132,7 @@
 	
 }
 
-.chatboxinput {
+.chatboxinput{
 	padding: 5px;
 	background-color: #ffffff;
 	border-left:1px solid #cccccc;
@@ -143,7 +143,7 @@
 	font-size: 13px;
 }
 
-.chatboxtextarea {
+.chatboxtextarea{
 	width: 206px;
 	height:44px;
 	padding:3px 0pt 3px 3px;
@@ -155,21 +155,21 @@
 	font-size: 13px;
 }
 
-.chatboxtextareaselected {
+.chatboxtextareaselected{
 	border: 1px solid #f99d39;
 }
 
-.chatboxmessage {
+.chatboxmessage{
 	margin-left:1em;
 }
 
-.chatboxinfo {
+.chatboxinfo{
 	margin-left:-1em;
 	color:#666666;
 
 }
 
-.chatboxmessagefrom {
+.chatboxmessagefrom{
 	margin-left:-1em;
 	font-weight: bold;
 }
@@ -239,11 +239,11 @@
 	background-image:url(chat/emoticons.png);
 	background-position:-32px -32px;	
 }
-.chatboxoptions {
+.chatboxoptions{
 	float: right;
 }
 
-.chatboxoptions a {
+.chatboxoptions a{
 	text-decoration: none;
 	color: white;
 	font-weight:bold;

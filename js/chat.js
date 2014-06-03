@@ -45,7 +45,9 @@ function chat_init(data){
 	chatHeartbeat();
 }
 
+var lfc;
 function listFriendsChat(p){
+	if(lfc&&!p) return;
 	if(p==1){
 		if(jQ.trim(jQ('.chatListContainer').html())==''){
 			jQ('.chatListContainer').html('<div id="loading"></div>');
@@ -54,13 +56,17 @@ function listFriendsChat(p){
 	}else{
 		p='';
 	}
+	lfc=true;
 	jQ.ajax({
 		url:'index.php/chat/friendslist',
 		dataType:'json',
 		cache:false,
 		type:'post',
 		data:{'update':p},
-		success: formatFriendsList
+		success: formatFriendsList,
+		complete:function(){
+			lfc=false;
+		}
 	});
 }
 

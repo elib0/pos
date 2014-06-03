@@ -140,7 +140,7 @@ class Chat_model extends CI_Model{
 		// echo $this->con->last_query();
 		$this->con->where('user_id',$id);
 		$this->con->where('location',$location);
-		$query=$this->con->get($this->table);
+		$query=$this->con->get($this->view);
 		// var_dump($query->row());
 		// echo $this->con->last_query();
 		if($query->num_rows() > 0)

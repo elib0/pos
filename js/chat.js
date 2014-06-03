@@ -25,7 +25,7 @@ function chat_init(data){
 	updateChatMenu(data.online?'enable':'disable');
 	listFriendsChat(1);
 	jQ('body>#chat').on('click','.listUserChat',function(){
-		chatWith(this.id,$(this).attr('u'));
+		if(this.id!=userid) chatWith(this.id,$(this).attr('u'));
 	});
 	originalTitle = document.title;
 	jQ('#hideChat,#showChat').click(function(){
@@ -72,7 +72,7 @@ function formatFriendsList(data){
 			salida='';
 			jQ.each(data.f, function(i,item){ 
 				if(item){
-					salida+='<div id="'+item.c+'" u="'+item.u+'" status="'+item.t+'" title="'+item.t+'" class="listUserChat">';
+					salida+='<div id="'+item.c+'" u="'+item.u+'" status="'+item.t+'" title="'+item.t+'" class="listUserChat '+(item.c==userid?'me':'')+'">';
 					// salida+='<a href="javascript:void(0)" class="listChat" title="'+item.n+'">';
 					//salida+='<img width="20" height="20" src="'+item.p+'" />'+item.s+'<div class="'+item.t+'">&nbsp;</div></a>';
 					salida+=item.u+'</div>';

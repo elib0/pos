@@ -266,6 +266,10 @@
 .listUserChat:hover{
 	background-color:#F5F5F5;
 }
+.listUserChat.me,.listUserChat.me:hover{
+	background-color:#666;
+	color:#fff;
+}
 .listUserChat:before{
 	/*content:attr(u);*/
 }
@@ -280,10 +284,7 @@
 }
 
 .listUserChat a{
-	
 	text-decoration:none;
-	
-	
 }
 .listUserChat .online{
 	float:right;

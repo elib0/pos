@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50614
 File Encoding         : 65001
 
-Date: 2014-06-03 10:38:12
+Date: 2014-06-03 10:54:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,6 +32,10 @@ CREATE TABLE `ospos_chat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- ----------------------------
+-- Records of ospos_chat
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `ospos_chat_status`
 -- ----------------------------
 DROP TABLE IF EXISTS `ospos_chat_status`;
@@ -44,6 +48,9 @@ CREATE TABLE `ospos_chat_status` (
 -- ----------------------------
 -- Records of ospos_chat_status
 -- ----------------------------
+INSERT INTO `ospos_chat_status` VALUES ('0', 'offline');
+INSERT INTO `ospos_chat_status` VALUES ('1', 'online');
+INSERT INTO `ospos_chat_status` VALUES ('2', 'iddle');
 
 -- ----------------------------
 -- Table structure for `ospos_chat_users`
@@ -60,6 +67,10 @@ CREATE TABLE `ospos_chat_users` (
   PRIMARY KEY (`chat_id`),
   UNIQUE KEY `usr` (`user_id`,`location`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of ospos_chat_users
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `ospos_chat_user_typing`

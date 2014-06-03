@@ -69,13 +69,15 @@ function formatFriendsList(data){
 		// console.log(data);
 		switch(data.a*1){
 		case 1:
-			salida='';
+			var el,me,salida='';
 			jQ.each(data.f, function(i,item){ 
 				if(item){
-					salida+='<div id="'+item.c+'" u="'+item.u+'" status="'+item.t+'" title="'+item.t+'" class="listUserChat '+(item.c==userid?'me':'')+'">';
-					// salida+='<a href="javascript:void(0)" class="listChat" title="'+item.n+'">';
-					//salida+='<img width="20" height="20" src="'+item.p+'" />'+item.s+'<div class="'+item.t+'">&nbsp;</div></a>';
-					salida+=item.u+'</div>';
+					me=item.c==userid;
+					el='<div id="'+item.c+'" u="'+item.u+'" status="'+item.t+'" '+(me?'':'title="'+item.t+'"')+' class="listUserChat '+(me?'me':'')+'">'+item.u+'</div>';
+					if(me)
+						salida=el+salida;
+					else
+						salida+=el;
 				}
 			});
 			jQ('.chatListContainer').html(salida);
@@ -112,7 +114,7 @@ function chatWith(chatuser,chatboxname) {
 }
 
 function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
-	console.log([tmp,chatboxusr,chatboxname]);
+	//console.log([tmp,chatboxusr,chatboxname]);
 	if (jQ("#chatbox_"+chatboxusr).length > 0){
 		if (jQ("#chatbox_"+chatboxusr).css('display') == 'none'){
 			jQ("#chatbox_"+chatboxusr).css('display','block');
@@ -176,7 +178,7 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 
 var chbt;//chatheartbeat timeout var
 function chatHeartbeat(p){
-	clearTimeout(chbt);
+	if(chbt) return;
 	var itemsfound = 0;
 	if (windowFocus == false){
 		var blinkNumber = 0;
@@ -213,6 +215,7 @@ function chatHeartbeat(p){
 	var blink=jQ('#chatmsgs .chatboxblink').length>0;
 	jQ('#chat .chatConfig')[blink?'addClass':'removeClass']('chatboxblink');
 	data=null;
+	chbt=true;
 	jQ.ajax({
 		url: "index.php/chat/chatheartbeat",
 		type:'post',
@@ -220,7 +223,7 @@ function chatHeartbeat(p){
 		dataType: "json",
 		success: function(data){
 			if(data){
-				console.log(['heartbeat',data]);
+				//console.log(['heartbeat',data]);
 				jQ.each(data.items, function(i,item){
 					if (item){ // fix strange ie bug
 						chatboxusr = item.f;
@@ -269,8 +272,11 @@ function chatHeartbeat(p){
 			}
 			if(play){
 				listFriendsChat(p);
-				chbt=setTimeout('chatHeartbeat();',chatHeartbeatTime);
+				setTimeout('chatHeartbeat();',chatHeartbeatTime);
 			}
+		},
+		complete:function(){
+			chbt=false;
 		}
 	});
 }
@@ -334,7 +340,7 @@ function checkChatBoxInputKey(event,chatboxtextarea,chatboxusr,chatboxname) {
 			jQ("#chatbox_"+chatboxusr+" .chatboxcontent")
 				.append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+username+': </span><span class="chatboxmessagecontent">'+emoticons(message)+'</span></div>')
 				.scrollTop(jQ("#chatbox_"+chatboxusr+" .chatboxcontent")[0].scrollHeight);
-			console.log(message);
+			//console.log(message);
 			jQ.post("index.php/chat/sendchat", {to: chatboxusr, message: message} , function(data){
 				//falta verificar error...
 			});
@@ -393,12 +399,12 @@ function startChatSession(){
 		cache:false,
 		dataType:'json',
 		success:function(data){
-			console.log(['startchatsession',data]);
+			//console.log(['startchatsession',data]);
 			userid=data.userid;
 			username=data.username;
 			jQ.each(data.items,function(i,item){
 				if(item){//fix strange ie bug
-				console.log(item);
+				//console.log(item);
 					chatboxusr = item.f;
 					if (jQ("#chatbox_"+chatboxusr).length <= 0) {
 						createChatBox(chatboxusr,1,item.u,3);

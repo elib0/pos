@@ -83,7 +83,7 @@ $(document).ready(function() {
 			    required: true,
 			    regex:/^[a-zA-Z]+$/,
 			    minlength: 4,
-			    maxlength: 10
+			    maxlength: 15
 		    },
 		    hostname: {
 			    required: true,
@@ -94,14 +94,14 @@ $(document).ready(function() {
 			username: {
 			    required: true,
 			    minlength: 3,
-			    maxlength: 10
+			    maxlength: 15
 		    },
     		database:
 			{
 				required:true,
-			    regex:/^[a-zA-Z_]+$/,
+			    regex:/^[a-zA-Z_]+[0-9]*$/,
 				minlength: 5,
-			    maxlength: 10
+			    maxlength: 20
 			}
    		},
 		messages: 

@@ -81,7 +81,7 @@ $(document).ready(function() {
 		{
 			location: {
 			    required: true,
-			    regex:/^[a-zA-Z]+$/,
+			    regex:/^[a-zA-Z]+[0-9]*$/,
 			    minlength: 4,
 			    maxlength: 15
 		    },

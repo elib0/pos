@@ -114,6 +114,7 @@ if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['
 	$db['centralized']['swap_pre'] = '';
 	$db['centralized']['autoinit'] = FALSE;
 	$db['centralized']['stricton'] = FALSE;
+	//windows es mierda
 }
 
 //Carga grupos de db para diferentes locaciones

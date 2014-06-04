@@ -80,10 +80,10 @@ $(document).ready(function() {
 		rules: 
 		{
 			location: {
-			    required: true,
-			    regex:/^[a-zA-Z]+$/,
-			    minlength: 4,
-			    maxlength: 15
+				required: true,
+				// regex:/^\w[a-zA-Z]+$/,
+				minlength: 4,
+				maxlength: 50
 		    },
 		    hostname: {
 			    required: true,
@@ -108,7 +108,7 @@ $(document).ready(function() {
 		{
 			location: {
 			      required: "<?php echo $this->lang->line('location_location_required'); ?>",
-			      regex:"<?php echo $this->lang->line('location_location_name').' '.$this->lang->line('location_location_name').' '.$this->lang->line('location_only_letters'); ?>",
+			      // regex:"<?php echo $this->lang->line('location_location_name').' '.$this->lang->line('location_location_name').' '.$this->lang->line('location_only_letters'); ?>",
 			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
     		},
     		hostname: {

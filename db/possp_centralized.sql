@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `ospos_locations`;
 CREATE TABLE `ospos_locations` (
-  `name` varchar(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `hostname` varchar(50) NOT NULL DEFAULT 'localhost',
   `username` varchar(20) NOT NULL DEFAULT 'root',

@@ -143,3 +143,4 @@ if ($mysql->connect_error === NULL) {
 	}
 	$mysql->close();
 }
+

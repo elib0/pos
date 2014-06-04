@@ -64,11 +64,28 @@ if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['
 	$db["\144\x65\x66\141\x75\154\x74"]['swap_pre'] = '';
 	$db["\144\145\146\x61\165\154\164"]['autoinit'] = FALSE;
 	$db["\144\x65\x66\141\x75\154\x74"]['stricton'] = FALSE;
+
+	//Obligatorio para envio para chat entre locations, locations y envio de items entre tiendas
+	$db['centralized'][ "\x68\157\163\164\x6e\141\155\145"] = "\x6c\157\143\141\x6c\x68\157\x73\x74";
+	$db['centralized']["\x75\163\145\x72\156\x61\155\145"] = "\x72\157\157\164";
+	$db['centralized']["\x70\141\x73\x73\167\x6f\162\144"] = "\x72\157\157\164";
+	$db['centralized']["\144\141\164\141\142\141\163\145"] = 'possp_centralized';
+	$db['centralized']["\x64\142\144\162\x69\166\145\162"] = 'mysql';
+	$db['centralized']["\144\142\160\x72\145\146\x69\170"] = 'ospos_';
+	$db['centralized']['pconnect'] = FALSE;
+	$db['centralized']['db_debug'] = TRUE;
+	$db['centralized']['cache_on'] = FALSE;
+	$db['centralized']['cachedir'] = '';
+	$db['centralized']['char_set'] = 'utf8';
+	$db['centralized']['dbcollat'] = 'utf8_general_ci';
+	$db['centralized']['swap_pre'] = '';
+	$db['centralized']['autoinit'] = FALSE;
+	$db['centralized']['stricton'] = FALSE;
 }else{
 	$db["\144\x65\x66\141\x75\154\x74"][ "\x68\157\163\164\x6e\141\155\145"] = "\x6c\157\143\141\x6c\x68\157\x73\x74";
-	$db["\144\145\146\x61\165\154\164"]["\x75\163\145\x72\156\x61\155\145"] = 'maogcorp_possp';
-	$db["\144\x65\x66\141\x75\154\x74"]["\x70\141\x73\x73\167\x6f\162\144"] = 'possp';
-	$db["\x64\145\146\141\165\x6c\164"]["\144\141\164\141\142\141\163\145"] = 'maogcorp_possp';
+	$db["\144\145\146\x61\165\154\164"]["\x75\163\145\x72\156\x61\155\145"] = "\x6d\141\157\x67\143\157\x72\160\137\x63\145\156\164\162\141\154";
+	$db["\144\x65\x66\141\x75\154\x74"]["\x70\141\x73\x73\167\x6f\162\144"] = "\155\141\157\147\143\157\162\x70\x5f\143\145\156\164\x72\x61\154";
+	$db["\x64\145\146\141\165\x6c\164"]["\144\141\164\141\142\141\163\145"] = "\155\141\157\147\143\x6f\x72\160\137\143\145\156\164\162\141\x6c";
 	$db["\144\x65\x66\141\x75\154\x74"]["\x64\142\144\162\x69\166\145\162"] = 'mysql';
 	$db["\144\145\146\x61\165\154\164"]["\144\142\160\x72\145\146\x69\170"] = 'ospos_';
 	$db["\x64\145\146\141\165\x6c\164"]['pconnect'] = FALSE;
@@ -80,24 +97,24 @@ if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['
 	$db["\x64\145\146\141\165\x6c\164"]['swap_pre'] = '';
 	$db["\144\145\146\x61\165\154\164"]['autoinit'] = TRUE;
 	$db["\144\x65\x66\141\x75\154\x74"]['stricton'] = FALSE;
-}
 
-//Obligatorio para envio para chat entre locations, locations y envio de items entre tiendas
-$db['centralized'][ "\x68\157\163\164\x6e\141\155\145"] = "\x6c\157\143\141\x6c\x68\157\x73\x74";
-$db['centralized']["\x75\163\145\x72\156\x61\155\145"] = "\x72\157\157\164";
-$db['centralized']["\x70\141\x73\x73\167\x6f\162\144"] = "\x72\157\157\164";
-$db['centralized']["\144\141\164\141\142\141\163\145"] = 'possp_centralized';
-$db['centralized']["\x64\142\144\162\x69\166\145\162"] = 'mysql';
-$db['centralized']["\144\142\160\x72\145\146\x69\170"] = 'ospos_';
-$db['centralized']['pconnect'] = FALSE;
-$db['centralized']['db_debug'] = TRUE;
-$db['centralized']['cache_on'] = FALSE;
-$db['centralized']['cachedir'] = '';
-$db['centralized']['char_set'] = 'utf8';
-$db['centralized']['dbcollat'] = 'utf8_general_ci';
-$db['centralized']['swap_pre'] = '';
-$db['centralized']['autoinit'] = FALSE;
-$db['centralized']['stricton'] = FALSE;
+	//Obligatorio para envio para chat entre locations, locations y envio de items entre tiendas
+	$db['centralized'][ "\x68\157\163\164\x6e\141\155\145"] = "\x6c\157\143\141\x6c\x68\157\x73\x74";
+	$db['centralized']["\x75\163\145\x72\156\x61\155\145"] = "\155\141\157\147\143\157\162\x70\x5f\143\145\156\164\x72\x61\154";
+	$db['centralized']["\x70\141\x73\x73\167\x6f\162\144"] = "\155\141\157\147\143\x6f\x72\160\137\143\145\156\164\162\141\x6c";
+	$db['centralized']["\144\141\164\141\142\141\163\145"] = 'possp_centralized';
+	$db['centralized']["\x64\142\144\162\x69\166\145\162"] = 'mysql';
+	$db['centralized']["\144\142\160\x72\145\146\x69\170"] = 'ospos_';
+	$db['centralized']['pconnect'] = FALSE;
+	$db['centralized']['db_debug'] = TRUE;
+	$db['centralized']['cache_on'] = FALSE;
+	$db['centralized']['cachedir'] = '';
+	$db['centralized']['char_set'] = 'utf8';
+	$db['centralized']['dbcollat'] = 'utf8_general_ci';
+	$db['centralized']['swap_pre'] = '';
+	$db['centralized']['autoinit'] = FALSE;
+	$db['centralized']['stricton'] = FALSE;
+}
 
 //Carga grupos de db para diferentes locaciones
 @$mysql = new mysqli($db['centralized'][ "\x68\157\163\164\x6e\141\155\145"], $db['centralized']["\x75\163\145\x72\156\x61\155\145"], $db['centralized']["\x70\141\x73\x73\167\x6f\162\144"], $db['centralized']["\144\141\164\141\142\141\163\145"]);

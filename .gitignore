@@ -7,3 +7,4 @@
 file-bakups/*.sql
 
 
+application/config/database.php-tmp

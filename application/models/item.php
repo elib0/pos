@@ -9,11 +9,12 @@ class Item extends CI_Model
         $this->load->database();
         //Seleccion de DB
         // $this->session->set_userdata(array('dblocation'=>'other'));
-        $db = $this->session->userdata('items_location');
-        if($db)
+        $db = ($this->session->userdata('items_location')) ? $this->session->userdata('items_location') :$this->session->userdata('dblocation') ;
+        if($db){
             $this->con = $this->load->database($db, true);
-        else
+        }else{
             $this->con = $this->db;
+        }
     }
 	/*
 	Determines if a given item_id is an item

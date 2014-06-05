@@ -4,6 +4,8 @@
 */cache/*
 */cache/!index.html
 
+sftp-config.json
+
 file-bakups/*.sql
 
 

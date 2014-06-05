@@ -323,6 +323,7 @@ class Employees extends Person_controller
 		$url = $this->uri->segment(1);
 		// echo urldecode($location);
 		$this->session->set_userdata('dblocation', $location);
+		$this->session->unset_userdata('items_location');
 		redirect($url);
 	}
 	function uploadImagen_photo($id,$e){

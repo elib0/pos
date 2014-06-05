@@ -310,9 +310,18 @@ class Employees extends Person_controller
 		}
 	}
 
-	function set_location($location='default'){
-		$location = strtolower($location);
+	// function set_location($location='default'){
+	// 	$location = strtolower($location);
+	// 	$url = $this->uri->segment(1);
+	// 	// echo urldecode($location);
+	// 	$this->session->set_userdata('dblocation', urldecode($location));
+	// 	redirect($url);
+	// }
+	function set_location(){
+		$location = $this->input->get_post('location');
+		// echo $location;
 		$url = $this->uri->segment(1);
+		// echo urldecode($location);
 		$this->session->set_userdata('dblocation', $location);
 		redirect($url);
 	}

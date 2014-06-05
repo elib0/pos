@@ -127,13 +127,18 @@ html{
 			<span>User:</span><?=' '.$user_info->first_name.' '.$user_info->last_name; ?>
 		</nav>
 		<nav id="menu_location" class="alternative-menu">
+			<form action="index.php/employees/set_location" method="POST" id="form-location">
+				<input type="hidden" value="" name="location"/>
+			</form>
 			<span>
-				<?php echo '<span>Location: </span>'.$this->session->userdata('dblocation');
+				<?php echo '<span>Location: </span>'.ucwords($this->session->userdata('dblocation'));
 				if ($this->Employee->isAdmin()){ ?>
 				<ul>
 					<?php 
-					foreach($dbs as $db){ ?>
-					<li><?=anchor("employees/set_location/".$db,$db)?></li>
+					foreach($dbs as $key => $db){ ?>
+					<li>
+						<?=anchor('#',$db, 'data-url="'.str_replace('"', '\"', $key).'"')?>
+					</li>
 					<?php } ?>
 				</ul>
 				<?php } ?>
@@ -164,6 +169,14 @@ html{
 <div id="content_area">
 <?php $hoy = date('Y-m-d'); ?>
 <script>
+(function($){
+	$('#menu_location').on('click','ul li a',function(event) {
+		var a = this;
+		$('#form-location > input').attr('value', a.dataset.url);
+		$('#form-location').submit();
+		return false;
+	});
+})(jQueryNew);
 (function($){
 	function mostrarHora(){
 		var hoy=new Date();

@@ -97,13 +97,23 @@ class Transfers extends CI_Model
     public function transfers_receivable($acum='receiver'){
         $tranfer_table = $this->con->dbprefix('transfers');
         $tranfer_item_table = $this->con->dbprefix('transfer_items');
-        $query = "SELECT $tranfer_table.transfer_id AS receiving_id,$tranfer_table.date AS receiving_date,COUNT($tranfer_item_table.id) AS items_purchased,$tranfer_table.receiver AS supplier_name,
+        $this->con->select("$tranfer_table.transfer_id AS receiving_id,$tranfer_table.date AS receiving_date,COUNT($tranfer_item_table.id) AS items_purchased,$tranfer_table.receiver AS supplier_name,
             SUM($tranfer_item_table.item_unit_price*$tranfer_item_table.quantity_purchased) AS total,
-            $tranfer_table.payment_type AS payment_type 
-        FROM $tranfer_table 
-        JOIN $tranfer_item_table ON $tranfer_table.transfer_id = $tranfer_item_table.transfer_id
-        WHERE $tranfer_table.$acum = '".$this->session->userdata('dblocation')."' GROUP BY ospos_transfers.transfer_id;";
-        $result = $this->con->query($query);
+            $tranfer_table.payment_type AS payment_type ");
+        $this->con->from($tranfer_table);
+        $this->con->join($tranfer_item_table, "$tranfer_table.transfer_id = $tranfer_item_table.transfer_id");
+        $this->con->where($tranfer_table.'.'.$acum, $this->session->userdata('dblocation'));
+        $this->con->group_by('ospos_transfers.transfer_id');
+        $result = $this->con->get();
+
+        // $query = "SELECT $tranfer_table.transfer_id AS receiving_id,$tranfer_table.date AS receiving_date,COUNT($tranfer_item_table.id) AS items_purchased,$tranfer_table.receiver AS supplier_name,
+        //     SUM($tranfer_item_table.item_unit_price*$tranfer_item_table.quantity_purchased) AS total,
+        //     $tranfer_table.payment_type AS payment_type 
+        // FROM $tranfer_table 
+        // JOIN $tranfer_item_table ON $tranfer_table.transfer_id = $tranfer_item_table.transfer_id
+        // WHERE $tranfer_table.$acum = '".$this->session->userdata('dblocation')."' GROUP BY ospos_transfers.transfer_id;";
+        // $result = $this->con->query($query);
+
         if ($result->num_rows() > 0)  {
             return $result->result_array();
         }

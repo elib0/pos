@@ -71,13 +71,13 @@ $(document).ready(function()
 		
 		if ($("#simple_radio").attr('checked'))
 		{
-			window.location = window.location+'/'+$("#report_date_range_simple option:selected").val() + '/' + sale_type+'/'+$('#locationbd').val();
+			window.location = window.location+'/'+$("#report_date_range_simple option:selected").val() + '/' + sale_type+'?loc='+$('#locationbd').val().replace('&','%26');
 		}
 		else
 		{
 			var start_date = $("#start_year").val()+'-'+$("#start_month").val()+'-'+$('#start_day').val();
 			var end_date = $("#end_year").val()+'-'+$("#end_month").val()+'-'+$('#end_day').val();
-			window.location = window.location+'/'+start_date + '/'+ end_date+ '/' + sale_type+'/'+$('#locationbd').val();
+			window.location = window.location+'/'+start_date + '/'+ end_date+ '/' + sale_type+'?loc='+$('#locationbd').val().replace('&','%26');
 		}
 	});
 	

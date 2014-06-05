@@ -125,7 +125,7 @@ if(preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['
 	//$db['default']['username'] = 'maogcorp_central';
 	//$db['default']['password'] = 'ospos';
 	//$db['default']['database'] = 'maogcorp_central';
-	
+
 }
 
 //Carga grupos de db para diferentes locaciones
@@ -153,4 +153,3 @@ if ($mysql->connect_error === NULL) {
 	}
 	$mysql->close();
 }
-

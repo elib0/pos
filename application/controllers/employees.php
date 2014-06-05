@@ -318,12 +318,14 @@ class Employees extends Person_controller
 	// 	redirect($url);
 	// }
 	function set_location(){
+		$this->load->library('sale_lib');
 		$location = $this->input->get_post('location');
 		// echo $location;
 		$url = $this->uri->segment(1);
 		// echo urldecode($location);
 		$this->session->set_userdata('dblocation', $location);
-		$this->session->unset_userdata('items_location');
+		$this->session->unset_userdata('items_location'); //Locacion secundaria en items
+		$this->sale_lib->clear_all();					  //Borra ventas en sesion no terminadas
 		redirect($url);
 	}
 	function uploadImagen_photo($id,$e){

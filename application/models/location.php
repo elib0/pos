@@ -110,8 +110,8 @@ class Location extends CI_Model {
 									}
 								}
 								//Stock en 0
-								//mysql_query('UPDATE ospos_items SET `quantity` = 0, `deleted` = 0, broken_quantity = 0;',$conn);
-								mysql_query('TRUNCATE TABLE ospos_items',$conn);
+								mysql_query('UPDATE ospos_items SET `quantity` = 0, `deleted` = 0, broken_quantity = 0;',$conn);
+								// mysql_query('TRUNCATE TABLE ospos_items',$conn);
 
 								//Limpieza de empleados
 								mysql_query('DELETE FROM ospos_people WHERE person_id != 1;',$conn);

@@ -1,6 +1,4 @@
 <?php echo form_open('home/confirm_user',array('id' =>'form-back')) ?>
-<?php echo $title.'<br>'; ?>
-<?php echo $url ?>
 <div>
 	<div id="login_form">
 		<div class="field_row clearfix" style="margin: 0 0 5px 0">

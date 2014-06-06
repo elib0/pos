@@ -225,7 +225,15 @@ function get_item_data_row($item,$controller)
 	if($item->is_service){
 		$table_data_row .= '<td width="10%"></td>';
 	}else{
-		$table_data_row.='<td width="10%">'.anchor($controller_name."/inventory/$item->item_id/width:$width", $CI->lang->line('common_inv'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_count')));
+		if ($CI->Employee->isAdmin()){
+			// $table_data_row.= '<td width="10%">'.anchor("backup/index/width:350/height:180",
+			// "<div class='big_button' style='padding: 8px 25px;margin-right: 10px;'><span>".$CI->lang->line('config_backup')."</span></div>",
+			// array('class'=>'thickbox small_button','title'=>$CI->lang->line('config_backup'))).'</td>';
+
+			//$table_data_row.='<td width="10%">'.anchor($controller_name."/inventory/$item->item_id/width:$width", $CI->lang->line('common_inv'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_count')));
+			$table_data_row.='<td width="10%">'.anchor('home/confirm_user/'.$controller_name."-inventory-$item->item_id/".$CI->lang->line($controller_name.'_count')."/660/465/".'width:350/height:180', $CI->lang->line('common_inv'),array('id'=>'confirm-user','class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_count')));
+		}
+		
 	}
 
 	$table_data_row.='</tr>';

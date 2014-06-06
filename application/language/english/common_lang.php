@@ -47,4 +47,6 @@ $lang['common_logo']='Logo';
 $lang['common_logo_dimensiones']='The image will be resized to <span class="width_label_photo">240</span>px width and <span class="height_label_photo">120</span>px height and weigh no more than 4MB.'; 
 $lang['common_image_faild']='This is not a valid image file. Please try again';
 $lang['config_alert_after_sale']='Confirmation message after sale';
+$lang['common_wrong_password']='Wrong Password, try Again!';
+
 ?>

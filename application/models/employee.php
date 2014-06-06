@@ -407,20 +407,34 @@ class Employee extends Person
 		$this->db->query("SET time_zone='$offset'");
 
 		$this->con->from('employees');
-		$this->con->join('schedules','employees.person_id=schedules.person_id');
+		// $this->con->join('schedules','employees.person_id=schedules.person_id');
 		$this->con->where( array('employees.username' => $username,'employees.password'=>md5($password)) );
 		$this->con->where( 'employees.deleted', 0 );
-		$this->con->where( array('schedules.day'=>date('l')) ); //Verifica que trabaje ese dia
-		$this->con->where( 'CURTIME() BETWEEN ospos_schedules.in AND ospos_schedules.out' ); //Verifica que este en su horario
+		// $this->con->where( array('schedules.day'=>date('l')) ); //Verifica que trabaje ese dia
+		// $this->con->where( 'CURTIME() BETWEEN ospos_schedules.in AND ospos_schedules.out' ); //Verifica que este en su horario
 		$employee = $this->con->get();
 
 		if ($employee->num_rows() ==1)
 		{
 			$row=$employee->row();
-			if ($this->can_work($row->person_id)) {
-				$this->session->set_userdata('person_id', $row->person_id);
-				return true;
+
+			$this->db->select('schedule_id');
+			$this->db->from('schedules');
+			$this->db->where('person_id', $row->person_id);
+			$this->db->where(array('day'=>date('l')));
+			$this->db->where('CURTIME() BETWEEN '.$this->con->dbprefix('schedules').'.in AND '.$this->con->dbprefix('schedules').'.out');
+			$this->db->limit(1);
+			$schedule = $this->db->get();
+
+			if ($schedule->num_rows() == 1) {
+				if ($this->can_work($row->person_id)) {
+					$this->session->set_userdata('person_id', $row->person_id);
+					return true;
+				}
+			}else{
+				return 0;
 			}
+			
 		}
 		return false;
 	}

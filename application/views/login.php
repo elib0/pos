@@ -27,7 +27,7 @@ $dbs = $this->Location->get_select_option_list(false, true);
 </div>
 
 <div class="box-login">
-	<?=form_open('login')?>
+	<?=form_open('login',array('id'=>'form_login'))?>
 	<div  class="box-title clearfix">
 		<?=(trim(validation_errors())!='')?validation_errors():'Welcome to Fast i repair System. To continue, please login using your username and password below.'?>
 	</div>
@@ -87,10 +87,9 @@ $dbs = $this->Location->get_select_option_list(false, true);
 	var select=$('select[name="locationbd"]')[0];
 	select.value=$.local('last_db');
 	if(select.value=='') select.selectedIndex=0;
-	$('[name="loginButton"]').click(function(){
+	$('#form_login').submit(function(){
 		$.local('last_db',select.value);
-	});
-	$("#login_form input:first").focus();
+	}).find("input:first").focus();
 })(jQueryNew);
 </script>
 </body>

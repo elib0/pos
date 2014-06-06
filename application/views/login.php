@@ -61,8 +61,8 @@ $dbs = $this->Location->get_select_option_list(false, true);
 					'name'=>'password',
 					'size'=>'20',
 					'placeholder'=>$this->lang->line('login_password'),
-				));
-			?></td>
+				))?>
+			</td>
 			</tr>
 			<tr>
 				<td colspan="2" height="1"></td>

@@ -43,7 +43,7 @@ function chat_init(data){
 	jQ('body>#chat').on('click','.listUserChat',function(){
 		if(this.id!=userid){
 			var chatbox=createChatBox(this.id,0,this.dataset.name,1);
-			jQ("textarea",chatbox).focus();			
+			jQ('textarea',chatbox).focus();			
 		}
 	}).on('keyup','#chatmsgs textarea',function(event){
 		checkChatBoxInputKey.call(this,event);
@@ -61,18 +61,18 @@ function chat_init(data){
 		jQ('textarea',chatbox).val('');
 		restructureChatBoxes();
 		typing[chatboxusr]=false;
-		jQ.post(chatcontrol+'stoptyping',{to: chatboxusr} );
-		jQ.post(chatcontrol+'closechat',{ chatbox: chatboxusr},function(data){	});
+		jQ.post(chatcontrol+'stoptyping',{to:chatboxusr});
+		jQ.post(chatcontrol+'closechat',{chatbox:chatboxusr},function(data){});
 	});
 	originalTitle=document.title;
 	jQ('#hideChat,#showChat').click(function(){
-		var visible=jQ('#hideChat').is(":visible");
+		var visible=jQ('#hideChat').is(':visible');
 		jQ('.chatListContainer')[visible?'slideUp':'slideDown']();
 		jQ('#showChat,#hideChat').toggle();
 	});
 	jQ('#enable,#disable').click(function(){
 		showChat(this.id);
-		// changeStatus(this.id,this);
+		//changeStatus(this.id,this);
 	});
 	jQ([window,document]).blur(function(){
 		windowFocus=false;
@@ -105,9 +105,9 @@ function startChatSession(){
 						item.u=username;
 					}
 					if(item.s==2){
-						jQ(".chatboxcontent",chatbox).append('<div class="chatboxmessage"><span class="chatboxinfo">'+emoticons(item.m)+'</span></div>');
+						jQ('.chatboxcontent',chatbox).append('<div class="chatboxmessage"><span class="chatboxinfo">'+emoticons(item.m)+'</span></div>');
 					}else{
-						jQ(".chatboxcontent",chatbox).append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+item.u+':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'+emoticons(item.m)+'</span></div>');
+						jQ('.chatboxcontent',chatbox).append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+item.u+':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'+emoticons(item.m)+'</span></div>');
 					}
 				}
 			});
@@ -126,27 +126,27 @@ function startChatSession(){
 function checkChatBoxInputKey(event){
 	if(this.value!=''&&!typing[this.id]){
 		typing[this.id]=true;
-		jQ.post(chatcontrol+'starttyping',{to: this.id} );
+		jQ.post(chatcontrol+'starttyping',{to:this.id});
 	}
 	if(this.value==''&&typing[this.id]){
 		typing[this.id]=false;
-		jQ.post(chatcontrol+'stoptyping',{to: this.id} );
+		jQ.post(chatcontrol+'stoptyping',{to:this.id});
 	}
-	if(event.keyCode==13 && event.shiftKey==0){
+	if(event.keyCode==13&&event.shiftKey==0){
 		message=this.value;
 		message=message.replace(/^\s+|\s+$/g,"");
 		this.value='';
 		jQ(this).focus().css('height','44px');
-		if(message!=''){ 
+		if(message!=''){
 			typing[this.id]=false;
-			jQ.post(chatcontrol+'stoptyping',{to: this.id} );
-			// message=message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&apos;");
+			jQ.post(chatcontrol+'stoptyping',{to:this.id});
+			//message=message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&apos;");
 			message=linkify(message);
 			var content=jQ(this).parents('.chatbox').find('.chatboxcontent');
 			content.append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+username+': </span><span class="chatboxmessagecontent">'+emoticons(message)+'</span></div>')
 				.scrollTop(content[0].scrollHeight);
 			//console.log(message);
-			jQ.post(chatcontrol+'sendchat',{to: this.id,message: message},function(data){
+			jQ.post(chatcontrol+'sendchat',{to:this.id,message:message},function(data){
 				//falta verificar error...
 			});
 		}
@@ -156,13 +156,13 @@ function checkChatBoxInputKey(event){
 	}
 	var adjustedHeight=this.clientHeight;
 	var maxHeight=94;
-	if(maxHeight > adjustedHeight){
+	if(maxHeight>adjustedHeight){
 		adjustedHeight=Math.max(this.scrollHeight,adjustedHeight);
 		if(maxHeight)
 			adjustedHeight=Math.min(maxHeight,adjustedHeight);
 		if(adjustedHeight > this.clientHeight)
-			jQ(this).css('height',adjustedHeight+8 +'px');
-	} else{
+			jQ(this).css('height',adjustedHeight+8+'px');
+	}else{
 		jQ(this).css('overflow','auto');
 	}
 }
@@ -184,21 +184,21 @@ function showChat(enable){
 		jQ('#chatmsgs').fadeIn();
 		jQ('#chat #disable,#hideChat').show();
 		jQ('#chat #enable,#showChat').hide(); 
-		// play=true;
-		// startChatSession();
+		//play=true;
+		//startChatSession();
 	}else{
 		jQ('.chatListContainer').slideUp();
 		jQ('#chatmsgs').fadeOut();
 		jQ('#chat #enable').show();
 		jQ('#chat #disable,#showChat,#hideChat').hide();
-		// play=false;
+		//play=false;
 	}
 }
 
 var chbt;//chatheartbeat timeout var
 function chatHeartbeat(p){
 	if(chbt) return;
-	var itemsfound=0;
+	var itemsfound=0,x;
 	if(windowFocus==false){
 		var blinkNumber=0;
 		var titleChanged=0;
@@ -215,10 +215,10 @@ function chatHeartbeat(p){
 		if(titleChanged==0){
 			document.title=originalTitle;
 			blinkOrder=0;
-		} else{
+		}else{
 			++blinkOrder;
 		}
-	} else{
+	}else{
 		for(x in newMessagesWin){
 			newMessagesWin[x]=false;
 		}
@@ -236,16 +236,16 @@ function chatHeartbeat(p){
 	data=null;
 	chbt=true;
 	chat_ajax({
-		url: chatcontrol+'chatheartbeat',
+		url:chatcontrol+'chatheartbeat',
 		type:'post',
-		cache: false,
-		dataType: "json",
-		success: function(data){
+		cache:false,
+		dataType:"json",
+		success:function(data){
 			if(data){
 				var chatbox=jQ('.chatbox#'+item.f);
 				//console.log(['heartbeat',data]);
 				jQ.each(data.items,function(i,item){
-					if(item){ // fix strange ie bug
+					if(item){//fix strange ie bug
 						chatboxusr=item.f;
 						if(chatbox.length<=0){	
 							chatbox=createChatBox(item.f,0,item.u,2);
@@ -259,13 +259,13 @@ function chatHeartbeat(p){
 							item.u=username;
 						}
 						if(item.s==2){
-							jQ(".chatboxcontent",chatbox).append('<div class="chatboxmessage"><span class="chatboxinfo">'+emoticons(item.m)+'</span></div>');
-						} else{
+							jQ('.chatboxcontent',chatbox).append('<div class="chatboxmessage"><span class="chatboxinfo">'+emoticons(item.m)+'</span></div>');
+						}else{
 							newMessages[item.f]=true;
 							newMessagesWin[item.f]=true;
-							jQ(".chatboxcontent",chatbox).append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+item.u+':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'+emoticons(item.m)+'</span></div>');
+							jQ('.chatboxcontent',chatbox).append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+item.u+':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'+emoticons(item.m)+'</span></div>');
 						}
-						jQ(".chatboxcontent",chatbox).scrollTop(jQ(".chatboxcontent",chatbox)[0].scrollHeight);
+						jQ('.chatboxcontent',chatbox).scrollTop(jQ('.chatboxcontent',chatbox)[0].scrollHeight);
 						itemsfound+=1;
 					}
 				});
@@ -315,13 +315,13 @@ function listFriendsChat(p){
 		cache:false,
 		type:'post',
 		data:{'update':p},
-		success: function(data){
+		success:function(data){
 			if(data!=null){
 				// console.log(data);
 				switch(data.a*1){
 				case 1:
 					var el,me,salida='';
-					jQ.each(data.f,function(i,item){ 
+					jQ.each(data.f,function(i,item){
 						if(item){
 							me=item.c==userid;
 							el='<div id="'+item.c+'" data-name="'+item.u+'" data-status="'+item.t+'" '+(me?'':'title="'+item.t+'"')+' class="listUserChat '+(me?'me':'')+'">'+item.u+'</div>';
@@ -333,7 +333,7 @@ function listFriendsChat(p){
 					});
 					jQ('.chatListContainer').html(salida);
 				break;
-				case 2: 
+				case 2:
 					//execute code block 2
 				break;
 				default:
@@ -350,12 +350,12 @@ function listFriendsChat(p){
 
 function restructureChatBoxes(){
 	align=0;
-	for(x in chatBoxes){
+	for(var x in chatBoxes){
 		chatbox=jQ(chatBoxes[x]);
 		if(chatbox.css('display')!='none'){
 			if(align==0){
 				chatbox.css('right',chatpos+'px');
-			} else{
+			}else{
 				width=(align)*(225+7)+chatpos;
 				chatbox.css('right',width+'px');
 			}
@@ -372,11 +372,11 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 			chatbox.css('display','block');
 			restructureChatBoxes();
 		}
-		jQ("textarea",chatbox).focus();
+		jQ('textarea',chatbox).focus();
 		return chatbox;
 	}
 	typing[chatboxusr]=false;
-	chatbox=jQ("<div/>" ).addClass("chatbox").attr("id",chatboxusr)
+	chatbox=jQ('<div/>' ).addClass('chatbox').attr('id',chatboxusr)
 	.html('<div class="chatboxhead"><div class="chatboxtitle">'+chatboxname+'</div><div class="minimize"></div><div class="chatboxoptions"> <a id="close" href="javascript:void(0)">X</a></div><br clear="all"/></div><div class="chatboxcontent"></div><div class="typing">'+chatboxname+' is typing...</div><div class="chatboxinput"><textarea id="'+chatboxusr+'" data-name="'+chatboxname+'" class="chatboxtextarea"></textarea></div>')
 	.appendTo('#chatmsgs');
 	chatbox.css('bottom','0px');
@@ -388,7 +388,7 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 	}
 	if(chatBoxeslength==0){
 		chatbox.css('right',chatpos+'px');
-	} else{
+	}else{
 		width=(chatBoxeslength)*(225+7)+chatpos;
 		chatbox.css('right',width+'px');
 	}
@@ -423,7 +423,7 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 }
 
 function toggleChatBoxGrowth(chatboxusr){
-	var chatbox=jQ(".chatbox#"+chatboxusr);
+	var chatbox=jQ('.chatbox#'+chatboxusr);
 	if(jQ('.chatboxcontent',chatbox).css('display')=='none'){  
 		var minimizedChatBoxes=new Array();
 		if(jQ.local('chatbox_minimized')){
@@ -439,7 +439,7 @@ function toggleChatBoxGrowth(chatboxusr){
 		jQ.local('chatbox_minimized',newLocal);
 		jQ('.chatboxcontent,.chatboxinput',chatbox).css('display','block');
 		jQ('.chatboxcontent',chatbox).scrollTop(jQ('.chatboxcontent',chatbox)[0].scrollHeight);
-	} else{
+	}else{
 		var newLocal=chatboxusr;
 		if(jQ.local('chatbox_minimized')){
 			newLocal+='|'+jQ.local('chatbox_minimized');
@@ -450,31 +450,31 @@ function toggleChatBoxGrowth(chatboxusr){
 }
 
 function linkify(text){
-    var inputText=text;//el.html();
-    //URLs starting with http://,https://,or ftp://
-    var replacePattern1=/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-    var replacedText=inputText.replace(replacePattern1,"<a href=$1 target=_blank>$1</a>");
-    //URLs starting with www. (without // before it,or it'd re-link the ones done above)
-    var replacePattern2=/(^|[^\/])(www\.[\S]+(\b|$))/gim;
-    replacedText=replacedText.replace(replacePattern2,"$1<a href=http://$2 target=_blank>$2</a>");
-    //Change email addresses to mailto:: links
-    var replacePattern3=/(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})/gim;
-    replacedText=replacedText.replace(replacePattern3,"<a href=mailto:$1>$1</a>");
+	var inputText=text;//el.html();
+	//URLs starting with http://,https://,or ftp://
+	var replacePattern1=/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+	var replacedText=inputText.replace(replacePattern1,"<a href=$1 target=_blank>$1</a>");
+	//URLs starting with www. (without // before it,or it'd re-link the ones done above)
+	var replacePattern2=/(^|[^\/])(www\.[\S]+(\b|$))/gim;
+	replacedText=replacedText.replace(replacePattern2,"$1<a href=http://$2 target=_blank>$2</a>");
+	//Change email addresses to mailto:: links
+	var replacePattern3=/(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})/gim;
+	replacedText=replacedText.replace(replacePattern3,"<a href=mailto:$1>$1</a>");
 	var replacePattern4=/(^|[^\/])(.*\.(net$|com$|org$))/gim;
-    replacedText=replacedText.replace(replacePattern4,"$1<a href=http://$2 target=_blank>$2</a>");
-    return replacedText;//el.html(replacedText);
+	replacedText=replacedText.replace(replacePattern4,"$1<a href=http://$2 target=_blank>$2</a>");
+	return replacedText;//el.html(replacedText);
 }
 
 function emoticons(text){
-    var inputText=text;
-    inputText=inputText.replace(/:-?\)/gim,		'<div class="em smile"></div>');
+	var inputText=text;
+	inputText=inputText.replace(/:-?\)/gim,		'<div class="em smile"></div>');
 	inputText=inputText.replace(/:-?D/gim,		'<div class="em bigSmile"></div>');
 	inputText=inputText.replace(/:-?\(/gim,		'<div class="em sad"></div>');
 	inputText=inputText.replace(/:-?P/gim,		'<div class="em tongeOut"></div>');
 	inputText=inputText.replace(/;-?\)/gim,		'<div class="em wink"></div>');
 	inputText=inputText.replace(/:-?o/gim,		'<div class="em surprise"></div>');
 	inputText=inputText.replace(/:-?s/gim,		'<div class="em sick"></div>');
-	inputText=inputText.replace(/:'-?\(/gim,		'<div class="em crying"></div>');
+	inputText=inputText.replace(/:'-?\(/gim,	'<div class="em crying"></div>');
 	inputText=inputText.replace(/8-?\)/gim,		'<div class="em glasses"></div>');
 	return inputText;
 }

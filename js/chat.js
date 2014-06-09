@@ -55,7 +55,7 @@ function chat_init(data){
 		toggleChatBoxGrowth(jQ(this).parents('.chatbox')[0].id);
 	}).on('click','.chatboxoptions #close',function(){
 		var chatbox=jQ(this).parents('.chatbox'),
-			chatboxusr=this.id;
+			chatboxusr=chatbox[0].id;
 		chatbox.css('display','none');
 		//chatbox.remove();
 		jQ('textarea',chatbox).val('');

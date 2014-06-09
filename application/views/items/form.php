@@ -108,19 +108,14 @@
 		</div>
 	</div>
 	<div class="field_row clearfix">
-		<div style="width: 210px; float: left">
+		<!-- <div style="width: 210px; float: left">
 			<div class="field_row clearfix">
-				<?php echo form_label($this->lang->line('items_quantity').':', 'quantity',array('class'=>'lable-form-required')); ?>
+				<?php //echo form_label($this->lang->line('items_quantity').':', 'quantity',array('class'=>'lable-form-required')); ?>
 				<div>
-				<?php echo form_input(array(
-					'name'=>'quantity',
-					'id'=>'quantity',
-					'value'=>$item_info->quantity,
-					'class'=>'text_box'
-				));?>
+				<?php //echo form_input(array('name'=>'quantity','id'=>'quantity','value'=>$item_info->quantity,'class'=>'text_box'));?>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('items_reorder_level').':', 'reorder_level',array('class'=>'lable-form-required')); ?>

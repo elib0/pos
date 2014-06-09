@@ -194,7 +194,7 @@ class Items extends Secure_area implements iData_controller
 		'cost_price'=>$this->input->post('cost_price'),
 		'unit_price'=>$this->input->post('unit_price'),
 		'is_service'=>$this->input->post('is_service')?1:0,
-		'quantity'=>$this->input->post('is_service')?0:$this->input->post('quantity'),
+		//'quantity'=>$this->input->post('is_service')?0:$this->input->post('quantity'),
 		'reorder_level'=>$this->input->post('is_service')?0:$this->input->post('reorder_level'),
 		'location'=>$this->input->post('location'),
 		'allow_alt_description'=>$this->input->post('allow_alt_description'),

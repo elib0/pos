@@ -54,7 +54,7 @@ class Login extends CI_Controller
 		{
 			if ($response === 0) {//Mensaje En caso de estar fuera de horario
 				$this->form_validation->set_message('login_check', $this->lang->line('login_invalid_time'));
-			}else{//Mensaje en caso de datos invalidos
+			}elseif(!$response){//Mensaje en caso de datos invalidos
 				$this->form_validation->set_message('login_check', $this->lang->line('login_invalid_username_and_password'));
 			}
 			return false;

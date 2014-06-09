@@ -42,16 +42,25 @@ function chat_init(data){
 	startChatSession();
 	jQ('body>#chat').on('click','.listUserChat',function(){
 		if(this.id!=userid){
-			createChatBox(this.id,0,this.dataset.name,1);
-			jQ("#chatbox_"+this.id+" .chatboxtextarea").focus();			
+			var chatbox=createChatBox(this.id,0,this.dataset.name,1);
+			jQ("textarea",chatbox).focus();			
 		}
-		//chatWith(this.id,this.dataset.name);
 	}).on('keyup','#chatmsgs textarea',function(event){
 		checkChatBoxInputKey.call(this,event);
 	}).on('click','.chatbox',function(){
 		if(jQ('.chatboxcontent',this).is(':visible')){
 			jQ('textarea',this).focus();
 		}
+	}).on('click','.chatboxoptions #close',function(){
+		var chatbox=jQ(this).parents('.chatbox'),
+			chatboxusr=this.dataset.id;
+		chatbox.css('display','none');
+		//chatbox.remove();
+		jQ('textarea',chatbox).val('');
+		restructureChatBoxes();
+		typing[chatboxusr]=false;
+		jQ.post(chatcontrol+'stoptyping', {to: chatboxusr} );
+		jQ.post(chatcontrol+'closechat', { chatbox: chatboxusr} , function(data){	});
 	});
 	originalTitle = document.title;
 	jQ('#hideChat,#showChat').click(function(){
@@ -80,30 +89,32 @@ function startChatSession(){
 		dataType:'json',
 		success:function(data){
 			//console.log(['startchatsession',data]);
+			var chatbox,content;
 			userid=data.userid;
 			username=data.username;
 			jQ.each(data.items,function(i,item){
 				if(item){//fix strange ie bug
-				//console.log(item);
-					chatboxusr = item.f;
-					if (jQ("#chatbox_"+chatboxusr).length <= 0) {
-						createChatBox(chatboxusr,1,item.u,3);
+					chatbox=jQ('.chatbox[data-id='+item.f+']');
+					if(chatbox.length <= 0) {
+						chatbox=createChatBox(item.f,1,item.u,3);
 					}
-					if (item.s == 1) {
+					if(item.s == 1) {
 						item.f = userid;
 						item.u = username;
 					}
-					if (item.s == 2) {
-						jQ("#chatbox_"+chatboxusr+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxinfo">'+emoticons(item.m)+'</span></div>');
+					if(item.s == 2) {
+						jQ(".chatboxcontent",chatbox).append('<div class="chatboxmessage"><span class="chatboxinfo">'+emoticons(item.m)+'</span></div>');
 					}else{
-						jQ("#chatbox_"+chatboxusr+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+item.u+':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'+emoticons(item.m)+'</span></div>');
+						jQ(".chatboxcontent",chatbox).append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+item.u+':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'+emoticons(item.m)+'</span></div>');
 					}
 				}
 			});
 			for(i=0;i<chatBoxes.length;i++){
-				chatboxusr = chatBoxes[i];
-				jQ("#chatbox_"+chatboxusr+" .chatboxcontent").scrollTop(jQ("#chatbox_"+chatboxusr+" .chatboxcontent")[0].scrollHeight);
-				setTimeout('jQ("#chatbox_"+chatboxusr+" .chatboxcontent").scrollTop(jQ("#chatbox_"+chatboxusr+" .chatboxcontent")[0].scrollHeight);', 100); // yet another strange ie bug
+				content = jQ('.chatboxcontent',chatBoxes[i]);
+				content.scrollTop(content[0].scrollHeight);
+				setTimeout(function(){
+					content.scrollTop(content[0].scrollHeight);
+				},100);//yet another strange ie bug
 			}
 			chatHeartbeat(1);
 		}
@@ -124,7 +135,7 @@ function checkChatBoxInputKey(event){
 		message = message.replace(/^\s+|\s+$/g,"");
 		this.value='';
 		jQ(this).focus().css('height','44px');
-		if (message != '') { 
+		if(message != '') { 
 			typing[this.id]=false;
 			jQ.post(chatcontrol+'stoptyping', {to: this.id} );
 			// message=message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&apos;");
@@ -143,11 +154,11 @@ function checkChatBoxInputKey(event){
 	}
 	var adjustedHeight = this.clientHeight;
 	var maxHeight = 94;
-	if (maxHeight > adjustedHeight) {
+	if(maxHeight > adjustedHeight) {
 		adjustedHeight = Math.max(this.scrollHeight, adjustedHeight);
-		if (maxHeight)
+		if(maxHeight)
 			adjustedHeight = Math.min(maxHeight, adjustedHeight);
-		if (adjustedHeight > this.clientHeight)
+		if(adjustedHeight > this.clientHeight)
 			jQ(this).css('height',adjustedHeight+8 +'px');
 	} else {
 		jQ(this).css('overflow','auto');
@@ -186,20 +197,20 @@ var chbt;//chatheartbeat timeout var
 function chatHeartbeat(p){
 	if(chbt) return;
 	var itemsfound = 0;
-	if (windowFocus == false){
+	if(windowFocus == false){
 		var blinkNumber = 0;
 		var titleChanged = 0;
 		for (x in newMessagesWin) {
-			if (newMessagesWin[x] == true) {
+			if(newMessagesWin[x] == true) {
 				++blinkNumber;
-				if (blinkNumber >= blinkOrder) {
+				if(blinkNumber >= blinkOrder) {
 					document.title = '(*)'+originalTitle;
 					titleChanged = 1;
 					break;	
 				}
 			}
 		}
-		if (titleChanged == 0){
+		if(titleChanged == 0){
 			document.title = originalTitle;
 			blinkOrder = 0;
 		} else {
@@ -211,8 +222,8 @@ function chatHeartbeat(p){
 		}
 	}
 	for(x in newMessages){
-		if (newMessages[x] == true) {
-			if (chatboxFocus[x] == false) {
+		if(newMessages[x] == true) {
+			if(chatboxFocus[x] == false) {
 				//FIXME: add toggle all or none policy, otherwise it looks funny
 				jQ('#chatbox_'+x+' .chatboxhead').toggleClass('chatboxblink');
 			}
@@ -231,20 +242,20 @@ function chatHeartbeat(p){
 			if(data){
 				//console.log(['heartbeat',data]);
 				jQ.each(data.items, function(i,item){
-					if (item){ // fix strange ie bug
+					if(item){ // fix strange ie bug
 						chatboxusr = item.f;
-						if (jQ("#chatbox_"+item.f).length <= 0) {	
+						if(jQ("#chatbox_"+item.f).length <= 0) {	
 							createChatBox(item.f,0,item.u,2);
 						}
-						if (jQ("#chatbox_"+item.f).css('display') == 'none'){
+						if(jQ("#chatbox_"+item.f).css('display') == 'none'){
 							jQ("#chatbox_"+item.f).css('display','block');
 							restructureChatBoxes();
 						}
-						if (item.s == 1) {
+						if(item.s == 1) {
 							item.f = userid;
 							item.u = username;
 						}
-						if (item.s == 2) {
+						if(item.s == 2) {
 							jQ("#chatbox_"+item.f+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxinfo">'+emoticons(item.m)+'</span></div>');
 						} else {
 							newMessages[item.f] = true;
@@ -269,10 +280,10 @@ function chatHeartbeat(p){
 			if(itemsfound > 0){
 				chatHeartbeatTime = minChatHeartbeat;
 				chatHeartbeatCount = 1;
-			}else if (chatHeartbeatCount >= 10){
+			}else if(chatHeartbeatCount >= 10){
 				chatHeartbeatTime *= 2;
 				chatHeartbeatCount = 1;
-				if (chatHeartbeatTime > maxChatHeartbeat) {
+				if(chatHeartbeatTime > maxChatHeartbeat) {
 					chatHeartbeatTime = maxChatHeartbeat;
 				}
 			}
@@ -344,39 +355,34 @@ function listFriendsChat(p){
 function restructureChatBoxes(){
 	align = 0;
 	for(x in chatBoxes){
-		chatboxusr = chatBoxes[x];
-		if(jQ("#chatbox_"+chatboxusr).css('display') != 'none'){
+		chatbox = jQ(chatBoxes[x]);
+		if(chatbox.css('display')!='none'){
 			if(align==0){
-				jQ("#chatbox_"+chatboxusr).css('right', chatpos+'px');
+				chatbox.css('right',chatpos+'px');
 			} else {
 				width = (align)*(225+7)+chatpos;
-				jQ("#chatbox_"+chatboxusr).css('right', width+'px');
+				chatbox.css('right',width+'px');
 			}
 			align++;
 		}
 	}
 }
 
-function chatWith(chatuser,chatboxname) {
-	createChatBox(chatuser,0,chatboxname,1);
-	jQ("#chatbox_"+chatuser+" .chatboxtextarea").focus();
-}
-
 function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 	//console.log([tmp,chatboxusr,chatboxname]);
 	var chatbox=jQ(".chatbox[data-id="+chatboxusr+']');
-	if (chatbox.length > 0){
-		if (chatbox.css('display') == 'none'){
+	if(chatbox.length > 0){
+		if(chatbox.css('display') == 'none'){
 			chatbox.css('display','block');
 			restructureChatBoxes();
 		}
 		jQ("textarea",chatbox).focus();
-		return;
+		return chatbox;
 	}
 	typing[chatboxusr]=false;
 	chatbox=jQ("<div/>" ).attr("id","chatbox_"+chatboxusr).attr('data-id',chatboxusr)
 	.addClass("chatbox")
-	.html('<div class="chatboxhead"><div class="chatboxtitle">'+chatboxname+'</div><div class="minimize" onclick="javascript:toggleChatBoxGrowth(\''+chatboxusr+'\')"></div><div class="chatboxoptions"> <a href="javascript:void(0)" onclick="javascript:closeChatBox(\''+chatboxusr+'\')">X</a></div><br clear="all"/></div><div class="chatboxcontent"></div><div class="typing">'+chatboxname+' is typing...</div><div class="chatboxinput"><textarea id="'+chatboxusr+'" u="'+chatboxname+'" class="chatboxtextarea"></textarea></div>')
+	.html('<div class="chatboxhead"><div class="chatboxtitle">'+chatboxname+'</div><div class="minimize" onclick="javascript:toggleChatBoxGrowth(\''+chatboxusr+'\')"></div><div class="chatboxoptions"> <a id="close" href="javascript:void(0)">X</a></div><br clear="all"/></div><div class="chatboxcontent"></div><div class="typing">'+chatboxname+' is typing...</div><div class="chatboxinput"><textarea id="'+chatboxusr+'" data-name="'+chatboxname+'" class="chatboxtextarea"></textarea></div>')
 	.appendTo('#chatmsgs');
 	chatbox.css('bottom','0px');
 	chatBoxeslength = 0;
@@ -385,30 +391,30 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 			chatBoxeslength++;
 		}
 	}
-	if (chatBoxeslength == 0) {
+	if(chatBoxeslength == 0) {
 		chatbox.css('right', chatpos+'px');
 	} else {
 		width = (chatBoxeslength)*(225+7)+chatpos;
 		chatbox.css('right', width+'px');
 	}
 	chatBoxes.push(chatbox[0]);
-	if (minimizeChatBox != 0) {
+	if(minimizeChatBox != 0) {
 		minimizedChatBoxes = new Array();
-		if (jQ.local('chatbox_minimized')) {
+		if(jQ.local('chatbox_minimized')) {
 			minimizedChatBoxes = jQ.local('chatbox_minimized').split(/\|/);
 		}
 		minimize = 0;
 		for (j=0;j<minimizedChatBoxes.length;j++) {
-			if (minimizedChatBoxes[j] == chatboxusr) {
+			if(minimizedChatBoxes[j] == chatboxusr) {
 				minimize = 1;
 			}
 		}
-		if (minimize == 1) {
+		if(minimize == 1) {
 			jQ('.chatboxcontent,.chatboxinput',chatbox[0]).css('display','none');
 		}
 	}
 	chatboxFocus[chatboxusr] = false;
-	jQ(".chatboxtextarea",chatbox[0]).blur(function(){
+	jQ("textarea",chatbox[0]).blur(function(){
 		chatboxFocus[chatboxusr] = false;
 		jQ(this).removeClass('chatboxtextareaselected');
 	}).focus(function(){
@@ -418,27 +424,18 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 		jQ(".chatboxtextarea",chatbox[0]).addClass('chatboxtextareaselected');
 	});
 	chatbox.show();
-}
-
-function closeChatBox(chatboxusr) {
-	jQ('#chatbox_'+chatboxusr).css('display','none');
-	//jQ('#chatbox_'+chatboxusr).remove();
-	jQ('#chatbox_'+chatboxusr+' .chatboxtextarea').val('');
-	restructureChatBoxes();
-	typing[chatboxusr]=false;
-	jQ.post(chatcontrol+'stoptyping', {to: chatboxusr} );
-	jQ.post(chatcontrol+'closechat', { chatbox: chatboxusr} , function(data){	});
+	return chatbox;
 }
 
 function toggleChatBoxGrowth(chatboxusr) {
-	if (jQ('#chatbox_'+chatboxusr+' .chatboxcontent').css('display') == 'none') {  
+	if(jQ('#chatbox_'+chatboxusr+' .chatboxcontent').css('display') == 'none') {  
 		var minimizedChatBoxes = new Array();
-		if (jQ.local('chatbox_minimized')) {
+		if(jQ.local('chatbox_minimized')) {
 			minimizedChatBoxes = jQ.local('chatbox_minimized').split(/\|/);
 		}
 		var newLocal = '';
 		for (i=0;i<minimizedChatBoxes.length;i++) {
-			if (minimizedChatBoxes[i] != chatboxusr) {
+			if(minimizedChatBoxes[i] != chatboxusr) {
 				newLocal += chatboxusr+'|';
 			}
 		}
@@ -449,7 +446,7 @@ function toggleChatBoxGrowth(chatboxusr) {
 		jQ("#chatbox_"+chatboxusr+" .chatboxcontent").scrollTop(jQ("#chatbox_"+chatboxusr+" .chatboxcontent")[0].scrollHeight);
 	} else {
 		var newLocal = chatboxusr;
-		if (jQ.local('chatbox_minimized')) {
+		if(jQ.local('chatbox_minimized')) {
 			newLocal += '|'+jQ.local('chatbox_minimized');
 		}
 		jQ.local('chatbox_minimized',newLocal);

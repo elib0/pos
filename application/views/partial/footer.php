@@ -9,6 +9,5 @@ $_SESSION['person_id'] = $this->session->userdata('person_id');
 	Copyright &copy; Maog Host 2004 - <?=date('Y')?>. All Rights Reserved!&nbsp; 
 	<a href="http://www.maoghost.com/" target="_blank">www.maoghost.com</a>
 </div>
-<?php $this->load->view("partial/chat"); ?>
 </body>
 </html>

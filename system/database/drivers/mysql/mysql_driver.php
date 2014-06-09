@@ -6,7 +6,7 @@
  *
  * @package		CodeIgniter
  * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -314,9 +314,9 @@ class CI_DB_mysql_driver extends CI_DB {
 		{
 			$str = mysql_real_escape_string($str, $this->conn_id);
 		}
-		elseif (function_exists('mysql_real_escape_string'))
+		elseif (function_exists('mysql_escape_string'))
 		{
-			$str = mysql_real_escape_string($str);
+			$str = mysql_escape_string($str);
 		}
 		else
 		{

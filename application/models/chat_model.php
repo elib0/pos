@@ -36,6 +36,14 @@ class Chat_model extends CI_Model{
 		$query=$this->con->delete($this->typing);
 		return $query?true:false;
 	}
+	function isTyping(){
+		$this->con->from($this->typing);
+		//$this->con->where('typing',1);
+		$this->con->where('to_id',$this->user->chat_id);
+		$this->con->order_by('date','asc');
+		$query=$this->con->get();
+		return $query->result();
+	}
 	function disableUser($disabled=false){
 		$id=$this->user->chat_id;
 		$this->con->set('disabled',$disabled?1:0);
@@ -61,6 +69,7 @@ class Chat_model extends CI_Model{
 		if($update) $this->updateLoggedUser();
 		$this->con->select('chat_id AS c,user AS u,username AS n,location AS l,status_name AS t');
 		$this->con->where('disabled',0);
+		$this->con->where('timediff(now(),last_action) < "02:00"');
 		$this->con->order_by('user_id','asc');
 		$query=$this->con->get($this->view);
 		if($query->num_rows()>0) return $query;

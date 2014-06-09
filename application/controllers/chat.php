@@ -132,9 +132,18 @@ class Chat extends CI_Controller{
 		$this->con->where('recd',0);
 		$this->con->where('to_id',$this->user->chat_id);
 		$query=$this->con->update('chat',array('recd'=>1));
+		foreach($this->chat_model->isTyping() as $chat){
+			$typing[]=array(
+				's'=>$chat->typing,
+				'f'=>$chat->to_id,
+				'u'=>$chat->from_id,
+				'm'=>'',
+			);
+		}
 		$data=array(
 			'ty'=>$typing,
 			'items'=>$items,
+			'query'=>$this->chat_model->isTyping()
 		);
 		$this->print_json($data);
 	}

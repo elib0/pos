@@ -14,7 +14,7 @@ class Chat_model extends CI_Model{
 	private $view='chat_users_view';
 	private $chat_view='chat_view';
 	private $typing='chat_user_typing';
-	private $prefix='';
+	private $prefix='ospos_';
 	private $chat_id=false;
 
 	function __construct()

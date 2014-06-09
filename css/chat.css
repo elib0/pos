@@ -1,3 +1,8 @@
+#chat{
+	position:relative;
+	z-index:1000;
+}
+
 #chatMainContainer{
 	display:none;
 	position:fixed;/*container div must be absolute, for our fixed bar to work */
@@ -47,7 +52,7 @@
 	background-color:#eee;
 	border-right:#666 solid 1px;
 	overflow:auto;
-	overflow-x: hidden;
+	overflow-x:hidden;
 }
 #chatMainContainer .chatListContainer #loading{
 	width:32px;
@@ -61,23 +66,23 @@
 .chatbox{
 	position:fixed;
 	position:expression("absolute");
-	width: 225px;
+	width:225px;
 	display:none;
 	z-index:1000;
 }
 
 .chatboxhead{
-	background-color: #f99d39;
+	background-color:#f99d39;
 	padding:7px;
-	color: #ffffff;
+	color:#ffffff;
 
 	border-right:1px solid #f99d39;
 	border-left:1px solid #f99d39;
 	
-	border-top-right-radius    : 5px 5px;
-	border-top-left-radius     : 5px 5px;
-	-moz-border-radius-topright: 5px 5px;
-    -moz-border-radius-topleft : 5px 5px;
+	border-top-right-radius:5px 5px;
+	border-top-left-radius:5px 5px;
+	-moz-border-radius-topright:5px 5px;
+	-moz-border-radius-topleft :5px 5px;
 }
 .chatboxhead .minimize{
 	height:25px;
@@ -90,15 +95,15 @@
 }
 
 #chatMainContainer .chatConfig.chatboxblink,.chatboxblink{
-	background-color: #176689;
+	background-color:#176689;
 	border-right:1px solid #176689;
 	border-left:1px solid #176689;
 }
 
 .chatboxcontent{
-	font-family: arial,sans-serif;
-	font-size: 13px;
-	color: #333333;
+	font-family:arial,sans-serif;
+	font-size:13px;
+	color:#333333;
 	height:200px;
 	width:209px;
 	overflow-y:auto;
@@ -107,17 +112,17 @@
 	border-left:1px solid #cccccc;
 	border-right:1px solid #cccccc;
 	border-bottom:1px solid #eeeeee;
-	background-color: #ffffff;
-	line-height: 1.3em;
+	background-color:#ffffff;
+	line-height:1.3em;
 	
-	white-space: -moz-pre-wrap; /* Mozilla */
-    white-space: -hp-pre-wrap; /* HP printers */
-    white-space: -o-pre-wrap; /* Opera 7 */
-    white-space: -pre-wrap; /* Opera 4-6 */
-    white-space: pre-wrap; /* CSS 2.1 */
-    white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-    word-wrap: break-word; /* IE */
-    -moz-binding: url('xbl.xml#wordwrap'); /* Firefox (using XBL) */
+	white-space:-moz-pre-wrap; /* Mozilla */
+	white-space:-hp-pre-wrap; /* HP printers */
+	white-space:-o-pre-wrap; /* Opera 7 */
+	white-space:-pre-wrap; /* Opera 4-6 */
+	white-space:pre-wrap; /* CSS 2.1 */
+	white-space:pre-line; /* CSS 3 (and 2.1 as well, actually) */
+	word-wrap:break-word; /* IE */
+	-moz-binding:url('xbl.xml#wordwrap'); /* Firefox (using XBL) */
 }
 
 .typing{
@@ -133,30 +138,30 @@
 }
 
 .chatboxinput{
-	padding: 5px;
-	background-color: #ffffff;
+	padding:5px;
+	background-color:#ffffff;
 	border-left:1px solid #cccccc;
 	border-right:1px solid #cccccc;
 	border-bottom:1px solid #cccccc;
-	resize: none;
-	font-family: arial,sans-serif;
-	font-size: 13px;
+	resize:none;
+	font-family:arial,sans-serif;
+	font-size:13px;
 }
 
 .chatboxtextarea{
-	width: 206px;
+	width:206px;
 	height:44px;
 	padding:3px 0pt 3px 3px;
-	border: 1px solid #eeeeee;
-	margin: 1px;
+	border:1px solid #eeeeee;
+	margin:1px;
 	overflow:hidden;
-	resize: none;
-	font-family: arial,sans-serif;
-	font-size: 13px;
+	resize:none;
+	font-family:arial,sans-serif;
+	font-size:13px;
 }
 
 .chatboxtextareaselected{
-	border: 1px solid #f99d39;
+	border:1px solid #f99d39;
 }
 
 .chatboxmessage{
@@ -171,7 +176,7 @@
 
 .chatboxmessagefrom{
 	margin-left:-1em;
-	font-weight: bold;
+	font-weight:bold;
 }
 
 .chatboxmessagecontent div{
@@ -186,66 +191,50 @@
 	background-repeat:no-repeat;
 }
 
-.chatboxmessagecontent div.em{
+#chat div.em{
 	display:inline-block;
 	width:16px;
 	height:16px;
 	overflow:hidden;
 	padding:0;
 	margin:2px 1px 0;
-}
-
-.chatboxmessagecontent .smile{
 	background-image:url(chat/emoticons.png);
+}
+.em.smile{
 	background-position:-16px -16px;	
 }
-
-.chatboxmessagecontent .bigSmile{
-	background-image:url(chat/emoticons.png);
+.em.bigSmile{
 	background-position:-16px 0px;	
 }
-
-.chatboxmessagecontent .sad{
-	background-image:url(chat/emoticons.png);
+.em.sad{
 	background-position:0px -16px;	
 }
-
-.chatboxmessagecontent .tongeOut{
-	background-image:url(chat/emoticons.png);
+.em.tongeOut{
 	background-position:0px 0px;	
 }
-
-.chatboxmessagecontent .wink{
-	background-image:url(chat/emoticons.png);
+.em.wink{
 	background-position:-32px -16px;	
 }
-
-.chatboxmessagecontent .surprise{
-	background-image:url(chat/emoticons.png);
+.em.surprise{
 	background-position:-32px 0px;	
 }
-
-.chatboxmessagecontent .crying{
-	background-image:url(chat/emoticons.png);
+.em.crying{
 	background-position:0px -32px;	
 }
-
-.chatboxmessagecontent .sick{
-	background-image:url(chat/emoticons.png);
+.em.sick{
 	background-position:-16px -32px;	
 }
-
-.chatboxmessagecontent .glasses{
-	background-image:url(chat/emoticons.png);
+.em.glasses{
 	background-position:-32px -32px;	
 }
+
 .chatboxoptions{
-	float: right;
+	float:right;
 }
 
 .chatboxoptions a{
-	text-decoration: none;
-	color: white;
+	text-decoration:none;
+	color:white;
 	font-weight:bold;
 	font-family:Verdana,Arial,"Bitstream Vera Sans",sans-serif;
 }
@@ -270,9 +259,7 @@
 	background-color:#888;
 	color:#fff;
 }
-.listUserChat:before{
-	/*content:attr(u);*/
-}
+/*.listUserChat:before{ content:attr(u); }*/
 .listUserChat[status=online]{
 	background-image:url(chat/online.png);
 }
@@ -293,30 +280,25 @@
 	width:6px;
 	height:6px;
 	margin-right:5px;
-	border-radius     : 3px 3px;
-	-moz-border-radius: 3px 3px;
-    -moz-border-radius: 3px 3px;
+	border-radius:3px 3px;
+	-moz-border-radius:3px 3px;
+	-moz-border-radius:3px 3px;
 	background-color:#090;
 }
 .listUserChat .away{
-	
 	float:right;
 	position:relative;
 	top:8px;
 	width:6px;
 	height:6px;
 	margin-right:5px;
-	border-radius     : 3px 3px;
-	-moz-border-radius: 3px 3px;
-    -moz-border-radius: 3px 3px;
+	border-radius:3px 3px;
+	-moz-border-radius:3px 3px;
+	-moz-border-radius:3px 3px;
 	background-color:#FC0;
-	
 }
 .listUserChat .offline{
-	
 	float:right;
 	position:relative;
 	top:10px;
-
-	
 }

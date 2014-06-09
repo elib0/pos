@@ -17,10 +17,23 @@ var chatpos=175;
 var jQ=window.$||window.jQuery;
 
 jQ(function(){
-	jQ.getJSON('index.php/chat/islogged',chat_init);
+	if(window.matchMedia('screen').matches)
+		jQ.getJSON('index.php/chat/islogged',chat_init);
 });
 
 function chat_init(data){
+	jQ('body').append(
+		'<div id="chat">'+
+			'<div id="chatmsgs"></div>'+
+			'<div id="chatMainContainer">'+
+				'<div class="chatListContainer"></div>'+
+				'<div class="chatConfig">'+
+					'<input type="button" id="enable" value="Show"/><input type="button" id="disable" value="Hide"/>'+
+					'<span id="hideChat"></span><span id="showChat" style="display:none;"></span>'+
+				'</div>'+
+			'</div>'+
+		'</div>'
+	);
 	jQ('#chatMainContainer').show();
 	updateChatMenu(data.online?'enable':'disable');
 	startChatSession();
@@ -60,7 +73,7 @@ function listFriendsChat(p){
 		p='';
 	}
 	lfc=true;
-	jQ.ajax({
+	chat_ajax({
 		url:'index.php/chat/friendslist',
 		dataType:'json',
 		cache:false,
@@ -163,14 +176,13 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 			}
 		}
 		if (minimize == 1) {
-			jQ('#chatbox_'+chatboxusr+' .chatboxcontent').css('display','none');
-			jQ('#chatbox_'+chatboxusr+' .chatboxinput').css('display','none');
+			jQ('#chatbox_'+chatboxusr+' .chatboxcontent,#chatbox_'+chatboxusr+' .chatboxinput').css('display','none');
 		}
 	}
 	chatboxFocus[chatboxusr] = false;
 	jQ("#chatbox_"+chatboxusr+" .chatboxtextarea").blur(function(){
 		chatboxFocus[chatboxusr] = false;
-		jQ("#chatbox_"+chatboxusr+" .chatboxtextarea").removeClass('chatboxtextareaselected');
+		jQ(this).removeClass('chatboxtextareaselected');
 	}).focus(function(){
 		chatboxFocus[chatboxusr] = true;
 		newMessages[chatboxusr] = false;
@@ -178,11 +190,10 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 		jQ("#chatbox_"+chatboxusr+" .chatboxtextarea").addClass('chatboxtextareaselected');
 	});
 	jQ("#chatbox_"+chatboxusr).click(function() {
-		if (jQ('#chatbox_'+chatboxusr+' .chatboxcontent').css('display') != 'none') {
+		if (jQ('.chatboxcontent',this).css('display') != 'none') {
 			jQ("#chatbox_"+chatboxusr+" .chatboxtextarea").focus();
 		}
-	});
-	jQ("#chatbox_"+chatboxusr).show();
+	}).show();
 }
 
 var chbt;//chatheartbeat timeout var
@@ -225,7 +236,7 @@ function chatHeartbeat(p){
 	jQ('#chat .chatConfig')[blink?'addClass':'removeClass']('chatboxblink');
 	data=null;
 	chbt=true;
-	jQ.ajax({
+	chat_ajax({
 		url: "index.php/chat/chatheartbeat",
 		type:'post',
 		cache: false,
@@ -396,13 +407,13 @@ function emoticons(text) {
 	inputText = inputText.replace(/;-?\)/gim,		'<div class="em wink"></div>');
 	inputText = inputText.replace(/:-?o/gim,		'<div class="em surprise"></div>');
 	inputText = inputText.replace(/:-?s/gim,		'<div class="em sick"></div>');
-	inputText = inputText.replace(/:'-?\(/gim,	'<div class="em crying"></div>');
+	inputText = inputText.replace(/:'-?\(/gim,		'<div class="em crying"></div>');
 	inputText = inputText.replace(/8-?\)/gim,		'<div class="em glasses"></div>');
 	return inputText;
 }
 
 function startChatSession(){
-	jQ.ajax({
+	chat_ajax({
 		url:"index.php/chat/startchatsession",
 		type:'post',
 		cache:false,
@@ -452,22 +463,29 @@ function changeStatus(status,that){
 }
 function updateChatMenu(status){
 	if(status=='disable'){
-		jQ('#chatmsgs').fadeOut();
-		jQ('#chat #disable').hide(); 
-		jQ('#chat #enable').show();
-		jQ('#showChat').hide();
-		jQ('#hideChat').hide();
 		jQ('.chatListContainer').slideUp();
+		jQ('#chatmsgs').fadeOut();
+		jQ('#chat #enable').show();
+		jQ('#chat #disable,#showChat,#hideChat').hide();
 		// play=false;
 	}else{
-		jQ('#chatmsgs').fadeIn();
-		jQ('#enable').hide(); 
-		jQ('#disable').show();
-		jQ('#showChat').hide(); 
-		jQ('#hideChat').show();
 		jQ('.chatListContainer').slideDown();
+		jQ('#chatmsgs').fadeIn();
+		jQ('#chat #disable,#hideChat').show();
+		jQ('#chat #enable,#showChat').hide(); 
 		// play=true;
 		// startChatSession();
 		// chatHeartbeat(1);
 	}
+}
+
+function chat_ajax(data){
+	if(!data) return;
+	data.statusCode={
+		500:function(){
+			chat_ajax(data);
+		}
+	};
+	data.cache=false;
+	jQ.ajax(data);
 }

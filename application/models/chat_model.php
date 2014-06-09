@@ -69,6 +69,7 @@ class Chat_model extends CI_Model{
 		if($update) $this->updateLoggedUser();
 		$this->con->select('chat_id AS c,user AS u,username AS n,location AS l,status_name AS t');
 		$this->con->where('disabled',0);
+		$this->con->where('timediff(now(),last_action) < "02:00"');
 		$this->con->order_by('user_id','asc');
 		$query=$this->con->get($this->view);
 		if($query->num_rows()>0) return $query;

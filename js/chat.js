@@ -38,7 +38,7 @@ function chat_init(data){
 		'</div>'
 	);
 	jQ('#chatMainContainer').show();
-	showChat(data.online?'enable':'disable');
+	showChat(data.online);
 	startChatSession();
 	jQ('body>#chat').on('click','.listUserChat',function(){
 		if(this.id!=userid){
@@ -242,11 +242,10 @@ function chatHeartbeat(p){
 		dataType:"json",
 		success:function(data){
 			if(data){
-				var chatbox=jQ('.chatbox#'+item.f);
-				//console.log(['heartbeat',data]);
+				var chatbox;
 				jQ.each(data.items,function(i,item){
 					if(item){//fix strange ie bug
-						chatboxusr=item.f;
+						chatbox=jQ('.chatbox#'+item.f);
 						if(chatbox.length<=0){	
 							chatbox=createChatBox(item.f,0,item.u,2);
 						}
@@ -276,13 +275,13 @@ function chatHeartbeat(p){
 				});
 			}
 			chatHeartbeatCount++;
-			if(itemsfound > 0){
+			if(itemsfound>0){
 				chatHeartbeatTime=minChatHeartbeat;
 				chatHeartbeatCount=1;
 			}else if(chatHeartbeatCount>=10){
 				chatHeartbeatTime*=2;
 				chatHeartbeatCount=1;
-				if(chatHeartbeatTime > maxChatHeartbeat){
+				if(chatHeartbeatTime>maxChatHeartbeat){
 					chatHeartbeatTime=maxChatHeartbeat;
 				}
 			}
@@ -323,8 +322,8 @@ function listFriendsChat(p){
 					var el,me,salida='';
 					jQ.each(data.f,function(i,item){
 						if(item){
-							me=item.c==userid;
-							el='<div id="'+item.c+'" data-name="'+item.u+'" data-status="'+item.t+'" '+(me?'':'title="'+item.t+'"')+' class="listUserChat '+(me?'me':'')+'">'+item.u+'</div>';
+							me=(item.c==userid);
+							el='<div id="'+item.c+'" data-name="'+item.u+'" data-status="'+item.t+'" '+(me?'':'title="'+item.t+'"')+' class="listUserChat'+(me?' me':'')+'"></div>';
 							if(me)
 								salida=el+salida;
 							else

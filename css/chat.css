@@ -259,14 +259,16 @@
 	background-color:#888;
 	color:#fff;
 }
-/*.listUserChat:before{ content:attr(u); }*/
-.listUserChat[status=online]{
+.listUserChat:before{
+	content:attr(data-name);
+}
+.listUserChat[data-status=online]{
 	background-image:url(chat/online.png);
 }
-.listUserChat[status=iddle]{
+.listUserChat[data-status=iddle]{
 	background-image:url(chat/iddle.png);
 }
-.listUserChat[status=offline]{
+.listUserChat[data-status=offline]{
 	background-image:url(chat/offline.png);
 }
 

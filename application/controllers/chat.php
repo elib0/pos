@@ -144,7 +144,7 @@ class Chat extends CI_Controller{
 		$data=array(
 			'ty'=>$typing,
 			'items'=>$items,
-			'query'=>$this->chat_model->isTyping()
+			'query'=>isset($this->chat['history'])?$this->chat['history']:array()
 		);
 		$this->print_json($data);
 	}
@@ -236,10 +236,9 @@ class Chat extends CI_Controller{
 		return $this->chat_model->con;
 	}
 	private function sanitize($text){
-		$text = htmlspecialchars($text, ENT_QUOTES);
-		$text = str_replace("\r\n","\n",$text);
-		$text = str_replace("\n\r","\n",$text);
-		$text = str_replace("\n","<br/>",$text);
+		$text = htmlspecialchars($text,ENT_QUOTES);
+		$text = str_replace("\r",'',$text);
+		$text = str_replace("\n",'<br/>',$text);
 		return $text;
 	}
 }

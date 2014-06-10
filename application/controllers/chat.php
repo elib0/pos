@@ -4,7 +4,6 @@ class Chat extends CI_Controller{
 	public $outputData;//Holds the output data for each view
 	public $user=array();
 	private $con=false;
-	private $chat=false;
 
 	function __construct(){
 		parent::__construct();
@@ -15,15 +14,8 @@ class Chat extends CI_Controller{
 		$this->user=$this->chat_model->getUser();
 		//Load the session library
 		$this->load->library('session');
-		$this->chat=$this->session->userdata('chat');
-		if(!$this->chat) $this->chat=array();
 	}
-	function __destruct(){
-		if(count($this->chat)){
-			$this->load->library('session');
-			$this->session->set_userdata('chat',$this->chat);
-		}
-	}
+
 	public function print_json($json){
 		if(is_array($json)) $json['online']=$this->is_online();
 		$this->load->view('partial/json',array('json'=>$json));
@@ -46,8 +38,9 @@ class Chat extends CI_Controller{
 	function startchatsession(){
 		$this->chat_model->updateLoggedUser();
 		$items=array();
-		if(!empty($this->chat['openBoxes'])){
-			foreach($this->chat['openBoxes'] as $chatbox=>$void){
+		$session=$this->getSession();
+		if(!empty($session['openBoxes'])){
+			foreach($session['openBoxes'] as $chatbox=>$void){
 				foreach($this->chatBoxSession($chatbox) as $item){
 					$items[]=$item;
 				}
@@ -57,17 +50,21 @@ class Chat extends CI_Controller{
 			'userid'=>$this->user->chat_id,
 			'username'=>$this->user->user,
 			'items'=>$items,
-			'chat'=>$this->chat,
+			'chat'=>$session,
 		);
+		$this->putSession($session);
 		$this->print_json($data);
 	}
 	function closechat(){
 		$chatbox = $this->input->post('chatbox');
-		unset($this->chat['openBoxes'][$chatbox]);
+		// $this->session->unset_userdata('chat');
 		$id=$this->chat_model->getLoggedUser()->chat_id;
 		$this->chat_model->setStatus($id,0);
 		$this->chat_model->cleanTyping();
-		$this->chat['status']='offline';
+		$session=$this->getSession();
+		unset($session['openBoxes'][$chatbox]);
+		$session['status']='offline';
+		$this->putSession($session);
 		$this->print_json(1);
 	}
 
@@ -83,9 +80,10 @@ class Chat extends CI_Controller{
 		$items = array();
 		$typing = array();
 		$chatBoxes = array();
+		$session=$this->getSession();
 		foreach($this->chat_model->getChats() as $chat){
-			if(!isset($this->chat['openBoxes'][$chat->from_id]) && isset($this->chat['history'][$chat->from_id])){
-				$items = $this->chat['history'][$chat->from_id];
+			if(!isset($session['openBoxes'][$chat->from_id]) && isset($session['history'][$chat->from_id])){
+				$items = $session['history'][$chat->from_id];
 			}
 			$items[]=array(
 				's'=>0,
@@ -93,21 +91,21 @@ class Chat extends CI_Controller{
 				'u'=>$chat->from,
 				'm'=>$this->sanitize($chat->message),
 			);
-			if(!isset($this->chat['history'][$chat->from_id])){
-				$this->chat['history'][$chat->from_id] = '';
+			if(!isset($session['history'][$chat->from_id])){
+				$session['history'][$chat->from_id] = '';
 			}
-			$this->chat['history'][$chat->from_id][]=array(
+			$session['history'][$chat->from_id][]=array(
 				's'=>0,
 				'f'=>$chat->from_id,
 				'u'=>$chat->from,
 				'm'=>$chat->message,
 			);
-			unset($this->chat['tsBoxes'][$chat->from_id]);
-			$this->chat['openBoxes'][$chat->from_id] = $chat->sent;
+			unset($session['tsBoxes'][$chat->from_id]);
+			$session['openBoxes'][$chat->from_id] = $chat->sent;
 		}
-		if(!empty($this->chat['openBoxes'])){
-			foreach ($this->chat['openBoxes'] as $chatbox => $time){
-				if(!isset($this->chat['tsBoxes'][$chatbox])){
+		if(!empty($session['openBoxes'])){
+			foreach ($session['openBoxes'] as $chatbox => $time){
+				if(!isset($session['tsBoxes'][$chatbox])){
 					$now = time()-strtotime($time);
 					$time = date('g:iA M dS',strtotime($time));
 					$message = "Sent at $time";
@@ -117,15 +115,15 @@ class Chat extends CI_Controller{
 							'f'=>$chatbox,
 							'm'=>$message,
 						);
-						if(!isset($this->chat['history'][$chatbox])){
-							$this->chat['history'][$chatbox] = '';
+						if(!isset($session['history'][$chatbox])){
+							$session['history'][$chatbox] = '';
 						}
-						$this->chat['history'][$chatbox][]=array(
+						$session['history'][$chatbox][]=array(
 							's'=>2,
 							'f'=>$chatbox,
 							'm'=>$message,
 						);
-						$this->chat['tsBoxes'][$chatbox] = 1;
+						$session['tsBoxes'][$chatbox] = 1;
 					}
 				}
 			}
@@ -144,8 +142,9 @@ class Chat extends CI_Controller{
 		$data=array(
 			'ty'=>$typing,
 			'items'=>$items,
-			'query'=>isset($this->chat['history'])?$this->chat['history']:array()
+			'query'=>isset($session['history'])?$session['history']:array()
 		);
+		$this->putSession($session);
 		$this->print_json($data);
 	}
 	public function friendslist(){
@@ -175,21 +174,22 @@ class Chat extends CI_Controller{
 		$from = $this->user->chat_id;
 		$to = $this->input->post('to');
 		$usr = $this->chat_model->getUser($to);
+		$session=$this->getSession();
 		$tmp = array(
 			'from'=>$from,
 			'to'=>$to,
 			'usr'=>$usr,
-			'tsbox'=>isset($this->chat['tsBoxes'][$to])?$this->chat['tsBoxes'][$to]:NULL,
+			'tsbox'=>isset($session['tsBoxes'][$to])?$session['tsBoxes'][$to]:NULL,
 		);
 		$name_to = $usr->user;
 		$message = $this->input->post('message');
 
-		$this->chat['openBoxes'][$to] = date('Y-m-d H:i:s');
-		$tmp['openbox']=$this->chat['openBoxes'][$to];
+		$session['openBoxes'][$to] = date('Y-m-d H:i:s');
+		$tmp['openbox']=$session['openBoxes'][$to];
 		$messagesan = $this->sanitize($message);
 
-		if(!isset($this->chat['history'][$to])){
-			$this->chat['history'][$to] = array();
+		if(!isset($session['history'][$to])){
+			$session['history'][$to] = array();
 		}
 		$data=array(
 			's'=>1,
@@ -198,10 +198,11 @@ class Chat extends CI_Controller{
 			'm'=>$message,
 		);
 		$tmp[$to]=$data;
-		$this->chat['history'][$to][]=$data;
+		$session['history'][$to][]=$data;
+		$tmp['history']=$session['history'];
 
-		$tmp['tsbox']=isset($this->chat['tsBoxes'][$to])?$this->chat['tsBoxes'][$to]:NULL;
-		unset($this->chat['tsBoxes'][$to]);
+		$tmp['tsbox']=isset($session['tsBoxes'][$to])?$session['tsBoxes'][$to]:NULL;
+		unset($session['tsBoxes'][$to]);
 
 		$this->con->set(array(
 			'from_id'=>$from,
@@ -209,13 +210,15 @@ class Chat extends CI_Controller{
 			'message'=>$message,
 		));
 		$this->con->insert('chat');
+		$this->putSession($session);
 		$this->print_json($tmp);
 	}
 
 	private function chatBoxSession($chatbox){
 		$items='';
-		if (isset($this->chat['history'][$chatbox])) {
-			$items = $this->chat['history'][$chatbox];
+		$session=$this->getSession();
+		if (isset($session['history'][$chatbox])) {
+			$items = $session['history'][$chatbox];
 			// var_dump($items);
 		}
 		return $items;
@@ -240,5 +243,14 @@ class Chat extends CI_Controller{
 		$text = str_replace("\r",'',$text);
 		$text = str_replace("\n",'<br/>',$text);
 		return $text;
+	}
+	private function getSession(){
+		$session=$this->session->userdata('chat');
+		if(!$session) $session=array();
+		return $session;
+
+	}
+	private function putSession($data){
+		$this->session->set_userdata('chat',$data);		
 	}
 }

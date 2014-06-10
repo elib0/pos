@@ -63,8 +63,8 @@ function chat_init(data){
 		jQ('textarea',chatbox).val('');
 		restructureChatBoxes();
 		typing[chatboxusr]=false;
-		jQ.post(chatcontrol+'stoptyping',{to:chatboxusr});
-		jQ.post(chatcontrol+'closechat',{chatbox:chatboxusr},function(data){});
+		chat_ajax(chatcontrol+'stoptyping',{to:chatboxusr});
+		chat_ajax(chatcontrol+'closechat',{chatbox:chatboxusr},function(data){});
 	});
 	originalTitle=document.title;
 	jQ('#hideChat,#showChat').click(function(){
@@ -124,11 +124,11 @@ function startChatSession(){
 function checkChatBoxInputKey(event){
 	if(this.value!=''&&!typing[this.id]){
 		typing[this.id]=true;
-		jQ.post(chatcontrol+'starttyping',{to:this.id});
+		chat_ajax(chatcontrol+'starttyping',{to:this.id});
 	}
 	if(this.value==''&&typing[this.id]){
 		typing[this.id]=false;
-		jQ.post(chatcontrol+'stoptyping',{to:this.id});
+		chat_ajax(chatcontrol+'stoptyping',{to:this.id});
 	}
 	if(event.keyCode==13&&event.shiftKey==0){
 		message=this.value;
@@ -137,7 +137,7 @@ function checkChatBoxInputKey(event){
 		jQ(this).focus().css('height','44px');
 		if(message!=''){
 			typing[this.id]=false;
-			jQ.post(chatcontrol+'stoptyping',{to:this.id});
+			chat_ajax(chatcontrol+'stoptyping',{to:this.id});
 			//message=message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&apos;");
 			message=linkify(message);
 			var content=jQ(this).parents('.chatbox').find('.chatboxcontent');
@@ -470,23 +470,43 @@ function emoticons(text){
 	return inputText;
 }
 
-function chat_ajax(data,success){
-	if(!data) data={};
-	if(success) data={url:data,success:success};
-	data.dataType='json';
-	data.type=data.data?'post':'get';
-	// data.cache=false;
-	data.statusCode={
+function chat_ajax(url,data,success){
+	var d={};
+	if(url){
+		if(typeof(url)=='string')//url
+			d.url=url;
+		else if(typeof(url)=='object')//objeto ajax
+			d=url;
+		if(typeof(data)=='object')//post data
+			d.data=data;
+		else if(typeof(data)=='function')//success
+			d.success=data;
+		if(success){
+			if(!d.success)//success
+				d.success=success;
+			else//si ya existe success, se toma como error
+				d.error=success;
+		}
+	}
+
+	d.dataType='json';
+	d.type=d.data?'post':'get';
+	// d.cache=false;
+	d.statusCode={
 		500:function(){
-			chat_ajax(data);
+			chat_ajax(d);
 		}
 	};
-	var ajax=jQ.ajax(data);
-	if(data.url.match(nolog)) return ajax;
-	return ajax.done(function(d){
-		console.log({'url':data.url,'post':data.data,'success':d});
+	var ajax=jQ.ajax(d);
+	if(d.url.match(nolog)) return ajax;
+	return ajax.done(function(data){
+		var D={'url':d.url,'success':data};
+		if(d.data) D.post=d.data;
+		console.log(D);
 	}).fail(function(jqXHR,textStatus,errorThrown){
-		console.log({'url':data.url,'post':data.data,'error':['error',data.url,jqXHR,textStatus,errorThrown]});
+		var D={'url':d.url,'error':[jqXHR,textStatus,errorThrown]};
+		if(d.data) D.post=d.data;
+		console.log(D);
 	});
 }
 

@@ -144,7 +144,7 @@ class Chat extends CI_Controller{
 		$data=array(
 			'ty'=>$typing,
 			'items'=>$items,
-			'query'=>$this->chat_model->isTyping()
+			'query'=>isset($this->chat['history'])?$this->chat['history']:array()
 		);
 		$this->print_json($data);
 	}
@@ -200,7 +200,7 @@ class Chat extends CI_Controller{
 			'message'=>$message,
 		));
 		$this->con->insert('chat');
-		$this->print_json(1);
+		$this->print_json(array('query'=>isset($this->chat['history'])?$this->chat['history']:array()));
 	}
 
 	private function chatBoxSession($chatbox){

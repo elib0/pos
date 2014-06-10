@@ -144,7 +144,7 @@ function checkChatBoxInputKey(event){
 			content.append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+username+': </span><span class="chatboxmessagecontent">'+emoticons(message)+'</span></div>')
 				.scrollTop(content[0].scrollHeight);
 			//console.log(message);
-			jQ.post(chatcontrol+'sendchat',{to:this.id,message:message},function(data){
+			chat_ajax(chatcontrol+'sendchat',{to:this.id,message:message},function(data){
 				//falta verificar error...
 			});
 		}
@@ -457,7 +457,7 @@ function linkify(text){
 }
 
 function emoticons(text){
-	var inputText=text;
+	var inputText=text||'';
 	inputText=inputText.replace(/:-?\)/gim,		'<div class="em smile"></div>');
 	inputText=inputText.replace(/:-?D/gim,		'<div class="em bigSmile"></div>');
 	inputText=inputText.replace(/:-?\(/gim,		'<div class="em sad"></div>');

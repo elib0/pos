@@ -179,17 +179,19 @@ class Chat_model extends CI_Model{
 	function updateUsers()
 	{
 		$this->con->set('status',0);
+		$this->con->set('last_action','last_action',FALSE);
 		$this->con->where('status in (1,2)');
 		$this->con->where('timediff(now(),last_action) > "00:30"');
 		$this->con->update($this->table);
 
 		$this->con->set('status',2);
+		$this->con->set('last_action','last_action',FALSE);
 		$this->con->where('status',1);
 		$this->con->where('timediff(now(),last_action) > "00:05"');
 		$this->con->update($this->table);
 
 		$this->con->set('typing',0);
-		$this->con->where('timediff(now(),date) > "00:02:30"');
+		$this->con->where('timediff(now(),date) > "00:03:00"');
 		$this->con->update($this->typing);
 	}
 	function updateLoggedUser()

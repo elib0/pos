@@ -1,3 +1,5 @@
+var disablelogs=false;
+var nolog=/friendslist/gi;
 var jQ=window.$||window.jQuery;
 var chatcontrol='index.php/chat/';
 var play=true;
@@ -21,7 +23,7 @@ var newMessages=new Array();
 var newMessagesWin=new Array();
 
 if(window.chatStarted) return;
-if(window.matchMedia('screen').matches) jQ.getJSON(chatcontrol+'islogged',chat_init);
+if(window.matchMedia('screen').matches) chat_ajax(chatcontrol+'islogged',chat_init);
 
 function chat_init(data){
 	window.chatStarted=true;
@@ -80,15 +82,11 @@ function chat_init(data){
 		windowFocus=true;
 		document.title=originalTitle;
 	});
-	chatHeartbeat();
 }
 
 function startChatSession(){
 	chat_ajax({
 		url:chatcontrol+'startchatsession',
-		type:'post',
-		cache:false,
-		dataType:'json',
 		success:function(data){
 			//console.log(['startchatsession',data]);
 			var chatbox,content;
@@ -169,7 +167,7 @@ function checkChatBoxInputKey(event){
 
 function changeStatus(status,that){
 	if(that) that.disabled=true;
-	jQ.getJSON(chatcontrol+status,function(){
+	chat_ajax(chatcontrol+status,function(){
 		showChat(status);
 		startChatSession();
 	}).always(function(){
@@ -237,9 +235,6 @@ function chatHeartbeat(p){
 	chbt=true;
 	chat_ajax({
 		url:chatcontrol+'chatheartbeat',
-		type:'post',
-		cache:false,
-		dataType:"json",
 		success:function(data){
 			if(data){
 				var chatbox;
@@ -310,9 +305,6 @@ function listFriendsChat(p){
 	lfc=true;
 	chat_ajax({
 		url:chatcontrol+'friendslist',
-		dataType:'json',
-		cache:false,
-		type:'post',
 		data:{'update':p},
 		success:function(data){
 			if(data!=null){
@@ -478,15 +470,24 @@ function emoticons(text){
 	return inputText;
 }
 
-function chat_ajax(data){
-	if(!data) return;
+function chat_ajax(data,success){
+	if(!data) data={};
+	if(success) data={url:data,success:success};
+	data.dataType='json';
+	data.type=data.data?'post':'get';
+	// data.cache=false;
 	data.statusCode={
 		500:function(){
 			chat_ajax(data);
 		}
 	};
-	data.cache=false;
-	jQ.ajax(data);
+	var ajax=jQ.ajax(data);
+	if(data.url.match(nolog)) return ajax;
+	return ajax.done(function(d){
+		console.log({'url':data.url,'post':data.data,'success':d});
+	}).fail(function(jqXHR,textStatus,errorThrown){
+		console.log({'url':data.url,'post':data.data,'error':['error',data.url,jqXHR,textStatus,errorThrown]});
+	});
 }
 
 });

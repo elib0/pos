@@ -44,6 +44,7 @@ class Chat extends CI_Controller{
 		));
 	}
 	function startchatsession(){
+		$this->chat_model->updateLoggedUser();
 		$items=array();
 		if(!empty($this->chat['openBoxes'])){
 			foreach($this->chat['openBoxes'] as $chatbox=>$void){
@@ -147,7 +148,7 @@ class Chat extends CI_Controller{
 		);
 		$this->print_json($data);
 	}
-	public function friendslist($update=false){
+	public function friendslist(){
 		$update=$this->input->post('update');
 		if(!$this->chat_model->logged) $this->print_json(array());
 		$list=$this->chat_model->getChatUsers($update);

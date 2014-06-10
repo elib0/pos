@@ -207,4 +207,9 @@ class Chat_model extends CI_Model{
 		$this->con->where('location',$location);
 		$this->con->update($this->table,$data);
 	}
+	// function session($data){
+	// 	$chat=$this->session->userdata('chat');
+	// 	if(!$chat) $chat=array();
+	// 	return $chat;
+	// }
 }

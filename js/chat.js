@@ -1,5 +1,5 @@
 var disablelogs=false;
-var nolog=/friendslist/gi;
+var nolog=/friendslist|heartbeat/gi;
 var jQ=window.$||window.jQuery;
 var chatcontrol='index.php/chat/';
 var play=true;

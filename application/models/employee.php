@@ -417,6 +417,9 @@ class Employee extends Person
 		if ($employee->num_rows() ==1)
 		{
 			$row=$employee->row();
+			@session_start();
+			if(isset($_SESSION['chat'])&&isset($_SESSION['chat'][$row->person_id]))
+				unset($_SESSION['chat'][$row->person_id]);
 
 			$this->db->select('schedule_id');
 			$this->db->from('schedules');

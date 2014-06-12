@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : Localhos(XAMPP)
-Source Server Version : 50614
+Source Server Version : 50616
 Source Host           : localhost:3306
 Source Database       : possp
 
 Target Server Type    : MYSQL
-Target Server Version : 50614
+Target Server Version : 50616
 File Encoding         : 65001
 
-Date: 2014-05-15 10:53:57
+Date: 2014-06-12 10:36:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -266,6 +266,7 @@ INSERT INTO `ospos_app_config` VALUES ('currency_symbol', '$');
 INSERT INTO `ospos_app_config` VALUES ('language', 'english');
 INSERT INTO `ospos_app_config` VALUES ('print_after_sale', 'print_after_sale');
 INSERT INTO `ospos_app_config` VALUES ('logo', 'logo.png');
+INSERT INTO `ospos_app_config` VALUES ('alert_after_sale', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_customers`
@@ -290,6 +291,7 @@ INSERT INTO `ospos_customers` VALUES ('47', 'cuentapropia', '1', '1');
 INSERT INTO `ospos_customers` VALUES ('48', null, '1', '1');
 INSERT INTO `ospos_customers` VALUES ('53', null, '0', '1');
 INSERT INTO `ospos_customers` VALUES ('55', null, '0', '0');
+INSERT INTO `ospos_customers` VALUES ('57', null, '0', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_employees`
@@ -355,195 +357,256 @@ CREATE TABLE `ospos_employees_schedule` (
   `logout` time DEFAULT NULL,
   `location` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=356 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_employees_schedule
 -- ----------------------------
-INSERT INTO `ospos_employees_schedule` VALUES ('1', '1', '2014-02-01', '08:00:00', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('2', '1', '2014-02-02', '08:20:00', '15:45:23', 'other');
-INSERT INTO `ospos_employees_schedule` VALUES ('3', '1', '2014-02-03', '08:15:50', '15:45:23', 'other');
-INSERT INTO `ospos_employees_schedule` VALUES ('4', '1', '2014-02-04', '08:19:20', '15:45:23', 'other');
-INSERT INTO `ospos_employees_schedule` VALUES ('5', '1', '2014-02-05', '08:00:00', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('6', '1', '2014-02-06', '08:00:00', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('8', '1', '2014-02-08', '09:13:13', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('9', '1', '2014-02-09', '13:31:23', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('180', '1', '2014-03-05', '09:50:30', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('181', '1', '2014-03-05', '09:51:00', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('182', '1', '2014-03-05', '09:51:08', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('183', '1', '2014-03-05', '10:01:31', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('184', '1', '2014-03-05', '10:03:49', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('185', '1', '2014-03-05', '10:10:28', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('186', '4', '2014-03-05', '10:10:39', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('187', '1', '2014-03-25', '10:41:02', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('188', '4', '2014-03-25', '10:42:45', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('189', '1', '2014-03-25', '15:46:51', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('190', '1', '2014-03-25', '16:10:49', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('191', '1', '2014-03-25', '16:11:13', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('192', '1', '2014-03-26', '08:49:29', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('193', '1', '2014-03-26', '08:57:10', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('194', '1', '2014-03-26', '09:05:18', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('195', '1', '2014-03-26', '09:24:04', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('196', '1', '2014-03-26', '09:32:17', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('197', '1', '2014-03-26', '09:43:23', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('198', '43', '2014-03-26', '11:30:19', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('199', '1', '2014-03-27', '08:07:13', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('200', '1', '2014-03-27', '08:20:05', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('201', '1', '2014-03-27', '08:21:06', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('202', '1', '2014-03-27', '08:24:44', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('203', '1', '2014-03-27', '08:36:06', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('204', '1', '2014-03-27', '08:38:10', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('205', '1', '2014-03-27', '08:39:36', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('206', '1', '2014-03-27', '08:41:54', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('207', '1', '2014-03-27', '09:23:24', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('208', '1', '2014-03-27', '09:24:20', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('209', '1', '2014-03-27', '09:25:02', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('210', '1', '2014-03-27', '09:51:20', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('211', '1', '2014-03-27', '09:57:35', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('212', '1', '2014-03-27', '09:59:26', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('213', '1', '2014-03-27', '10:07:03', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('214', '1', '2014-03-27', '10:21:29', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('215', '1', '2014-03-31', '15:55:56', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('216', '1', '2014-04-08', '14:27:45', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('217', '1', '2014-04-08', '14:34:49', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('218', '1', '2014-04-08', '14:37:50', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('219', '1', '2014-04-08', '14:38:56', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('220', '1', '2014-04-08', '14:59:36', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('221', '1', '2014-04-08', '15:01:00', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('222', '1', '2014-04-08', '15:08:24', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('223', '1', '2014-04-08', '15:10:39', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('224', '1', '2014-04-08', '15:20:39', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('225', '1', '2014-04-08', '15:22:26', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('226', '1', '2014-04-08', '15:23:06', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('227', '1', '2014-04-08', '15:23:53', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('228', '1', '2014-04-08', '15:24:42', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('229', '1', '2014-04-08', '15:34:46', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('230', '1', '2014-04-08', '15:38:37', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('231', '1', '2014-04-08', '15:39:32', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('232', '1', '2014-04-08', '15:53:07', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('233', '1', '2014-04-08', '15:53:38', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('234', '1', '2014-04-08', '15:55:25', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('235', '1', '2014-04-08', '15:57:22', '15:45:23', null);
-INSERT INTO `ospos_employees_schedule` VALUES ('236', '1', '2014-04-08', '16:19:21', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('237', '1', '2014-04-08', '16:20:01', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('238', '1', '2014-04-09', '09:27:36', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('239', '1', '2014-04-10', '14:00:10', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('240', '1', '2014-04-10', '14:02:25', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('241', '4', '2014-04-10', '14:03:07', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('242', '1', '2014-04-10', '14:05:13', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('243', '1', '2014-04-10', '14:11:28', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('244', '1', '2014-04-10', '14:33:00', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('245', '1', '2014-04-10', '14:37:32', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('246', '1', '2014-04-10', '14:38:11', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('247', '1', '2014-04-10', '14:43:26', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('248', '1', '2014-04-10', '14:46:01', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('249', '1', '2014-04-10', '14:51:21', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('250', '1', '2014-04-10', '14:52:01', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('251', '1', '2014-04-10', '14:56:25', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('252', '1', '2014-04-10', '15:02:09', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('253', '1', '2014-04-10', '16:03:18', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('254', '1', '2014-04-10', '16:09:09', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('255', '1', '2014-04-10', '16:10:31', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('256', '1', '2014-04-10', '16:12:07', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('257', '1', '2014-04-10', '16:14:55', '15:45:23', 'otra');
-INSERT INTO `ospos_employees_schedule` VALUES ('258', '1', '2014-04-11', '09:21:33', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('259', '1', '2014-04-11', '11:47:13', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('260', '1', '2014-04-11', '13:39:22', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('261', '1', '2014-04-11', '13:57:27', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('262', '1', '2014-04-14', '09:53:44', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('263', '1', '2014-04-14', '16:03:56', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('264', '1', '2014-04-14', '16:05:55', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('265', '1', '2014-04-14', '16:47:29', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('266', '1', '2014-04-14', '16:48:56', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('267', '1', '2014-04-15', '09:25:26', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('268', '1', '2014-04-15', '11:12:17', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('269', '1', '2014-04-15', '13:47:25', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('270', '1', '2014-04-15', '14:46:12', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('271', '1', '2014-04-15', '15:15:42', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('272', '1', '2014-04-15', '15:51:19', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('273', '1', '2014-04-15', '15:51:42', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('274', '1', '2014-04-15', '15:53:47', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('275', '1', '2014-04-21', '08:39:11', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('276', '1', '2014-04-21', '09:37:34', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('277', '1', '2014-04-21', '09:38:03', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('278', '1', '2014-04-21', '14:15:09', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('279', '1', '2014-04-21', '14:16:44', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('280', '1', '2014-04-21', '14:32:02', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('281', '1', '2014-04-22', '08:58:59', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('282', '1', '2014-04-22', '11:26:45', '15:45:23', 'otra');
-INSERT INTO `ospos_employees_schedule` VALUES ('283', '1', '2014-04-22', '11:46:50', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('284', '1', '2014-04-22', '13:43:03', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('285', '1', '2014-04-22', '13:49:50', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('286', '1', '2014-04-22', '14:41:36', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('287', '1', '2014-04-22', '15:38:01', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('288', '1', '2014-04-22', '16:16:43', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('289', '1', '2014-04-22', '16:59:19', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('290', '1', '2014-04-22', '17:00:17', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('291', '1', '2014-04-22', '17:00:46', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('292', '1', '2014-04-23', '10:32:57', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('293', '1', '2014-04-23', '10:47:32', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('294', '1', '2014-04-24', '08:24:32', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('295', '1', '2014-04-24', '10:07:43', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('296', '1', '2014-04-24', '10:22:12', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('297', '1', '2014-04-24', '11:31:53', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('298', '1', '2014-04-24', '11:45:17', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('299', '1', '2014-04-24', '12:03:35', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('300', '1', '2014-04-24', '12:58:30', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('301', '1', '2014-04-24', '13:31:21', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('302', '1', '2014-04-24', '15:09:27', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('303', '1', '2014-04-25', '08:20:18', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('304', '1', '2014-04-25', '09:49:55', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('305', '1', '2014-04-25', '09:52:48', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('306', '1', '2014-04-25', '11:20:48', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('307', '1', '2014-04-29', '08:27:59', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('308', '1', '2014-04-29', '08:58:11', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('309', '1', '2014-04-29', '10:33:47', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('310', '1', '2014-04-29', '11:02:10', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('311', '1', '2014-04-29', '11:24:19', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('312', '1', '2014-04-29', '11:26:26', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('313', '1', '2014-04-29', '12:50:14', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('314', '1', '2014-04-29', '14:09:01', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('315', '1', '2014-04-29', '14:14:20', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('316', '1', '2014-04-29', '14:51:14', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('317', '1', '2014-04-30', '08:45:48', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('318', '1', '2014-04-30', '10:09:11', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('319', '1', '2014-04-30', '13:15:22', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('320', '1', '2014-04-30', '13:40:28', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('321', '1', '2014-04-30', '13:48:03', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('322', '1', '2014-04-30', '13:54:33', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('323', '1', '2014-04-30', '13:57:57', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('324', '1', '2014-04-30', '14:20:54', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('325', '1', '2014-04-30', '14:42:57', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('326', '1', '2014-04-30', '14:56:08', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('327', '1', '2014-04-30', '15:25:26', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('328', '1', '2014-04-30', '16:09:51', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('329', '1', '2014-04-30', '16:41:35', '15:45:23', 'otra');
-INSERT INTO `ospos_employees_schedule` VALUES ('330', '1', '2014-05-05', '08:15:56', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('331', '1', '2014-05-05', '13:54:35', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('332', '1', '2014-05-05', '14:11:15', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('333', '1', '2014-05-06', '08:29:08', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('334', '1', '2014-05-06', '15:40:45', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('335', '1', '2014-05-07', '09:33:36', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('336', '1', '2014-05-07', '10:08:53', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('337', '1', '2014-05-07', '10:21:00', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('338', '1', '2014-05-07', '11:31:09', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('339', '1', '2014-05-08', '08:10:20', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('340', '1', '2014-05-09', '08:48:51', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('341', '1', '2014-05-12', '08:44:51', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('342', '1', '2014-05-12', '10:18:39', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('343', '1', '2014-05-12', '15:12:17', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('344', '1', '2014-05-12', '15:41:11', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('345', '1', '2014-05-12', '15:57:42', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('346', '1', '2014-05-14', '14:58:02', '15:45:23', 'Ramona');
-INSERT INTO `ospos_employees_schedule` VALUES ('347', '54', '2014-05-14', '14:58:04', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('348', '1', '2014-05-14', '14:58:30', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('349', '1', '2014-05-14', '14:59:30', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('350', '1', '2014-05-14', '15:17:58', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('351', '1', '2014-05-14', '15:33:28', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('352', '1', '2014-05-14', '15:34:01', '15:45:23', 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('353', '1', '2014-05-14', '15:45:27', null, 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('354', '1', '2014-05-15', '08:25:32', null, 'default');
-INSERT INTO `ospos_employees_schedule` VALUES ('355', '1', '2014-05-15', '09:06:08', null, 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('1', '1', '2014-02-01', '08:00:00', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('2', '1', '2014-02-02', '08:20:00', '16:58:47', 'other');
+INSERT INTO `ospos_employees_schedule` VALUES ('3', '1', '2014-02-03', '08:15:50', '16:58:47', 'other');
+INSERT INTO `ospos_employees_schedule` VALUES ('4', '1', '2014-02-04', '08:19:20', '16:58:47', 'other');
+INSERT INTO `ospos_employees_schedule` VALUES ('5', '1', '2014-02-05', '08:00:00', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('6', '1', '2014-02-06', '08:00:00', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('8', '1', '2014-02-08', '09:13:13', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('9', '1', '2014-02-09', '13:31:23', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('180', '1', '2014-03-05', '09:50:30', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('181', '1', '2014-03-05', '09:51:00', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('182', '1', '2014-03-05', '09:51:08', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('183', '1', '2014-03-05', '10:01:31', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('184', '1', '2014-03-05', '10:03:49', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('185', '1', '2014-03-05', '10:10:28', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('186', '4', '2014-03-05', '10:10:39', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('187', '1', '2014-03-25', '10:41:02', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('188', '4', '2014-03-25', '10:42:45', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('189', '1', '2014-03-25', '15:46:51', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('190', '1', '2014-03-25', '16:10:49', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('191', '1', '2014-03-25', '16:11:13', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('192', '1', '2014-03-26', '08:49:29', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('193', '1', '2014-03-26', '08:57:10', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('194', '1', '2014-03-26', '09:05:18', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('195', '1', '2014-03-26', '09:24:04', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('196', '1', '2014-03-26', '09:32:17', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('197', '1', '2014-03-26', '09:43:23', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('198', '43', '2014-03-26', '11:30:19', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('199', '1', '2014-03-27', '08:07:13', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('200', '1', '2014-03-27', '08:20:05', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('201', '1', '2014-03-27', '08:21:06', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('202', '1', '2014-03-27', '08:24:44', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('203', '1', '2014-03-27', '08:36:06', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('204', '1', '2014-03-27', '08:38:10', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('205', '1', '2014-03-27', '08:39:36', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('206', '1', '2014-03-27', '08:41:54', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('207', '1', '2014-03-27', '09:23:24', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('208', '1', '2014-03-27', '09:24:20', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('209', '1', '2014-03-27', '09:25:02', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('210', '1', '2014-03-27', '09:51:20', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('211', '1', '2014-03-27', '09:57:35', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('212', '1', '2014-03-27', '09:59:26', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('213', '1', '2014-03-27', '10:07:03', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('214', '1', '2014-03-27', '10:21:29', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('215', '1', '2014-03-31', '15:55:56', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('216', '1', '2014-04-08', '14:27:45', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('217', '1', '2014-04-08', '14:34:49', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('218', '1', '2014-04-08', '14:37:50', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('219', '1', '2014-04-08', '14:38:56', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('220', '1', '2014-04-08', '14:59:36', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('221', '1', '2014-04-08', '15:01:00', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('222', '1', '2014-04-08', '15:08:24', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('223', '1', '2014-04-08', '15:10:39', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('224', '1', '2014-04-08', '15:20:39', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('225', '1', '2014-04-08', '15:22:26', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('226', '1', '2014-04-08', '15:23:06', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('227', '1', '2014-04-08', '15:23:53', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('228', '1', '2014-04-08', '15:24:42', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('229', '1', '2014-04-08', '15:34:46', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('230', '1', '2014-04-08', '15:38:37', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('231', '1', '2014-04-08', '15:39:32', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('232', '1', '2014-04-08', '15:53:07', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('233', '1', '2014-04-08', '15:53:38', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('234', '1', '2014-04-08', '15:55:25', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('235', '1', '2014-04-08', '15:57:22', '16:58:47', null);
+INSERT INTO `ospos_employees_schedule` VALUES ('236', '1', '2014-04-08', '16:19:21', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('237', '1', '2014-04-08', '16:20:01', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('238', '1', '2014-04-09', '09:27:36', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('239', '1', '2014-04-10', '14:00:10', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('240', '1', '2014-04-10', '14:02:25', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('241', '4', '2014-04-10', '14:03:07', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('242', '1', '2014-04-10', '14:05:13', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('243', '1', '2014-04-10', '14:11:28', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('244', '1', '2014-04-10', '14:33:00', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('245', '1', '2014-04-10', '14:37:32', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('246', '1', '2014-04-10', '14:38:11', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('247', '1', '2014-04-10', '14:43:26', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('248', '1', '2014-04-10', '14:46:01', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('249', '1', '2014-04-10', '14:51:21', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('250', '1', '2014-04-10', '14:52:01', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('251', '1', '2014-04-10', '14:56:25', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('252', '1', '2014-04-10', '15:02:09', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('253', '1', '2014-04-10', '16:03:18', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('254', '1', '2014-04-10', '16:09:09', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('255', '1', '2014-04-10', '16:10:31', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('256', '1', '2014-04-10', '16:12:07', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('257', '1', '2014-04-10', '16:14:55', '16:58:47', 'otra');
+INSERT INTO `ospos_employees_schedule` VALUES ('258', '1', '2014-04-11', '09:21:33', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('259', '1', '2014-04-11', '11:47:13', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('260', '1', '2014-04-11', '13:39:22', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('261', '1', '2014-04-11', '13:57:27', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('262', '1', '2014-04-14', '09:53:44', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('263', '1', '2014-04-14', '16:03:56', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('264', '1', '2014-04-14', '16:05:55', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('265', '1', '2014-04-14', '16:47:29', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('266', '1', '2014-04-14', '16:48:56', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('267', '1', '2014-04-15', '09:25:26', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('268', '1', '2014-04-15', '11:12:17', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('269', '1', '2014-04-15', '13:47:25', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('270', '1', '2014-04-15', '14:46:12', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('271', '1', '2014-04-15', '15:15:42', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('272', '1', '2014-04-15', '15:51:19', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('273', '1', '2014-04-15', '15:51:42', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('274', '1', '2014-04-15', '15:53:47', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('275', '1', '2014-04-21', '08:39:11', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('276', '1', '2014-04-21', '09:37:34', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('277', '1', '2014-04-21', '09:38:03', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('278', '1', '2014-04-21', '14:15:09', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('279', '1', '2014-04-21', '14:16:44', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('280', '1', '2014-04-21', '14:32:02', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('281', '1', '2014-04-22', '08:58:59', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('282', '1', '2014-04-22', '11:26:45', '16:58:47', 'otra');
+INSERT INTO `ospos_employees_schedule` VALUES ('283', '1', '2014-04-22', '11:46:50', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('284', '1', '2014-04-22', '13:43:03', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('285', '1', '2014-04-22', '13:49:50', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('286', '1', '2014-04-22', '14:41:36', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('287', '1', '2014-04-22', '15:38:01', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('288', '1', '2014-04-22', '16:16:43', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('289', '1', '2014-04-22', '16:59:19', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('290', '1', '2014-04-22', '17:00:17', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('291', '1', '2014-04-22', '17:00:46', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('292', '1', '2014-04-23', '10:32:57', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('293', '1', '2014-04-23', '10:47:32', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('294', '1', '2014-04-24', '08:24:32', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('295', '1', '2014-04-24', '10:07:43', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('296', '1', '2014-04-24', '10:22:12', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('297', '1', '2014-04-24', '11:31:53', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('298', '1', '2014-04-24', '11:45:17', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('299', '1', '2014-04-24', '12:03:35', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('300', '1', '2014-04-24', '12:58:30', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('301', '1', '2014-04-24', '13:31:21', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('302', '1', '2014-04-24', '15:09:27', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('303', '1', '2014-04-25', '08:20:18', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('304', '1', '2014-04-25', '09:49:55', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('305', '1', '2014-04-25', '09:52:48', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('306', '1', '2014-04-25', '11:20:48', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('307', '1', '2014-04-29', '08:27:59', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('308', '1', '2014-04-29', '08:58:11', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('309', '1', '2014-04-29', '10:33:47', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('310', '1', '2014-04-29', '11:02:10', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('311', '1', '2014-04-29', '11:24:19', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('312', '1', '2014-04-29', '11:26:26', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('313', '1', '2014-04-29', '12:50:14', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('314', '1', '2014-04-29', '14:09:01', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('315', '1', '2014-04-29', '14:14:20', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('316', '1', '2014-04-29', '14:51:14', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('317', '1', '2014-04-30', '08:45:48', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('318', '1', '2014-04-30', '10:09:11', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('319', '1', '2014-04-30', '13:15:22', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('320', '1', '2014-04-30', '13:40:28', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('321', '1', '2014-04-30', '13:48:03', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('322', '1', '2014-04-30', '13:54:33', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('323', '1', '2014-04-30', '13:57:57', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('324', '1', '2014-04-30', '14:20:54', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('325', '1', '2014-04-30', '14:42:57', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('326', '1', '2014-04-30', '14:56:08', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('327', '1', '2014-04-30', '15:25:26', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('328', '1', '2014-04-30', '16:09:51', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('329', '1', '2014-04-30', '16:41:35', '16:58:47', 'otra');
+INSERT INTO `ospos_employees_schedule` VALUES ('330', '1', '2014-05-05', '08:15:56', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('331', '1', '2014-05-05', '13:54:35', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('332', '1', '2014-05-05', '14:11:15', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('333', '1', '2014-05-06', '08:29:08', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('334', '1', '2014-05-06', '15:40:45', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('335', '1', '2014-05-07', '09:33:36', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('336', '1', '2014-05-07', '10:08:53', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('337', '1', '2014-05-07', '10:21:00', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('338', '1', '2014-05-07', '11:31:09', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('339', '1', '2014-05-08', '08:10:20', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('340', '1', '2014-05-09', '08:48:51', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('341', '1', '2014-05-12', '08:44:51', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('342', '1', '2014-05-12', '10:18:39', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('343', '1', '2014-05-12', '15:12:17', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('344', '1', '2014-05-12', '15:41:11', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('345', '1', '2014-05-12', '15:57:42', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('346', '1', '2014-05-14', '14:58:02', '16:58:47', 'Ramona');
+INSERT INTO `ospos_employees_schedule` VALUES ('347', '54', '2014-05-14', '14:58:04', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('348', '1', '2014-05-14', '14:58:30', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('349', '1', '2014-05-14', '14:59:30', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('350', '1', '2014-05-14', '15:17:58', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('351', '1', '2014-05-14', '15:33:28', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('352', '1', '2014-05-14', '15:34:01', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('353', '1', '2014-05-14', '15:45:27', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('354', '1', '2014-05-15', '08:25:32', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('355', '1', '2014-05-15', '09:06:08', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('356', '1', '2014-05-15', '14:56:01', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('357', '1', '2014-05-15', '16:19:07', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('358', '1', '2014-05-16', '08:43:32', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('359', '1', '2014-05-19', '11:38:40', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('360', '1', '2014-05-21', '09:00:32', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('361', '1', '2014-05-21', '09:16:58', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('362', '1', '2014-05-22', '08:05:15', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('363', '1', '2014-05-22', '11:10:20', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('364', '1', '2014-05-23', '09:53:42', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('365', '1', '2014-05-23', '14:53:31', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('366', '1', '2014-05-26', '08:11:13', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('367', '1', '2014-05-26', '09:31:15', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('368', '1', '2014-05-26', '09:37:48', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('369', '1', '2014-05-26', '15:57:02', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('370', '1', '2014-05-27', '08:38:02', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('371', '1', '2014-05-27', '09:24:04', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('372', '1', '2014-05-27', '10:27:17', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('373', '1', '2014-05-27', '11:02:14', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('374', '1', '2014-05-27', '11:39:10', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('375', '1', '2014-05-27', '13:59:44', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('376', '1', '2014-05-27', '15:23:51', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('377', '1', '2014-05-27', '16:43:46', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('378', '1', '2014-05-28', '11:49:57', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('379', '1', '2014-05-28', '11:55:30', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('380', '1', '2014-05-29', '09:10:53', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('381', '1', '2014-05-29', '10:13:03', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('382', '1', '2014-05-29', '10:18:46', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('383', '1', '2014-05-29', '16:51:28', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('384', '1', '2014-05-30', '08:37:43', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('385', '1', '2014-05-30', '09:52:26', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('386', '1', '2014-06-04', '13:14:02', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('387', '1', '2014-06-04', '14:26:06', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('388', '1', '2014-06-04', '15:39:25', '16:58:47', '1');
+INSERT INTO `ospos_employees_schedule` VALUES ('389', '1', '2014-06-04', '15:41:44', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('390', '1', '2014-06-04', '15:44:44', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('391', '1', '2014-06-04', '16:04:15', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('392', '1', '2014-06-05', '13:54:37', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('393', '1', '2014-06-05', '14:00:24', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('394', '1', '2014-06-05', '14:05:35', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('395', '1', '2014-06-05', '14:15:57', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('396', '1', '2014-06-05', '14:29:09', '16:58:47', 'otra & cosita C.A');
+INSERT INTO `ospos_employees_schedule` VALUES ('397', '1', '2014-06-05', '14:40:14', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('398', '1', '2014-06-05', '15:15:15', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('399', '1', '2014-06-05', '15:16:35', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('400', '1', '2014-06-05', '15:20:44', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('401', '1', '2014-06-05', '15:22:24', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('402', '1', '2014-06-05', '15:23:12', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('403', '1', '2014-06-05', '15:46:30', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('404', '1', '2014-06-05', '15:51:08', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('405', '1', '2014-06-05', '16:47:53', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('406', '1', '2014-06-06', '10:52:04', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('407', '1', '2014-06-06', '10:57:37', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('408', '1', '2014-06-06', '12:37:10', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('409', '1', '2014-06-06', '15:14:34', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('410', '1', '2014-06-06', '15:34:55', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('411', '1', '2014-06-06', '16:05:35', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('412', '1', '2014-06-06', '23:26:18', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('413', '1', '2014-06-09', '17:03:42', '16:58:47', 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('414', '1', '2014-06-10', '09:34:08', null, 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('415', '1', '2014-06-11', '15:59:15', null, 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('416', '1', '2014-06-12', '08:22:18', null, 'default');
 
 -- ----------------------------
 -- Table structure for `ospos_giftcards`
@@ -556,7 +619,7 @@ CREATE TABLE `ospos_giftcards` (
   `deleted` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`giftcard_id`),
   UNIQUE KEY `giftcard_number` (`giftcard_number`)
-) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of ospos_giftcards
@@ -564,6 +627,7 @@ CREATE TABLE `ospos_giftcards` (
 INSERT INTO `ospos_giftcards` VALUES ('48', '001', '5000.13', '0');
 INSERT INTO `ospos_giftcards` VALUES ('49', '90', '78314.75', '0');
 INSERT INTO `ospos_giftcards` VALUES ('50', '140783', '986.00', '0');
+INSERT INTO `ospos_giftcards` VALUES ('51', '12321321', '800.00', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_inventory`
@@ -579,7 +643,7 @@ CREATE TABLE `ospos_inventory` (
   PRIMARY KEY (`trans_id`),
   KEY `ospos_inventory_ibfk_1` (`trans_items`),
   KEY `ospos_inventory_ibfk_2` (`trans_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=558 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=576 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_inventory
@@ -1141,6 +1205,24 @@ INSERT INTO `ospos_inventory` VALUES ('554', '102', '1', '2014-04-29 13:37:16', 
 INSERT INTO `ospos_inventory` VALUES ('555', '69', '1', '2014-05-05 14:09:29', 'Manual Edit of Quantity', '0');
 INSERT INTO `ospos_inventory` VALUES ('556', '69', '1', '2014-05-07 15:42:20', 'Manual Edit of Quantity', '0');
 INSERT INTO `ospos_inventory` VALUES ('557', '69', '1', '2014-05-07 15:43:00', 'Manual Edit of Quantity', '0');
+INSERT INTO `ospos_inventory` VALUES ('558', '107', '-1', '2014-05-21 14:49:37', 'POS 46', '-1');
+INSERT INTO `ospos_inventory` VALUES ('559', '98', '-1', '2014-05-26 09:40:24', 'POS 47', '-4');
+INSERT INTO `ospos_inventory` VALUES ('560', '99', '-1', '2014-05-26 09:40:24', 'POS 47', '-1');
+INSERT INTO `ospos_inventory` VALUES ('561', '100', '-1', '2014-05-26 09:40:24', 'POS 47', '-2');
+INSERT INTO `ospos_inventory` VALUES ('562', '106', '-1', '2014-05-26 10:53:21', 'POS 48', '-1');
+INSERT INTO `ospos_inventory` VALUES ('563', '110', '-1', '2014-05-26 10:54:06', 'POS 49', '-5');
+INSERT INTO `ospos_inventory` VALUES ('564', '45', '-1', '2014-05-26 15:53:50', 'POS 50', '-1');
+INSERT INTO `ospos_inventory` VALUES ('565', '98', '1', '2014-05-29 09:34:09', 'RECV 50', '1');
+INSERT INTO `ospos_inventory` VALUES ('566', '98', '-1', '2014-05-29 09:35:54', 'POS 51', '-9');
+INSERT INTO `ospos_inventory` VALUES ('567', '69', '1', '2014-05-29 09:46:09', 'Manual Edit of Quantity', '0');
+INSERT INTO `ospos_inventory` VALUES ('568', '9', '1', '2014-05-29 10:29:16', 'RECV 51', '30');
+INSERT INTO `ospos_inventory` VALUES ('569', '21', '1', '2014-05-29 10:29:16', 'RECV 51', '100');
+INSERT INTO `ospos_inventory` VALUES ('570', '53', '1', '2014-05-29 10:29:16', 'RECV 51', '20');
+INSERT INTO `ospos_inventory` VALUES ('571', '69', '1', '2014-05-29 10:51:42', '', '50');
+INSERT INTO `ospos_inventory` VALUES ('572', '53', '1', '2014-05-29 10:57:54', 'RECV 52', '5');
+INSERT INTO `ospos_inventory` VALUES ('573', '69', '1', '2014-05-29 11:01:37', 'Edición Manual de Cantidad', '35');
+INSERT INTO `ospos_inventory` VALUES ('574', '4', '1', '2014-05-29 15:09:00', 'Manual Edit of Quantity', '-1');
+INSERT INTO `ospos_inventory` VALUES ('575', '1', '-1', '2014-06-05 15:47:04', 'POS 52', '-5');
 
 -- ----------------------------
 -- Table structure for `ospos_items`
@@ -1172,15 +1254,15 @@ CREATE TABLE `ospos_items` (
 -- ----------------------------
 -- Records of ospos_items
 -- ----------------------------
-INSERT INTO `ospos_items` VALUES ('Iphone 3G Digitizer', 'Digitizers', null, null, '', '13.00', '30.00', '156.00', '20.00', '', '1', '0', '0', '0', '0', '0', '2');
+INSERT INTO `ospos_items` VALUES ('Iphone 3G Digitizer', 'Digitizers', null, null, '', '13.00', '30.00', '151.00', '20.00', '', '1', '0', '0', '0', '0', '0', '2');
 INSERT INTO `ospos_items` VALUES ('Ipod 5', 'LCDs', null, null, '', '20.00', '35.00', '14.00', '10.00', '', '2', '0', '0', '0', '0', '0', '1');
 INSERT INTO `ospos_items` VALUES ('Repair Service', 'Services', null, null, '', '30.00', '30.00', '999.00', '1.00', '', '3', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3GS Digitizer', 'iPhone', null, null, '', '0.00', '50.00', '1.00', '3.00', '', '4', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3GS Digitizer', 'iPhone', '51', null, '', '0.00', '50.00', '1.00', '3.00', '0', '4', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Screen Protector', 'Accessories', null, null, '', '0.00', '10.00', '37.00', '10.00', '', '5', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('LifeProof Case', 'Accessories', null, null, '', '0.00', '85.00', '11.00', '5.00', '', '6', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Ipad Protect Case', 'Accessories', null, null, '', '0.00', '49.99', '5.00', '2.00', '', '7', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Iphone 3gs Back', 'Accessories', null, null, '', '0.00', '75.00', '111.00', '0.00', '', '8', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3G Digitizer', 'iPhone', null, '01020304', '', '0.00', '45.00', '2.00', '2.00', '', '9', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('3G Digitizer', 'iPhone', null, '01020304', '', '0.00', '45.00', '32.00', '2.00', '', '9', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Ipad 2 Screen Black', 'Ipad', null, null, '', '0.00', '125.00', '33.00', '1.00', '', '10', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Ipad 2 Screen White ', 'Ipad', null, null, '', '0.00', '125.00', '121.00', '1.00', '', '11', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Ipad 3 Screen White', 'Ipad', null, null, '', '0.00', '200.00', '34.00', '0.00', '', '12', '0', '0', '0', '0', '0', '0');
@@ -1192,7 +1274,7 @@ INSERT INTO `ospos_items` VALUES ('4s Back Black', 'iPhone', null, null, '', '0.
 INSERT INTO `ospos_items` VALUES ('4 GSM Black Screen', 'iPhone', null, null, '', '0.00', '79.95', '10.00', '3.00', '', '18', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4 GSM White Screen', 'iPhone', null, null, '', '0.00', '79.95', '10.00', '3.00', '', '19', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4 CDMA White screen', 'iPhone', null, null, '', '0.00', '79.95', '143.00', '2.00', '', '20', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 CDMA Black Screen', 'iPhone', null, null, '', '0.00', '79.95', '4.00', '2.00', '', '21', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 CDMA Black Screen', 'iPhone', null, null, '', '0.00', '79.95', '104.00', '2.00', '', '21', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4s white Screen', 'iPhone', null, null, '', '0.00', '89.95', '7.00', '3.00', '', '22', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4s Black screen', 'iPhone', null, null, '', '0.00', '89.95', '9.00', '3.00', '', '23', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('3gs lcd', 'iPhone', null, null, '', '0.00', '65.00', '213.00', '1.00', '', '24', '0', '0', '0', '0', '0', '0');
@@ -1216,7 +1298,7 @@ INSERT INTO `ospos_items` VALUES ('4S Black Front', 'iPhone', null, null, '', '0
 INSERT INTO `ospos_items` VALUES ('4S White Front', 'iPhone', null, null, '', '0.00', '75.00', '3.00', '2.00', '', '42', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4 GSM White Back', 'iPhone', null, null, '', '0.00', '45.00', '8.00', '2.00', '', '43', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('3GS LCD', 'iPhone', null, null, '', '0.00', '45.00', '1.00', '0.00', '', '44', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3G Digitizer', 'iPhone', null, '010203', '', '0.00', '45.00', '743.00', '2.00', '', '45', '0', '1', '0', '0', '0', '4');
+INSERT INTO `ospos_items` VALUES ('3G Digitizer', 'iPhone', null, '010203', '', '0.00', '45.00', '742.00', '2.00', '', '45', '0', '1', '0', '0', '0', '4');
 INSERT INTO `ospos_items` VALUES ('Iphone 3G LCD', 'iPhone', null, null, '', '0.00', '25.00', '26.00', '2.00', '', '46', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4S Black Back', 'iPhone', null, null, '', '0.00', '25.00', '7.00', '2.00', '', '47', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4S White Back', 'iPhone', null, null, '', '0.00', '25.00', '324.00', '2.00', '', '48', '0', '0', '0', '0', '0', '0');
@@ -1224,7 +1306,7 @@ INSERT INTO `ospos_items` VALUES ('4 GSM Black Back', 'iPhone', null, null, '', 
 INSERT INTO `ospos_items` VALUES ('3GS Back Assembly', 'iPhone', null, null, '', '0.00', '75.00', '11.00', '0.00', '', '50', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4 Home Flex', 'iPhone', null, null, '', '0.00', '45.00', '5.00', '2.00', '', '51', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4 GSM Vibrator', 'iPhone', null, null, '', '0.00', '25.00', '435.00', '1.00', '', '52', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('4 GSM Audio Jack', 'iPhone', null, null, '', '0.00', '50.00', '34.00', '1.00', '', '53', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('4 GSM Audio Jack', 'iPhone', null, null, '', '0.00', '50.00', '59.00', '1.00', '', '53', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4S Power Flex', 'iPhone', null, null, '', '0.00', '50.00', '5.00', '2.00', '', '54', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('3GS Digitizer', 'ipad', null, null, '', '0.00', '100.00', '-4.00', '0.00', '', '55', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4 Back Camera', 'iPhone', null, null, '', '0.00', '35.00', '2.00', '1.00', '', '56', '1', '0', '0', '0', '0', '0');
@@ -1240,7 +1322,7 @@ INSERT INTO `ospos_items` VALUES ('3GS Battery', 'iPhone', null, null, '', '0.00
 INSERT INTO `ospos_items` VALUES ('4G Battery', 'iPhone', null, null, '', '0.00', '40.00', '9.00', '2.00', '', '66', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4S Battery', 'iPhone', null, null, '', '0.00', '35.00', '4.00', '1.00', '', '67', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4 CDMA / 4S Vibrator', 'iPhone', null, null, '', '0.00', '35.00', '-2.00', '0.00', '', '68', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('3G Dock', 'iPhone', '51', null, '', '0.00', '36.00', '15.00', '0.00', '0', '69', '0', '0', '0', '0', '0', '2');
+INSERT INTO `ospos_items` VALUES ('3G Dock', 'iPhone', '51', null, '', '0.00', '36.00', '100.00', '20.00', '0', '69', '0', '0', '0', '0', '0', '2');
 INSERT INTO `ospos_items` VALUES ('4 GSM Boom Box', 'iPhone', null, null, '', '0.00', '45.00', '98.00', '0.00', '', '70', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('CDMA / 4S Boom Box', 'iPhone', null, null, '', '0.00', '45.00', '32.00', '1.00', '', '71', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4S Audio Jack', 'iPhone', null, null, '', '0.00', '50.00', '61.00', '0.00', '', '72', '0', '0', '0', '0', '0', '0');
@@ -1269,19 +1351,19 @@ INSERT INTO `ospos_items` VALUES ('Battery Back Case', 'Accessories', null, null
 INSERT INTO `ospos_items` VALUES ('Phone Case', 'Accessories', null, null, '', '0.00', '25.00', '13.00', '5.00', '', '95', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('culo', 'iPhone', null, null, '', '200.00', '100.00', '99.00', '2.00', '', '96', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('4 GSM Color Front', 'smoke', null, 'UEN', 'bdghkaghdagkasg', '30.00', '10.00', '6.00', '5.00', 'where', '97', '1', '1', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 1', 'Blackberry', null, null, '', '1200.00', '369.00', '24.00', '10.00', '', '98', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 2', 'Blackberry', null, null, '', '1200.00', '400.00', '209.00', '10.00', '', '99', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 4', 'Blackberry', null, null, '', '1200.00', '256.00', '88.00', '10.00', '', '100', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 1', 'Blackberry', null, null, '', '1200.00', '369.00', '12.00', '10.00', '', '98', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 2', 'Blackberry', null, null, '', '1200.00', '400.00', '208.00', '10.00', '', '99', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 4', 'Blackberry', null, null, '', '1200.00', '256.00', '86.00', '10.00', '', '100', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 5', 'Blackberry', null, null, '', '1200.00', '125.00', '123.00', '10.00', '', '101', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 6', 'Blackberry', null, null, '', '1200.00', '80.00', '41.00', '10.00', '', '102', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 7', 'Blackberry', null, null, '', '1200.00', '66.00', '586.00', '10.00', '', '103', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 8', 'Blackberry', null, null, '', '1200.00', '593.00', '155.00', '10.00', '', '104', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 9', 'Blackberry', null, null, '', '1200.00', '200.00', '50.00', '10.00', '', '105', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 10', 'Blackberry', null, null, '', '1200.00', '224.00', '16.00', '10.00', '', '106', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 11', 'Blackberry', null, null, '', '1200.00', '37.00', '37.00', '10.00', '', '107', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 10', 'Blackberry', null, null, '', '1200.00', '224.00', '15.00', '10.00', '', '106', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 11', 'Blackberry', null, null, '', '1200.00', '37.00', '36.00', '10.00', '', '107', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 12', 'Blackberry', null, null, '', '1200.00', '69.50', '31.00', '10.00', '', '108', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('harh disk', 'Blackberry', null, null, '', '1200.00', '80.90', '8.00', '10.00', '', '109', '0', '0', '0', '0', '0', '0');
-INSERT INTO `ospos_items` VALUES ('Pantalla bold 14', 'Blackberry', null, null, '', '1200.00', '200.00', '27.00', '10.00', '', '110', '0', '0', '0', '0', '0', '0');
+INSERT INTO `ospos_items` VALUES ('Pantalla bold 14', 'Blackberry', null, null, '', '1200.00', '200.00', '22.00', '10.00', '', '110', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 15', 'Blackberry', null, null, '', '1200.00', '156.00', '30.00', '10.00', '', '111', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('Pantalla bold 16', 'Blackberry', null, null, '', '1200.00', '187.00', '35.00', '10.00', '', '112', '0', '0', '0', '0', '0', '0');
 INSERT INTO `ospos_items` VALUES ('cornetas pioners  6\'\' 1/2', 'HTC', null, '140783', 'bellas', '100.00', '70.00', '20.00', '10.00', 'carabobo', '131', '1', '1', '0', '0', '0', '0');
@@ -1487,31 +1569,6 @@ INSERT INTO `ospos_item_kit_items` VALUES ('4', '69', '1.00');
 INSERT INTO `ospos_item_kit_items` VALUES ('4', '109', '1.00');
 
 -- ----------------------------
--- Table structure for `ospos_locations`
--- ----------------------------
-DROP TABLE IF EXISTS `ospos_locations`;
-CREATE TABLE `ospos_locations` (
-  `name` varchar(20) NOT NULL,
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `hostname` varchar(50) NOT NULL DEFAULT 'localhost',
-  `username` varchar(20) NOT NULL DEFAULT 'root',
-  `password` varchar(200) NOT NULL,
-  `database` varchar(20) NOT NULL,
-  `dbdriver` varchar(12) NOT NULL DEFAULT 'mysql',
-  `dbprefix` varchar(10) NOT NULL DEFAULT 'ospos_',
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of ospos_locations
--- ----------------------------
-INSERT INTO `ospos_locations` VALUES ('otratu', '1', 'localhost', 'root', 'root', 'possp2', 'mysql', 'ospos_', '0');
-INSERT INTO `ospos_locations` VALUES ('corona', '13', 'localhost', 'root', 'root', 'corona', 'mysql', 'ospos_', '1');
-INSERT INTO `ospos_locations` VALUES ('Ramona', '19', 'localhost', 'root', 'root', 'ramona', 'mysql', 'ospos_', '0');
-INSERT INTO `ospos_locations` VALUES ('adrian', '30', 'localhost', 'root', 'root', 'maria', 'mysql', 'ospos_', '0');
-
--- ----------------------------
 -- Table structure for `ospos_modules`
 -- ----------------------------
 DROP TABLE IF EXISTS `ospos_modules`;
@@ -1551,7 +1608,7 @@ CREATE TABLE `ospos_observation_inventories` (
   `observation` mediumtext,
   `person_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_observation_inventories
@@ -1571,6 +1628,22 @@ INSERT INTO `ospos_observation_inventories` VALUES ('12', '2014-05-09 08:48:57',
 INSERT INTO `ospos_observation_inventories` VALUES ('13', '2014-05-12 08:44:54', '', '1');
 INSERT INTO `ospos_observation_inventories` VALUES ('14', '2014-05-14 14:58:20', '', '54');
 INSERT INTO `ospos_observation_inventories` VALUES ('15', '2014-05-15 08:25:36', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('16', '2014-05-16 08:43:36', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('17', '2014-05-21 09:00:37', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('18', '2014-05-22 08:05:20', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('19', '2014-05-23 09:53:49', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('20', '2014-05-26 08:11:18', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('21', '2014-05-27 08:38:07', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('22', '2014-05-28 11:50:08', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('23', '2014-05-29 09:10:57', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('24', '2014-05-30 08:37:48', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('25', '2014-06-04 13:14:08', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('26', '2014-06-05 13:54:44', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('27', '2014-06-06 10:52:07', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('28', '2014-06-09 17:03:47', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('29', '2014-06-10 09:34:13', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('30', '2014-06-11 15:59:24', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('31', '2014-06-12 08:22:22', '', '1');
 
 -- ----------------------------
 -- Table structure for `ospos_people`
@@ -1590,12 +1663,12 @@ CREATE TABLE `ospos_people` (
   `comments` text,
   `person_id` int(10) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`person_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_people
 -- ----------------------------
-INSERT INTO `ospos_people` VALUES ('Alex', 'Kundalia', '122525', 'info@om-parts.com', 'Address 1', '', '', '', '', '', '', '1');
+INSERT INTO `ospos_people` VALUES ('Apu', 'Nahasapeemapetilon', '122525', 'info@om-parts.com', 'Address 1', '', '', '', '', '', '', '1');
 INSERT INTO `ospos_people` VALUES ('other', 'possp2', null, null, 'localhost', null, null, null, null, null, 'location', '2');
 INSERT INTO `ospos_people` VALUES ('Jv ', 'Soluciones', '', '', '', '', '', '', '', '', '', '3');
 INSERT INTO `ospos_people` VALUES ('speed', 'speed', '', '', '', '', '', '', '', '', '', '4');
@@ -1613,6 +1686,8 @@ INSERT INTO `ospos_people` VALUES ('adrian', 'esqueda', '234567887', 'a@a.com', 
 INSERT INTO `ospos_people` VALUES ('Yo', 'Era', '123456789333', 'yoera@choro.com', '', '', '', '', '', '', '', '45');
 INSERT INTO `ospos_people` VALUES ('Willem', 'Franco', '', 'willemfranco@gmail.com', '', '', '', '', '', '', '', '54');
 INSERT INTO `ospos_people` VALUES ('otra', 'possp2', null, null, 'localhost', null, null, null, null, null, 'location', '55');
+INSERT INTO `ospos_people` VALUES ('Carlos', 'Martinez', '5646464', 'repuestos.ca@hotmail.com', '', '', '', '', '', '', '', '56');
+INSERT INTO `ospos_people` VALUES ('otra & cosita C.A', 'possp_otra', null, null, 'localhost', null, null, null, null, null, 'location', '57');
 
 -- ----------------------------
 -- Table structure for `ospos_permissions`
@@ -1630,8 +1705,6 @@ CREATE TABLE `ospos_permissions` (
 -- Records of ospos_permissions
 -- ----------------------------
 INSERT INTO `ospos_permissions` VALUES ('locations', '1', 'add,update,disable');
-INSERT INTO `ospos_permissions` VALUES ('config', '1', 'save');
-INSERT INTO `ospos_permissions` VALUES ('giftcards', '1', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('employees', '1', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('items', '4', 'none');
 INSERT INTO `ospos_permissions` VALUES ('sales', '4', 'none');
@@ -1640,10 +1713,9 @@ INSERT INTO `ospos_permissions` VALUES ('employees', '42', 'add,update');
 INSERT INTO `ospos_permissions` VALUES ('sales', '42', 'none');
 INSERT INTO `ospos_permissions` VALUES ('receivings', '42', 'none');
 INSERT INTO `ospos_permissions` VALUES ('reports', '42', 'none');
+INSERT INTO `ospos_permissions` VALUES ('giftcards', '1', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('sales', '1', 'none');
 INSERT INTO `ospos_permissions` VALUES ('receivings', '1', 'none');
-INSERT INTO `ospos_permissions` VALUES ('item_kits', '1', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('suppliers', '1', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('employees', '43', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('sales', '43', 'none');
 INSERT INTO `ospos_permissions` VALUES ('receivings', '43', 'none');
@@ -1654,8 +1726,8 @@ INSERT INTO `ospos_permissions` VALUES ('item_kits', '43', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('customers', '43', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('customers', '54', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('reports', '1', 'none');
-INSERT INTO `ospos_permissions` VALUES ('items', '1', 'add,update,delete');
-INSERT INTO `ospos_permissions` VALUES ('customers', '1', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('suppliers', '1', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('item_kits', '1', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('giftcards', '43', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('config', '43', 'save');
 INSERT INTO `ospos_permissions` VALUES ('employees', '54', 'add,update,delete');
@@ -1683,6 +1755,9 @@ INSERT INTO `ospos_permissions` VALUES ('suppliers', '42', 'add,update');
 INSERT INTO `ospos_permissions` VALUES ('item_kits', '42', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('items', '42', 'add,update,delete');
 INSERT INTO `ospos_permissions` VALUES ('customers', '42', 'add,update');
+INSERT INTO `ospos_permissions` VALUES ('items', '1', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('customers', '1', 'add,update,delete');
+INSERT INTO `ospos_permissions` VALUES ('config', '1', 'save');
 
 -- ----------------------------
 -- Table structure for `ospos_receivings`
@@ -1695,63 +1770,67 @@ CREATE TABLE `ospos_receivings` (
   `comment` text NOT NULL,
   `receiving_id` int(10) NOT NULL AUTO_INCREMENT,
   `payment_type` varchar(20) DEFAULT NULL,
+  `payment` double(15,0) DEFAULT NULL,
   PRIMARY KEY (`receiving_id`),
   KEY `supplier_id` (`supplier_id`),
   KEY `employee_id` (`employee_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_receivings
 -- ----------------------------
-INSERT INTO `ospos_receivings` VALUES ('2012-11-23 11:52:28', null, '6', '', '1', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2013-12-05 10:25:06', null, '1', 'All done', '2', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2013-12-05 10:30:07', null, '1', '', '3', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2013-12-05 10:35:50', null, '1', '', '4', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2013-12-06 10:22:46', null, '1', '', '5', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2013-12-13 14:22:18', null, '1', '', '6', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-13 10:40:59', null, '1', '', '7', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-13 10:51:20', null, '1', '', '8', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-13 11:18:24', null, '1', '', '9', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-15 15:03:41', null, '1', '', '10', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-15 15:06:26', null, '1', '', '11', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-15 15:07:16', null, '1', '', '12', 'Cash');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-17 14:22:50', null, '1', '', '13', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 08:59:07', null, '1', '', '14', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 09:02:03', null, '1', '', '15', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 09:02:34', null, '1', '', '16', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 09:04:58', null, '1', '', '17', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 09:08:02', null, '1', '', '18', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 09:12:48', null, '1', '', '19', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 13:23:46', null, '1', 'prueba de gustavo', '20', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 13:31:47', null, '1', '', '21', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 14:19:44', null, '1', '', '22', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 14:20:46', null, '1', '', '23', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 14:37:49', null, '1', '', '24', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 14:48:40', null, '1', '', '25', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 14:49:53', null, '1', '', '26', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:00:50', null, '1', '', '27', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:01:37', null, '1', '', '28', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:02:04', null, '1', '', '29', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:03:07', null, '1', '', '30', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:11:21', null, '1', '', '31', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:57:13', null, '1', '', '32', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 16:42:44', null, '1', '', '33', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-20 16:48:49', null, '1', '', '34', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-21 16:12:02', null, '1', '', '35', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-21 16:22:22', null, '1', '', '36', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-21 16:24:56', null, '1', '', '37', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-21 16:28:36', null, '1', '', '38', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-21 16:30:09', null, '1', '', '39', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:24:56', null, '1', '', '40', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:32:37', null, '1', '', '41', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:45:47', null, '1', '', '42', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-02-04 09:47:56', null, '1', 'jugjhjghjghjghjghjghj', '43', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-03-05 16:12:20', null, '1', '', '44', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:23:34', '51', '43', '', '45', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:40:28', '51', '43', '', '46', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:41:37', null, '45', '', '47', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:52:17', null, '45', 'yeah', '48', '0');
-INSERT INTO `ospos_receivings` VALUES ('2014-04-24 12:31:12', null, '1', '', '49', '0');
+INSERT INTO `ospos_receivings` VALUES ('2012-11-23 11:52:28', null, '6', '', '1', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2013-12-05 10:25:06', null, '1', 'All done', '2', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2013-12-05 10:30:07', null, '1', '', '3', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2013-12-05 10:35:50', null, '1', '', '4', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2013-12-06 10:22:46', null, '1', '', '5', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2013-12-13 14:22:18', null, '1', '', '6', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-13 10:40:59', null, '1', '', '7', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-13 10:51:20', null, '1', '', '8', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-13 11:18:24', null, '1', '', '9', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-15 15:03:41', null, '1', '', '10', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-15 15:06:26', null, '1', '', '11', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-15 15:07:16', null, '1', '', '12', 'Cash', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-17 14:22:50', null, '1', '', '13', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 08:59:07', null, '1', '', '14', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 09:02:03', null, '1', '', '15', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 09:02:34', null, '1', '', '16', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 09:04:58', null, '1', '', '17', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 09:08:02', null, '1', '', '18', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 09:12:48', null, '1', '', '19', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 13:23:46', null, '1', 'prueba de gustavo', '20', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 13:31:47', null, '1', '', '21', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 14:19:44', null, '1', '', '22', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 14:20:46', null, '1', '', '23', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 14:37:49', null, '1', '', '24', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 14:48:40', null, '1', '', '25', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 14:49:53', null, '1', '', '26', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:00:50', null, '1', '', '27', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:01:37', null, '1', '', '28', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:02:04', null, '1', '', '29', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:03:07', null, '1', '', '30', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:11:21', null, '1', '', '31', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 15:57:13', null, '1', '', '32', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 16:42:44', null, '1', '', '33', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-20 16:48:49', null, '1', '', '34', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-21 16:12:02', null, '1', '', '35', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-21 16:22:22', null, '1', '', '36', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-21 16:24:56', null, '1', '', '37', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-21 16:28:36', null, '1', '', '38', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-21 16:30:09', null, '1', '', '39', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:24:56', null, '1', '', '40', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:32:37', null, '1', '', '41', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-01-22 16:45:47', null, '1', '', '42', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-02-04 09:47:56', null, '1', 'jugjhjghjghjghjghjghj', '43', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-03-05 16:12:20', null, '1', '', '44', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:23:34', '51', '43', '', '45', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:40:28', '51', '43', '', '46', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:41:37', null, '45', '', '47', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-03-26 11:52:17', null, '45', 'yeah', '48', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-04-24 12:31:12', null, '1', '', '49', '0', '0');
+INSERT INTO `ospos_receivings` VALUES ('2014-05-29 09:34:09', '51', '1', '', '50', 'Cash', '800');
+INSERT INTO `ospos_receivings` VALUES ('2014-05-29 10:29:16', '56', '1', '', '51', 'Efectivo', '400');
+INSERT INTO `ospos_receivings` VALUES ('2014-05-29 10:57:54', '56', '1', '', '52', 'Cheque', '50');
 
 -- ----------------------------
 -- Table structure for `ospos_receivings_items`
@@ -1887,6 +1966,11 @@ INSERT INTO `ospos_receivings_items` VALUES ('46', '65', '', '', '2', '1', '0.00
 INSERT INTO `ospos_receivings_items` VALUES ('47', '43', '', '', '1', '1', '0.00', '45.00', '0');
 INSERT INTO `ospos_receivings_items` VALUES ('48', '43', '', '', '1', '1', '0.00', '45.00', '0');
 INSERT INTO `ospos_receivings_items` VALUES ('49', '108', '', '', '1', '1', '1200.00', '69.50', '0');
+INSERT INTO `ospos_receivings_items` VALUES ('50', '98', '', '0', '1', '1', '1200.00', '800.00', '0');
+INSERT INTO `ospos_receivings_items` VALUES ('51', '9', '', '0', '1', '30', '0.00', '20.00', '0');
+INSERT INTO `ospos_receivings_items` VALUES ('51', '21', '', '0', '2', '100', '0.00', '0.99', '0');
+INSERT INTO `ospos_receivings_items` VALUES ('51', '53', '', '0', '3', '20', '0.00', '10.00', '0');
+INSERT INTO `ospos_receivings_items` VALUES ('52', '53', '', '0', '1', '5', '0.00', '20.00', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_sales`
@@ -1904,7 +1988,7 @@ CREATE TABLE `ospos_sales` (
   PRIMARY KEY (`sale_id`),
   KEY `customer_id` (`customer_id`),
   KEY `employee_id` (`employee_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_sales
@@ -1954,6 +2038,13 @@ INSERT INTO `ospos_sales` VALUES ('2014-04-24 11:35:23', '55', '-1', '0', '42', 
 INSERT INTO `ospos_sales` VALUES ('2014-04-24 13:54:01', '55', '-1', '0', '43', 'Cash: $86.69<br />', '2', '1');
 INSERT INTO `ospos_sales` VALUES ('2014-04-25 16:21:22', null, '-1', '0', '44', 'Cash: $494.69<br />', '0', '1');
 INSERT INTO `ospos_sales` VALUES ('2014-04-25 16:22:16', '55', '-1', '0', '45', 'Cash: $682.70<br />', '2', '1');
+INSERT INTO `ospos_sales` VALUES ('2014-05-21 14:49:37', '55', '-1', '0', '46', 'Cash: $40.10<br />', '2', '1');
+INSERT INTO `ospos_sales` VALUES ('2014-05-26 09:40:24', '55', '-1', '0', '47', 'Cash: $1000.00<br />Check: $388.00<br />Debit Card: $300.00<br />Credit Card: $250.00<br />', '2', '1');
+INSERT INTO `ospos_sales` VALUES ('2014-05-26 10:53:21', null, '-1', '0', '48', 'Cash: $242.74<br />', '0', '1');
+INSERT INTO `ospos_sales` VALUES ('2014-05-26 10:54:06', '55', '-1', '0', '49', 'Cash: $500.65<br />', '2', '1');
+INSERT INTO `ospos_sales` VALUES ('2014-05-26 15:53:50', null, '-1', '0', '50', 'Cash: $48.15<br />', '0', '1');
+INSERT INTO `ospos_sales` VALUES ('2014-05-29 09:35:54', null, '-1', '0', '51', 'Cash: $1000.57<br />Debit Card: $500.00<br />Credit Card: $450.00<br />', '0', '1');
+INSERT INTO `ospos_sales` VALUES ('2014-06-05 15:47:03', '57', '-1', '0', '52', 'Cash: $162.56<br />', '2', '1');
 
 -- ----------------------------
 -- Table structure for `ospos_sales_items`
@@ -2039,6 +2130,15 @@ INSERT INTO `ospos_sales_items` VALUES ('44', '112', '', '', '3', '1.00', '1200.
 INSERT INTO `ospos_sales_items` VALUES ('45', '98', '0', '0', '1', '1.00', '1200.00', '369.00', '0');
 INSERT INTO `ospos_sales_items` VALUES ('45', '106', '0', '0', '2', '1.00', '1200.00', '224.00', '0');
 INSERT INTO `ospos_sales_items` VALUES ('45', '107', '', '', '3', '1.00', '1200.00', '37.00', '0');
+INSERT INTO `ospos_sales_items` VALUES ('46', '107', '', '', '1', '1.00', '1200.00', '37.00', '0');
+INSERT INTO `ospos_sales_items` VALUES ('47', '98', '0', '0', '1', '4.00', '1200.00', '369.00', '0');
+INSERT INTO `ospos_sales_items` VALUES ('47', '99', '', '', '2', '1.00', '1200.00', '400.00', '0');
+INSERT INTO `ospos_sales_items` VALUES ('47', '100', '0', '0', '3', '2.00', '1200.00', '256.00', '0');
+INSERT INTO `ospos_sales_items` VALUES ('48', '106', '', '', '1', '1.00', '1200.00', '224.00', '0');
+INSERT INTO `ospos_sales_items` VALUES ('49', '110', '0', '0', '1', '5.00', '1200.00', '200.00', '0');
+INSERT INTO `ospos_sales_items` VALUES ('50', '45', '', '', '1', '1.00', '0.00', '45.00', '0');
+INSERT INTO `ospos_sales_items` VALUES ('51', '98', '0', '0', '1', '9.00', '1200.00', '200.00', '0');
+INSERT INTO `ospos_sales_items` VALUES ('52', '1', '0', '0', '1', '5.00', '13.00', '30.00', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_sales_items_taxes`
@@ -2088,6 +2188,9 @@ INSERT INTO `ospos_sales_items_taxes` VALUES ('35', '98', '1', 'Sales Tax', '8.3
 INSERT INTO `ospos_sales_items_taxes` VALUES ('44', '108', '2', 'Sales Tax', '8.365');
 INSERT INTO `ospos_sales_items_taxes` VALUES ('44', '110', '1', 'Sales Tax', '8.365');
 INSERT INTO `ospos_sales_items_taxes` VALUES ('44', '112', '3', 'Sales Tax', '8.365');
+INSERT INTO `ospos_sales_items_taxes` VALUES ('48', '106', '1', 'Sales Tax', '8.365');
+INSERT INTO `ospos_sales_items_taxes` VALUES ('50', '45', '1', 'Sales Tax', '7.000');
+INSERT INTO `ospos_sales_items_taxes` VALUES ('51', '98', '1', 'Sales Tax', '8.365');
 
 -- ----------------------------
 -- Table structure for `ospos_sales_payments`
@@ -2153,6 +2256,18 @@ INSERT INTO `ospos_sales_payments` VALUES ('42', 'Cash', '100.00');
 INSERT INTO `ospos_sales_payments` VALUES ('43', 'Cash', '86.69');
 INSERT INTO `ospos_sales_payments` VALUES ('44', 'Cash', '494.69');
 INSERT INTO `ospos_sales_payments` VALUES ('45', 'Cash', '682.70');
+INSERT INTO `ospos_sales_payments` VALUES ('46', 'Cash', '40.10');
+INSERT INTO `ospos_sales_payments` VALUES ('47', 'Cash', '1000.00');
+INSERT INTO `ospos_sales_payments` VALUES ('47', 'Check', '388.00');
+INSERT INTO `ospos_sales_payments` VALUES ('47', 'Debit Card', '300.00');
+INSERT INTO `ospos_sales_payments` VALUES ('47', 'Credit Card', '250.00');
+INSERT INTO `ospos_sales_payments` VALUES ('48', 'Cash', '242.74');
+INSERT INTO `ospos_sales_payments` VALUES ('49', 'Cash', '500.65');
+INSERT INTO `ospos_sales_payments` VALUES ('50', 'Cash', '48.15');
+INSERT INTO `ospos_sales_payments` VALUES ('51', 'Cash', '1000.57');
+INSERT INTO `ospos_sales_payments` VALUES ('51', 'Debit Card', '500.00');
+INSERT INTO `ospos_sales_payments` VALUES ('51', 'Credit Card', '450.00');
+INSERT INTO `ospos_sales_payments` VALUES ('52', 'Cash', '162.56');
 
 -- ----------------------------
 -- Table structure for `ospos_sales_suspended`
@@ -2240,15 +2355,15 @@ CREATE TABLE `ospos_schedules` (
   `out` time NOT NULL,
   `person_id` int(11) NOT NULL,
   PRIMARY KEY (`schedule_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=354 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=368 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of ospos_schedules
 -- ----------------------------
-INSERT INTO `ospos_schedules` VALUES ('352', 'Friday', '08:00:00', '17:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('367', 'Saturday', '00:00:00', '01:00:00', '1');
 INSERT INTO `ospos_schedules` VALUES ('162', 'Sunday', '00:00:00', '20:00:00', '5');
-INSERT INTO `ospos_schedules` VALUES ('351', 'Thursday', '00:00:00', '23:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('349', 'Tuesday', '00:00:00', '20:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('366', 'Friday', '08:00:00', '22:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('365', 'Thursday', '00:00:00', '23:00:00', '1');
 INSERT INTO `ospos_schedules` VALUES ('157', 'Sunday', '08:00:00', '19:00:00', '4');
 INSERT INTO `ospos_schedules` VALUES ('158', 'Monday', '08:00:00', '18:00:00', '4');
 INSERT INTO `ospos_schedules` VALUES ('159', 'Tuesday', '08:00:00', '16:00:00', '4');
@@ -2266,8 +2381,8 @@ INSERT INTO `ospos_schedules` VALUES ('171', 'Thursday', '00:00:00', '19:00:00',
 INSERT INTO `ospos_schedules` VALUES ('172', 'Friday', '00:00:00', '20:00:00', '40');
 INSERT INTO `ospos_schedules` VALUES ('320', 'Friday', '00:00:00', '20:00:00', '42');
 INSERT INTO `ospos_schedules` VALUES ('319', 'Thursday', '00:00:00', '20:00:00', '42');
-INSERT INTO `ospos_schedules` VALUES ('350', 'Wednesday', '00:00:00', '21:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('348', 'Monday', '00:00:00', '21:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('364', 'Wednesday', '00:00:00', '21:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('363', 'Tuesday', '00:00:00', '20:00:00', '1');
 INSERT INTO `ospos_schedules` VALUES ('242', 'Saturday', '00:00:00', '20:00:00', '43');
 INSERT INTO `ospos_schedules` VALUES ('241', 'Friday', '00:00:00', '20:00:00', '43');
 INSERT INTO `ospos_schedules` VALUES ('240', 'Thursday', '00:00:00', '20:00:00', '43');
@@ -2303,8 +2418,8 @@ INSERT INTO `ospos_schedules` VALUES ('302', 'Thursday', '00:00:00', '23:00:00',
 INSERT INTO `ospos_schedules` VALUES ('303', 'Friday', '00:00:00', '23:00:00', '54');
 INSERT INTO `ospos_schedules` VALUES ('304', 'Saturday', '00:00:00', '23:00:00', '54');
 INSERT INTO `ospos_schedules` VALUES ('317', 'Tuesday', '00:00:00', '23:00:00', '42');
-INSERT INTO `ospos_schedules` VALUES ('347', 'Sunday', '00:00:00', '23:00:00', '1');
-INSERT INTO `ospos_schedules` VALUES ('353', 'Saturday', '00:00:00', '01:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('362', 'Monday', '00:00:00', '21:00:00', '1');
+INSERT INTO `ospos_schedules` VALUES ('361', 'Sunday', '00:00:00', '23:00:00', '1');
 
 -- ----------------------------
 -- Table structure for `ospos_sessions`
@@ -2322,8 +2437,7 @@ CREATE TABLE `ospos_sessions` (
 -- ----------------------------
 -- Records of ospos_sessions
 -- ----------------------------
-INSERT INTO `ospos_sessions` VALUES ('f8518e410b989da0a705b7619c9e7e1f', '0.0.0.0', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36', '1400158516', 'a:4:{s:9:\"user_data\";s:0:\"\";s:10:\"dblocation\";s:7:\"default\";s:9:\"person_id\";s:1:\"1\";s:21:\"employees_working_now\";a:2:{i:0;i:0;i:1;s:1:\"1\";}}');
-INSERT INTO `ospos_sessions` VALUES ('0dc02c46b1c0fa10702c23f8bca77b86', '192.168.1.123', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36', '1400160909', 'a:4:{s:9:\"user_data\";s:0:\"\";s:10:\"dblocation\";s:7:\"default\";s:9:\"person_id\";s:1:\"1\";s:21:\"employees_working_now\";a:2:{i:0;i:0;i:1;s:1:\"1\";}}');
+INSERT INTO `ospos_sessions` VALUES ('a0f321983a092507398c5ac8cf2a21c4', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36', '1402585364', 'a:7:{s:9:\"user_data\";s:0:\"\";s:10:\"dblocation\";s:7:\"default\";s:9:\"person_id\";s:1:\"1\";s:21:\"employees_working_now\";a:2:{i:0;i:0;i:1;s:1:\"1\";}s:8:\"cartRecv\";a:0:{}s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;}');
 
 -- ----------------------------
 -- Table structure for `ospos_suppliers`
@@ -2347,6 +2461,7 @@ INSERT INTO `ospos_suppliers` VALUES ('92', 'Ramon & Supplies', null, '0');
 INSERT INTO `ospos_suppliers` VALUES ('44', 'RasMen', null, '0');
 INSERT INTO `ospos_suppliers` VALUES ('49', 'Websarrollo, C.A', null, '0');
 INSERT INTO `ospos_suppliers` VALUES ('51', 'dragon de drogas', 'aksjdlkasjdlkasldlkasdlkasdlkjalsdjljaslkdjasdjlaksdjklajsdlkasdasdmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', '0');
+INSERT INTO `ospos_suppliers` VALUES ('56', 'Repuestos CA', 'rca', '0');
 
 -- ----------------------------
 -- Table structure for `ospos_transfers`

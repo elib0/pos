@@ -26,6 +26,9 @@ class Chat_model extends CI_Model{
 		$this->getCon();
 		if($this->logged) $this->getUser();
 		// var_dump($this->user);
+		@session_start();
+		if(!isset($_SESSION['chat'])) $_SESSION['chat']=array();
+		if(!isset($_SESSION['chat'][$this->user->chat_id])) $_SESSION['chat'][$this->user->chat_id]=array();
 	}
 
 	// --------------------------------------------------------------------
@@ -207,9 +210,7 @@ class Chat_model extends CI_Model{
 		$this->con->where('location',$location);
 		$this->con->update($this->table,$data);
 	}
-	// function session($data){
-	// 	$chat=$this->session->userdata('chat');
-	// 	if(!$chat) $chat=array();
-	// 	return $chat;
-	// }
+	function clear_session(){
+		unset($_SESSION['chat']);
+	}
 }

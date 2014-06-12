@@ -26,6 +26,7 @@ if(window.chatStarted) return;
 if(window.matchMedia('screen').matches) chat_ajax(chatcontrol+'islogged',chat_init);
 
 function chat_init(data){
+	showChat(data.online);
 	window.chatStarted=true;
 	jQ('body').append(
 		'<div id="chat">'+
@@ -33,14 +34,14 @@ function chat_init(data){
 			'<div id="chatMainContainer">'+
 				'<div class="chatListContainer"></div>'+
 				'<div class="chatConfig">'+
-					'<input type="button" id="enable" value="Show"/><input type="button" id="disable" value="Hide"/>'+
+					'<input type="button" id="enable" value="Show" style="display:none;"/>'+
+					'<input type="button" id="disable" value="Hide" style="display:none;"/>'+
 					'<span id="hideChat"></span><span id="showChat" style="display:none;"></span>'+
 				'</div>'+
 			'</div>'+
 		'</div>'
 	);
 	jQ('#chatMainContainer').show();
-	showChat(data.online);
 	startChatSession();
 	jQ('body>#chat').on('click','.listUserChat',function(){
 		if(this.id!=userid){
@@ -92,6 +93,7 @@ function startChatSession(){
 			var chatbox,content;
 			userid=data.userid;
 			username=data.username;
+			showChat();
 			jQ.each(data.items,function(i,item){
 				if(item){//fix strange ie bug
 					chatbox=jQ('.chatbox#'+item.f);
@@ -176,21 +178,25 @@ function changeStatus(status,that){
 }
 
 function showChat(enable){
-	if(enable=='enable'||enable=='disable') enable=(enable!='disable');
-	if(enable){
-		jQ('.chatListContainer').slideDown();
-		jQ('#chatmsgs').fadeIn();
+	var show=false,slow=(enable!==undefined&&userid);
+	if(userid) show=$$.local('showchat_'+userid);
+	if(enable!==undefined) show=enable;
+	if(show=='enable'||show=='disable') show=(show!='disable');
+	if(show){
+		jQ('.chatListContainer')[slow?'slideDown':'show']();
+		jQ('#chatmsgs')[slow?'fadeIn':'show']();
 		jQ('#chat #disable,#hideChat').show();
 		jQ('#chat #enable,#showChat').hide(); 
 		//play=true;
 		//startChatSession();
 	}else{
-		jQ('.chatListContainer').slideUp();
-		jQ('#chatmsgs').fadeOut();
+		jQ('.chatListContainer')[slow?'slideUp':'hide']();
+		jQ('#chatmsgs')[slow?'fadeOut':'hide']();
 		jQ('#chat #enable').show();
 		jQ('#chat #disable,#showChat,#hideChat').hide();
 		//play=false;
 	}
+	if(userid) $$.local('showchat_'+userid,show);
 }
 
 var chbt;//chatheartbeat timeout var

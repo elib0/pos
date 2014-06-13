@@ -51,8 +51,13 @@ class Service extends CI_Model {
 	}
 
 	public function suggest($search = ''){
-		$this->db->from('service_log');
+		$search = $this->db->escape($search);
 
+		$this->db->from('service_log');
+		$this->db->join('person', 'person.person_id = service_log.person_id');
+		$this->db->join('model_phone', 'service_log.model_id = model_phone.model_id');
+		$this->db->where("CONCAT(service_log.phone_imei, ' ', person.first_name, ' ',person.last_name, ' ',  model_phone.model_name) LIKE '%$search%'");
+		return $this->db->get();
 	}
 
 }

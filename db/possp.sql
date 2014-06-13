@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50616
 File Encoding         : 65001
 
-Date: 2014-06-12 10:36:08
+Date: 2014-06-13 15:52:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -269,6 +269,20 @@ INSERT INTO `ospos_app_config` VALUES ('logo', 'logo.png');
 INSERT INTO `ospos_app_config` VALUES ('alert_after_sale', '0');
 
 -- ----------------------------
+-- Table structure for `ospos_brand_phone`
+-- ----------------------------
+DROP TABLE IF EXISTS `ospos_brand_phone`;
+CREATE TABLE `ospos_brand_phone` (
+  `brand_id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`brand_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of ospos_brand_phone
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `ospos_customers`
 -- ----------------------------
 DROP TABLE IF EXISTS `ospos_customers`;
@@ -357,7 +371,7 @@ CREATE TABLE `ospos_employees_schedule` (
   `logout` time DEFAULT NULL,
   `location` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=418 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_employees_schedule
@@ -607,6 +621,7 @@ INSERT INTO `ospos_employees_schedule` VALUES ('413', '1', '2014-06-09', '17:03:
 INSERT INTO `ospos_employees_schedule` VALUES ('414', '1', '2014-06-10', '09:34:08', null, 'default');
 INSERT INTO `ospos_employees_schedule` VALUES ('415', '1', '2014-06-11', '15:59:15', null, 'default');
 INSERT INTO `ospos_employees_schedule` VALUES ('416', '1', '2014-06-12', '08:22:18', null, 'default');
+INSERT INTO `ospos_employees_schedule` VALUES ('417', '1', '2014-06-13', '09:08:36', null, 'default');
 
 -- ----------------------------
 -- Table structure for `ospos_giftcards`
@@ -1569,6 +1584,23 @@ INSERT INTO `ospos_item_kit_items` VALUES ('4', '69', '1.00');
 INSERT INTO `ospos_item_kit_items` VALUES ('4', '109', '1.00');
 
 -- ----------------------------
+-- Table structure for `ospos_model_phone`
+-- ----------------------------
+DROP TABLE IF EXISTS `ospos_model_phone`;
+CREATE TABLE `ospos_model_phone` (
+  `model_id` int(11) NOT NULL AUTO_INCREMENT,
+  `model_name` varchar(50) NOT NULL,
+  `brand_id` int(11) NOT NULL,
+  PRIMARY KEY (`model_id`),
+  KEY `modelphone_brand` (`brand_id`),
+  CONSTRAINT `modelphone_brand` FOREIGN KEY (`brand_id`) REFERENCES `ospos_brand_phone` (`brand_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of ospos_model_phone
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `ospos_modules`
 -- ----------------------------
 DROP TABLE IF EXISTS `ospos_modules`;
@@ -1608,7 +1640,7 @@ CREATE TABLE `ospos_observation_inventories` (
   `observation` mediumtext,
   `person_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of ospos_observation_inventories
@@ -1644,6 +1676,7 @@ INSERT INTO `ospos_observation_inventories` VALUES ('28', '2014-06-09 17:03:47',
 INSERT INTO `ospos_observation_inventories` VALUES ('29', '2014-06-10 09:34:13', '', '1');
 INSERT INTO `ospos_observation_inventories` VALUES ('30', '2014-06-11 15:59:24', '', '1');
 INSERT INTO `ospos_observation_inventories` VALUES ('31', '2014-06-12 08:22:22', '', '1');
+INSERT INTO `ospos_observation_inventories` VALUES ('32', '2014-06-13 09:32:04', '', '1');
 
 -- ----------------------------
 -- Table structure for `ospos_people`
@@ -2422,6 +2455,26 @@ INSERT INTO `ospos_schedules` VALUES ('362', 'Monday', '00:00:00', '21:00:00', '
 INSERT INTO `ospos_schedules` VALUES ('361', 'Sunday', '00:00:00', '23:00:00', '1');
 
 -- ----------------------------
+-- Table structure for `ospos_service_log`
+-- ----------------------------
+DROP TABLE IF EXISTS `ospos_service_log`;
+CREATE TABLE `ospos_service_log` (
+  `service_id` int(11) NOT NULL,
+  `person_id` int(11) NOT NULL,
+  `phone_imei` varchar(18) DEFAULT NULL,
+  `model_id` int(11) NOT NULL,
+  `date_received` datetime NOT NULL,
+  `date_delivered` datetime DEFAULT NULL,
+  `comments` varchar(100) DEFAULT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`service_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of ospos_service_log
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `ospos_sessions`
 -- ----------------------------
 DROP TABLE IF EXISTS `ospos_sessions`;
@@ -2437,7 +2490,7 @@ CREATE TABLE `ospos_sessions` (
 -- ----------------------------
 -- Records of ospos_sessions
 -- ----------------------------
-INSERT INTO `ospos_sessions` VALUES ('a0f321983a092507398c5ac8cf2a21c4', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36', '1402585364', 'a:7:{s:9:\"user_data\";s:0:\"\";s:10:\"dblocation\";s:7:\"default\";s:9:\"person_id\";s:1:\"1\";s:21:\"employees_working_now\";a:2:{i:0;i:0;i:1;s:1:\"1\";}s:8:\"cartRecv\";a:0:{}s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;}');
+INSERT INTO `ospos_sessions` VALUES ('fcfc23b374ed3fbaa4ec46fd60c28d02', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36', '1402688819', 'a:8:{s:9:\"user_data\";s:0:\"\";s:10:\"dblocation\";s:7:\"default\";s:9:\"person_id\";s:1:\"1\";s:21:\"employees_working_now\";a:2:{i:0;i:0;i:1;s:1:\"1\";}s:14:\"items_location\";s:7:\"default\";s:8:\"cartRecv\";a:1:{i:1;a:10:{s:7:\"item_id\";s:3:\"106\";s:4:\"line\";i:1;s:4:\"name\";s:16:\"Pantalla bold 10\";s:11:\"description\";s:0:\"\";s:12:\"serialnumber\";s:0:\"\";s:21:\"allow_alt_description\";s:1:\"0\";s:13:\"is_serialized\";s:1:\"0\";s:8:\"quantity\";i:1;s:8:\"discount\";i:0;s:5:\"price\";s:7:\"1200.00\";}}s:9:\"recv_mode\";s:7:\"receive\";s:8:\"supplier\";i:-1;}');
 
 -- ----------------------------
 -- Table structure for `ospos_suppliers`

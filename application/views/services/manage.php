@@ -3,36 +3,12 @@
 	<div id="title" class="float_left"><?=$this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name)?>(<span><?=$items_location?></span>)</div>
 	<div id="new_button">
 		<?php
-		if($this->Employee->has_privilege('add',$controller_name)){  
 			echo anchor("$controller_name/view/-1/width:660/height:465",
 			"<span>".$this->lang->line($controller_name.'_new')."</span>",
 			array('class'=>'big_button thickbox','title'=>$this->lang->line($controller_name.'_new')));
-		}
 		?>
-		<?php echo anchor("$controller_name/excel_import/width:450/height:165",'<span>Excel Import</span>',array('class'=>'big_button thickbox','title'=>'Import Items from Excel'))?>
 	</div>
 </div>
-
-<?php
-$dbs = $this->Location->get_select_option_list(false, true);
-echo form_open("$controller_name/set_location",array('id'=>'form_items_location'));
-?>
-
-<div class="middle-black-bar">
-	<div>
-		<label for="locationbd" style="display: inline;"><?=form_label('Location:','locationbd')?></label>
-		<?=form_dropdown('items_location', $dbs,$items_location, 'id="locationbd" style="display:inline;"');?>
-	</div>
-</div>
-<?=form_close()?>
-
-<div id="titleTextImg" class="middle-gray-bar">
-	<div style="float:left;">Search Options :</div>
-	<a id="imageDivLink" href="javascript:show_hide_search_filter('search_filter_section','imageDivLink');" style="outline:none;">
-		<img src="<?=base_url().(isset($search_section_state)&&$search_section_state?'images/minus.png':'images/plus.png')?>" style="border:0;outline:none;padding:0px;margin:0px;position:relative;top:-5px;">
-	</a>
-</div>
-
 <div id="search_filter_section" style="text-align: right; font-weight: bold; height: 30px; font-size: 12px; display:<?=isset($search_section_state)&&$search_section_state?'block':'none'?>;">
 	<?php echo form_open("$controller_name/refresh",array('id'=>'items_filter_form')); ?>
 	<?php echo form_label($this->lang->line('items_low_inventory_items').' '.':', 'low_inventory');?>
@@ -45,9 +21,7 @@ echo form_open("$controller_name/set_location",array('id'=>'form_items_location'
 	</form>
 </div>
 
-<div style="padding:3px;margin:3px 0;">
-	<?=$this->pagination->create_links()?>
-</div>
+<div style="padding:3px;margin:3px 0;"> <?=$this->pagination->create_links()?> </div>
 
 <div id="table_action_header">
 	<ul>
@@ -64,7 +38,6 @@ echo form_open("$controller_name/set_location",array('id'=>'form_items_location'
 		</li>
 	</ul>
 </div>
-
 <div id="table_holder">
 <?=$manage_table?>
 </div>
@@ -113,8 +86,7 @@ $(function(){
 	});
 });
 
-function init_table_sorting()
-{
+function init_table_sorting(){
 	//Only init if there is more than one row
 	if($('.tablesorter tbody tr').length >1)
 	{
@@ -129,24 +101,17 @@ function init_table_sorting()
 		});
 	}
 }
-
-function post_item_form_submit(response)
-{
-	if(!response.success)
-	{
+function post_item_form_submit(response){
+	if(!response.success){
 		set_feedback(response.message,'error_message',true);
-	}
-	else
-	{
+	}else{
 		//This is an update, just update one row
-		if(jQuery.inArray(response.item_id,get_visible_checkbox_ids()) != -1)
-		{
+		if(jQuery.inArray(response.item_id,get_visible_checkbox_ids()) != -1){
 			//update_row(response.item_id,'<?php echo site_url("$controller_name/get_row")?>');
 			set_feedback(response.message,'success_message',false);
 			setTimeout(function() { location.reload(); }, 1000);
-		}
-		else //refresh entire table
-		{ 	setTimeout(function() { location.reload(); }, 1000);
+		}else{ //refresh entire table 	
+			setTimeout(function() { location.reload(); }, 1000);
 			do_search(true,function(){
 				//highlight new row
 				hightlight_row(response.item_id);
@@ -156,14 +121,9 @@ function post_item_form_submit(response)
 	}
 }
 
-function post_bulk_form_submit(response)
-{
-	if(!response.success)
-	{
-		set_feedback(response.message,'error_message',true);
-	}
-	else
-	{
+function post_bulk_form_submit(response){
+	if(!response.success) set_feedback(response.message,'error_message',true);
+	else{
 		//var selected_item_ids=get_selected_values();
 		// for(k=0;k<selected_item_ids.length;k++)
 		// { 	
@@ -171,7 +131,6 @@ function post_bulk_form_submit(response)
 		// }
 		set_feedback(response.message,'success_message',false);
 		setTimeout(function() { location.reload(); }, 1000);
-
 	}
 }
 
@@ -179,14 +138,11 @@ function show_hide_search_filter(search_filter_section, switchImgTag) {
 	var ele = document.getElementById(search_filter_section);
 	var imageEle = document.getElementById(switchImgTag);
 	var elesearchstate = document.getElementById('search_section_state');
-	if(ele.style.display == "block")
-	{
+	if(ele.style.display == "block"){
 		ele.style.display = "none";
 		imageEle.innerHTML = '<img src=" <?php echo base_url()?>images/plus.png" style="border:0;outline:none;padding:0px;margin:0px;position:relative;top:-5px;" >';
 		elesearchstate.value="none";
-	}
-	else
-	{
+	}else{
 		ele.style.display = "block";
 		imageEle.innerHTML = '<img src=" <?php echo base_url()?>images/minus.png" style="border:0;outline:none;padding:0px;margin:0px;position:relative;top:-5px;" >';
 		elesearchstate.value="block";

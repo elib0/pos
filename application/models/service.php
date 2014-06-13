@@ -50,6 +50,38 @@ class Service extends CI_Model {
 		return false;
 	}
 
+	function get_autocomplete($search,$limit=25)
+	{
+		$suggestions = array();
+
+		$this->con->from('items');
+		$this->con->where('deleted',0);
+		$this->con->where('item_id >',0);
+		$this->con->like('name', $search);
+		$this->con->order_by("name", "asc");
+		$this->con->limit($limit);
+		$by_name = $this->con->get();
+		foreach($by_name->result() as $row)
+		{
+			$suggestions[]=$row->item_id.'|'.$row->name;
+		}
+
+		$this->con->from('items');
+		$this->con->where('deleted',0);
+		$this->con->where('item_id >',0);
+		$this->con->like('item_number', $search);
+		$this->con->order_by("item_number", "asc");
+		$this->con->limit($limit);
+		$by_item_number = $this->con->get();
+		foreach($by_item_number->result() as $row)
+		{
+			$suggestions[]=$row->item_id.'|'.$row->item_number;
+		}
+
+		return $suggestions;
+
+	}
+
 }
 
 /* End of file service.php */

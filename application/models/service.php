@@ -26,7 +26,7 @@ class Service extends CI_Model {
 			return $this->db->insert_id();
 		}else{
 			$this->db->where('service_id', $service_id);
-			$this->db->update('service_log', $service_data);
+			return $this->db->update('service_log', $service_data);
 		}
 
 		return false;
@@ -44,10 +44,15 @@ class Service extends CI_Model {
 		$query = $this->db->get();
 
 		if ($query->num_rows() == 1) {
-			return $query->result()->row();
+			return $query->row();
 		}
 
 		return false;
+	}
+
+	public function suggest($search = ''){
+		$this->db->from('service_log');
+
 	}
 
 }

@@ -1,7 +1,7 @@
-<?php echo form_open('services/save/'.$services_info->item_id,array('id'=>'services_form')); ?>
+<?php echo form_open('services/save/'.$service_info->service_id,array('id'=>'services_form')); ?>
 <!-- <div id="item_basic_info"> -->
 <div>
-	<h3><?php echo $this->lang->line("items_basic_information"); ?></h3><hr>
+	<h3><?php echo $this->lang->line("services_information"); ?></h3><hr>
 	<div class="field_row clearfix">
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
@@ -10,7 +10,7 @@
 				<?php echo form_input(array(
 					'name'=>'name',
 					'id'=>'name',
-					'value'=>$services_info->item_number,
+					'value'=>$service_info->item_number,
 					'class'=>'text_box'
 				));?>
 				</div>
@@ -18,12 +18,12 @@
 		</div>
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
-				<?php echo form_label($this->lang->line('services_name_IMEI').':', 'code',array('class'=>'lable-form-required')); ?>
+				<?php echo form_label($this->lang->line('services_IMEI').':', 'code',array('class'=>'lable-form-required')); ?>
 				<div>
 				<?php echo form_input(array(
 					'name'=>'codeimei',
 					'id'=>'codeimei',
-					'value'=>$services_info->name,
+					'value'=>$service_info->name,
 					'class'=>'text_box'
 				));?>
 				</div>
@@ -38,7 +38,7 @@
 				<?php echo form_input(array(
 					'name'=>'model',
 					'id'=>'model',
-					'value'=>$services_info->model,
+					'value'=>$service_info->model,
 					'class'=>'text_box'
 				));?>
 				</div>
@@ -53,7 +53,7 @@
 				<?php echo form_textarea(array(
 					'name'=>'comments',
 					'id'=>'comments',
-					'value'=>$services_info->comments,
+					'value'=>$service_info->comments,
 					'rows'=>'5',
 					'cols'=>'60')
 				);?>

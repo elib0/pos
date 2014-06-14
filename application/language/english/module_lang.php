@@ -31,6 +31,6 @@ $lang['module_giftcards_desc']='Add, Update, Delete and Search gift cards';
 $lang['module_item_kits']='Item Kits';
 $lang['module_item_kits_desc']='Add, Update, Delete and Search Item Kits';
 
-$lang['module_services']='Services';
-$lang['module_services_desc']='Phone repair';
+$lang['module_services']='Tracking Services';
+$lang['module_services_desc']='Tracking and monitoring of Services';
 ?>

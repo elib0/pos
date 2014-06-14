@@ -1,6 +1,6 @@
 <?=$this->load->view("partial/header")?>
 <div id="title_bar">
-	<div id="title" class="float_left"><?=$this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name)?>(<span><?=$items_location?></span>)</div>
+	<div id="title" class="float_left"><?=$this->lang->line('common_list_of').' '.$this->lang->line('module_'.$controller_name)?></div>
 	<div id="new_button">
 		<?php
 			echo anchor("$controller_name/view/-1/width:660/height:465",
@@ -10,12 +10,12 @@
 	</div>
 </div>
 <div id="search_filter_section" style="text-align: right; font-weight: bold; height: 30px; font-size: 12px; display:<?=isset($search_section_state)&&$search_section_state?'block':'none'?>;">
-	<?php echo form_open("$controller_name/refresh",array('id'=>'items_filter_form')); ?>
-	<?php echo form_label($this->lang->line('items_low_inventory_items').' '.':', 'low_inventory');?>
+	<?php echo form_open("$controller_name/refresh",array('id'=>'services_filter_form')); ?>
+	<?php echo form_label($this->lang->line('services_low_inventory_services').' '.':', 'low_inventory');?>
 	<?php echo form_checkbox(array('name'=>'low_inventory','id'=>'low_inventory','value'=>1,'checked'=>isset($low_inventory)?  ( ($low_inventory)? 1 : 0) : 0)).' | ';?>
-	<?php echo form_label($this->lang->line('items_serialized_items').' '.':', 'is_serialized');?>
+	<?php echo form_label($this->lang->line('services_serialized_services').' '.':', 'is_serialized');?>
 	<?php echo form_checkbox(array('name'=>'is_serialized','id'=>'is_serialized','value'=>1,'checked'=>isset($is_serialized)?  ( ($is_serialized)? 1 : 0) : 0)).' | ';?>
-	<?php echo form_label($this->lang->line('items_no_description_items').' '.':', 'no_description');?>
+	<?php echo form_label($this->lang->line('services_no_description_services').' '.':', 'no_description');?>
 	<?php echo form_checkbox(array('name'=>'no_description','id'=>'no_description','value'=>1,'checked'=>isset($no_description)?  ( ($no_description)? 1 : 0) : 0));?>
 	<input type="hidden" name="search_section_state" id="search_section_state" value="<?=isset($search_section_state)?(($search_section_state)?'block':'none'):'none'?>"/>
 	</form>
@@ -28,8 +28,7 @@
 		<?php if($this->Employee->has_privilege('delete', $controller_name)):  ?>
 		<li class="float_left"><?=form_button(array('href'=>"$controller_name/delete",'id'=>'delete','class'=>'small_button'),$this->lang->line("common_delete"))?></li>
 		<?php endif ?>
-		<li class="float_left"><?=anchor("$controller_name/bulk_edit/width:$form_width",$this->lang->line("items_bulk_edit"),array('id'=>'bulk_edit','title'=>$this->lang->line('items_bulk_edit'),'class'=>'small_button'))?></li>
-		<li class="float_left"><?=anchor("$controller_name/generate_barcodes",$this->lang->line("items_generate_barcodes"),array('id'=>'generate_barcodes','class'=>'small_button','target'=>'_blank','title'=>$this->lang->line('items_generate_barcodes')))?></li>
+		
 		<li class="float_right">
 		<img src='<?=base_url()?>images/spinner_small.gif' alt='spinner' id='spinner'/>
 		<?=form_open("$controller_name/search",array('id'=>'search_form'))?>
@@ -49,7 +48,7 @@ jQuerySwitch('jQueryNew');
 	var count=0;
 	$('.tablesorter').off('.tslocked').on('change.tslocked','input:checkbox.locked',function(){
 		if(this.checked) count++; else count--;
-		$('#delete').attr('title',count>0?"<?=$this->lang->line('items_is_locked_alert')?>":null)
+		$('#delete').attr('title',count>0?"<?=$this->lang->line('services_is_locked_alert')?>":null)
 			.prop('disabled',count>0);
 	});
 })(jQuery);
@@ -64,7 +63,7 @@ $(function(){
 	enable_delete('<?=$this->lang->line($controller_name."_confirm_delete")?>','<?=$this->lang->line($controller_name."_none_selected")?>');
 	enable_bulk_edit('<?=$this->lang->line($controller_name."_none_selected")?>');
 	$('#locationbd').change(function(event){
-		$('#form_items_location').ajaxSubmit({
+		$('#form_services_location').ajaxSubmit({
 			success:function(response){
 				// $('#title span').html(response);
 				location.reload();
@@ -75,14 +74,14 @@ $(function(){
 	{
 		var selected = get_selected_values();
 		if (selected.length === 0){
-			alert('<?=$this->lang->line('items_must_select_item_for_barcode')?>');
+			alert('<?=$this->lang->line('services_must_select_item_for_barcode')?>');
 			return false;
 		}
-		$(this).attr('href','index.php/items/generate_barcodes/'+selected.join(':'));
+		$(this).attr('href','index.php/services/generate_barcodes/'+selected.join(':'));
 	});
 	$("#low_inventory,#is_serialized,#no_description").click(function()
 	{
-		$('#items_filter_form').submit();
+		$('#services_filter_form').submit();
 	});
 });
 

@@ -417,4 +417,74 @@ function get_item_kit_data_row($item_kit,$controller)
 	return $table_data_row;
 }
 
+function get_services_manage_table($services,$controller){
+
+	$CI =& get_instance();
+	$table='<table class="tablesorter" id="sortable_table">';
+
+	$headers = array('<input type="checkbox" id="select_all" />',
+	$CI->lang->line('services_item_number'),
+	$CI->lang->line('services_name_owner'),
+	$CI->lang->line('services_brand'),
+	$CI->lang->line('services_model'),
+	$CI->lang->line('services_status')
+	);
+
+	$table.='<thead><tr>';
+	foreach($headers as $header)
+	{
+		$table.="<th>$header</th>";
+	}
+	$table.='</tr></thead><tbody>';
+	$table.=get_services_manage_table_data_rows($services,$controller);
+	$table.='</tbody></table>';
+	return $table;
+
+}
+
+function get_services_manage_table_data_rows($services,$controller)
+{
+	$CI =& get_instance();
+	$table_data_rows='';
+
+	foreach($services->result() as $service)
+	{
+		$table_data_rows.=get_service_data_row($service,$controller);
+	}
+
+	if($services->num_rows()==0)
+	{
+		$table_data_rows.="<tr><td colspan='11'><div class='warning_message' style='padding:7px;'>".$CI->lang->line('services_no_services_to_display')."</div></tr></tr>";
+	}
+
+	return $table_data_rows;
+}
+
+function get_service_data_row($service,$controller)
+{
+	$CI =& get_instance();
+	
+	$controller_name=strtolower(get_class($CI));
+	$width = $controller->get_form_width();
+
+	//$table_data_row='<tr'.($service->is_locked?' title="'.$CI->lang->line('services_is_locked_title').'" class="locked"':'').'>';
+	$table_data_row='<tr>';
+	//$table_data_row.="<td width='3%'><input class='".($service->is_locked?'locked':'')."' type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
+	$table_data_row.="<td width='3%'><input  type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
+	$table_data_row.='<td width="15%">'.$service->service_id.'</td>';
+	$table_data_row.='<td width="20%">'.$service->first_name.' '.$service->last_name.'</td>';
+	$table_data_row.='<td width="14%">'.$service->brand_name.'</td>';
+	$table_data_row.='<td width="14%">'.$service->model_name.'</td>';
+	
+	if($CI->Employee->has_privilege('update', $controller_name)){
+		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$service->service_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+	}else{
+		$table_data_row .= '<td width="5%"></td>';
+	}
+
+	$table_data_row.='</tr>';
+	return $table_data_row;
+}
+
+
 ?>

@@ -1,27 +1,28 @@
 <?php
-// require_once ("secure_area.php");
-// class Services extends Secure_area
-class Services extends CI_Controller
+require_once ("secure_area.php");
+class Services extends Secure_area
+//class Services extends CI_Controller
 {
 	function __construct()
 	{
-		parent::__construct('items');
+		parent::__construct('services');
+
 	}
 
 	function index()
 	{
-		$config['base_url'] = site_url('/items/index');
-		$config['total_rows'] = $this->Item->count_all();
+		$config['base_url'] = site_url('/services/index');
+		$config['total_rows'] = $this->Service->count_all();
 		$config['per_page'] = '20';
 		$config['uri_segment'] = 3;
 		$this->pagination->initialize($config);
 
 		
-		$data['items_location']= $this->set_location();
+		//$data['services_location']= $this->set_location();
 		$data['controller_name']=strtolower(get_class());
 		$data['form_width']=$this->get_form_width();
-		$data['manage_table']=get_items_manage_table( $this->Item->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
-		$this->load->view('items/manage',$data);
+		$data['manage_table']=get_services_manage_table( $this->Service->get_all( $config['per_page'], $this->uri->segment( $config['uri_segment'] ) ), $this );
+		$this->load->view('services/manage',$data);
 	}
 
 	function refresh()
@@ -31,7 +32,7 @@ class Services extends CI_Controller
 		$no_description=$this->input->post('no_description');
 		$location = $this->input->post('dblocation')!=false? $this->input->post('dblocation'): 'default';
 
-		$data['items_location']= $this->set_location();
+		$data['services_location']= $this->set_location();
 
 		$data['search_section_state']=$this->input->post('search_section_state');
 		$data['low_inventory']=$this->input->post('low_inventory');
@@ -41,27 +42,27 @@ class Services extends CI_Controller
 		$data['form_width']=$this->get_form_width();
 
 		//Paginacion para filtro
-		$config['base_url'] = site_url('/items/index');
-		$config['total_rows'] = $this->Item->get_all_filtered($low_inventory,$is_serialized,$no_description, $location)->num_rows();
+		$config['base_url'] = site_url('/services/index');
+		$config['total_rows'] = $this->Service->get_all_filtered($low_inventory,$is_serialized,$no_description, $location)->num_rows();
 		$config['per_page'] = '20';
 		$config['uri_segment'] = 3;
 		$this->pagination->initialize($config);
 
 
-		$data['manage_table']=get_items_manage_table($this->Item->get_all_filtered($low_inventory,$is_serialized,$no_description, $location),$this);
-		$this->load->view('items/manage',$data);
+		$data['manage_table']=get_services_manage_table($this->Service->get_all_filtered($low_inventory,$is_serialized,$no_description, $location),$this);
+		$this->load->view('services/manage',$data);
 	}
 
-	function find_item_info()
+	function find_service_info()
 	{
-		$item_number=$this->input->post('scan_item_number');
-		echo json_encode($this->Item->find_item_info($item_number));
+		$service_number=$this->input->post('scan_service_number');
+		echo json_encode($this->Service->find_service_info($service_number));
 	}
 
 	function search()
 	{
 		$search=$this->input->post('search');
-		$data_rows=get_items_manage_table_data_rows($this->Item->search($search),$this);
+		$data_rows=get_services_manage_table_data_rows($this->Service->search($search),$this);
 		echo $data_rows;
 	}
 
@@ -74,51 +75,40 @@ class Services extends CI_Controller
 		echo implode("\n",$suggestions);
 	}
 
-	function item_search()
+	function service_search()
 	{
-		$suggestions = $this->Item->get_item_search_suggestions($this->input->post('q'),$this->input->post('limit'));
+		$suggestions = $this->Service->get_service_search_suggestions($this->input->post('q'),$this->input->post('limit'));
 		echo implode("\n",$suggestions);
 	}
 
 	function get_row()
 	{
-		$item_id = $this->input->post('row_id');
-		$data_row=get_item_data_row($this->Item->get_info($item_id),$this);
+		$service_id = $this->input->post('row_id');
+		$data_row=get_service_data_row($this->Service->get_info($service_id),$this);
 		echo $data_row;
 	}
 
-	function view($item_id=-1)
+	function view($service_id=-1)
 	{
-		$data['item_info']=$this->Item->get_info($item_id);
-		$data['item_tax_info']=$this->Item_taxes->get_info($item_id);
-		$suppliers = array('' => $this->lang->line('items_none'));
-		foreach($this->Supplier->get_all()->result_array() as $row)
-		{
-			$suppliers[$row['person_id']] = $row['company_name'] .' ('.$row['first_name'] .' '. $row['last_name'].')';
-		}
-
-		$data['suppliers']=$suppliers;
-		$data['selected_supplier'] = $this->Item->get_info($item_id)->supplier_id;
-		$data['default_tax_1_rate']=($item_id==-1) ? $this->Appconfig->get('default_tax_1_rate') : '';
-		$data['default_tax_2_rate']=($item_id==-1) ? $this->Appconfig->get('default_tax_2_rate') : '';
-		$this->load->view("items/form",$data);
+		$data['service_info']=$this->Service->get_info($service_id);
+		$this->load->view("services/form",$data);
 	}
 
-	function count_details($item_id=-1)
+	function count_details($service_id=-1)
 	{
-		$data['item_info']=$this->Item->get_info($item_id);
-		$this->load->view("items/count_details",$data);
+		$data['service_info']=$this->Service->get_info($service_id);
+		$this->load->view("services/count_details",$data);
 	} //------------------------------------------- Ramel
 
-	function save($item_id=-1)
+	function save($service_id=-1)
 	{
-		$item_data = array(
+		$service_data = array(
 		'is_locked'=>$this->input->post('is_locked')?1:0,
 		'name'=>$this->input->post('name'),
 		'description'=>$this->input->post('description'),
 		'category'=>$this->input->post('category'),
 		'supplier_id'=>$this->input->post('supplier_id')==''?null:$this->input->post('supplier_id'),
-		'item_number'=>$this->input->post('item_number')==''?null:$this->input->post('item_number'),
+		'service_number'=>$this->input->post('service_number')==''?null:$this->input->post('service_number'),
 		'cost_price'=>$this->input->post('cost_price'),
 		'unit_price'=>$this->input->post('unit_price'),
 		'is_service'=>$this->input->post('is_service')?1:0,
@@ -130,64 +120,64 @@ class Services extends CI_Controller
 		);
 
 		$employee_id=$this->Employee->get_logged_in_employee_info()->person_id;
-		$cur_item_info = $this->Item->get_info($item_id);
+		$cur_service_info = $this->Service->get_info($service_id);
 
 
-		if($this->Item->save($item_data,$item_id))
+		if($this->Service->save($service_data,$service_id))
 		{
-			if ($item_id!=-1){
-				$id=$item_id;
+			if ($service_id!=-1){
+				$id=$service_id;
 				$msg_post_subt=$this->lang->line('employees_successful_adding');
-				if (!is_dir('./images/items/'.md5($this->session->userdata('dblocation').'-'.$id).'/')){
-					mkdir('./images/items/'.md5($this->session->userdata('dblocation').'-'.$id).'/');
+				if (!is_dir('./images/services/'.md5($this->session->userdata('dblocation').'-'.$id).'/')){
+					mkdir('./images/services/'.md5($this->session->userdata('dblocation').'-'.$id).'/');
 					$a=false;
 				}else{ $a=true; }
 			}else{
-				$id=$item_data['item_id'];
-				mkdir('./images/items/'.md5($this->session->userdata('dblocation').'-'.$id).'/');
+				$id=$service_data['service_id'];
+				mkdir('./images/services/'.md5($this->session->userdata('dblocation').'-'.$id).'/');
 				$a=false; 
 			}
 			//for ($i=0; $i < 5; $i++) { 
 				$dat[]=$this->uploadImagen_photo(md5($this->session->userdata('dblocation').'-'.$id),$a);			
 			//}
-			//New item
-			if($item_id==-1)
+			//New service
+			if($service_id==-1)
 			{
-				echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_adding').' '.
-				$item_data['name'],'item_id'=>$item_data['item_id'],'pictures'=>$dat));
-				// $item_id = $item_data['item_id'];
+				echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_adding').' '.
+				$service_data['name'],'service_id'=>$service_data['service_id'],'pictures'=>$dat));
+				// $service_id = $service_data['service_id'];
 			}
-			else //previous item
+			else //previous service
 			{
-				echo json_encode(array('success'=>true,'message'=>$this->lang->line('items_successful_updating').' '.
-				$item_data['name'],'item_id'=>$id,'pictures'=>$dat));
+				echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_updating').' '.
+				$service_data['name'],'service_id'=>$id,'pictures'=>$dat));
 			}
 
 			$inv_data = array
 			(
 				'trans_date'=>date('Y-m-d H:i:s'),
-				'trans_items'=>$id,
+				'trans_services'=>$id,
 				'trans_user'=>$employee_id,
-				'trans_comment'=>$this->lang->line('items_manually_editing_of_quantity'),
-				'trans_inventory'=>$cur_item_info ? $this->input->post('quantity') - $cur_item_info->quantity : $this->input->post('quantity')
+				'trans_comment'=>$this->lang->line('services_manually_editing_of_quantity'),
+				'trans_inventory'=>$cur_service_info ? $this->input->post('quantity') - $cur_service_info->quantity : $this->input->post('quantity')
 			);
 			$this->Inventory->insert($inv_data);
-			$items_taxes_data = array();
+			$services_taxes_data = array();
 			$tax_names = $this->input->post('tax_names');
 			$tax_percents = $this->input->post('tax_percents');
 			for($k=0;$k<count($tax_percents);$k++)
 			{
 				if (is_numeric($tax_percents[$k]))
 				{
-					$items_taxes_data[] = array('name'=>$tax_names[$k], 'percent'=>$tax_percents[$k] );
+					$services_taxes_data[] = array('name'=>$tax_names[$k], 'percent'=>$tax_percents[$k] );
 				}
 			}
-			$this->Item_taxes->save($items_taxes_data, $id);
+			$this->Service_taxes->save($services_taxes_data, $id);
 		}
 		else//failure
 		{
-			echo json_encode(array('success'=>false,'message'=>$this->lang->line('items_error_adding_updating').' '.
-			$item_data['name'],'item_id'=>-1));
+			echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_updating').' '.
+			$service_data['name'],'service_id'=>-1));
 		}
 
 	}
@@ -195,7 +185,7 @@ class Services extends CI_Controller
 	
 	function uploadImagen_photo($id,$e){ $a=0;
 		//carga de imagen
-		$config['upload_path'] = './images/items/'.$id;
+		$config['upload_path'] = './images/services/'.$id;
 		$config['allowed_types'] = 'gif|jpg|png';
 		$config['max_size']	= '1000000';
 		$config['max_width']  = '3600';
@@ -258,8 +248,8 @@ class Services extends CI_Controller
 		return $data;
 	}
 	function delete_picture($id,$i){
-		if (file_exists('./images/items/'.md5($this->session->userdata('dblocation').'-'.$id).'/'.md5($this->session->userdata('dblocation').'-'.$id).'_'.$i.'.jpg')){
-			if (unlink('./images/items/'.md5($this->session->userdata('dblocation').'-'.$id).'/'.md5($this->session->userdata('dblocation').'-'.$id).'_'.$i.'.jpg'))
+		if (file_exists('./images/services/'.md5($this->session->userdata('dblocation').'-'.$id).'/'.md5($this->session->userdata('dblocation').'-'.$id).'_'.$i.'.jpg')){
+			if (unlink('./images/services/'.md5($this->session->userdata('dblocation').'-'.$id).'/'.md5($this->session->userdata('dblocation').'-'.$id).'_'.$i.'.jpg'))
 				echo json_encode( array('success'=>true));
 			else echo json_encode( array('success'=>false, 'message'=>'Error'));
 		}else echo json_encode( array('success'=>false, 'message'=>'no file'));

@@ -71,7 +71,7 @@ class Services extends Secure_area
 	*/
 	function suggest()
 	{
-		$suggestions = $this->Service->suggest($this->input->post('q'),$this->input->post('limit'));
+		$suggestions = $this->Service->suggest($this->input->post('q'));
 		echo implode("\n",$suggestions);
 	}
 

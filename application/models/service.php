@@ -94,14 +94,29 @@ class Service extends CI_Model {
 		}
 	}
 
-	public function suggest($search = ''){
+	public function suggest($search = '', $limit = 5){
+		$suggestions = array();
 		$search = $this->con->escape($search);
+		$table1 = $this->con->dbprefix('service_log');
+		$table2 = $this->con->dbprefix('people');
+		$table3 = $this->con->dbprefix('model');
 
 		$this->con->from('service_log');
 		$this->con->join('people', 'people.person_id = service_log.person_id');
-		$this->con->join('model', 'service_log.model_id = model.model_id');
-		$this->con->where("CONCAT(service_log.phone_imei, ' ', people.first_name, ' ',people.last_name, ' ',  model.model_name) LIKE '%$search%'");
-		return $this->con->get();
+		//$this->con->join('model', 'service_log.model_id = model.model_id');
+		//$this->con->where("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name, ' ',  $table3.model_name) LIKE '$search'");
+		//$this->con->like("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name)", $search);
+		$this->db->where('phone_imei', $search);
+		$this->db->limit($limit);
+		$query = $this->con->get();
+
+		if ($query->num_rows() > 0) {
+			foreach ($query->result() as $row) {
+				$suggestions[] = $row->first_name.' '.$row->last_name;
+			}
+		}
+
+		return $suggestions;
 	}
 
 }

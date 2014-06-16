@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-06-2014 a las 19:33:44
+-- Tiempo de generación: 16-06-2014 a las 23:59:49
 -- Versión del servidor: 5.6.14
 -- Versión de PHP: 5.5.6
 
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `possp`
 --
-CREATE DATABASE IF NOT EXISTS `possp` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `possp`;
 
 -- --------------------------------------------------------
 
@@ -187,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `ospos_employees_schedule` (
   `logout` time DEFAULT NULL,
   `location` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=422 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=423 ;
 
 --
 -- Volcado de datos para la tabla `ospos_employees_schedule`
@@ -443,7 +441,8 @@ INSERT INTO `ospos_employees_schedule` (`id`, `employee_id`, `date`, `login`, `l
 (418, 1, '2014-06-14', '10:30:38', '13:32:49', 'default'),
 (419, 1, '2014-06-14', '13:25:26', '13:32:49', 'default'),
 (420, 1, '2014-06-14', '13:32:53', NULL, 'default'),
-(421, 1, '2014-06-14', '15:53:04', NULL, 'default');
+(421, 1, '2014-06-14', '15:53:04', NULL, 'default'),
+(422, 54, '2014-06-16', '15:47:30', NULL, 'default');
 
 -- --------------------------------------------------------
 
@@ -488,7 +487,7 @@ CREATE TABLE IF NOT EXISTS `ospos_inventory` (
   PRIMARY KEY (`trans_id`),
   KEY `ospos_inventory_ibfk_1` (`trans_items`),
   KEY `ospos_inventory_ibfk_2` (`trans_user`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=576 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=578 ;
 
 --
 -- Volcado de datos para la tabla `ospos_inventory`
@@ -1069,7 +1068,9 @@ INSERT INTO `ospos_inventory` (`trans_id`, `trans_items`, `trans_user`, `trans_d
 (572, 53, 1, '2014-05-29 15:27:54', 'RECV 52', 5),
 (573, 69, 1, '2014-05-29 15:31:37', 'Edición Manual de Cantidad', 35),
 (574, 4, 1, '2014-05-29 19:39:00', 'Manual Edit of Quantity', -1),
-(575, 1, -1, '2014-06-05 20:17:04', 'POS 52', -5);
+(575, 1, -1, '2014-06-05 20:17:04', 'POS 52', -5),
+(576, 0, 54, '2014-06-16 21:07:14', 'Manual Edit of Quantity', 0),
+(577, 0, 54, '2014-06-16 21:20:35', 'Manual Edit of Quantity', 0);
 
 -- --------------------------------------------------------
 
@@ -1099,7 +1100,7 @@ CREATE TABLE IF NOT EXISTS `ospos_items` (
   PRIMARY KEY (`item_id`),
   UNIQUE KEY `item_number` (`item_number`),
   KEY `ospos_items_ibfk_1` (`supplier_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=136 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=138 ;
 
 --
 -- Volcado de datos para la tabla `ospos_items`
@@ -1221,7 +1222,9 @@ INSERT INTO `ospos_items` (`item_id`, `name`, `category`, `supplier_id`, `item_n
 (132, 'iPad 2 Power Flex', 'ipod', 44, NULL, '', 123.00, 12.00, 20.00, 10.00, '', 0, 0, 0, 0, 0, 0),
 (133, 'iPad 2 Home Button', 'hardware', 44, NULL, '', 9856.00, 98569.00, 51.00, 50.00, 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 1, 1, 0, 0, 0, 0),
 (134, 'mihaItem', 'Phone', 51, 'miha', '', 12.00, 25.99, 10.00, 5.00, '', 1, 1, 0, 0, 0, 0),
-(135, 'miha2Item', 'Phone', 49, 'miha2', '', 23.00, 29.00, 30.00, 5.00, '', 0, 0, 0, 0, 0, 0);
+(135, 'miha2Item', 'Phone', 49, 'miha2', '', 23.00, 29.00, 30.00, 5.00, '', 0, 0, 0, 0, 0, 0),
+(-1, 'Gift Card', 'Service', 49, NULL, '', 0.00, 0.00, 0.00, 0.00, '0', 0, 0, 1, 1, 0, 0),
+(137, 'Phone Repair', 'Service', 49, NULL, '', 0.00, 0.00, 0.00, 0.00, '0', 0, 0, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1504,7 +1507,7 @@ CREATE TABLE IF NOT EXISTS `ospos_observation_inventories` (
   `observation` mediumtext,
   `person_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
 
 --
 -- Volcado de datos para la tabla `ospos_observation_inventories`
@@ -1543,7 +1546,8 @@ INSERT INTO `ospos_observation_inventories` (`id`, `date_register`, `observation
 (30, '2014-06-11 20:29:24', '', 1),
 (31, '2014-06-12 12:52:22', '', 1),
 (32, '2014-06-13 14:02:04', '', 1),
-(33, '2014-06-14 15:02:02', '', 1);
+(33, '2014-06-14 15:02:02', '', 1),
+(34, '2014-06-16 20:17:38', '', 54);
 
 -- --------------------------------------------------------
 
@@ -1586,7 +1590,7 @@ INSERT INTO `ospos_people` (`person_id`, `first_name`, `last_name`, `phone_numbe
 (53, 'miharbito_db', 'miharbito_db', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location'),
 (43, 'alberto', 'arsiniaga', '0412-9667450', 'maxtri@hotmail.com', 'los samanes', 'buenaventura', 'valencia', 'carabobo', '3210', 'venezuela', ''),
 (44, 'adrian', 'esqueda', '234567887', 'a@a.com', '', '', '', '', '', '', ''),
-(54, 'Willem', 'Franco', '', 'willemfranco@gmail.com', '', '', '', '', '', '', ''),
+(54, 'Willem', 'Franco', '0245145548522', 'willemfranco@gmail.com', '', '', '', '', '', 'wfranco', ''),
 (55, 'otra', 'possp2', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location'),
 (56, 'Carlos', 'Martinez', '5646464', 'repuestos.ca@hotmail.com', '', '', '', '', '', '', ''),
 (57, 'otra & cosita C.A', 'possp_otra', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location');
@@ -1630,19 +1634,16 @@ INSERT INTO `ospos_permissions` (`module_id`, `person_id`, `privileges`) VALUES
 ('items', 43, 'add,update,delete'),
 ('item_kits', 43, 'add,update,delete'),
 ('customers', 43, 'add,update,delete'),
-('customers', 54, 'add,update,delete'),
+('reports', 54, 'none'),
 ('reports', 1, 'none'),
 ('suppliers', 1, 'add,update,delete'),
 ('item_kits', 1, 'add,update,delete'),
 ('giftcards', 43, 'add,update,delete'),
 ('config', 43, 'save'),
-('employees', 54, 'add,update,delete'),
-('sales', 54, 'none'),
-('receivings', 54, 'none'),
-('reports', 54, 'none'),
 ('suppliers', 54, 'add,update,delete'),
 ('item_kits', 54, 'add,update,delete'),
 ('items', 54, 'add,update,delete'),
+('customers', 54, 'add,update,delete'),
 ('giftcards', 52, 'none'),
 ('employees', 52, 'none'),
 ('sales', 52, 'none'),
@@ -1655,8 +1656,7 @@ INSERT INTO `ospos_permissions` (`module_id`, `person_id`, `privileges`) VALUES
 ('config', 52, 'none'),
 ('sales', 45, 'none'),
 ('reports', 45, 'none'),
-('giftcards', 54, 'add,update,delete'),
-('config', 54, 'save'),
+('services', 54, 'add,update,delete'),
 ('suppliers', 42, 'add,update'),
 ('item_kits', 42, 'add,update,delete'),
 ('items', 42, 'add,update,delete'),
@@ -1664,7 +1664,13 @@ INSERT INTO `ospos_permissions` (`module_id`, `person_id`, `privileges`) VALUES
 ('items', 1, 'add,update,delete'),
 ('customers', 1, 'add,update,delete'),
 ('config', 1, 'save'),
-('services', 1, 'add,update,delete');
+('services', 1, 'add,update,delete'),
+('receivings', 54, 'none'),
+('sales', 54, 'none'),
+('employees', 54, 'add,update,delete'),
+('giftcards', 54, 'add,update,delete'),
+('locations', 54, 'add,update,disable'),
+('config', 54, 'save');
 
 -- --------------------------------------------------------
 
@@ -2286,7 +2292,7 @@ CREATE TABLE IF NOT EXISTS `ospos_schedules` (
   `out` time NOT NULL,
   `person_id` int(11) NOT NULL,
   PRIMARY KEY (`schedule_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=368 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=375 ;
 
 --
 -- Volcado de datos para la tabla `ospos_schedules`
@@ -2343,13 +2349,13 @@ INSERT INTO `ospos_schedules` (`schedule_id`, `day`, `in`, `out`, `person_id`) V
 (271, 'Tuesday', '02:00:00', '03:00:00', 52),
 (270, 'Monday', '02:00:00', '08:00:00', 52),
 (269, 'Sunday', '07:00:00', '12:00:00', 52),
-(298, 'Sunday', '00:00:00', '23:00:00', 54),
-(299, 'Monday', '00:00:00', '23:00:00', 54),
-(300, 'Tuesday', '00:00:00', '23:00:00', 54),
-(301, 'Wednesday', '00:00:00', '23:00:00', 54),
-(302, 'Thursday', '00:00:00', '23:00:00', 54),
-(303, 'Friday', '00:00:00', '23:00:00', 54),
-(304, 'Saturday', '00:00:00', '23:00:00', 54),
+(374, 'Saturday', '00:00:00', '23:00:00', 54),
+(373, 'Friday', '00:00:00', '23:00:00', 54),
+(372, 'Thursday', '00:00:00', '23:00:00', 54),
+(371, 'Wednesday', '00:00:00', '23:00:00', 54),
+(370, 'Tuesday', '00:00:00', '23:00:00', 54),
+(369, 'Monday', '00:00:00', '23:00:00', 54),
+(368, 'Sunday', '00:00:00', '23:00:00', 54),
 (317, 'Tuesday', '00:00:00', '23:00:00', 42),
 (362, 'Monday', '00:00:00', '21:00:00', 1),
 (361, 'Sunday', '00:00:00', '23:00:00', 1);
@@ -2362,17 +2368,17 @@ INSERT INTO `ospos_schedules` (`schedule_id`, `day`, `in`, `out`, `person_id`) V
 
 DROP TABLE IF EXISTS `ospos_service_log`;
 CREATE TABLE IF NOT EXISTS `ospos_service_log` (
-  `service_id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL AUTO_INCREMENT,
   `person_id` int(11) NOT NULL,
   `phone_imei` varchar(18) DEFAULT NULL,
   `model_id` int(11) NOT NULL,
-  `date_received` datetime NOT NULL,
+  `date_received` datetime DEFAULT CURRENT_TIMESTAMP,
   `date_delivered` datetime DEFAULT NULL,
   `comments` mediumtext,
   `status` int(1) NOT NULL DEFAULT '0',
   `deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`service_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `ospos_service_log`
@@ -2402,8 +2408,7 @@ CREATE TABLE IF NOT EXISTS `ospos_sessions` (
 --
 
 INSERT INTO `ospos_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('f2d22bb88e5ad09e7455c2f354a5be5b', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36', 1402786368, 'a:6:{s:9:"user_data";s:0:"";s:10:"dblocation";s:7:"default";s:9:"person_id";s:1:"1";s:21:"employees_working_now";a:2:{i:0;i:0;i:1;s:1:"1";}s:4:"chat";a:0:{}s:14:"items_location";s:7:"default";}'),
-('bbf9c4ec1b43fd2533f15d847e73257e', '::1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36', 1402776672, 'a:5:{s:9:"user_data";s:0:"";s:10:"dblocation";s:7:"default";s:9:"person_id";s:1:"1";s:21:"employees_working_now";a:2:{i:0;i:0;i:1;s:1:"1";}s:4:"chat";a:0:{}}');
+('fd9163bdd4c35917af96d4cbb0cdeb83', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36', 1402955724, 'a:12:{s:9:"user_data";s:0:"";s:10:"dblocation";s:7:"default";s:9:"person_id";s:2:"54";s:21:"employees_working_now";a:2:{i:0;i:0;i:1;s:2:"54";}s:4:"chat";a:0:{}s:14:"items_location";s:7:"default";s:8:"employee";i:-1;s:4:"cart";a:0:{}s:9:"sale_mode";s:4:"sale";s:8:"customer";i:-1;s:6:"taxing";i:1;s:8:"payments";a:0:{}}');
 
 -- --------------------------------------------------------
 
@@ -2547,7 +2552,6 @@ INSERT INTO `ospos_transfer_items` (`id`, `transfer_id`, `item_id`, `quantity_pu
 --
 DROP TABLE IF EXISTS `ospos_ci_users`;
 DROP VIEW IF EXISTS `ospos_ci_users`;
-
 CREATE VIEW `ospos_ci_users` AS select `ospos_employees`.`person_id` AS `user_id`,`ospos_employees`.`username` AS `user_name`,NULL AS `user_email`,`ospos_employees`.`password` AS `user_password`,NULL AS `registered_date`,1 AS `status`,1 AS `online` from `ospos_employees`;
 
 -- --------------------------------------------------------
@@ -2557,7 +2561,6 @@ CREATE VIEW `ospos_ci_users` AS select `ospos_employees`.`person_id` AS `user_id
 --
 DROP TABLE IF EXISTS `ospos_sales_items_temp`;
 DROP VIEW IF EXISTS `ospos_sales_items_temp`;
-
 CREATE VIEW `ospos_sales_items_temp` AS (select cast(`ospos_sales`.`sale_time` as date) AS `sale_date`,`ospos_sales_items`.`sale_id` AS `sale_id`,`ospos_sales`.`comment` AS `comment`,`ospos_sales`.`payment_type` AS `payment_type`,`ospos_sales`.`customer_id` AS `customer_id`,`ospos_sales`.`employee_id` AS `employee_id`,`ospos_items`.`item_id` AS `item_id`,`ospos_items`.`supplier_id` AS `supplier_id`,`ospos_sales_items`.`quantity_purchased` AS `quantity_purchased`,`ospos_sales_items`.`item_cost_price` AS `item_cost_price`,`ospos_sales_items`.`item_unit_price` AS `item_unit_price`,sum(`ospos_sales_items_taxes`.`percent`) AS `item_tax_percent`,`ospos_sales_items`.`discount_percent` AS `discount_percent`,((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) AS `subtotal`,`ospos_sales_items`.`line` AS `line`,`ospos_sales_items`.`serialnumber` AS `serialnumber`,`ospos_sales_items`.`description` AS `description`,round((((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) * (1 + (sum(`ospos_sales_items_taxes`.`percent`) / 100))),2) AS `total`,round((((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) * (sum(`ospos_sales_items_taxes`.`percent`) / 100)),2) AS `tax`,(((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) - (`ospos_sales_items`.`item_cost_price` * `ospos_sales_items`.`quantity_purchased`)) AS `profit` from ((((`ospos_sales_items` join `ospos_sales` on((`ospos_sales_items`.`sale_id` = `ospos_sales`.`sale_id`))) join `ospos_items` on((`ospos_sales_items`.`item_id` = `ospos_items`.`item_id`))) left join `ospos_suppliers` on((`ospos_items`.`supplier_id` = `ospos_suppliers`.`person_id`))) left join `ospos_sales_items_taxes` on(((`ospos_sales_items`.`sale_id` = `ospos_sales_items_taxes`.`sale_id`) and (`ospos_sales_items`.`item_id` = `ospos_sales_items_taxes`.`item_id`) and (`ospos_sales_items`.`line` = `ospos_sales_items_taxes`.`line`)))) group by `ospos_sales_items`.`sale_id`,`ospos_items`.`item_id`,`ospos_sales_items`.`line`);
 
 --

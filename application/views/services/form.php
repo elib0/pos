@@ -33,6 +33,19 @@
 	<div class="field_row clearfix">
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
+				<?php echo form_label($this->lang->line('services_brand').':', 'brand_label',array('class'=>'lable-form-required')); ?>
+				<div >
+				<?php echo form_input(array(
+					'name'=>'brand',
+					'id'=>'brand',
+					'value'=>$service_info->brand_name,
+					'class'=>'text_box'
+				));?>
+				</div>
+			</div>
+		</div>
+		<div style="width: 210px; float: left">
+			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('services_model').':', 'model_label',array('class'=>'lable-form-required')); ?>
 				<div >
 				<?php echo form_input(array(
@@ -42,6 +55,17 @@
 					'class'=>'text_box'
 				));?>
 				</div>
+			</div>
+		</div>
+	</div>
+	<div class="field_row clearfix">
+		<div style="width: 210px; float: left">
+			<div class="field_row clearfix">
+				<?php echo form_label($this->lang->line('services_status').':', 'brand_label',array('class'=>'lable-form-required')); $status=array();
+					for ($i=1; $i < 5; $i++) { $status[$i]=$this->lang->line('services_status_'+$i); }
+					$status[100]=$this->lang->line('services_status_100');
+				?>
+				<div> <?php form_dropdown('status',$status,$service_info->status); ?> </div>
 			</div>
 		</div>
 	</div>

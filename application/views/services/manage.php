@@ -18,7 +18,6 @@
 	<?php echo form_label($this->lang->line('services_no_description_services').' '.':', 'no_description');?>
 	<?php echo form_checkbox(array('name'=>'no_description','id'=>'no_description','value'=>1,'checked'=>isset($no_description)?  ( ($no_description)? 1 : 0) : 0));?>
 	<input type="hidden" name="search_section_state" id="search_section_state" value="<?=isset($search_section_state)?(($search_section_state)?'block':'none'):'none'?>"/>
-	</form>
 </div>
 
 <div style="padding:3px;margin:3px 0;"> <?=$this->pagination->create_links()?> </div>

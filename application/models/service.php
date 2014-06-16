@@ -19,14 +19,31 @@ class Service extends CI_Model {
 		$this->con->where('service_id', $service_id);
 		$this->con->limit(1);
 		$query = $this->con->get();
-		if ($query->num_rows() == 1) {
-			return true;
-		}
+		if ($query->num_rows() == 1) { return true; }
+		return false;
+	}
+
+	public function exists_model($model_id){
+		$this->con->from('model');
+		$this->con->where('model_id', $model_id);
+		$this->con->limit(1);
+		$query = $this->con->get();
+		if ($query->num_rows() == 1) { return true; }
+		return false;
+	}
+	public function exists_brand($brand_id){
+		$this->con->from('brand');
+		$this->con->where('brand_id', $brand_id);
+		$this->con->limit(1);
+		$query = $this->con->get();
+		if ($query->num_rows() == 1) { return true; }
 		return false;
 	}
 
 	public function save($service_data, $service_id = 0){
-		if ( !$brand_id || !$this->exists_model($brand_id) ) {
+		
+		if (!$this->exists($brand_id) ) {
+			
 			$this->con->insert('service_log', $service_data);
 			return $this->con->insert_id();
 		}else{
@@ -35,6 +52,14 @@ class Service extends CI_Model {
 		}
 
 		return false;
+	}
+	public function save_brand($brand_data){
+		$this->con->insert('brand', $brand_data);
+		return $this->con->insert_id();
+	}
+	public function save_model($model_data){
+		$this->con->insert('model', $model_data);
+		return $this->con->insert_id();
 	}
  
 	public function get_all($limit = 5000, $offset = 5){

@@ -500,7 +500,8 @@ function chat_ajax(url,data,success){
 	// d.cache=false;
 	d.statusCode={
 		500:function(){
-			chat_ajax(d);
+			d.count=(d.count||0)+1;
+			if(d.count<5) chat_ajax(d);
 		}
 	};
 	var ajax=jQ.ajax(d);

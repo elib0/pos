@@ -4,7 +4,7 @@
 	<div id="new_button">
 		<?php
 		if($this->Employee->has_privilege('add',$controller_name)){  
-			echo anchor("$controller_name/view/-1/width:660/height:465",
+			echo anchor("$controller_name/view/false/width:660/height:465",
 			"<span>".$this->lang->line($controller_name.'_new')."</span>",
 			array('class'=>'big_button thickbox','title'=>$this->lang->line($controller_name.'_new')));
 		}

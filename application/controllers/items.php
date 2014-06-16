@@ -182,7 +182,7 @@ class Items extends Secure_area implements iData_controller
 		$this->load->view("items/form_bulk", $data);
 	}
 
-	function save($item_id=-1)
+	function save($item_id=false)
 	{
 		$item_data = array(
 		'is_locked'=>$this->input->post('is_locked')?1:0,

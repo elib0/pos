@@ -58,7 +58,7 @@ class Item extends CI_Model
 			$this->con->where('description','');
 		}
 		$this->con->where('deleted',0);
-		$this->con->order_by("name", "asc");
+		$this->con->order_by('name', 'asc');
 		return $this->con->get();
 	}
 
@@ -126,7 +126,7 @@ class Item extends CI_Model
 	{
 		$this->con->from('items');
 		$this->con->where_in('item_id',$item_ids);
-		$this->con->order_by("item_id", "asc");
+		$this->con->order_by('item_id', 'asc');
 		return $this->con->get();
 	}
 
@@ -213,7 +213,7 @@ class Item extends CI_Model
 		$this->con->from('items');
 		$this->con->like('name', $search);
 		$this->con->where('deleted',0);
-		$this->con->order_by("name", "asc");
+		$this->con->order_by('name','asc');
 		$by_name = $this->con->get();
 		foreach($by_name->result() as $row)
 		{
@@ -225,7 +225,7 @@ class Item extends CI_Model
 		$this->con->where('deleted',0);
 		$this->con->distinct();
 		$this->con->like('category', $search);
-		$this->con->order_by("category", "asc");
+		$this->con->order_by('category', 'asc');
 		$by_category = $this->con->get();
 		foreach($by_category->result() as $row)
 		{
@@ -235,7 +235,7 @@ class Item extends CI_Model
 		$this->con->from('items');
 		$this->con->like('item_number', $search);
 		$this->con->where('deleted',0);
-		$this->con->order_by("item_number", "asc");
+		$this->con->order_by('item_number', 'asc');
 		$by_item_number = $this->con->get();
 		foreach($by_item_number->result() as $row)
 		{
@@ -260,7 +260,7 @@ class Item extends CI_Model
 		$this->con->where('deleted',0);
 		$this->con->where('item_id >',0);
 		$this->con->like('name', $search);
-		$this->con->order_by("name", "asc");
+		$this->con->order_by('name', 'asc');
 		$this->con->limit($limit);
 		$by_name = $this->con->get();
 		foreach($by_name->result() as $row)
@@ -272,7 +272,7 @@ class Item extends CI_Model
 		$this->con->where('deleted',0);
 		$this->con->where('item_id >',0);
 		$this->con->like('item_number', $search);
-		$this->con->order_by("item_number", "asc");
+		$this->con->order_by('item_number', 'asc');
 		$this->con->limit($limit);
 		$by_item_number = $this->con->get();
 		foreach($by_item_number->result() as $row)
@@ -292,7 +292,7 @@ class Item extends CI_Model
 		$this->con->from('items');
 		$this->con->like('category', $search);
 		$this->con->where('deleted', 0);
-		$this->con->order_by("category", "asc");
+		$this->con->order_by('category', 'asc');
 		$by_category = $this->con->get();
 		foreach($by_category->result() as $row)
 		{
@@ -311,7 +311,7 @@ class Item extends CI_Model
 		$this->con->where("(name LIKE '%".$this->con->escape_like_str($search)."%' or
 		item_number LIKE '%".$this->con->escape_like_str($search)."%' or
 		category LIKE '%".$this->con->escape_like_str($search)."%') and deleted=0");
-		$this->con->order_by("name", "asc");
+		$this->con->order_by('name', 'asc');
 		return $this->con->get();
 	}
 
@@ -321,7 +321,7 @@ class Item extends CI_Model
 		$this->con->from('items');
 		$this->con->where('deleted',0);
 		$this->con->distinct();
-		$this->con->order_by("category", "asc");
+		$this->con->order_by('category', 'asc');
 
 		return $this->con->get();
 	}

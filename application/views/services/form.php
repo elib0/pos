@@ -10,7 +10,7 @@
 				<?php echo form_input(array(
 					'name'=>'name',
 					'id'=>'name',
-					'value'=>$service_info->item_number,
+					'value'=>$service_info->first_name.' '.$service_info->last_name,
 					'class'=>'text_box'
 				));?>
 				</div>
@@ -23,7 +23,7 @@
 				<?php echo form_input(array(
 					'name'=>'codeimei',
 					'id'=>'codeimei',
-					'value'=>$service_info->name,
+					'value'=>$service_info->phone_imei,
 					'class'=>'text_box'
 				));?>
 				</div>
@@ -38,7 +38,7 @@
 				<?php echo form_input(array(
 					'name'=>'model',
 					'id'=>'model',
-					'value'=>$service_info->model,
+					'value'=>$service_info->model_name,
 					'class'=>'text_box'
 				));?>
 				</div>

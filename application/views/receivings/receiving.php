@@ -19,6 +19,10 @@
 		border: 1px solid #CCC;
 		height: 18px;
 	}
+	table#register input[type="number"]{
+		width: 2.9em;
+	}
+
 
 </style>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $this->lang->line('recvs_register'); ?></div>
@@ -82,6 +86,7 @@ if(isset($error))
 
 <th style="width:40%;"><?php echo $this->lang->line('recvs_item_name'); ?></th>
 <th style="width:10%;"><?php echo $this->lang->line('recvs_cost'); ?></th>
+<th style="width:10%;">Ganacia</th>
 <th style="width:10%;"><?php echo $this->lang->line('recvs_quantity'); ?></th>
 <th style="width:10%;"><?php echo $this->lang->line('recvs_discount'); ?></th>
 <th style="width:10%;">Sub Total</th>
@@ -115,7 +120,6 @@ else
 		?>
 		<br />
 
-
 		<?php if ($items_module_allowed)
 		{
 		?>
@@ -130,12 +134,12 @@ else
 		<?php
 		}
 		?>
+		<td><?php echo form_input(array('type'=>'number','name'=>'gain','value'=>30,'size'=>'3')); ?></td>
 		<td>
 		<?php
         	echo form_input(array('name'=>'quantity','value'=>$item['quantity'],'size'=>'2'));
 		?>
 		</td>
-
 
 		<td><?php echo form_input(array('name'=>'discount','value'=>$item['discount'],'size'=>'3'));?></td>
 		<td><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>

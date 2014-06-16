@@ -13,5 +13,6 @@ $lang['services_status']='Status';
 $lang['services_no_services_to_display']='There is not services to display';
 $lang['services_new']='Add Tracking';
 $lang['services_information']='Service Information';
+$lang['services_update']='Update Service Information';
 
 ?>

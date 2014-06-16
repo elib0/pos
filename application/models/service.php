@@ -64,9 +64,9 @@ class Service extends CI_Model {
 
 		if ($query->num_rows() == 1) {
 			return $query->row();
+		}else{
+			return (Object) array('service_id'=>-1,'first_name'=>'','last_name'=>'', 'phone_imei'=>'','model_name'=>'','comments'=>'');
 		}
-
-		return false;
 	}
 
 	public function suggest($search = ''){

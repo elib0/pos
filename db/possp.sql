@@ -13,8 +13,8 @@
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLATION_CONNECTION */;
+/*!40101 SET NAMES uf8 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
@@ -31,7 +31,8 @@ CREATE TABLE `ospos_app_config` (
   PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_app_config` WRITE;
+LOCK TABLES `ospos_app_config` WRITE;
+
 /*!40000 ALTER TABLE `ospos_app_config` DISABLE KEYS */;
 
 INSERT INTO `ospos_app_config` (`key`, `value`)
@@ -56,11 +57,42 @@ VALUES
   ('alert_after_sale','0');
 
 /*!40000 ALTER TABLE `ospos_app_config` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_brand
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_brand`;
 
@@ -70,19 +102,28 @@ CREATE TABLE `ospos_brand` (
   PRIMARY KEY (`brand_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_brand` WRITE;
+LOCK TABLES `ospos_brand` WRITE;
+
 /*!40000 ALTER TABLE `ospos_brand` DISABLE KEYS */;
 
 INSERT INTO `ospos_brand` (`brand_id`, `brand_name`)
 VALUES
   (1,'Apple');
 
+
+
+
+
+
 /*!40000 ALTER TABLE `ospos_brand` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
-# Dump of table ospos_customers
+# Dump of table osos_customers
 # ------------------------------------------------------------
+
+
+
 
 DROP TABLE IF EXISTS `ospos_customers`;
 
@@ -95,7 +136,8 @@ CREATE TABLE `ospos_customers` (
   KEY `person_id` (`person_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_customers` WRITE;
+LOCK TABLES `ospos_customers` WRITE;
+
 /*!40000 ALTER TABLE `ospos_customers` DISABLE KEYS */;
 
 INSERT INTO `ospos_customers` (`person_id`, `account_number`, `taxable`, `deleted`)
@@ -109,12 +151,20 @@ VALUES
   (55,NULL,0,0),
   (57,NULL,0,0);
 
-/*!40000 ALTER TABLE `ospos_customers` ENABLE KEYS */;
--- UNLOCK TABLES;
+
+
+
+
+
+*!40000 ALTER TABLE `ospos_customers` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_employees
 # ------------------------------------------------------------
+
+
+
 
 DROP TABLE IF EXISTS `ospos_employees`;
 
@@ -130,7 +180,8 @@ CREATE TABLE `ospos_employees` (
   KEY `person_id` (`person_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_employees` WRITE;
+LOCK TABLES `ospos_employees` WRITE;
+
 /*!40000 ALTER TABLE `ospos_employees` DISABLE KEYS */;
 
 INSERT INTO `ospos_employees` (`username`, `password`, `person_id`, `id_schedule`, `deleted`, `lastChatActivity`, `type_employees`)
@@ -138,17 +189,33 @@ VALUES
   ('admin','21232f297a57a5a743894a0e4a801fc3',1,1,0,0,'administrator'),
   ('speed','21232f297a57a5a743894a0e4a801fc3',4,1,0,0,'administrator'),
   ('alberto','d852f92d887c3788efb8c08c38788969',43,1,0,0,'administrator'),
-  ('Rasta','25d55ad283aa400af464c76d713c07ad',45,1,0,0,'administrator'),
+  (Rasta','25d55ad283aa400af464c76d713c07ad',45,1,0,0,'administrator'),
   ('mhernandez','25d55ad283aa400af464c76d713c07ad',50,1,1,0,'administrator'),
   ('gocanto','25d55ad283aa400af464c76d713c07ad',52,1,0,0,'administrator'),
   ('wfranco','25d55ad283aa400af464c76d713c07ad',54,1,0,0,'administrator');
 
 /*!40000 ALTER TABLE `ospos_employees` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_employees_profile
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_employees_profile`;
 
@@ -158,7 +225,8 @@ CREATE TABLE `ospos_employees_profile` (
   `privileges` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_employees_profile` WRITE;
+LOCK TABLES `ospos_employees_profile` WRITE;
+
 /*!40000 ALTER TABLE `ospos_employees_profile` DISABLE KEYS */;
 
 INSERT INTO `ospos_employees_profile` (`profile_name`, `module_id`, `privileges`)
@@ -176,11 +244,35 @@ VALUES
   ('administrator','services','add,update,delete');
 
 /*!40000 ALTER TABLE `ospos_employees_profile` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_employees_schedule
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_employees_schedule`;
 
@@ -192,12 +284,13 @@ CREATE TABLE `ospos_employees_schedule` (
   `logout` time DEFAULT NULL,
   `location` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_employees_schedule` WRITE;
+LOCK TABLES `ospos_employees_schedule` WRITE;
 /*!40000 ALTER TABLE `ospos_employees_schedule` DISABLE KEYS */;
 
-INSERT INTO `ospos_employees_schedule` (`id`, `employee_id`, `date`, `login`, `logout`, `location`)
+INSERT INTO `ospos_employees_schedule` (`id`, `employee_id`, `date`, `login`, `logout, `location`)
 VALUES
   (1,1,'2014-02-01','08:00:00','13:32:49','default'),
   (2,1,'2014-02-02','08:20:00','13:32:49','other'),
@@ -235,7 +328,7 @@ VALUES
   (205,1,'2014-03-27','08:39:36','13:32:49','default'),
   (206,1,'2014-03-27','08:41:54','13:32:49','default'),
   (207,1,'2014-03-27','09:23:24','13:32:49','default'),
-  (208,1,'2014-03-27','09:24:20','13:32:49','default'),
+  (208,1,2014-03-27','09:24:20','13:32:49','default'),
   (209,1,'2014-03-27','09:25:02','13:32:49','default'),
   (210,1,'2014-03-27','09:51:20','13:32:49','default'),
   (211,1,'2014-03-27','09:57:35','13:32:49','default'),
@@ -451,11 +544,276 @@ VALUES
   (421,1,'2014-06-14','15:53:04',NULL,'default');
 
 /*!40000 ALTER TABLE `ospos_employees_schedule` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_giftcards
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_giftcards`;
 
@@ -466,9 +824,10 @@ CREATE TABLE `ospos_giftcards` (
   `deleted` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`giftcard_id`),
   UNIQUE KEY `giftcard_number` (`giftcard_number`)
+
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- LOCK TABLES `ospos_giftcards` WRITE;
+LOCK TABLES `ospos_giftcards` WRITE;
 /*!40000 ALTER TABLE `ospos_giftcards` DISABLE KEYS */;
 
 INSERT INTO `ospos_giftcards` (`giftcard_id`, `giftcard_number`, `value`, `deleted`)
@@ -478,12 +837,22 @@ VALUES
   (50,'140783',986.00,0),
   (51,'12321321',800.00,0);
 
+
 /*!40000 ALTER TABLE `ospos_giftcards` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_inventory
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_inventory`;
 
@@ -497,9 +866,10 @@ CREATE TABLE `ospos_inventory` (
   PRIMARY KEY (`trans_id`),
   KEY `ospos_inventory_ibfk_1` (`trans_items`),
   KEY `ospos_inventory_ibfk_2` (`trans_user`)
+
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_inventory` WRITE;
+LOCK TABLES `ospos_inventory` WRITE;
 /*!40000 ALTER TABLE `ospos_inventory` DISABLE KEYS */;
 
 INSERT INTO `ospos_inventory` (`trans_id`, `trans_items`, `trans_user`, `trans_date`, `trans_comment`, `trans_inventory`)
@@ -799,7 +1169,7 @@ VALUES
   (293,97,1,'2013-05-28 09:30:28','Manual Edit of Quantity',10),
   (294,97,1,'2013-05-28 09:32:24','Manual Edit of Quantity',0),
   (295,97,1,'2013-05-28 09:32:25','Manual Edit of Quantity',0),
-  (296,97,1,'2013-05-28 09:34:04','Manual Edit of Quantity',0),
+  (296,971,'2013-05-28 09:34:04','Manual Edit of Quantity',0),
   (297,98,1,'2013-11-19 08:16:33','Manual Edit of Quantity',40),
   (298,99,1,'2013-11-19 08:16:39','Manual Edit of Quantity',40),
   (299,100,1,'2013-11-19 08:16:56','Manual Edit of Quantity',40),
@@ -816,7 +1186,7 @@ VALUES
   (310,111,1,'2013-11-19 08:17:09','Manual Edit of Quantity',40),
   (311,112,1,'2013-11-19 08:17:10','Manual Edit of Quantity',40),
   (312,113,1,'2013-11-19 08:21:47','Manual Edit of Quantity',2312),
-  (313,114,1,'2013-11-19 08:21:51','Manual Edit of Quantity',2312),
+  (313,114,1,'2013-11-19 08:21:51','Manual Edit of Quatity',2312),
   (314,115,1,'2013-11-19 08:21:52','Manual Edit of Quantity',2312),
   (315,116,1,'2013-11-19 08:21:53','Manual Edit of Quantity',2312),
   (316,117,1,'2013-11-19 08:21:55','Manual Edit of Quantity',2312),
@@ -1081,7 +1451,7 @@ VALUES
   (575,1,-1,'2014-06-05 15:47:04','POS 52',-5);
 
 /*!40000 ALTER TABLE `ospos_inventory` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_item_kit_items
@@ -1097,7 +1467,7 @@ CREATE TABLE `ospos_item_kit_items` (
   KEY `ospos_item_kit_items_ibfk_2` (`item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_item_kit_items` WRITE;
+LOCK TABLES `ospos_item_kit_items` WRITE;
 /*!40000 ALTER TABLE `ospos_item_kit_items` DISABLE KEYS */;
 
 INSERT INTO `ospos_item_kit_items` (`item_kit_id`, `item_id`, `quantity`)
@@ -1114,7 +1484,7 @@ VALUES
   (4,109,1.00);
 
 /*!40000 ALTER TABLE `ospos_item_kit_items` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_item_kits
@@ -1129,7 +1499,7 @@ CREATE TABLE `ospos_item_kits` (
   PRIMARY KEY (`item_kit_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_item_kits` WRITE;
+LOCK TABLES `ospos_item_kits` WRITE;
 /*!40000 ALTER TABLE `ospos_item_kits` DISABLE KEYS */;
 
 INSERT INTO `ospos_item_kits` (`item_kit_id`, `name`, `description`)
@@ -1140,11 +1510,601 @@ VALUES
   (4,'kit mal hecho','prueba');
 
 /*!40000 ALTER TABLE `ospos_item_kits` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_items
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_items`;
 
@@ -1156,8 +2116,8 @@ CREATE TABLE `ospos_items` (
   `description` varchar(255) NOT NULL,
   `cost_price` double(15,2) NOT NULL,
   `unit_price` double(15,2) NOT NULL,
-  `quantity` double(15,2) NOT NULL DEFAULT '0',
-  `reorder_level` double(15,2) NOT NULL DEFAULT '0',
+  `quantity` double(15,2) NOT NULL DEFAULT '0.00',
+  `reorder_level` double(15,2) NOT NULL DEFAULT '0.00',
   `location` varchar(255) NOT NULL,
   `item_id` int(10) NOT NULL AUTO_INCREMENT,
   `allow_alt_description` tinyint(1) NOT NULL,
@@ -1169,9 +2129,10 @@ CREATE TABLE `ospos_items` (
   PRIMARY KEY (`item_id`),
   UNIQUE KEY `item_number` (`item_number`),
   KEY `ospos_items_ibfk_1` (`supplier_id`)
+
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_items` WRITE;
+LOCK TABLES `ospos_items` WRITE;
 /*!40000 ALTER TABLE `ospos_items` DISABLE KEYS */;
 
 INSERT INTO `ospos_items` (`name`, `category`, `supplier_id`, `item_number`, `description`, `cost_price`, `unit_price`, `quantity`, `reorder_level`, `location`, `item_id`, `allow_alt_description`, `is_serialized`, `is_service`, `is_locked`, `deleted`, `broken_quantity`)
@@ -1295,11 +2256,143 @@ VALUES
   ('miha2Item','Phone',49,'miha2','',23.00,29.00,30.00,5.00,'',135,0,0,0,0,0,0);
 
 /*!40000 ALTER TABLE `ospos_items` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_items_taxes
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_items_taxes`;
 
@@ -1310,7 +2403,8 @@ CREATE TABLE `ospos_items_taxes` (
   PRIMARY KEY (`item_id`,`name`,`percent`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_items_taxes` WRITE;
+LOCK TABLES `ospos_items_taxes` WRITE;
+
 /*!40000 ALTER TABLE `ospos_items_taxes` DISABLE KEYS */;
 
 INSERT INTO `ospos_items_taxes` (`item_id`, `name`, `percent`)
@@ -1453,11 +2547,215 @@ VALUES
   (135,'Sales Tax',8.365);
 
 /*!40000 ALTER TABLE `ospos_items_taxes` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_model
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_model`;
 
@@ -1466,23 +2764,35 @@ CREATE TABLE `ospos_model` (
   `model_name` varchar(50) NOT NULL,
   `brand_id` int(11) NOT NULL,
   PRIMARY KEY (`model_id`),
+
   KEY `modelphone_brand` (`brand_id`),
   CONSTRAINT `modelphone_brand` FOREIGN KEY (`brand_id`) REFERENCES `ospos_brand` (`brand_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_model` WRITE;
+LOCK TABLES `ospos_model` WRITE;
 /*!40000 ALTER TABLE `ospos_model` DISABLE KEYS */;
 
 INSERT INTO `ospos_model` (`model_id`, `model_name`, `brand_id`)
 VALUES
   (1,'Iphone 5s',1);
 
+
+
+
+
+
 /*!40000 ALTER TABLE `ospos_model` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_modules
 # ------------------------------------------------------------
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_modules`;
 
@@ -1497,7 +2807,8 @@ CREATE TABLE `ospos_modules` (
   UNIQUE KEY `name_lang_key` (`name_lang_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_modules` WRITE;
+LOCK TABLES `ospos_modules` WRITE;
+
 /*!40000 ALTER TABLE `ospos_modules` DISABLE KEYS */;
 
 INSERT INTO `ospos_modules` (`name_lang_key`, `desc_lang_key`, `sort`, `module_id`, `options`)
@@ -1516,11 +2827,36 @@ VALUES
   ('module_services','module_services_desc',1,'services','add,update,delete');
 
 /*!40000 ALTER TABLE `ospos_modules` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_observation_inventories
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_observation_inventories`;
 
@@ -1530,9 +2866,10 @@ CREATE TABLE `ospos_observation_inventories` (
   `observation` mediumtext,
   `person_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_observation_inventories` WRITE;
+LOCK TABLES `ospos_observation_inventories` WRITE;
 /*!40000 ALTER TABLE `ospos_observation_inventories` DISABLE KEYS */;
 
 INSERT INTO `ospos_observation_inventories` (`id`, `date_register`, `observation`, `person_id`)
@@ -1572,11 +2909,59 @@ VALUES
   (33,'2014-06-14 10:32:02','',1);
 
 /*!40000 ALTER TABLE `ospos_observation_inventories` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_people
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_people`;
 
@@ -1594,9 +2979,10 @@ CREATE TABLE `ospos_people` (
   `comments` text,
   `person_id` int(10) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`person_id`)
+
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_people` WRITE;
+LOCK TABLES `ospos_people` WRITE;
 /*!40000 ALTER TABLE `ospos_people` DISABLE KEYS */;
 
 INSERT INTO `ospos_people` (`first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`)
@@ -1622,11 +3008,45 @@ VALUES
   ('otra & cosita C.A','possp_otra',NULL,NULL,'localhost',NULL,NULL,NULL,NULL,NULL,'location',57);
 
 /*!40000 ALTER TABLE `ospos_people` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_permissions
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_permissions`;
 
@@ -1638,7 +3058,8 @@ CREATE TABLE `ospos_permissions` (
   KEY `person_id` (`person_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_permissions` WRITE;
+LOCK TABLES `ospos_permissions` WRITE;
+
 /*!40000 ALTER TABLE `ospos_permissions` DISABLE KEYS */;
 
 INSERT INTO `ospos_permissions` (`module_id`, `person_id`, `privileges`)
@@ -1700,11 +3121,79 @@ VALUES
   ('services',1,'add,update,delete');
 
 /*!40000 ALTER TABLE `ospos_permissions` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_receivings
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_receivings`;
 
@@ -1719,9 +3208,10 @@ CREATE TABLE `ospos_receivings` (
   PRIMARY KEY (`receiving_id`),
   KEY `supplier_id` (`supplier_id`),
   KEY `employee_id` (`employee_id`)
+
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_receivings` WRITE;
+LOCK TABLES `ospos_receivings` WRITE;
 /*!40000 ALTER TABLE `ospos_receivings` DISABLE KEYS */;
 
 INSERT INTO `ospos_receivings` (`receiving_time`, `supplier_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`, `payment`)
@@ -1780,11 +3270,78 @@ VALUES
   ('2014-05-29 10:57:54',56,1,'',52,'Cheque',50);
 
 /*!40000 ALTER TABLE `ospos_receivings` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_receivings_items
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_receivings_items`;
 
@@ -1802,7 +3359,8 @@ CREATE TABLE `ospos_receivings_items` (
   KEY `item_id` (`item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_receivings_items` WRITE;
+LOCK TABLES `ospos_receivings_items` WRITE;
+
 /*!40000 ALTER TABLE `ospos_receivings_items` DISABLE KEYS */;
 
 INSERT INTO `ospos_receivings_items` (`receiving_id`, `item_id`, `description`, `serialnumber`, `line`, `quantity_purchased`, `item_cost_price`, `item_unit_price`, `discount_percent`)
@@ -1927,11 +3485,142 @@ VALUES
   (52,53,'','0',1,5,0.00,20.00,0);
 
 /*!40000 ALTER TABLE `ospos_receivings_items` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_sales
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_sales`;
 
@@ -1947,9 +3636,10 @@ CREATE TABLE `ospos_sales` (
   PRIMARY KEY (`sale_id`),
   KEY `customer_id` (`customer_id`),
   KEY `employee_id` (`employee_id`)
+
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_sales` WRITE;
+LOCK TABLES `ospos_sales` WRITE;
 /*!40000 ALTER TABLE `ospos_sales` DISABLE KEYS */;
 
 INSERT INTO `ospos_sales` (`sale_time`, `customer_id`, `employee_id`, `comment`, `sale_id`, `payment_type`, `mode`, `status`)
@@ -2008,11 +3698,78 @@ VALUES
   ('2014-06-05 15:47:03',57,-1,'0',52,'Cash: $162.56<br />',2,1);
 
 /*!40000 ALTER TABLE `ospos_sales` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_sales_items
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_sales_items`;
 
@@ -2022,7 +3779,7 @@ CREATE TABLE `ospos_sales_items` (
   `description` varchar(30) DEFAULT NULL,
   `serialnumber` varchar(30) DEFAULT NULL,
   `line` int(3) NOT NULL DEFAULT '0',
-  `quantity_purchased` double(15,2) NOT NULL DEFAULT '0',
+  `quantity_purchased` double(15,2) NOT NULL DEFAULT '0.00',
   `item_cost_price` decimal(15,2) NOT NULL,
   `item_unit_price` double(15,2) NOT NULL,
   `discount_percent` int(11) NOT NULL DEFAULT '0',
@@ -2030,7 +3787,8 @@ CREATE TABLE `ospos_sales_items` (
   KEY `item_id` (`item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_sales_items` WRITE;
+LOCK TABLES `ospos_sales_items` WRITE;
+
 /*!40000 ALTER TABLE `ospos_sales_items` DISABLE KEYS */;
 
 INSERT INTO `ospos_sales_items` (`sale_id`, `item_id`, `description`, `serialnumber`, `line`, `quantity_purchased`, `item_cost_price`, `item_unit_price`, `discount_percent`)
@@ -2109,11 +3867,96 @@ VALUES
   (52,1,'0','0',1,5.00,13.00,30.00,0);
 
 /*!40000 ALTER TABLE `ospos_sales_items` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_sales_items_taxes
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_sales_items_taxes`;
 
@@ -2127,7 +3970,8 @@ CREATE TABLE `ospos_sales_items_taxes` (
   KEY `item_id` (`item_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_sales_items_taxes` WRITE;
+LOCK TABLES `ospos_sales_items_taxes` WRITE;
+
 /*!40000 ALTER TABLE `ospos_sales_items_taxes` DISABLE KEYS */;
 
 INSERT INTO `ospos_sales_items_taxes` (`sale_id`, `item_id`, `line`, `name`, `percent`)
@@ -2168,11 +4012,87 @@ VALUES
   (51,98,1,'Sales Tax',8.365);
 
 /*!40000 ALTER TABLE `ospos_sales_items_taxes` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
+
 
 
 # Dump of table ospos_sales_payments
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_sales_payments`;
 
@@ -2183,7 +4103,8 @@ CREATE TABLE `ospos_sales_payments` (
   PRIMARY KEY (`sale_id`,`payment_type`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_sales_payments` WRITE;
+LOCK TABLES `ospos_sales_payments` WRITE;
+
 /*!40000 ALTER TABLE `ospos_sales_payments` DISABLE KEYS */;
 
 INSERT INTO `ospos_sales_payments` (`sale_id`, `payment_type`, `payment_amount`)
@@ -2252,11 +4173,86 @@ VALUES
   (52,'Cash',162.56);
 
 /*!40000 ALTER TABLE `ospos_sales_payments` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_sales_suspended
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_sales_suspended`;
 
@@ -2274,8 +4270,9 @@ CREATE TABLE `ospos_sales_suspended` (
 
 
 
-# Dump of table ospos_sales_suspended_items
+# Dump of table opos_sales_suspended_items
 # ------------------------------------------------------------
+
 
 DROP TABLE IF EXISTS `ospos_sales_suspended_items`;
 
@@ -2285,7 +4282,7 @@ CREATE TABLE `ospos_sales_suspended_items` (
   `description` varchar(30) DEFAULT NULL,
   `serialnumber` varchar(30) DEFAULT NULL,
   `line` int(3) NOT NULL DEFAULT '0',
-  `quantity_purchased` double(15,2) NOT NULL DEFAULT '0',
+  `quantity_purchased` double(15,2) NOT NULL DEFAULT '0.00',
   `item_cost_price` decimal(15,2) NOT NULL,
   `item_unit_price` double(15,2) NOT NULL,
   `discount_percent` int(11) NOT NULL DEFAULT '0',
@@ -2297,6 +4294,7 @@ CREATE TABLE `ospos_sales_suspended_items` (
 
 # Dump of table ospos_sales_suspended_items_taxes
 # ------------------------------------------------------------
+
 
 DROP TABLE IF EXISTS `ospos_sales_suspended_items_taxes`;
 
@@ -2315,6 +4313,7 @@ CREATE TABLE `ospos_sales_suspended_items_taxes` (
 # Dump of table ospos_sales_suspended_payments
 # ------------------------------------------------------------
 
+
 DROP TABLE IF EXISTS `ospos_sales_suspended_payments`;
 
 CREATE TABLE `ospos_sales_suspended_payments` (
@@ -2329,6 +4328,7 @@ CREATE TABLE `ospos_sales_suspended_payments` (
 # Dump of table ospos_schedules
 # ------------------------------------------------------------
 
+
 DROP TABLE IF EXISTS `ospos_schedules`;
 
 CREATE TABLE `ospos_schedules` (
@@ -2338,9 +4338,10 @@ CREATE TABLE `ospos_schedules` (
   `out` time NOT NULL,
   `person_id` int(11) NOT NULL,
   PRIMARY KEY (`schedule_id`)
+
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- LOCK TABLES `ospos_schedules` WRITE;
+LOCK TABLES `ospos_schedules` WRITE;
 /*!40000 ALTER TABLE `ospos_schedules` DISABLE KEYS */;
 
 INSERT INTO `ospos_schedules` (`schedule_id`, `day`, `in`, `out`, `person_id`)
@@ -2407,11 +4408,86 @@ VALUES
   (361,'Sunday','00:00:00','23:00:00',1);
 
 /*!40000 ALTER TABLE `ospos_schedules` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_service_log
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_service_log`;
 
@@ -2428,7 +4504,8 @@ CREATE TABLE `ospos_service_log` (
   PRIMARY KEY (`service_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_service_log` WRITE;
+LOCK TABLES `ospos_service_log` WRITE;
+
 /*!40000 ALTER TABLE `ospos_service_log` DISABLE KEYS */;
 
 INSERT INTO `ospos_service_log` (`service_id`, `person_id`, `phone_imei`, `model_id`, `date_received`, `date_delivered`, `comments`, `status`, `deleted`)
@@ -2436,11 +4513,21 @@ VALUES
   (1,1,'213123123',1,'2014-06-10 00:00:00',NULL,'Placerat duis ac vel dis pellentesque mauris mus integer placerat tortor lectus vel scelerisque, ut, proin tempor sit habitasse augue aliquam mus amet et a ut magna odio, natoque sit, elementum ac odio mus! Lacus placerat nascetur integer eu! Scelerisque sed et arcu ridiculus, dictumst aenean nunc enim nunc hac, enim, et urna lectus dignissim aenean! Urna nec mus massa, nisi risus cursus.',0,0);
 
 /*!40000 ALTER TABLE `ospos_service_log` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_sessions
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_sessions`;
 
@@ -2453,7 +4540,8 @@ CREATE TABLE `ospos_sessions` (
   PRIMARY KEY (`session_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_sessions` WRITE;
+LOCK TABLES `ospos_sessions` WRITE;
+
 /*!40000 ALTER TABLE `ospos_sessions` DISABLE KEYS */;
 
 INSERT INTO `ospos_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`)
@@ -2462,11 +4550,22 @@ VALUES
   ('bbf9c4ec1b43fd2533f15d847e73257e','::1','Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.114 Safari/537.36',1402776672,'a:5:{s:9:\"user_data\";s:0:\"\";s:10:\"dblocation\";s:7:\"default\";s:9:\"person_id\";s:1:\"1\";s:21:\"employees_working_now\";a:2:{i:0;i:0;i:1;s:1:\"1\";}s:4:\"chat\";a:0:{}}');
 
 /*!40000 ALTER TABLE `ospos_sessions` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_suppliers
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_suppliers`;
 
@@ -2479,7 +4578,8 @@ CREATE TABLE `ospos_suppliers` (
   KEY `person_id` (`person_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_suppliers` WRITE;
+LOCK TABLES `ospos_suppliers` WRITE;
+
 /*!40000 ALTER TABLE `ospos_suppliers` DISABLE KEYS */;
 
 INSERT INTO `ospos_suppliers` (`person_id`, `company_name`, `account_number`, `deleted`)
@@ -2492,12 +4592,57 @@ VALUES
   (51,'dragon de drogas','aksjdlkasjdlkasldlkasdlkasdlkjalsdjljaslkdjasdjlaksdjklajsdlkasdasdmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq',0),
   (56,'Repuestos CA','rca',0);
 
+
+
+
+
+
 /*!40000 ALTER TABLE `ospos_suppliers` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_transfer_items
 # ------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS `ospos_transfer_items`;
 
@@ -2513,9 +4658,10 @@ CREATE TABLE `ospos_transfer_items` (
   `item_unit_price` double(15,2) NOT NULL,
   `discount_percent` int(11) NOT NULL,
   PRIMARY KEY (`id`)
+
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_transfer_items` WRITE;
+LOCK TABLES `ospos_transfer_items` WRITE;
 /*!40000 ALTER TABLE `ospos_transfer_items` DISABLE KEYS */;
 
 INSERT INTO `ospos_transfer_items` (`id`, `transfer_id`, `item_id`, `quantity_purchased`, `description`, `serialnumber`, `line`, `item_cost_price`, `item_unit_price`, `discount_percent`)
@@ -2565,7 +4711,7 @@ VALUES
   (43,13,133,1,NULL,NULL,0,0.00,0.00,0);
 
 /*!40000 ALTER TABLE `ospos_transfer_items` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
 
 
 # Dump of table ospos_transfers
@@ -2584,7 +4730,7 @@ CREATE TABLE `ospos_transfers` (
   PRIMARY KEY (`transfer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- LOCK TABLES `ospos_transfers` WRITE;
+LOCK TABLES `ospos_transfers` WRITE;
 /*!40000 ALTER TABLE `ospos_transfers` DISABLE KEYS */;
 
 INSERT INTO `ospos_transfers` (`transfer_id`, `sender`, `receiver`, `date`, `status`, `comment`, `payment_type`)
@@ -2604,7 +4750,8 @@ VALUES
   (13,'default','miharbito_db','2014-03-26',1,'','');
 
 /*!40000 ALTER TABLE `ospos_transfers` ENABLE KEYS */;
--- UNLOCK TABLES;
+UNLOCK TABLES;
+
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -2612,3 +4759,7 @@ VALUES
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+

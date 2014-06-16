@@ -1,36 +1,42 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.12
+-- version 4.0.9
 -- http://www.phpmyadmin.net
 --
--- Host: localhost:8889
--- Generation Time: Jun 16, 2014 at 04:15 PM
--- Server version: 5.5.34
--- PHP Version: 5.5.10
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 16-06-2014 a las 17:55:41
+-- Versión del servidor: 5.6.14
+-- Versión de PHP: 5.5.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
 --
--- Database: `possp`
+-- Base de datos: `possp`
 --
-CREATE DATABASE IF NOT EXISTS `possp` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `possp` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `possp`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_app_config`
+-- Estructura de tabla para la tabla `ospos_app_config`
 --
 
 DROP TABLE IF EXISTS `ospos_app_config`;
-CREATE TABLE `ospos_app_config` (
+CREATE TABLE IF NOT EXISTS `ospos_app_config` (
   `key` varchar(255) NOT NULL,
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_app_config`
+-- Volcado de datos para la tabla `ospos_app_config`
 --
 
 INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
@@ -56,18 +62,18 @@ INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_brand`
+-- Estructura de tabla para la tabla `ospos_brand`
 --
 
 DROP TABLE IF EXISTS `ospos_brand`;
-CREATE TABLE `ospos_brand` (
+CREATE TABLE IF NOT EXISTS `ospos_brand` (
   `brand_id` int(11) NOT NULL AUTO_INCREMENT,
   `brand_name` varchar(50) NOT NULL,
   PRIMARY KEY (`brand_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `ospos_brand`
+-- Volcado de datos para la tabla `ospos_brand`
 --
 
 INSERT INTO `ospos_brand` (`brand_id`, `brand_name`) VALUES
@@ -76,21 +82,21 @@ INSERT INTO `ospos_brand` (`brand_id`, `brand_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_customers`
+-- Estructura de tabla para la tabla `ospos_customers`
 --
 
 DROP TABLE IF EXISTS `ospos_customers`;
-CREATE TABLE `ospos_customers` (
+CREATE TABLE IF NOT EXISTS `ospos_customers` (
   `person_id` int(10) NOT NULL,
   `account_number` varchar(255) DEFAULT NULL,
   `taxable` int(1) NOT NULL DEFAULT '1',
   `deleted` int(1) NOT NULL DEFAULT '0',
-  UNIQUE KEY `account_number` (`account_number`),
-  KEY `person_id` (`person_id`)
+  PRIMARY KEY (`person_id`),
+  UNIQUE KEY `account_number` (`account_number`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_customers`
+-- Volcado de datos para la tabla `ospos_customers`
 --
 
 INSERT INTO `ospos_customers` (`person_id`, `account_number`, `taxable`, `deleted`) VALUES
@@ -106,73 +112,74 @@ INSERT INTO `ospos_customers` (`person_id`, `account_number`, `taxable`, `delete
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_employees`
+-- Estructura de tabla para la tabla `ospos_employees`
 --
 
 DROP TABLE IF EXISTS `ospos_employees`;
-CREATE TABLE `ospos_employees` (
+CREATE TABLE IF NOT EXISTS `ospos_employees` (
+  `person_id` int(10) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `person_id` int(10) NOT NULL,
   `id_schedule` int(1) DEFAULT '1',
   `deleted` int(1) NOT NULL DEFAULT '0',
   `lastChatActivity` int(2) NOT NULL,
   `type_employees` varchar(20) DEFAULT NULL,
-  UNIQUE KEY `username` (`username`),
-  KEY `person_id` (`person_id`)
+  PRIMARY KEY (`person_id`),
+  UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_employees`
+-- Volcado de datos para la tabla `ospos_employees`
 --
 
-INSERT INTO `ospos_employees` (`username`, `password`, `person_id`, `id_schedule`, `deleted`, `lastChatActivity`, `type_employees`) VALUES
-('admin', '21232f297a57a5a743894a0e4a801fc3', 1, 1, 0, 0, 'administrator'),
-('speed', '21232f297a57a5a743894a0e4a801fc3', 4, 1, 0, 0, 'administrator'),
-('alberto', 'd852f92d887c3788efb8c08c38788969', 43, 1, 0, 0, 'administrator'),
-('Rasta', '25d55ad283aa400af464c76d713c07ad', 45, 1, 0, 0, 'administrator'),
-('mhernandez', '25d55ad283aa400af464c76d713c07ad', 50, 1, 1, 0, 'administrator'),
-('gocanto', '25d55ad283aa400af464c76d713c07ad', 52, 1, 0, 0, 'administrator'),
-('wfranco', '25d55ad283aa400af464c76d713c07ad', 54, 1, 0, 0, 'administrator');
+INSERT INTO `ospos_employees` (`person_id`, `username`, `password`, `id_schedule`, `deleted`, `lastChatActivity`, `type_employees`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 0, 0, 'administrator'),
+(4, 'speed', '21232f297a57a5a743894a0e4a801fc3', 1, 0, 0, 'administrator'),
+(43, 'alberto', 'd852f92d887c3788efb8c08c38788969', 1, 0, 0, 'administrator'),
+(45, 'Rasta', '25d55ad283aa400af464c76d713c07ad', 1, 0, 0, 'administrator'),
+(50, 'mhernandez', '25d55ad283aa400af464c76d713c07ad', 1, 1, 0, 'administrator'),
+(52, 'gocanto', '25d55ad283aa400af464c76d713c07ad', 1, 0, 0, 'administrator'),
+(54, 'wfranco', '25d55ad283aa400af464c76d713c07ad', 1, 0, 0, 'administrator');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_employees_profile`
+-- Estructura de tabla para la tabla `ospos_employees_profile`
 --
 
 DROP TABLE IF EXISTS `ospos_employees_profile`;
-CREATE TABLE `ospos_employees_profile` (
-  `profile_name` varchar(50) DEFAULT NULL,
-  `module_id` varchar(255) DEFAULT NULL,
-  `privileges` varchar(100) DEFAULT NULL
+CREATE TABLE IF NOT EXISTS `ospos_employees_profile` (
+  `profile_name` varchar(50) NOT NULL DEFAULT '',
+  `module_id` varchar(255) NOT NULL DEFAULT '',
+  `privileges` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`profile_name`,`module_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_employees_profile`
+-- Volcado de datos para la tabla `ospos_employees_profile`
 --
 
 INSERT INTO `ospos_employees_profile` (`profile_name`, `module_id`, `privileges`) VALUES
+('administrator', 'config', 'save'),
 ('administrator', 'customers', 'add,update,delete'),
-('administrator', 'items', 'add,update,delete'),
-('administrator', 'item_kits', 'add,update,delete'),
-('administrator', 'suppliers', 'add,update,delete'),
-('administrator', 'reports', 'none'),
-('administrator', 'receivings', 'none'),
-('administrator', 'sales', 'none'),
 ('administrator', 'employees', 'add,update,delete'),
 ('administrator', 'giftcards', 'add,update,delete'),
-('administrator', 'config', 'save'),
-('administrator', 'services', 'add,update,delete');
+('administrator', 'items', 'add,update,delete'),
+('administrator', 'item_kits', 'add,update,delete'),
+('administrator', 'receivings', 'none'),
+('administrator', 'reports', 'none'),
+('administrator', 'sales', 'none'),
+('administrator', 'services', 'add,update,delete'),
+('administrator', 'suppliers', 'add,update,delete');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_employees_schedule`
+-- Estructura de tabla para la tabla `ospos_employees_schedule`
 --
 
 DROP TABLE IF EXISTS `ospos_employees_schedule`;
-CREATE TABLE `ospos_employees_schedule` (
+CREATE TABLE IF NOT EXISTS `ospos_employees_schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `employee_id` int(11) NOT NULL,
   `date` date NOT NULL,
@@ -183,7 +190,7 @@ CREATE TABLE `ospos_employees_schedule` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=422 ;
 
 --
--- Dumping data for table `ospos_employees_schedule`
+-- Volcado de datos para la tabla `ospos_employees_schedule`
 --
 
 INSERT INTO `ospos_employees_schedule` (`id`, `employee_id`, `date`, `login`, `logout`, `location`) VALUES
@@ -441,11 +448,11 @@ INSERT INTO `ospos_employees_schedule` (`id`, `employee_id`, `date`, `login`, `l
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_giftcards`
+-- Estructura de tabla para la tabla `ospos_giftcards`
 --
 
 DROP TABLE IF EXISTS `ospos_giftcards`;
-CREATE TABLE `ospos_giftcards` (
+CREATE TABLE IF NOT EXISTS `ospos_giftcards` (
   `giftcard_id` int(11) NOT NULL AUTO_INCREMENT,
   `giftcard_number` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
   `value` double(15,2) NOT NULL,
@@ -455,7 +462,7 @@ CREATE TABLE `ospos_giftcards` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=52 ;
 
 --
--- Dumping data for table `ospos_giftcards`
+-- Volcado de datos para la tabla `ospos_giftcards`
 --
 
 INSERT INTO `ospos_giftcards` (`giftcard_id`, `giftcard_number`, `value`, `deleted`) VALUES
@@ -467,11 +474,11 @@ INSERT INTO `ospos_giftcards` (`giftcard_id`, `giftcard_number`, `value`, `delet
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_inventory`
+-- Estructura de tabla para la tabla `ospos_inventory`
 --
 
 DROP TABLE IF EXISTS `ospos_inventory`;
-CREATE TABLE `ospos_inventory` (
+CREATE TABLE IF NOT EXISTS `ospos_inventory` (
   `trans_id` int(11) NOT NULL AUTO_INCREMENT,
   `trans_items` int(11) NOT NULL DEFAULT '0',
   `trans_user` int(11) NOT NULL DEFAULT '0',
@@ -484,7 +491,7 @@ CREATE TABLE `ospos_inventory` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=576 ;
 
 --
--- Dumping data for table `ospos_inventory`
+-- Volcado de datos para la tabla `ospos_inventory`
 --
 
 INSERT INTO `ospos_inventory` (`trans_id`, `trans_items`, `trans_user`, `trans_date`, `trans_comment`, `trans_inventory`) VALUES
@@ -1067,11 +1074,12 @@ INSERT INTO `ospos_inventory` (`trans_id`, `trans_items`, `trans_user`, `trans_d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_items`
+-- Estructura de tabla para la tabla `ospos_items`
 --
 
 DROP TABLE IF EXISTS `ospos_items`;
-CREATE TABLE `ospos_items` (
+CREATE TABLE IF NOT EXISTS `ospos_items` (
+  `item_id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `category` varchar(255) NOT NULL,
   `supplier_id` int(11) DEFAULT NULL,
@@ -1082,7 +1090,6 @@ CREATE TABLE `ospos_items` (
   `quantity` double(15,2) NOT NULL DEFAULT '0.00',
   `reorder_level` double(15,2) NOT NULL DEFAULT '0.00',
   `location` varchar(255) NOT NULL,
-  `item_id` int(10) NOT NULL AUTO_INCREMENT,
   `allow_alt_description` tinyint(1) NOT NULL,
   `is_serialized` tinyint(1) NOT NULL,
   `is_service` tinyint(1) NOT NULL,
@@ -1095,136 +1102,135 @@ CREATE TABLE `ospos_items` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=136 ;
 
 --
--- Dumping data for table `ospos_items`
+-- Volcado de datos para la tabla `ospos_items`
 --
 
-INSERT INTO `ospos_items` (`name`, `category`, `supplier_id`, `item_number`, `description`, `cost_price`, `unit_price`, `quantity`, `reorder_level`, `location`, `item_id`, `allow_alt_description`, `is_serialized`, `is_service`, `is_locked`, `deleted`, `broken_quantity`) VALUES
-('Iphone 3G Digitizer', 'Digitizers', NULL, NULL, '', 13.00, 30.00, 151.00, 20.00, '', 1, 0, 0, 0, 0, 0, 2),
-('Ipod 5', 'LCDs', NULL, NULL, '', 20.00, 35.00, 14.00, 10.00, '', 2, 0, 0, 0, 0, 0, 1),
-('Repair Service', 'Services', NULL, NULL, '', 30.00, 30.00, 999.00, 1.00, '', 3, 0, 0, 0, 0, 0, 0),
-('3GS Digitizer', 'iPhone', 51, NULL, '', 0.00, 50.00, 1.00, 3.00, '0', 4, 0, 0, 0, 0, 0, 0),
-('Screen Protector', 'Accessories', NULL, NULL, '', 0.00, 10.00, 37.00, 10.00, '', 5, 0, 0, 0, 0, 0, 0),
-('LifeProof Case', 'Accessories', NULL, NULL, '', 0.00, 85.00, 11.00, 5.00, '', 6, 0, 0, 0, 0, 0, 0),
-('Ipad Protect Case', 'Accessories', NULL, NULL, '', 0.00, 49.99, 5.00, 2.00, '', 7, 0, 0, 0, 0, 0, 0),
-('Iphone 3gs Back', 'Accessories', NULL, NULL, '', 0.00, 75.00, 111.00, 0.00, '', 8, 0, 0, 0, 0, 0, 0),
-('3G Digitizer', 'iPhone', NULL, '01020304', '', 0.00, 45.00, 32.00, 2.00, '', 9, 0, 0, 0, 0, 0, 0),
-('Ipad 2 Screen Black', 'Ipad', NULL, NULL, '', 0.00, 125.00, 33.00, 1.00, '', 10, 0, 0, 0, 0, 0, 0),
-('Ipad 2 Screen White ', 'Ipad', NULL, NULL, '', 0.00, 125.00, 121.00, 1.00, '', 11, 0, 0, 0, 0, 0, 0),
-('Ipad 3 Screen White', 'Ipad', NULL, NULL, '', 0.00, 200.00, 34.00, 0.00, '', 12, 0, 0, 0, 0, 0, 0),
-('tiger blood', 'Ipad', NULL, NULL, '', 0.00, 200.00, 9.00, 0.00, '', 13, 0, 0, 0, 0, 0, 0),
-('4 GSM Back White', 'iPhone', NULL, NULL, '', 0.00, 30.00, 10.00, 2.00, '', 14, 0, 0, 0, 0, 0, 0),
-('4 GSM Back Black', 'iPhone', NULL, NULL, '', 0.00, 30.00, 10.00, 2.00, '', 15, 0, 0, 0, 0, 0, 0),
-('4S Back white', 'iPhone', NULL, NULL, '', 0.00, 30.00, 2.00, 2.00, '', 16, 0, 0, 0, 0, 0, 0),
-('4s Back Black', 'iPhone', NULL, NULL, '', 0.00, 30.00, 9.00, 2.00, '', 17, 0, 0, 0, 0, 0, 0),
-('4 GSM Black Screen', 'iPhone', NULL, NULL, '', 0.00, 79.95, 10.00, 3.00, '', 18, 0, 0, 0, 0, 0, 0),
-('4 GSM White Screen', 'iPhone', NULL, NULL, '', 0.00, 79.95, 10.00, 3.00, '', 19, 0, 0, 0, 0, 0, 0),
-('4 CDMA White screen', 'iPhone', NULL, NULL, '', 0.00, 79.95, 143.00, 2.00, '', 20, 0, 0, 0, 0, 0, 0),
-('4 CDMA Black Screen', 'iPhone', NULL, NULL, '', 0.00, 79.95, 104.00, 2.00, '', 21, 0, 0, 0, 0, 0, 0),
-('4s white Screen', 'iPhone', NULL, NULL, '', 0.00, 89.95, 7.00, 3.00, '', 22, 0, 0, 0, 0, 0, 0),
-('4s Black screen', 'iPhone', NULL, NULL, '', 0.00, 89.95, 9.00, 3.00, '', 23, 0, 0, 0, 0, 0, 0),
-('3gs lcd', 'iPhone', NULL, NULL, '', 0.00, 65.00, 213.00, 1.00, '', 24, 0, 0, 0, 0, 0, 0),
-('4s color set Pink', 'iPhone', NULL, NULL, '', 0.00, 120.00, 432.00, 1.00, '', 25, 0, 0, 0, 0, 0, 0),
-('4 GSM color set pink', 'iPhone', NULL, NULL, '', 0.00, 110.00, 654.00, 1.00, '', 26, 0, 0, 0, 0, 0, 0),
-('4s color set Red', 'iPhone', NULL, NULL, '', 0.00, 120.00, 54.00, 0.00, '', 27, 0, 0, 0, 0, 0, 0),
-('4 GSM color set red', 'iPhone', NULL, NULL, '', 0.00, 110.00, 55.00, 0.00, '', 28, 0, 0, 0, 0, 0, 0),
-('4 gsm color front', 'iPhone', NULL, NULL, '', 0.00, 89.95, 65.00, 1.00, '', 29, 0, 0, 0, 0, 0, 0),
-('4 gsm color back', 'iPhone', NULL, NULL, '', 0.00, 35.00, 4.00, 1.00, '', 30, 0, 0, 0, 0, 0, 0),
-('4s color front screen', 'iPhone', NULL, NULL, '', 0.00, 95.00, 7.00, 2.00, '', 31, 0, 0, 0, 0, 0, 0),
-('4s color back', 'iPhone', NULL, NULL, '', 0.00, 35.00, 6.00, 2.00, '', 32, 0, 0, 0, 0, 0, 0),
-('4 CDMA color front screen', 'iPhone', NULL, '123456', '', 0.00, 89.95, 300.00, 0.00, '', 33, 0, 0, 0, 0, 0, 0),
-('4 CDMA color backs', 'iPhone', NULL, NULL, '', 0.00, 35.00, 647.00, 0.00, '', 34, 0, 0, 0, 0, 0, 0),
-('4 CDMA color backs', 'iPhone', NULL, NULL, '', 0.00, 35.00, 123.00, 0.00, '', 35, 0, 0, 0, 0, 0, 0),
-('Repair', 'iPhone', NULL, NULL, '', 0.00, 0.00, -6.00, 0.00, '', 36, 0, 0, 0, 0, 0, 0),
-('4 GSM Black Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 7.00, 2.00, '', 37, 0, 0, 0, 0, 0, 0),
-('4 GSM White Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 10.00, 2.00, '', 38, 0, 0, 0, 0, 0, 0),
-('4 CDMA White Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 78.00, 2.00, '', 39, 0, 0, 0, 0, 0, 0),
-('4 CDMA Black Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 2.00, 2.00, '', 40, 0, 0, 0, 0, 0, 0),
-('4S Black Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 8.00, 2.00, '', 41, 0, 0, 0, 0, 0, 0),
-('4S White Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 3.00, 2.00, '', 42, 0, 0, 0, 0, 0, 0),
-('4 GSM White Back', 'iPhone', NULL, NULL, '', 0.00, 45.00, 8.00, 2.00, '', 43, 0, 0, 0, 0, 0, 0),
-('3GS LCD', 'iPhone', NULL, NULL, '', 0.00, 45.00, 1.00, 0.00, '', 44, 0, 0, 0, 0, 0, 0),
-('3G Digitizer', 'iPhone', NULL, '010203', '', 0.00, 45.00, 742.00, 2.00, '', 45, 0, 1, 0, 0, 0, 4),
-('Iphone 3G LCD', 'iPhone', NULL, NULL, '', 0.00, 25.00, 26.00, 2.00, '', 46, 0, 0, 0, 0, 0, 0),
-('4S Black Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 7.00, 2.00, '', 47, 0, 0, 0, 0, 0, 0),
-('4S White Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 324.00, 2.00, '', 48, 0, 0, 0, 0, 0, 0),
-('4 GSM Black Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 9.00, 2.00, '', 49, 0, 0, 0, 0, 0, 0),
-('3GS Back Assembly', 'iPhone', NULL, NULL, '', 0.00, 75.00, 11.00, 0.00, '', 50, 0, 0, 0, 0, 0, 0),
-('4 Home Flex', 'iPhone', NULL, NULL, '', 0.00, 45.00, 5.00, 2.00, '', 51, 0, 0, 0, 0, 0, 0),
-('4 GSM Vibrator', 'iPhone', NULL, NULL, '', 0.00, 25.00, 435.00, 1.00, '', 52, 0, 0, 0, 0, 0, 0),
-('4 GSM Audio Jack', 'iPhone', NULL, NULL, '', 0.00, 50.00, 59.00, 1.00, '', 53, 0, 0, 0, 0, 0, 0),
-('4S Power Flex', 'iPhone', NULL, NULL, '', 0.00, 50.00, 5.00, 2.00, '', 54, 0, 0, 0, 0, 0, 0),
-('3GS Digitizer', 'ipad', NULL, NULL, '', 0.00, 100.00, -4.00, 0.00, '', 55, 0, 0, 0, 0, 0, 0),
-('4 Back Camera', 'iPhone', NULL, NULL, '', 0.00, 35.00, 2.00, 1.00, '', 56, 1, 0, 0, 0, 0, 0),
-('4 GSM Front Camera', 'iPhone', NULL, NULL, '', 0.00, 40.00, 67.00, 1.00, '', 57, 0, 0, 0, 0, 0, 0),
-('3GS Dock', 'iPhone', NULL, NULL, '', 0.00, 50.00, 4.00, 1.00, '', 58, 0, 0, 0, 0, 0, 0),
-('4 CDMA Power Flex', 'iPhone', NULL, NULL, '', 0.00, 50.00, 6.00, 2.00, '', 59, 0, 0, 0, 0, 0, 0),
-('4S Home Flex', 'iPhone', NULL, NULL, '', 0.00, 45.00, 5.00, 2.00, '', 60, 0, 0, 0, 0, 0, 0),
-('3GS Home Flex', 'iPhone', NULL, NULL, '', 0.00, 25.00, 87.00, 2.00, '', 61, 0, 0, 0, 0, 0, 0),
-('CDMA Audio Jack', 'iPhone', NULL, NULL, '', 0.00, 50.00, 5.00, 2.00, '', 62, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 13', 'ipad', NULL, NULL, '', 0.00, 100.00, -2.00, 0.00, '', 63, 0, 0, 0, 0, 0, 0),
-('4 GSM Power Flex', 'iPhone', NULL, NULL, '', 0.00, 50.00, 3.00, 1.00, '', 64, 0, 0, 0, 0, 0, 0),
-('3GS Battery', 'iPhone', NULL, NULL, '', 0.00, 40.00, -3.00, 1.00, '', 65, 0, 0, 0, 0, 0, 0),
-('4G Battery', 'iPhone', NULL, NULL, '', 0.00, 40.00, 9.00, 2.00, '', 66, 0, 0, 0, 0, 0, 0),
-('4S Battery', 'iPhone', NULL, NULL, '', 0.00, 35.00, 4.00, 1.00, '', 67, 0, 0, 0, 0, 0, 0),
-('4 CDMA / 4S Vibrator', 'iPhone', NULL, NULL, '', 0.00, 35.00, -2.00, 0.00, '', 68, 0, 0, 0, 0, 0, 0),
-('3G Dock', 'iPhone', 51, NULL, '', 0.00, 36.00, 100.00, 20.00, '0', 69, 0, 0, 0, 0, 0, 2),
-('4 GSM Boom Box', 'iPhone', NULL, NULL, '', 0.00, 45.00, 98.00, 0.00, '', 70, 0, 0, 0, 0, 0, 0),
-('CDMA / 4S Boom Box', 'iPhone', NULL, NULL, '', 0.00, 45.00, 32.00, 1.00, '', 71, 0, 0, 0, 0, 0, 0),
-('4S Audio Jack', 'iPhone', NULL, NULL, '', 0.00, 50.00, 61.00, 0.00, '', 72, 0, 0, 0, 0, 0, 0),
-('4 GSM Charging Dock', 'iPhone', NULL, NULL, '', 0.00, 45.00, 6.00, 2.00, '', 73, 0, 0, 0, 0, 0, 0),
-('CDMA Dock Assembly', 'iPhone', NULL, NULL, '', 0.00, 45.00, 4.00, 2.00, '', 74, 0, 0, 0, 0, 0, 0),
-('4S Charging Dock', 'iPhone', NULL, NULL, '', 0.00, 45.00, 4.00, 2.00, '', 75, 0, 0, 0, 0, 0, 0),
-('Life Proof Case', 'Accessories', NULL, NULL, '', 59.00, 89.99, 6.00, 5.00, '', 76, 0, 0, 0, 0, 0, 0),
-('iPad Case', 'Accessories', NULL, NULL, '', 0.00, 49.99, 4.00, 2.00, '', 77, 0, 0, 0, 0, 0, 0),
-('OtterBox Case', 'Accessories', NULL, NULL, '', 0.00, 49.99, 5.00, 2.00, '', 78, 0, 0, 0, 0, 0, 0),
-('Screen Protector', 'Accessories', NULL, NULL, '', 0.00, 10.00, 33.00, 20.00, '', 79, 0, 0, 0, 0, 0, 0),
-('4S Color Front', 'iPhone', NULL, NULL, '', 0.00, 85.00, 3.00, 2.00, '', 80, 0, 0, 0, 0, 0, 0),
-('4S Color Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 5.00, 2.00, '', 81, 0, 0, 0, 0, 0, 0),
-('Ipad 3 Screen Black', 'iPhone', NULL, NULL, '', 0.00, 75.00, 19.00, 2.00, '', 82, 0, 0, 0, 0, 0, 0),
-('4 GSM Color Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 4.00, 2.00, '', 83, 0, 0, 0, 0, 0, 0),
-('4 CDMA Color Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 3.00, 2.00, '', 84, 0, 0, 0, 0, 0, 0),
-('4 CDMA Color Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 2.00, 2.00, '', 85, 0, 0, 0, 0, 0, 0),
-('itouch 4 Black Front', 'ipod', NULL, NULL, '', 0.00, 85.00, 9.00, 2.00, '', 86, 0, 0, 0, 0, 0, 0),
-('itouch 4 White Front', 'ipod', NULL, NULL, '', 0.00, 85.00, 1.00, 2.00, '', 87, 0, 0, 0, 0, 0, 0),
-('Unlock Service', 'Repair', NULL, NULL, '', 0.00, 60.00, 90.00, 0.00, '', 88, 0, 0, 0, 0, 0, 0),
-('Repair Service', 'Repair', NULL, NULL, '', 0.00, 0.00, 63.00, 0.00, '', 89, 0, 0, 0, 0, 0, 0),
-('Data Cable', 'Accessories', NULL, NULL, '', 0.00, 10.00, 43.00, 0.00, '', 90, 0, 0, 0, 0, 0, 0),
-('HTC EVO Assembly', 'HTC', NULL, NULL, '', 0.00, 105.00, 3.00, 1.00, '', 91, 0, 0, 0, 0, 0, 0),
-('Mytouch 4G Front Assembly', 'HTC', NULL, NULL, '', 0.00, 100.00, 3.00, 1.00, '', 92, 0, 0, 0, 0, 0, 0),
-('Mytouch 3G Slide', 'Phone', NULL, NULL, '', 15.00, 0.00, 1.00, 0.00, '', 93, 0, 0, 0, 0, 0, 0),
-('Battery Back Case', 'Accessories', NULL, NULL, '', 0.00, 0.00, 81.00, 1.00, '', 94, 0, 0, 0, 0, 0, 0),
-('Phone Case', 'Accessories', NULL, NULL, '', 0.00, 25.00, 13.00, 5.00, '', 95, 0, 0, 0, 0, 0, 0),
-('culo', 'iPhone', NULL, NULL, '', 200.00, 100.00, 99.00, 2.00, '', 96, 0, 0, 0, 0, 0, 0),
-('4 GSM Color Front', 'smoke', NULL, 'UEN', 'bdghkaghdagkasg', 30.00, 10.00, 6.00, 5.00, 'where', 97, 1, 1, 0, 0, 0, 0),
-('Pantalla bold 1', 'Blackberry', NULL, NULL, '', 1200.00, 369.00, 12.00, 10.00, '', 98, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 2', 'Blackberry', NULL, NULL, '', 1200.00, 400.00, 208.00, 10.00, '', 99, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 4', 'Blackberry', NULL, NULL, '', 1200.00, 256.00, 86.00, 10.00, '', 100, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 5', 'Blackberry', NULL, NULL, '', 1200.00, 125.00, 123.00, 10.00, '', 101, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 6', 'Blackberry', NULL, NULL, '', 1200.00, 80.00, 41.00, 10.00, '', 102, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 7', 'Blackberry', NULL, NULL, '', 1200.00, 66.00, 586.00, 10.00, '', 103, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 8', 'Blackberry', NULL, NULL, '', 1200.00, 593.00, 155.00, 10.00, '', 104, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 9', 'Blackberry', NULL, NULL, '', 1200.00, 200.00, 50.00, 10.00, '', 105, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 10', 'Blackberry', NULL, NULL, '', 1200.00, 224.00, 15.00, 10.00, '', 106, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 11', 'Blackberry', NULL, NULL, '', 1200.00, 37.00, 36.00, 10.00, '', 107, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 12', 'Blackberry', NULL, NULL, '', 1200.00, 69.50, 31.00, 10.00, '', 108, 0, 0, 0, 0, 0, 0),
-('harh disk', 'Blackberry', NULL, NULL, '', 1200.00, 80.90, 8.00, 10.00, '', 109, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 14', 'Blackberry', NULL, NULL, '', 1200.00, 200.00, 22.00, 10.00, '', 110, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 15', 'Blackberry', NULL, NULL, '', 1200.00, 156.00, 30.00, 10.00, '', 111, 0, 0, 0, 0, 0, 0),
-('Pantalla bold 16', 'Blackberry', NULL, NULL, '', 1200.00, 187.00, 35.00, 10.00, '', 112, 0, 0, 0, 0, 0, 0),
-('cornetas pioners  6'''' 1/2', 'HTC', NULL, '140783', 'bellas', 100.00, 70.00, 20.00, 10.00, 'carabobo', 131, 1, 1, 0, 0, 0, 0),
-('iPad 2 Power Flex', 'ipod', 44, NULL, '', 123.00, 12.00, 20.00, 10.00, '', 132, 0, 0, 0, 0, 0, 0),
-('iPad 2 Home Button', 'hardware', 44, '9874569874569887456987456', 'aaaaaaaaaaaaaaaaaaa', 9856.00, 98569.00, 51.00, 50.00, 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 133, 1, 1, 0, 0, 0, 0),
-('mihaItem', 'Phone', 51, 'miha', '', 12.00, 25.99, 10.00, 5.00, '', 134, 1, 1, 0, 0, 0, 0),
-('miha2Item', 'Phone', 49, 'miha2', '', 23.00, 29.00, 30.00, 5.00, '', 135, 0, 0, 0, 0, 0, 0);
+INSERT INTO `ospos_items` (`item_id`, `name`, `category`, `supplier_id`, `item_number`, `description`, `cost_price`, `unit_price`, `quantity`, `reorder_level`, `location`, `allow_alt_description`, `is_serialized`, `is_service`, `is_locked`, `deleted`, `broken_quantity`) VALUES
+(1, 'Iphone 3G Digitizer', 'Digitizers', NULL, NULL, '', 13.00, 30.00, 151.00, 20.00, '', 0, 0, 0, 0, 0, 2),
+(2, 'Ipod 5', 'LCDs', NULL, NULL, '', 20.00, 35.00, 14.00, 10.00, '', 0, 0, 0, 0, 0, 1),
+(3, 'Repair Service', 'Services', NULL, NULL, '', 30.00, 30.00, 999.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(4, '3GS Digitizer', 'iPhone', 51, NULL, '', 0.00, 50.00, 1.00, 3.00, '0', 0, 0, 0, 0, 0, 0),
+(5, 'Screen Protector', 'Accessories', NULL, NULL, '', 0.00, 10.00, 37.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(6, 'LifeProof Case', 'Accessories', NULL, NULL, '', 0.00, 85.00, 11.00, 5.00, '', 0, 0, 0, 0, 0, 0),
+(7, 'Ipad Protect Case', 'Accessories', NULL, NULL, '', 0.00, 49.99, 5.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(8, 'Iphone 3gs Back', 'Accessories', NULL, NULL, '', 0.00, 75.00, 111.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(9, '3G Digitizer', 'iPhone', NULL, '01020304', '', 0.00, 45.00, 32.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(10, 'Ipad 2 Screen Black', 'Ipad', NULL, NULL, '', 0.00, 125.00, 33.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(11, 'Ipad 2 Screen White ', 'Ipad', NULL, NULL, '', 0.00, 125.00, 121.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(12, 'Ipad 3 Screen White', 'Ipad', NULL, NULL, '', 0.00, 200.00, 34.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(13, 'tiger blood', 'Ipad', NULL, NULL, '', 0.00, 200.00, 9.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(14, '4 GSM Back White', 'iPhone', NULL, NULL, '', 0.00, 30.00, 10.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(15, '4 GSM Back Black', 'iPhone', NULL, NULL, '', 0.00, 30.00, 10.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(16, '4S Back white', 'iPhone', NULL, NULL, '', 0.00, 30.00, 2.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(17, '4s Back Black', 'iPhone', NULL, NULL, '', 0.00, 30.00, 9.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(18, '4 GSM Black Screen', 'iPhone', NULL, NULL, '', 0.00, 79.95, 10.00, 3.00, '', 0, 0, 0, 0, 0, 0),
+(19, '4 GSM White Screen', 'iPhone', NULL, NULL, '', 0.00, 79.95, 10.00, 3.00, '', 0, 0, 0, 0, 0, 0),
+(20, '4 CDMA White screen', 'iPhone', NULL, NULL, '', 0.00, 79.95, 143.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(21, '4 CDMA Black Screen', 'iPhone', NULL, NULL, '', 0.00, 79.95, 104.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(22, '4s white Screen', 'iPhone', NULL, NULL, '', 0.00, 89.95, 7.00, 3.00, '', 0, 0, 0, 0, 0, 0),
+(23, '4s Black screen', 'iPhone', NULL, NULL, '', 0.00, 89.95, 9.00, 3.00, '', 0, 0, 0, 0, 0, 0),
+(24, '3gs lcd', 'iPhone', NULL, NULL, '', 0.00, 65.00, 213.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(25, '4s color set Pink', 'iPhone', NULL, NULL, '', 0.00, 120.00, 432.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(26, '4 GSM color set pink', 'iPhone', NULL, NULL, '', 0.00, 110.00, 654.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(27, '4s color set Red', 'iPhone', NULL, NULL, '', 0.00, 120.00, 54.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(28, '4 GSM color set red', 'iPhone', NULL, NULL, '', 0.00, 110.00, 55.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(29, '4 gsm color front', 'iPhone', NULL, NULL, '', 0.00, 89.95, 65.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(30, '4 gsm color back', 'iPhone', NULL, NULL, '', 0.00, 35.00, 4.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(31, '4s color front screen', 'iPhone', NULL, NULL, '', 0.00, 95.00, 7.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(32, '4s color back', 'iPhone', NULL, NULL, '', 0.00, 35.00, 6.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(33, '4 CDMA color front screen', 'iPhone', NULL, '123456', '', 0.00, 89.95, 300.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(34, '4 CDMA color backs', 'iPhone', NULL, NULL, '', 0.00, 35.00, 647.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(35, '4 CDMA color backs', 'iPhone', NULL, NULL, '', 0.00, 35.00, 123.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(36, 'Repair', 'iPhone', NULL, NULL, '', 0.00, 0.00, -6.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(37, '4 GSM Black Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 7.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(38, '4 GSM White Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 10.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(39, '4 CDMA White Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 78.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(40, '4 CDMA Black Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 2.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(41, '4S Black Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 8.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(42, '4S White Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 3.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(43, '4 GSM White Back', 'iPhone', NULL, NULL, '', 0.00, 45.00, 8.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(44, '3GS LCD', 'iPhone', NULL, NULL, '', 0.00, 45.00, 1.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(45, '3G Digitizer', 'iPhone', NULL, '010203', '', 0.00, 45.00, 742.00, 2.00, '', 0, 1, 0, 0, 0, 4),
+(46, 'Iphone 3G LCD', 'iPhone', NULL, NULL, '', 0.00, 25.00, 26.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(47, '4S Black Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 7.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(48, '4S White Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 324.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(49, '4 GSM Black Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 9.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(50, '3GS Back Assembly', 'iPhone', NULL, NULL, '', 0.00, 75.00, 11.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(51, '4 Home Flex', 'iPhone', NULL, NULL, '', 0.00, 45.00, 5.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(52, '4 GSM Vibrator', 'iPhone', NULL, NULL, '', 0.00, 25.00, 435.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(53, '4 GSM Audio Jack', 'iPhone', NULL, NULL, '', 0.00, 50.00, 59.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(54, '4S Power Flex', 'iPhone', NULL, NULL, '', 0.00, 50.00, 5.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(55, '3GS Digitizer', 'ipad', NULL, NULL, '', 0.00, 100.00, -4.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(56, '4 Back Camera', 'iPhone', NULL, NULL, '', 0.00, 35.00, 2.00, 1.00, '', 1, 0, 0, 0, 0, 0),
+(57, '4 GSM Front Camera', 'iPhone', NULL, NULL, '', 0.00, 40.00, 67.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(58, '3GS Dock', 'iPhone', NULL, NULL, '', 0.00, 50.00, 4.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(59, '4 CDMA Power Flex', 'iPhone', NULL, NULL, '', 0.00, 50.00, 6.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(60, '4S Home Flex', 'iPhone', NULL, NULL, '', 0.00, 45.00, 5.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(61, '3GS Home Flex', 'iPhone', NULL, NULL, '', 0.00, 25.00, 87.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(62, 'CDMA Audio Jack', 'iPhone', NULL, NULL, '', 0.00, 50.00, 5.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(63, 'Pantalla bold 13', 'ipad', NULL, NULL, '', 0.00, 100.00, -2.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(64, '4 GSM Power Flex', 'iPhone', NULL, NULL, '', 0.00, 50.00, 3.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(65, '3GS Battery', 'iPhone', NULL, NULL, '', 0.00, 40.00, -3.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(66, '4G Battery', 'iPhone', NULL, NULL, '', 0.00, 40.00, 9.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(67, '4S Battery', 'iPhone', NULL, NULL, '', 0.00, 35.00, 4.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(68, '4 CDMA / 4S Vibrator', 'iPhone', NULL, NULL, '', 0.00, 35.00, -2.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(69, '3G Dock', 'iPhone', 51, NULL, '', 0.00, 36.00, 100.00, 20.00, '0', 0, 0, 0, 0, 0, 2),
+(70, '4 GSM Boom Box', 'iPhone', NULL, NULL, '', 0.00, 45.00, 98.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(71, 'CDMA / 4S Boom Box', 'iPhone', NULL, NULL, '', 0.00, 45.00, 32.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(72, '4S Audio Jack', 'iPhone', NULL, NULL, '', 0.00, 50.00, 61.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(73, '4 GSM Charging Dock', 'iPhone', NULL, NULL, '', 0.00, 45.00, 6.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(74, 'CDMA Dock Assembly', 'iPhone', NULL, NULL, '', 0.00, 45.00, 4.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(75, '4S Charging Dock', 'iPhone', NULL, NULL, '', 0.00, 45.00, 4.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(76, 'Life Proof Case', 'Accessories', NULL, NULL, '', 59.00, 89.99, 6.00, 5.00, '', 0, 0, 0, 0, 0, 0),
+(77, 'iPad Case', 'Accessories', NULL, NULL, '', 0.00, 49.99, 4.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(78, 'OtterBox Case', 'Accessories', NULL, NULL, '', 0.00, 49.99, 5.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(79, 'Screen Protector', 'Accessories', NULL, NULL, '', 0.00, 10.00, 33.00, 20.00, '', 0, 0, 0, 0, 0, 0),
+(80, '4S Color Front', 'iPhone', NULL, NULL, '', 0.00, 85.00, 3.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(81, '4S Color Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 5.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(82, 'Ipad 3 Screen Black', 'iPhone', NULL, NULL, '', 0.00, 75.00, 19.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(83, '4 GSM Color Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 4.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(84, '4 CDMA Color Front', 'iPhone', NULL, NULL, '', 0.00, 75.00, 3.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(85, '4 CDMA Color Back', 'iPhone', NULL, NULL, '', 0.00, 25.00, 2.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(86, 'itouch 4 Black Front', 'ipod', NULL, NULL, '', 0.00, 85.00, 9.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(87, 'itouch 4 White Front', 'ipod', NULL, NULL, '', 0.00, 85.00, 1.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(88, 'Unlock Service', 'Repair', NULL, NULL, '', 0.00, 60.00, 90.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(89, 'Repair Service', 'Repair', NULL, NULL, '', 0.00, 0.00, 63.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(90, 'Data Cable', 'Accessories', NULL, NULL, '', 0.00, 10.00, 43.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(91, 'HTC EVO Assembly', 'HTC', NULL, NULL, '', 0.00, 105.00, 3.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(92, 'Mytouch 4G Front Assembly', 'HTC', NULL, NULL, '', 0.00, 100.00, 3.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(93, 'Mytouch 3G Slide', 'Phone', NULL, NULL, '', 15.00, 0.00, 1.00, 0.00, '', 0, 0, 0, 0, 0, 0),
+(94, 'Battery Back Case', 'Accessories', NULL, NULL, '', 0.00, 0.00, 81.00, 1.00, '', 0, 0, 0, 0, 0, 0),
+(95, 'Phone Case', 'Accessories', NULL, NULL, '', 0.00, 25.00, 13.00, 5.00, '', 0, 0, 0, 0, 0, 0),
+(96, 'culo', 'iPhone', NULL, NULL, '', 200.00, 100.00, 99.00, 2.00, '', 0, 0, 0, 0, 0, 0),
+(97, '4 GSM Color Front', 'smoke', NULL, 'UEN', '', 30.00, 10.00, 6.00, 5.00, 'where', 1, 1, 0, 0, 0, 0),
+(98, 'Pantalla bold 1', 'Blackberry', NULL, NULL, '', 1200.00, 369.00, 12.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(99, 'Pantalla bold 2', 'Blackberry', NULL, NULL, '', 1200.00, 400.00, 208.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(100, 'Pantalla bold 4', 'Blackberry', NULL, NULL, '', 1200.00, 256.00, 86.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(101, 'Pantalla bold 5', 'Blackberry', NULL, NULL, '', 1200.00, 125.00, 123.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(102, 'Pantalla bold 6', 'Blackberry', NULL, NULL, '', 1200.00, 80.00, 41.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(103, 'Pantalla bold 7', 'Blackberry', NULL, NULL, '', 1200.00, 66.00, 586.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(104, 'Pantalla bold 8', 'Blackberry', NULL, NULL, '', 1200.00, 593.00, 155.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(105, 'Pantalla bold 9', 'Blackberry', NULL, NULL, '', 1200.00, 200.00, 50.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(106, 'Pantalla bold 10', 'Blackberry', NULL, NULL, '', 1200.00, 224.00, 15.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(107, 'Pantalla bold 11', 'Blackberry', NULL, NULL, '', 1200.00, 37.00, 36.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(108, 'Pantalla bold 12', 'Blackberry', NULL, NULL, '', 1200.00, 69.50, 31.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(109, 'harh disk', 'Blackberry', NULL, NULL, '', 1200.00, 80.90, 8.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(110, 'Pantalla bold 14', 'Blackberry', NULL, NULL, '', 1200.00, 200.00, 22.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(111, 'Pantalla bold 15', 'Blackberry', NULL, NULL, '', 1200.00, 156.00, 30.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(112, 'Pantalla bold 16', 'Blackberry', NULL, NULL, '', 1200.00, 187.00, 35.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(132, 'iPad 2 Power Flex', 'ipod', 44, NULL, '', 123.00, 12.00, 20.00, 10.00, '', 0, 0, 0, 0, 0, 0),
+(133, 'iPad 2 Home Button', 'hardware', 44, NULL, '', 9856.00, 98569.00, 51.00, 50.00, 'qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 1, 1, 0, 0, 0, 0),
+(134, 'mihaItem', 'Phone', 51, 'miha', '', 12.00, 25.99, 10.00, 5.00, '', 1, 1, 0, 0, 0, 0),
+(135, 'miha2Item', 'Phone', 49, 'miha2', '', 23.00, 29.00, 30.00, 5.00, '', 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_items_taxes`
+-- Estructura de tabla para la tabla `ospos_items_taxes`
 --
 
 DROP TABLE IF EXISTS `ospos_items_taxes`;
-CREATE TABLE `ospos_items_taxes` (
+CREATE TABLE IF NOT EXISTS `ospos_items_taxes` (
   `item_id` int(10) NOT NULL,
   `name` varchar(255) NOT NULL,
   `percent` double(15,3) NOT NULL,
@@ -1232,7 +1238,7 @@ CREATE TABLE `ospos_items_taxes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_items_taxes`
+-- Volcado de datos para la tabla `ospos_items_taxes`
 --
 
 INSERT INTO `ospos_items_taxes` (`item_id`, `name`, `percent`) VALUES
@@ -1376,11 +1382,11 @@ INSERT INTO `ospos_items_taxes` (`item_id`, `name`, `percent`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_item_kits`
+-- Estructura de tabla para la tabla `ospos_item_kits`
 --
 
 DROP TABLE IF EXISTS `ospos_item_kits`;
-CREATE TABLE `ospos_item_kits` (
+CREATE TABLE IF NOT EXISTS `ospos_item_kits` (
   `item_kit_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
@@ -1388,11 +1394,11 @@ CREATE TABLE `ospos_item_kits` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
--- Dumping data for table `ospos_item_kits`
+-- Volcado de datos para la tabla `ospos_item_kits`
 --
 
 INSERT INTO `ospos_item_kits` (`item_kit_id`, `name`, `description`) VALUES
-(1, 'Primer kit', 'HOla'),
+(1, 'Primer kit', 'Hola'),
 (2, 'ipad 2 64Gb', 'yeah'),
 (3, 'Gustavo Ocanto', 'probando'),
 (4, 'kit mal hecho', 'prueba');
@@ -1400,20 +1406,19 @@ INSERT INTO `ospos_item_kits` (`item_kit_id`, `name`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_item_kit_items`
+-- Estructura de tabla para la tabla `ospos_item_kit_items`
 --
 
 DROP TABLE IF EXISTS `ospos_item_kit_items`;
-CREATE TABLE `ospos_item_kit_items` (
+CREATE TABLE IF NOT EXISTS `ospos_item_kit_items` (
   `item_kit_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `quantity` double(15,2) NOT NULL,
-  PRIMARY KEY (`item_kit_id`,`item_id`,`quantity`),
-  KEY `ospos_item_kit_items_ibfk_2` (`item_id`)
+  PRIMARY KEY (`item_kit_id`,`item_id`,`quantity`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_item_kit_items`
+-- Volcado de datos para la tabla `ospos_item_kit_items`
 --
 
 INSERT INTO `ospos_item_kit_items` (`item_kit_id`, `item_id`, `quantity`) VALUES
@@ -1431,11 +1436,11 @@ INSERT INTO `ospos_item_kit_items` (`item_kit_id`, `item_id`, `quantity`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_model`
+-- Estructura de tabla para la tabla `ospos_model`
 --
 
 DROP TABLE IF EXISTS `ospos_model`;
-CREATE TABLE `ospos_model` (
+CREATE TABLE IF NOT EXISTS `ospos_model` (
   `model_id` int(11) NOT NULL AUTO_INCREMENT,
   `model_name` varchar(50) NOT NULL,
   `brand_id` int(11) NOT NULL,
@@ -1444,7 +1449,7 @@ CREATE TABLE `ospos_model` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `ospos_model`
+-- Volcado de datos para la tabla `ospos_model`
 --
 
 INSERT INTO `ospos_model` (`model_id`, `model_name`, `brand_id`) VALUES
@@ -1453,15 +1458,15 @@ INSERT INTO `ospos_model` (`model_id`, `model_name`, `brand_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_modules`
+-- Estructura de tabla para la tabla `ospos_modules`
 --
 
 DROP TABLE IF EXISTS `ospos_modules`;
-CREATE TABLE `ospos_modules` (
+CREATE TABLE IF NOT EXISTS `ospos_modules` (
+  `module_id` varchar(255) NOT NULL,
   `name_lang_key` varchar(255) NOT NULL,
   `desc_lang_key` varchar(255) NOT NULL,
   `sort` int(10) NOT NULL,
-  `module_id` varchar(255) NOT NULL,
   `options` varchar(100) DEFAULT 'none',
   PRIMARY KEY (`module_id`),
   UNIQUE KEY `desc_lang_key` (`desc_lang_key`),
@@ -1469,31 +1474,31 @@ CREATE TABLE `ospos_modules` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_modules`
+-- Volcado de datos para la tabla `ospos_modules`
 --
 
-INSERT INTO `ospos_modules` (`name_lang_key`, `desc_lang_key`, `sort`, `module_id`, `options`) VALUES
-('module_config', 'module_config_desc', 100, 'config', 'save'),
-('module_customers', 'module_customers_desc', 10, 'customers', 'add,update,delete'),
-('module_employees', 'module_employees_desc', 80, 'employees', 'add,update,delete'),
-('module_giftcards', 'module_giftcards_desc', 90, 'giftcards', 'add,update,delete'),
-('module_items', 'module_items_desc', 20, 'items', 'add,update,delete'),
-('module_item_kits', 'module_item_kits_desc', 30, 'item_kits', 'add,update,delete'),
-('module_receivings', 'module_receivings_desc', 60, 'receivings', 'none'),
-('module_reports', 'module_reports_desc', 50, 'reports', 'none'),
-('module_sales', 'module_sales_desc', 70, 'sales', 'none'),
-('module_suppliers', 'module_suppliers_desc', 40, 'suppliers', 'add,update,delete'),
-('module_locations', 'module_locations_desc', 95, 'locations', 'add,update,disable'),
-('module_services', 'module_services_desc', 1, 'services', 'add,update,delete');
+INSERT INTO `ospos_modules` (`module_id`, `name_lang_key`, `desc_lang_key`, `sort`, `options`) VALUES
+('config', 'module_config', 'module_config_desc', 100, 'save'),
+('customers', 'module_customers', 'module_customers_desc', 10, 'add,update,delete'),
+('employees', 'module_employees', 'module_employees_desc', 80, 'add,update,delete'),
+('giftcards', 'module_giftcards', 'module_giftcards_desc', 90, 'add,update,delete'),
+('items', 'module_items', 'module_items_desc', 20, 'add,update,delete'),
+('item_kits', 'module_item_kits', 'module_item_kits_desc', 30, 'add,update,delete'),
+('receivings', 'module_receivings', 'module_receivings_desc', 60, 'none'),
+('reports', 'module_reports', 'module_reports_desc', 50, 'none'),
+('sales', 'module_sales', 'module_sales_desc', 70, 'none'),
+('suppliers', 'module_suppliers', 'module_suppliers_desc', 40, 'add,update,delete'),
+('locations', 'module_locations', 'module_locations_desc', 95, 'add,update,disable'),
+('services', 'module_services', 'module_services_desc', 1, 'add,update,delete');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_observation_inventories`
+-- Estructura de tabla para la tabla `ospos_observation_inventories`
 --
 
 DROP TABLE IF EXISTS `ospos_observation_inventories`;
-CREATE TABLE `ospos_observation_inventories` (
+CREATE TABLE IF NOT EXISTS `ospos_observation_inventories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `date_register` timestamp NULL DEFAULT NULL,
   `observation` mediumtext,
@@ -1502,7 +1507,7 @@ CREATE TABLE `ospos_observation_inventories` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
 
 --
--- Dumping data for table `ospos_observation_inventories`
+-- Volcado de datos para la tabla `ospos_observation_inventories`
 --
 
 INSERT INTO `ospos_observation_inventories` (`id`, `date_register`, `observation`, `person_id`) VALUES
@@ -1543,11 +1548,12 @@ INSERT INTO `ospos_observation_inventories` (`id`, `date_register`, `observation
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_people`
+-- Estructura de tabla para la tabla `ospos_people`
 --
 
 DROP TABLE IF EXISTS `ospos_people`;
-CREATE TABLE `ospos_people` (
+CREATE TABLE IF NOT EXISTS `ospos_people` (
+  `person_id` int(10) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
@@ -1559,52 +1565,48 @@ CREATE TABLE `ospos_people` (
   `zip` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
   `comments` text,
-  `person_id` int(10) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`person_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=58 ;
 
 --
--- Dumping data for table `ospos_people`
+-- Volcado de datos para la tabla `ospos_people`
 --
 
-INSERT INTO `ospos_people` (`first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`, `person_id`) VALUES
-('Admin', 'Root', '122525', 'info@om-parts.com', 'Address 1', '', '', '', '', '', '', 1),
-('other', 'possp2', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location', 2),
-('Jv ', 'Soluciones', '', '', '', '', '', '', '', '', '', 3),
-('speed', 'speed', '', '', '', '', '', '', '', '', '', 4),
-('Gustavo', 'Ocanto', '', '', '', '', '', '', '', '', '', 46),
-('jose', 'melendez', '0saasdd', 'albertomelendez@aol.con', 'caracas', 'valencia', '999999', '99999', '9999', '9999', '9999', 47),
-('Miharbi', 'Hernandez', '', 'miharbihernandez@gmail.com', '', '', '', '', '', '', '', 48),
-('Gustavo', 'Ocanto', '04144284230', 'gustavoocanto@gmail.com', 'Av Bolivar Norte torre exterior', '', 'Valencia', 'Carabobo', '2001', 'Venezuela', '', 49),
-('Miharbi', 'Hernandez', '', '', '', '', '', '', '', '', '', 50),
-('dragon', 'drogas', 'asdadasdasdjlk', 'pedro@pedro.com', 'asdlkasjdlk', 'kaskjljasdlk', 'kajsdkljaskd', 'lkaskdjklasd', 'klaksjdlaksd', 'lkaksjdlasd', 'kalksjdlasd', 51),
-('Gustavo', 'Ocanto', '4056017020', 'gustavoocanto@gmail.com', '2112 SW 74th St', '', 'Oklahoma City', 'Oklahoma', '73159', 'United States', '', 52),
-('miharbito_db', 'miharbito_db', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location', 53),
-('alberto', 'arsiniaga', '0412-9667450', 'maxtri@hotmail.com', 'los samanes', 'buenaventura', 'valencia', 'carabobo', '3210', 'venezuela', 'que ladilla no saber ingles', 43),
-('adrian', 'esqueda', '234567887', 'a@a.com', '', '', '', '', '', '', '', 44),
-('Yo', 'Era', '123456789333', 'yoera@choro.com', '', '', '', '', '', '', '', 45),
-('Willem', 'Franco', '', 'willemfranco@gmail.com', '', '', '', '', '', '', '', 54),
-('otra', 'possp2', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location', 55),
-('Carlos', 'Martinez', '5646464', 'repuestos.ca@hotmail.com', '', '', '', '', '', '', '', 56),
-('otra & cosita C.A', 'possp_otra', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location', 57);
+INSERT INTO `ospos_people` (`person_id`, `first_name`, `last_name`, `phone_number`, `email`, `address_1`, `address_2`, `city`, `state`, `zip`, `country`, `comments`) VALUES
+(1, 'Admin', 'Root', '122525', 'info@om-parts.com', 'Address 1', '', '', '', '', '', ''),
+(2, 'other', 'possp2', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location'),
+(3, 'Jv ', 'Soluciones', '', '', '', '', '', '', '', '', ''),
+(4, 'speed', 'speed', '', '', '', '', '', '', '', '', ''),
+(46, 'Gustavo', 'Ocanto', '', '', '', '', '', '', '', '', ''),
+(47, 'jose', 'melendez', '0saasdd', 'albertomelendez@aol.con', 'caracas', 'valencia', '999999', '99999', '9999', '9999', '9999'),
+(48, 'Miharbi', 'Hernandez', '', 'miharbihernandez@gmail.com', '', '', '', '', '', '', ''),
+(49, 'Gustavo', 'Ocanto', '04144284230', 'gustavoocanto@gmail.com', 'Av Bolivar Norte torre exterior', '', 'Valencia', 'Carabobo', '2001', 'Venezuela', ''),
+(50, 'Miharbi', 'Hernandez', '', '', '', '', '', '', '', '', ''),
+(52, 'Gustavo', 'Ocanto', '4056017020', 'gustavoocanto@gmail.com', '2112 SW 74th St', '', 'Oklahoma City', 'Oklahoma', '73159', 'United States', ''),
+(53, 'miharbito_db', 'miharbito_db', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location'),
+(43, 'alberto', 'arsiniaga', '0412-9667450', 'maxtri@hotmail.com', 'los samanes', 'buenaventura', 'valencia', 'carabobo', '3210', 'venezuela', ''),
+(44, 'adrian', 'esqueda', '234567887', 'a@a.com', '', '', '', '', '', '', ''),
+(54, 'Willem', 'Franco', '', 'willemfranco@gmail.com', '', '', '', '', '', '', ''),
+(55, 'otra', 'possp2', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location'),
+(56, 'Carlos', 'Martinez', '5646464', 'repuestos.ca@hotmail.com', '', '', '', '', '', '', ''),
+(57, 'otra & cosita C.A', 'possp_otra', NULL, NULL, 'localhost', NULL, NULL, NULL, NULL, NULL, 'location');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_permissions`
+-- Estructura de tabla para la tabla `ospos_permissions`
 --
 
 DROP TABLE IF EXISTS `ospos_permissions`;
-CREATE TABLE `ospos_permissions` (
+CREATE TABLE IF NOT EXISTS `ospos_permissions` (
   `module_id` varchar(255) NOT NULL,
   `person_id` int(10) NOT NULL,
   `privileges` varchar(100) DEFAULT 'none',
-  PRIMARY KEY (`module_id`,`person_id`),
-  KEY `person_id` (`person_id`)
+  PRIMARY KEY (`module_id`,`person_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_permissions`
+-- Volcado de datos para la tabla `ospos_permissions`
 --
 
 INSERT INTO `ospos_permissions` (`module_id`, `person_id`, `privileges`) VALUES
@@ -1667,16 +1669,16 @@ INSERT INTO `ospos_permissions` (`module_id`, `person_id`, `privileges`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_receivings`
+-- Estructura de tabla para la tabla `ospos_receivings`
 --
 
 DROP TABLE IF EXISTS `ospos_receivings`;
-CREATE TABLE `ospos_receivings` (
+CREATE TABLE IF NOT EXISTS `ospos_receivings` (
+  `receiving_id` int(10) NOT NULL AUTO_INCREMENT,
   `receiving_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `supplier_id` int(10) DEFAULT NULL,
   `employee_id` int(10) NOT NULL DEFAULT '0',
   `comment` text NOT NULL,
-  `receiving_id` int(10) NOT NULL AUTO_INCREMENT,
   `payment_type` varchar(20) DEFAULT NULL,
   `payment` double(15,0) DEFAULT NULL,
   PRIMARY KEY (`receiving_id`),
@@ -1685,221 +1687,220 @@ CREATE TABLE `ospos_receivings` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=53 ;
 
 --
--- Dumping data for table `ospos_receivings`
+-- Volcado de datos para la tabla `ospos_receivings`
 --
 
-INSERT INTO `ospos_receivings` (`receiving_time`, `supplier_id`, `employee_id`, `comment`, `receiving_id`, `payment_type`, `payment`) VALUES
-('2012-11-23 16:22:28', NULL, 6, '', 1, 'Cash', 0),
-('2013-12-05 14:55:06', NULL, 1, 'All done', 2, 'Cash', 0),
-('2013-12-05 15:00:07', NULL, 1, '', 3, 'Cash', 0),
-('2013-12-05 15:05:50', NULL, 1, '', 4, 'Cash', 0),
-('2013-12-06 14:52:46', NULL, 1, '', 5, 'Cash', 0),
-('2013-12-13 18:52:18', NULL, 1, '', 6, 'Cash', 0),
-('2014-01-13 15:10:59', NULL, 1, '', 7, 'Cash', 0),
-('2014-01-13 15:21:20', NULL, 1, '', 8, 'Cash', 0),
-('2014-01-13 15:48:24', NULL, 1, '', 9, 'Cash', 0),
-('2014-01-15 19:33:41', NULL, 1, '', 10, 'Cash', 0),
-('2014-01-15 19:36:26', NULL, 1, '', 11, 'Cash', 0),
-('2014-01-15 19:37:16', NULL, 1, '', 12, 'Cash', 0),
-('2014-01-17 18:52:50', NULL, 1, '', 13, '0', 0),
-('2014-01-20 13:29:07', NULL, 1, '', 14, '0', 0),
-('2014-01-20 13:32:03', NULL, 1, '', 15, '0', 0),
-('2014-01-20 13:32:34', NULL, 1, '', 16, '0', 0),
-('2014-01-20 13:34:58', NULL, 1, '', 17, '0', 0),
-('2014-01-20 13:38:02', NULL, 1, '', 18, '0', 0),
-('2014-01-20 13:42:48', NULL, 1, '', 19, '0', 0),
-('2014-01-20 17:53:46', NULL, 1, 'prueba de gustavo', 20, '0', 0),
-('2014-01-20 18:01:47', NULL, 1, '', 21, '0', 0),
-('2014-01-20 18:49:44', NULL, 1, '', 22, '0', 0),
-('2014-01-20 18:50:46', NULL, 1, '', 23, '0', 0),
-('2014-01-20 19:07:49', NULL, 1, '', 24, '0', 0),
-('2014-01-20 19:18:40', NULL, 1, '', 25, '0', 0),
-('2014-01-20 19:19:53', NULL, 1, '', 26, '0', 0),
-('2014-01-20 19:30:50', NULL, 1, '', 27, '0', 0),
-('2014-01-20 19:31:37', NULL, 1, '', 28, '0', 0),
-('2014-01-20 19:32:04', NULL, 1, '', 29, '0', 0),
-('2014-01-20 19:33:07', NULL, 1, '', 30, '0', 0),
-('2014-01-20 19:41:21', NULL, 1, '', 31, '0', 0),
-('2014-01-20 20:27:13', NULL, 1, '', 32, '0', 0),
-('2014-01-20 21:12:44', NULL, 1, '', 33, '0', 0),
-('2014-01-20 21:18:49', NULL, 1, '', 34, '0', 0),
-('2014-01-21 20:42:02', NULL, 1, '', 35, '0', 0),
-('2014-01-21 20:52:22', NULL, 1, '', 36, '0', 0),
-('2014-01-21 20:54:56', NULL, 1, '', 37, '0', 0),
-('2014-01-21 20:58:36', NULL, 1, '', 38, '0', 0),
-('2014-01-21 21:00:09', NULL, 1, '', 39, '0', 0),
-('2014-01-22 20:54:56', NULL, 1, '', 40, '0', 0),
-('2014-01-22 21:02:37', NULL, 1, '', 41, '0', 0),
-('2014-01-22 21:15:47', NULL, 1, '', 42, '0', 0),
-('2014-02-04 14:17:56', NULL, 1, 'jugjhjghjghjghjghjghj', 43, '0', 0),
-('2014-03-05 20:42:20', NULL, 1, '', 44, '0', 0),
-('2014-03-26 15:53:34', 51, 43, '', 45, '0', 0),
-('2014-03-26 16:10:28', 51, 43, '', 46, '0', 0),
-('2014-03-26 16:11:37', NULL, 45, '', 47, '0', 0),
-('2014-03-26 16:22:17', NULL, 45, 'yeah', 48, '0', 0),
-('2014-04-24 17:01:12', NULL, 1, '', 49, '0', 0),
-('2014-05-29 14:04:09', 51, 1, '', 50, 'Cash', 800),
-('2014-05-29 14:59:16', 56, 1, '', 51, 'Efectivo', 400),
-('2014-05-29 15:27:54', 56, 1, '', 52, 'Cheque', 50);
+INSERT INTO `ospos_receivings` (`receiving_id`, `receiving_time`, `supplier_id`, `employee_id`, `comment`, `payment_type`, `payment`) VALUES
+(1, '2012-11-23 16:22:28', NULL, 6, '', 'Cash', 0),
+(2, '2013-12-05 14:55:06', NULL, 1, 'All done', 'Cash', 0),
+(3, '2013-12-05 15:00:07', NULL, 1, '', 'Cash', 0),
+(4, '2013-12-05 15:05:50', NULL, 1, '', 'Cash', 0),
+(5, '2013-12-06 14:52:46', NULL, 1, '', 'Cash', 0),
+(6, '2013-12-13 18:52:18', NULL, 1, '', 'Cash', 0),
+(7, '2014-01-13 15:10:59', NULL, 1, '', 'Cash', 0),
+(8, '2014-01-13 15:21:20', NULL, 1, '', 'Cash', 0),
+(9, '2014-01-13 15:48:24', NULL, 1, '', 'Cash', 0),
+(10, '2014-01-15 19:33:41', NULL, 1, '', 'Cash', 0),
+(11, '2014-01-15 19:36:26', NULL, 1, '', 'Cash', 0),
+(12, '2014-01-15 19:37:16', NULL, 1, '', 'Cash', 0),
+(13, '2014-01-17 18:52:50', NULL, 1, '', '0', 0),
+(14, '2014-01-20 13:29:07', NULL, 1, '', '0', 0),
+(15, '2014-01-20 13:32:03', NULL, 1, '', '0', 0),
+(16, '2014-01-20 13:32:34', NULL, 1, '', '0', 0),
+(17, '2014-01-20 13:34:58', NULL, 1, '', '0', 0),
+(18, '2014-01-20 13:38:02', NULL, 1, '', '0', 0),
+(19, '2014-01-20 13:42:48', NULL, 1, '', '0', 0),
+(20, '2014-01-20 17:53:46', NULL, 1, 'prueba de gustavo', '0', 0),
+(21, '2014-01-20 18:01:47', NULL, 1, '', '0', 0),
+(22, '2014-01-20 18:49:44', NULL, 1, '', '0', 0),
+(23, '2014-01-20 18:50:46', NULL, 1, '', '0', 0),
+(24, '2014-01-20 19:07:49', NULL, 1, '', '0', 0),
+(25, '2014-01-20 19:18:40', NULL, 1, '', '0', 0),
+(26, '2014-01-20 19:19:53', NULL, 1, '', '0', 0),
+(27, '2014-01-20 19:30:50', NULL, 1, '', '0', 0),
+(28, '2014-01-20 19:31:37', NULL, 1, '', '0', 0),
+(29, '2014-01-20 19:32:04', NULL, 1, '', '0', 0),
+(30, '2014-01-20 19:33:07', NULL, 1, '', '0', 0),
+(31, '2014-01-20 19:41:21', NULL, 1, '', '0', 0),
+(32, '2014-01-20 20:27:13', NULL, 1, '', '0', 0),
+(33, '2014-01-20 21:12:44', NULL, 1, '', '0', 0),
+(34, '2014-01-20 21:18:49', NULL, 1, '', '0', 0),
+(35, '2014-01-21 20:42:02', NULL, 1, '', '0', 0),
+(36, '2014-01-21 20:52:22', NULL, 1, '', '0', 0),
+(37, '2014-01-21 20:54:56', NULL, 1, '', '0', 0),
+(38, '2014-01-21 20:58:36', NULL, 1, '', '0', 0),
+(39, '2014-01-21 21:00:09', NULL, 1, '', '0', 0),
+(40, '2014-01-22 20:54:56', NULL, 1, '', '0', 0),
+(41, '2014-01-22 21:02:37', NULL, 1, '', '0', 0),
+(42, '2014-01-22 21:15:47', NULL, 1, '', '0', 0),
+(43, '2014-02-04 14:17:56', NULL, 1, '', '0', 0),
+(44, '2014-03-05 20:42:20', NULL, 1, '', '0', 0),
+(45, '2014-03-26 15:53:34', 51, 43, '', '0', 0),
+(46, '2014-03-26 16:10:28', 51, 43, '', '0', 0),
+(47, '2014-03-26 16:11:37', NULL, 45, '', '0', 0),
+(48, '2014-03-26 16:22:17', NULL, 45, 'yeah', '0', 0),
+(49, '2014-04-24 17:01:12', NULL, 1, '', '0', 0),
+(50, '2014-05-29 14:04:09', 51, 1, '', 'Cash', 800),
+(51, '2014-05-29 14:59:16', 56, 1, '', 'Efectivo', 400),
+(52, '2014-05-29 15:27:54', 56, 1, '', 'Cheque', 50);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_receivings_items`
+-- Estructura de tabla para la tabla `ospos_receivings_items`
 --
 
 DROP TABLE IF EXISTS `ospos_receivings_items`;
-CREATE TABLE `ospos_receivings_items` (
+CREATE TABLE IF NOT EXISTS `ospos_receivings_items` (
   `receiving_id` int(10) NOT NULL DEFAULT '0',
   `item_id` int(10) NOT NULL DEFAULT '0',
+  `line` int(3) NOT NULL,
   `description` varchar(30) DEFAULT NULL,
   `serialnumber` varchar(30) DEFAULT NULL,
-  `line` int(3) NOT NULL,
   `quantity_purchased` int(10) NOT NULL DEFAULT '0',
   `item_cost_price` decimal(15,2) NOT NULL,
   `item_unit_price` double(15,2) NOT NULL,
   `discount_percent` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`receiving_id`,`item_id`,`line`),
-  KEY `item_id` (`item_id`)
+  PRIMARY KEY (`receiving_id`,`item_id`,`line`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_receivings_items`
+-- Volcado de datos para la tabla `ospos_receivings_items`
 --
 
-INSERT INTO `ospos_receivings_items` (`receiving_id`, `item_id`, `description`, `serialnumber`, `line`, `quantity_purchased`, `item_cost_price`, `item_unit_price`, `discount_percent`) VALUES
-(1, 93, '', '', 1, 1, 15.00, 15.00, 0),
-(2, 98, '', '', 1, 1, 1200.00, 1200.00, 0),
-(2, 71, '', '', 2, 1, 0.00, 0.00, 0),
-(2, 8, '', '', 3, 1, 0.00, 0.00, 0),
-(3, 107, '', '', 1, 1, 1200.00, 1200.00, 0),
-(4, 107, '', '', 1, 1, 1200.00, 1200.00, 0),
-(5, 98, '', '0', 1, 20, 1200.00, 1200.00, 0),
-(6, 62, '', '', 1, 1, 0.00, 50.00, 0),
-(6, 99, '', '', 2, 20, 1200.00, 800.00, 0),
-(7, 20, '', '', 1, 17, 0.00, 79.95, 0),
-(7, 71, '', '', 2, 4, 0.00, 45.00, 0),
-(7, 99, '', '', 3, 22, 1200.00, 800.00, 0),
-(7, 100, '', '', 4, 7, 1200.00, 800.00, 0),
-(7, 101, '', '', 5, 12, 1200.00, 800.00, 0),
-(7, 102, '', '', 6, 23, 1200.00, 800.00, 0),
-(7, 103, '', '', 7, 78, 1200.00, 800.00, 0),
-(8, 20, '', '', 1, 17, 0.00, 79.95, 0),
-(8, 71, '', '', 2, 4, 0.00, 45.00, 0),
-(8, 99, '', '', 3, 22, 1200.00, 800.00, 0),
-(8, 100, '', '', 4, 7, 1200.00, 800.00, 0),
-(8, 101, '', '', 5, 12, 1200.00, 800.00, 0),
-(8, 102, '', '', 6, 23, 1200.00, 800.00, 0),
-(8, 103, '', '', 7, 78, 1200.00, 800.00, 0),
-(9, 111, '', '', 1, 1, 1200.00, 1200.00, 0),
-(9, 112, '', '', 2, 1, 1200.00, 1200.00, 0),
-(10, 104, '', '', 1, 2, 1200.00, 593.00, 0),
-(10, 105, '', '', 2, 4, 1200.00, 200.00, 0),
-(10, 106, '', '', 3, 6, 1200.00, 224.00, 0),
-(11, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(12, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(13, 104, '', '', 1, 2, 1200.00, 593.00, 0),
-(13, 105, '', '', 2, 4, 1200.00, 200.00, 0),
-(13, 106, '', '', 3, 6, 1200.00, 224.00, 0),
-(14, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(15, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(16, 104, '', '', 1, 2, 1200.00, 593.00, 0),
-(16, 105, '', '', 2, 4, 1200.00, 200.00, 0),
-(16, 106, '', '', 3, 6, 1200.00, 224.00, 0),
-(17, 1, '', '', 1, 20, 13.00, 30.00, 0),
-(17, 20, '', '', 2, 5, 0.00, 79.95, 0),
-(17, 82, '', '', 3, 1, 0.00, 75.00, 0),
-(18, 1, '', '', 1, 20, 13.00, 30.00, 0),
-(18, 20, '', '', 2, 5, 0.00, 79.95, 0),
-(18, 82, '', '', 3, 1, 0.00, 75.00, 0),
-(19, 20, '', '', 1, 17, 0.00, 79.95, 0),
-(19, 71, '', '', 2, 4, 0.00, 45.00, 0),
-(19, 99, '', '', 3, 22, 1200.00, 400.00, 0),
-(19, 100, '', '', 4, 7, 1200.00, 256.00, 0),
-(19, 101, '', '', 5, 12, 1200.00, 125.00, 0),
-(19, 102, '', '', 6, 23, 1200.00, 80.00, 0),
-(19, 103, '', '', 7, 78, 1200.00, 66.00, 0),
-(20, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(21, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(22, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(23, 104, '', '', 1, 2, 1200.00, 593.00, 0),
-(23, 105, '', '', 2, 4, 1200.00, 200.00, 0),
-(23, 106, '', '', 3, 6, 1200.00, 224.00, 0),
-(24, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(25, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(26, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(27, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(28, 108, '', '', 1, 1, 1200.00, 69.50, 0),
-(29, 108, '', '', 1, 1, 1200.00, 69.50, 0),
-(30, 20, '', '', 1, 17, 0.00, 79.95, 0),
-(30, 71, '', '', 2, 4, 0.00, 45.00, 0),
-(30, 99, '', '', 3, 22, 1200.00, 400.00, 0),
-(30, 100, '', '', 4, 7, 1200.00, 256.00, 0),
-(30, 101, '', '', 5, 12, 1200.00, 125.00, 0),
-(30, 102, '', '', 6, 23, 1200.00, 80.00, 0),
-(30, 103, '', '', 7, 78, 1200.00, 66.00, 0),
-(31, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(32, 20, '', '', 1, 17, 0.00, 79.95, 0),
-(32, 71, '', '', 2, 4, 0.00, 45.00, 0),
-(32, 99, '', '', 3, 22, 1200.00, 400.00, 0),
-(32, 100, '', '', 4, 7, 1200.00, 256.00, 0),
-(32, 101, '', '', 5, 12, 1200.00, 125.00, 0),
-(32, 102, '', '', 6, 23, 1200.00, 80.00, 0),
-(32, 103, '', '', 7, 78, 1200.00, 66.00, 0),
-(33, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(34, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(35, 108, '', '', 1, 1, 1200.00, 69.50, 0),
-(36, 108, '', '', 1, 1, 1200.00, 69.50, 0),
-(37, 108, '', '', 1, 1, 1200.00, 69.50, 0),
-(38, 1, '', '', 1, 20, 13.00, 30.00, 0),
-(38, 20, '', '', 2, 5, 0.00, 79.95, 0),
-(38, 82, '', '', 3, 1, 0.00, 75.00, 0),
-(39, 1, '', '', 1, 20, 13.00, 30.00, 0),
-(39, 20, '', '', 2, 5, 0.00, 79.95, 0),
-(39, 82, '', '', 3, 1, 0.00, 75.00, 0),
-(40, 108, '', '', 1, 1, 1200.00, 69.50, 0),
-(41, 20, '', '', 1, 17, 0.00, 79.95, 0),
-(41, 71, '', '', 2, 4, 0.00, 45.00, 0),
-(41, 99, '', '', 3, 22, 1200.00, 400.00, 0),
-(41, 100, '', '', 4, 7, 1200.00, 256.00, 0),
-(41, 101, '', '', 5, 12, 1200.00, 125.00, 0),
-(41, 102, '', '', 6, 23, 1200.00, 80.00, 0),
-(41, 103, '', '', 7, 78, 1200.00, 66.00, 0),
-(42, 20, '', '', 1, 17, 0.00, 79.95, 0),
-(42, 71, '', '', 2, 4, 0.00, 45.00, 0),
-(42, 99, '', '', 3, 22, 1200.00, 400.00, 0),
-(42, 100, '', '', 4, 7, 1200.00, 256.00, 0),
-(42, 101, '', '', 5, 12, 1200.00, 125.00, 0),
-(42, 102, '', '', 6, 23, 1200.00, 80.00, 0),
-(42, 103, '', '', 7, 78, 1200.00, 66.00, 0),
-(43, 104, '', '', 1, 8, 1200.00, 593.00, 0),
-(44, 106, '', '', 1, 2, 1200.00, 224.00, 0),
-(45, 59, '', '', 1, 1, 0.00, 50.00, 0),
-(45, 65, '', '', 2, 1, 0.00, 40.00, 0),
-(46, 59, '', '', 1, 1, 0.00, 50.00, 0),
-(46, 65, '', '', 2, 1, 0.00, 40.00, 0),
-(47, 43, '', '', 1, 1, 0.00, 45.00, 0),
-(48, 43, '', '', 1, 1, 0.00, 45.00, 0),
-(49, 108, '', '', 1, 1, 1200.00, 69.50, 0),
-(50, 98, '', '0', 1, 1, 1200.00, 800.00, 0),
-(51, 9, '', '0', 1, 30, 0.00, 20.00, 0),
-(51, 21, '', '0', 2, 100, 0.00, 0.99, 0),
-(51, 53, '', '0', 3, 20, 0.00, 10.00, 0),
-(52, 53, '', '0', 1, 5, 0.00, 20.00, 0);
+INSERT INTO `ospos_receivings_items` (`receiving_id`, `item_id`, `line`, `description`, `serialnumber`, `quantity_purchased`, `item_cost_price`, `item_unit_price`, `discount_percent`) VALUES
+(1, 93, 1, '', '', 1, '15.00', 15.00, 0),
+(2, 98, 1, '', '', 1, '1200.00', 1200.00, 0),
+(2, 71, 2, '', '', 1, '0.00', 0.00, 0),
+(2, 8, 3, '', '', 1, '0.00', 0.00, 0),
+(3, 107, 1, '', '', 1, '1200.00', 1200.00, 0),
+(4, 107, 1, '', '', 1, '1200.00', 1200.00, 0),
+(5, 98, 1, '', '0', 20, '1200.00', 1200.00, 0),
+(6, 62, 1, '', '', 1, '0.00', 50.00, 0),
+(6, 99, 2, '', '', 20, '1200.00', 800.00, 0),
+(7, 20, 1, '', '', 17, '0.00', 79.95, 0),
+(7, 71, 2, '', '', 4, '0.00', 45.00, 0),
+(7, 99, 3, '', '', 22, '1200.00', 800.00, 0),
+(7, 100, 4, '', '', 7, '1200.00', 800.00, 0),
+(7, 101, 5, '', '', 12, '1200.00', 800.00, 0),
+(7, 102, 6, '', '', 23, '1200.00', 800.00, 0),
+(7, 103, 7, '', '', 78, '1200.00', 800.00, 0),
+(8, 20, 1, '', '', 17, '0.00', 79.95, 0),
+(8, 71, 2, '', '', 4, '0.00', 45.00, 0),
+(8, 99, 3, '', '', 22, '1200.00', 800.00, 0),
+(8, 100, 4, '', '', 7, '1200.00', 800.00, 0),
+(8, 101, 5, '', '', 12, '1200.00', 800.00, 0),
+(8, 102, 6, '', '', 23, '1200.00', 800.00, 0),
+(8, 103, 7, '', '', 78, '1200.00', 800.00, 0),
+(9, 111, 1, '', '', 1, '1200.00', 1200.00, 0),
+(9, 112, 2, '', '', 1, '1200.00', 1200.00, 0),
+(10, 104, 1, '', '', 2, '1200.00', 593.00, 0),
+(10, 105, 2, '', '', 4, '1200.00', 200.00, 0),
+(10, 106, 3, '', '', 6, '1200.00', 224.00, 0),
+(11, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(12, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(13, 104, 1, '', '', 2, '1200.00', 593.00, 0),
+(13, 105, 2, '', '', 4, '1200.00', 200.00, 0),
+(13, 106, 3, '', '', 6, '1200.00', 224.00, 0),
+(14, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(15, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(16, 104, 1, '', '', 2, '1200.00', 593.00, 0),
+(16, 105, 2, '', '', 4, '1200.00', 200.00, 0),
+(16, 106, 3, '', '', 6, '1200.00', 224.00, 0),
+(17, 1, 1, '', '', 20, '13.00', 30.00, 0),
+(17, 20, 2, '', '', 5, '0.00', 79.95, 0),
+(17, 82, 3, '', '', 1, '0.00', 75.00, 0),
+(18, 1, 1, '', '', 20, '13.00', 30.00, 0),
+(18, 20, 2, '', '', 5, '0.00', 79.95, 0),
+(18, 82, 3, '', '', 1, '0.00', 75.00, 0),
+(19, 20, 1, '', '', 17, '0.00', 79.95, 0),
+(19, 71, 2, '', '', 4, '0.00', 45.00, 0),
+(19, 99, 3, '', '', 22, '1200.00', 400.00, 0),
+(19, 100, 4, '', '', 7, '1200.00', 256.00, 0),
+(19, 101, 5, '', '', 12, '1200.00', 125.00, 0),
+(19, 102, 6, '', '', 23, '1200.00', 80.00, 0),
+(19, 103, 7, '', '', 78, '1200.00', 66.00, 0),
+(20, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(21, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(22, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(23, 104, 1, '', '', 2, '1200.00', 593.00, 0),
+(23, 105, 2, '', '', 4, '1200.00', 200.00, 0),
+(23, 106, 3, '', '', 6, '1200.00', 224.00, 0),
+(24, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(25, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(26, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(27, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(28, 108, 1, '', '', 1, '1200.00', 69.50, 0),
+(29, 108, 1, '', '', 1, '1200.00', 69.50, 0),
+(30, 20, 1, '', '', 17, '0.00', 79.95, 0),
+(30, 71, 2, '', '', 4, '0.00', 45.00, 0),
+(30, 99, 3, '', '', 22, '1200.00', 400.00, 0),
+(30, 100, 4, '', '', 7, '1200.00', 256.00, 0),
+(30, 101, 5, '', '', 12, '1200.00', 125.00, 0),
+(30, 102, 6, '', '', 23, '1200.00', 80.00, 0),
+(30, 103, 7, '', '', 78, '1200.00', 66.00, 0),
+(31, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(32, 20, 1, '', '', 17, '0.00', 79.95, 0),
+(32, 71, 2, '', '', 4, '0.00', 45.00, 0),
+(32, 99, 3, '', '', 22, '1200.00', 400.00, 0),
+(32, 100, 4, '', '', 7, '1200.00', 256.00, 0),
+(32, 101, 5, '', '', 12, '1200.00', 125.00, 0),
+(32, 102, 6, '', '', 23, '1200.00', 80.00, 0),
+(32, 103, 7, '', '', 78, '1200.00', 66.00, 0),
+(33, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(34, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(35, 108, 1, '', '', 1, '1200.00', 69.50, 0),
+(36, 108, 1, '', '', 1, '1200.00', 69.50, 0),
+(37, 108, 1, '', '', 1, '1200.00', 69.50, 0),
+(38, 1, 1, '', '', 20, '13.00', 30.00, 0),
+(38, 20, 2, '', '', 5, '0.00', 79.95, 0),
+(38, 82, 3, '', '', 1, '0.00', 75.00, 0),
+(39, 1, 1, '', '', 20, '13.00', 30.00, 0),
+(39, 20, 2, '', '', 5, '0.00', 79.95, 0),
+(39, 82, 3, '', '', 1, '0.00', 75.00, 0),
+(40, 108, 1, '', '', 1, '1200.00', 69.50, 0),
+(41, 20, 1, '', '', 17, '0.00', 79.95, 0),
+(41, 71, 2, '', '', 4, '0.00', 45.00, 0),
+(41, 99, 3, '', '', 22, '1200.00', 400.00, 0),
+(41, 100, 4, '', '', 7, '1200.00', 256.00, 0),
+(41, 101, 5, '', '', 12, '1200.00', 125.00, 0),
+(41, 102, 6, '', '', 23, '1200.00', 80.00, 0),
+(41, 103, 7, '', '', 78, '1200.00', 66.00, 0),
+(42, 20, 1, '', '', 17, '0.00', 79.95, 0),
+(42, 71, 2, '', '', 4, '0.00', 45.00, 0),
+(42, 99, 3, '', '', 22, '1200.00', 400.00, 0),
+(42, 100, 4, '', '', 7, '1200.00', 256.00, 0),
+(42, 101, 5, '', '', 12, '1200.00', 125.00, 0),
+(42, 102, 6, '', '', 23, '1200.00', 80.00, 0),
+(42, 103, 7, '', '', 78, '1200.00', 66.00, 0),
+(43, 104, 1, '', '', 8, '1200.00', 593.00, 0),
+(44, 106, 1, '', '', 2, '1200.00', 224.00, 0),
+(45, 59, 1, '', '', 1, '0.00', 50.00, 0),
+(45, 65, 2, '', '', 1, '0.00', 40.00, 0),
+(46, 59, 1, '', '', 1, '0.00', 50.00, 0),
+(46, 65, 2, '', '', 1, '0.00', 40.00, 0),
+(47, 43, 1, '', '', 1, '0.00', 45.00, 0),
+(48, 43, 1, '', '', 1, '0.00', 45.00, 0),
+(49, 108, 1, '', '', 1, '1200.00', 69.50, 0),
+(50, 98, 1, '', '0', 1, '1200.00', 800.00, 0),
+(51, 9, 1, '', '0', 30, '0.00', 20.00, 0),
+(51, 21, 2, '', '0', 100, '0.00', 0.99, 0),
+(51, 53, 3, '', '0', 20, '0.00', 10.00, 0),
+(52, 53, 1, '', '0', 5, '0.00', 20.00, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_sales`
+-- Estructura de tabla para la tabla `ospos_sales`
 --
 
 DROP TABLE IF EXISTS `ospos_sales`;
-CREATE TABLE `ospos_sales` (
+CREATE TABLE IF NOT EXISTS `ospos_sales` (
+  `sale_id` int(10) NOT NULL AUTO_INCREMENT,
   `sale_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `customer_id` int(10) DEFAULT NULL,
   `employee_id` int(10) NOT NULL DEFAULT '0',
   `comment` text NOT NULL,
-  `sale_id` int(10) NOT NULL AUTO_INCREMENT,
   `payment_type` varchar(512) DEFAULT NULL,
   `mode` tinyint(1) NOT NULL DEFAULT '0',
   `status` tinyint(1) NOT NULL DEFAULT '1',
@@ -1909,181 +1910,179 @@ CREATE TABLE `ospos_sales` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=53 ;
 
 --
--- Dumping data for table `ospos_sales`
+-- Volcado de datos para la tabla `ospos_sales`
 --
 
-INSERT INTO `ospos_sales` (`sale_time`, `customer_id`, `employee_id`, `comment`, `sale_id`, `payment_type`, `mode`, `status`) VALUES
-('2014-01-29 11:59:15', NULL, 1, '0', 1, 'Cash: $25.00<br />', 2, 1),
-('2014-01-29 12:03:44', NULL, 1, '0', 2, 'Cash: $448.00<br />', 2, 1),
-('2014-01-29 12:21:40', 2, 1, '0', 3, 'Cash: $50.00<br />', 2, 1),
-('2014-01-29 12:23:02', 2, 1, '0', 4, 'Cash: $765.80<br />', 2, 1),
-('2014-01-29 12:25:45', 2, 1, '0', 5, 'Cash: $400.00<br />', 2, 1),
-('2014-01-29 13:13:02', 2, 1, '0', 6, 'Cash: $448.00<br />', 2, 1),
-('2014-01-29 13:14:01', NULL, 1, '0', 7, 'Cash: $433.46<br />', 0, 1),
-('2014-02-04 12:38:37', 3, 1, '0', 8, 'Check: $1000.00<br />Debit Card: $2330.98<br />Cash: $1550.00<br />', 0, 1),
-('2014-02-04 12:43:34', 2, 1, '0', 9, 'Cash: $48.15<br />', 2, 1),
-('2014-02-06 12:17:26', 2, 1, '0', 10, 'Cash: $399.87<br />', 2, 1),
-('2014-03-26 14:50:38', 48, -1, '0', 11, 'Cash: $48.15<br />', 0, 1),
-('2014-03-26 14:54:38', NULL, -1, '0', 12, 'Cash: $242.74<br />', 0, 1),
-('2014-03-26 15:22:15', 53, -1, '0', 13, 'Credit Card: -$830.00<br />Cash: $920.00<br />', 2, 1),
-('2014-03-26 15:25:39', NULL, -1, '0', 14, 'Cash: $160.50<br />', 0, 1),
-('2014-03-26 15:29:10', 46, -1, '0', 15, 'Check: $88.81<br />', 0, 1),
-('2014-03-26 15:33:01', 53, -1, '0', 16, 'Credit Card: $<br />Cash: $70.00<br />', 0, 1),
-('2014-03-26 15:41:07', 2, -1, '0', 17, 'Cash: $48.15<br />', 2, 1),
-('2014-03-26 15:43:12', NULL, -1, '0', 18, 'Gift Card:001: $399.87<br />', 0, 1),
-('2014-03-26 15:43:42', NULL, -1, '0', 19, 'Gift Card:90: $1685.25<br />', 0, 1),
-('2014-03-26 16:02:07', NULL, -1, '0', 20, 'Cash: $37.45<br />', 0, 1),
-('2014-03-26 16:02:47', NULL, -1, '0', 21, 'Cash: $26.75<br />', 0, 1),
-('2014-03-26 17:44:04', 46, -1, '0', 22, 'Credit Card: $727.60<br />', 1, 1),
-('2014-03-26 17:45:05', 46, -1, '0', 23, 'Cash: $90.95<br />', 0, 1),
-('2014-03-26 18:26:54', NULL, -1, '0', 24, 'Cash: $56.50<br />', 0, 1),
-('2014-03-26 18:28:55', NULL, -1, '0', 25, 'Credit Card: $100.00<br />Cash: -$57.20<br />', 0, 1),
-('2014-03-26 18:33:56', NULL, -1, '0', 26, 'Gift Card:140783: $214.00<br />', 0, 1),
-('2014-04-11 19:21:33', NULL, -1, '0', 27, 'Cash: $399.87<br />', 0, 1),
-('2014-04-11 19:22:06', NULL, -1, '0', 28, 'Cash: $75.31<br />', 0, 1),
-('2014-04-11 20:11:15', NULL, -1, '0', 29, 'Cash: $242.74<br />', 0, 1),
-('2014-04-22 15:05:00', 55, -1, '0', 30, 'Cash: $2163.00<br />', 2, 1),
-('2014-04-22 15:23:36', 55, -1, '0', 31, 'Cash: $990.00<br />', 2, 1),
-('2014-04-23 16:28:10', NULL, -1, '0', 32, 'Cash: $399.87<br />', 0, 1),
-('2014-04-23 16:29:34', NULL, -1, '0', 33, 'Cash: $40.10<br />', 0, 1),
-('2014-04-23 16:30:47', NULL, -1, '0', 34, 'Cash: $85.55<br />', 0, 1),
-('2014-04-23 16:31:41', NULL, -1, '0', 35, 'Cash: $399.87<br />', 0, 1),
-('2014-04-24 15:59:12', 55, -1, '0', 36, 'Cash: $437.00<br />', 2, 1),
-('2014-04-24 16:01:22', 55, -1, '0', 37, 'Cash: $437.00<br />', 2, 1),
-('2014-04-24 16:01:25', 55, -1, '0', 38, 'Cash: $437.00<br />', 2, 1),
-('2014-04-24 16:02:34', 55, -1, '0', 39, 'Cash: $642.00<br />', 2, 1),
-('2014-04-24 16:03:06', 55, -1, '0', 40, 'Cash: $642.00<br />', 2, 1),
-('2014-04-24 16:04:15', 55, -1, '0', 41, 'Cash: $642.00<br />', 2, 1),
-('2014-04-24 16:05:23', 55, -1, '0', 42, 'Cash: $100.00<br />', 2, 1),
-('2014-04-24 18:24:01', 55, -1, '0', 43, 'Cash: $86.69<br />', 2, 1),
-('2014-04-25 20:51:22', NULL, -1, '0', 44, 'Cash: $494.69<br />', 0, 1),
-('2014-04-25 20:52:16', 55, -1, '0', 45, 'Cash: $682.70<br />', 2, 1),
-('2014-05-21 19:19:37', 55, -1, '0', 46, 'Cash: $40.10<br />', 2, 1),
-('2014-05-26 14:10:24', 55, -1, '0', 47, 'Cash: $1000.00<br />Check: $388.00<br />Debit Card: $300.00<br />Credit Card: $250.00<br />', 2, 1),
-('2014-05-26 15:23:21', NULL, -1, '0', 48, 'Cash: $242.74<br />', 0, 1),
-('2014-05-26 15:24:06', 55, -1, '0', 49, 'Cash: $500.65<br />', 2, 1),
-('2014-05-26 20:23:50', NULL, -1, '0', 50, 'Cash: $48.15<br />', 0, 1),
-('2014-05-29 14:05:54', NULL, -1, '0', 51, 'Cash: $1000.57<br />Debit Card: $500.00<br />Credit Card: $450.00<br />', 0, 1),
-('2014-06-05 20:17:03', 57, -1, '0', 52, 'Cash: $162.56<br />', 2, 1);
+INSERT INTO `ospos_sales` (`sale_id`, `sale_time`, `customer_id`, `employee_id`, `comment`, `payment_type`, `mode`, `status`) VALUES
+(1, '2014-01-29 11:59:15', NULL, 1, '0', 'Cash: $25.00<br />', 2, 1),
+(2, '2014-01-29 12:03:44', NULL, 1, '0', 'Cash: $448.00<br />', 2, 1),
+(3, '2014-01-29 12:21:40', 2, 1, '0', 'Cash: $50.00<br />', 2, 1),
+(4, '2014-01-29 12:23:02', 2, 1, '0', 'Cash: $765.80<br />', 2, 1),
+(5, '2014-01-29 12:25:45', 2, 1, '0', 'Cash: $400.00<br />', 2, 1),
+(6, '2014-01-29 13:13:02', 2, 1, '0', 'Cash: $448.00<br />', 2, 1),
+(7, '2014-01-29 13:14:01', NULL, 1, '0', 'Cash: $433.46<br />', 0, 1),
+(8, '2014-02-04 12:38:37', 3, 1, '0', 'Check: $1000.00<br />Debit Card: $2330.98<br />Cash: $1550.00<br />', 0, 1),
+(9, '2014-02-04 12:43:34', 2, 1, '0', 'Cash: $48.15<br />', 2, 1),
+(10, '2014-02-06 12:17:26', 2, 1, '0', 'Cash: $399.87<br />', 2, 1),
+(11, '2014-03-26 14:50:38', 48, -1, '0', 'Cash: $48.15<br />', 0, 1),
+(12, '2014-03-26 14:54:38', NULL, -1, '0', 'Cash: $242.74<br />', 0, 1),
+(13, '2014-03-26 15:22:15', 53, -1, '0', 'Credit Card: -$830.00<br />Cash: $920.00<br />', 2, 1),
+(14, '2014-03-26 15:25:39', NULL, -1, '0', 'Cash: $160.50<br />', 0, 1),
+(15, '2014-03-26 15:29:10', 46, -1, '0', 'Check: $88.81<br />', 0, 1),
+(16, '2014-03-26 15:33:01', 53, -1, '0', 'Credit Card: $<br />Cash: $70.00<br />', 0, 1),
+(17, '2014-03-26 15:41:07', 2, -1, '0', 'Cash: $48.15<br />', 2, 1),
+(18, '2014-03-26 15:43:12', NULL, -1, '0', 'Gift Card:001: $399.87<br />', 0, 1),
+(19, '2014-03-26 15:43:42', NULL, -1, '0', 'Gift Card:90: $1685.25<br />', 0, 1),
+(20, '2014-03-26 16:02:07', NULL, -1, '0', 'Cash: $37.45<br />', 0, 1),
+(21, '2014-03-26 16:02:47', NULL, -1, '0', 'Cash: $26.75<br />', 0, 1),
+(22, '2014-03-26 17:44:04', 46, -1, '0', 'Credit Card: $727.60<br />', 1, 1),
+(23, '2014-03-26 17:45:05', 46, -1, '0', 'Cash: $90.95<br />', 0, 1),
+(24, '2014-03-26 18:26:54', NULL, -1, '0', 'Cash: $56.50<br />', 0, 1),
+(25, '2014-03-26 18:28:55', NULL, -1, '0', 'Credit Card: $100.00<br />Cash: -$57.20<br />', 0, 1),
+(26, '2014-03-26 18:33:56', NULL, -1, '0', 'Gift Card:140783: $214.00<br />', 0, 1),
+(27, '2014-04-11 19:21:33', NULL, -1, '0', 'Cash: $399.87<br />', 0, 1),
+(28, '2014-04-11 19:22:06', NULL, -1, '0', 'Cash: $75.31<br />', 0, 1),
+(29, '2014-04-11 20:11:15', NULL, -1, '0', 'Cash: $242.74<br />', 0, 1),
+(30, '2014-04-22 15:05:00', 55, -1, '0', 'Cash: $2163.00<br />', 2, 1),
+(31, '2014-04-22 15:23:36', 55, -1, '0', 'Cash: $990.00<br />', 2, 1),
+(32, '2014-04-23 16:28:10', NULL, -1, '0', 'Cash: $399.87<br />', 0, 1),
+(33, '2014-04-23 16:29:34', NULL, -1, '0', 'Cash: $40.10<br />', 0, 1),
+(34, '2014-04-23 16:30:47', NULL, -1, '0', 'Cash: $85.55<br />', 0, 1),
+(35, '2014-04-23 16:31:41', NULL, -1, '0', 'Cash: $399.87<br />', 0, 1),
+(36, '2014-04-24 15:59:12', 55, -1, '0', 'Cash: $437.00<br />', 2, 1),
+(37, '2014-04-24 16:01:22', 55, -1, '0', 'Cash: $437.00<br />', 2, 1),
+(38, '2014-04-24 16:01:25', 55, -1, '0', 'Cash: $437.00<br />', 2, 1),
+(39, '2014-04-24 16:02:34', 55, -1, '0', 'Cash: $642.00<br />', 2, 1),
+(40, '2014-04-24 16:03:06', 55, -1, '0', 'Cash: $642.00<br />', 2, 1),
+(41, '2014-04-24 16:04:15', 55, -1, '0', 'Cash: $642.00<br />', 2, 1),
+(42, '2014-04-24 16:05:23', 55, -1, '0', 'Cash: $100.00<br />', 2, 1),
+(43, '2014-04-24 18:24:01', 55, -1, '0', 'Cash: $86.69<br />', 2, 1),
+(44, '2014-04-25 20:51:22', NULL, -1, '0', 'Cash: $494.69<br />', 0, 1),
+(45, '2014-04-25 20:52:16', 55, -1, '0', 'Cash: $682.70<br />', 2, 1),
+(46, '2014-05-21 19:19:37', 55, -1, '0', 'Cash: $40.10<br />', 2, 1),
+(47, '2014-05-26 14:10:24', 55, -1, '0', 'Cash: $1000.00<br />Check: $388.00<br />Debit Card: $300.00<br />Credit Card: $250.00<br />', 2, 1),
+(48, '2014-05-26 15:23:21', NULL, -1, '0', 'Cash: $242.74<br />', 0, 1),
+(49, '2014-05-26 15:24:06', 55, -1, '0', 'Cash: $500.65<br />', 2, 1),
+(50, '2014-05-26 20:23:50', NULL, -1, '0', 'Cash: $48.15<br />', 0, 1),
+(51, '2014-05-29 14:05:54', NULL, -1, '0', 'Cash: $1000.57<br />Debit Card: $500.00<br />Credit Card: $450.00<br />', 0, 1),
+(52, '2014-06-05 20:17:03', 57, -1, '0', 'Cash: $162.56<br />', 2, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_sales_items`
+-- Estructura de tabla para la tabla `ospos_sales_items`
 --
 
 DROP TABLE IF EXISTS `ospos_sales_items`;
-CREATE TABLE `ospos_sales_items` (
+CREATE TABLE IF NOT EXISTS `ospos_sales_items` (
   `sale_id` int(10) NOT NULL DEFAULT '0',
   `item_id` int(10) NOT NULL DEFAULT '0',
+  `line` int(3) NOT NULL DEFAULT '0',
   `description` varchar(30) DEFAULT NULL,
   `serialnumber` varchar(30) DEFAULT NULL,
-  `line` int(3) NOT NULL DEFAULT '0',
   `quantity_purchased` double(15,2) NOT NULL DEFAULT '0.00',
   `item_cost_price` decimal(15,2) NOT NULL,
   `item_unit_price` double(15,2) NOT NULL,
   `discount_percent` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`sale_id`,`item_id`,`line`),
-  KEY `item_id` (`item_id`)
+  PRIMARY KEY (`sale_id`,`item_id`,`line`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_sales_items`
+-- Volcado de datos para la tabla `ospos_sales_items`
 --
 
-INSERT INTO `ospos_sales_items` (`sale_id`, `item_id`, `description`, `serialnumber`, `line`, `quantity_purchased`, `item_cost_price`, `item_unit_price`, `discount_percent`) VALUES
-(1, 85, '', '', 1, 1.00, 0.00, 25.00, 0),
-(2, 106, '', '', 1, 2.00, 1200.00, 224.00, 0),
-(3, 58, '', '', 1, 1.00, 0.00, 50.00, 0),
-(4, 106, '', '', 1, 2.00, 1200.00, 224.00, 0),
-(4, 109, '', '', 2, 2.00, 1200.00, 80.90, 0),
-(4, 111, '', '', 3, 1.00, 1200.00, 156.00, 0),
-(5, 105, '', '', 1, 2.00, 1200.00, 200.00, 0),
-(6, 106, '', '', 1, 2.00, 1200.00, 224.00, 0),
-(7, 110, '', '', 1, 2.00, 1200.00, 200.00, 0),
-(8, 106, '', '', 1, 6.00, 1200.00, 300.00, 0),
-(8, 109, '', '', 2, 18.00, 1200.00, 80.90, 0),
-(8, 111, '', '', 3, 8.00, 1200.00, 156.00, 0),
-(9, 9, '', '', 1, 1.00, 0.00, 45.00, 0),
-(10, 98, '', '', 1, 1.00, 1200.00, 369.00, 0),
-(11, 9, '', '', 1, 1.00, 0.00, 45.00, 0),
-(12, 106, '', '', 1, 1.00, 1200.00, 224.00, 0),
-(13, 65, '', '', 1, 1.00, 0.00, 40.00, 0),
-(13, 59, '', '', 2, 1.00, 0.00, 50.00, 0),
-(14, 50, '', '', 1, 1.00, 0.00, 75.00, 0),
-(14, 65, '', '', 2, 1.00, 0.00, 40.00, 0),
-(14, 68, '', '', 3, 1.00, 0.00, 35.00, 0),
-(15, 16, '', '', 1, 2.00, 0.00, 30.00, 20),
-(15, 69, '', '', 2, 1.00, 0.00, 35.00, 0),
-(16, 69, '', '', 1, 2.00, 0.00, 35.00, 0),
-(17, 43, '', '', 1, 1.00, 0.00, 45.00, 0),
-(18, 98, '', '', 1, 1.00, 1200.00, 369.00, 0),
-(19, 50, '', '', 1, 18.00, 0.00, 75.00, 0),
-(19, 40, '', '', 2, 3.00, 0.00, 75.00, 0),
-(20, 34, '', '', 1, 1.00, 0.00, 35.00, 0),
-(21, 61, '', '', 1, 1.00, 0.00, 25.00, 0),
-(22, 87, '', '', 1, 8.00, 0.00, 85.00, 0),
-(23, 87, '', '', 1, 1.00, 0.00, 85.00, 0),
-(24, 4, '', '', 1, 1.00, 0.00, 50.00, 0),
-(25, 65, '', '', 2, 1.00, 0.00, 40.00, 0),
-(26, 72, '', '', 1, 4.00, 0.00, 50.00, 0),
-(27, 98, '', '', 1, 1.00, 1200.00, 369.00, 0),
-(28, 108, '', '', 1, 1.00, 1200.00, 69.50, 0),
-(29, 106, '', '', 1, 1.00, 1200.00, 224.00, 0),
-(30, 98, '0', '0', 1, 3.00, 1200.00, 369.00, 0),
-(30, 99, '0', '0', 2, 2.00, 1200.00, 400.00, 0),
-(30, 100, '', '', 3, 1.00, 1200.00, 256.00, 0),
-(31, 26, '0', '0', 1, 9.00, 0.00, 110.00, 0),
-(32, 98, '', '', 1, 1.00, 1200.00, 369.00, 0),
-(33, 107, '', '', 1, 1.00, 1200.00, 37.00, 0),
-(34, 21, '', '', 1, 1.00, 0.00, 79.95, 0),
-(35, 98, '', '', 1, 1.00, 1200.00, 369.00, 0),
-(36, 107, '0', '0', 1, 1.00, 1200.00, 37.00, 0),
-(36, 99, '0', '0', 2, 1.00, 1200.00, 400.00, 0),
-(37, 107, '0', '0', 1, 1.00, 1200.00, 37.00, 0),
-(37, 99, '0', '0', 2, 1.00, 1200.00, 400.00, 0),
-(38, 107, '0', '0', 1, 1.00, 1200.00, 37.00, 0),
-(38, 99, '0', '0', 2, 1.00, 1200.00, 400.00, 0),
-(39, 63, '0', '0', 1, 6.00, 0.00, 100.00, 0),
-(40, 63, '0', '0', 1, 6.00, 0.00, 100.00, 0),
-(41, 63, '0', '0', 1, 6.00, 0.00, 100.00, 0),
-(42, 63, '0', '0', 1, 1.00, 0.00, 100.00, 0),
-(43, 102, '', '', 1, 1.00, 1200.00, 80.00, 0),
-(44, 110, '', '', 1, 1.00, 1200.00, 200.00, 0),
-(44, 108, '', '', 2, 1.00, 1200.00, 69.50, 0),
-(44, 112, '', '', 3, 1.00, 1200.00, 187.00, 0),
-(45, 98, '0', '0', 1, 1.00, 1200.00, 369.00, 0),
-(45, 106, '0', '0', 2, 1.00, 1200.00, 224.00, 0),
-(45, 107, '', '', 3, 1.00, 1200.00, 37.00, 0),
-(46, 107, '', '', 1, 1.00, 1200.00, 37.00, 0),
-(47, 98, '0', '0', 1, 4.00, 1200.00, 369.00, 0),
-(47, 99, '', '', 2, 1.00, 1200.00, 400.00, 0),
-(47, 100, '0', '0', 3, 2.00, 1200.00, 256.00, 0),
-(48, 106, '', '', 1, 1.00, 1200.00, 224.00, 0),
-(49, 110, '0', '0', 1, 5.00, 1200.00, 200.00, 0),
-(50, 45, '', '', 1, 1.00, 0.00, 45.00, 0),
-(51, 98, '0', '0', 1, 9.00, 1200.00, 200.00, 0),
-(52, 1, '0', '0', 1, 5.00, 13.00, 30.00, 0);
+INSERT INTO `ospos_sales_items` (`sale_id`, `item_id`, `line`, `description`, `serialnumber`, `quantity_purchased`, `item_cost_price`, `item_unit_price`, `discount_percent`) VALUES
+(1, 85, 1, '', '', 1.00, '0.00', 25.00, 0),
+(2, 106, 1, '', '', 2.00, '1200.00', 224.00, 0),
+(3, 58, 1, '', '', 1.00, '0.00', 50.00, 0),
+(4, 106, 1, '', '', 2.00, '1200.00', 224.00, 0),
+(4, 109, 2, '', '', 2.00, '1200.00', 80.90, 0),
+(4, 111, 3, '', '', 1.00, '1200.00', 156.00, 0),
+(5, 105, 1, '', '', 2.00, '1200.00', 200.00, 0),
+(6, 106, 1, '', '', 2.00, '1200.00', 224.00, 0),
+(7, 110, 1, '', '', 2.00, '1200.00', 200.00, 0),
+(8, 106, 1, '', '', 6.00, '1200.00', 300.00, 0),
+(8, 109, 2, '', '', 18.00, '1200.00', 80.90, 0),
+(8, 111, 3, '', '', 8.00, '1200.00', 156.00, 0),
+(9, 9, 1, '', '', 1.00, '0.00', 45.00, 0),
+(10, 98, 1, '', '', 1.00, '1200.00', 369.00, 0),
+(11, 9, 1, '', '', 1.00, '0.00', 45.00, 0),
+(12, 106, 1, '', '', 1.00, '1200.00', 224.00, 0),
+(13, 65, 1, '', '', 1.00, '0.00', 40.00, 0),
+(13, 59, 2, '', '', 1.00, '0.00', 50.00, 0),
+(14, 50, 1, '', '', 1.00, '0.00', 75.00, 0),
+(14, 65, 2, '', '', 1.00, '0.00', 40.00, 0),
+(14, 68, 3, '', '', 1.00, '0.00', 35.00, 0),
+(15, 16, 1, '', '', 2.00, '0.00', 30.00, 20),
+(15, 69, 2, '', '', 1.00, '0.00', 35.00, 0),
+(16, 69, 1, '', '', 2.00, '0.00', 35.00, 0),
+(17, 43, 1, '', '', 1.00, '0.00', 45.00, 0),
+(18, 98, 1, '', '', 1.00, '1200.00', 369.00, 0),
+(19, 50, 1, '', '', 18.00, '0.00', 75.00, 0),
+(19, 40, 2, '', '', 3.00, '0.00', 75.00, 0),
+(20, 34, 1, '', '', 1.00, '0.00', 35.00, 0),
+(21, 61, 1, '', '', 1.00, '0.00', 25.00, 0),
+(22, 87, 1, '', '', 8.00, '0.00', 85.00, 0),
+(23, 87, 1, '', '', 1.00, '0.00', 85.00, 0),
+(24, 4, 1, '', '', 1.00, '0.00', 50.00, 0),
+(25, 65, 2, '', '', 1.00, '0.00', 40.00, 0),
+(26, 72, 1, '', '', 4.00, '0.00', 50.00, 0),
+(27, 98, 1, '', '', 1.00, '1200.00', 369.00, 0),
+(28, 108, 1, '', '', 1.00, '1200.00', 69.50, 0),
+(29, 106, 1, '', '', 1.00, '1200.00', 224.00, 0),
+(30, 98, 1, '0', '0', 3.00, '1200.00', 369.00, 0),
+(30, 99, 2, '0', '0', 2.00, '1200.00', 400.00, 0),
+(30, 100, 3, '', '', 1.00, '1200.00', 256.00, 0),
+(31, 26, 1, '0', '0', 9.00, '0.00', 110.00, 0),
+(32, 98, 1, '', '', 1.00, '1200.00', 369.00, 0),
+(33, 107, 1, '', '', 1.00, '1200.00', 37.00, 0),
+(34, 21, 1, '', '', 1.00, '0.00', 79.95, 0),
+(35, 98, 1, '', '', 1.00, '1200.00', 369.00, 0),
+(36, 107, 1, '0', '0', 1.00, '1200.00', 37.00, 0),
+(36, 99, 2, '0', '0', 1.00, '1200.00', 400.00, 0),
+(37, 107, 1, '0', '0', 1.00, '1200.00', 37.00, 0),
+(37, 99, 2, '0', '0', 1.00, '1200.00', 400.00, 0),
+(38, 107, 1, '0', '0', 1.00, '1200.00', 37.00, 0),
+(38, 99, 2, '0', '0', 1.00, '1200.00', 400.00, 0),
+(39, 63, 1, '0', '0', 6.00, '0.00', 100.00, 0),
+(40, 63, 1, '0', '0', 6.00, '0.00', 100.00, 0),
+(41, 63, 1, '0', '0', 6.00, '0.00', 100.00, 0),
+(42, 63, 1, '0', '0', 1.00, '0.00', 100.00, 0),
+(43, 102, 1, '', '', 1.00, '1200.00', 80.00, 0),
+(44, 110, 1, '', '', 1.00, '1200.00', 200.00, 0),
+(44, 108, 2, '', '', 1.00, '1200.00', 69.50, 0),
+(44, 112, 3, '', '', 1.00, '1200.00', 187.00, 0),
+(45, 98, 1, '0', '0', 1.00, '1200.00', 369.00, 0),
+(45, 106, 2, '0', '0', 1.00, '1200.00', 224.00, 0),
+(45, 107, 3, '', '', 1.00, '1200.00', 37.00, 0),
+(46, 107, 1, '', '', 1.00, '1200.00', 37.00, 0),
+(47, 98, 1, '0', '0', 4.00, '1200.00', 369.00, 0),
+(47, 99, 2, '', '', 1.00, '1200.00', 400.00, 0),
+(47, 100, 3, '0', '0', 2.00, '1200.00', 256.00, 0),
+(48, 106, 1, '', '', 1.00, '1200.00', 224.00, 0),
+(49, 110, 1, '0', '0', 5.00, '1200.00', 200.00, 0),
+(50, 45, 1, '', '', 1.00, '0.00', 45.00, 0),
+(51, 98, 1, '0', '0', 9.00, '1200.00', 200.00, 0),
+(52, 1, 1, '0', '0', 5.00, '13.00', 30.00, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_sales_items_taxes`
+-- Estructura de tabla para la tabla `ospos_sales_items_taxes`
 --
 
 DROP TABLE IF EXISTS `ospos_sales_items_taxes`;
-CREATE TABLE `ospos_sales_items_taxes` (
+CREATE TABLE IF NOT EXISTS `ospos_sales_items_taxes` (
   `sale_id` int(10) NOT NULL,
   `item_id` int(10) NOT NULL,
   `line` int(3) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `percent` double(15,3) NOT NULL,
-  PRIMARY KEY (`sale_id`,`item_id`,`line`,`name`,`percent`),
-  KEY `item_id` (`item_id`)
+  PRIMARY KEY (`sale_id`,`item_id`,`line`,`name`,`percent`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_sales_items_taxes`
+-- Volcado de datos para la tabla `ospos_sales_items_taxes`
 --
 
 INSERT INTO `ospos_sales_items_taxes` (`sale_id`, `item_id`, `line`, `name`, `percent`) VALUES
@@ -2125,39 +2124,11 @@ INSERT INTO `ospos_sales_items_taxes` (`sale_id`, `item_id`, `line`, `name`, `pe
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `ospos_sales_items_temp`
---
-DROP VIEW IF EXISTS `ospos_sales_items_temp`;
-CREATE TABLE `ospos_sales_items_temp` (
-`sale_date` date
-,`sale_id` int(10)
-,`comment` text
-,`payment_type` varchar(512)
-,`customer_id` int(10)
-,`employee_id` int(10)
-,`item_id` int(10)
-,`supplier_id` int(11)
-,`quantity_purchased` double(15,2)
-,`item_cost_price` decimal(15,2)
-,`item_unit_price` double(15,2)
-,`item_tax_percent` double(20,3)
-,`discount_percent` int(11)
-,`subtotal` double(23,6)
-,`line` int(3)
-,`serialnumber` varchar(30)
-,`description` varchar(30)
-,`total` double(19,2)
-,`tax` double(19,2)
-,`profit` double(23,6)
-);
--- --------------------------------------------------------
-
---
--- Table structure for table `ospos_sales_payments`
+-- Estructura de tabla para la tabla `ospos_sales_payments`
 --
 
 DROP TABLE IF EXISTS `ospos_sales_payments`;
-CREATE TABLE `ospos_sales_payments` (
+CREATE TABLE IF NOT EXISTS `ospos_sales_payments` (
   `sale_id` int(10) NOT NULL,
   `payment_type` varchar(40) NOT NULL,
   `payment_amount` decimal(15,2) NOT NULL,
@@ -2165,86 +2136,86 @@ CREATE TABLE `ospos_sales_payments` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_sales_payments`
+-- Volcado de datos para la tabla `ospos_sales_payments`
 --
 
 INSERT INTO `ospos_sales_payments` (`sale_id`, `payment_type`, `payment_amount`) VALUES
-(1, 'Cash', 25.00),
-(2, 'Cash', 448.00),
-(3, 'Cash', 50.00),
-(4, 'Cash', 765.80),
-(5, 'Cash', 400.00),
-(6, 'Cash', 448.00),
-(7, 'Cash', 433.46),
-(8, 'Check', 1000.00),
-(8, 'Debit Card', 2330.98),
-(8, 'Cash', 1550.00),
-(9, 'Cash', 48.15),
-(10, 'Cash', 399.87),
-(11, 'Cash', 48.15),
-(12, 'Cash', 242.74),
-(13, 'Credit Card', -830.00),
-(13, 'Cash', 920.00),
-(14, 'Cash', 160.50),
-(15, 'Check', 88.81),
-(16, 'Credit Card', 0.00),
-(16, 'Cash', 70.00),
-(17, 'Cash', 48.15),
-(18, 'Gift Card:001', 399.87),
-(19, 'Gift Card:90', 1685.25),
-(20, 'Cash', 37.45),
-(21, 'Cash', 26.75),
-(22, 'Credit Card', 727.60),
-(23, 'Cash', 90.95),
-(24, 'Cash', 56.50),
-(25, 'Credit Card', 100.00),
-(25, 'Cash', -57.20),
-(26, 'Gift Card:140783', 214.00),
-(27, 'Cash', 399.87),
-(28, 'Cash', 75.31),
-(29, 'Cash', 242.74),
-(30, 'Cash', 2163.00),
-(31, 'Cash', 990.00),
-(32, 'Cash', 399.87),
-(33, 'Cash', 40.10),
-(34, 'Cash', 85.55),
-(35, 'Cash', 399.87),
-(36, 'Cash', 437.00),
-(37, 'Cash', 437.00),
-(38, 'Cash', 437.00),
-(39, 'Cash', 642.00),
-(40, 'Cash', 642.00),
-(41, 'Cash', 642.00),
-(42, 'Cash', 100.00),
-(43, 'Cash', 86.69),
-(44, 'Cash', 494.69),
-(45, 'Cash', 682.70),
-(46, 'Cash', 40.10),
-(47, 'Cash', 1000.00),
-(47, 'Check', 388.00),
-(47, 'Debit Card', 300.00),
-(47, 'Credit Card', 250.00),
-(48, 'Cash', 242.74),
-(49, 'Cash', 500.65),
-(50, 'Cash', 48.15),
-(51, 'Cash', 1000.57),
-(51, 'Debit Card', 500.00),
-(51, 'Credit Card', 450.00),
-(52, 'Cash', 162.56);
+(1, 'Cash', '25.00'),
+(2, 'Cash', '448.00'),
+(3, 'Cash', '50.00'),
+(4, 'Cash', '765.80'),
+(5, 'Cash', '400.00'),
+(6, 'Cash', '448.00'),
+(7, 'Cash', '433.46'),
+(8, 'Check', '1000.00'),
+(8, 'Debit Card', '2330.98'),
+(8, 'Cash', '1550.00'),
+(9, 'Cash', '48.15'),
+(10, 'Cash', '399.87'),
+(11, 'Cash', '48.15'),
+(12, 'Cash', '242.74'),
+(13, 'Credit Card', '-830.00'),
+(13, 'Cash', '920.00'),
+(14, 'Cash', '160.50'),
+(15, 'Check', '88.81'),
+(16, 'Credit Card', '0.00'),
+(16, 'Cash', '70.00'),
+(17, 'Cash', '48.15'),
+(18, 'Gift Card:001', '399.87'),
+(19, 'Gift Card:90', '1685.25'),
+(20, 'Cash', '37.45'),
+(21, 'Cash', '26.75'),
+(22, 'Credit Card', '727.60'),
+(23, 'Cash', '90.95'),
+(24, 'Cash', '56.50'),
+(25, 'Credit Card', '100.00'),
+(25, 'Cash', '-57.20'),
+(26, 'Gift Card:140783', '214.00'),
+(27, 'Cash', '399.87'),
+(28, 'Cash', '75.31'),
+(29, 'Cash', '242.74'),
+(30, 'Cash', '2163.00'),
+(31, 'Cash', '990.00'),
+(32, 'Cash', '399.87'),
+(33, 'Cash', '40.10'),
+(34, 'Cash', '85.55'),
+(35, 'Cash', '399.87'),
+(36, 'Cash', '437.00'),
+(37, 'Cash', '437.00'),
+(38, 'Cash', '437.00'),
+(39, 'Cash', '642.00'),
+(40, 'Cash', '642.00'),
+(41, 'Cash', '642.00'),
+(42, 'Cash', '100.00'),
+(43, 'Cash', '86.69'),
+(44, 'Cash', '494.69'),
+(45, 'Cash', '682.70'),
+(46, 'Cash', '40.10'),
+(47, 'Cash', '1000.00'),
+(47, 'Check', '388.00'),
+(47, 'Debit Card', '300.00'),
+(47, 'Credit Card', '250.00'),
+(48, 'Cash', '242.74'),
+(49, 'Cash', '500.65'),
+(50, 'Cash', '48.15'),
+(51, 'Cash', '1000.57'),
+(51, 'Debit Card', '500.00'),
+(51, 'Credit Card', '450.00'),
+(52, 'Cash', '162.56');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_sales_suspended`
+-- Estructura de tabla para la tabla `ospos_sales_suspended`
 --
 
 DROP TABLE IF EXISTS `ospos_sales_suspended`;
-CREATE TABLE `ospos_sales_suspended` (
+CREATE TABLE IF NOT EXISTS `ospos_sales_suspended` (
+  `sale_id` int(10) NOT NULL AUTO_INCREMENT,
   `sale_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `customer_id` int(10) DEFAULT NULL,
   `employee_id` int(10) NOT NULL DEFAULT '0',
   `comment` text NOT NULL,
-  `sale_id` int(10) NOT NULL AUTO_INCREMENT,
   `payment_type` varchar(512) DEFAULT NULL,
   PRIMARY KEY (`sale_id`),
   KEY `customer_id` (`customer_id`),
@@ -2254,49 +2225,47 @@ CREATE TABLE `ospos_sales_suspended` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_sales_suspended_items`
+-- Estructura de tabla para la tabla `ospos_sales_suspended_items`
 --
 
 DROP TABLE IF EXISTS `ospos_sales_suspended_items`;
-CREATE TABLE `ospos_sales_suspended_items` (
+CREATE TABLE IF NOT EXISTS `ospos_sales_suspended_items` (
   `sale_id` int(10) NOT NULL DEFAULT '0',
   `item_id` int(10) NOT NULL DEFAULT '0',
+  `line` int(3) NOT NULL DEFAULT '0',
   `description` varchar(30) DEFAULT NULL,
   `serialnumber` varchar(30) DEFAULT NULL,
-  `line` int(3) NOT NULL DEFAULT '0',
   `quantity_purchased` double(15,2) NOT NULL DEFAULT '0.00',
   `item_cost_price` decimal(15,2) NOT NULL,
   `item_unit_price` double(15,2) NOT NULL,
   `discount_percent` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`sale_id`,`item_id`,`line`),
-  KEY `item_id` (`item_id`)
+  PRIMARY KEY (`sale_id`,`item_id`,`line`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_sales_suspended_items_taxes`
+-- Estructura de tabla para la tabla `ospos_sales_suspended_items_taxes`
 --
 
 DROP TABLE IF EXISTS `ospos_sales_suspended_items_taxes`;
-CREATE TABLE `ospos_sales_suspended_items_taxes` (
+CREATE TABLE IF NOT EXISTS `ospos_sales_suspended_items_taxes` (
   `sale_id` int(10) NOT NULL,
   `item_id` int(10) NOT NULL,
   `line` int(3) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `percent` double(15,3) NOT NULL,
-  PRIMARY KEY (`sale_id`,`item_id`,`line`,`name`,`percent`),
-  KEY `item_id` (`item_id`)
+  PRIMARY KEY (`sale_id`,`item_id`,`line`,`name`,`percent`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_sales_suspended_payments`
+-- Estructura de tabla para la tabla `ospos_sales_suspended_payments`
 --
 
 DROP TABLE IF EXISTS `ospos_sales_suspended_payments`;
-CREATE TABLE `ospos_sales_suspended_payments` (
+CREATE TABLE IF NOT EXISTS `ospos_sales_suspended_payments` (
   `sale_id` int(10) NOT NULL,
   `payment_type` varchar(40) NOT NULL,
   `payment_amount` decimal(15,2) NOT NULL,
@@ -2306,11 +2275,11 @@ CREATE TABLE `ospos_sales_suspended_payments` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_schedules`
+-- Estructura de tabla para la tabla `ospos_schedules`
 --
 
 DROP TABLE IF EXISTS `ospos_schedules`;
-CREATE TABLE `ospos_schedules` (
+CREATE TABLE IF NOT EXISTS `ospos_schedules` (
   `schedule_id` int(11) NOT NULL AUTO_INCREMENT,
   `day` varchar(11) NOT NULL,
   `in` time NOT NULL,
@@ -2320,7 +2289,7 @@ CREATE TABLE `ospos_schedules` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=368 ;
 
 --
--- Dumping data for table `ospos_schedules`
+-- Volcado de datos para la tabla `ospos_schedules`
 --
 
 INSERT INTO `ospos_schedules` (`schedule_id`, `day`, `in`, `out`, `person_id`) VALUES
@@ -2388,11 +2357,11 @@ INSERT INTO `ospos_schedules` (`schedule_id`, `day`, `in`, `out`, `person_id`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_service_log`
+-- Estructura de tabla para la tabla `ospos_service_log`
 --
 
 DROP TABLE IF EXISTS `ospos_service_log`;
-CREATE TABLE `ospos_service_log` (
+CREATE TABLE IF NOT EXISTS `ospos_service_log` (
   `service_id` int(11) NOT NULL,
   `person_id` int(11) NOT NULL,
   `phone_imei` varchar(18) DEFAULT NULL,
@@ -2406,7 +2375,7 @@ CREATE TABLE `ospos_service_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_service_log`
+-- Volcado de datos para la tabla `ospos_service_log`
 --
 
 INSERT INTO `ospos_service_log` (`service_id`, `person_id`, `phone_imei`, `model_id`, `date_received`, `date_delivered`, `comments`, `status`, `deleted`) VALUES
@@ -2415,11 +2384,11 @@ INSERT INTO `ospos_service_log` (`service_id`, `person_id`, `phone_imei`, `model
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_sessions`
+-- Estructura de tabla para la tabla `ospos_sessions`
 --
 
 DROP TABLE IF EXISTS `ospos_sessions`;
-CREATE TABLE `ospos_sessions` (
+CREATE TABLE IF NOT EXISTS `ospos_sessions` (
   `session_id` varchar(40) NOT NULL DEFAULT '0',
   `ip_address` varchar(16) NOT NULL DEFAULT '0',
   `user_agent` varchar(120) NOT NULL,
@@ -2429,7 +2398,7 @@ CREATE TABLE `ospos_sessions` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_sessions`
+-- Volcado de datos para la tabla `ospos_sessions`
 --
 
 INSERT INTO `ospos_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
@@ -2439,21 +2408,21 @@ INSERT INTO `ospos_sessions` (`session_id`, `ip_address`, `user_agent`, `last_ac
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_suppliers`
+-- Estructura de tabla para la tabla `ospos_suppliers`
 --
 
 DROP TABLE IF EXISTS `ospos_suppliers`;
-CREATE TABLE `ospos_suppliers` (
+CREATE TABLE IF NOT EXISTS `ospos_suppliers` (
   `person_id` int(10) NOT NULL,
   `company_name` varchar(255) NOT NULL,
   `account_number` varchar(255) DEFAULT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
-  UNIQUE KEY `account_number` (`account_number`),
-  KEY `person_id` (`person_id`)
+  PRIMARY KEY (`person_id`),
+  UNIQUE KEY `account_number` (`account_number`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `ospos_suppliers`
+-- Volcado de datos para la tabla `ospos_suppliers`
 --
 
 INSERT INTO `ospos_suppliers` (`person_id`, `company_name`, `account_number`, `deleted`) VALUES
@@ -2462,17 +2431,16 @@ INSERT INTO `ospos_suppliers` (`person_id`, `company_name`, `account_number`, `d
 (92, 'Ramon & Supplies', NULL, 0),
 (44, 'RasMen', NULL, 0),
 (49, 'Websarrollo, C.A', NULL, 0),
-(51, 'dragon de drogas', 'aksjdlkasjdlkasldlkasdlkasdlkjalsdjljaslkdjasdjlaksdjklajsdlkasdasdmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 0),
 (56, 'Repuestos CA', 'rca', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_transfers`
+-- Estructura de tabla para la tabla `ospos_transfers`
 --
 
 DROP TABLE IF EXISTS `ospos_transfers`;
-CREATE TABLE `ospos_transfers` (
+CREATE TABLE IF NOT EXISTS `ospos_transfers` (
   `transfer_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `sender` varchar(20) NOT NULL,
   `receiver` varchar(20) NOT NULL,
@@ -2484,7 +2452,7 @@ CREATE TABLE `ospos_transfers` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
--- Dumping data for table `ospos_transfers`
+-- Volcado de datos para la tabla `ospos_transfers`
 --
 
 INSERT INTO `ospos_transfers` (`transfer_id`, `sender`, `receiver`, `date`, `status`, `comment`, `payment_type`) VALUES
@@ -2505,11 +2473,11 @@ INSERT INTO `ospos_transfers` (`transfer_id`, `sender`, `receiver`, `date`, `sta
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ospos_transfer_items`
+-- Estructura de tabla para la tabla `ospos_transfer_items`
 --
 
 DROP TABLE IF EXISTS `ospos_transfer_items`;
-CREATE TABLE `ospos_transfer_items` (
+CREATE TABLE IF NOT EXISTS `ospos_transfer_items` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `transfer_id` int(11) NOT NULL,
   `item_id` int(10) NOT NULL,
@@ -2524,69 +2492,84 @@ CREATE TABLE `ospos_transfer_items` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
 
 --
--- Dumping data for table `ospos_transfer_items`
+-- Volcado de datos para la tabla `ospos_transfer_items`
 --
 
 INSERT INTO `ospos_transfer_items` (`id`, `transfer_id`, `item_id`, `quantity_purchased`, `description`, `serialnumber`, `line`, `item_cost_price`, `item_unit_price`, `discount_percent`) VALUES
-(1, 1, 20, 17, NULL, NULL, 0, 0.00, 0.00, 0),
-(2, 1, 71, 4, NULL, NULL, 0, 0.00, 0.00, 0),
-(3, 1, 99, 22, NULL, NULL, 0, 0.00, 0.00, 0),
-(4, 1, 100, 7, NULL, NULL, 0, 0.00, 0.00, 0),
-(5, 1, 101, 12, NULL, NULL, 0, 0.00, 0.00, 0),
-(6, 1, 102, 23, NULL, NULL, 0, 0.00, 0.00, 0),
-(7, 1, 103, 78, NULL, NULL, 0, 0.00, 0.00, 0),
-(8, 2, 62, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(9, 2, 99, 20, NULL, NULL, 0, 0.00, 0.00, 0),
-(10, 3, 84, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(11, 3, 104, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(12, 4, 1, 20, NULL, NULL, 0, 0.00, 0.00, 0),
-(13, 4, 20, 5, NULL, NULL, 0, 0.00, 0.00, 0),
-(14, 4, 82, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(15, 5, 108, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(16, 6, 104, 2, NULL, NULL, 0, 0.00, 0.00, 0),
-(17, 6, 105, 4, NULL, NULL, 0, 0.00, 0.00, 0),
-(18, 6, 106, 6, NULL, NULL, 0, 0.00, 0.00, 0),
-(19, 7, 104, 8, NULL, NULL, 0, 0.00, 0.00, 0),
-(20, 8, 43, 6, NULL, NULL, 0, 0.00, 0.00, 0),
-(21, 9, 4, 4, NULL, NULL, 0, 0.00, 0.00, 0),
-(22, 9, 43, 4, NULL, NULL, 0, 0.00, 0.00, 0),
-(23, 9, 55, 10, NULL, NULL, 0, 0.00, 0.00, 0),
-(24, 9, 58, 5, NULL, NULL, 0, 0.00, 0.00, 0),
-(25, 9, 68, 8, NULL, NULL, 0, 0.00, 0.00, 0),
-(26, 10, 108, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(27, 10, 111, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(28, 10, 112, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(29, 11, 109, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(30, 11, 110, 7, NULL, NULL, 0, 0.00, 0.00, 0),
-(31, 12, 2, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(32, 12, 50, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(33, 13, 2, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(34, 13, 13, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(35, 13, 43, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(36, 13, 46, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(37, 13, 63, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(38, 13, 82, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(39, 13, 97, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(40, 13, 106, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(41, 13, 109, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(42, 13, 132, 1, NULL, NULL, 0, 0.00, 0.00, 0),
-(43, 13, 133, 1, NULL, NULL, 0, 0.00, 0.00, 0);
+(1, 1, 20, 17, NULL, NULL, 0, '0.00', 0.00, 0),
+(2, 1, 71, 4, NULL, NULL, 0, '0.00', 0.00, 0),
+(3, 1, 99, 22, NULL, NULL, 0, '0.00', 0.00, 0),
+(4, 1, 100, 7, NULL, NULL, 0, '0.00', 0.00, 0),
+(5, 1, 101, 12, NULL, NULL, 0, '0.00', 0.00, 0),
+(6, 1, 102, 23, NULL, NULL, 0, '0.00', 0.00, 0),
+(7, 1, 103, 78, NULL, NULL, 0, '0.00', 0.00, 0),
+(8, 2, 62, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(9, 2, 99, 20, NULL, NULL, 0, '0.00', 0.00, 0),
+(10, 3, 84, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(11, 3, 104, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(12, 4, 1, 20, NULL, NULL, 0, '0.00', 0.00, 0),
+(13, 4, 20, 5, NULL, NULL, 0, '0.00', 0.00, 0),
+(14, 4, 82, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(15, 5, 108, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(16, 6, 104, 2, NULL, NULL, 0, '0.00', 0.00, 0),
+(17, 6, 105, 4, NULL, NULL, 0, '0.00', 0.00, 0),
+(18, 6, 106, 6, NULL, NULL, 0, '0.00', 0.00, 0),
+(19, 7, 104, 8, NULL, NULL, 0, '0.00', 0.00, 0),
+(20, 8, 43, 6, NULL, NULL, 0, '0.00', 0.00, 0),
+(21, 9, 4, 4, NULL, NULL, 0, '0.00', 0.00, 0),
+(22, 9, 43, 4, NULL, NULL, 0, '0.00', 0.00, 0),
+(23, 9, 55, 10, NULL, NULL, 0, '0.00', 0.00, 0),
+(24, 9, 58, 5, NULL, NULL, 0, '0.00', 0.00, 0),
+(25, 9, 68, 8, NULL, NULL, 0, '0.00', 0.00, 0),
+(26, 10, 108, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(27, 10, 111, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(28, 10, 112, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(29, 11, 109, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(30, 11, 110, 7, NULL, NULL, 0, '0.00', 0.00, 0),
+(31, 12, 2, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(32, 12, 50, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(33, 13, 2, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(34, 13, 13, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(35, 13, 43, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(36, 13, 46, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(37, 13, 63, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(38, 13, 82, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(39, 13, 97, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(40, 13, 106, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(41, 13, 109, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(42, 13, 132, 1, NULL, NULL, 0, '0.00', 0.00, 0),
+(43, 13, 133, 1, NULL, NULL, 0, '0.00', 0.00, 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `ospos_sales_items_temp`
+-- Estructura para la vista `ospos_ci_users`
+--
+DROP TABLE IF EXISTS `ospos_ci_users`;
+DROP VIEW IF EXISTS `ospos_ci_users`;
+
+CREATE VIEW `ospos_ci_users` AS select `ospos_employees`.`person_id` AS `user_id`,`ospos_employees`.`username` AS `user_name`,NULL AS `user_email`,`ospos_employees`.`password` AS `user_password`,NULL AS `registered_date`,1 AS `status`,1 AS `online` from `ospos_employees`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `ospos_sales_items_temp`
 --
 DROP TABLE IF EXISTS `ospos_sales_items_temp`;
+DROP VIEW IF EXISTS `ospos_sales_items_temp`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ospos_sales_items_temp` AS (select cast(`ospos_sales`.`sale_time` as date) AS `sale_date`,`ospos_sales_items`.`sale_id` AS `sale_id`,`ospos_sales`.`comment` AS `comment`,`ospos_sales`.`payment_type` AS `payment_type`,`ospos_sales`.`customer_id` AS `customer_id`,`ospos_sales`.`employee_id` AS `employee_id`,`ospos_items`.`item_id` AS `item_id`,`ospos_items`.`supplier_id` AS `supplier_id`,`ospos_sales_items`.`quantity_purchased` AS `quantity_purchased`,`ospos_sales_items`.`item_cost_price` AS `item_cost_price`,`ospos_sales_items`.`item_unit_price` AS `item_unit_price`,sum(`ospos_sales_items_taxes`.`percent`) AS `item_tax_percent`,`ospos_sales_items`.`discount_percent` AS `discount_percent`,((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) AS `subtotal`,`ospos_sales_items`.`line` AS `line`,`ospos_sales_items`.`serialnumber` AS `serialnumber`,`ospos_sales_items`.`description` AS `description`,round((((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) * (1 + (sum(`ospos_sales_items_taxes`.`percent`) / 100))),2) AS `total`,round((((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) * (sum(`ospos_sales_items_taxes`.`percent`) / 100)),2) AS `tax`,(((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) - (`ospos_sales_items`.`item_cost_price` * `ospos_sales_items`.`quantity_purchased`)) AS `profit` from ((((`ospos_sales_items` join `ospos_sales` on((`ospos_sales_items`.`sale_id` = `ospos_sales`.`sale_id`))) join `ospos_items` on((`ospos_sales_items`.`item_id` = `ospos_items`.`item_id`))) left join `ospos_suppliers` on((`ospos_items`.`supplier_id` = `ospos_suppliers`.`person_id`))) left join `ospos_sales_items_taxes` on(((`ospos_sales_items`.`sale_id` = `ospos_sales_items_taxes`.`sale_id`) and (`ospos_sales_items`.`item_id` = `ospos_sales_items_taxes`.`item_id`) and (`ospos_sales_items`.`line` = `ospos_sales_items_taxes`.`line`)))) group by `ospos_sales_items`.`sale_id`,`ospos_items`.`item_id`,`ospos_sales_items`.`line`);
-
---
--- Constraints for dumped tables
---
+CREATE VIEW `ospos_sales_items_temp` AS (select cast(`ospos_sales`.`sale_time` as date) AS `sale_date`,`ospos_sales_items`.`sale_id` AS `sale_id`,`ospos_sales`.`comment` AS `comment`,`ospos_sales`.`payment_type` AS `payment_type`,`ospos_sales`.`customer_id` AS `customer_id`,`ospos_sales`.`employee_id` AS `employee_id`,`ospos_items`.`item_id` AS `item_id`,`ospos_items`.`supplier_id` AS `supplier_id`,`ospos_sales_items`.`quantity_purchased` AS `quantity_purchased`,`ospos_sales_items`.`item_cost_price` AS `item_cost_price`,`ospos_sales_items`.`item_unit_price` AS `item_unit_price`,sum(`ospos_sales_items_taxes`.`percent`) AS `item_tax_percent`,`ospos_sales_items`.`discount_percent` AS `discount_percent`,((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) AS `subtotal`,`ospos_sales_items`.`line` AS `line`,`ospos_sales_items`.`serialnumber` AS `serialnumber`,`ospos_sales_items`.`description` AS `description`,round((((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) * (1 + (sum(`ospos_sales_items_taxes`.`percent`) / 100))),2) AS `total`,round((((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) * (sum(`ospos_sales_items_taxes`.`percent`) / 100)),2) AS `tax`,(((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) - (((`ospos_sales_items`.`item_unit_price` * `ospos_sales_items`.`quantity_purchased`) * `ospos_sales_items`.`discount_percent`) / 100)) - (`ospos_sales_items`.`item_cost_price` * `ospos_sales_items`.`quantity_purchased`)) AS `profit` from ((((`ospos_sales_items` join `ospos_sales` on((`ospos_sales_items`.`sale_id` = `ospos_sales`.`sale_id`))) join `ospos_items` on((`ospos_sales_items`.`item_id` = `ospos_items`.`item_id`))) left join `ospos_suppliers` on((`ospos_items`.`supplier_id` = `ospos_suppliers`.`person_id`))) left join `ospos_sales_items_taxes` on(((`ospos_sales_items`.`sale_id` = `ospos_sales_items_taxes`.`sale_id`) and (`ospos_sales_items`.`item_id` = `ospos_sales_items_taxes`.`item_id`) and (`ospos_sales_items`.`line` = `ospos_sales_items_taxes`.`line`)))) group by `ospos_sales_items`.`sale_id`,`ospos_items`.`item_id`,`ospos_sales_items`.`line`);
 
 --
--- Constraints for table `ospos_model`
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `ospos_model`
 --
 ALTER TABLE `ospos_model`
   ADD CONSTRAINT `modelphone_brand` FOREIGN KEY (`brand_id`) REFERENCES `ospos_brand` (`brand_id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -26,8 +26,6 @@ if(window.chatStarted) return;
 if(window.matchMedia('screen').matches) chat_ajax(chatcontrol+'islogged',chat_init);
 
 function chat_init(data){
-	showChat(data.online);
-	window.chatStarted=true;
 	jQ('body').append(
 		'<div id="chat">'+
 			'<div id="chatmsgs"></div>'+
@@ -41,6 +39,8 @@ function chat_init(data){
 			'</div>'+
 		'</div>'
 	);
+	showChat(data.online);
+	window.chatStarted=true;
 	jQ('#chatMainContainer').show();
 	startChatSession();
 	jQ('body>#chat').on('click','.listUserChat',function(){

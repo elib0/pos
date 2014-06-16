@@ -10,7 +10,7 @@
 				<?php echo form_input(array(
 					'name'=>'name',
 					'id'=>'name',
-					'value'=>$service_info->first_name.' '.$service_info->last_name,
+					'value'=>$service_info->first_name?$service_info->first_name.' '.$service_info->last_name:'',
 					'class'=>'text_box'
 				));?>
 				</div>
@@ -101,7 +101,7 @@
 //validation and submit handling
 $(function(){
 	var pass=true,brand="";
-	$("#model").autocomplete("<?php echo site_url('services/suggest_models/');?>"+brand,{max:100,minChars:0,delay:10})
+	$("#model").autocomplete("<?php echo site_url('services/suggest_models/');?>",{max:100,minChars:0,delay:10})
 				.result(function(event,data,formatted){}).search();
 	$("#brand").autocomplete("<?php echo site_url('services/suggest_brand');?>",{max:100,minChars:0,delay:10})
 				.result(function(event,data,formatted){}).search();
@@ -114,7 +114,6 @@ $(function(){
 			$('#item_number').val($('#scan_item_number').val());
 			$(form).ajaxSubmit({
 				success:function(response){ 
-					console.log(response);
 					tb_remove();
 					post_item_form_submit(response);
 				},

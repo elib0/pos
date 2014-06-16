@@ -39,21 +39,33 @@ class Service extends CI_Model {
 		if ($query->num_rows() == 1) { return $query->row()->brand_id; }
 		return false;
 	}
+	public function exists_person($person_id){
+		$this->con->from('customers');
+		$this->con->join('people','people.person_id=customers.person_id');
+		$this->con->where('CONCAT(first_name," ",last_name)=', $person_id);
+		$this->con->limit(1);
+		$query = $this->con->get();
+		if ($query->num_rows() == 1) { return $query->row()->person_id; }
+		return false;
+	}
 
 	public function save($service_data, $service_id = 0){
-		if (!$this->exists_brand($service_data['brand_id'])) 
-			$service_data['brand_id']=$this->save_brand($service_data['brand_id']);	
-		if (!$this->exists_model($service_data['model_id'],$service_data['brand_id'])) 
-			$service_data['model_id']=$this->save_brand($service_data['model_id'],$service_data['brand_id']);
-			unset($service_data['brand_id']);		
-		if (!$this->exists($brand_id) ) {
+		$brand_id=$this->exists_brand($service_data['brand_id']);
+		if (!$brand_id) 
+			$brand_id=$this->save_brand(array('brand_name'=>$service_data['brand_id']));	
+		$model_id=$this->exists_model($service_data['model_id'],$brand_id);
+		if (!$model_id) 
+			$model_id=$this->save_model(array('model_name'=>$service_data['model_id'],'brand_id'=>$brand_id));
+		unset($service_data['brand_id']);		
+		$service_data['model_id']=$model_id;
+		if (!$this->exists($service_id) ) {
 			$this->con->insert('service_log', $service_data);
 			return $this->con->insert_id();
+			// return $this->con->last_query();
 		}else{
 			$this->con->where('service_id', $service_id);
 			return $this->con->update('service_log', $service_data);
 		}
-
 		return false;
 	}
 	public function save_brand($brand_data){
@@ -126,7 +138,7 @@ class Service extends CI_Model {
 		$this->con->from('model');
 		$this->con->distinct();
 		$this->con->like('model_name', $search);
-		$this->con->where('brand_id', $brand);
+		if ($brand!=='') $this->con->where('brand_id', $brand);
 		$this->con->order_by("model_id","asc");
 		$by_model = $this->con->get();
 		foreach($by_model->result() as $row){ $suggestions[]=$row->model_name; }
@@ -149,10 +161,11 @@ class Service extends CI_Model {
 		$this->con->join('people','people.person_id=customers.person_id');
 		$this->con->distinct();
 		$this->con->like('first_name', $search);
-		$this->con->like('last_name', $search);
+		$this->con->or_like('last_name', $search);
 		$this->con->order_by("first_name","asc");
 		$by_model = $this->con->get();
 		foreach($by_model->result() as $row){ $suggestions[]=$row->first_name.' '.$row->last_name; }
+		// return $this->con->last_query();
 		return $suggestions;
 	}
 

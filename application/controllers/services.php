@@ -101,35 +101,40 @@ class Services extends Secure_area
 	} //------------------------------------------- Ramel
 
 	function save($service_id=-1){
-		$service_data = array(
-		'person_id'=>$this->input->post('name'),
-		'phone_imei'=>$this->input->post('description'),
-		'codeimei'=>$this->input->post('category'),
-		'brand_id'=>$this->input->post('brand'),
-		'model_id'=>$this->input->post('model'),
-		'status'=>$this->input->post('status')
-		);
-		// $cur_service_info = $this->Service->get_info($service_id);
-		if($this->Service->save($service_data,$service_id)){
-			//New service
-			if($service_id==-1){
-				echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_adding').' '.$service_data['name'],'service_id'=>$service_data['service_id'],'pictures'=>$dat));
-				// $service_id = $service_data['service_id'];
-			}else{ //previous service
-				echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_updating').' '.$service_data['name'],'service_id'=>$id,'pictures'=>$dat));
+		$person_id=$this->Service->exists_person($this->input->post('name'));
+		if (!$person_id){
+			echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_person'),'service_id'=>-1));
+		}else{
+			$service_data = array(
+			'person_id'=>$person_id,
+			'phone_imei'=>$this->input->post('codeimei'),
+			'comments'=>$this->input->post('comments'),
+			'brand_id'=>$this->input->post('brand'),
+			'model_id'=>$this->input->post('model'),
+			'status'=>$this->input->post('status')
+			);
+			// $cur_service_info = $this->Service->get_info($service_id);
+			$service=$this->Service->save($service_data,$service_id);
+			if($service){
+				//New service
+				if($service_id==-1){
+					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_adding'),'service_id'=>$service));
+					// $service_id = $service_data['service_id'];
+				}else{ //previous service
+					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_updating'),'service_id'=>$id));
+				}
+			}else{ //failure
+				echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_updating').' '.$service_data['person_id'],'service_id'=>-1));
 			}
-		}else{ //failure
-			echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_updating').' '.$service_data['name'],'service_id'=>-1));
 		}
-
 	}
 	function suggest_models($brand=''){
-		$brand=$this->Service->exists_brand($brand);
-		if (!$brand || $brand==='') echo implode("\n",array());
-		else{ 
+		// $brand=$this->Service->exists_brand($brand);
+		// if (!$brand || $brand==='') echo implode("\n",array());
+		// else{ 
 			$suggestions = $this->Service->suggest_model($this->input->post('q'),$brand);
 			echo implode("\n",$suggestions);
-		}
+		// }
 	}
 	function suggest_brand($module=''){
 		$suggestions = $this->Service->suggest_brand($this->input->post('q'));
@@ -138,6 +143,7 @@ class Services extends Secure_area
 	}
 	function suggest_owner($module=''){
 		$suggestions = $this->Service->suggest_owner($this->input->post('q'));
+		// echo $suggestions;
 		echo implode("\n",$suggestions);
 	}
 	/*

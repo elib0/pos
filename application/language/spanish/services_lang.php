@@ -14,6 +14,15 @@ $lang['services_status']='Status';
 $lang['services_no_services_to_display']='No hay servicios para listar';
 $lang['services_new']='Agregar Seguimiento';
 $lang['services_information']='Información del servicio';
+$lang['services_error_adding_person']='Disculpe, esta persona no es un cliente ';
+$lang['services_successful_adding']='Servicio registrado satisfactoriamente';
+$lang['services_error_adding_updating']='Servicio modificado satisfactoriamente';
 
+//estatus
+$lang['services_status_1']='Open';
+$lang['services_status_2']='In process';
+$lang['services_status_3']='Completed';
+$lang['services_status_4']='Canceled';
+$lang['services_status_100']='Billed';
 
 ?>

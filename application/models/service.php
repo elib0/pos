@@ -23,27 +23,30 @@ class Service extends CI_Model {
 		return false;
 	}
 
-	public function exists_model($model_id){
+	public function exists_model($model_id,$brand_id){
 		$this->con->from('model');
-		$this->con->where('model_id', $model_id);
+		$this->con->where(array('model_name'=>$model_id,'brand_id'=>$brand_id));
 		$this->con->limit(1);
 		$query = $this->con->get();
-		if ($query->num_rows() == 1) { return true; }
+		if ($query->num_rows() == 1) { return $query->row()->model_id; }
 		return false;
 	}
 	public function exists_brand($brand_id){
 		$this->con->from('brand');
-		$this->con->where('brand_id', $brand_id);
+		$this->con->where('brand_name', $brand_id);
 		$this->con->limit(1);
 		$query = $this->con->get();
-		if ($query->num_rows() == 1) { return true; }
+		if ($query->num_rows() == 1) { return $query->row()->brand_id; }
 		return false;
 	}
 
 	public function save($service_data, $service_id = 0){
-		
+		if (!$this->exists_brand($service_data['brand_id'])) 
+			$service_data['brand_id']=$this->save_brand($service_data['brand_id']);	
+		if (!$this->exists_model($service_data['model_id'],$service_data['brand_id'])) 
+			$service_data['model_id']=$this->save_brand($service_data['model_id'],$service_data['brand_id']);
+			unset($service_data['brand_id']);		
 		if (!$this->exists($brand_id) ) {
-			
 			$this->con->insert('service_log', $service_data);
 			return $this->con->insert_id();
 		}else{
@@ -90,7 +93,7 @@ class Service extends CI_Model {
 		if ($query->num_rows() == 1) {
 			return $query->row();
 		}else{
-			return (Object) array('service_id'=>-1,'first_name'=>'','last_name'=>'', 'phone_imei'=>'','model_name'=>'','comments'=>'');
+			return (Object) array('service_id'=>-1,'first_name'=>'','last_name'=>'', 'phone_imei'=>'','brand_name'=>'','status'=>'','model_name'=>'','comments'=>'');
 		}
 	}
 
@@ -102,6 +105,40 @@ class Service extends CI_Model {
 		$this->con->join('model', 'service_log.model_id = model.model_id');
 		$this->con->where("CONCAT(service_log.phone_imei, ' ', people.first_name, ' ',people.last_name, ' ',  model.model_name) LIKE '%$search%'");
 		return $this->con->get();
+	}
+	public function suggest_model($search='',$brand=''){
+		$suggestions = array();
+		$this->con->from('model');
+		$this->con->distinct();
+		$this->con->like('model_name', $search);
+		$this->con->where('brand_id', $brand);
+		$this->con->order_by("model_id","asc");
+		$by_model = $this->con->get();
+		foreach($by_model->result() as $row){ $suggestions[]=$row->model_name; }
+		return $suggestions;
+	}
+	public function suggest_brand($search=''){
+		$suggestions = array();
+		$this->con->from('brand');
+		$this->con->distinct();
+		$this->con->like('brand_name', $search);
+		$this->con->order_by("brand_id","asc");
+		$by_model = $this->con->get();
+		foreach($by_model->result() as $row){ $suggestions[]=$row->brand_name; }
+		// return $this->con->last_query();
+		return $suggestions;
+	}
+	public function suggest_owner($search=''){
+		$suggestions = array();
+		$this->con->from('customers');
+		$this->con->join('people','people.person_id=customers.person_id');
+		$this->con->distinct();
+		$this->con->like('first_name', $search);
+		$this->con->like('last_name', $search);
+		$this->con->order_by("first_name","asc");
+		$by_model = $this->con->get();
+		foreach($by_model->result() as $row){ $suggestions[]=$row->first_name.' '.$row->last_name; }
+		return $suggestions;
 	}
 
 }

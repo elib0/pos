@@ -109,10 +109,7 @@ class Services extends Secure_area
 		'model_id'=>$this->input->post('model'),
 		'status'=>$this->input->post('status')
 		);
-
 		// $cur_service_info = $this->Service->get_info($service_id);
-
-
 		if($this->Service->save($service_data,$service_id)){
 			//New service
 			if($service_id==-1){
@@ -125,6 +122,23 @@ class Services extends Secure_area
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_updating').' '.$service_data['name'],'service_id'=>-1));
 		}
 
+	}
+	function suggest_models($brand=''){
+		$brand=$this->Service->exists_brand($brand);
+		if (!$brand || $brand==='') echo implode("\n",array());
+		else{ 
+			$suggestions = $this->Service->suggest_model($this->input->post('q'),$brand);
+			echo implode("\n",$suggestions);
+		}
+	}
+	function suggest_brand($module=''){
+		$suggestions = $this->Service->suggest_brand($this->input->post('q'));
+		// echo $suggestions.'hoooooola-'.$this->input->post('q');
+		echo implode("\n",$suggestions);
+	}
+	function suggest_owner($module=''){
+		$suggestions = $this->Service->suggest_owner($this->input->post('q'));
+		echo implode("\n",$suggestions);
 	}
 	/*
 	get the width for the add/edit form

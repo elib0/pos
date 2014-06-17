@@ -97,6 +97,42 @@ class Service extends CI_Model {
 		return  $this->con->get();
 	}
 
+	public function search($service_id, $limit = 5000, $offset = 5){
+		$this->con->from('service_log');
+		$this->con->join('model', 'model.model_id = service_log.model_id');
+		$this->con->join('brand', 'model.brand_id = brand.brand_id');
+		$this->con->join('people', 'people.person_id = service_log.person_id');
+
+		$this->con->where("service_log.service_id", $service_id);
+	
+		return  $this->con->get();
+	}
+
+	public function suggest($search = '', $limit = 5){
+		$suggestions = array();
+		$search = $this->con->escape($search);
+		$table1 = $this->con->dbprefix('service_log');
+		$table2 = $this->con->dbprefix('people');
+		$table3 = $this->con->dbprefix('model');
+
+		$this->con->from('service_log');
+		$this->con->join('people', 'people.person_id = service_log.person_id');
+		//$this->con->join('model', 'service_log.model_id = model.model_id');
+		//$this->con->where("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name, ' ',  $table3.model_name) LIKE '$search'");
+		//$this->con->like("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name)", $search);
+		$this->db->where('phone_imei', $search);
+		$this->db->limit($limit);
+		$query = $this->con->get();
+
+		if ($query->num_rows() > 0) {
+			foreach ($query->result() as $row) {
+				$suggestions[] = $row->service_id.'|'.$row->first_name.' '.$row->last_name;
+			}
+		}
+
+		return $suggestions;
+	}
+
 	public function count_all()
 	{
 		$this->con->from('service_log')->where('deleted',0);
@@ -119,30 +155,6 @@ class Service extends CI_Model {
 		}
 	}
 
-	public function suggest($search = '', $limit = 5){
-		$suggestions = array();
-		$search = $this->con->escape($search);
-		$table1 = $this->con->dbprefix('service_log');
-		$table2 = $this->con->dbprefix('people');
-		$table3 = $this->con->dbprefix('model');
-
-		$this->con->from('service_log');
-		$this->con->join('people', 'people.person_id = service_log.person_id');
-		//$this->con->join('model', 'service_log.model_id = model.model_id');
-		//$this->con->where("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name, ' ',  $table3.model_name) LIKE '$search'");
-		//$this->con->like("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name)", $search);
-		$this->db->where('phone_imei', $search);
-		$this->db->limit($limit);
-		$query = $this->con->get();
-
-		if ($query->num_rows() > 0) {
-			foreach ($query->result() as $row) {
-				$suggestions[] = $row->first_name.' '.$row->last_name;
-			}
-		}
-
-		return $suggestions;
-	}
 	public function suggest_model($search='',$brand=''){
 		$suggestions = array();
 		$this->con->select('model_name');

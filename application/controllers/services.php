@@ -62,8 +62,8 @@ class Services extends Secure_area
 	function search()
 	{
 		$search=$this->input->post('search');
-		$data_rows=get_services_manage_table_data_rows($this->Service->search($search),$this);
-		echo $data_rows;
+		$data_rows=get_services_manage_table_data_rows( $this->Service->search($search), $this );
+		die($data_rows);
 	}
 
 	/*
@@ -72,12 +72,6 @@ class Services extends Secure_area
 	function suggest()
 	{
 		$suggestions = $this->Service->suggest($this->input->post('q'));
-		echo implode("\n",$suggestions);
-	}
-
-	function service_search()
-	{
-		$suggestions = $this->Service->get_service_search_suggestions($this->input->post('q'),$this->input->post('limit'));
 		echo implode("\n",$suggestions);
 	}
 

@@ -9,19 +9,7 @@
 		?>
 	</div>
 </div>
-<div id="search_filter_section" style="text-align: right; font-weight: bold; height: 30px; font-size: 12px; display:<?=isset($search_section_state)&&$search_section_state?'block':'none'?>;">
-	<?php echo form_open("$controller_name/refresh",array('id'=>'services_filter_form')); ?>
-	<?php echo form_label($this->lang->line('services_low_inventory_services').' '.':', 'low_inventory');?>
-	<?php echo form_checkbox(array('name'=>'low_inventory','id'=>'low_inventory','value'=>1,'checked'=>isset($low_inventory)?  ( ($low_inventory)? 1 : 0) : 0)).' | ';?>
-	<?php echo form_label($this->lang->line('services_serialized_services').' '.':', 'is_serialized');?>
-	<?php echo form_checkbox(array('name'=>'is_serialized','id'=>'is_serialized','value'=>1,'checked'=>isset($is_serialized)?  ( ($is_serialized)? 1 : 0) : 0)).' | ';?>
-	<?php echo form_label($this->lang->line('services_no_description_services').' '.':', 'no_description');?>
-	<?php echo form_checkbox(array('name'=>'no_description','id'=>'no_description','value'=>1,'checked'=>isset($no_description)?  ( ($no_description)? 1 : 0) : 0));?>
-	<input type="hidden" name="search_section_state" id="search_section_state" value="<?=isset($search_section_state)?(($search_section_state)?'block':'none'):'none'?>"/>
-</div>
-
 <div style="padding:3px;margin:3px 0;"> <?=$this->pagination->create_links()?> </div>
-
 <div id="table_action_header">
 	<ul>
 		<li class="float_left">
@@ -63,7 +51,6 @@ $(function(){
 	enable_search('<?=site_url("$controller_name/suggest")?>','<?=$this->lang->line("common_confirm_search")?>');
 	$('#delete').click(function(e) {
 		e.preventDefault();
-		//console.log('me has pulsado');
 		$('#delete-form').submit();
 		return false;
 	});
@@ -82,6 +69,26 @@ function init_table_sorting(){
 			}
 
 		});
+	}
+}
+
+function post_item_form_submit(response){
+	if(!response.success){
+		set_feedback(response.message,'error_message',true);
+	}else{
+		//This is an update, just update one row
+		if(jQuery.inArray(response.item_id,get_visible_checkbox_ids()) != -1){
+			//update_row(response.item_id,'<?php echo site_url("$controller_name/get_row")?>');
+			set_feedback(response.message,'success_message',false);
+			setTimeout(function() { location.reload(); }, 1000);
+		}else{ //refresh entire table 	
+			setTimeout(function() { location.reload(); }, 1000);
+			do_search(true,function(){
+				//highlight new row
+				hightlight_row(response.item_id);
+				set_feedback(response.message,'success_message',false);
+			});
+		}
 	}
 }
 </script>

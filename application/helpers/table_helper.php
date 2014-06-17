@@ -427,10 +427,10 @@ function get_services_manage_table($services,$controller){
 	$CI->lang->line('services_name_owner'),
 	$CI->lang->line('services_brand'),
 	$CI->lang->line('services_model'),
-	'Received',
-	'Delivered',
+	$CI->lang->line('services_received'),
+	$CI->lang->line('services_delivered'),
 	$CI->lang->line('services_status'),
-	'Action'
+	$CI->lang->line('services_actions')
 	);
 
 	$table.='<thead><tr>';
@@ -473,13 +473,13 @@ function get_service_data_row($service,$controller)
 	//$table_data_row='<tr'.($service->is_locked?' title="'.$CI->lang->line('services_is_locked_title').'" class="locked"':'').'>';
 	$table_data_row='<tr>';
 	//$table_data_row.="<td width='3%'><input class='".($service->is_locked?'locked':'')."' type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
-	$table_data_row.="<td width='3%'><input  type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
+	$table_data_row.="<td width='3%'>".form_checkbox('services[]', $service->service_id)."</td>";
 	$table_data_row.='<td width="15%">'.$service->service_id.'</td>';
 	$table_data_row.='<td width="20%">'.$service->first_name.' '.$service->last_name.'</td>';
 	$table_data_row.='<td width="14%">'.$service->brand_name.'</td>';
 	$table_data_row.='<td width="14%">'.$service->model_name.'</td>';
 	$table_data_row.='<td width="14%">'.$service->date_received.'</td>';
-	$date_delivered = ($service->date_delivered) ? $service->date_delivered : 'Not Delivered';
+	$date_delivered = ($service->date_delivered) ? $service->date_delivered : $CI->lang->line('services_undelivered');
 	$table_data_row.='<td width="14%">'.$date_delivered.'</td>';
 	$table_data_row.='<td width="14%">'.$CI->lang->line('services_status_'.$service->status).'</td>';
 	

@@ -49,6 +49,16 @@ class Service extends CI_Model {
 		return false;
 	}
 
+	public function toggle_delete($service_id = null, $value = 1){
+		if ($service_id) {
+			$data = array('deleted'=>$value);
+			$this->con->where_in('service_id', $service_id);
+			return $this->con->update('service_log', $data);
+		}
+
+		return false;
+	}
+
 	public function save($service_data, $service_id = -1){
 		$brand_id=$this->exists_brand($service_data['brand_id']);
 		if (!$brand_id) 

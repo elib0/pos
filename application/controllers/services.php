@@ -100,6 +100,12 @@ class Services extends Secure_area
 		$this->load->view("services/count_details",$data);
 	} //------------------------------------------- Ramel
 
+
+	public function delete(){
+		$this->Service->toggle_delete( $this->input->post('services') );
+		redirect('services');
+	}
+
 	function save($service_id=-1){
 		$person_id=$this->Service->exists_person($this->input->post('name'));
 		if (!$person_id){

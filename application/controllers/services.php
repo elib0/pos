@@ -100,6 +100,12 @@ class Services extends Secure_area
 		$this->load->view("services/count_details",$data);
 	} //------------------------------------------- Ramel
 
+
+	public function delete(){
+		$this->Service->toggle_delete( $this->input->post('services') );
+		redirect('services');
+	}
+
 	function save($service_id=-1){
 		$person_id=$this->Service->exists_person($this->input->post('name'));
 		if (!$person_id){
@@ -107,7 +113,7 @@ class Services extends Secure_area
 		}else{
 			$service_data = array(
 			'person_id'=>$person_id,
-			'phone_imei'=>$this->input->post('codeimei'),
+			'serial'=>$this->input->post('codeimei'),
 			'comments'=>$this->input->post('comments'),
 			'brand_id'=>$this->input->post('brand'),
 			'model_id'=>$this->input->post('model'),
@@ -121,7 +127,7 @@ class Services extends Secure_area
 					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_adding'),'service_id'=>$service));
 					// $service_id = $service_data['service_id'];
 				}else{ //previous service
-					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_updating'),'service_id'=>$id));
+					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_updating'),'service_id'=>$service_id));
 				}
 			}else{ //failure
 				echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_updating').' '.$service_data['person_id'],'service_id'=>-1));
@@ -131,7 +137,7 @@ class Services extends Secure_area
 	function suggest_models($brand=''){
 		$suggestions = $this->Service->suggest_model($this->input->post('q'),$brand);
 		echo implode("\n",$suggestions);
-		
+		// echo $suggestions;	
 	}
 	function suggest_brand($module=''){
 		$suggestions = $this->Service->suggest_brand($this->input->post('q'));

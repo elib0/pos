@@ -23,7 +23,7 @@
 				<?php echo form_input(array(
 					'name'=>'codeimei',
 					'id'=>'codeimei',
-					'value'=>$service_info->phone_imei,
+					'value'=>$service_info->serial,
 					'class'=>'text_box'
 				));?>
 				</div>
@@ -63,7 +63,7 @@
 			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('services_status').':', 'brand_label',array('class'=>'lable-form-required')); $status=array();
 					for ($i=1; $i < 5; $i++) { $status[$i]=$this->lang->line('services_status_'.$i); }
-					$status[100]=$this->lang->line('services_status_100');
+					// $status[100]=$this->lang->line('services_status_100');
 				?>
 				<div> <?php echo form_dropdown('status',$status,$service_info->status); ?> </div>
 			</div>
@@ -99,20 +99,25 @@
 <?php echo form_close(); ?>
 <script type='text/javascript'>
 //validation and submit handling
-$(function(){
-	var pass=true,brand="";
-	
+$(function(){	
 	$("#brand").autocomplete("<?php echo site_url('services/suggest_brand');?>",{max:100,minChars:0,delay:10})
 				.result(function(event,data,formatted){
-					if(data)
-						$("#model").autocomplete("<?php echo site_url('services/suggest_models');?>/"+data[1],{max:100,minChars:0,delay:10})
+					if(data){
+						if ( $("#model").data('autocomplete')) {
+							 $("#model").autocomplete("destroy");
+							 $("#model").removeData('autocomplete');
+						}
+						$("#model").autocomplete("<?php echo site_url('services/suggest_models');?>/"+data[0],{max:100,minChars:0,delay:10})
 								.result(function(event,data,formatted){}).search();
-
-
+					}else{
+						if ( $("#model").data('autocomplete')) {
+							 $("#model").autocomplete("destroy");
+							 $("#model").removeData('autocomplete');
+						}
+					}
 				}).search();
 	$("#name").autocomplete("<?php echo site_url('services/suggest_owner');?>",{max:100,minChars:0,delay:10})
 				.result(function(event,data,formatted){}).search();
-	$("#brand").change(function(event) { brand=$(this).val(); console.log(brand);});
 	$('#services_form').validate({
 		submitHandler:function(form)
 		{
@@ -133,12 +138,16 @@ $(function(){
 			name:"required",
 			//codeimei:"required",
 			model:'required',
+			status:'required',
+			brand:'required',
    		},
 		messages:
 		{
 			name:"<?php echo $this->lang->line('services_name_owner_is_required'); ?>",
 			//codeimei:"<?php echo $this->lang->line('services_IMEI_is_required'); ?>",
 			model:"<?php echo $this->lang->line('services_model_is_required'); ?>",
+			status:"<?php echo $this->lang->line('services_status_is_required'); ?>",
+			brand:"<?php echo $this->lang->line('services_brand_is_required'); ?>",
 		}
 	});
 });

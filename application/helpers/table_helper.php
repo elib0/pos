@@ -427,7 +427,10 @@ function get_services_manage_table($services,$controller){
 	$CI->lang->line('services_name_owner'),
 	$CI->lang->line('services_brand'),
 	$CI->lang->line('services_model'),
-	$CI->lang->line('services_status')
+	$CI->lang->line('services_received'),
+	$CI->lang->line('services_delivered'),
+	$CI->lang->line('services_status'),
+	$CI->lang->line('services_actions')
 	);
 
 	$table.='<thead><tr>';
@@ -463,23 +466,33 @@ function get_services_manage_table_data_rows($services,$controller)
 function get_service_data_row($service,$controller)
 {
 	$CI =& get_instance();
-	
+
 	$controller_name=strtolower(get_class($CI));
 	$width = $controller->get_form_width();
 
 	//$table_data_row='<tr'.($service->is_locked?' title="'.$CI->lang->line('services_is_locked_title').'" class="locked"':'').'>';
 	$table_data_row='<tr>';
 	//$table_data_row.="<td width='3%'><input class='".($service->is_locked?'locked':'')."' type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
-	$table_data_row.="<td width='3%'><input  type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
+	$table_data_row.="<td width='3%'>".form_checkbox('services[]', $service->service_id)."</td>";
 	$table_data_row.='<td width="15%">'.$service->service_id.'</td>';
 	$table_data_row.='<td width="20%">'.$service->first_name.' '.$service->last_name.'</td>';
 	$table_data_row.='<td width="14%">'.$service->brand_name.'</td>';
 	$table_data_row.='<td width="14%">'.$service->model_name.'</td>';
+	$table_data_row.='<td width="14%">'.$service->date_received.'</td>';
+	$date_delivered = ($service->date_delivered) ? $service->date_delivered : $CI->lang->line('services_undelivered');
+	$table_data_row.='<td width="14%">'.$date_delivered.'</td>';
+	$table_data_row.='<td width="14%">'.$CI->lang->line('services_status_'.$service->status).'</td>';
 	
-	if($CI->Employee->has_privilege('update', $controller_name)){
-		$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$service->service_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
-	}else{
-		$table_data_row .= '<td width="5%"></td>';
+	switch ($service->status) {
+		case 3:
+			$table_data_row.='<td width="5%">'.anchor('sales', $CI->lang->line('services_pay'),array('class'=>'small_button')).'</td>';
+			break;
+		case 100:
+			$table_data_row.='<td width="5%">'.$CI->lang->line('services_no_actions').'</td>';
+			break;
+		default:
+			$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$service->service_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+			break;
 	}
 
 	$table_data_row.='</tr>';

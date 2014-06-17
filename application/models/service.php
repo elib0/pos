@@ -49,6 +49,16 @@ class Service extends CI_Model {
 		return false;
 	}
 
+	public function toggle_delete($service_id = null, $value = 1){
+		if ($service_id) {
+			$data = array('deleted'=>$value);
+			$this->con->where_in('service_id', $service_id);
+			return $this->con->update('service_log', $data);
+		}
+
+		return false;
+	}
+
 	public function save($service_data, $service_id = -1){
 		$brand_id=$this->exists_brand($service_data['brand_id']);
 		if (!$brand_id) 
@@ -105,7 +115,7 @@ class Service extends CI_Model {
 		if ($query->num_rows() == 1) {
 			return $query->row();
 		}else{
-			return (Object) array('service_id'=>-1,'first_name'=>'','last_name'=>'', 'phone_imei'=>'','brand_name'=>'','status'=>'','model_name'=>'','comments'=>'');
+			return (Object) array('service_id'=>-1,'first_name'=>'','last_name'=>'', 'serial'=>'','brand_name'=>'','status'=>'','model_name'=>'','comments'=>'');
 		}
 	}
 
@@ -135,23 +145,27 @@ class Service extends CI_Model {
 	}
 	public function suggest_model($search='',$brand=''){
 		$suggestions = array();
+		$this->con->select('model_name');
 		$this->con->from('model');
+		$this->con->join('brand','ospos_brand.brand_id=ospos_model.brand_id');
 		$this->con->distinct();
 		$this->con->like('model_name', $search);
-		if ($brand!=='') $this->con->where('brand_id', $brand);
+		if ($brand!='') $this->con->where('brand_name', $brand);
 		$this->con->order_by("model_id","asc");
 		$by_model = $this->con->get();
-		foreach($by_model->result() as $row){ $suggestions[]=$row->model_name; }
+		foreach($by_model->result() as $row) $suggestions[]=$row->model_name; 
 		return $suggestions;
+		// return $this->con->last_query();
 	}
 	public function suggest_brand($search=''){
 		$suggestions = array();
+		$this->con->select('brand_name');
 		$this->con->from('brand');
 		$this->con->distinct();
 		$this->con->like('brand_name', $search);
 		$this->con->order_by("brand_id","asc");
 		$by_model = $this->con->get();
-		foreach($by_model->result() as $row){ $suggestions[]=$row->brand_name.'|'.$row->brand_id; }
+		foreach($by_model->result() as $row) $suggestions[]=$row->brand_name;
 		// return $this->con->last_query();
 		return $suggestions;
 	}

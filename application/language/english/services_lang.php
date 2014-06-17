@@ -18,8 +18,10 @@ $lang['services_update']='Update Service Information';
 $lang['services_error_adding_person']='Sorry, this person is not a client';
 $lang['services_successful_adding']='Successfully registered service';
 $lang['services_error_adding_updating']='Service successfully modified';
+$lang['services_no_actions']='No Actions';
+$lang['services_pay']='pay';
 
-//estatus
+//Status
 $lang['services_status_1']='Open';
 $lang['services_status_2']='In process';
 $lang['services_status_3']='Completed';

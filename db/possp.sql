@@ -74,8 +74,21 @@ CREATE TABLE IF NOT EXISTS `ospos_brand` (
 -- Volcado de datos para la tabla `ospos_brand`
 --
 
-INSERT INTO `ospos_brand` (`brand_id`, `brand_name`) VALUES
-(1, 'Apple');
+INSERT INTO `ospos_brand` (`brand_id`, `brand_name`)
+VALUES
+  (1, 'Apple'),
+  (2, 'Samsung'),
+  (3, 'Nokia'),
+  (4, 'Sony Ericsson'),
+  (5, 'LG'),
+  (6, 'HTC'),
+  (7, 'Huawei'),
+  (8, 'Motorola'),
+  (9, 'Blackberry'),
+  (10, 'ZTE'),
+  (11, 'Microsoft'),
+  (12, 'Siemens');
+
 
 -- --------------------------------------------------------
 
@@ -1455,8 +1468,26 @@ CREATE TABLE IF NOT EXISTS `ospos_model` (
 -- Volcado de datos para la tabla `ospos_model`
 --
 
-INSERT INTO `ospos_model` (`model_id`, `model_name`, `brand_id`) VALUES
-(1, 'Iphone 5s', 1);
+INSERT INTO `ospos_model` (`model_id`, `model_name`, `brand_id`)
+VALUES
+  (1, 'iPhone 5s', 1),
+  (2, 'Galaxy s5', 2),
+  (4, 'iPad', 1),
+  (5, 'iPhone 3', 1),
+  (6, 'iPhone 3g', 1),
+  (7, 'iPhone 4', 1),
+  (8, 'iPhone 4s', 1),
+  (9, 'iPhone 5', 1),
+  (10, 'iPad 2', 1),
+  (11, 'iPad 3', 1),
+  (12, 'iPad mini', 1),
+  (13, 'iPad 4', 1),
+  (14, 'iPad Air', 1),
+  (15, 'Galaxy s2', 2),
+  (16, 'Galaxy s3', 2),
+  (18, 'Galaxy s3 mini', 2),
+  (19, 'Galaxy s4', 2);
+
 
 -- --------------------------------------------------------
 
@@ -2372,7 +2403,7 @@ CREATE TABLE IF NOT EXISTS `ospos_service_log` (
   `person_id` int(11) NOT NULL,
   `serial` varchar(18) DEFAULT NULL,
   `model_id` int(11) NOT NULL,
-  `date_received` datetime DEFAULT CURRENT_TIMESTAMP,
+  `date_received` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `date_delivered` datetime DEFAULT NULL,
   `comments` mediumtext,
   `status` int(1) NOT NULL DEFAULT '1',

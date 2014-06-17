@@ -135,23 +135,27 @@ class Service extends CI_Model {
 	}
 	public function suggest_model($search='',$brand=''){
 		$suggestions = array();
+		$this->con->select('model_name');
 		$this->con->from('model');
+		$this->con->join('brand','ospos_brand.brand_id=ospos_model.brand_id');
 		$this->con->distinct();
 		$this->con->like('model_name', $search);
-		if ($brand!=='') $this->con->where('brand_id', $brand);
+		if ($brand!='') $this->con->where('brand_name', $brand);
 		$this->con->order_by("model_id","asc");
 		$by_model = $this->con->get();
-		foreach($by_model->result() as $row){ $suggestions[]=$row->model_name; }
+		foreach($by_model->result() as $row) $suggestions[]=$row->model_name; 
 		return $suggestions;
+		// return $this->con->last_query();
 	}
 	public function suggest_brand($search=''){
 		$suggestions = array();
+		$this->con->select('brand_name');
 		$this->con->from('brand');
 		$this->con->distinct();
 		$this->con->like('brand_name', $search);
 		$this->con->order_by("brand_id","asc");
 		$by_model = $this->con->get();
-		foreach($by_model->result() as $row){ $suggestions[]=$row->brand_name.'|'.$row->brand_id; }
+		foreach($by_model->result() as $row) $suggestions[]=$row->brand_name;
 		// return $this->con->last_query();
 		return $suggestions;
 	}

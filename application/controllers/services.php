@@ -107,7 +107,7 @@ class Services extends Secure_area
 		}else{
 			$service_data = array(
 			'person_id'=>$person_id,
-			'phone_imei'=>$this->input->post('codeimei'),
+			'serial'=>$this->input->post('codeimei'),
 			'comments'=>$this->input->post('comments'),
 			'brand_id'=>$this->input->post('brand'),
 			'model_id'=>$this->input->post('model'),
@@ -131,7 +131,7 @@ class Services extends Secure_area
 	function suggest_models($brand=''){
 		$suggestions = $this->Service->suggest_model($this->input->post('q'),$brand);
 		echo implode("\n",$suggestions);
-		
+		// echo $suggestions;	
 	}
 	function suggest_brand($module=''){
 		$suggestions = $this->Service->suggest_brand($this->input->post('q'));

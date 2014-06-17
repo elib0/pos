@@ -206,8 +206,8 @@ function get_item_data_row($item,$controller)
 	$controller_name=strtolower(get_class($CI));
 	$width = $controller->get_form_width();
 
-	$table_data_row='<tr'.($item->is_locked?' title="'.$CI->lang->line('items_is_locked_title').'" class="locked"':'').'>';
-	$table_data_row.="<td width='3%'><input class='".($item->is_locked?'locked':'')."' type='checkbox' id='item_$item->item_id' value='$item->item_id'/></td>";
+	$table_data_row='<tr>';
+	$table_data_row.="<td width='3%'>".($item->is_locked?'':"<input class='".($item->is_locked?'locked':'')."' type='checkbox' id='item_$item->item_id' value='$item->item_id'/>")."</td>";
 	$table_data_row.='<td width="15%">'.$item->item_number.'</td>';
 	$table_data_row.='<td width="20%">'.$item->name.'</td>';
 	$table_data_row.='<td width="14%">'.$item->category.'</td>';
@@ -473,7 +473,7 @@ function get_service_data_row($service,$controller)
 	//$table_data_row='<tr'.($service->is_locked?' title="'.$CI->lang->line('services_is_locked_title').'" class="locked"':'').'>';
 	$table_data_row='<tr>';
 	//$table_data_row.="<td width='3%'><input class='".($service->is_locked?'locked':'')."' type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
-	$table_data_row.="<td width='3%'>".form_checkbox('services[]', $service->service_id)."</td>";
+	$table_data_row.="<td width='3%'>".($service->status==100?'':form_checkbox('services[]', $service->service_id))."</td>";
 	$table_data_row.='<td width="15%">'.$service->service_id.'</td>';
 	$table_data_row.='<td width="20%">'.$service->first_name.' '.$service->last_name.'</td>';
 	$table_data_row.='<td width="14%">'.$service->brand_name.'</td>';
@@ -482,22 +482,20 @@ function get_service_data_row($service,$controller)
 	$date_delivered = ($service->date_delivered) ? $service->date_delivered : $CI->lang->line('services_undelivered');
 	$table_data_row.='<td width="14%">'.$date_delivered.'</td>';
 	$table_data_row.='<td width="14%">'.$CI->lang->line('services_status_'.$service->status).'</td>';
-	
-	switch ($service->status) {
+
+	switch ($service->status){
 		case 3:
-			$table_data_row.='<td width="5%">'.anchor('sales', $CI->lang->line('services_pay'),array('class'=>'small_button')).'</td>';
+			$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$service->service_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update'))).anchor("sales/add/3/$service->service_id", $CI->lang->line('services_pay'),array('class'=>'small_button')).'</td>';
 			break;
 		case 100:
 			$table_data_row.='<td width="5%">'.$CI->lang->line('services_no_actions').'</td>';
-			break;
+		break;
 		default:
 			$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$service->service_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
-			break;
+		break;
 	}
-
 	$table_data_row.='</tr>';
 	return $table_data_row;
 }
-
 
 ?>

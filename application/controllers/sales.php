@@ -136,11 +136,14 @@ class Sales extends Secure_area
 		$this->_reload();
 	}
 
-	function add()
+	function add($item_id_or_number_or_item_kit_or_receipt=NULL,$service_id=NULL)
 	{
 		$data=array();
 		$mode = $this->sale_lib->get_mode();
-		$item_id_or_number_or_item_kit_or_receipt = $this->input->post("item");
+		if(!$item_id_or_number_or_item_kit_or_receipt)
+			$item_id_or_number_or_item_kit_or_receipt = $this->input->post("item");
+		if(!$service_id) $service_id=$this->input->post("service");
+		if(!$service_id) $service_id=NULL;
 		$quantity = $mode!="return" ? 1:-1;
 
 		if($this->sale_lib->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt) && $mode=='return')
@@ -151,7 +154,7 @@ class Sales extends Secure_area
 		{
 			$this->sale_lib->add_item_kit($item_id_or_number_or_item_kit_or_receipt);
 		}
-		elseif(!$this->sale_lib->add_item($item_id_or_number_or_item_kit_or_receipt,$quantity))
+		elseif(!$this->sale_lib->add_item($item_id_or_number_or_item_kit_or_receipt,$quantity,0,null,null,null,$service_id))
 		{
 			$data['error']=$this->lang->line('sales_unable_to_add_item');
 		}
@@ -160,7 +163,8 @@ class Sales extends Secure_area
 		{
 			$data['warning'] = $this->lang->line('sales_quantity_less_than_zero');
 		}
-		$this->_reload($data);
+		redirect('sales');
+		// $this->_reload($data);
 	}
 
 	function edit_item($line, $ajax=false)
@@ -199,7 +203,8 @@ class Sales extends Secure_area
 	function delete_item($item_number)
 	{
 		$this->sale_lib->delete_item($item_number);
-		$this->_reload();
+		redirect('sales');
+		// $this->_reload();
 	}
 
 	function remove_customer()
@@ -424,6 +429,7 @@ class Sales extends Secure_area
 	
 	function _reload($data=array())
 	{
+		$refresh=count($data)>0;
 		$this->load->model('Transfers');
 		$person_info = $this->Employee->get_logged_in_employee_info();
 		$employee = $this->Employee->get_info( $this->sale_lib->get_employee() );

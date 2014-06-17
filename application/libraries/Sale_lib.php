@@ -180,7 +180,7 @@ class Sale_lib
 		$this->CI->session->set_userdata('sale_mode',$mode);
 	}
 
-	function add_item($item_id,$quantity=1,$discount=0,$price=null,$description=null,$serialnumber=null)
+	function add_item($item_id,$quantity=1,$discount=0,$price=null,$description=null,$serialnumber=null,$service_id=null)
 	{
 		//make sure item exists
 		if(!$this->CI->Item->exists($item_id))
@@ -239,6 +239,7 @@ class Sale_lib
 		array(
 			'item_id'               =>$item_id,
 			'line'                  =>$insertkey,
+			'service_id'			=>$service_id,
 			'name'                  =>$this->CI->Item->get_info($item_id)->name,
 			'item_number'           =>$item_number,
 			'description'           =>$description!=null ? $description: $this->CI->Item->get_info($item_id)->description,

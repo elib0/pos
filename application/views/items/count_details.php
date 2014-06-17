@@ -83,7 +83,7 @@
 		<tr align="center" style="font-weight:bold">
 			<th width="15%" class="noBorderTop noBorderLeft"><?php echo $this->lang->line('reports_date'); ?></th>
 			<th width="25%" class="noBorderTop"><?php echo $this->lang->line('employees_employee'); ?></th>
-			<th width="15%" class="noBorderTop"><?php echo $this->lang->('items_q_i'); ?></th>
+			<th width="15%" class="noBorderTop"><?php echo $this->lang->line('items_q_i'); ?></th>
 			<th width="45%" class="noBorderTop noBorderRigth"><?php echo $this->lang->line('items_observ'); ?></th>
 		</tr>
 		<?php 

@@ -78,8 +78,8 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 						'name'=>'newc',
 						'id'=>'newc',
 						'value'=>'newc',
-						'content' => 'Nuevo',
-						'class'=>'big_button',
+						'content' => '+',
+						'class'=>'small_button thickbox',
 						'style'=>'display: inline-block; margin-left: 20px;'
 					)
 				);

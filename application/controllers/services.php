@@ -121,7 +121,7 @@ class Services extends Secure_area
 					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_adding'),'service_id'=>$service));
 					// $service_id = $service_data['service_id'];
 				}else{ //previous service
-					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_updating'),'service_id'=>$id));
+					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_updating'),'service_id'=>$service_id));
 				}
 			}else{ //failure
 				echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_updating').' '.$service_data['person_id'],'service_id'=>-1));

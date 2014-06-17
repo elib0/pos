@@ -105,7 +105,7 @@ class Service extends CI_Model {
 		if ($query->num_rows() == 1) {
 			return $query->row();
 		}else{
-			return (Object) array('service_id'=>-1,'first_name'=>'','last_name'=>'', 'phone_imei'=>'','brand_name'=>'','status'=>'','model_name'=>'','comments'=>'');
+			return (Object) array('service_id'=>-1,'first_name'=>'','last_name'=>'', 'serial'=>'','brand_name'=>'','status'=>'','model_name'=>'','comments'=>'');
 		}
 	}
 

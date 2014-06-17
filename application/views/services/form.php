@@ -23,7 +23,7 @@
 				<?php echo form_input(array(
 					'name'=>'codeimei',
 					'id'=>'codeimei',
-					'value'=>$service_info->phone_imei,
+					'value'=>$service_info->serial,
 					'class'=>'text_box'
 				));?>
 				</div>

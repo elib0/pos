@@ -2370,12 +2370,12 @@ DROP TABLE IF EXISTS `ospos_service_log`;
 CREATE TABLE IF NOT EXISTS `ospos_service_log` (
   `service_id` int(11) NOT NULL AUTO_INCREMENT,
   `person_id` int(11) NOT NULL,
-  `phone_imei` varchar(18) DEFAULT NULL,
+  `serial` varchar(18) DEFAULT NULL,
   `model_id` int(11) NOT NULL,
   `date_received` datetime DEFAULT CURRENT_TIMESTAMP,
   `date_delivered` datetime DEFAULT NULL,
   `comments` mediumtext,
-  `status` int(1) NOT NULL DEFAULT '0',
+  `status` int(1) NOT NULL DEFAULT '1',
   `deleted` int(1) DEFAULT '0',
   PRIMARY KEY (`service_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
@@ -2384,8 +2384,8 @@ CREATE TABLE IF NOT EXISTS `ospos_service_log` (
 -- Volcado de datos para la tabla `ospos_service_log`
 --
 
-INSERT INTO `ospos_service_log` (`service_id`, `person_id`, `phone_imei`, `model_id`, `date_received`, `date_delivered`, `comments`, `status`, `deleted`) VALUES
-(1, 1, '213123123', 1, '2014-06-10 00:00:00', NULL, 'Placerat duis ac vel dis pellentesque mauris mus integer placerat tortor lectus vel scelerisque, ut, proin tempor sit habitasse augue aliquam mus amet et a ut magna odio, natoque sit, elementum ac odio mus! Lacus placerat nascetur integer eu! Scelerisque sed et arcu ridiculus, dictumst aenean nunc enim nunc hac, enim, et urna lectus dignissim aenean! Urna nec mus massa, nisi risus cursus.', 0, 0);
+INSERT INTO `ospos_service_log` (`service_id`, `person_id`, `serial`, `model_id`, `date_received`, `date_delivered`, `comments`, `status`, `deleted`) VALUES
+(1, 1, '213123123', 1, '2014-06-10 00:00:00', NULL, 'Placerat duis ac vel dis pellentesque mauris mus integer placerat tortor lectus vel scelerisque, ut, proin tempor sit habitasse augue aliquam mus amet et a ut magna odio, natoque sit, elementum ac odio mus! Lacus placerat nascetur integer eu! Scelerisque sed et arcu ridiculus, dictumst aenean nunc enim nunc hac, enim, et urna lectus dignissim aenean! Urna nec mus massa, nisi risus cursus.', 1, 0);
 
 -- --------------------------------------------------------
 

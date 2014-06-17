@@ -16,7 +16,7 @@ $lang['services_status']='Status';
 $lang['services_no_services_to_display']='No hay servicios para listar';
 $lang['services_new']='Agregar Seguimiento';
 $lang['services_information']='Información del servicio';
-$lang['services_error_adding_person']='Disculpe, esta persona no es un cliente ';
+$lang['services_error_adding_person']='Disculpe, esta persona no es un cliente, ¿Desea registrarlo?';
 $lang['services_successful_adding']='Servicio registrado satisfactoriamente';
 $lang['services_error_adding_updating']='Servicio modificado satisfactoriamente';
 

@@ -46,9 +46,9 @@
 	<div class="field_row clearfix">
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
-				<?php echo form_label($this->lang->line('items_supplier').':', 'supplier',array('class'=>'lable-form-required')); ?>
+				<?=form_label($this->lang->line('items_supplier').':', 'supplier',array('class'=>'lable-form'))?>
 				<div>
-				<?php echo form_dropdown('supplier_id', $suppliers, $selected_supplier,'style="width:200px;"');?>
+				<?=form_dropdown('supplier_id', $suppliers, $selected_supplier,'style="width:200px;"')?>
 				</div>
 			</div>
 		</div>
@@ -225,10 +225,10 @@
 				'value'=>'is_service',
 				'checked'=>$item_info->is_service
 			)); ?>&nbsp;
-			<?php echo form_label($this->lang->line('items_is_service').':', 'service',array('class'=>'lable-form','style'=>'float:none')); ?>
+			<?=form_label($this->lang->line('items_is_service').':', 'service',array('class'=>'lable-form','style'=>'float:none'))?>
 			</div>
 		</div>
-		<div style="width: 210px; float: left">
+		<div style="width:210px;float:left">
 			<div class="field_row clearfix">
 				<?php echo form_checkbox(array(
 					'id'=>'is_locked',
@@ -237,7 +237,7 @@
 					'value'=>'is_locked',
 					'checked'=>$item_info->is_locked
 				)); ?>&nbsp;
-				<?php echo form_label($this->lang->line('items_is_locked').':', 'locked',array('class'=>'lable-form','style'=>'float:none')); ?>
+				<?=form_label($this->lang->line('items_is_locked').':', 'locked',array('class'=>'lable-form','style'=>'float:none'))?>
 			</div>
 		</div>
 	</div>
@@ -355,8 +355,8 @@ $(function(){
 			reorder_level:{
 				required:true,
 				number:true
-			},
-			supplier_id:{ required:true }
+			}
+			// ,supplier_id:{ required:true }
    		},
 		messages:
 		{
@@ -399,6 +399,7 @@ $(function(){
 		var checked=$(this).is(':checked');
 		$(this).parents('#item_form').find('#quantity,#reorder_level').prop('disabled',checked)
 			.parent().parent()[checked?'hide':'show']();
+		// $(this).parents('#item_form').find('[name="supplier_id"]')[checked?'removeAttr':'attr']('required','');
 	}).change();
 })(jQueryNew);
 </script>

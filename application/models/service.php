@@ -60,15 +60,15 @@ class Service extends CI_Model {
 	}
 
 	public function save($service_data, $service_id = -1){
-		$brand_id=$this->exists_brand($service_data['brand_id']);
-		if (!$brand_id) 
-			$brand_id=$this->save_brand(array('brand_name'=>$service_data['brand_id']));	
-		$model_id=$this->exists_model($service_data['model_id'],$brand_id);
-		if (!$model_id) 
-			$model_id=$this->save_model(array('model_name'=>$service_data['model_id'],'brand_id'=>$brand_id));
-		unset($service_data['brand_id']);		
-		$service_data['model_id']=$model_id;
 		if (!$this->exists($service_id) ) {
+			$brand_id=$this->exists_brand($service_data['brand_id']);
+			if (!$brand_id) 
+				$brand_id=$this->save_brand(array('brand_name'=>$service_data['brand_id']));	
+			$model_id=$this->exists_model($service_data['model_id'],$brand_id);
+			if (!$model_id) 
+				$model_id=$this->save_model(array('model_name'=>$service_data['model_id'],'brand_id'=>$brand_id));
+			unset($service_data['brand_id']);		
+			$service_data['model_id']=$model_id;
 			$this->con->insert('service_log', $service_data);
 			return $this->con->insert_id();
 			// return $this->con->last_query();
@@ -104,6 +104,7 @@ class Service extends CI_Model {
 	}
 
 	public function get_info($service_id = 0){
+		$this->con->select('ospos_service_log.*,ospos_people.first_name,ospos_people.last_name,ospos_brand.*,ospos_model.*');
 		$this->con->from('service_log');
 		$this->con->join('model', 'model.model_id = service_log.model_id');
 		$this->con->join('brand', 'model.brand_id = brand.brand_id');

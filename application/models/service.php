@@ -97,12 +97,6 @@ class Service extends CI_Model {
 		return  $this->con->get();
 	}
 
-	public function count_all()
-	{
-		$this->con->from('service_log')->where('deleted',0);
-		return $this->con->count_all_results();
-	}
-
 	public function search($service_id, $limit = 5000, $offset = 5){
 		$this->con->from('service_log');
 		$this->con->join('model', 'model.model_id = service_log.model_id');

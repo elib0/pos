@@ -129,12 +129,9 @@ class Services extends Secure_area
 		}
 	}
 	function suggest_models($brand=''){
-		// $brand=$this->Service->exists_brand($brand);
-		// if (!$brand || $brand==='') echo implode("\n",array());
-		// else{ 
-			$suggestions = $this->Service->suggest_model($this->input->post('q'),$brand);
-			echo implode("\n",$suggestions);
-		// }
+		$suggestions = $this->Service->suggest_model($this->input->post('q'),$brand);
+		echo implode("\n",$suggestions);
+		
 	}
 	function suggest_brand($module=''){
 		$suggestions = $this->Service->suggest_brand($this->input->post('q'));

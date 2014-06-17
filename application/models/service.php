@@ -49,7 +49,7 @@ class Service extends CI_Model {
 		return false;
 	}
 
-	public function save($service_data, $service_id = 0){
+	public function save($service_data, $service_id = -1){
 		$brand_id=$this->exists_brand($service_data['brand_id']);
 		if (!$brand_id) 
 			$brand_id=$this->save_brand(array('brand_name'=>$service_data['brand_id']));	
@@ -151,19 +151,20 @@ class Service extends CI_Model {
 		$this->con->like('brand_name', $search);
 		$this->con->order_by("brand_id","asc");
 		$by_model = $this->con->get();
-		foreach($by_model->result() as $row){ $suggestions[]=$row->brand_name; }
+		foreach($by_model->result() as $row){ $suggestions[]=$row->brand_name.'|'.$row->brand_id; }
 		// return $this->con->last_query();
 		return $suggestions;
 	}
 	public function suggest_owner($search=''){
 		$suggestions = array();
 		$this->con->from('customers');
-		$this->con->join('people','people.person_id=customers.person_id');
-		$this->con->distinct();
-		$this->con->like('first_name', $search);
-		$this->con->or_like('last_name', $search);
-		$this->con->order_by("first_name","asc");
+		$this->con->join('people','customers.person_id=people.person_id');
+		$this->con->where("(first_name LIKE '%".$this->con->escape_like_str($search)."%' or
+		last_name LIKE '%".$this->con->escape_like_str($search)."%' or
+		CONCAT(`first_name`,' ',`last_name`) LIKE '%".$this->con->escape_like_str($search)."%') and deleted=0");
+		$this->con->order_by("last_name", "asc");
 		$by_model = $this->con->get();
+
 		foreach($by_model->result() as $row){ $suggestions[]=$row->first_name.' '.$row->last_name; }
 		// return $this->con->last_query();
 		return $suggestions;

@@ -19,8 +19,8 @@
 	<script src="js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
-	<!-- end jquery new -->
+	<!-- <script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
+	end jquery new -->
 	<script src="js/jquery-1.2.6.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.jQueryOld=jQuerySwitch('jQueryOld',jQuery);</script>
 	<!-- jquery old -->

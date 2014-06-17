@@ -101,10 +101,15 @@
 //validation and submit handling
 $(function(){
 	var pass=true,brand="";
-	$("#model").autocomplete("<?php echo site_url('services/suggest_models/');?>",{max:100,minChars:0,delay:10})
-				.result(function(event,data,formatted){}).search();
+	
 	$("#brand").autocomplete("<?php echo site_url('services/suggest_brand');?>",{max:100,minChars:0,delay:10})
-				.result(function(event,data,formatted){}).search();
+				.result(function(event,data,formatted){
+					if(data)
+						$("#model").autocomplete("<?php echo site_url('services/suggest_models');?>/"+data[1],{max:100,minChars:0,delay:10})
+								.result(function(event,data,formatted){}).search();
+
+
+				}).search();
 	$("#name").autocomplete("<?php echo site_url('services/suggest_owner');?>",{max:100,minChars:0,delay:10})
 				.result(function(event,data,formatted){}).search();
 	$("#brand").change(function(event) { brand=$(this).val(); console.log(brand);});

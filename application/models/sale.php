@@ -91,8 +91,11 @@ class Sale extends CI_Model
 
 		foreach($items as $line=>$item)
 		{
-			$cur_item_info = $this->Item->get_info($item['item_id']);
+			if($item['is_service']&&$item['service_id']){
+				$this->Service->save(array('status'=>100),$item['service_id']);
+			}
 
+			$cur_item_info = $this->Item->get_info($item['item_id']);
 			$sales_items_data = array
 			(
 				'sale_id'=>$sale_id,

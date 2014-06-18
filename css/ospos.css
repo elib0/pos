@@ -316,21 +316,41 @@ a.none{
 }
 
 /*STATUS SERVICES*/
-.status{
-	font-weight: bold;
+.status-tr-1:hover > td{
+	background-color: #3276B1 !important;
 }
+.status-tr-2:hover > td{
+	background-color: #F0AD4E !important;
+}
+.status-tr-3:hover > td{
+	background-color: #5CB85C !important;
+}
+.status-tr-4:hover > td{
+	background-color: #D9534F !important;
+}
+.status-tr-100:hover > td{
+	background-color: #5CB85C !important;
+}
+
+/*Fuentes*/
 .status-1{
+	font-weight: bold;
 	color: #3276B1;
 }
 .status-2{
+	font-weight: bold;
 	color: #F0AD4E;
 }
 .status-3{
+	font-weight: bold;
 	color: #5CB85C;
 }
 .status-4{
+	font-weight: bold;
 	color: #D9534F;
 }
 .status-100{
+	font-weight: bold;
 	color: #5CB85C;
 }
+/*STATUS SERVICES END*/

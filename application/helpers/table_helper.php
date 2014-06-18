@@ -472,7 +472,7 @@ function get_service_data_row($service,$controller)
 	$width = $controller->get_form_width();
 
 	//$table_data_row='<tr'.($service->is_locked?' title="'.$CI->lang->line('services_is_locked_title').'" class="locked"':'').'>';
-	$table_data_row='<tr>';
+	$table_data_row='<tr class="status-tr-'.$service->status.'">';
 	//$table_data_row.="<td width='3%'><input class='".($service->is_locked?'locked':'')."' type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
 	//$table_data_row.="<td width='3%'>".($service->status==100?'':form_checkbox('services[]', $service->service_id))."</td>";
 	$table_data_row.='<td width="15%">'.$service->service_id.'</td>';
@@ -483,7 +483,7 @@ function get_service_data_row($service,$controller)
 	$table_data_row.='<td width="14%">'.$service->date_received.'</td>';
 	$date_delivered = ($service->date_delivered) ? $service->date_delivered : $CI->lang->line('services_undelivered');
 	$table_data_row.='<td width="14%">'.$date_delivered.'</td>';
-	$table_data_row.='<td width="14%"><span class="status status-'.$service->status.'">'.$CI->lang->line('services_status_'.$service->status).'</span></td>';
+	$table_data_row.='<td width="14%"><span class="status-'.$service->status.'">'.$CI->lang->line('services_status_'.$service->status).'</span></td>';
 
 	switch ($service->status){
 		case 3:

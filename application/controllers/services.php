@@ -167,6 +167,12 @@ class Services extends Secure_area
 		// echo $suggestions;
 		echo implode("\n",$suggestions);
 	}
+	function suggest_items()
+	{
+		$suggestions = $this->Item->get_item_search_suggestions($this->input->post('q'),$this->input->post('limit'));
+		$suggestions = array_merge($suggestions, $this->Item_kit->get_item_kit_search_suggestions($this->input->post('q'),$this->input->post('limit')));
+		echo implode("\n",$suggestions);
+	}
 	/*
 	get the width for the add/edit form
 	*/

@@ -83,11 +83,11 @@ function post_item_form_submit(response){
 			setTimeout(function() { location.reload(); }, 1000);
 		}else{ //refresh entire table 	
 			setTimeout(function() { location.reload(); }, 1000);
-			do_search(true,function(){
+			// do_search(true,function(){
 				//highlight new row
-				hightlight_row(response.item_id);
+				//hightlight_row(response.item_id);
 				set_feedback(response.message,'success_message',false);
-			});
+			// });
 		}
 	}
 }

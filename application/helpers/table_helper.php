@@ -422,7 +422,7 @@ function get_services_manage_table($services,$controller){
 	$CI =& get_instance();
 	$table='<table class="tablesorter" id="sortable_table">';
 
-	$headers = array('<input type="checkbox" id="select_all" />',
+	$headers = array(//'<input type="checkbox" id="select_all" />',
 	$CI->lang->line('services_item_number'),
 	$CI->lang->line('services_name_owner'),
 	$CI->lang->line('services_brand'),
@@ -473,7 +473,7 @@ function get_service_data_row($service,$controller)
 	//$table_data_row='<tr'.($service->is_locked?' title="'.$CI->lang->line('services_is_locked_title').'" class="locked"':'').'>';
 	$table_data_row='<tr>';
 	//$table_data_row.="<td width='3%'><input class='".($service->is_locked?'locked':'')."' type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
-	$table_data_row.="<td width='3%'>".($service->status==100?'':form_checkbox('services[]', $service->service_id))."</td>";
+	//$table_data_row.="<td width='3%'>".($service->status==100?'':form_checkbox('services[]', $service->service_id))."</td>";
 	$table_data_row.='<td width="15%">'.$service->service_id.'</td>';
 	$table_data_row.='<td width="20%">'.$service->first_name.' '.$service->last_name.'</td>';
 	$table_data_row.='<td width="14%">'.$service->brand_name.'</td>';
@@ -485,7 +485,9 @@ function get_service_data_row($service,$controller)
 
 	switch ($service->status){
 		case 3:
-			$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$service->service_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update'))).anchor("sales/add/3/$service->service_id", $CI->lang->line('services_pay'),array('class'=>'small_button')).'</td>';
+			$hidden = array('item' => '3','customer_id' => $service->person_id, 'service' => $service->service_id);
+
+			$table_data_row.='<td width="5%">'.form_open('sales/add/', '', $hidden).form_submit(array('value'=>$CI->lang->line('services_pay'),'class'=>'small_button')).form_close().'</td>';
 			break;
 		case 100:
 			$table_data_row.='<td width="5%">'.$CI->lang->line('services_no_actions').'</td>';

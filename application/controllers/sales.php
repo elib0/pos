@@ -142,8 +142,12 @@ class Sales extends Secure_area
 		$mode = $this->sale_lib->get_mode();
 		if(!$item_id_or_number_or_item_kit_or_receipt)
 			$item_id_or_number_or_item_kit_or_receipt = $this->input->post("item");
+
 		if(!$service_id) $service_id=$this->input->post("service");
 		if(!$service_id) $service_id=NULL;
+
+		if($service_id)$this->sale_lib->set_customer($this->input->post("customer_id"));
+
 		$quantity = $mode!="return" ? 1:-1;
 
 		if($this->sale_lib->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt) && $mode=='return')
@@ -163,8 +167,9 @@ class Sales extends Secure_area
 		{
 			$data['warning'] = $this->lang->line('sales_quantity_less_than_zero');
 		}
-		redirect('sales');
-		// $this->_reload($data);
+		
+		
+		$this->_reload();
 	}
 
 	function edit_item($line, $ajax=false)

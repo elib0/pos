@@ -136,7 +136,7 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 					for ($i=1; $i < 5; $i++) { $status[$i]=$this->lang->line('services_status_'.$i); }
 					// $status[100]=$this->lang->line('services_status_100');
 				?>
-				<div> <?php echo form_dropdown('status',$status,$service_info->status); ?> </div>
+				<div> <?php echo form_dropdown('status',$status,$service_info->status,"id='status'"); ?> </div>
 			</div>
 		</div>
 	</div>
@@ -166,9 +166,24 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 	'name'=>'enviar',
 	'id'=>'enviar',
 	'value'=>$this->lang->line('common_submit'),
-	'class'=>'small_button float_right'
-)); ?>
-<?php echo form_close(); ?>
+	'class'=>'small_button float_right')); 
+     echo form_close(); 
+
+
+     $hidden = array('item' => '3','customer_id' => $service_info->person_id, 'service' => $service_info->service_id);
+
+	 echo form_open('sales/add/', '', $hidden);
+
+	 echo form_submit(array(
+		'name'=>'pay',
+		'id'=>'pay',
+		'style'=>'display: none;',
+		'value'=>$this->lang->line('services_pay'),
+		'class'=>'small_button float_right')); 	
+
+	 echo form_close();
+
+?>
 <script type='text/javascript'>
 //validation and submit handling
 $(function(){
@@ -195,6 +210,9 @@ $(function(){
 				}).search();
 	$("#name").autocomplete("<?php echo site_url('services/suggest_owner');?>",{max:100,minChars:0,delay:10})
 				.result(function(event,data,formatted){}).search();
+
+	$('#status').change(function(){ if($(this).val()=='3') $('#pay').show();})
+
 	$('#services_form').validate({
 		submitHandler:function(form)
 		{
@@ -262,12 +280,5 @@ $(function(){
 		}
 	});
 });
-//new jQuery
-(function($){
-	$('#is_service').change(function(){
-		var checked=$(this).is(':checked');
-		$(this).parents('#item_form').find('#quantity,#reorder_level').prop('disabled',checked)
-			.parent().parent()[checked?'hide':'show']();
-	}).change();
-})(jQueryNew);
+
 </script>

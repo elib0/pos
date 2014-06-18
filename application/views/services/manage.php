@@ -13,7 +13,7 @@
 <div id="table_action_header">
 	<ul>
 		<li class="float_left">
-		<?php if($this->Employee->has_privilege('delete', $controller_name)):  ?>
+		<?php if($this->Employee->has_privilege('delete', $controller_name)&&false):  ?>
 		<li class="float_left">
 			<?php echo anchor('#', $this->lang->line("common_delete"), 'id="delete" class="small_button"'); ?>
 		</li>
@@ -28,9 +28,9 @@
 	</ul>
 </div>
 <div id="table_holder">
-<?php echo form_open("$controller_name/delete", array('id'=>'delete-form')); ?>
+<?php // echo form_open("$controller_name/delete", array('id'=>'delete-form')); ?>
 <?=$manage_table?>
-<?php echo form_close(); ?>
+<?php //echo form_close(); ?>
 </div>
 <div id="feedback_bar"></div>
 <?php $this->load->view("partial/footer"); ?>

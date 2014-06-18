@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
 	<link rel="stylesheet" type="text/css" href="css/notifIt.css" />
 	<link rel="stylesheet" type="text/css" href="css/chat.css" media="all" />
+	<link rel="stylesheet" type="text/css" href="css/select2.css" media="screen" />
 	<script>BASE_URL = '<?=site_url()?>';</script>
 	<script src="js/jquery.switch.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
@@ -20,6 +21,7 @@
 	<script src="js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/select2.min.js" type="text/javascript" charset="UTF-8"></script>
 	<!-- end jquery new -->
 	<script src="js/jquery-1.2.6.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.jQueryOld=jQuerySwitch('jQueryOld',jQuery);</script>

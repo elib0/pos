@@ -425,6 +425,7 @@ function get_services_manage_table($services,$controller){
 	$headers = array(//'<input type="checkbox" id="select_all" />',
 	$CI->lang->line('services_item_number'),
 	$CI->lang->line('services_name_owner'),
+	$CI->lang->line('common_phone_number'),
 	$CI->lang->line('services_brand'),
 	$CI->lang->line('services_model'),
 	$CI->lang->line('services_received'),
@@ -475,7 +476,8 @@ function get_service_data_row($service,$controller)
 	//$table_data_row.="<td width='3%'><input class='".($service->is_locked?'locked':'')."' type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
 	//$table_data_row.="<td width='3%'>".($service->status==100?'':form_checkbox('services[]', $service->service_id))."</td>";
 	$table_data_row.='<td width="15%">'.$service->service_id.'</td>';
-	$table_data_row.='<td width="20%">'.$service->first_name.' '.$service->last_name.'</td>';
+	$table_data_row.='<td width="20%">'.$service->first_name.' '.$service->last_name.'</small></td>';
+	$table_data_row.='<td width="20%">'.$service->phone_number.'</td>';
 	$table_data_row.='<td width="14%">'.$service->brand_name.'</td>';
 	$table_data_row.='<td width="14%">'.$service->model_name.'</td>';
 	$table_data_row.='<td width="14%">'.$service->date_received.'</td>';

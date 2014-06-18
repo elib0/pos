@@ -162,35 +162,63 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 	<?=$this->lang->line('common_fields_required_message')?>
 </div>
 <ul id="error_message_box"></ul>
-<?php echo form_submit(array(
-	'name'=>'enviar',
-	'id'=>'enviar',
-	'value'=>$this->lang->line('common_submit'),
-	'class'=>'small_button float_right')); 
+<?php
+	echo form_button(
+		array(
+			'name'=>'enviar',
+			'id'=>'enviar',
+			'value'=>'enviar',
+			'content' => $this->lang->line('common_submit'),
+			'class'=>'small_button float_right',
+			'style'=>'margin-left: 20px;'
+		)
+	);
+	//  echo form_submit(array(
+	// 'name'=>'enviar',
+	// 'id'=>'enviar',
+	// 'value'=>$this->lang->line('common_submit'),
+	// 'class'=>'small_button float_right')); 
      echo form_close(); 
 
 
      $hidden = array('item' => '3','customer_id' => $service_info->person_id, 'service' => $service_info->service_id);
 
-	 echo form_open('sales/add/', '', $hidden);
-
-	 echo form_submit(array(
-		'name'=>'pay',
-		'id'=>'pay',
-		'style'=>'display: none;',
-		'value'=>$this->lang->line('services_pay'),
-		'class'=>'small_button float_right')); 	
-
+	 echo form_open('sales/add/3',array('id'=>'payOneServices'), $hidden);
+	 echo form_button(
+		array(
+			'name'=>'pay',
+			'id'=>'pay',
+			'value'=>'pay',
+			'content' => $this->lang->line('services_pay'),
+			'class'=>'small_button float_right',
+			'style'=>'display: none; margin-left: 20px;'
+		)
+	);
+	 // echo form_submit(array(
+		// 'name'=>'pay',
+		// 'id'=>'pay',
+		// 'style'=>'display: none;',
+		// 'value'=>$this->lang->line('services_pay'),
+		// 'class'=>'small_button float_right')); 	
 	 echo form_close();
 
 ?>
 <script type='text/javascript'>
 //validation and submit handling
 $(function(){
+	var payband=false;
 	$('#newc').click(function() { 	
 		$('div.invisible input').val('').removeAttr('disabled').parents('div.invisible').show('fast').removeClass('invisible');
 		$('div.noinvisible input').val('disabled').attr('disabled', 'disabled').parents('div.noinvisible').hide('fast');
 	});	
+	$('#pay').click(function() {
+		payband=true;
+		$('#services_form').submit();
+	});
+	$('#enviar').click(function() {
+		payband=false;
+		$('#services_form').submit();
+	});
 	$("#brand").autocomplete("<?php echo site_url('services/suggest_brand');?>",{max:100,minChars:0,delay:10})
 				.result(function(event,data,formatted){
 					if(data){
@@ -215,14 +243,18 @@ $(function(){
 
 	$('#services_form').validate({
 		submitHandler:function(form)
-		{
+		{	console.log(payband);
 			$('#item_number').val($('#scan_item_number').val());
 			$(form).ajaxSubmit({
 				success:function(response){ 
 					if (response.noOw){ if (confirm(response.message)) $('#newc').click(); } 
-					else{					
-						tb_remove();
-						post_item_form_submit(response);
+					else{
+						if (payband){
+							$('#payOneServices').attr('action',$('#payOneServices').attr('action')+'/'+response.service_id).submit();
+						}else{
+							tb_remove();
+							post_item_form_submit(response);
+						}
 					}
 				},
 				dataType:'json'

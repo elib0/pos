@@ -483,7 +483,7 @@ function get_service_data_row($service,$controller)
 	$table_data_row.='<td width="14%">'.$service->date_received.'</td>';
 	$date_delivered = ($service->date_delivered) ? $service->date_delivered : $CI->lang->line('services_undelivered');
 	$table_data_row.='<td width="14%">'.$date_delivered.'</td>';
-	$table_data_row.='<td width="14%">'.$CI->lang->line('services_status_'.$service->status).'</td>';
+	$table_data_row.='<td width="14%"><span class="status status-'.$service->status.'">'.$CI->lang->line('services_status_'.$service->status).'</span></td>';
 
 	switch ($service->status){
 		case 3:

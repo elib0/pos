@@ -314,3 +314,23 @@ a.none{
 	color:#ccc;
 	font-size:10px;
 }
+
+/*STATUS SERVICES*/
+.status{
+	font-weight: bold;
+}
+.status-1{
+	color: #3276B1;
+}
+.status-2{
+	color: #F0AD4E;
+}
+.status-3{
+	color: #5CB85C;
+}
+.status-4{
+	color: #D9534F;
+}
+.status-100{
+	color: #5CB85C;
+}

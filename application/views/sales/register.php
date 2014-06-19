@@ -49,7 +49,7 @@ if($mode=='sale'){	echo $this->lang->line('sales_find_or_scan_item'); }
 else{ echo $this->lang->line('sales_find_or_scan_item_or_receipt'); }
 ?>
 </label>
-<?php echo form_input(array('name'=>'item','id'=>'item','size'=>'40'));?>
+<?php echo form_input(array('name'=>'item','id'=>'item','size'=>'40','placeholder'=>$this->lang->line('sales_start_typing_item_name')));?>
 	<div id="new_item_button_register" >
 		<?php echo anchor('items/view/-1/width:360','<span>'.$this->lang->line('sales_new_item').'</span>',array('class'=>'small_button thickbox','title'=>$this->lang->line('sales_new_item')));
 		?>
@@ -195,7 +195,7 @@ if(count($cart)==0){
 		}else{
 			echo form_open('sales/select_customer',array('id'=>'select_customer_form'));
 			echo '<label id="customer_label" for="customer">'.$this->lang->line('sales_select_customer').'</label>';
-			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','class'=>'text_box','style'=>'width:73%;','value'=>$this->lang->line('sales_start_typing_customer_name')));
+			echo form_input(array('name'=>'customer','id'=>'customer','size'=>'30','class'=>'text_box','style'=>'width:73%;','placeholder'=>$this->lang->line('sales_start_typing_customer_name')));
 			
 			//echo '<div style="margin-top:5px;text-align:center;">';
 			//echo '<h3 style="margin: 5px 0 5px 0">'.$this->lang->line('common_or').'</h3>';
@@ -380,31 +380,27 @@ $(function(){
 			}
 		});
 	});
-
 	$('.edit-item').blur(function(event){
 		var ref = $(this).attr('ref');
 		$('#edit_item'+ref).ajaxSubmit({
-			success:function(response)
-			{
+			success:function(response){
 				set_amounts(ref);
 			}
 		});
 	});
 
-	$(function(){
-		$('#employee').autocomplete('index.php/employees/suggest/1',{
-			max:100,
-			delay:10,
-			selectFirst: false,
-			formatItem: function(row) {
-				console.log(row);
-				return row[1];
-			}
-		}).result(function(event,data,formatted){
-			$('#select_employee_form').submit();
-		});
-		$('#item').focus();
+	$('#employee').autocomplete('index.php/employees/suggest/1',{
+		max:100,
+		delay:10,
+		selectFirst: false,
+		formatItem: function(row) {
+			console.log(row);
+			return row[1];
+		}
+	}).result(function(event,data,formatted){
+		$('#select_employee_form').submit();
 	});
+	//$('#item').focus();
 
 	$('#item').autocomplete("<?=site_url('sales/item_search')?>",{
 		minChars:0,
@@ -415,13 +411,9 @@ $(function(){
 			return row[1];
 		}
 	}).blur(function(){
-		$(this).attr('value',"<?=$this->lang->line('sales_start_typing_item_name')?>");
+		$(this).attr('value',"");
 	}).result(function(event,data,formatted){
 		$('#add_item_form').submit();
-	});
-
-	$('#item,#customer').click(function(){
-		$(this).attr('value','');
 	});
 
 	//Envia formulario de customer idependientemente del formato de customer
@@ -442,7 +434,7 @@ $(function(){
 	}).result(function(event, data, formatted){
 		$('#select_customer_form').submit();
 	}).blur(function(){
-		$(this).attr('value',"<?=$this->lang->line('sales_start_typing_customer_name')?>");
+		$(this).attr('value',"");
 	});
 
 	$('#comment').change(function(){
@@ -453,8 +445,7 @@ $(function(){
 		$.post('<?=site_url('sales/set_email_receipt')?>',{email_receipt:$('#email_receipt').is(':checked')?1:0});
 	});
 
-	$('#finish_sale_button').click(function()
-	{
+	$('#finish_sale_button').click(function(){
 		var mode = '<?php echo $mode ?>';
 		var dbselected = 1;
 
@@ -521,53 +512,54 @@ $(function(){
 	});	
 
 	$('#payment_types').change(checkPaymentTypeGiftcard).ready(checkPaymentTypeGiftcard)
-});
 
-function set_amounts(line){
-	line = line || false;
-	$.ajax({
-		url:'index.php/sales/get_ajax_sale_details',
-		dataType:'json',
-		success:function(data){		
-			$('#amount_tendered').val(data.due);
-			$('#amount-due,div.amount_due div').html(data.due);
-			$('.general-total,div.total div').html(data.total).formatCurrency();
-			$('#general-sub-total').html(data.subtotal).formatCurrency();
-			if(line){
-				var taxes = new Array();
-				var price = $('tr#'+line+' input[name=price]').val();
-	 			var quantity = $('tr#'+line+' select').val();
-				var discount = $('tr#'+line+' input[name=discount]').val();
-				$('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100).formatCurrency();
-				for (var key in data.taxes){ taxes.push(data.taxes[key]); }
-				$('.taxes').each(function(index, el) {
-					$(this).html(taxes[index]).formatCurrency();					
-				});
+
+	function set_amounts(line){
+		line = line || false;
+		$.ajax({
+			url:'index.php/sales/get_ajax_sale_details',
+			dataType:'json',
+			success:function(data){		
+				$('#amount_tendered').val(data.due);
+				$('#amount-due,div.amount_due div').html(data.due);
+				$('.general-total,div.total div').html(data.total).formatCurrency();
+				$('#general-sub-total').html(data.subtotal).formatCurrency();
+				if(line){
+					var taxes = new Array();
+					var price = $('tr#'+line+' input[name=price]').val();
+		 			var quantity = $('tr#'+line+' select').val();
+					var discount = $('tr#'+line+' input[name=discount]').val();
+					$('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100).formatCurrency();
+					for (var key in data.taxes){ taxes.push(data.taxes[key]); }
+					$('.taxes').each(function(index, el) {
+						$(this).html(taxes[index]).formatCurrency();					
+					});
+				}
 			}
+		});
+	}
+
+	function post_item_form_submit(response){
+		if(response.success){
+			$('#item').attr('value',response.item_id);
+			$('#add_item_form').submit();
 		}
-	});
-}
-
-function post_item_form_submit(response){
-	if(response.success){
-		$('#item').attr('value',response.item_id);
-		$('#add_item_form').submit();
 	}
-}
 
-function post_person_form_submit(response){
-	if(response.success){
-		$('#customer').attr('value',response.person_id);
-		$('#select_customer_form').submit();
+	function post_person_form_submit(response){
+		if(response.success){
+			$('#customer').attr('value',response.person_id);
+			$('#select_customer_form').submit();
+		}
 	}
-}
 
-function checkPaymentTypeGiftcard(){
-	if ($('#payment_types').val()=="<?=$this->lang->line('sales_giftcard')?>"){
-		$('#amount_tendered_label').html("<?=$this->lang->line('sales_giftcard_number')?>");
-		$('#amount_tendered').val('').focus();
-	}else{
-		$('#amount_tendered_label').html("<?=$this->lang->line('sales_amount_tendered')?>");
+	function checkPaymentTypeGiftcard(){
+		if ($('#payment_types').val()=="<?=$this->lang->line('sales_giftcard')?>"){
+			$('#amount_tendered_label').html("<?=$this->lang->line('sales_giftcard_number')?>");
+			$('#amount_tendered').val('').focus();
+		}else{
+			$('#amount_tendered_label').html("<?=$this->lang->line('sales_amount_tendered')?>");
+		}
 	}
-}
+});
 </script>

@@ -96,6 +96,7 @@ $(window).jkey('f4',function(){
 window.location=BASE_URL+'/suppliers/index';
 });
 
+if(!document.location.host.match(/^(localhost|192\.|127\.)/i))
 $(window).jkey('f5',function(){
 window.location=BASE_URL+'/reports/index';
 });

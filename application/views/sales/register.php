@@ -113,7 +113,10 @@ else
 		<tr id="<?=$item['item_id']?>" class="sale-line">
 		<td><?=anchor("sales/delete_item/$line",$this->lang->line('common_delete'),"class='small_button'")?></td>
 		<td><?=$item['item_number']?></td>
-		<td style="align:center;"><?=$item['name']?><br/><small> [<?=$cur_item_info->quantity?> in stock]</small></td>
+		<td style="align:center;">
+			<?=$item['name']?>
+			<?php if(!$item['is_service']){ ?><br/><small> [<?=$cur_item_info->quantity?> in stock]</small><?php } ?>
+		</td>
 
 		<?php if ($items_module_allowed)
 		{

@@ -35,7 +35,7 @@ class Sale_lib
 	{
 		$this->CI->session->set_userdata('payments',$payments_data);
 	}
-	
+
 	function get_comment() 
 	{
 		return $this->CI->session->userdata('comment');
@@ -50,7 +50,7 @@ class Sale_lib
 	{
 		$this->CI->session->unset_userdata('comment');
 	}
-	
+
 	function get_email_receipt() 
 	{
 		return $this->CI->session->userdata('email_receipt');
@@ -89,7 +89,6 @@ class Sale_lib
 
 		$this->set_payments($payments);
 		return true;
-
 	}
 
 	//Alain Multiple Payments
@@ -102,7 +101,6 @@ class Sale_lib
 			$payments[$payment_id]['payment_amount'] = $payment_amount;
 			$this->set_payments($payment_id);
 		}
-
 		return false;
 	}
 
@@ -191,8 +189,6 @@ class Sale_lib
 			if(!$item_id)
 				return false;
 		}
-
-
 		//Alain Serialization and Description
 
 		//Get all items in the cart so far...
@@ -218,44 +214,55 @@ class Sale_lib
 				$maxkey = $item['line'];
 			}
 
-			if($item['item_id']==$item_id&&$item_id>0)
+			if($item['item_id']==$item_id)
 			{
-				$itemalreadyinsale=TRUE;
-				$updatekey=$item['line'];
+				if(!$item['is_service']){
+					$itemalreadyinsale=TRUE;
+					$updatekey=$item['line'];
+				}elseif($item_id>0&&$item['service_id']==$service_id){
+					return true;
+				}
 			}
 		}
 
 		$insertkey=$maxkey+1;
 
+		$item_info=$this->CI->Item->get_info($item_id);
 		if($item_id==-1&&$serialnumber){
 			$item_number=$serialnumber;
 			$serialnumber=null;
 			$quantity=1;
-		}else{	
-			$item_number=$this->CI->Item->get_info($item_id)->item_number;
+		}elseif($item_id>0){
+			if($item_info->is_service){
+				$item_number=$service_id;
+				$serialnumber=null;
+				$quantity=1;
+			}else{
+				$item_number=$item_info->item_number;
+			}
 		}
 		//array/cart records are identified by $insertkey and item_id is just another field.
-		$item = array(($insertkey)=>
-		array(
-			'item_id'               =>$item_id,
-			'line'                  =>$insertkey,
-			'service_id'			=>$service_id,
-			'name'                  =>$this->CI->Item->get_info($item_id)->name,
-			'item_number'           =>$item_number,
-			'description'           =>$description!=null ? $description: $this->CI->Item->get_info($item_id)->description,
-			'serialnumber'          =>$serialnumber!=null ? $serialnumber: '',
-			'allow_alt_description' =>$this->CI->Item->get_info($item_id)->allow_alt_description,
-			'is_serialized'         =>$this->CI->Item->get_info($item_id)->is_serialized,
-			'quantity_total'        =>$this->CI->Item->get_info($item_id)->quantity,
-			'quantity'              =>$quantity,
-			'reorder'               =>$this->CI->Item->get_info($item_id)->reorder_level,
-			'discount'              =>$discount,
-			'price'                 =>$price!=null ? $price: $this->CI->Item->get_info($item_id)->unit_price
-			)
+		$array=array(
+			'item_id'				=>$item_id,
+			'line'					=>$insertkey,
+			'is_service'			=>$item_info->is_service,
+			'name'					=>$item_info->name,
+			'item_number'			=>$item_number,
+			'description'			=>$description!=null ? $description: $item_info->description,
+			'serialnumber'			=>$item_info->is_service?$service_id:($serialnumber!=null?$serialnumber:''),
+			'allow_alt_description'	=>$item_info->allow_alt_description,
+			'is_serialized'			=>$item_info->is_service?1:$item_info->is_serialized,
+			'quantity_total'		=>$item_info->quantity,
+			'quantity'				=>$quantity,
+			'reorder'				=>$item_info->reorder_level,
+			'discount'				=>$discount,
+			'price'					=>$price!=null ? $price: $item_info->unit_price
 		);
+		if($service_id) $array['service_id']=$service_id;
+		$item = array(($insertkey)=>$array);
 
 		//Item already exists and is not serialized, add to quantity
-		if($itemalreadyinsale && ($this->CI->Item->get_info($item_id)->is_serialized ==0) )
+		if($itemalreadyinsale && ($item_info->is_serialized ==0) )
 		{
 			$items[$updatekey]['quantity']+=$quantity;
 		}

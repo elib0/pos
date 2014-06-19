@@ -148,10 +148,31 @@ class Service extends CI_Model {
 		$this->con->limit(1);
 		$query = $this->con->get();
 
+		$this->con->select('items.item_id id, items.name text');
+		$this->con->from('service_items');
+		$this->con->join('items', 'items.item_id = service_items.item_id');
+		$this->con->where('service_id', $service_id);
+		$query2 = $this->con->get();
+
+
 		if ($query->num_rows() == 1) {
-			return $query->row();
+
+			$info=$query->row();
+
+			$info->items=$query2->result();
+
+			return $info;
 		}else{
-			return (Object) array('service_id'=>-1,'first_name'=>'','last_name'=>'', 'serial'=>'','brand_name'=>'','status'=>'','model_name'=>'','comments'=>'', 'person_id'=>'');
+			return (Object) array('service_id'=>-1,
+								  'first_name'=>'',
+								  'last_name'=>'', 
+								  'serial'=>'',
+								  'brand_name'=>'',
+								  'status'=>'',
+								  'model_name'=>'',
+								  'comments'=>'', 
+								  'person_id'=>'',
+								  'items'=>array());
 		}
 	}
 

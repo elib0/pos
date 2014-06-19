@@ -146,6 +146,21 @@ class Item_kit extends CI_Model
 		return $suggestions;
 
 	}
+
+	function suggest2($search,$limit=25)
+	{
+		$suggestions = array();
+
+		$this->con->from('item_kits');
+		$this->con->like("CONCAT(item_kit_id, ' ', name, ' ', description)", $search);
+		$this->con->order_by("name", "asc");
+		$by_name = $this->con->get();
+		
+		if ($by_name->num_rows() > 0) {
+			return $by_name;
+		}
+		return false;
+	}
 	
 	function get_item_kit_search_suggestions($search, $limit=25)
 	{

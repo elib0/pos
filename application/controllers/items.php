@@ -96,8 +96,16 @@ class Items extends Secure_area implements iData_controller
 
 	function suggest2()
 	{
-		$items = $this->Item->suggest2($this->input->get('term'));
+		$term = $this->input->get('term');
+		$items = $this->Item->suggest2($term);
+		$item_kits = $this->Item_kit->suggest2($term);
 		$result = array();
+
+		if ($item_kits) {
+			foreach ($item_kits->result() as $row) {
+				$result[] = array('id'=>$row->item_kit_id, 'text'=>$row->name);
+			}
+		}
 
 		if ($items) {
 			foreach ($items->result() as $row) {

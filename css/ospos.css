@@ -317,19 +317,19 @@ a.none{
 
 /*STATUS SERVICES*/
 .status-tr-1:hover > td{
-	background-color: #3276B1 !important;
+	background-color: hsl(208, 56%, 55%) !important;
 }
 .status-tr-2:hover > td{
-	background-color: #F0AD4E !important;
+	background-color: hsl(35, 84%, 72%) !important;
 }
 .status-tr-3:hover > td{
-	background-color: #5CB85C !important;
+	background-color: hsl(120, 39%, 64%) !important;
 }
 .status-tr-4:hover > td{
-	background-color: #D9534F !important;
+	background-color: hsl(2, 64%, 68%) !important;
 }
 .status-tr-100:hover > td{
-	background-color: #5CB85C !important;
+	background-color: hsl(120, 39%, 64%) !important;
 }
 
 /*Fuentes*/

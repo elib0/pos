@@ -125,7 +125,7 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 			TB_WIDTH = imageWidth + 30;
 			TB_HEIGHT = imageHeight + 60;
 			$("#TB_window").append("<a href='' id='TB_ImageOff' title='Close'><img id='TB_Image' src='"+url+"' width='"+imageWidth+"' height='"+imageHeight+"' alt='"+caption+"'/></a>" + "<div id='TB_caption'>"+caption+"<div id='TB_secondLine'>" + TB_imageCount + TB_PrevHTML + TB_NextHTML + "</div></div><div id='TB_closeWindow'><a href='#' id='TB_closeWindowButton' title='Close'>X</a></div>");
-			$("#TB_closeWindowButton").click(tb_remove);
+			$("#TB_closeWindowButton").click(function(){tb_remove()});
 			if (!(TB_PrevHTML === "")) {
 				function goPrev(){
 					if($(document).unbind("click",goPrev)){$(document).unbind("click",goPrev);}

@@ -92,6 +92,7 @@ class Services extends Secure_area
 
 	function view($service_id=-1){
 		$data['service_info']=$this->Service->get_info($service_id);
+		$data['item_list_json']=json_encode($this->Service->get_items($service_id));
 		$this->load->view('services/form',$data);
 	}
 
@@ -143,10 +144,17 @@ class Services extends Secure_area
 				'model_id'=>$this->input->post('model'),
 				'status'=>$this->input->post('status')
 				);
+
 			}
 			// $cur_service_info = $this->Service->get_info($service_id);
 			$service=$this->Service->save($service_data,$service_id);
 			if($service){
+				$id = ($service_id>0)? $service_id : $service;
+				//Save list Items
+				$item_list = explode(',', $this->input->post('item_list'));
+				$this->Service->delete_items($id, true);
+				$this->Service->save_items($id, $item_list);
+
 				if($service_id==-1){//New service
 					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_adding'),'service_id'=>$service));
 				}else{//previous service

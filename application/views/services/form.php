@@ -146,7 +146,7 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 				<?php echo form_label($this->lang->line('common_items').':', 'items',array('class'=>'lable-form')); ?>
 				<?php //echo form_label($this->lang->line('common_items').':', 'items',array('class'=>'lable-form')); ?>
 				<!-- <select name="items" id="item_list" multiple></select> -->
-				<input type="text" id="item_list" value="item_list" style="width: 500px">
+				<input type="text" id="item_list" name="item_list" value="" style="width: 500px">
 			</div>
 		</div>
 	</div>
@@ -264,7 +264,7 @@ $(function(){
 						if (payband){
 							$('#payOneServices').attr('action',$('#payOneServices').attr('action')+'/'+response.service_id).submit();
 						}else{
-							tb_remove();
+							//tb_remove(false);
 							post_item_form_submit(response);
 						}
 					}
@@ -327,7 +327,7 @@ $(function(){
 
 //new jQuery
 (function($){         
-	$('#item_list').select2({
+	$('#item_list').val("<?php echo str_replace('"', '\"', $item_list_json) ?>").select2({
 		placeholder: 'Product Name, Code, Category',
 		minimumInputLength: 3,
 		maximumInputLength: 11,
@@ -348,7 +348,13 @@ $(function(){
             	console.log(data);
                 return { results: data };
             }
-		}
+		},
+		initSelection : function (element, callback) {
+	        var data = [];
+	        console.log(JSON.parse(element.val()));
+	       
+	        callback(JSON.parse(element.val()));
+	    }
 	});
 })(jQueryNew);
 

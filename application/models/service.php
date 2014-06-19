@@ -65,7 +65,7 @@ class Service extends CI_Model {
 			}elseif($item_id!==true){
 				$this->con->where('item_id',$item_id);
 			}
-			return $this->con->delete('service_id');
+			return $this->con->delete('service_items');
 		}
 		return false;
 	}
@@ -117,9 +117,9 @@ class Service extends CI_Model {
 	public function get_items($service_id=false){
 		if($service_id&&$this->exists($service_id)){
 			$array=array();
-			$this->con->select('s.item_id AS id,i.name');
-			$this->con->where('service_id s',$service_id);
-			$this->con->join('items i', 's.item_id = table.column','left');
+			$this->con->select('service_items.item_id AS id,items.name AS text');
+			$this->con->where('service_items.service_id',$service_id);
+			$this->con->join('items', 'service_items.item_id = items.item_id');
 			$query=$this->con->get('service_items');
 			if($query->num_rows()>0){
 				$array=$query->result_array();
@@ -202,17 +202,9 @@ class Service extends CI_Model {
 		$this->con->limit(1);
 		$query = $this->con->get();
 
-		$this->con->select('items.item_id id, items.name text');
-		$this->con->from('service_items');
-		$this->con->join('items','items.item_id = service_items.item_id');
-		$this->con->where('service_id',$service_id);
-		$query2 = $this->con->get();
-
 		if ($query->num_rows() == 1) {
 
 			$info=$query->row();
-
-			$info->items=$query2->result();
 
 			return $info;
 		}else{

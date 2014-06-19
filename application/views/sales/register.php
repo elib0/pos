@@ -17,20 +17,9 @@
 	?>
 </div>
 <?php
-if(isset($error))
-{
-	echo "<div class='error_message'>".$error."</div>";
-}
-
-if (isset($warning))
-{
-	echo "<div class='warning_mesage'>".$warning."</div>";
-}
-
-if (isset($success))
-{
-	echo "<div class='success_message'>".$success."</div>";
-}
+if(isset($error)){	echo "<div class='error_message'>".$error."</div>"; }
+if (isset($warning)){	echo "<div class='warning_mesage'>".$warning."</div>"; }
+if (isset($success)){	echo "<div class='success_message'>".$success."</div>"; }
 ?>
 <div id="register_wrapper">
 <?php echo form_open("sales/change_mode",array('id'=>'mode_form')); ?>
@@ -56,14 +45,8 @@ if (isset($success))
 <label id="item_label" for="item">
 
 <?php
-if($mode=='sale')
-{
-	echo $this->lang->line('sales_find_or_scan_item');
-}
-else
-{
-	echo $this->lang->line('sales_find_or_scan_item_or_receipt');
-}
+if($mode=='sale'){	echo $this->lang->line('sales_find_or_scan_item'); }
+else{ echo $this->lang->line('sales_find_or_scan_item_or_receipt'); }
 ?>
 </label>
 <?php echo form_input(array('name'=>'item','id'=>'item','size'=>'40'));?>
@@ -95,16 +78,13 @@ else
 </thead>
 <tbody id="cart_contents">
 <?php
-if(count($cart)==0)
-{
+if(count($cart)==0){
 ?>
 <tr><td colspan='8'>
 <div class='warning_message' style='padding:7px;'><?php echo $this->lang->line('sales_no_items_in_cart'); ?></div>
 </tr></tr>
 <?php
-}
-else
-{
+}else{
 	foreach(array_reverse($cart,true) as $line=>$item)
 	{
 		$cur_item_info = $this->Item->get_info($item['item_id']);
@@ -118,21 +98,12 @@ else
 			<?php if(!$item['is_service']){ ?><br/><small> [<?=$cur_item_info->quantity?> in stock]</small><?php } ?>
 		</td>
 
-		<?php if ($items_module_allowed)
-		{
-		?>
+		<?php if ($items_module_allowed){	?>
 			<td><?=form_input(array('name'=>'price','value'=>($cur_item_info->is_service&&$item['price']==0?'':$item['price']),'size'=>'6','class'=>'edit-item text_box required','ref'=>$item['item_id']))?></td>
-		<?php
-		}
-		else
-		{
-		?>
+		<?php }else{ ?>
 			<td><?=$item['price']?></td>
 			<?=form_hidden('price',$item['price'])?>
-		<?php
-		}
-		?>
-
+		<?php } ?>
 		<td>
 		<?php
 			if($item['is_serialized']==1):?>
@@ -145,8 +116,7 @@ else
 					$j = $i+1; 
 					$selected = ($j == $item['quantity']) ? ' selected' : '';
 					echo '<option value="'.$j.'"'.$selected.'>'.$j.'</option>';
-				}
-				?>
+				} ?>
 				</select>
 			<?php endif; ?>
 			<?php //echo form_input(array('name'=>'quantity','value'=>$item['quantity'],'size'=>'2')); ?>
@@ -164,19 +134,13 @@ else
 		<td colspan=2 style="text-align:left;">
 
 		<?php
-			if($item['allow_alt_description']==1)
-			{
+			if($item['allow_alt_description']==1){
 				echo form_input(array('name'=>'description','value'=>$item['description'],'size'=>'20'));
-			}
-			else
-			{
-				if ($item['description']!='')
-				{
+			}else{
+				if ($item['description']!=''){
 					echo $item['description'];
 					echo form_hidden('description',$item['description']);
-				}
-				else
-				{
+				}else{
 					echo 'None';
 					echo form_hidden('description','');
 				}
@@ -185,24 +149,16 @@ else
 		</td>
 		<td>&nbsp;</td>
 		<td style="color:#2F4F4F";>
-		<?php
-			if($item['is_serialized']==1)
-			{
+		<?php if($item['is_serialized']==1){
 				echo $this->lang->line('sales_serial').'::';
-			}
-		?>
+			} ?>
 		</td>
 		<td colspan=3 style="text-align:left;">
-		<?php
-			if($item['is_serialized']==1)
-			{
+		<?php if($item['is_serialized']==1){
 				echo form_input(array('name'=>'serialnumber','value'=>$item['serialnumber'],'size'=>'20'));
-			}
-			else
-			{
+			}else{
 				echo form_hidden('serialnumber', '');
-			}
-		?>
+			} ?>
 		</td>
 		</tr> -->
 		<tr style="height:3px">
@@ -211,8 +167,7 @@ else
 		</form>
 	<?php
 	}
-}
-?>
+} ?>
 </tbody>
 </table>
 </div>
@@ -221,16 +176,12 @@ else
 <div id="overall_sale">
 	<?php
 	// Only show this part if there is at least one payment entered.
-	if(count($payments) > 0)
-	{
-	?>
+	if(count($payments) > 0){ ?>
 	<div>
 		<div class='small_button' id='suspend_sale_button'><span><?=$this->lang->line('sales_suspend_sale')?></span></div>
 		<div class='small_button' id='cancel_sale_button'><span><?=$this->lang->line('sales_cancel_sale')?></span></div>
 	</div>
-	<?php
-	}
-	?>
+	<?php } ?>
 	<div style="margin-top:5px;text-align:center;">
 	<?=form_open("sales/select_employee",array('id'=>'select_employee_form'))?>
 	<label id="customer_label" for="employee"><?=$this->lang->line('sales_select_employee')?></label>
@@ -414,9 +365,8 @@ $(document).ready(function(){
 	$('#taxing').click(function(event) {
 		var cb = this;
 		var value = 1;
-		if ($(cb).is(':checked')){
-			$('.taxing-block').show();	
-		}else{
+		if ($(cb).is(':checked')) $('.taxing-block').show();	
+		else{
 			$('.taxing-block').hide();
 			value = 0;				
 		}
@@ -518,13 +468,10 @@ $(document).ready(function(){
 
 		if (dbselected > 0) {
 			if (afterS!='0') {
-				if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>'))
-				{
+				if (confirm('<?php echo $this->lang->line("sales_confirm_finish_sale"); ?>')){
 					$('#finish_sale_form').submit();
 				}	
-			}else{
-				$('#finish_sale_form').submit();
-			};
+			}else{ $('#finish_sale_form').submit(); }
 		}else{
 			// alert('You must select a database');
 			notif({
@@ -585,21 +532,18 @@ function set_amounts(line){
 	$.ajax({
 		url:'index.php/sales/get_ajax_sale_details',
 		dataType:'json',
-		success:function(data){
-			var taxes = new Array();
-			var price = $('tr#'+line+' input[name=price]').val();
- 			var quantity = $('tr#'+line+' select').val();
-			var discount = $('tr#'+line+' input[name=discount]').val();
-			
+		success:function(data){		
 			$('#amount_tendered').val(data.due);
-			$('#amount-due').html(data.due).formatCurrency();
-			$('.general-total').html(data.total).formatCurrency();
+			$('#amount-due,div.amount_due div').html(data.due);
+			$('.general-total,div.total div').html(data.total).formatCurrency();
 			$('#general-sub-total').html(data.subtotal).formatCurrency();
 			if(line){
+				var taxes = new Array();
+				var price = $('tr#'+line+' input[name=price]').val();
+	 			var quantity = $('tr#'+line+' select').val();
+				var discount = $('tr#'+line+' input[name=discount]').val();
 				$('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100).formatCurrency();
-				for (var key in data.taxes){
-					taxes.push(data.taxes[key]);
-				}
+				for (var key in data.taxes){ taxes.push(data.taxes[key]); }
 				$('.taxes').each(function(index, el) {
 					$(this).html(taxes[index]).formatCurrency();					
 				});

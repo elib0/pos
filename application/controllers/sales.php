@@ -222,7 +222,7 @@ class Sales extends Secure_area
 	{
 		$data['cart']=$this->sale_lib->get_cart();
 		$data['subtotal']=$this->sale_lib->get_subtotal();
-		$data['taxes']=$this->sale_lib->get_taxes();
+		$data['taxes']=$this->sale_lib->get_taxing()?$this->sale_lib->get_taxes():false;
 		$data['total']=$this->sale_lib->get_total();
 		// $data['receipt_title']=$this->lang->line('sales_receipt');
 		$data['transaction_time']= date('m/d/Y h:i:s a');

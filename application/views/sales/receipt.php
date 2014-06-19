@@ -62,13 +62,15 @@ if (isset($error_message))
 	<td colspan="2" style='text-align:right;border-top:2px solid #000000;'><?php echo to_currency($subtotal); ?></td>
 	</tr>
 
-	<?php foreach($taxes as $name=>$value) { ?>
-		<tr>
-			<td colspan="4" style='text-align:right;'><?php echo $name; ?>:</td>
-			<td colspan="2" style='text-align:right;'><?php echo to_currency($value); ?></td>
-		</tr>
-	<?php }; ?>
-
+	<?php 
+	if ($taxes){
+		foreach($taxes as $name=>$value) { ?>
+			<tr>
+				<td colspan="4" style='text-align:right;'><?php echo $name; ?>:</td>
+				<td colspan="2" style='text-align:right;'><?php echo to_currency($value); ?></td>
+			</tr>
+		<?php }
+	} ?>
 	<tr>
 	<td colspan="4" style='text-align:right;'><?php echo $this->lang->line('sales_total'); ?></td>
 	<td colspan="2" style='text-align:right'><?php echo to_currency($total); ?></td>

@@ -22,10 +22,11 @@ $lang['services_successful_adding']='Successfully registered service';
 $lang['services_error_adding_updating']='Service successfully modified';
 $lang['services_undelivered']='Undelivered';
 $lang['services_no_actions']='No Actions';
-$lang['services_pay']='Pay';
+$lang['services_pay']='Make Sale';
 $lang['services_received']='Date Received';
 $lang['services_delivered']='Date Delivered';
 $lang['services_actions']='Actions';
+$lang['services_used_items']='Used Items';
 
 //Status
 $lang['services_status_1']='Open';

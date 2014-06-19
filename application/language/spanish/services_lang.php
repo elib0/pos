@@ -19,6 +19,13 @@ $lang['services_information']='Información del servicio';
 $lang['services_error_adding_person']='Disculpe, esta persona no es un cliente, ¿Desea registrarlo?';
 $lang['services_successful_adding']='Servicio registrado satisfactoriamente';
 $lang['services_error_adding_updating']='Servicio modificado satisfactoriamente';
+$lang['services_undelivered']='Sin Entregar';
+$lang['services_no_actions']='Sin Acciones';
+$lang['services_pay']='Hacer Venta';
+$lang['services_received']='Fecha Recepción';
+$lang['services_delivered']='Fecha Entrega';
+$lang['services_actions']='Acciones';
+$lang['services_used_items']='Articulos Usados';
 
 //estatus
 $lang['services_status_1']='Open';

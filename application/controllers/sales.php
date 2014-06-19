@@ -1,5 +1,5 @@
 <?php
-require_once ("secure_area.php");
+require_once ('secure_area.php');
 class Sales extends Secure_area
 {
 	function __construct()
@@ -10,7 +10,56 @@ class Sales extends Secure_area
 
 	function index()
 	{
-		$this->_reload();
+		$data=array();
+		$this->load->model('Transfers');
+		$person_info = $this->Employee->get_logged_in_employee_info();
+		$employee = $this->Employee->get_info( $this->sale_lib->get_employee() );
+		$data['employee'] = $employee->first_name.' '.$employee->last_name;
+		$data['cart']=$this->sale_lib->get_cart();
+		$data['modes']=array(
+			'sale'=>$this->lang->line('sales_sale'),
+			'return'=>$this->lang->line('sales_return')
+		);
+
+		//Si tiene su bd configurada para transferencias entre tiendas
+		if ($this->Transfers->available()) {
+			$data['modes']['shipping'] = $this->lang->line('sales_shipping');
+		}
+
+		$data['mode']=$this->sale_lib->get_mode();
+		$data['subtotal']=$this->sale_lib->get_subtotal();
+		$data['taxes']=$this->sale_lib->get_taxes();
+		
+		//Se cobran taxes?
+		$data['taxing'] = '';
+		if ($this->sale_lib->get_taxing()) {
+			$data['taxing']= 'checked';
+		}
+
+		$data['total']=$this->sale_lib->get_total();
+		$data['items_module_allowed'] = $this->Employee->has_permission('items', $person_info->person_id);
+		$data['comment'] = $this->sale_lib->get_comment();
+		$data['email_receipt'] = $this->sale_lib->get_email_receipt();
+		$data['payments_total']=$this->sale_lib->get_payments_total();
+		$data['amount_due']=$this->sale_lib->get_amount_due();
+		$data['payments']=$this->sale_lib->get_payments();
+		$data['payment_options']=array(
+			$this->lang->line('sales_cash') => $this->lang->line('sales_cash'),
+			$this->lang->line('sales_check') => $this->lang->line('sales_check'),
+			$this->lang->line('sales_giftcard') => $this->lang->line('sales_giftcard'),
+			$this->lang->line('sales_debit') => $this->lang->line('sales_debit'),
+			$this->lang->line('sales_credit') => $this->lang->line('sales_credit')
+		);
+
+		$customer_id=$this->sale_lib->get_customer();
+		if($customer_id!=-1)
+		{
+			$info=$this->Customer->get_info($customer_id);
+			$data['customer']=$info->first_name.' '.$info->last_name;
+			$data['customer_email']=$info->email;
+		}
+		$data['payments_cover_total'] = $this->_payments_cover_total();
+		$this->load->view('sales/register',$data);
 	}
 
 	/*Datos de la venta actual por ajax*/
@@ -38,34 +87,34 @@ class Sales extends Secure_area
 
 	function select_location(){
 		if ( $this->sale_lib->get_mode() == 'shipping') {
-			$customer_id = $this->input->post("location");
+			$customer_id = $this->input->post('location');
 		}
 		$this->sale_lib->set_customer($customer_id);
 	}
 
 	function set_taxing(){
-		$taxing = $this->input->get("taxing");
+		$taxing = $this->input->get('taxing');
 		$this->sale_lib->set_taxing($taxing);
 		$this->_reload();
 	}
 
 	function select_customer()
 	{
-		$customer_id = $this->input->post("customer");
+		$customer_id = $this->input->post('customer');
 		$this->sale_lib->set_customer($customer_id);
 		$this->_reload();
 	}
 
 	function select_employee()
 	{
-		$employee_id = $this->input->post("employee");
+		$employee_id = $this->input->post('employee');
 		$this->sale_lib->set_employee($employee_id);
 		$this->_reload();
 	}
 
 	function change_mode()
 	{
-		$mode = $this->input->post("mode");
+		$mode = $this->input->post('mode');
 		$this->sale_lib->set_mode($mode);
 		$this->_reload();
 	}
@@ -141,14 +190,14 @@ class Sales extends Secure_area
 		$data=array();
 		$mode = $this->sale_lib->get_mode();
 		if(!$item_id_or_number_or_item_kit_or_receipt)
-			$item_id_or_number_or_item_kit_or_receipt = $this->input->post("item");
+			$item_id_or_number_or_item_kit_or_receipt = $this->input->post('item');
 
-		if(!$service_id) $service_id=$this->input->post("service");
+		if(!$service_id) $service_id=$this->input->post('service');
 		if(!$service_id) $service_id=NULL;
 
-		if($service_id)$this->sale_lib->set_customer($this->input->post("customer_id"));
+		if($service_id)$this->sale_lib->set_customer($this->input->post('customer_id'));
 
-		$quantity = $mode!="return" ? 1:-1;
+		$quantity = $mode!='return' ? 1:-1;
 
 		if($this->sale_lib->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt) && $mode=='return')
 		{
@@ -179,11 +228,11 @@ class Sales extends Secure_area
 		$this->form_validation->set_rules('price', 'lang:items_price', 'required|numeric');
 		$this->form_validation->set_rules('quantity', 'lang:items_quantity', 'required|numeric');
 
-        $description = $this->input->post("description");
-        $serialnumber = $this->input->post("serialnumber");
-		$price = $this->input->post("price");
-		$quantity = $this->input->post("quantity");
-		$discount = $this->input->post("discount");
+        $description = $this->input->post('description');
+        $serialnumber = $this->input->post('serialnumber');
+		$price = $this->input->post('price');
+		$quantity = $this->input->post('quantity');
+		$discount = $this->input->post('discount');
 
 
 		if ($this->form_validation->run() != FALSE)
@@ -208,8 +257,7 @@ class Sales extends Secure_area
 	function delete_item($item_number)
 	{
 		$this->sale_lib->delete_item($item_number);
-		redirect('sales');
-		// $this->_reload();
+		$this->_reload();
 	}
 
 	function remove_customer()
@@ -251,7 +299,7 @@ class Sales extends Secure_area
 				$data['receipt_title'] = $this->lang->line('sales_shipping');
 				$data['employee']=$emp_info->first_name.' '.$emp_info->last_name.' From: '.ucwords($this->session->userdata('dblocation'));
 
-				//Registrar Location como customer "CALICHE"
+				//Registrar Location como customer 'CALICHE'
 				include('application/config/database.php');
 				$person_data = array(
 					'first_name'=>$customer_id,
@@ -315,7 +363,7 @@ class Sales extends Secure_area
 				$this->email->to($cust_info->email); 
 
 				$this->email->subject($this->lang->line('sales_receipt'));
-				$this->email->message($this->load->view("sales/receipt_email",$data, true));	
+				$this->email->message($this->load->view('sales/receipt_email',$data, true));	
 				$this->email->send();
 			}
 
@@ -324,7 +372,7 @@ class Sales extends Secure_area
 				$data['sale_id'] = $this->Transfers->save($data['cart'], $location,$employee_id,$comment,$data['payments']);
 			}
 		}
-		$this->load->view("sales/receipt",$data);
+		$this->load->view('sales/receipt',$data);
 		$this->sale_lib->clear_all();
 	}
 	
@@ -351,7 +399,7 @@ class Sales extends Secure_area
 			$data['customer']=$cust_info->first_name.' '.$cust_info->last_name;
 		}
 		$data['sale_id']='POS '.$sale_id;
-		$this->load->view("sales/receipt",$data);
+		$this->load->view('sales/receipt',$data);
 		$this->sale_lib->clear_all();
 
 	}
@@ -434,56 +482,7 @@ class Sales extends Secure_area
 	
 	function _reload($data=array())
 	{
-		$refresh=count($data)>0;
-		$this->load->model('Transfers');
-		$person_info = $this->Employee->get_logged_in_employee_info();
-		$employee = $this->Employee->get_info( $this->sale_lib->get_employee() );
-		$data['employee'] = $employee->first_name.' '.$employee->last_name;
-		$data['cart']=$this->sale_lib->get_cart();
-		$data['modes']=array(
-			'sale'=>$this->lang->line('sales_sale'),
-			'return'=>$this->lang->line('sales_return')
-		);
-
-		//Si tiene su bd configurada para transferencias entre tiendas
-		if ($this->Transfers->available()) {
-			$data['modes']['shipping'] = $this->lang->line('sales_shipping');
-		}
-
-		$data['mode']=$this->sale_lib->get_mode();
-		$data['subtotal']=$this->sale_lib->get_subtotal();
-		$data['taxes']=$this->sale_lib->get_taxes();
-		
-		//Se cobran taxes?
-		$data['taxing'] = '';
-		if ($this->sale_lib->get_taxing()) {
-			$data['taxing']= 'checked';
-		}
-
-		$data['total']=$this->sale_lib->get_total();
-		$data['items_module_allowed'] = $this->Employee->has_permission('items', $person_info->person_id);
-		$data['comment'] = $this->sale_lib->get_comment();
-		$data['email_receipt'] = $this->sale_lib->get_email_receipt();
-		$data['payments_total']=$this->sale_lib->get_payments_total();
-		$data['amount_due']=$this->sale_lib->get_amount_due();
-		$data['payments']=$this->sale_lib->get_payments();
-		$data['payment_options']=array(
-			$this->lang->line('sales_cash') => $this->lang->line('sales_cash'),
-			$this->lang->line('sales_check') => $this->lang->line('sales_check'),
-			$this->lang->line('sales_giftcard') => $this->lang->line('sales_giftcard'),
-			$this->lang->line('sales_debit') => $this->lang->line('sales_debit'),
-			$this->lang->line('sales_credit') => $this->lang->line('sales_credit')
-		);
-
-		$customer_id=$this->sale_lib->get_customer();
-		if($customer_id!=-1)
-		{
-			$info=$this->Customer->get_info($customer_id);
-			$data['customer']=$info->first_name.' '.$info->last_name;
-			$data['customer_email']=$info->email;
-		}
-		$data['payments_cover_total'] = $this->_payments_cover_total();
-		$this->load->view("sales/register",$data);
+		redirect('sales');
 	}
 
     function cancel_sale()

@@ -11,9 +11,9 @@
 	<link rel="stylesheet" type="text/css" href="css/chat.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="css/select2.css" media="screen" />
 	<script>BASE_URL = '<?=site_url()?>';</script>
-	<script src="js/jquery.switch.js" type="text/javascript" charset="UTF-8"></script>
+	<!--<script src="js/jquery.switch.js" type="text/javascript" charset="UTF-8"></script>-->
 	<script src="js/jquery-1.10.2.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script>window.$$=window.jQueryNew=jQuerySwitch('jQueryNew',jQuery);</script>
+	<!--<script>window.$$=window.jQueryNew=jQuerySwitch('jQueryNew',jQuery);</script>-->
 	<!-- jquery new -->
 	<script src="js/jquery.local.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.form.js" type="text/javascript" charset="UTF-8"></script>
@@ -22,9 +22,10 @@
 	<script src="js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/select2.min.js" type="text/javascript" charset="UTF-8"></script>
+	<script>window.$$=window.jQueryNew=jQuery.noConflict();</script>
 	<!-- end jquery new -->
 	<script src="js/jquery-1.2.6.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script>window.jQueryOld=jQuerySwitch('jQueryOld',jQuery);</script>
+	<!--<script>window.jQueryOld=jQuerySwitch('jQueryOld',jQuery);</script>-->
 	<!-- jquery old -->
 	<script src="js/jquery.formatCurrency.js" type="text/javascript"></script>
 	<script src="js/jquery-ui.js" type="text/javascript" charset="UTF-8"></script>

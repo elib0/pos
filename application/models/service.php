@@ -55,7 +55,18 @@ class Service extends CI_Model {
 			$this->con->where_in('service_id',$service_id);
 			return $this->con->update('service_log',$data);
 		}
-
+		return false;
+	}
+	public function delete_items($service_id=false,$item_id=false){
+		if($service_id&&$this->exists($service_id)&&$item_id){
+			$this->con->where('service_id',$service_id);
+			if(is_array($item_id)){
+				$this->con->where_in('item_id',$item_id);
+			}elseif($item_id!==true){
+				$this->con->where('item_id',$item_id);
+			}
+			return $this->con->delete('service_id');
+		}
 		return false;
 	}
 
@@ -106,13 +117,12 @@ class Service extends CI_Model {
 	public function get_items($service_id=false){
 		if($service_id&&$this->exists($service_id)){
 			$array=array();
-			$this->con->select('item_id');
-			$this->con->where('service_id',$service_id);
+			$this->con->select('s.item_id AS id,i.name');
+			$this->con->where('service_id s',$service_id);
+			$this->con->join('items i', 's.item_id = table.column','left');
 			$query=$this->con->get('service_items');
 			if($query->num_rows()>0){
-				foreach($query->result() as $row){
-					$array[]=$row->item_id;
-				}
+				$array=$query->result_array();
 			}
 			return $array;
 		}

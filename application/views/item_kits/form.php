@@ -1,7 +1,7 @@
 <?php echo form_open('item_kits/save/'.$item_kit_info->item_kit_id,array('id'=>'item_kit_form')); ?>
 <div>
 	<h3><?php echo $this->lang->line("item_kits_info"); ?></h3><hr>
-	<div class="field_row clearfix">
+	<div class="field_row clearfix" style="display:block;">
 		<?php echo form_label($this->lang->line('item_kits_name').':', 'name',array('class'=>'lable-form-required')); ?>
 		<div>
 		<?php echo form_input(array(
@@ -12,7 +12,7 @@
 		));?>
 		</div>
 	</div>
-	<div class="field_row clearfix">
+	<div class="field_row clearfix" style="display:block;">
 		<?php echo form_label($this->lang->line('item_kits_description').':', 'description',array('class'=>'lable-form')); ?>
 		<div >
 		<?php echo form_textarea(array(
@@ -25,7 +25,7 @@
 		));?>
 		</div>
 	</div>
-	<div class="field_row clearfix">
+	<div class="field_row clearfix" style="display:block;">
 		<?php echo form_label($this->lang->line('item_kits_add_item').':', 'item',array('class'=>'lable-form')); ?>
 		<div>
 		<?php echo form_input(array(

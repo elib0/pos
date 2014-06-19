@@ -23,7 +23,7 @@
 					'style'=>'display: inline-block; margin: 0 20px;'
 				)
 			);
-		}else $displayNonePhoto="style"; ?>
+		}else $displayNonePhoto="style='display:block;'"; ?>
 		<div id="filel" class="field_row clearfix" <?php echo $displayNonePhoto; ?>> 
 			<input type="radio" name="photop" value="0" checked="checked">	
 			<?php echo form_label($this->lang->line('config_recover_fe'), 'photo_label',array('class'=>'lable-form','style'=>'float:none;')); ?>&nbsp;&nbsp;&nbsp;&nbsp;

@@ -175,7 +175,7 @@
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('items_tax_1').':', 'tax_percent_1',array('class'=>'lable-form')); ?>
-				<div style="width: 85%;">
+				<div style="width: 100%;">
 				<?php echo form_input(array(
 					'name'=>'tax_names[]',
 					'id'=>'tax_name_1',
@@ -196,7 +196,7 @@
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('items_tax_2').':', 'tax_percent_2',array('class'=>'lable-form')); ?>
-				<div style="width: 85%;">
+				<div style="width: 100%;">
 				<?php echo form_input(array(
 					'name'=>'tax_names[]',
 					'id'=>'tax_name_2',

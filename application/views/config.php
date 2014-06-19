@@ -4,7 +4,7 @@
 
 <?php echo form_open_multipart('config/save/',array('id'=>'config_form')); ?>
 
-<div class="field_row clearfix">
+<div class="field_row clearfix" style="display:block;">
 	<?php
 		if ($this->Employee->has_privilege('save', 'config')){ 
 			echo form_submit(
@@ -18,12 +18,11 @@
 		}
 	?>
 </div>
-
 <div class="box-form-view">
 	<ul id="error_message_box"></ul>
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+	<div class="field_row clearfix" style="display:block;margin: 0 0 5px 0">
 		<div style="width: 250px; float: left">
-			<div class="field_row clearfix">	
+			<div class="field_row clearfix" style="display:block;">	
 				<?php echo form_label($this->lang->line('config_company').':', 'company',array('class'=>'lable-form-required','style'=>'width: 160px;')); ?>
 				<div>
 					<?php 
@@ -41,7 +40,7 @@
 			</div>
 		</div>
 		<div style="width: 250px; float: left">
-			<div class="field_row clearfix">	
+			<div class="field_row clearfix" style="display:block;">	
 				<?php echo form_label($this->lang->line('config_phone').':', 'phone',array('class'=>'lable-form-required','style'=>'width: 160px;')); ?>
 				<div>
 					<?php 
@@ -58,7 +57,7 @@
 			</div>
 		</div>
 		<div style="width: 250px; float: left">
-			<div class="field_row clearfix">	
+			<div class="field_row clearfix" style="display:block;">	
 				<?php echo form_label('Company Fax:', 'fax',array('class'=>'lable-form')); ?>
 				<div>
 					<?php 
@@ -75,9 +74,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+	<div class="field_row clearfix" style="display:block;margin: 0 0 5px 0">
 		<div style="width: 250px; float: left">
-			<div class="field_row clearfix">
+			<div class="field_row clearfix" style="display:block;">
 				<?php echo form_label('Company Email:', 'email',array('class'=>'lable-form-required')); ?>
 				<div>
 					<?php 
@@ -94,7 +93,7 @@
 			</div>
 		</div>
 		<div style="width: 250px; float: left">
-			<div class="field_row clearfix">	
+			<div class="field_row clearfix" style="display:block;">	
 				<?php echo form_label('Company '.$this->lang->line('config_website').':', 'website',array('class'=>'lable-form', 'style'=>'width:160px')); ?>
 				<div>
 					<?php 
@@ -112,7 +111,7 @@
 			</div>
 		</div>
 		<div style="width: 100%; float: left; margin-top: 5px">
-			<div class="field_row clearfix">
+			<div class="field_row clearfix" style="display:block;">
 			<?php echo form_label('Company '.$this->lang->line('common_logo').':', 'logo',array('class'=>'lable-form')); ?>
 			<div class='form_field' style="-webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; ">
 				<input type="file" name="logo" id="logo">
@@ -123,8 +122,8 @@
 			</div>
 			</div>
 		</div>
-		<div class="field_row clearfix" style="margin: 0 0 5px 0">
-			<div class="field_row clearfix">	
+		<div class="field_row clearfix" style="display:block;margin: 0 0 5px 0">
+			<div class="field_row clearfix" style="display:block;">	
 				<?php echo form_label($this->lang->line('config_address').':', 'addresslabel',array('class'=>'lable-form-required','style'=>'width:160px;')); ?>
 				<div>
 					<?php 
@@ -145,13 +144,13 @@
 		</div>
 	</div>
 
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
 		<div class="sub-title-view">
 			Sales Information
 		</div>
 	</div>
 
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
 		<div>
 			<div class="field_row clearfix" style="float: left;margin-right: 70px;">
 				<div style="height: 27px;">
@@ -210,7 +209,7 @@
 			</div>
 		</div>
 		</div>
-		<div class="field_row clearfix">
+		<div class="field_row clearfix" style="display:block;">
 			<div style="height: 27px;">
 			<?php echo form_label($this->lang->line('config_currency_symbol').':', 'currency_symbol',array('class'=>'lable-form','style'=>'width:160px;')); ?>
 			</div>
@@ -228,7 +227,7 @@
 				?>
 			</div>
 		</div>
-		<div class="field_row clearfix">
+		<div class="field_row clearfix" style="display:block;">
 			<div  style="float: left;">
 				<div>
 				<?php echo form_label($this->lang->line('config_print_after_sale').':', 'print_after_sale',array('class'=>'lable-form','style'=>'width:250px;')); ?>
@@ -266,14 +265,14 @@
 		</div>
 	</div>
 
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
 		<div class="sub-title-view" style="color: #FF0000">
 			<?php echo $this->lang->line('common_return_policy'); ?>
 		</div>
 	</div>
 
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
-		<div class="field_row clearfix">	
+	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
+		<div class="field_row clearfix" style="display:block;">	
 			<div>
 				<?php 
 					echo form_textarea(
@@ -292,13 +291,13 @@
 		</div>
 	</div>
 
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
 		<div class="sub-title-view">
 			General Setting
 		</div>
 	</div>
 
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
 		<div class="field_row clearfix" style="float: left">	
 			<?php echo form_label($this->lang->line('config_language').':', 'language',array('class'=>'lable-form', 'style'=>'width:170px;')); ?>
 			<div>
@@ -313,7 +312,7 @@
 			</div>
 		</div>
 
-		<div class="field_row clearfix">	
+		<div class="field_row clearfix" style="display:block;">	
 		<?php echo form_label($this->lang->line('config_timezone').':', 'timezone',array('class'=>'lable-form', 'style'=>'width:300px;')); ?>
 			<div>
 			<?php echo form_dropdown('timezone', 
@@ -413,12 +412,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
 		<div class="sub-title-view"><?php echo $this->lang->line('config_system_back'); ?></div>
 	</div>
-	<div class="field_row clearfix" style="margin: 0 0 5px 0">
+	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
 		<div>
-			<div class="field_row clearfix">	
+			<div class="field_row clearfix;display:block;">	
 				<?php  
 					if ($this->Employee->isAdmin()){
 						echo anchor("backup/index/width:350/height:180",
@@ -434,11 +433,11 @@
 	</div>
 </div>
 
-<div class="field_row clearfix" style="color: #FF0000; font-size: 11px">
+<div class="field_row clearfix" style="display:block;color: #FF0000; font-size: 11px">
 	The <strong>red</strong> field are required
 </div>
 
-<div class="field_row clearfix">
+<div class="field_row clearfix" style="display:block;">
 	<?php
 		if ($this->Employee->has_privilege('save', 'config')){ 
 			echo form_submit(

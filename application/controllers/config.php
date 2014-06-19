@@ -2,18 +2,15 @@
 require_once ("secure_area.php");
 class Config extends Secure_area 
 {
-	function __construct()
-	{
+	function __construct(){
 		parent::__construct('config');
 	}
 	
-	function index()
-	{
+	function index(){
 		$this->load->view("config");
 	}
 
-	function save()
-	{
+	function save(){
 		//carga de imagen
 		$config['upload_path'] = './images/';
 		$config['allowed_types'] = 'gif|jpg|png';
@@ -26,7 +23,6 @@ class Config extends Secure_area
 
 		try { 
 			$nameLogo['file_name']='';
-
 			if ($this->upload->do_upload('logo')) {
 				$nameLogo = $this->upload->data();
 				$data = array('upload_status' => 1,'upload_message' => $nameLogo['file_name']);
@@ -34,13 +30,11 @@ class Config extends Secure_area
 					unlink('./images/'.$this->input->post('logo_name'));
 				}
 			}else{
-				
 				if ($this->upload->display_errors(true)=='1') {
 					$data = array('upload_status' => 2,'upload_message' => 'vacio');
 				}else{
 					$data = array('upload_status' => 0,'upload_message' => $this->upload->display_errors(false,'',''));
-				}
-				
+				}				
 			}
 		} catch (Exception $e) {
 			$data = array('upload_status' => -1,'upload_message' => 'no se cargo');
@@ -48,7 +42,6 @@ class Config extends Secure_area
 		}
 
 		if ($nameLogo['file_name']!='') {
-
 			//redimension
 			$configR['image_library'] = 'gd2';
 			$configR['source_image']	= './images/'.$data['upload_message'];
@@ -59,12 +52,11 @@ class Config extends Secure_area
 			$this->load->library('image_lib', $configR); 
 			$this->image_lib->resize();
 			//fin redimension
-
 			$logo = $nameLogo['file_name'];
 		}else{
 			$logo = $this->input->post('logo_name');
+			$data['upload_status']=1;
 		}	
-
 		$batch_save_data=array(
 		'logo'=>$logo,
 		'company'=>$this->input->post('company'),
@@ -88,7 +80,7 @@ class Config extends Secure_area
 
 		switch ($data['upload_status']) {
 			case '-1':case '0':
-				echo json_encode(array('success'=>false,'message'=>$data['upload_message']));
+				echo json_encode(array('x'=>$data['upload_status'],'success'=>false,'message'=>$data['upload_message']));
 				break;
 			case '1':case '2':
 					if( $this->Appconfig->batch_save( $batch_save_data ) )

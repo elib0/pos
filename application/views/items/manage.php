@@ -71,7 +71,6 @@ echo form_open("$controller_name/set_location",array('id'=>'form_items_location'
 <div id="feedback_bar"></div>
 <?php $this->load->view("partial/footer"); ?>
 <script type="text/javascript">
-jQuerySwitch('jQueryNew');
 (function($){
 	var count=0;
 	$('.tablesorter').off('.tslocked').on('change.tslocked','input:checkbox.locked',function(){
@@ -79,7 +78,7 @@ jQuerySwitch('jQueryNew');
 		$('#delete').attr('title',count>0?"<?=$this->lang->line('items_is_locked_alert')?>":null)
 			.prop('disabled',count>0);
 	});
-})(jQuery);
+})(jQueryNew);
 
 $(function(){
 	init_table_sorting();

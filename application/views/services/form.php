@@ -146,7 +146,7 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 				<?php echo form_label($this->lang->line('common_items').':', 'items',array('class'=>'lable-form')); ?>
 				<?php //echo form_label($this->lang->line('common_items').':', 'items',array('class'=>'lable-form')); ?>
 				<!-- <select name="items" id="item_list" multiple></select> -->
-				<input type="text" id="item_list" name="item_list" value="" style="width: 500px">
+				<input type="text" id="item_list" name="item_list" value="<?=$item_list?>" style="width: 500px">
 			</div>
 		</div>
 	</div>
@@ -326,8 +326,9 @@ $(function(){
 });
 
 //new jQuery
-(function($){         
-	$('#item_list').val("<?php echo str_replace('"', '\"', $item_list_json) ?>").select2({
+(function($){
+	var items=(<?=$item_list_json?>);
+	$('#item_list').select2({
 		placeholder: 'Product Name, Code, Category',
 		minimumInputLength: 3,
 		maximumInputLength: 11,
@@ -350,11 +351,15 @@ $(function(){
             }
 		},
 		initSelection : function (element, callback) {
-	        var data = [];
-	        console.log(JSON.parse(element.val()));
-	       
-	        callback(JSON.parse(element.val()));
-	    }
+			var data = [], text={};
+			$.each(items,function(index,val) {
+				text[val.id]=val.text;
+			});
+			$(element.val().split(",")).each(function(){
+				data.push({id: this, text:text[this]});
+			});
+			callback(data);
+		}
 	});
 })(jQueryNew);
 

@@ -93,6 +93,21 @@ class Items extends Secure_area implements iData_controller
 		echo implode("\n",$suggestions);
 	}
 
+
+	function suggest2()
+	{
+		$items = $this->Item->suggest2($this->input->get('term'));
+		$result = array();
+
+		if ($items) {
+			foreach ($items->result() as $row) {
+				$result[] = array('id'=>$row->item_id, 'text'=>$row->name);
+			}
+		}
+
+		die(json_encode($result));
+	}
+
 	function item_search()
 	{
 		$suggestions = $this->Item->get_item_search_suggestions($this->input->post('q'),$this->input->post('limit'));

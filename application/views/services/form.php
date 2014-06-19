@@ -144,8 +144,9 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 		<div style="float: left">
 			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('common_items').':', 'items',array('class'=>'lable-form')); ?>
-
-				<div id='item_list' style="width:500px;" ></div>
+				<?php //echo form_label($this->lang->line('common_items').':', 'items',array('class'=>'lable-form')); ?>
+				<!-- <select name="items" id="item_list" multiple></select> -->
+				<input type="text" id="item_list" value="item_list" style="width: 500px">
 			</div>
 		</div>
 	</div>
@@ -216,8 +217,6 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 <script type='text/javascript'>
 //validation and submit handling
 $(function(){
-
-	
 
 	var payband=false;
 	$('#newc').click(function() { 	
@@ -327,12 +326,30 @@ $(function(){
 });
 
 //new jQuery
-(function($){
-
-	$("#item_list").select2({multiple: true, data:<?php echo json_encode((array)$service_info->items); ?>});
-	                  
-  
-	
+(function($){         
+	$('#item_list').select2({
+		placeholder: 'Product Name, Code, Category',
+		minimumInputLength: 3,
+		maximumInputLength: 11,
+		tags : [],
+		multiple: true,
+		formatSelection: function (item) { return item.text; },
+		//formatResult: function (item) { return item.text; },
+		ajax:{
+			url: 'index.php/items/suggest2',
+			dataType: 'json',
+			quietMillis: 100,
+			data: function (term, page) {
+                return {
+                    term: term,
+                };
+            },
+            results: function (data, page) {
+            	console.log(data);
+                return { results: data };
+            }
+		}
+	});
 })(jQueryNew);
 
-</script>s
+</script>

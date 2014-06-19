@@ -20,9 +20,8 @@
 		<?php endif ?>
 		</li>
 		<li class="float_right">
-		<img src='<?=base_url()?>images/spinner_small.gif' alt='spinner' id='spinner'/>
 		<?=form_open("$controller_name/search",array('id'=>'search_form'))?>
-		<input type="text" name='search' id='search' placeholder="Search ..." style="-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;border:1px solid #CCC"/>
+		<input type="text" name='search' id='search' style="-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;border:1px solid #CCC"/>
 		</form>
 		</li>
 	</ul>
@@ -42,13 +41,41 @@ jQuerySwitch('jQueryNew');
 		if(this.checked) count++; else count--;
 		$('#delete').attr('title',count>0?"<?=$this->lang->line('services_is_locked_alert')?>":null).prop('disabled',count>0);
 	});
+
+	// $('#search').select2({
+	// 	placeholder: 'Service ID, Nombre o Apellido...',
+	// 	minimumInputLength: 3,
+	// 	maximumInputLength: 11,
+	// 	allowClear: true,
+	// 	formatSelection: function (item) { return item.id; },
+	// 	// formatResult: function (item) { return item.text; },
+	// 	ajax:{
+	// 		url: 'index.php/services/suggest2',
+	// 		dataType: 'json',
+	// 		quietMillis: 100,
+	// 		data: function (term, page) {
+ //                return {
+ //                    term: term,
+ //                };
+ //            },
+ //            results: function (data, page) {
+ //            	console.log(data);
+ //                return { results: data };
+ //            }
+	// 	}
+	// }).change(function(val, added, removed){
+	// 	console.log(val);
+	// 	if (val.added) {
+	// 		//$('#search-form').submit();
+	// 	}
+	// });
 })(jQuery);
 
 jQuerySwitch('jQueryOld');
 $(function(){
 	init_table_sorting();
 	enable_select_all();
-	enable_search('<?=site_url("$controller_name/suggest")?>','<?=$this->lang->line("common_confirm_search")?>');
+	enable_search('<?=site_url("$controller_name/suggest")?>','<?=$this->lang->line("common_confirm_search")?>')
 	$('#delete').click(function(e) {
 		e.preventDefault();
 		$('#delete-form').submit();

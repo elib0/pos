@@ -75,6 +75,24 @@ class Services extends Secure_area
 		echo implode("\n",$suggestions);
 	}
 
+	/**
+	 * [suggest2 Sugerencia para jquery plugin SELECT2]
+	 * @return [array] [resultados de sugerencia]
+	 */
+	function suggest2()
+	{
+		$services = $this->Service->suggest2($this->input->get('term'));
+		$result = array();
+
+		if ($services) {
+			foreach ($services->result() as $row) {
+				$result[] = array('id'=>$row->service_id, 'text'=>$row->first_name.' '.$row->last_name);
+			}
+		}
+
+		die(json_encode($result));
+	}
+
 	function get_row()
 	{
 		$service_id = $this->input->post('row_id');
@@ -101,56 +119,57 @@ class Services extends Secure_area
 	}
 
 	function save($service_id=-1){
-		$person_id=$this->Service->exists_person($this->input->post('name'));
-		if (!$person_id && $this->input->post('name'))
-			echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_person'),'service_id'=>-1,'noOw'=>true));
-		else{
-			if ($service_id!=-1){
-				$service_data = array(
-					'comments'=>$this->input->post('comments'),
-					'status'=>$this->input->post('status')
-				);
-			}else{
-				$data=true;
-				if ($this->input->post('first_name')){ 
-					$data=false;
-					$person_data = array(
-						'first_name'=>$this->input->post('first_name'),
-						'last_name'=>$this->input->post('last_name'),
-						'email'=>$this->input->post('email'),
-						'phone_number'=>$this->input->post('phone_number'),
-						'address_1'=>'','address_2'=>'','city'=>'',
-						'state'=>'','zip'=>'','country'=>'','comments'=>''
-					);
-					$customer_data=array('account_number'=>null,'taxable'=>0 );
-					if($this->Customer->save($person_data,$customer_data,-1)){
-						$data=true;
-						$person_id=$customer_data['person_id'];
-					} 
-				}
-				if (!$data) echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_person'),'service_id'=>-1,'noAddOw'=>true));
-				elseif(is_array($data)) $person_id=isset($data['add'])?$data['add']:$data['update'];
-				$service_data = array(
-				'person_id'=>$person_id,
-				'serial'=>$this->input->post('codeimei'),
-				'comments'=>$this->input->post('comments'),
-				'brand_id'=>$this->input->post('brand'),
-				'model_id'=>$this->input->post('model'),
-				'status'=>$this->input->post('status')
-				);
-			}
-			// $cur_service_info = $this->Service->get_info($service_id);
-			$service=$this->Service->save($service_data,$service_id);
-			if($service){
-				if($service_id==-1){ //New service
-					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_adding'),'service_id'=>$service));
-				}else{ //previous service
-					echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_updating'),'service_id'=>$service_id));
-				}
-			}else{ //failure
-				echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_updating').' '.$service_data['person_id'],'service_id'=>-1));
-			}
-		}
+		echo $this->input->post('item_list');
+		// $person_id=$this->Service->exists_person($this->input->post('name'));
+		// if (!$person_id && $this->input->post('name'))
+		// 	echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_person'),'service_id'=>-1,'noOw'=>true));
+		// else{
+		// 	if ($service_id!=-1){
+		// 		$service_data = array(
+		// 			'comments'=>$this->input->post('comments'),
+		// 			'status'=>$this->input->post('status')
+		// 		);
+		// 	}else{
+		// 		$data=true;
+		// 		if ($this->input->post('first_name')){ 
+		// 			$data=false;
+		// 			$person_data = array(
+		// 				'first_name'=>$this->input->post('first_name'),
+		// 				'last_name'=>$this->input->post('last_name'),
+		// 				'email'=>$this->input->post('email'),
+		// 				'phone_number'=>$this->input->post('phone_number'),
+		// 				'address_1'=>'','address_2'=>'','city'=>'',
+		// 				'state'=>'','zip'=>'','country'=>'','comments'=>''
+		// 			);
+		// 			$customer_data=array('account_number'=>null,'taxable'=>0 );
+		// 			if($this->Customer->save($person_data,$customer_data,-1)){
+		// 				$data=true;
+		// 				$person_id=$customer_data['person_id'];
+		// 			} 
+		// 		}
+		// 		if (!$data) echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_person'),'service_id'=>-1,'noAddOw'=>true));
+		// 		elseif(is_array($data)) $person_id=isset($data['add'])?$data['add']:$data['update'];
+		// 		$service_data = array(
+		// 		'person_id'=>$person_id,
+		// 		'serial'=>$this->input->post('codeimei'),
+		// 		'comments'=>$this->input->post('comments'),
+		// 		'brand_id'=>$this->input->post('brand'),
+		// 		'model_id'=>$this->input->post('model'),
+		// 		'status'=>$this->input->post('status')
+		// 		);
+		// 	}
+		// 	// $cur_service_info = $this->Service->get_info($service_id);
+		// 	$service=$this->Service->save($service_data,$service_id);
+		// 	if($service){
+		// 		if($service_id==-1){ //New service
+		// 			echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_adding'),'service_id'=>$service));
+		// 		}else{ //previous service
+		// 			echo json_encode(array('success'=>true,'message'=>$this->lang->line('services_successful_updating'),'service_id'=>$service_id));
+		// 		}
+		// 	}else{ //failure
+		// 		echo json_encode(array('success'=>false,'message'=>$this->lang->line('services_error_adding_updating').' '.$service_data['person_id'],'service_id'=>-1));
+		// 	}
+		// }
 	}
 	function suggest_models($brand=''){
 		$suggestions = $this->Service->suggest_model($this->input->post('q'),$brand);

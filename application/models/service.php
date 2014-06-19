@@ -133,6 +133,28 @@ class Service extends CI_Model {
 		return $suggestions;
 	}
 
+	public function suggest2($search = ''){
+		$suggestions = array();
+		$search = $this->con->escape($search);
+		$table1 = $this->con->dbprefix('service_log');
+		$table2 = $this->con->dbprefix('people');
+		$table3 = $this->con->dbprefix('model');
+
+		$this->con->from('service_log');
+		$this->con->join('people', 'people.person_id = service_log.person_id');
+		//$this->con->join('model', 'service_log.model_id = model.model_id');
+		//$this->con->where("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name, ' ',  $table3.model_name) LIKE '$search'");
+		//$this->con->like("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name)", $search);
+		$this->db->like("CONCAT(people.first_name, ' ', people.last_name, ' ', service_log.serial)", $search);
+		$query = $this->con->get();
+
+		if ($query->num_rows() > 0) {
+			return $query;
+		}
+
+		return false;
+	}
+
 	public function count_all()
 	{
 		$this->con->from('service_log')->where('deleted',0);

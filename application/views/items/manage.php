@@ -81,7 +81,6 @@ jQuerySwitch('jQueryNew');
 	});
 })(jQuery);
 
-jQuerySwitch('jQueryOld');
 $(function(){
 	init_table_sorting();
 	enable_select_all();

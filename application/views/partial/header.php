@@ -241,5 +241,5 @@ html{
 		});
 
 	});
-})(jQueryOld);
+})(jQuery);
 </script>

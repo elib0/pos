@@ -105,9 +105,9 @@ function post_item_form_submit(response){
 		if(jQuery.inArray(response.item_id,get_visible_checkbox_ids()) != -1){
 			//update_row(response.item_id,'<?php echo site_url("$controller_name/get_row")?>');
 			set_feedback(response.message,'success_message',false);
-			//setTimeout(function() { location.reload(); }, 1000);
+			setTimeout(function() { location.reload(); }, 1000);
 		}else{ //refresh entire table 	
-			//setTimeout(function() { location.reload(); }, 1000);
+			setTimeout(function() { location.reload(); }, 1000);
 			// do_search(true,function(){
 				//highlight new row
 				//hightlight_row(response.item_id);

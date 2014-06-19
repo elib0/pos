@@ -143,14 +143,23 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 	<div class="field_row clearfix">
 		<div style="float: left">
 			<div class="field_row clearfix">
+				<?php echo form_label($this->lang->line('common_items').':', 'items',array('class'=>'lable-form')); ?>
+
+				<div id='item_list' style="width:500px;" ></div>
+			</div>
+		</div>
+	</div>
+	<div class="field_row clearfix">
+		<div style="float: left">
+			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('common_comments').':', 'comments',array('class'=>'lable-form')); ?>
 				<div>
 				<?php echo form_textarea(array(
 					'name'=>'comments',
 					'id'=>'comments',
 					'value'=>$service_info->comments,
-					'rows'=>'5',
-					'cols'=>'60')
+					'rows'=>'3',
+					'cols'=>'70')
 				);
 				?>
 				</div>
@@ -202,10 +211,14 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 		// 'class'=>'small_button float_right')); 	
 	 echo form_close();
 
+
 ?>
 <script type='text/javascript'>
 //validation and submit handling
 $(function(){
+
+	
+
 	var payband=false;
 	$('#newc').click(function() { 	
 		$('div.invisible input').val('').removeAttr('disabled').parents('div.invisible').show('fast').removeClass('invisible');
@@ -313,4 +326,13 @@ $(function(){
 	});
 });
 
-</script>
+//new jQuery
+(function($){
+
+	$("#item_list").select2({multiple: true, data:<?php echo json_encode((array)$service_info->items); ?>});
+	                  
+  
+	
+})(jQueryNew);
+
+</script>s

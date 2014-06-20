@@ -87,6 +87,11 @@ class Config extends Secure_area
 			case '1':case '2':
 					if( $this->Appconfig->batch_save( $batch_save_data ) )
 					{
+						$item_data = array(
+						'cost_price'=>$batch_save_data['default_service'],
+						'unit_price'=>$batch_save_data['default_service']
+						);
+						$this->Item->save($item_data,3);
 						echo json_encode(array('success'=>true,'Upstatus'=>$data['upload_status'],'data'=>$data,'message'=>$this->lang->line('config_saved_successfully')));
 					}
 				break;

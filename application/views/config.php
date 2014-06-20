@@ -145,11 +145,48 @@
 	</div>
 
 	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
-		<div class="sub-title-view">
-			Sales Information
+		<div class="sub-title-view"><?php echo $this->lang->line('config_sales_info'); ?></div>
+	</div>
+	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
+		<div>
+			<div class="field_row clearfix" style="float: left;margin-right: 70px;">
+				<div style="height: 27px;">
+				<?php echo form_label($this->lang->line('config_service_price').':', 'servicelabel',array('class'=>'lable-form-required','style'=>'width:160px;')); ?>
+				</div>
+				<div>
+					<?php 
+						echo form_input(
+							array(
+								'name'=>'default_service',
+								'id'=>'default_service',
+								'size'=>'10',
+								'value'=>$this->config->item('default_service')? $this->config->item('default_service') : '',
+								'class'=>'text_box'
+							)
+						).' '.$this->config->item('currency_symbol');
+					?>
+				</div>
+			</div>
+			<div class="field_row clearfix" style="margin: 0 0 5px 0;float: left;margin-right: 80px;">
+				<div style="height: 27px;">
+				<?php echo form_label($this->lang->line('config_service_item_percentage').':', 'default_percentagelabel',array('class'=>'lable-form-required','style'=>'width:160px;')); ?>
+				</div>
+				<div>
+					<?php 
+						echo form_input(
+							array(
+								'name'=>'default_item_percentage',
+								'id'=>'default_item_percentage',
+								'size'=>'10',
+								'value'=>$this->config->item('default_item_percentage')? $this->config->item('default_item_percentage') :'',
+								'class'=>'text_box'
+							)
+						);
+					?>&nbsp;%
+				</div>
+			</div>
 		</div>
 	</div>
-
 	<div class="field_row clearfix" style="margin: 0 0 5px 0;display:block;">
 		<div>
 			<div class="field_row clearfix" style="float: left;margin-right: 70px;">
@@ -179,35 +216,35 @@
 						);
 					?>&nbsp;%
 				</div>
-		</div>
-		<div class="field_row clearfix" style="margin: 0 0 5px 0;float: left;margin-right: 80px;">
-			<div style="height: 27px;">
-			<?php echo form_label($this->lang->line('config_default_tax_rate_2').':', 'default_tax_1_rate',array('class'=>'lable-form','style'=>'width:160px;')); ?>
 			</div>
-			<div>
-				<?php 
-					echo form_input(
-						array(
-							'name'=>'default_tax_2_name',
-							'id'=>'default_tax_2_name',
-							'size'=>'10',
-							'value'=>$this->config->item('default_tax_2_name')!==FALSE ? $this->config->item('default_tax_2_name') : $this->lang->line('items_sales_tax_2'),
-							'class'=>'text_box'
-						)
-					);
-					
-					echo form_input(
-						array(
-							'name'=>'default_tax_2_rate',
-							'id'=>'default_tax_2_rate',
-							'size'=>'4',
-							'value'=>$this->config->item('default_tax_2_rate'),
-							'class'=>'text_box'
-						)
-					);
-				?>&nbsp;%
+			<div class="field_row clearfix" style="margin: 0 0 5px 0;float: left;margin-right: 80px;">
+				<div style="height: 27px;">
+				<?php echo form_label($this->lang->line('config_default_tax_rate_2').':', 'default_tax_1_rate',array('class'=>'lable-form','style'=>'width:160px;')); ?>
+				</div>
+				<div>
+					<?php 
+						echo form_input(
+							array(
+								'name'=>'default_tax_2_name',
+								'id'=>'default_tax_2_name',
+								'size'=>'10',
+								'value'=>$this->config->item('default_tax_2_name')!==FALSE ? $this->config->item('default_tax_2_name') : $this->lang->line('items_sales_tax_2'),
+								'class'=>'text_box'
+							)
+						);
+						
+						echo form_input(
+							array(
+								'name'=>'default_tax_2_rate',
+								'id'=>'default_tax_2_rate',
+								'size'=>'4',
+								'value'=>$this->config->item('default_tax_2_rate'),
+								'class'=>'text_box'
+							)
+						);
+					?>&nbsp;%
+				</div>
 			</div>
-		</div>
 		</div>
 		<div class="field_row clearfix" style="display:block;">
 			<div style="height: 27px;">

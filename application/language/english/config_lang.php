@@ -39,4 +39,7 @@ $lang['config_recover_exit_file'] = 'Recovery was performed successfully.';
 $lang['config_backup_auto_file'] = 'System';
 $lang['config_system_back'] = 'System Backup';
 $lang['config_wait_back'] = 'Backup in progress, please wait. The dialog will close automatically';
+$lang['config_sales_info'] = 'Sales Information';
+$lang['config_service_price'] = 'Service Price';
+$lang['config_service_item_percentage'] = 'Item percentage';
 ?>

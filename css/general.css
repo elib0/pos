@@ -147,7 +147,13 @@ label.required
 	position:relative;
 	top:1px;
 }
-
+.big_button_disable{
+	background: -webkit-gradient(linear,left top,left bottom,color-stop(0.05,#ededed),color-stop(1,#dfdfdf)) !important;
+	background: -moz-linear-gradient(center top,#ededed 5%,#dfdfdf 100%) !important;
+	background-color: #ededed !important; 
+	opacity: 0.5;
+	position: static !important;
+}
 .big_button span
 {
 	font-weight:bold;

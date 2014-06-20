@@ -193,7 +193,10 @@ class Sales extends Secure_area
 		if(!$service_id) $service_id=$this->input->post('service');
 		if(!$service_id) $service_id=NULL;
 
-		if($service_id) $this->sale_lib->set_customer($this->input->post('customer_id'));
+		if($service_id){
+			$this->sale_lib->clear_all();
+			$this->sale_lib->set_customer($this->input->post('customer_id'));
+		} 
 
 		$quantity = $mode!='return' ? 1:-1;
 

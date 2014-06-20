@@ -79,8 +79,8 @@ html{
 				<li>
 					<img src="images/menubar/<?=$module->module_id?>.png" border="0" alt="Menubar Image" />
 				</li>
-				<li><a ><?=$this->lang->line("module_".$module->module_id)?></a> 
-					<?php if(isset($module->shortcut)&&$module->shortcut!=''){ ?><a shortcut="<?=$module->shortcut?>" class='small_button thickbox'>+</a><?php } ?> 
+				<li><span><?=$this->lang->line("module_".$module->module_id)?></span>
+					<?php if(isset($module->shortcut)&&$module->shortcut!=''){ ?><a href="<?=site_url("$module->module_id").$module->shortcut?>" class='small_button thickbox'>+</a><?php } ?>
 				</li>
 			</ul>
 		</li>
@@ -90,7 +90,7 @@ html{
 		<li class="menu_item" id="assistance">
 			<ul>
 				<li><img src="images/menubar/schedule.png" border="0" alt="Menubar Image" style="cursor: pointer" /></li>
-				<li><a>Schedule</a></li>
+				<li><span>Schedule</span></li>
 			</ul>
 		</li>
 	</ul>
@@ -196,16 +196,10 @@ html{
 		setTimeout(function(){mostrarHora()},500);
 	}
 
-	$('nav.main-menu ul>li>ul').click(function(event){
-		var href=$(this).attr('url');
-		location.href=href;
-	});
-	
-	
-	$('nav.main-menu ul>li>ul>li  a:last-child').click(function(event){
-
-		$('nav.main-menu ul>li>ul').attr('url',$('nav.main-menu ul>li>ul').attr('url')+$(this).attr('shortcut'));
-
+	$('nav.main-menu ul>li [url]').click(function(event){
+		//redirecciona si el click no se hizo sobre un link ni un thickbox
+		if(event.target.href==''||!$(event.target).hasClass('thickbox'))
+			location.href=$(this).attr('url');
 	});
 	
 	$('#assistance').click(function(event){

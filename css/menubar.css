@@ -248,8 +248,9 @@ nav.main-menu ul li > ul > li:first-child img{
 nav.main-menu ul li > ul > li:last-child{
 	width:90px;
 }
-nav.main-menu a,nav.main-menu a:active,nav.main-menu a:visited{
-	color:#fff;
+nav.main-menu a,nav.main-menu a:active,nav.main-menu a:visited,
+nav.main-menu span{
+	color:#000;
 	text-decoration:none !important;
 	font-weight:bold;
 	font-size:1.2em !important;

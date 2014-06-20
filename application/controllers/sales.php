@@ -86,7 +86,7 @@ class Sales extends Secure_area
 	}
 
 	function select_location(){
-		if ( $this->sale_lib->get_mode() == 'shipping') {
+		if($this->sale_lib->get_mode()=='shipping'){
 			$customer_id = $this->input->post('location');
 		}
 		$this->sale_lib->set_customer($customer_id);
@@ -118,15 +118,15 @@ class Sales extends Secure_area
 		$this->sale_lib->set_mode($mode);
 		$this->_reload();
 	}
-	
+
 	function set_comment() 
 	{
- 	  $this->sale_lib->set_comment($this->input->post('comment'));
+		$this->sale_lib->set_comment($this->input->post('comment'));
 	}
 	
 	function set_email_receipt()
 	{
- 	  $this->sale_lib->set_email_receipt($this->input->post('email_receipt'));
+		$this->sale_lib->set_email_receipt($this->input->post('email_receipt'));
 	}
 
 	//Alain Multiple Payments
@@ -141,9 +141,8 @@ class Sales extends Secure_area
 				$data['error']=$this->lang->line('sales_must_enter_numeric_giftcard');
 			else
 				$data['error']=$this->lang->line('sales_must_enter_numeric');
-				
- 			$this->_reload($data);
- 			return;
+			$this->_reload($data);
+			return;
 		}
 		
 		$payment_type=$this->input->post('payment_type');
@@ -174,7 +173,6 @@ class Sales extends Secure_area
 		{
 			$data['error']='Unable to Add Payment! Please try again!';
 		}
-		
 		$this->_reload($data);
 	}
 
@@ -195,7 +193,7 @@ class Sales extends Secure_area
 		if(!$service_id) $service_id=$this->input->post('service');
 		if(!$service_id) $service_id=NULL;
 
-		if($service_id)$this->sale_lib->set_customer($this->input->post('customer_id'));
+		if($service_id) $this->sale_lib->set_customer($this->input->post('customer_id'));
 
 		$quantity = $mode!='return' ? 1:-1;
 
@@ -211,13 +209,12 @@ class Sales extends Secure_area
 		{
 			$data['error']=$this->lang->line('sales_unable_to_add_item');
 		}
-		
+
 		if($this->sale_lib->out_of_stock($item_id_or_number_or_item_kit_or_receipt))
 		{
 			$data['warning'] = $this->lang->line('sales_quantity_less_than_zero');
 		}
-		
-		
+
 		$this->_reload();
 	}
 
@@ -228,12 +225,11 @@ class Sales extends Secure_area
 		$this->form_validation->set_rules('price', 'lang:items_price', 'required|numeric');
 		$this->form_validation->set_rules('quantity', 'lang:items_quantity', 'required|numeric');
 
-        $description = $this->input->post('description');
-        $serialnumber = $this->input->post('serialnumber');
+		$description = $this->input->post('description');
+		$serialnumber = $this->input->post('serialnumber');
 		$price = $this->input->post('price');
 		$quantity = $this->input->post('quantity');
 		$discount = $this->input->post('discount');
-
 
 		if ($this->form_validation->run() != FALSE)
 		{
@@ -243,7 +239,7 @@ class Sales extends Secure_area
 		{
 			$data['error']=$this->lang->line('sales_error_editing_item');
 		}
-		
+
 		if($this->sale_lib->out_of_stock($this->sale_lib->get_item_id($line)))
 		{
 			$data['warning'] = $this->lang->line('sales_quantity_less_than_zero');
@@ -375,7 +371,7 @@ class Sales extends Secure_area
 		$this->load->view('sales/receipt',$data);
 		$this->sale_lib->clear_all();
 	}
-	
+
 	function receipt($sale_id)
 	{
 		$sale_info = $this->Sale->get_info($sale_id)->row_array();
@@ -421,28 +417,20 @@ class Sales extends Secure_area
 		}
 
 		$data['sale_info'] = $this->Sale->get_info($sale_id)->row_array();
-				
-		
+
 		$this->load->view('sales/edit', $data);
 	}
-	
-	function delete($sale_id)
-	{
+
+	function delete($sale_id){
 		$data = array();
-		
-		if ($this->Sale->delete($sale_id))
-		{
+		if ($this->Sale->delete($sale_id)){
 			$data['success'] = true;
-		}
-		else
-		{
+		}else{
 			$data['success'] = false;
 		}
-		
 		$this->load->view('sales/delete', $data);
-		
 	}
-	
+
 	function save($sale_id)
 	{
 		$sale_data = array(
@@ -451,7 +439,7 @@ class Sales extends Secure_area
 			'employee_id' => $this->input->post('employee_id'),
 			'comment' => $this->input->post('comment')
 		);
-		
+
 		if ($this->Sale->update($sale_data, $sale_id))
 		{
 			echo json_encode(array('success'=>true,'message'=>$this->lang->line('sales_successfully_updated')));
@@ -461,7 +449,7 @@ class Sales extends Secure_area
 			echo json_encode(array('success'=>false,'message'=>$this->lang->line('sales_unsuccessfully_updated')));
 		}
 	}
-	
+
 	function _payments_cover_total()
 	{
 		$total_payments = 0;
@@ -476,22 +464,21 @@ class Sales extends Secure_area
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	function _reload($data=array())
 	{
 		redirect('sales');
 	}
 
-    function cancel_sale()
-    {
-    	$this->sale_lib->clear_all();
-    	$this->_reload();
+	function cancel_sale()
+	{
+		$this->sale_lib->clear_all();
+		$this->_reload();
+	}
 
-    }
-	
 	function suspend()
 	{
 		$data['cart']=$this->sale_lib->get_cart();
@@ -533,21 +520,20 @@ class Sales extends Secure_area
 		$this->sale_lib->clear_all();
 		$this->_reload(array('success' => $this->lang->line('sales_successfully_suspended_sale')));
 	}
-	
+
 	function suspended()
 	{
 		$data = array();
 		$data['suspended_sales'] = $this->Sale_suspended->get_all()->result_array();
 		$this->load->view('sales/suspended', $data);
 	}
-	
+
 	function unsuspend()
 	{
 		$sale_id = $this->input->post('suspended_sale_id');
 		$this->sale_lib->clear_all();
 		$this->sale_lib->copy_entire_suspended_sale($sale_id);
 		$this->Sale_suspended->delete($sale_id);
-    	$this->_reload();
+		$this->_reload();
 	}
 }
-?>

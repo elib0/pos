@@ -39,7 +39,7 @@ class Sale extends CI_Model
 		return $success;
 	}
 
-	function save ($items,$customer_id,$employee_id,$comment,$payments,$sale_id=false,$mode=0)
+	function save($items,$customer_id,$employee_id,$comment,$payments,$sale_id=false,$mode=0)
 	{
 		if ($mode == 2) {
 			// $this->con = $this->load->database('shippings', true);

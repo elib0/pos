@@ -49,14 +49,17 @@
     <a class="linkPrint" href="#">
         <div class="big_button" style="float: left;"><span>Print</span></div>
     </a>
+    <!-- <a id="btnSendToAdmin" > -->
     <a id="btnSendToAdmin" href="index.php/inventories_compare/send_mail_to_admin">
         <div class="big_button" style="float: left; margin-left: 5px"><span>Send to Administrator</span></div>
     </a>
+    <img id="louder_invento" src="images/loading_animation.gif" alt="" style="display:none;margin-top: 12px;margin-left: 50px;" />
 </div>
 <?php  echo form_close();
 $this->load->view("partial/footer"); ?>
 <script>
     $(document).ready(function() {
+        $('#footer').css('left','0');
         $('input[type=checkbox]').change(function(){
             var id = $(this).attr('id');
             id = id.slice(5, id.length);
@@ -72,37 +75,45 @@ $this->load->view("partial/footer"); ?>
             return false;
         });
         $('nav.main-menu,#menu_location ul,#menu_changeuser,#menu_logout').remove();
-        $('#btnSendToAdmin').click(function(){
-            var array=$('#sortable_table input[type="text"]'),coment='';
+        var band=0;
+        $('#btnSendToAdmin').click(function(){ 
+            var array=$('#sortable_table input[type="text"]'),coment='',url=$(this).attr('href'),boton=$(this);
+            $('div.big_button',boton).addClass('big_button_disable');
+            $('#louder_invento').css('display','inline-block');
+            $(boton).removeAttr('href'); band++;
             array.each(function(index) {
                  if ($(this).val()!='' && $(this).val()!='no comments'){ 
                     coment+='<li>'+$(this).attr('name').replace("comment","")+' -|- '+$(this).val()+'</li>';
                 }
             });
-            $.ajax({
-                    url: $(this).attr('href'),
-                    type: 'POST',
-                    data: {'obs':coment},
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log(data);
-                        var type_msg = 'error';
-                        if (data['status'] == 1){
-                            $('#menubar_navigation').css('display','block');
-                            type_msg='success';
+            if (band===1){            
+                $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {'obs':coment},
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data);
+                            var type_msg = 'error';
+                            if (data['status'] == 1){
+                                $('#menubar_navigation').css('display','block');
+                                type_msg='success';
+                            }
+                            // $('#odioodio').html(data['email']);
+                            notif({
+                                type: type_msg,
+                                msg: data['msg'],
+                                width: "all",
+                                height: 100,
+                                position: "center"
+                            });
+                        },
+                        complete:function(){
+                            setTimeout(function(){ location.reload(); },1500);
                         }
-                        // $('#odioodio').html(data['email']);
-                        notif({
-                            type: type_msg,
-                            msg: data['msg'],
-                            width: "all",
-                            height: 100,
-                            position: "center"
-                        });
-                        setTimeout(function(){ location.reload(); },1500);
-                        
-                    }
-                });
+                    });
+            }
+            // $('div.big_button',boton).removeClass('big_button_disable');
             return false;
         });
     });

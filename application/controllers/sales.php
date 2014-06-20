@@ -212,11 +212,9 @@ class Sales extends Secure_area
 		{
 			$data['error']=$this->lang->line('sales_unable_to_add_item');
 		}elseif($service_id){
-
-				$items=$this->Service->get_items($service_id);
-			   foreach ($items as $item ) {
-			   		$this->sale_lib->add_item($item['id']);
-			   }
+			foreach($this->Service->get_id_items($service_id) as $item){
+				$this->sale_lib->add_item($item,1);
+			}
 		}
 
 		if($this->sale_lib->out_of_stock($item_id_or_number_or_item_kit_or_receipt))

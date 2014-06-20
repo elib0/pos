@@ -208,6 +208,12 @@ class Sales extends Secure_area
 		elseif(!$this->sale_lib->add_item($item_id_or_number_or_item_kit_or_receipt,$quantity,0,null,null,null,$service_id))
 		{
 			$data['error']=$this->lang->line('sales_unable_to_add_item');
+		}elseif($service_id){
+
+				$items=$this->Service->get_items($service_id);
+			   foreach ($items as $item ) {
+			   		$this->sale_lib->add_item($item['id']);
+			   }
 		}
 
 		if($this->sale_lib->out_of_stock($item_id_or_number_or_item_kit_or_receipt))

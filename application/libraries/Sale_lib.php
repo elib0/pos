@@ -3,7 +3,7 @@ class Sale_lib
 {
 	var $CI;
 
-  	function __construct()
+	function __construct()
 	{
 		$this->CI =& get_instance();
 	}
@@ -36,32 +36,32 @@ class Sale_lib
 		$this->CI->session->set_userdata('payments',$payments_data);
 	}
 
-	function get_comment() 
+	function get_comment()
 	{
 		return $this->CI->session->userdata('comment');
 	}
 
-	function set_comment($comment) 
+	function set_comment($comment)
 	{
 		$this->CI->session->set_userdata('comment', $comment);
 	}
 
-	function clear_comment() 	
+	function clear_comment()
 	{
 		$this->CI->session->unset_userdata('comment');
 	}
 
-	function get_email_receipt() 
+	function get_email_receipt()
 	{
 		return $this->CI->session->userdata('email_receipt');
 	}
 
-	function set_email_receipt($email_receipt) 
+	function set_email_receipt($email_receipt)
 	{
 		$this->CI->session->set_userdata('email_receipt', $email_receipt);
 	}
 
-	function clear_email_receipt() 	
+	function clear_email_receipt()
 	{
 		$this->CI->session->unset_userdata('email_receipt');
 	}
@@ -124,7 +124,7 @@ class Sale_lib
 		$subtotal = 0;
 		foreach($this->get_payments() as $payments)
 		{
-		    $subtotal+=$payments['payment_amount'];
+			$subtotal+=$payments['payment_amount'];
 		}
 		return to_currency_no_money($subtotal);
 	}
@@ -194,20 +194,20 @@ class Sale_lib
 		//Get all items in the cart so far...
 		$items = $this->get_cart();
 
-        //We need to loop through all items in the cart.
-        //If the item is already there, get it's key($updatekey).
-        //We also need to get the next key that we are going to use in case we need to add the
-        //item to the cart. Since items can be deleted, we can't use a count. we use the highest key + 1.
+		//We need to loop through all items in the cart.
+		//If the item is already there, get it's key($updatekey).
+		//We also need to get the next key that we are going to use in case we need to add the
+		//item to the cart. Since items can be deleted, we can't use a count. we use the highest key + 1.
 
-        $maxkey=0;                       //Highest key so far
-        $itemalreadyinsale=FALSE;        //We did not find the item yet.
-		$insertkey=0;                    //Key to use for new entry.
-		$updatekey=0;                    //Key to use to update(quantity)
+		$maxkey=0;					//Highest key so far
+		$itemalreadyinsale=FALSE;	//We did not find the item yet.
+		$insertkey=0;				//Key to use for new entry.
+		$updatekey=0;				//Key to use to update(quantity)
 
 		foreach ($items as $item)
 		{
-            //We primed the loop so maxkey is 0 the first time.
-            //Also, we have stored the key in the element itself so we can compare.
+			//We primed the loop so maxkey is 0 the first time.
+			//Also, we have stored the key in the element itself so we can compare.
 
 			if($maxkey <= $item['line'])
 			{
@@ -237,6 +237,9 @@ class Sale_lib
 				$item_number=$service_id;
 				$serialnumber=null;
 				$quantity=1;
+				// foreach($this->CI->Service->get_id_items($service_id) as $item){
+				// 	$this->add_item($item,1);
+				// }
 			}else{
 				$item_number=$item_info->item_number;
 			}
@@ -276,7 +279,7 @@ class Sale_lib
 		return true;
 
 	}
-	
+
 	function out_of_stock($item_id)
 	{
 		//make sure item exists
@@ -288,18 +291,18 @@ class Sale_lib
 			if(!$item_id)
 				return false;
 		}
-		
+
 		$item = $this->CI->Item->get_info($item_id);
 		$quanity_added = $this->get_quantity_already_added($item_id);
-		
+
 		if ($item->quantity - $quanity_added < 0)
 		{
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	function get_quantity_already_added($item_id)
 	{
 		$items = $this->get_cart();
@@ -311,10 +314,10 @@ class Sale_lib
 				$quantity_already_added+=$item['quantity'];
 			}
 		}
-		
+
 		return $quantity_already_added;
 	}
-	
+
 	function get_item_id($line_to_get)
 	{
 		$items = $this->get_cart();
@@ -326,7 +329,7 @@ class Sale_lib
 				return $item['item_id'];
 			}
 		}
-		
+
 		return -1;
 	}
 
@@ -358,7 +361,7 @@ class Sale_lib
 
 		return false;
 	}
-	
+
 	function is_valid_item_kit($item_kit_id)
 	{
 		//KIT #
@@ -387,13 +390,13 @@ class Sale_lib
 		}
 		$this->set_customer($this->CI->Sale->get_customer($sale_id)->person_id);
 	}
-	
+
 	function add_item_kit($external_item_kit_id)
 	{
 		//KIT #
 		$pieces = explode(' ',$external_item_kit_id);
 		$item_kit_id = $pieces[1];
-		
+
 		foreach ($this->CI->Item_kit_items->get_info($item_kit_id) as $item_kit_item)
 		{
 			$this->add_item($item_kit_item['item_id'], $item_kit_item['quantity']);
@@ -416,7 +419,7 @@ class Sale_lib
 		$this->set_customer($this->CI->Sale->get_customer($sale_id)->person_id);
 
 	}
-	
+
 	function copy_entire_suspended_sale($sale_id)
 	{
 		$this->empty_cart();
@@ -480,7 +483,7 @@ class Sale_lib
 		//Do not charge sales tax if we have a customer that is not taxable
 		if (!$customer->taxable and $customer_id!=-1)
 		{
-		   return array();
+			return array();
 		}
 
 		$taxes = array();
@@ -510,7 +513,7 @@ class Sale_lib
 		$subtotal = 0;
 		foreach($this->get_cart() as $item)
 		{
-		    $subtotal+=($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100);
+			$subtotal+=($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100);
 		}
 		return to_currency_no_money($subtotal);
 	}
@@ -520,7 +523,7 @@ class Sale_lib
 		$total = 0;
 		foreach($this->get_cart() as $item)
 		{
-            $total+=($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100);
+			$total+=($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100);
 		}
 
 		if ( $this->get_taxing() ) {

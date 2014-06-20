@@ -218,6 +218,9 @@ class Sales extends Secure_area
 		$this->_reload();
 	}
 
+	// function get_service_items($id){
+	// 	var_dump($this->Service->get_id_items($id));
+	// }
 	function edit_item($line, $ajax=false)
 	{
 		$data= array();

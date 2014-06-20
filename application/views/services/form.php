@@ -1,4 +1,4 @@
-<?php echo form_open('services/save/'.$service_info->service_id,array('id'=>'services_form')); 
+<?php echo form_open('services/save/'.$service_info->service_id,array('id'=>'services_form'));
 $disabled=$service_info->service_id!=-1?'disabled':'';
 ?>
 <!-- <div id="item_basic_info"> -->
@@ -6,7 +6,7 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 	<h3><?php echo $this->lang->line("services_information"); ?></h3><hr>
 	<div class="field_row clearfix invisible">
 		<div style="width: 180px; float: left">
-			<div class="field_row clearfix">	
+			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('common_first_name').':', 'first_name',array('class'=>'lable-form-required')); ?>
 				<div>
 				<?php echo form_input(array(
@@ -20,7 +20,7 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 			</div>
 		</div>
 		<div style="width: 180px; float: left">
-			<div class="field_row clearfix">	
+			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('common_last_name').':', 'last_name',array('class'=>'lable-form-required')); ?>
 				<div>
 				<?php echo form_input(array(
@@ -34,7 +34,7 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 			</div>
 		</div>
 		<div style="width: 180px; float: left">
-				<div class="field_row clearfix">	
+				<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('common_email').':', 'email',array('class'=>'lable-form-required')); ?>
 				<div>
 				<?php echo form_input(array(
@@ -53,17 +53,17 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('common_phone_number').':', 'phone_number',array('class'=>'lable-form-required')); ?>
 				<div>
-				<?php echo form_input(array(
+				<?=form_input(array(
 					'name'=>'phone_number',
 					'id'=>'phone_number',
 					'value'=>'disabled',
 					'class'=>'text_box',
-					'disabled'=>'disabled'
-				));?>
+					'disabled'=>'disabled',
+				))?>
 				</div>
 			</div>
 		</div>
-		<div class="noinvisible" style="width: <?php echo $disabled===''?'420':'210' ?>px; float: left">
+		<div class="noinvisible" style="width:<?=$disabled===''?'420':'210'?>px;float:left">
 			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('services_name_owner').':', 'name',array('class'=>'lable-form-required','style'=>'float:none;display:block;')); ?>
 				<div>
@@ -73,16 +73,14 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 					'value'=>$service_info->first_name?$service_info->first_name.' '.$service_info->last_name:'',
 					'class'=>'text_box',$disabled=>$disabled
 				));
-				if ($disabled==='') echo form_button(
-					array(
-						'name'=>'newc',
-						'id'=>'newc',
-						'value'=>'newc',
-						'content' => '+',
-						'class'=>'small_button thickbox',
-						'style'=>'display: inline-block; margin-left: 20px;'
-					)
-				);
+				if ($disabled==='') echo form_button(array(
+					'name'=>'newc',
+					'id'=>'newc',
+					'value'=>'newc',
+					'content' => '+',
+					'class'=>'small_button thickbox',
+					'style'=>'display: inline-block;margin-left: 20px;',
+				));
 				?>
 				</div>
 			</div>
@@ -104,8 +102,8 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 	<div class="field_row clearfix">
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
-				<?php echo form_label($this->lang->line('services_brand').':', 'brand_label',array('class'=>'lable-form-required')); ?>
-				<div >
+				<?=form_label($this->lang->line('services_brand').':','brand_label',array('class'=>'lable-form-required'))?>
+				<div>
 				<?php echo form_input(array(
 					'name'=>'brand',
 					'id'=>'brand',
@@ -133,37 +131,35 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
 				<?php echo form_label($this->lang->line('services_status').':', 'brand_label',array('class'=>'lable-form-required')); $status=array();
-					for ($i=1; $i < 5; $i++) { $status[$i]=$this->lang->line('services_status_'.$i); }
-					// $status[100]=$this->lang->line('services_status_100');
+					for($i=1;$i<5;$i++){ $status[$i]=$this->lang->line('services_status_'.$i); }
+					//$status[100]=$this->lang->line('services_status_100');
 				?>
-				<div> <?php echo form_dropdown('status',$status,$service_info->status,"id='status'"); ?> </div>
+				<div><?=form_dropdown('status',$status,$service_info->status,'id="status"')?></div>
 			</div>
 		</div>
 	</div>
 	<div class="field_row clearfix">
 		<div style="float: left">
 			<div class="field_row clearfix">
-				<?php echo form_label($this->lang->line('services_used_items').':', 'items',array('class'=>'lable-form')); ?>
+				<?=form_label($this->lang->line('services_used_items').':','items',array('class'=>'lable-form'))?>
 				<div>
-				<input type="text" id="item_list" name="item_list" value="<?=$item_list?>" style="width: 500px">	
+					<input type="text" id="item_list" name="item_list" value="<?=$item_list?>" style="width:500px;">
 				</div>
-				
 			</div>
 		</div>
 	</div>
 	<div class="field_row clearfix">
-		<div style="float: left">
+		<div style="float:left;">
 			<div class="field_row clearfix">
-				<?php echo form_label($this->lang->line('common_comments').':', 'comments',array('class'=>'lable-form')); ?>
+				<?=form_label($this->lang->line('common_comments').':','comments',array('class'=>'lable-form'))?>
 				<div>
-				<?php echo form_textarea(array(
+				<?=form_textarea(array(
 					'name'=>'comments',
 					'id'=>'comments',
 					'value'=>$service_info->comments,
 					'rows'=>'3',
-					'cols'=>'70')
-				);
-				?>
+					'cols'=>'70'
+				))?>
 				</div>
 			</div>
 		</div>
@@ -188,14 +184,14 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 	// 'name'=>'enviar',
 	// 'id'=>'enviar',
 	// 'value'=>$this->lang->line('common_submit'),
-	// 'class'=>'small_button float_right')); 
-     echo form_close(); 
+	// 'class'=>'small_button float_right'));
+	echo form_close();
 
 
-     $hidden = array('item' => '3','customer_id' => $service_info->person_id, 'service' => $service_info->service_id);
+	$hidden = array('item' => '3','customer_id' => $service_info->person_id, 'service' => $service_info->service_id);
 
-	 echo form_open('sales/add/3',array('id'=>'payOneServices'), $hidden);
-	 echo form_button(
+	echo form_open('sales/add/3',array('id'=>'payOneServices'), $hidden);
+	echo form_button(
 		array(
 			'name'=>'pay',
 			'id'=>'pay',
@@ -205,13 +201,13 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 			'style'=>$service_info->status==3?'':'display: none; margin-left: 20px;'
 		)
 	);
-	 // echo form_submit(array(
+	// echo form_submit(array(
 		// 'name'=>'pay',
 		// 'id'=>'pay',
 		// 'style'=>'display: none;',
 		// 'value'=>$this->lang->line('services_pay'),
-		// 'class'=>'small_button float_right')); 	
-	 echo form_close();
+		// 'class'=>'small_button float_right'));
+	echo form_close();
 
 
 ?>
@@ -220,10 +216,10 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 $(function(){
 
 	var payband=false;
-	$('#newc').click(function() { 	
+	$('#newc').click(function() {
 		$('div.invisible input').val('').removeAttr('disabled').parents('div.invisible').show('fast').removeClass('invisible');
 		$('div.noinvisible input').val('disabled').attr('disabled', 'disabled').parents('div.noinvisible').hide('fast');
-	});	
+	});
 	$('#pay').click(function() {
 		payband=true;
 		$('#services_form').submit();
@@ -236,16 +232,16 @@ $(function(){
 				.result(function(event,data,formatted){
 					if(data){
 						if ( $("#model").data('autocomplete')) {
-							 $("#model").autocomplete("destroy");
-							 $("#model").removeData('autocomplete');
+							$("#model").autocomplete("destroy");
+							$("#model").removeData('autocomplete');
 						}
 						$("#model").autocomplete("<?php echo site_url('services/suggest_models');?>/"+data[0],{max:100,minChars:0,delay:10})
 								.result(function(event,data,formatted){}).search();
 					}else{
 						if ( $("#model").data('autocomplete')) {
-							 $("#model").autocomplete("destroy");
-							 $("#model").removeData('autocomplete');
-							 $("#brand").removeData('autocomplete');
+							$("#model").autocomplete("destroy");
+							$("#model").removeData('autocomplete');
+							$("#brand").removeData('autocomplete');
 						}
 					}
 				}).search();
@@ -259,8 +255,8 @@ $(function(){
 		{	console.log(payband);
 			$('#item_number').val($('#scan_item_number').val());
 			$(form).ajaxSubmit({
-				success:function(response){ 
-					if (response.noOw){ if (confirm(response.message)) $('#newc').click(); } 
+				success:function(response){
+					if (response.noOw){ if (confirm(response.message)) $('#newc').click(); }
 					else{
 						if (payband){
 							$('#payOneServices').attr('action',$('#payOneServices').attr('action')+'/'+response.service_id).submit();
@@ -279,20 +275,20 @@ $(function(){
 		rules:
 		{
 			first_name: {
-			    required: true,
-			    regex:/^[a-zA-Z\s]+$/,
-			    minlength: 3
-		    },
-		    last_name: {
-			    required: true,
-			    regex:/^[a-zA-Z\s]+$/,
-			    minlength: 3
-		    },
+				required: true,
+				regex:/^[a-zA-Z\s]+$/,
+				minlength: 3
+			},
+			last_name: {
+				required: true,
+				regex:/^[a-zA-Z\s]+$/,
+				minlength: 3
+			},
 			email: {
-			    required: true,
-			    email: "email"
-		    },
-    		phone_number:
+				required: true,
+				email: "email"
+			},
+			phone_number:
 			{
 				required:true,
 				number:true
@@ -306,17 +302,17 @@ $(function(){
 		messages:
 		{
 			first_name: {
-			      required: "<?php echo $this->lang->line('common_first_name_required'); ?>",
-			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
-			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
-    		},
-    		last_name: {
-			      required: "<?php echo $this->lang->line('common_last_name_required'); ?>",
-			      regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
-			      minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
-    		},
-     		email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
-     		phone_number:"<?php echo $this->lang->line('common_phone_invalid_format');  ?>",
+				required: "<?php echo $this->lang->line('common_first_name_required'); ?>",
+				regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
+				minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
+			},
+			last_name: {
+				required: "<?php echo $this->lang->line('common_last_name_required'); ?>",
+				regex:"<?php echo  $this->lang->line('common_first_name_only_char');?>",
+				minlength: jQuery.format("<?php echo $this->lang->line('common_at_least'); ?> {0} <?php echo $this->lang->line('common_at_characters'); ?>!")
+			},
+			email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
+			phone_number:"<?php echo $this->lang->line('common_phone_invalid_format');  ?>",
 			name:"<?php echo $this->lang->line('services_name_owner_is_required'); ?>",
 			//codeimei:"<?php echo $this->lang->line('services_IMEI_is_required'); ?>",
 			model:"<?php echo $this->lang->line('services_model_is_required'); ?>",
@@ -328,20 +324,25 @@ $(function(){
 
 //new jQuery
 (function($){
-	var items=(<?=$item_list_json?>);
 	$('#item_list').select2({
-		placeholder: 'Product Name, Code, Category',
-		multiple: true,
+		placeholder:'Product Name, Code, Category',
+		multiple:true,
+		minimumInputLength:1,
 		ajax:{
-			url: 'index.php/items/suggest2',
-			data: function (term, page) {  return { term: term }; },
-            results: function (data, page) { return { results: data };}
+			url:'index.php/items/suggest2',
+			data:function(term,page){ return { term: term }; },
+			results:function(data,page){ return { results: data };}
 		},
-		initSelection : function (element, callback) {
-			var data = [];
-			$.each(items, function(){
-              data.push({id: this.id, text: this.text });
-          	});
+		initSelection:function(element,callback){
+			var list={},
+				items=element.val().split(','),
+				data=[];
+			$.each(<?=$item_list_json?>,function(){
+				list[this.id]=this;
+			});
+			items.forEach(function(item){
+				if(list[item]) data.push(list[item]);
+			});
 			callback(data);
 		}
 	});

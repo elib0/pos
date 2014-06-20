@@ -93,11 +93,7 @@ class Services extends Secure_area
 	function view($service_id=-1){
 		$data['service_info']=$this->Service->get_info($service_id);
 		$data['item_list_json']=json_encode($this->Service->get_items($service_id));
-		$items=array();
-		foreach($this->Service->get_items($service_id) as $item){
-			$items[]=$item['id'];
-		}
-		$data['item_list']=implode(',',$items);
+		$data['item_list']=implode(',',$this->Service->get_id_items($service_id));
 		$this->load->view('services/form',$data);
 	}
 

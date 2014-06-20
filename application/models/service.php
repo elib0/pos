@@ -128,6 +128,20 @@ class Service extends CI_Model {
 		}
 		return false;
 	}
+	public function get_id_items($service_id=false){
+		$array=array();
+		if($service_id&&$this->exists($service_id)){
+			$this->con->select('item_id');
+			$this->con->where('service_id',$service_id);
+			$query=$this->con->get('service_items');
+			if($query->num_rows()>0){
+				foreach($query->result() as $row){
+					$array[]=$row->item_id;
+				}
+			}
+		}
+		return $array;
+	}
 
 	public function search($service_id, $limit = 5000, $offset = 5){
 		$this->con->from('service_log');

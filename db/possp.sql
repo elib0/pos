@@ -1245,34 +1245,35 @@ VALUES
 --
 
 DROP TABLE IF EXISTS `ospos_modules`;
-CREATE TABLE IF NOT EXISTS `ospos_modules` (
+CREATE TABLE `ospos_modules` (
   `module_id` varchar(255) NOT NULL,
   `name_lang_key` varchar(255) NOT NULL,
   `desc_lang_key` varchar(255) NOT NULL,
+  `shortcut_lang_key` varchar(255) NOT NULL,
   `sort` int(10) NOT NULL,
   `options` varchar(100) DEFAULT 'none',
   PRIMARY KEY (`module_id`),
   UNIQUE KEY `desc_lang_key` (`desc_lang_key`),
   UNIQUE KEY `name_lang_key` (`name_lang_key`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
 --
 -- Volcado de datos para la tabla `ospos_modules`
 --
+INSERT INTO `ospos_modules` (`module_id`, `name_lang_key`, `desc_lang_key`, `shortcut`, `sort`, `options`)
+VALUES
+  ('config', 'module_config', 'module_config_desc', '', 100, 'save'),
+  ('customers', 'module_customers', 'module_customers_desc', '', 10, 'add,update,delete'),
+  ('employees', 'module_employees', 'module_employees_desc', '', 80, 'add,update,delete'),
+  ('giftcards', 'module_giftcards', 'module_giftcards_desc', '', 90, 'add,update,delete'),
+  ('items', 'module_items', 'module_items_desc', '', 20, 'add,update,delete'),
+  ('item_kits', 'module_item_kits', 'module_item_kits_desc', '', 30, 'add,update,delete'),
+  ('receivings', 'module_receivings', 'module_receivings_desc', '', 60, 'none'),
+  ('reports', 'module_reports', 'module_reports_desc', '', 50, 'none'),
+  ('sales', 'module_sales', 'module_sales_desc', '', 70, 'none'),
+  ('suppliers', 'module_suppliers', 'module_suppliers_desc', '', 40, 'add,update,delete'),
+  ('locations', 'module_locations', 'module_locations_desc', '', 95, 'add,update,disable'),
+  ('services', 'module_services', 'module_services_desc', '/view/-1?height=465&width=660', 1, 'add,update,delete');
 
-INSERT INTO `ospos_modules` (`module_id`, `name_lang_key`, `desc_lang_key`, `sort`, `options`) VALUES
-('config', 'module_config', 'module_config_desc', 100, 'save'),
-('customers', 'module_customers', 'module_customers_desc', 10, 'add,update,delete'),
-('employees', 'module_employees', 'module_employees_desc', 80, 'add,update,delete'),
-('giftcards', 'module_giftcards', 'module_giftcards_desc', 90, 'add,update,delete'),
-('items', 'module_items', 'module_items_desc', 20, 'add,update,delete'),
-('item_kits', 'module_item_kits', 'module_item_kits_desc', 30, 'add,update,delete'),
-('receivings', 'module_receivings', 'module_receivings_desc', 60, 'none'),
-('reports', 'module_reports', 'module_reports_desc', 50, 'none'),
-('sales', 'module_sales', 'module_sales_desc', 70, 'none'),
-('suppliers', 'module_suppliers', 'module_suppliers_desc', 40, 'add,update,delete'),
-('locations', 'module_locations', 'module_locations_desc', 95, 'add,update,disable'),
-('services', 'module_services', 'module_services_desc', 1, 'add,update,delete');
 
 -- --------------------------------------------------------
 

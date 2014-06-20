@@ -79,7 +79,9 @@ html{
 				<li>
 					<img src="images/menubar/<?=$module->module_id?>.png" border="0" alt="Menubar Image" />
 				</li>
-				<li><a><?=$this->lang->line("module_".$module->module_id)?></a></li>
+				<li><a ><?=$this->lang->line("module_".$module->module_id)?></a> 
+					<?php if($module->shortcut!=''){ ?><a shortcut="<?=$module->shortcut?>" class='small_button thickbox'>+</a><?php } ?> 
+				</li>
 			</ul>
 		</li>
 		<?php
@@ -197,6 +199,13 @@ html{
 	$('nav.main-menu ul>li>ul').click(function(event){
 		var href=$(this).attr('url');
 		location.href=href;
+	});
+	
+	
+	$('nav.main-menu ul>li>ul>li  a:last-child').click(function(event){
+
+		$('nav.main-menu ul>li>ul').attr('url',$('nav.main-menu ul>li>ul').attr('url')+$(this).attr('shortcut'));
+
 	});
 	
 	$('#assistance').click(function(event){

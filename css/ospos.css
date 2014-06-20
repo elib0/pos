@@ -316,41 +316,43 @@ a.none{
 }
 
 /*STATUS SERVICES*/
-.status-tr-1:hover > td{
-	background-color: hsl(208, 56%, 55%) !important;
+.tablesorter tr.service.status-1>td .status{
+	font-weight:bold;
+	color:#37B;
 }
-.status-tr-2:hover > td{
-	background-color: hsl(35, 84%, 72%) !important;
+.tablesorter tr.service.status-2>td .status{
+	font-weight:bold;
+	color:#FA4;
 }
-.status-tr-3:hover > td{
-	background-color: hsl(120, 39%, 64%) !important;
+.tablesorter tr.service.status-3>td .status{
+	font-weight:bold;
+	color:#6C6;
 }
-.status-tr-4:hover > td{
-	background-color: hsl(2, 64%, 68%) !important;
+.tablesorter tr.service.status-4>td .status{
+	font-weight:bold;
+	color:#E22;
 }
-.status-tr-100:hover > td{
-	background-color: hsl(120, 39%, 64%) !important;
+.tablesorter tr.service.status-100>td .status{
+	font-weight:bold;
+	color:#494;
 }
-
-/*Fuentes*/
-.status-1{
-	font-weight: bold;
-	color: #3276B1;
+/*tr hover*/
+.tablesorter tr.service:hover>td span.status{
+	color:#FFF;
 }
-.status-2{
-	font-weight: bold;
-	color: #F0AD4E;
+.tablesorter tr.service.status-1:hover>td{
+	background-color:rgba(51, 119, 187, 0.75);
 }
-.status-3{
-	font-weight: bold;
-	color: #5CB85C;
+.tablesorter tr.service.status-2:hover>td{
+	background-color:rgba(255, 170, 68, 0.75);
 }
-.status-4{
-	font-weight: bold;
-	color: #D9534F;
+.tablesorter tr.service.status-3:hover>td{
+	background-color:rgba(102, 204, 102, 0.75);
 }
-.status-100{
-	font-weight: bold;
-	color: #5CB85C;
+.tablesorter tr.service.status-4:hover>td{
+	background-color:rgba(238, 34, 34, 0.75);
+}
+.tablesorter tr.service.status-100:hover>td{
+	background-color:rgba(68, 153, 68, 0.75);
 }
 /*STATUS SERVICES END*/

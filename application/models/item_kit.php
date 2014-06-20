@@ -151,8 +151,9 @@ class Item_kit extends CI_Model
 	{
 		$suggestions = array();
 
-		$this->con->from('item_kits');
-		$this->con->like("CONCAT(item_kit_id, ' ', name, ' ', description)", $search);
+		$this->con->from('item_kits'); 
+		$search = array('item_kit_id' => $search, 'name' => $search, 'description' => $search);
+		$this->con->or_like($search);
 		$this->con->order_by("name", "asc");
 		$by_name = $this->con->get();
 		

@@ -254,11 +254,15 @@ class Item extends CI_Model
 
 	function suggest2($search = ''){
 		$this->con->from('items');
-		$this->con->like("CONCAT(item_id, ' ', name, ' ', category, ' ', item_number)", $search);
+		$this->con->where('deleted',0);
+		$this->con->where('item_id >',0);//no gif card
+		$search = array('item_id' => $search, 'name' => $search, 'category' => $search, 'item_number' => $search);
+		$this->con->or_like($search);
+		$this->con->order_by('name', 'asc');
 		$query = $this->con->get();
 
 		if ($query->num_rows() > 0) {
-			return $query;
+			return $query; 
 		}
 
 		return false;

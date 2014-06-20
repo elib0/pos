@@ -143,10 +143,11 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 	<div class="field_row clearfix">
 		<div style="float: left">
 			<div class="field_row clearfix">
-				<?php echo form_label($this->lang->line('common_items').':', 'items',array('class'=>'lable-form')); ?>
-				<?php //echo form_label($this->lang->line('common_items').':', 'items',array('class'=>'lable-form')); ?>
-				<!-- <select name="items" id="item_list" multiple></select> -->
-				<input type="text" id="item_list" name="item_list" value="<?=$item_list?>" style="width: 500px">
+				<?php echo form_label($this->lang->line('services_used_items').':', 'items',array('class'=>'lable-form')); ?>
+				<div>
+				<input type="text" id="item_list" name="item_list" value="<?=$item_list?>" style="width: 500px">	
+				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -201,7 +202,7 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 			'value'=>'pay',
 			'content' => $this->lang->line('services_pay'),
 			'class'=>'small_button float_right',
-			'style'=>'display: none; margin-left: 20px;'
+			'style'=>$service_info->status==3?'':'display: none; margin-left: 20px;'
 		)
 	);
 	 // echo form_submit(array(
@@ -330,34 +331,17 @@ $(function(){
 	var items=(<?=$item_list_json?>);
 	$('#item_list').select2({
 		placeholder: 'Product Name, Code, Category',
-		minimumInputLength: 3,
-		maximumInputLength: 11,
-		tags : [],
 		multiple: true,
-		formatSelection: function (item) { return item.text; },
-		//formatResult: function (item) { return item.text; },
 		ajax:{
 			url: 'index.php/items/suggest2',
-			dataType: 'json',
-			quietMillis: 100,
-			data: function (term, page) {
-                return {
-                    term: term,
-                };
-            },
-            results: function (data, page) {
-            	console.log(data);
-                return { results: data };
-            }
+			data: function (term, page) {  return { term: term }; },
+            results: function (data, page) { return { results: data };}
 		},
 		initSelection : function (element, callback) {
-			var data = [], text={};
-			$.each(items,function(index,val) {
-				text[val.id]=val.text;
-			});
-			$(element.val().split(",")).each(function(){
-				data.push({id: this, text:text[this]});
-			});
+			var data = [];
+			$.each(items, function(){
+              data.push({id: this.id, text: this.text });
+          	});
 			callback(data);
 		}
 	});

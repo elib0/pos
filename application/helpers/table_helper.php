@@ -475,7 +475,7 @@ function get_service_data_row($service,$controller)
 	$table_data_row='<tr class="status-tr-'.$service->status.'">';
 	//$table_data_row.="<td width='3%'><input class='".($service->is_locked?'locked':'')."' type='checkbox' id='service_$service->service_id' value='$service->service_id'/></td>";
 	//$table_data_row.="<td width='3%'>".($service->status==100?'':form_checkbox('services[]', $service->service_id))."</td>";
-	$table_data_row.='<td width="15%">'.$service->service_id.'</td>';
+	$table_data_row.='<td width="5%">'.$service->service_id.'</td>';
 	$table_data_row.='<td width="20%">'.$service->first_name.' '.$service->last_name.'</small></td>';
 	$table_data_row.='<td width="20%">'.$service->phone_number.'</td>';
 	$table_data_row.='<td width="14%">'.$service->brand_name.'</td>';
@@ -489,7 +489,9 @@ function get_service_data_row($service,$controller)
 		case 3:
 			$hidden = array('item' => '3','customer_id' => $service->person_id, 'service' => $service->service_id);
 
-			$table_data_row.='<td width="5%">'.form_open('sales/add/', '', $hidden).form_submit(array('value'=>$CI->lang->line('services_pay'),'class'=>'small_button')).form_close().'</td>';
+			$table_data_row.='<td width="5%">'.form_open('sales/add/', '', $hidden).form_submit(array('value'=>$CI->lang->line('services_pay'),'class'=>'small_button')).form_close();
+			$table_data_row.=anchor($controller_name."/view/$service->service_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update')));
+			$table_data_row.='</td>';
 			break;
 		case 100:
 			$table_data_row.='<td width="5%">'.$CI->lang->line('services_no_actions').'</td>';

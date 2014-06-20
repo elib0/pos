@@ -22,7 +22,7 @@
 	position:absolute;
 	top:3px;
 	right:4px;
-}
+} 
 
 #mode_form span
 {
@@ -218,6 +218,13 @@
 	color: #fff;
 	text-shadow: 1px 1px 0 #000;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F2A144', endColorstr='#BF4508');
+}
+
+#cancel_suspend_sale_button div{
+
+	width: 80%;
+	float: right;
+	margin-right: 12px;
 }
 
 #cancel_sale_button 

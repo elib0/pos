@@ -174,14 +174,16 @@ if(count($cart)==0){
 </div>
 
 <div id="overall_sale">
+	
+	<div id='cancel_suspend_sale_button'>
 	<?php
 	// Only show this part if there is at least one payment entered.
 	if(count($payments) > 0){ ?>
-	<div>
 		<div class='small_button' id='suspend_sale_button'><span><?=$this->lang->line('sales_suspend_sale')?></span></div>
+	<?php } ?>
 		<div class='small_button' id='cancel_sale_button'><span><?=$this->lang->line('sales_cancel_sale')?></span></div>
 	</div>
-	<?php } ?>
+	
 	<div style="margin-top:5px;text-align:center;">
 	<?=form_open('sales/select_employee',array('id'=>'select_employee_form'))?>
 	<label id="customer_label" for="employee"><?=$this->lang->line('sales_select_employee')?></label>

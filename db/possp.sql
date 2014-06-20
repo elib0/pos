@@ -38,15 +38,15 @@ CREATE TABLE IF NOT EXISTS `ospos_app_config` (
 --
 
 INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
-('address', '0'),
+('address', '2112 SW 74th St, Oklahoma City, OK 73159, Estados Unidos'),
 ('company', 'Fast I Repair'),
 ('default_tax_rate', '8'),
-('email', 'info@smokefreevapor.net'),
+('email', 'info@om-parts.com'),
 ('fax', '123'),
-('phone', '405-603-3599'),
+('phone', '+1 405-601-7020'),
 ('return_policy', 'All Sales Final\r\n'),
 ('timezone', 'America/Caracas'),
-('website', 'www.smokefreevapor.net'),
+('website', ' http://www.om-parts.com/'),
 ('default_tax_1_rate', '8.365'),
 ('default_tax_1_name', 'Sales Tax'),
 ('default_tax_2_rate', ''),
@@ -55,7 +55,9 @@ INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
 ('language', 'english'),
 ('print_after_sale', 'print_after_sale'),
 ('logo', 'logo.png'),
-('alert_after_sale', '0');
+('alert_after_sale', '0'),
+('default_service', '20.00'),
+('default_item_percentage', '1.00');
 
 -- --------------------------------------------------------
 

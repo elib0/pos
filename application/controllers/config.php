@@ -74,7 +74,9 @@ class Config extends Secure_area
 		'language'=>$this->input->post('language'),
 		'timezone'=>$this->input->post('timezone'),
 		'print_after_sale'=>$this->input->post('print_after_sale'),
-		'alert_after_sale'=>$this->input->post('alert_after_sale')
+		'alert_after_sale'=>$this->input->post('alert_after_sale'),
+		'default_service'=>$this->input->post('default_service'),
+		'default_item_percentage'=>$this->input->post('default_item_percentage')
 		);
 		//echo json_encode($batch_save_data);
 

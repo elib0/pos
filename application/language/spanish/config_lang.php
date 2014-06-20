@@ -39,4 +39,7 @@ $lang['config_recover_exit_file'] = 'La recupeci&oacute;n de realiz&oacute; con 
 $lang['config_backup_auto_file'] = 'Sistema';
 $lang['config_system_back'] = 'Respaldo del Sistema';
 $lang['config_wait_back'] = 'Copia de seguridad en curso, por favor espere. Esta ventana se cerrar&aacute; autom&aacuteticamente';
+$lang['config_sales_info'] = 'Información de las Ventas';
+$lang['config_service_price'] = 'Precio del Servicio';
+$lang['config_service_item_percentage'] = 'Porcentaje por artículo';
 ?>

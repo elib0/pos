@@ -130,12 +130,14 @@ html{
 		<nav id="menu_changelocation">
 			<span>User:</span><?=' '.$user_info->first_name.' '.$user_info->last_name; ?>
 		</nav>
-		<nav id="menu_location" class="alternative-menu">
+		<nav id="menu_location" class="<?php if ($this->Employee->isAdmin()){  ?>alternative-menu <?php } ?>">
 			<form action="index.php/employees/set_location" method="POST" id="form-location">
 				<input type="hidden" value="" name="location"/>
 			</form>
 			<span>
-				<?php echo '<span>Location: </span>'.ucwords($this->session->userdata('dblocation'));
+				<?php 
+				$_location=$this->session->userdata('dblocation')=='default'?'principal':$this->session->userdata('dblocation');
+				echo '<span>Location: </span>'.ucwords($_location);
 				if ($this->Employee->isAdmin()){ ?>
 				<ul>
 					<?php 

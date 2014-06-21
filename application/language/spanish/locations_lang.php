@@ -45,4 +45,5 @@ $lang['location_create_db_error']='Error creando la nueva base de datos! '.$lang
 $lang['location_least_one']='Debe seleccionar al menos una ubicaci&oacute;n';
 $lang['location_only_letters']='Sólo permite letras, vuelva a intentarlo!';
 $lang['location_only_letters_numbers']='Sólo permite letras y números, vuelva a intentarlo!';
+$lang['location_wrong_base_location']='Debe estar en la ubicaci&oacute;n principal para crear otra.';
 ?>

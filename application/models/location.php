@@ -56,12 +56,16 @@ class Location extends CI_Model {
 		return $this->dbs;
 	}
 
-	function exists($location_name)
+	function exists($location_name, $location_database)
 	{
-		$this->con->from('locations')->where('name', $location_name);
+		$search = array('database' => $location_database, 'name' => $location_name);
+		$this->con->from('locations')->or_like($search);
 		$query = $this->con->get();
 
-		return ($query->num_rows()==1);
+		return ($query->num_rows()==1)||
+		       ($this->session->CI->db->database==$location_database)||
+		       ("principal" == strtolower ( $location_name ))||
+		       ("default" == strtolower ( $location_name ));
 	}
 
 	public function save(&$location_data,$location_id=0){
@@ -71,7 +75,7 @@ class Location extends CI_Model {
 		{
 			$b = 0;
 			if ($conn) {
-				if (!$this->exists($location_data['name'])) {
+				if (!$this->exists($location_data['name'],$location_data['database'])) {
 					if ($this->con->insert('locations',$location_data)) {
 						$location_id = $this->con->insert_id();
 
@@ -94,7 +98,9 @@ class Location extends CI_Model {
 									$this->con->dbprefix('permissions'),
 									$this->con->dbprefix('employees_profile'),
 									$this->con->dbprefix('items'),
-									$this->con->dbprefix('items_taxes')
+									$this->con->dbprefix('items_taxes'),
+									$this->con->dbprefix('brand'),
+									$this->con->dbprefix('model')
 								);
 								$backup1 =& $this->dbutil->backup(array('format'=>'sql','tables'=>$tables,'add_drop'=>false));
 								$backup2 =& $this->dbutil->backup(array('format'=>'sql','add_insert'=>FALSE,'add_drop'=>false, 'ignore'=>$tables));

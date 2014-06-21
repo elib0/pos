@@ -3,8 +3,6 @@
 <div id="page_title" style="margin-bottom:8px;"><?php echo $report_name.' '.$this->lang->line('reports_report_input'); ?></div>
 
 <?php
-	$dbs = $this->Location->get_select_option_list(false, true);
-	if (count($dbs)>1) $dbs['all'] = 'All';
 	
 	if(isset($error)){
 		echo "<div class='error_message' style=' margin: 0 0 10px 0'>".$error."</div>";
@@ -12,11 +10,18 @@
 ?>
 
 <div class="box-form-view">
-
+<?php 
+	if ($this->Employee->isAdmin()){
+	$dbs = $this->Location->get_select_option_list(false, true);
+	if (count($dbs)>1) $dbs['all'] = 'All';
+?>
 	<div>
 		<label class="lable-form" for="locationbd">Select a location:</label>&nbsp;
 		<?=form_dropdown('locationbd', $dbs,'', 'id="locationbd"')?>
 	</div>
+<?php }else{ ?>
+		form_hidden('locationbd', $this->session->userdata('dblocation'));
+<?php } ?>
 
 	<div class="sub-title-view">
 		<?php echo form_label($this->lang->line('reports_date_range'), 'report_date_range_label'); ?>:
@@ -83,13 +88,13 @@ $(document).ready(function()
 		if ($("#export_excel_yes").attr('checked')){ export_excel = 1; }
 		if ($("#simple_radio").attr('checked'))
 		{
-			window.location = window.location+'/'+$("#report_date_range_simple option:selected").val() + '/'+sale_type+'/'+export_excel+'/'+$('#locationbd').val();
+			window.location = window.location+'/'+$("#report_date_range_simple option:selected").val() + '/'+sale_type+'/'+export_excel<?php if ($this->Employee->isAdmin()){ ?>+'/'+$('#locationbd').val()<?php } ?>;
 		}
 		else
 		{
 			var start_date = $("#start_year").val()+'-'+$("#start_month").val()+'-'+$('#start_day').val();
 			var end_date = $("#end_year").val()+'-'+$("#end_month").val()+'-'+$('#end_day').val();
-			window.location = window.location+'/'+start_date + '/'+ end_date + '/'+sale_type+'/'+ export_excel+'/'+$('#locationbd').val();
+			window.location = window.location+'/'+start_date + '/'+ end_date + '/'+sale_type+'/'+ export_excel<?php if ($this->Employee->isAdmin()){ ?>+'/'+$('#locationbd').val()<?php } ?>;
 		}
 	});
 	

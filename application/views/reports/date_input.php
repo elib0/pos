@@ -3,8 +3,6 @@
 <div id="page_title" style="margin-bottom:8px;"><?php echo $report_name.' '.$this->lang->line('reports_report_input'); ?></div>
 
 <?php 
-	$dbs = $this->Location->get_select_option_list(false, true);
-	if (count($dbs)>1) $dbs['all'] = 'All';
 
 	if(isset($error)){
 		echo "<div class='error_message' style=' margin: 0 0 10px 0'>".$error."</div>";
@@ -12,11 +10,19 @@
 ?>
 
 <div class="box-form-view">
+
+<?php 
+	if ($this->Employee->isAdmin()){
+	$dbs = $this->Location->get_select_option_list(false, true);
+	if (count($dbs)>1) $dbs['all'] = 'All';
+?>
 	<div>
 		<label class="lable-form" for="locationbd">Select a location:</label>&nbsp;
 		<?=form_dropdown('locationbd', $dbs,'', 'id="locationbd"')?>
 	</div>
-	
+<?php }else{ ?>
+		form_hidden('locationbd', $this->session->userdata('dblocation'));
+<?php } ?>	
 	<div class="sub-title-view">
 		<?php echo form_label($this->lang->line('reports_date_range'), 'report_date_range_label'); ?>:
 	</div>

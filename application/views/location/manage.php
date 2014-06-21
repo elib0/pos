@@ -3,7 +3,13 @@
 	<div id="title" class="float_left"><?=$title?></div>
 	<?php if ($this->Employee->has_privilege('add', $controller_name)): ?>
 		<div id="new_button">
+		<?php if ($this->session->userdata('dblocation')=='default') { ?>
 			<a href="index.php/<?php echo $controller_name ?>/view/0/width:600/height:300" class="thickbox none" title="<?php echo $this->lang->line('location_new_location') ?>"><div class="big_button" style="float: left;"><span><?php echo $this->lang->line('location_new_location') ?></span></div></a>
+		<?php }else{
+
+			echo $this->lang->line('location_wrong_base_location');
+
+			} ?>
 		</div>
 	<?php endif ?>
 </div>

@@ -9,8 +9,7 @@ class Locations extends Secure_area {
 
 	public function index()
 	{
-		$data['title'] = $this->lang->line('location_title');
-		$data['sub_title'] = 'Tantas locaciones registradas';
+		$data['title'] = $this->lang->line('location_title'); 
 		$data['locations'] = $this->Location->get_all_locations();
 		$data['controller_name']=strtolower(get_class());
 
@@ -30,7 +29,7 @@ class Locations extends Secure_area {
 		'name'=>$this->input->post('location'),
 		'hostname'=>$this->input->post('hostname'),
 		'username'=>$this->input->post('username'),
-		'password'=>$this->input->post('password'),
+		'password'=>$this->input->post('password'), 
 		'dbdriver'=>$this->input->post('dbdriver'),
 		'active'=>$this->input->post('active')?1:0
 		);

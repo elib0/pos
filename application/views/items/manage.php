@@ -14,8 +14,10 @@
 </div>
 
 <?php
-$dbs = $this->Location->get_select_option_list(false, true);
-echo form_open("$controller_name/set_location",array('id'=>'form_items_location'));
+if ($this->Employee->isAdmin()){
+	$dbs = $this->Location->get_select_option_list(false, true);
+	echo form_open("$controller_name/set_location",array('id'=>'form_items_location'));
+	
 ?>
 
 <div class="middle-black-bar">
@@ -24,7 +26,9 @@ echo form_open("$controller_name/set_location",array('id'=>'form_items_location'
 		<?=form_dropdown('items_location', $dbs,$items_location, 'id="locationbd" style="display:inline;"');?>
 	</div>
 </div>
-<?=form_close()?>
+<?php form_close();
+}
+?>
 
 <div id="titleTextImg" class="middle-gray-bar">
 	<div style="float:left;">Search Options :</div>

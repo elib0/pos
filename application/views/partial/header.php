@@ -80,7 +80,7 @@ html{
 					<img src="images/menubar/<?=$module->module_id?>.png" border="0" alt="Menubar Image" />
 				</li>
 				<li><span><?=$this->lang->line("module_".$module->module_id)?></span>
-					<?php if(isset($module->shortcut)&&$module->shortcut!=''){ ?><a href="<?=site_url("$module->module_id").$module->shortcut?>" class='small_button thickbox'>+</a><?php } ?>
+					<?php if(isset($module->shortcut)&&$module->shortcut!=''){ ?><a href="<?=site_url("$module->module_id").$module->shortcut?>" title="<?=$this->lang->line("module_".$module->module_id)?>" class='small_button thickbox shortcut_button'>+</a><?php } ?>
 				</li>
 			</ul>
 		</li>

@@ -212,6 +212,16 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 
 ?>
 <script type='text/javascript'>
+
+		function post_service_form_submit(response){
+			if(!response.success){
+				set_feedback(response.message,'error_message',true);
+			}else{	
+					setTimeout(function() { location.reload(); }, 1000);
+					set_feedback(response.message,'success_message',false);
+				}
+		}
+		
 //validation and submit handling
 $(function(){
 
@@ -262,7 +272,7 @@ $(function(){
 							$('#payOneServices').attr('action',$('#payOneServices').attr('action')+'/'+response.service_id).submit();
 						}else{
 							//tb_remove(false);
-							post_item_form_submit(response);
+							post_service_form_submit(response);
 						}
 					}
 				},

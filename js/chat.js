@@ -271,7 +271,7 @@ function chatHeartbeat(p){
 				});
 				jQ.each(data.ty,function(i,item){
 					if(item){// fix strange ie bug
-						jQ('.chatbox#'+item.u+' .typing').css('display',item.s=='1'?'block':'none');
+						jQ('.chatbox#'+item.u+' .typing').css('visibility',item.s=='1'?'visible':'hidden');
 					}
 				});
 			}
@@ -374,7 +374,7 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 	}
 	typing[chatboxusr]=false;
 	chatbox=jQ('<div/>' ).addClass('chatbox').attr('id',chatboxusr)
-	.html('<div class="chatboxhead"><div class="chatboxtitle">'+chatboxname+'</div><div class="minimize"></div><div class="chatboxoptions"> <a id="close" href="javascript:void(0)">X</a></div><br clear="all"/></div><div class="chatboxcontent"></div><div class="typing">'+chatboxname+' is typing...</div><div class="chatboxinput"><textarea id="'+chatboxusr+'" data-name="'+chatboxname+'" class="chatboxtextarea"></textarea></div>')
+	.html('<div class="chatboxhead"><div class="chatboxtitle">'+chatboxname+'</div><div class="minimize"></div><div class="chatboxoptions"> <a id="close" href="javascript:void(0)">X</a></div><br clear="all"/></div><div class="chatboxarea"><div class="chatboxcontent"></div><div class="typing">'+chatboxname+' is typing...</div></div><div class="chatboxinput"><textarea id="'+chatboxusr+'" data-name="'+chatboxname+'" class="chatboxtextarea"></textarea></div>')
 	.appendTo('#chatmsgs');
 	chatbox.css('bottom','0px');
 	chatBoxeslength=0;

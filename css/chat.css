@@ -100,6 +100,15 @@
 	border-left:1px solid #176689;
 }
 
+.chatboxarea{
+	font-size:9px;
+	color:#999;
+	background-color:#FFF;
+	padding-left:7px;
+	border-left:1px solid #cccccc;
+	border-right:1px solid #cccccc;
+}
+
 .chatboxcontent{
 	font-family:arial,sans-serif;
 	font-size:13px;
@@ -108,10 +117,6 @@
 	width:209px;
 	overflow-y:auto;
 	overflow-x:auto;
-	padding:7px;
-	border-left:1px solid #cccccc;
-	border-right:1px solid #cccccc;
-	border-bottom:1px solid #eeeeee;
 	background-color:#ffffff;
 	line-height:1.3em;
 	
@@ -128,13 +133,6 @@
 .typing{
 	font-size:9px;
 	color:#999;
-	background-color:#FFF;
-	padding-left:7px;
-	border-left:1px solid #cccccc;
-	border-right:1px solid #cccccc;
-	height:10px;
-	display:none;
-	
 }
 
 .chatboxinput{

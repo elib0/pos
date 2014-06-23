@@ -2171,6 +2171,20 @@ CREATE TABLE IF NOT EXISTS `ospos_service_log` (
 INSERT INTO `ospos_service_log` (`service_id`, `person_id`, `serial`, `model_id`, `date_received`, `date_delivered`, `comments`, `status`, `deleted`) VALUES
 (1, 1, '213123123', 1, '2014-06-10 00:00:00', NULL, 'Placerat duis ac vel dis pellentesque mauris mus integer placerat tortor lectus vel scelerisque, ut, proin tempor sit habitasse augue aliquam mus amet et a ut magna odio, natoque sit, elementum ac odio mus! Lacus placerat nascetur integer eu! Scelerisque sed et arcu ridiculus, dictumst aenean nunc enim nunc hac, enim, et urna lectus dignissim aenean! Urna nec mus massa, nisi risus cursus.', 1, 0);
 
+-- ----------------------------
+-- Table structure for `ospos_service_items`
+-- ----------------------------
+DROP TABLE IF EXISTS `ospos_service_items`;
+CREATE TABLE `ospos_service_items` (
+  `service_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  PRIMARY KEY (`item_id`,`service_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ospos_service_items
+-- ----------------------------
+
 -- --------------------------------------------------------
 
 --

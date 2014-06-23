@@ -46,7 +46,7 @@ function chat_init(data){
 	jQ('body>#chat').on('click','.listUserChat',function(){
 		if(this.id!=userid){
 			var chatbox=createChatBox(this.id,0,this.dataset.name,1);
-			jQ('textarea',chatbox).focus();			
+			jQ('textarea',chatbox).focus();
 		}
 	}).on('keyup','#chatmsgs textarea',function(event){
 		checkChatBoxInputKey.call(this,event);
@@ -212,7 +212,7 @@ function chatHeartbeat(p){
 				if(blinkNumber>=blinkOrder){
 					document.title='(*)'+originalTitle;
 					titleChanged=1;
-					break;	
+					break;
 				}
 			}
 		}
@@ -464,15 +464,21 @@ function linkify(text){
 
 function emoticons(text){
 	var inputText=text||'';
-	inputText=inputText.replace(/:-?\)/gim,		'<div class="em smile"></div>');
-	inputText=inputText.replace(/:-?D/gim,		'<div class="em bigSmile"></div>');
-	inputText=inputText.replace(/:-?\(/gim,		'<div class="em sad"></div>');
-	inputText=inputText.replace(/:-?P/gim,		'<div class="em tongeOut"></div>');
-	inputText=inputText.replace(/;-?\)/gim,		'<div class="em wink"></div>');
-	inputText=inputText.replace(/:-?o/gim,		'<div class="em surprise"></div>');
-	inputText=inputText.replace(/:-?s/gim,		'<div class="em sick"></div>');
-	inputText=inputText.replace(/:'-?\(/gim,	'<div class="em crying"></div>');
-	inputText=inputText.replace(/8-?\)/gim,		'<div class="em glasses"></div>');
+	inputText=inputText.replace(/(^|\s):-?\)(\s|$)/gim,		'<div class="em smile"></div>');
+	inputText=inputText.replace(/(^|\s):-?D(\s|$)/gim,		'<div class="em bigSmile"></div>');
+	inputText=inputText.replace(/(^|\s):-?\((\s|$)/gim,		'<div class="em sad"></div>');
+	inputText=inputText.replace(/(^|\s):-?P(\s|$)/gim,		'<div class="em tongeOut"></div>');
+	inputText=inputText.replace(/(^|\s);-?\)(\s|$)/gim,		'<div class="em wink"></div>');
+	inputText=inputText.replace(/(^|\s):-?o(\s|$)/gm,		'<div class="em surprise"></div>');
+	inputText=inputText.replace(/(^|\s):-?O(\s|$)/gm,		'<div class="em surprise2"></div>');
+	inputText=inputText.replace(/(^|\s):-?s(\s|$)/gim,		'<div class="em uneasy"></div>');
+	inputText=inputText.replace(/(^|\s):'-?\((\s|$)/gim,	'<div class="em sob"></div>');
+	inputText=inputText.replace(/(^|\s)8-?\)(\s|$)/gim,		'<div class="em hearteyes"></div>');
+	inputText=inputText.replace(/(^|\s)t[-_]t(\s|$)/gim,	'<div class="em crying"></div>');
+	inputText=inputText.replace(/(^|\s)<3(\s|$)/gim,		'<div class="em heart"></div>');
+	inputText=inputText.replace(/(^|\s)xd(\s|$)/gim,		'<div class="em xD"></div>');
+	inputText=inputText.replace(/(^|\s):-?\$(\s|$)/gim,		'<div class="em shame"></div>');
+	inputText=inputText.replace(/(^|\s):-?\*(\s|$)/gim,		'<div class="em kiss"></div>');
 	return inputText;
 }
 

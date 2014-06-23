@@ -1,6 +1,6 @@
 #chat{
 	position:relative;
-	z-index:1000;
+	z-index:20000;
 }
 
 #chatMainContainer{
@@ -68,13 +68,12 @@
 	position:expression("absolute");
 	width:225px;
 	display:none;
-	z-index:1000;
 }
 
 .chatboxhead{
 	background-color:#f99d39;
 	padding:7px;
-	color:#ffffff;
+	color:#fff;
 
 	border-right:1px solid #f99d39;
 	border-left:1px solid #f99d39;
@@ -103,19 +102,19 @@
 .chatboxarea{
 	background-color:#FFF;
 	padding-left:7px;
-	border-left:1px solid #cccccc;
-	border-right:1px solid #cccccc;
+	border-left:1px solid #ccc;
+	border-right:1px solid #ccc;
 }
 
 .chatboxcontent{
 	font-family:arial,sans-serif;
 	font-size:13px;
-	color:#333333;
+	color:#333;
 	height:200px;
 	width:209px;
 	overflow-y:auto;
 	overflow-x:auto;
-	background-color:#ffffff;
+	background-color:#fff;
 	line-height:1.3em;
 	
 	white-space:-moz-pre-wrap; /* Mozilla */
@@ -135,10 +134,10 @@
 
 .chatboxinput{
 	padding:5px;
-	background-color:#ffffff;
-	border-left:1px solid #cccccc;
-	border-right:1px solid #cccccc;
-	border-bottom:1px solid #cccccc;
+	background-color:#fff;
+	border-left:1px solid #ccc;
+	border-right:1px solid #ccc;
+	border-bottom:1px solid #ccc;
 	resize:none;
 	font-family:arial,sans-serif;
 	font-size:13px;
@@ -148,7 +147,7 @@
 	width:206px;
 	height:44px;
 	padding:3px 0pt 3px 3px;
-	border:1px solid #eeeeee;
+	border:1px solid #eee;
 	margin:1px;
 	overflow:hidden;
 	resize:none;
@@ -189,39 +188,58 @@
 
 #chat div.em{
 	display:inline-block;
-	width:16px;
-	height:16px;
+	width:20px;
+	height:20px;
 	overflow:hidden;
 	padding:0;
 	margin:2px 1px 0;
-	background-image:url(chat/emoticons.png);
+	background-image:url(chat/emojis.png);
+	background-size:325px;
 }
 .em.smile{
-	background-position:-16px -16px;	
+	background-position:-64px -4px;
 }
 .em.bigSmile{
-	background-position:-16px 0px;	
+	background-position:-122px -28px;
 }
 .em.sad{
-	background-position:0px -16px;	
+	background-position:-152px -28px;
 }
 .em.tongeOut{
-	background-position:0px 0px;	
+	background-position:-5px -28px;
 }
 .em.wink{
-	background-position:-32px -16px;	
+	background-position:-152px -3px;
 }
 .em.surprise{
-	background-position:-32px 0px;	
+	background-position:-271px -53px;
+}
+.em.surprise2{
+	background-position:-300px -53px;
+}
+.em.sob{
+	background-position:-299px -28px;
 }
 .em.crying{
-	background-position:0px -32px;	
+	background-position:-34px -52px;
 }
-.em.sick{
-	background-position:-16px -32px;	
+.em.uneasy{
+	background-position:-93px -52px;
 }
-.em.glasses{
-	background-position:-32px -32px;	
+.em.hearteyes{
+	background-position:-32px -32px;
+}
+.em.heart{
+	background-position:-63px -52px;
+}
+.em.xD{
+	background-position:-33px -28px;
+}
+.em.shame{
+	background-position:-93px -28px;
+}
+.em.kiss{
+	background-position:-212px -4px;
 }
 
 .chatboxoptions{

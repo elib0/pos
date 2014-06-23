@@ -1272,7 +1272,8 @@ VALUES
   ('sales', 'module_sales', 'module_sales_desc', '', 70, 'none'),
   ('suppliers', 'module_suppliers', 'module_suppliers_desc', '', 40, 'add,update,delete'),
   ('locations', 'module_locations', 'module_locations_desc', '', 95, 'add,update,disable'),
-  ('services', 'module_services', 'module_services_desc', '/view/-1?height=465&width=660', 1, 'add,update,delete');
+  ('services', 'module_services', 'module_services_desc', '/view/-1?height=465&width=660', 1, 'add,update,delete'),
+  ('orders', 'module_orders', 'module_orders_desc', 75, 'none');
 
 
 -- --------------------------------------------------------

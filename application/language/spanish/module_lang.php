@@ -33,4 +33,7 @@ $lang['module_item_kits_desc']='Agregar, Actualizar, Borrar y Buscar Kits de Art
 
 $lang['module_services']='Seguimiento de Servicios';
 $lang['module_services_desc']='Seguimiento y monitoreo de servicios';
+
+$lang['module_orders']='Pedidos';
+$lang['module_services_desc']='Pedidos de productos de bajo inventario';
 ?>

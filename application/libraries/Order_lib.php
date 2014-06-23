@@ -55,13 +55,11 @@ class Order_lib
 		if(!$this->CI->Item->exists($item_id))
 		{
 			//try to get item id given an item_number
-			$item_id = $this->CI->Item->get_item_id($item_id);
-
-			if(!$item_id)
-				return false;
+			// $item_id = $this->CI->Item->get_item_id($item_id);
+			// if(!$item_id) return false;
+			return false;
 		}
 		//Alain Serialization and Description
-
 		//Get all items in the cart so far...
 		$items = $this->get_cart();
 
@@ -74,23 +72,19 @@ class Order_lib
 		$itemalreadyinsale=FALSE;	//We did not find the item yet.
 		$insertkey=0;				//Key to use for new entry.
 		$updatekey=0;				//Key to use to update(quantity)
-
+		if (count($items)>0)
 		foreach ($items as $item)
 		{
 			//We primed the loop so maxkey is 0 the first time.
 			//Also, we have stored the key in the element itself so we can compare.
 
-			if($maxkey <= $item['line'])
-			{
-				$maxkey = $item['line'];
-			}
-
-			if($item['item_id']==$item_id)
-			{
+			if($maxkey <= $item['line']){ $maxkey = $item['line']; }
+			if($item['item_id']==$item_id){
 				if(!$item['is_service']){
 					$itemalreadyinsale=TRUE;
 					$updatekey=$item['line'];
-				}elseif($item_id>0&&$item['service_id']==$service_id){
+				// }elseif($item_id>0 && $item['service_id']==$service_id){
+				}elseif($item_id>0 && $service_id){
 					return true;
 				}
 			}
@@ -121,7 +115,7 @@ class Order_lib
 			'line'					=>$insertkey,
 			'is_service'			=>$item_info->is_service,
 			'name'					=>$item_info->name,
-			'item_number'			=>$item_number,
+			// 'item_number'			=>$item_number,
 			'allow_alt_description'	=>$item_info->allow_alt_description,
 			'is_serialized'			=>$item_info->is_service?1:$item_info->is_serialized,
 			'quantity_total'		=>$item_info->quantity,

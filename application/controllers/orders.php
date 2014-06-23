@@ -12,16 +12,13 @@ class Orders extends Secure_area
 	{
 		$this->load->model('reports/Inventory_low');
 		$model = $this->Inventory_low;
-		$low_items = $model->getData(array());
+		$low_items = $model->getData(array(),true);
 
-		foreach ($low_items as $key => $value) {
-			$this->order_lib->add_item();
+		foreach ($low_items as $key) {
+			$this->order_lib->add_item($key['item_id']);
 		}
-
 		$data['cart']=$this->order_lib->get_cart();
-
-
-
+		$data['quetra']=$low_items;
 		$this->load->view('orders/register',$data);
 	}
 

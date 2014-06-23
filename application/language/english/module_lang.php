@@ -33,4 +33,7 @@ $lang['module_item_kits_desc']='Add, Update, Delete and Search Item Kits';
 
 $lang['module_services']='Tracking Services';
 $lang['module_services_desc']='Tracking and monitoring of Services';
+
+$lang['module_orders']='Orders';
+$lang['module_services_desc']='Items orders under inventory';
 ?>

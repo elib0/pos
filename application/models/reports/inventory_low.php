@@ -12,9 +12,9 @@ class Inventory_low extends Report
 		return array($this->lang->line('reports_item_name'), $this->lang->line('reports_item_number'), $this->lang->line('reports_description'), $this->lang->line('reports_count'), $this->lang->line('reports_reorder_level'));
 	}
 	
-	public function getData(array $inputs)
-	{
-		$this->con->select('name, item_number, quantity, reorder_level, description');
+	public function getData(array $inputs,$order=false){
+		if ($order) $this->con->select('item_id');
+		else  $this->con->select('name, item_number, quantity, reorder_level, description');
 		$this->con->from('items');
 		$this->con->where('quantity <= reorder_level and deleted=0');
 		$this->con->order_by('name');

@@ -219,7 +219,11 @@ if(count($cart)==0){
 		<div class="sales_sub_total"><?=$this->lang->line('sales_sub_total')?>: <div><?=to_currency($subtotal)?></div></div>
 
 		<!-- combro de inpuestos opcional -->
-		<div class="taxing">Taxing:<div><input id="taxing" type="checkbox" name="taxing" <?=$taxing?>></div></div>
+		<div class="taxing">Taxing:
+			<?php if ($this->Employee->isAdmin()) { ?>
+			<div><input id="taxing" type="checkbox" name="taxing" <?=$taxing?>></div>
+			<?php } ?>
+		</div>
 
 		<!-- FIN combro de inpuestos opcional -->
 		<?php foreach($taxes as $name=>$value) { ?>

@@ -31,20 +31,23 @@
 	{
 	?>
 		<li>
-		<?php
-			$subpermissions = explode(',', $module->options);
-			$attribs = array(
-				'id'=>$module->module_id,
-				'name'=>'permissions[]',
-				'value'=>$module->module_id,
-				'class'=>'permissions-option',
-				'checked'=>$this->Employee->has_permission($module->module_id,$profile,true)
-			);
-			echo form_checkbox($attribs);
-		?>
 		<span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
 		<span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
 		<ul class="module-options">
+			<li>
+				<?php
+					$subpermissions = explode(',', $module->options);
+					$attribs = array(
+						'id'=>$module->module_id,
+						'name'=>'permissions[]',
+						'value'=>$module->module_id,
+						'class'=>'permissions-option',
+						'checked'=>$this->Employee->has_permission($module->module_id,$profile,true)
+					);
+					echo form_checkbox($attribs);
+				?>
+				<span><?php echo $this->lang->line('employees_profile_see'); ?></span>	
+			</li>
 			<?php 
 			foreach ($subpermissions as $subpermission) {
 				if ($subpermission != 'none' || $subpermission == '') {

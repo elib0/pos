@@ -32,6 +32,7 @@ $lang['employees_profile_per_name_e'] = 'Este perfil ya existe';
 $lang['employees_profile_m'] = 'Modulos';
 $lang['employees_profile_SA'] = 'Seleccionar Todos';
 $lang['employees_profile_DA'] = 'Desseleccionar';
+$lang['employees_profile_see'] = 'Ver';
 $lang['employees_see'] = 'Ver permisos';
 $lang['employees_profi'] = 'Tipo de perfil';
 $lang['employees_photo'] = 'Fhoto';

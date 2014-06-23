@@ -16,6 +16,10 @@ class Sales extends Secure_area
 		$employee = $this->Employee->get_info( $this->sale_lib->get_employee() );
 		$data['employee'] = $employee->first_name.' '.$employee->last_name;
 		$data['cart']=$this->sale_lib->get_cart();
+		if (count($data['cart'])==0){
+			$data['taxing']= 'checked';
+			$this->sale_lib->set_taxing(true);
+		}
 		$data['modes']=array(
 			'sale'=>$this->lang->line('sales_sale'),
 			'return'=>$this->lang->line('sales_return')

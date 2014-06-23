@@ -7,7 +7,7 @@
 			Back</a></span>
 		</div>
 		<?php
-			echo anchor("$controller_name/form_profile_employee/-1/width:660",
+			echo anchor("$controller_name/form_profile_employee/-1/width:680",
 			"<div class='big_button' style='float: left;'><span>".$this->lang->line('employees_profile_per_new')."</span></div>",
 			array('class'=>'thickbox none','title'=>$this->lang->line('employees_profile_per_new')));
 		?>
@@ -25,7 +25,7 @@
 			<tr>
 				<td width="30%" ><?=$row['name']?></td>
 				<td width="65%" ><?php echo $row['module']; ?></td>
-				<td width="5%"><?=anchor($controller_name."/form_profile_employee/".$row['name']."/width:660", $this->lang->line('common_edit'),array('class'=>'thickbox small_button','title'=>'Edit Profile'))?></td>
+				<td width="5%"><?=anchor($controller_name."/form_profile_employee/".$row['name']."/width:680", $this->lang->line('common_edit'),array('class'=>'thickbox small_button','title'=>'Edit Profile'))?></td>
 			</tr>
 		<?php } }else{ echo '<tr><td colspan="3">'.$profiles.'</td></tr>'; } ?>
 		</tbody>

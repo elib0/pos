@@ -146,10 +146,7 @@ class Employees extends Person_controller
 	/*
 	get the width for the add/edit form
 	*/
-	function get_form_width()
-	{
-		return 650;
-	}
+	function get_form_width(){ return 680; }
 
 	function json_calendar($person_id=0){
 		$year = date('Y');
@@ -288,7 +285,10 @@ class Employees extends Person_controller
 			return;
 		}//pos-name
 		if ($per==''){ $prodile_data = array('name'=>$this->input->post('name'),'new'=>true); }
-		else{ $prodile_data = array('name'=>$this->input->post('name'),'new'=>false,'last'=>$this->input->post('pos-name')); }
+		else{
+			if (!$this->input->post('name') && $per=='administrator') $name_profile='administrator';
+			else $name_profile=$this->input->post('name');
+			$prodile_data = array('name'=>$name_profile,'new'=>false,'last'=>$this->input->post('pos-name')); }
 		// $person_data = array('name'=>$this->input->post('name'));
 		$permission_data = $this->input->post("permissions")!=false ? $this->input->post("permissions"):array();
 		$full_permission_data = array();

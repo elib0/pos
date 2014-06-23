@@ -77,7 +77,7 @@
 #employee_permission_info #permission_list>li{
   		float:left;
   		height:55px;
-  		width: 300px;
+  		width: 315px;
   		border: 1px solid #DDDDDD;
 }
 #employee_permission_info #permission_list li ul li{ float:left; }

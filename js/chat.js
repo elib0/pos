@@ -1,10 +1,10 @@
-var disablelogs=false;
+var showlogs=false;
 var nolog=/friendslist|heartbeat/gi;
 var jQ=window.$||window.jQuery;
 var chatcontrol='index.php/chat/';
 var play=true;
 var minChatHeartbeat=2000;
-var maxChatHeartbeat=33000;
+var maxChatHeartbeat=20000;
 var windowFocus=true;
 var chatHeartbeatCount=0;
 var originalTitle;
@@ -89,7 +89,7 @@ function startChatSession(){
 	chat_ajax({
 		url:chatcontrol+'startchatsession',
 		success:function(data){
-			//console.log(['startchatsession',data]);
+			if(showlogs) console.log(['startchatsession',data]);
 			var chatbox,content;
 			userid=data.userid;
 			username=data.username;
@@ -145,7 +145,7 @@ function checkChatBoxInputKey(event){
 			var content=jQ(this).parents('.chatbox').find('.chatboxcontent');
 			content.append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+username+': </span><span class="chatboxmessagecontent">'+emoticons(message)+'</span></div>')
 				.scrollTop(content[0].scrollHeight);
-			//console.log(message);
+			if(showlogs) console.log(message);
 			chat_ajax(chatcontrol+'sendchat',{to:this.id,message:message},function(data){
 				//falta verificar error...
 			});
@@ -280,7 +280,7 @@ function chatHeartbeat(p){
 				chatHeartbeatTime=minChatHeartbeat;
 				chatHeartbeatCount=1;
 			}else if(chatHeartbeatCount>=10){
-				chatHeartbeatTime*=2;
+				chatHeartbeatTime+=minChatHeartbeat;
 				chatHeartbeatCount=1;
 				if(chatHeartbeatTime>maxChatHeartbeat){
 					chatHeartbeatTime=maxChatHeartbeat;
@@ -314,7 +314,7 @@ function listFriendsChat(p){
 		data:{'update':p},
 		success:function(data){
 			if(data!=null){
-				// console.log(data);
+				if(showlogs) console.log(data);
 				switch(data.a*1){
 				case 1:
 					var el,me,salida='';
@@ -362,7 +362,7 @@ function restructureChatBoxes(){
 }
 
 function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
-	//console.log([tmp,chatboxusr,chatboxname]);
+	if(showlogs) console.log([tmp,chatboxusr,chatboxname]);
 	var chatbox=jQ('.chatbox#'+chatboxusr);
 	if(chatbox.length > 0){
 		if(chatbox.css('display')=='none'){
@@ -506,6 +506,7 @@ function chat_ajax(url,data,success){
 	};
 	var ajax=jQ.ajax(d);
 	if(d.url.match(nolog)) return ajax;
+	if(!showlogs) return ajax;
 	return ajax.done(function(data){
 		var D={'url':d.url,'success':data};
 		if(d.data) D.post=d.data;

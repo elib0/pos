@@ -5,6 +5,7 @@
 	if (isset($warning)){	echo "<div class='warning_mesage'>$warning</div>"; }
 	if (isset($success)){	echo "<div class='success_message'>$success</div>"; } 
 ?>
+<?php echo $pu; ?>
 <div id="table_action_header" style="background: none;padding-left: 15px;width: 98%;">
 	<label id="item_label" for="item">
 		<?php echo $this->lang->line('sales_find_or_scan_item'); ?>

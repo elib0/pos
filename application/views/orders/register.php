@@ -78,6 +78,7 @@
 })(jQueryNew);
 $(function(){
 	$('.delete_item').click(function(){
+			var that = this;
 			var url=$(this).attr('href');
 			if (confirm('estas seguro?')){
 				$.ajax({
@@ -85,7 +86,11 @@ $(function(){
 					type: 'POST',
 					dataType: 'json',
 					success: function(response){
-						// location.reload();
+						if (response.status) {
+							$(that).parents('tr').fadeOut('fast', function() {
+								$(this).remove();
+							});
+						}
 					}
 				});
 			}

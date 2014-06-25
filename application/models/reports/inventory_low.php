@@ -16,7 +16,7 @@ class Inventory_low extends Report
 		if ($order) $this->con->select('item_id');
 		else  $this->con->select('name, item_number, quantity, reorder_level, description');
 		$this->con->from('items');
-		$this->con->where('quantity <= reorder_level and deleted=0');
+		$this->con->where('quantity <= reorder_level and deleted=0 AND item_id>5');
 		$this->con->order_by('name');
 		
 		return $this->con->get()->result_array();

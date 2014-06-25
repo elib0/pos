@@ -3,22 +3,20 @@
 <?php
 	if(isset($error)){	echo "<div class='error_message'>$error</div>"; }
 	if (isset($warning)){	echo "<div class='warning_mesage'>$warning</div>"; }
-	if (isset($success)){	echo "<div class='success_message'>$success</div>"; }
-	echo form_open('sales/add',array('id'=>'add_item_form')); 
+	if (isset($success)){	echo "<div class='success_message'>$success</div>"; } 
 ?>
+<div id="table_action_header" style="background: none;padding-left: 15px;width: 98%;">
 	<label id="item_label" for="item">
 		<?php echo $this->lang->line('sales_find_or_scan_item'); ?>
 	</label>
-<?php 
-	echo form_input(array('name'=>'item','id'=>'item','size'=>'40','placeholder'=>$this->lang->line('sales_start_typing_item_name')));
-?>
-	<div id="new_item_button_register" >
+	<input type="text" id="item_list" name="item_list" value="" style="width:500px;">
+	<!-- <div id="new_item_button_register" >
 		<?php echo anchor('items/view/-1/width:360','<span>'.$this->lang->line('sales_new_item').'</span>',array('class'=>'small_button thickbox','title'=>$this->lang->line('sales_new_item')));
 		?>
-	</div>
-	</form>
-<div id="registerDiv">
-	<table id="register" style="width: 100%;">
+	</div> -->
+</div>
+<div id="table_holder">
+	<table id="sortable_table" class="tablesorter" style="width: 100%;">
 		<thead>
 		<tr>
 			<th width="11%"><?php echo $this->lang->line('common_delete'); ?></th>
@@ -38,13 +36,13 @@
 					$cur_item_info = $this->Item->get_info($item['item_id']);
 		?>
 					<tr id="<?=$item['item_id']?>" class="sale-line">
-						<td><?=anchor("sales/delete_item/$line",$this->lang->line('common_delete'),"class='small_button'")?></td>
+						<td>
+						<!-- <pre><?php print_r($cur_item_info); ?></pre> -->
+						<?=anchor("sales/delete_item/$line",$this->lang->line('common_delete'),"class='small_button'")?></td>
 						<td><?=$cur_item_info->item_number?></td>
 						<td style="align:center;"><?=$cur_item_info->name?></td>
-						<td><?=$cur_item_info->quantity?></td>
+						<td><input type="text" name="reorder" value="<?php echo $cur_item_info->reorder_level; ?>" style="width: 50px;"></td>
 					</tr>
-					<tr style="height:3px"><td colspan="4" style="background-color:white"> </td></tr>
-					
 		<?php 	}
 			} ?>
 		</tbody>

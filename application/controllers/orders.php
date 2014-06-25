@@ -13,7 +13,6 @@ class Orders extends Secure_area
 		$this->load->model('reports/Inventory_low');
 		$model = $this->Inventory_low;
 		$low_items = $model->getData(array(),true);
-
 		foreach ($low_items as $key) {
 			$this->order_lib->add_item($key['item_id']);
 		}

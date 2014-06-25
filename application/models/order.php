@@ -19,8 +19,9 @@ class Order extends CI_Model {
 
 	public function save($order_data, $order_items_data){
 		if ($this->con->insert('orders', $order_data)) {
+			$order_id = $this->db->insert_id();
 			foreach ($order_items_data as $item) {
-				$this->con->insert('order_items', $item);
+				$this->con->insert('order_items', array_merge( $item, array('id_order'=>$order_id) ));
 			}
 			return true;
 		}

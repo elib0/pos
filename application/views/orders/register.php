@@ -23,7 +23,7 @@
 				<th width="11%"><?php echo $this->lang->line('common_delete'); ?></th>
 				<th width="28%"><?php echo $this->lang->line('sales_item_number'); ?></th>
 				<th width="35%"><?php echo $this->lang->line('sales_item_name'); ?></th>
-				<th width="10%"><?php echo $this->lang->line('sales_quantity'); ?></th>
+				<th width="10%" align="right"><?php echo $this->lang->line('sales_quantity'); ?></th>
 				<th width="18%"><?php echo $this->lang->line('items_reorder_level'); ?></th>
 				<!-- <th style="width:11%;"><?php //echo $this->lang->line('sales_edit'); ?></th> -->
 			</tr>
@@ -39,15 +39,15 @@
 		?>
 					<tr id="<?=$item['item_id']?>" class="sale-line">
 						<td>
-							<?php echo anchor("orders/delete_item/".$item['item_id'],$this->lang->line('common_delete'),"class='small_button'")?></td>
+							<?php echo anchor("orders/delete_item/".$item['item_id'],$this->lang->line('common_delete'),"class='small_button delete_item'")?></td>
 						<td><?=$cur_item_info->item_number?></td>
 						<td style="align:center;">
 							<?=$cur_item_info->name?>
 							<input type="hidden" name="items[]" value="<?php echo $item['item_id']; ?>">
 						</td>
-						<td><?=$cur_item_info->quantity?></td>
-						<td>
-							<input type="text" name="reorder[]" value="<?php echo $cur_item_info->reorder_level; ?>" style="width: 50px;">
+						<td align="right"><?=$cur_item_info->quantity?></td>
+						<td align="right">
+							<input align="right" type="text" name="reorder[]" value="<?php echo $cur_item_info->reorder_level; ?>" style="width: 50px;">
 						</td>
 					</tr>
 		<?php 	}
@@ -77,43 +77,19 @@
 	});
 })(jQueryNew);
 $(function(){
-	$('#item').autocomplete("<?=site_url('sales/item_search')?>",{
-		minChars:0,
-		max:100,
-		selectFirst: false,
-		delay:10,
-		formatItem:function(row){
-			return row[1];
-		}
-	}).blur(function(){
-		$(this).attr('value',"");
-	}).result(function(event,data,formatted){
-		$('#add_item_form').submit();
-	});
-
-	$('#finish_sale_button').click(function(){
-		var mode = '<?php echo $mode ?>';
-		var dbselected = 1;
-		if (mode=='shipping') {
-			dbselected = document.getElementById('location').selectedIndex
-		}
-
-		if (dbselected > 0) {
-			if (afterS!='0') {
-				if(confirm("<?=$this->lang->line('sales_confirm_finish_sale')?>")){
-					$('#finish_sale_form').submit();
-				}	
-			}else{ $('#finish_sale_form').submit(); }
-		}else{
-			// alert('You must select a database');
-			notif({
-				type: 'error',
-				msg: "You must select a database first!",
-				width: 'all',
-				height: 100,
-				position: 'center'
-			});
-		}
+	$('.delete_item').click(function(){
+			var url=$(this).attr('href');
+			if (confirm('estas seguro?')){
+				$.ajax({
+					url: url,
+					type: 'POST',
+					dataType: 'json',
+					success: function(response){
+						// location.reload();
+					}
+				});
+			}
+			return false;
 	});
 
 	$('#cancel_sale_button').click(function(){

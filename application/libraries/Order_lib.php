@@ -36,19 +36,6 @@ class Order_lib
 		$this->CI->session->unset_userdata('comment_order');
 	}
 
-	function get_employee()
-	{
-		if(!$this->CI->session->userdata('employee_order'))
-			$this->set_employee(-1);
-
-		return $this->CI->session->userdata('employee_order');
-	}
-
-	function set_employee($employee_id)
-	{
-		$this->CI->session->set_userdata('employee_order',$employee_id);
-	}
-
 	function add_item($item_id,$quantity=1,$serialnumber=null,$service_id=null)
 	{
 		//make sure item exists
@@ -113,16 +100,10 @@ class Order_lib
 		$array=array(
 			'item_id'				=>$item_id,
 			'line'					=>$insertkey,
-			'is_service'			=>$item_info->is_service,
 			'name'					=>$item_info->name,
-			// 'item_number'			=>$item_number,
-			'allow_alt_description'	=>$item_info->allow_alt_description,
-			'is_serialized'			=>$item_info->is_service?1:$item_info->is_serialized,
-			'quantity_total'		=>$item_info->quantity,
 			'quantity'				=>$quantity,
 			'reorder'				=>$item_info->reorder_level
 		);
-		if($service_id) $array['service_id']=$service_id;
 		$item = array(($insertkey)=>$array);
 
 		//Item already exists and is not serialized, add to quantity
@@ -274,27 +255,13 @@ class Order_lib
 
 	function empty_cart()
 	{
-		$this->CI->session->unset_userdata('cart');
-	}
-
-	function remove_employee()
-	{
-		$this->CI->session->unset_userdata('employee');
-	}
-
-	function clear_mode()
-	{
-		$this->CI->session->unset_userdata('sale_mode');
+		$this->CI->session->unset_userdata('cart_order');
 	}
 
 	function clear_all()
 	{
-		$this->clear_mode();
 		$this->empty_cart();
 		$this->clear_comment();
-		$this->clear_email_receipt();
-		$this->empty_payments();
-		$this->remove_employee();
 	}
 }
 ?>

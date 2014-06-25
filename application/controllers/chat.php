@@ -58,7 +58,7 @@ class Chat extends CI_Controller{
 	function closechat(){
 		$chatbox = $this->input->post('chatbox');
 		// $this->session->unset_userdata('chat');
-		$id=$this->chat_model->getLoggedUser()->chat_id;
+		$id=$this->chat_model->getUser()->chat_id;
 		$this->chat_model->setStatus($id,0);
 		$this->chat_model->cleanTyping();
 		$session=$this->getSession();
@@ -227,7 +227,7 @@ class Chat extends CI_Controller{
 		$users=$this->chat_model->getUsers();
 		return array(
 			'listOfUsers'=>$users,
-			'user'=>$this->chat_model->getLoggedUser(),
+			'user'=>$this->chat_model->getUser(),
 		);
 	}
 	private function get_db(){

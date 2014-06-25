@@ -65,7 +65,7 @@ function chat_init(data){
 		restructureChatBoxes();
 		typing[chatboxusr]=false;
 		chat_ajax(chatcontrol+'stoptyping',{to:chatboxusr});
-		chat_ajax(chatcontrol+'closechat',{chatbox:chatboxusr},function(data){});
+		chat_ajax(chatcontrol+'closechat',{chatbox:chatboxusr});
 	});
 	originalTitle=document.title;
 	jQ('#hideChat,#showChat').click(function(){

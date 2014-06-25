@@ -194,22 +194,6 @@ class Order_lib
 		return -1;
 	}
 
-	function edit_item($line,$description,$serialnumber,$quantity,$discount,$price)
-	{
-		$items = $this->get_cart();
-		if(isset($items[$line]))
-		{
-			$items[$line]['description'] = $description;
-			$items[$line]['serialnumber'] = $serialnumber;
-			$items[$line]['quantity'] = $quantity;
-			$items[$line]['discount'] = $discount;
-			$items[$line]['price'] = $price;
-			$this->set_cart($items);
-		}
-
-		return false;
-	}
-
 	function is_valid_receipt($receipt_sale_id)
 	{
 		//POS #

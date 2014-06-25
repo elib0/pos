@@ -79,15 +79,15 @@
 $(function(){
 	$('.delete_item').click(function(){
 			var that = this;
-			var url=$(this).attr('href');
+			var url=this.href;
 			if (confirm('estas seguro?')){
 				$.ajax({
 					url: url,
-					type: 'POST',
+					type: 'GET',
 					dataType: 'json',
 					success: function(response){
 						if (response.status) {
-							$(that).parents('tr').fadeOut('fast', function() {
+							$(that).parents('tr').fadeOut('slow', function() {
 								$(this).remove();
 							});
 						}

@@ -40,46 +40,16 @@ class Orders extends Secure_area
 		$this->sale_lib->set_comment($this->input->post('comment'));
 	}
 
-	function add($item_id_or_number_or_item_kit_or_receipt=NULL,$service_id=NULL)
+	function add()
 	{
-		$data=array();
-		$mode = $this->sale_lib->get_mode();
-		if(!$item_id_or_number_or_item_kit_or_receipt)
-			$item_id_or_number_or_item_kit_or_receipt = $this->input->post('item');
-
-		if(!$service_id) $service_id=$this->input->post('service');
-		if(!$service_id) $service_id=NULL;
-
-		if($service_id){
-			$this->sale_lib->clear_all();
-			$this->sale_lib->set_customer($this->input->post('customer_id'));
-		} 
-
-		$quantity = $mode!='return' ? 1:-1;
-
-		if($this->sale_lib->is_valid_receipt($item_id_or_number_or_item_kit_or_receipt) && $mode=='return')
-		{
-			$this->sale_lib->return_entire_sale($item_id_or_number_or_item_kit_or_receipt);
-		}
-		elseif($this->sale_lib->is_valid_item_kit($item_id_or_number_or_item_kit_or_receipt))
-		{
-			$this->sale_lib->add_item_kit($item_id_or_number_or_item_kit_or_receipt);
-		}
-		elseif(!$this->sale_lib->add_item($item_id_or_number_or_item_kit_or_receipt,$quantity,0,null,null,null,$service_id))
-		{
-			$data['error']=$this->lang->line('sales_unable_to_add_item');
-		}elseif($service_id){
-			foreach($this->Service->get_id_items($service_id) as $item){
-				$this->sale_lib->add_item($item,1);
-			}
+		$id = $this->input->get('item');
+		$response = array('status'=>false, 'message'=>'Error');
+		$response['status'] = $this->order_lib->add_item($id);
+		if ($response['status']) {
+			$response['message'] = 'Added';
 		}
 
-		if($this->sale_lib->out_of_stock($item_id_or_number_or_item_kit_or_receipt))
-		{
-			$data['warning'] = $this->lang->line('sales_quantity_less_than_zero');
-		}
-
-		$this->_reload();
+		die(json_encode($response));
 	}
 
 	function delete_item($item_number)

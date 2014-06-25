@@ -74,11 +74,6 @@
 
 <script type="text/javascript" language="javascript">
 (function($){
-	$(function(){
-	
-	});
-})(jQueryNew);
-$(function(){
 	$('.delete_item').click(function(){
 			var that = this;
 			var url=this.href;
@@ -99,10 +94,37 @@ $(function(){
 			return false;
 	});
 
+	$('#item_list').select2({
+		placeholder:'Product Name, Code, Category',
+		minimumInputLength:1,
+		ajax:{
+			url:'index.php/items/suggest2',
+			data:function(term,page){ return { term: term }; },
+			results:function(data,page){ return { results: data };}
+		}
+	}).change(function(val, added, removed){
+		if (val.added) {
+			console.log(val.added);
+			$.ajax({
+				url: 'index.php/orders/add',
+				type: 'GET',
+				dataType: 'json',
+				data: {item: val.added.id},
+				success: function(response){
+					if (response.status) {
+						console.log('Si giro')
+						$('#cart_contents').append('<tr><td colspan="5">Agregado menol</td></tr>');
+					}
+				}
+			});
+			
+		}
+	});
+
 	$('#cancel_sale_button').click(function(){
 		if(confirm("<?=$this->lang->line('sales_confirm_cancel_sale')?>")){
 			$('#cancel_sale_form').submit();
 		}
 	});
-});
+})(jQueryNew);
 </script>

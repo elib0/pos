@@ -183,7 +183,6 @@ label.required
 	/*text-align:center;*/
 }
 
-
 .warning_message
 {
 	/*background-color:#fff;*/
@@ -191,41 +190,6 @@ label.required
 	font-weight:bold;
 	font-size:11px;
 
-}
-
-.error_message
-{
-	padding:5px;
-	border:1px solid #da3232;
-	-webkit-border-radius:5px;
-	-moz-border-radius:5px;
-	border-radius:5px;
-	background-color:#f68383;
-	text-align:center;
-	font-weight:bold;
-}
-
-.warning_mesage
-{
-	margin:0 0 5px 0;
-	padding:10px;
-	width:97%;
-	border:1px solid #FCEFA1;
-	-webkit-border-radius:5px;
-	-moz-border-radius:5px;
-	border-radius:5px;
-	background-color:#FCFBF2;
-	text-align:center;
-	font-weight:bold;
-	font-size:15px;
-}
-
-.success_message
-{
-	border:1px solid #2ca71c;
-	background-color:#e1ffdd;
-	text-align:center;
-	font-weight:bold;
 }
 
 input,select

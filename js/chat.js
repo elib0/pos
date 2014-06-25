@@ -402,7 +402,7 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 			}
 		}
 		if(minimize==1){
-			jQ('.chatboxcontent,.chatboxinput',chatbox[0]).css('display','none');
+			jQ('.chatboxarea,.chatboxinput',chatbox[0]).css('display','none');
 		}
 	}
 	chatboxFocus[chatboxusr]=false;
@@ -421,7 +421,7 @@ function createChatBox(chatboxusr,minimizeChatBox,chatboxname,tmp){
 
 function toggleChatBoxGrowth(chatboxusr){
 	var chatbox=jQ('.chatbox#'+chatboxusr);
-	if(jQ('.chatboxcontent',chatbox).css('display')=='none'){  
+	if(jQ('.chatboxarea',chatbox).css('display')=='none'){  
 		var minimizedChatBoxes=new Array();
 		if(jQ.local('chatbox_minimized')){
 			minimizedChatBoxes=jQ.local('chatbox_minimized').split(/\|/);
@@ -434,7 +434,7 @@ function toggleChatBoxGrowth(chatboxusr){
 		}
 		newLocal=newLocal.slice(0,-1)
 		jQ.local('chatbox_minimized',newLocal);
-		jQ('.chatboxcontent,.chatboxinput',chatbox).css('display','block');
+		jQ('.chatboxarea,.chatboxinput',chatbox).css('display','block');
 		jQ('.chatboxcontent',chatbox).scrollTop(jQ('.chatboxcontent',chatbox)[0].scrollHeight);
 	}else{
 		var newLocal=chatboxusr;
@@ -442,7 +442,7 @@ function toggleChatBoxGrowth(chatboxusr){
 			newLocal+='|'+jQ.local('chatbox_minimized');
 		}
 		jQ.local('chatbox_minimized',newLocal);
-		jQ('.chatboxcontent,.chatboxinput',chatbox).css('display','none');
+		jQ('.chatboxarea,.chatboxinput',chatbox).css('display','none');
 	}
 }
 

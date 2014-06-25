@@ -49,20 +49,18 @@
 html{
     overflow: auto;
 }
-.ui-dialog .overlay{
-	display: block;
-	overflow: hidden;
-}
-.overlay{
-	display: none;
-}
 
-#logout_overlay{
+.logoutdetails-content{
 	text-align: center;
 }
 
-#logout_overlay td{
-	text-align: left;
+.logoutdetails-content .summary_col{
+	font-size:16px;
+	line-height:1.4em;
+	padding-top:.5em;
+}
+.overlay{
+	display: none;
 }
 </style>
 
@@ -117,9 +115,9 @@ html{
 					$num=$num+$noti_num;//clearfix
 					$li.='<li class="clearfix"><div class="notification-'.$notification.'" style="float:left;">'.$noti_num.'</div>';
 					if ( $noti_num > 0 ){ //Si tiene notificaciones se pone como enlace
-						$li.=anchor($data['url'],$data['title'],'style="float:right;max-width: 100px;"');
+						$li.=anchor($data['url'],$data['title'],'style="float:right;max-width:100px;"');
 					}else{
-						$li.='<label style="float:right;max-width: 100px;">'.$data['title'].'</label>';
+						$li.='<label style="float:right;max-width:100px;">'.$data['title'].'</label>';
 					}
 					$li.='</li>';
 				} 
@@ -157,14 +155,14 @@ html{
 					foreach($people->result() as $person)
 					{
 						?>
-						<li><?=anchor("cajas/index/".$person->person_id,$person->last_name.' '.$person->first_name,'rel="#logout_overlay"')?></li>
+						<li><?=anchor("cajas/change/".$person->person_id,$person->last_name.' '.$person->first_name,'class="thickbox" title="Close Session Details"')?></li>
 						<?php
 					}
 				?>
 			</ul>
 		</nav>
 		<nav id="menu_logout">
-			<a href="index.php/cajas" rel="#logout_overlay " id="btnLogout"><?php echo $this->lang->line("common_logout") ?></a>
+			<a href="index.php/cajas/logout/width:400/height:180" class="thickbox" title="Close Session Details"><?=$this->lang->line("common_logout")?></a>
 		</nav>
 	</div>
 </nav>
@@ -184,67 +182,37 @@ html{
 	});
 })(jQueryNew);
 (function($){
-	function mostrarHora(){
-		var hoy=new Date();
-		var h=hoy.getHours();
-		var m=hoy.getMinutes();
-		var s=hoy.getSeconds();
-
-		if(s <= 9) s = '0'+s;
-		if(m <= 9) m = '0'+m;
-
-		var hora = h+":"+m+":"+s
-		$("#menubar_date > span").html( hora );
-		setTimeout(function(){mostrarHora()},500);
-	}
-
 	$('nav.main-menu ul>li [url]').click(function(event){
 		//redirecciona si el click no se hizo sobre un link ni un thickbox
 		if(event.target.href==''||!$(event.target).hasClass('thickbox'))
 			location.href=$(this).attr('url');
 	});
-	
+
 	$('#assistance').click(function(event){
 		location.href='index.php/employees/assistance';
 	});
 
-	if ('<?=$this->uri->segment(2)?>'=='assistance'){
+	if('<?=$this->uri->segment(2)?>'=='assistance'){
 		$('#assistance').addClass('nav-main-menu-active');
 	}else{
 		$('nav.main-menu ul>li#<?=$this->uri->segment(1)?>').addClass('nav-main-menu-active');
 	};
 
-
 	//On dom ready
 	$(function(){
+		var $date=$("#menubar_date > span");
+		function mostrarHora(){
+			var hoy=new Date();
+			var h=hoy.getHours();
+			var m=hoy.getMinutes();
+			var s=hoy.getSeconds();
+			if(s <= 9) s = '0'+s;
+			if(m <= 9) m = '0'+m;
+			var hora = h+":"+m+":"+s
+			$date.html(hora);
+			setTimeout(function(){mostrarHora()},500);
+		}
 		mostrarHora();
-		//Control de enlaces logout
-		$('nav.user #menu_changeuser a,#btnLogout').click(function(e,href){
-			var href=$(this).attr('href');
-			$('#realLogOut').attr('href',href);
-			$('<div id="logout_overlay" class="overlay"></div>').appendTo('body').dialog({
-				width:400,
-				height:260,
-				modal:true,
-				title:'<h3 id="title">Close Session Details</h3>',
-				resizable:false,
-				draggable:false,
-				open:function(){
-					$(this).load(href);
-					$('a.ui-dialog-titlebar-close').css({'position':'static','float':'right'});
-				},
-				close:function(){
-					$(this).remove();
-					$('#fxWrapper').remove();
-				}
-			}).parents('.ui-dialog').css({
-				'overflow':'visible',
-				'border-radius':'10px'
-			}).find('.ui-dialog-titlebar-close').attr('href',document.location);
-			//$('.ui-dialog').css('overflow', 'visible');
-			return false;
-		});
-
 	});
 })(jQuery);
 </script>

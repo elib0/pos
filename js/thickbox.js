@@ -251,7 +251,8 @@ function tb_showIframe(){
 }
 
 function tb_remove(reload) {
-	reload = reload || false;
+	if(typeof reload=='object') reload=false;
+	else reload = !!reload || false;
 	$("#TB_imageOff").unbind("click");
 	$("#TB_closeWindowButton").unbind("click");
 	$("#TB_window").fadeOut("fast",function(){$('#TB_window,#TB_overlay,#TB_HideSelect').trigger("unload").unbind().remove();});

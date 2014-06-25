@@ -33,13 +33,14 @@
 			<tr>
 				<td colspan='4'><div class='warning_message' style='padding:7px;'><?php echo $this->lang->line('orders_no_items_in_cart'); ?></div></td>
 			</tr>
-		<?php }else{ 
+		<?php }else{
+
 				foreach(array_reverse($cart,true) as $line=>$item){
 					$cur_item_info = $this->Item->get_info($item['item_id']);
 		?>
 					<tr id="<?=$item['item_id']?>" class="sale-line">
 						<td>
-							<?php echo anchor("orders/delete_item/".$item['item_id'],$this->lang->line('common_delete'),"class='small_button delete_item'")?></td>
+							<?php echo anchor("orders/delete_item/".$line,$this->lang->line('common_delete'),"class='small_button delete_item'")?></td>
 						<td><?=$cur_item_info->item_number?></td>
 						<td style="align:center;">
 							<?=$cur_item_info->name?>

@@ -20,6 +20,9 @@ class Orders extends Secure_area
 		}
 		$data['cart'] = $this->order_lib->get_cart();
 		
+		// echo "<pre>";
+		// print_r($data['cart']);
+		// echo "</pre>";
 		$this->load->view('orders/register',$data);
 	}
 
@@ -75,41 +78,6 @@ class Orders extends Secure_area
 		}
 
 		$this->_reload();
-	}
-
-	// function get_service_items($id){
-	// 	var_dump($this->Service->get_id_items($id));
-	// }
-	function edit_item($line, $ajax=false)
-	{
-		$data= array();
-
-		$this->form_validation->set_rules('price', 'lang:items_price', 'required|numeric');
-		$this->form_validation->set_rules('quantity', 'lang:items_quantity', 'required|numeric');
-
-		$description = $this->input->post('description');
-		$serialnumber = $this->input->post('serialnumber');
-		$price = $this->input->post('price');
-		$quantity = $this->input->post('quantity');
-		$discount = $this->input->post('discount');
-
-		if ($this->form_validation->run() != FALSE)
-		{
-			$this->sale_lib->edit_item($line,$description,$serialnumber,$quantity,$discount,$price);
-		}
-		else
-		{
-			$data['error']=$this->lang->line('sales_error_editing_item');
-		}
-
-		if($this->sale_lib->out_of_stock($this->sale_lib->get_item_id($line)))
-		{
-			$data['warning'] = $this->lang->line('sales_quantity_less_than_zero');
-		}
-
-		if (!$ajax) {
-			$this->_reload($data);
-		}
 	}
 
 	function delete_item($item_number)

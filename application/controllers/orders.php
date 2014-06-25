@@ -114,8 +114,9 @@ class Orders extends Secure_area
 
 	function delete_item($item_number)
 	{
-		$this->sale_lib->delete_item($item_number);
-		$this->_reload();
+		$response = array('status'=>false,'messagge'=>$this->lang->line('orders_delete_item'));
+		$this->order_lib->delete_item($item_number);
+		die(json_encode($response));
 	}
 
 	function save($sale_id = false)

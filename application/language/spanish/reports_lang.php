@@ -94,4 +94,5 @@ $lang['reports_accounts_payable'] = 'Cuentas por Pagar';
 $lang['reports_accounts_receivable'] = 'Cuentas por Cobrar';
 $lang['reports_accounts_receivable_credit'] = 'Cr&eacute;dito';
 $lang['reports_no_payments'] = 'No ha pagado';
+$lang['reports_send_administrator'] = 'Enviar al Administrador';
 ?>

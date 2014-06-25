@@ -51,7 +51,9 @@
     </a>
     <!-- <a id="btnSendToAdmin" > -->
     <a id="btnSendToAdmin" href="index.php/inventories_compare/send_mail_to_admin">
-        <div class="big_button" style="float: left; margin-left: 5px"><span>Send to Administrator</span></div>
+        <div class="big_button" style="float: left; margin-left: 5px">
+            <span><?php echo $this->lang->line('reports_send_administrator'); ?></span>
+        </div>
     </a>
     <img id="louder_invento" src="images/loading_animation.gif" alt="" style="display:none;margin-top: 12px;margin-left: 50px;" />
 </div>

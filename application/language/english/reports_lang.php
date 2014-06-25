@@ -94,4 +94,5 @@ $lang['reports_accounts_payable'] = 'Accounts Payable';
 $lang['reports_accounts_receivable'] = 'Invoice Discounting';
 $lang['reports_accounts_receivable_credit'] = 'Credit';
 $lang['reports_no_payments'] = 'No Payments';
+$lang['reports_send_administrator'] = 'Send to Administrator';
 ?>

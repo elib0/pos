@@ -67,11 +67,7 @@ class Order_lib
 
 			if($maxkey <= $item['line']){ $maxkey = $item['line']; }
 			if($item['item_id']==$item_id){
-				if(!$item['is_service']){
-					$itemalreadyinsale=TRUE;
-					$updatekey=$item['line'];
-				// }elseif($item_id>0 && $item['service_id']==$service_id){
-				}elseif($item_id>0 && $service_id){
+				if($item_id>0 && $service_id){
 					return true;
 				}
 			}

@@ -56,17 +56,7 @@
 		</tbody>
 	</table>
 	<?php 
-	echo form_button(
-			array(
-				'name'=>'cancel',
-				'id'=>'cancel',
-				'value'=>'cancel',
-				'content' => $this->lang->line('orders_cancel'),
-				'class'=>'big_button',
-				'url'=>base_url().'index.php/orders/cancel_order',
-				'style'=>'display: inline-block; margin:10px; float: right;'
-			)
-		);
+	echo anchor('orders/cancel_order', $this->lang->line('orders_cancel'), 'class="big_button"');
 	echo form_submit(
 				array(
 					'name'=>'sendto',
@@ -103,21 +93,6 @@ $(function(){
 								$(this).remove();
 							});
 						}
-					}
-				});
-			}
-			return false;
-	});
-	$('#cancel').click(function(){
-			if (confirm('<?php echo $this->lang->line("orders_confirm"); ?>')){
-				var that = this;
-				var url=$(this).attr('href');
-				$.ajax({
-					url: url,
-					type: 'GET',
-					dataType: 'json',
-					success: function(response){
-
 					}
 				});
 			}

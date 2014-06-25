@@ -8,14 +8,16 @@ class Orders extends Secure_area
 		$this->load->library('order_lib');
 	}
 
-	function index()
+	function index($low_stock=false)
 	{
 		$this->load->model('reports/Inventory_low');
 		if (!$this->order_lib->get_cart()) {
-			$model = $this->Inventory_low;
-			$low_items = $model->getData(array(),true);
-			foreach ($low_items as $key) {
-				$this->order_lib->add_item($key['item_id']);
+			if ($low_stock) {
+				$model = $this->Inventory_low;
+				$low_items = $model->getData(array(),true);
+				foreach ($low_items as $key) {
+					$this->order_lib->add_item($key['item_id']);
+				}
 			}
 		}
 		$data['cart'] = $this->order_lib->get_cart();
@@ -107,16 +109,10 @@ class Orders extends Secure_area
 		die(json_encode($response));
 	}
 
-
-	function _reload($data=array())
-	{
-		redirect('orders');
-	}
-
 	function cancel_order()
 	{
-		$this->sale_lib->clear_all();
-		$this->_reload();
+		$this->order_lib->clear_all();
+		redirect('orders');
 	}
 
 }

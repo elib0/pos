@@ -128,6 +128,7 @@
 }
 
 .typing{
+	visibility:hidden;
 	font-size:9px;
 	color:#999;
 }

@@ -55,6 +55,16 @@
 		</tbody>
 	</table>
 	<?php 
+	echo form_button(
+			array(
+				'name'=>'cancel',
+				'id'=>'cancel',
+				'value'=>'cancel',
+				'content' => $this->lang->line('orders_cancel'),
+				'class'=>'big_button',
+				'style'=>'display: inline-block; margin:10px; float: right;'
+			)
+		);
 	echo form_submit(
 				array(
 					'name'=>'sendto',
@@ -80,7 +90,7 @@ $(function(){
 	$('.delete_item').click(function(){
 			var that = this;
 			var url=this.href;
-			if (confirm('estas seguro?')){
+			if (confirm('<?php echo $this->lang->line("orders_confirm_items"); ?>')){
 				$.ajax({
 					url: url,
 					type: 'GET',
@@ -91,6 +101,25 @@ $(function(){
 								$(this).remove();
 							});
 						}
+					}
+				});
+			}
+			return false;
+	});
+	$('#cancel').click(function(){
+			if (confirm('<?php echo $this->lang->line("orders_confirm"); ?>')){
+				var that = this;
+				var url=this.href;
+				$.ajax({
+					url: url,
+					type: 'GET',
+					dataType: 'json',
+					success: function(response){
+						// if (response.status) {
+						// 	$(that).parents('tr').fadeOut('slow', function() {
+						// 		$(this).remove();
+						// 	});
+						// }
 					}
 				});
 			}

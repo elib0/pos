@@ -33,7 +33,7 @@
 			<tr>
 				<td colspan='4'><div class='warning_message' style='padding:7px;'><?php echo $this->lang->line('orders_no_items_in_cart'); ?></div></td>
 			</tr>
-		<?php }else{
+		<?php }else{ 
 				foreach(array_reverse($cart,true) as $line=>$item){
 					$cur_item_info = $this->Item->get_info($item['item_id']);
 		?>
@@ -43,11 +43,11 @@
 						<td><?=$cur_item_info->item_number?></td>
 						<td style="align:center;">
 							<?=$cur_item_info->name?>
-							<input type="hidden" name="items[]" value="<?php echo $item['item_id']; ?>">
+							<input type="hidden" name="items[<?php echo $item['item_id']; ?>][id]" value="<?php echo $item['item_id']; ?>">
 						</td>
-						<td align="right"><?=$cur_item_info->quantity?></td>
-						<td align="right">
-							<input align="right" type="text" name="reorder[]" value="<?php echo $cur_item_info->reorder_level; ?>" style="width: 50px;">
+						<td><?=$cur_item_info->quantity?></td>
+						<td>
+							<input type="text" name="items[<?php echo $item['item_id']; ?>][quantity]" value="<?php echo $cur_item_info->reorder_level; ?>" style="width: 50px;">
 						</td>
 					</tr>
 		<?php 	}

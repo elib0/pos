@@ -47,11 +47,16 @@ $(chat).html(
 	typing[chatboxusr]=false;
 	chat_ajax(chatcontrol+'stoptyping',{to:chatboxusr});
 	chat_ajax(chatcontrol+'closechat',{chatbox:chatboxusr});
-}).on('click','.chatConfig #hideChat,.chatConfig #showChat',function(){
-	var hide=!$('#hideChat').is(':visible');
-	$('.chatListContainer',chat)[hide?'slideDown':'slideUp']();
-	$('#showChat,#hideChat',chat).toggle();
-	$.local('minchat_'+userid,!hide?true:null);
+}).on('click','.chatConfig #hideChat',function(){
+	$('#showChat',chat).show();
+	$('#hideChat',chat).hide();
+	$('.chatListContainer',chat).slideDown();
+	$.local('minchat_'+userid,true);
+}).on('click','.chatConfig #showChat',function(){
+	$('#showChat',chat).hide();
+	$('#hideChat',chat).show();
+	$('.chatListContainer',chat).slideUp();
+	$.local('minchat_'+userid,null);
 }).on('click','.chatConfig #enable,.chatConfig #disable',function(){
 	showChat(this.id);
 	//changeStatus(this.id,this);
@@ -66,12 +71,11 @@ var chatboxFocus=new Array();
 var newMessages=new Array();
 var newMessagesWin=new Array();
 
-// if(window.matchMedia('screen').matches) chat_ajax(chatcontrol+'islogged',chat_init);
-chat_init();
+if(window.matchMedia('screen').matches)
+	chat_init();
+	// chat_ajax(chatcontrol+'islogged',chat_init);
 
 function chat_init(data){
-	data=data||{online:true};
-	// showChat(data.online);
 	window.chatStarted=true;
 	$('#chatMainContainer',chat).show();
 	startChatSession();
@@ -140,15 +144,13 @@ function checkChatBoxInputKey(event){
 		if(message!=''){
 			typing[this.id]=false;
 			chat_ajax(chatcontrol+'stoptyping',{to:this.id});
-			//message=message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&apos;");
+			message=message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/\'/g,"&apos;");
 			message=linkify(message);
 			var content=$(this).parents('.chatbox').find('.chatboxcontent');
 			content.append('<div class="chatboxmessage"><span class="chatboxmessagefrom">'+username+': </span><span class="chatboxmessagecontent">'+emoticons(message)+'</span></div>')
 				.scrollTop(content[0].scrollHeight);
 			if(showlogs) console.log(message);
-			chat_ajax(chatcontrol+'sendchat',{to:this.id,message:message},function(data){
-				//falta verificar error...
-			});
+			chat_ajax(chatcontrol+'sendchat',{to:this.id,message:message});
 		}
 		chatHeartbeatTime=minChatHeartbeat;
 		chatHeartbeatCount=1;
@@ -178,30 +180,30 @@ function changeStatus(status,submit){
 }
 
 function showChat(enable){
-	var show=false,min=false,slow=(enable!==undefined&&userid);
+	var hide=false,min=false,slow=(enable!==undefined&&userid);
 	if(userid){
-		show=$.local('showchat_'+userid);
+		hide=$.local('hidechat_'+userid);
 		min=$.local('minchat_'+userid);
 	}
-	if(enable!==undefined) show=enable;
-	if(show=='enable'||show=='disable') show=(show!='disable');
-	if(show){
-		$('.chatListContainer',chat)[!min?(slow?'slideDown':'show'):(slow?'slideUp':'hide')]();
-		$('#chatmsgs',chat)[slow?'fadeIn':'show']();
-		$('#disable',chat).show();
-		$('#enable',chat).hide();
-		$('#hideChat',chat)[min?'hide':'show']();
-		$('#showChat',chat)[min?'show':'hide']();
-		//play=true;
-		//startChatSession();
-	}else{
-		$('.chatListContainer',chat)[slow?'slideUp':'hide']();
-		$('#chatmsgs',chat)[slow?'fadeOut':'hide']();
+	if(enable!==undefined) hide=!enable;
+	if(hide=='enable'||hide=='disable') hide=(hide=='disable');
+	if(hide){
 		$('#enable',chat).show();
 		$('#disable,#showChat,#hideChat',chat).hide();
+		$('.chatListContainer',chat)[slow?'slideUp':'hide']();
+		$('#chatmsgs',chat)[slow?'fadeOut':'hide']();
 		//play=false;
+	}else{
+		$('#enable',chat).hide();
+		$('#disable',chat).show();
+		$('#showChat',chat)[min?'show':'hide']();
+		$('#hideChat',chat)[min?'hide':'show']();
+		$('.chatListContainer',chat)[!min?(slow?'slideDown':'show'):(slow?'slideUp':'hide')]();
+		$('#chatmsgs',chat)[slow?'fadeIn':'show']();
+		//play=true;
+		//startChatSession();
 	}
-	if(userid) $.local('showchat_'+userid,show);
+	if(userid) $.local('hidechat_'+userid,hide||null);
 }
 
 var chbt;//chatheartbeat timeout var
@@ -308,7 +310,6 @@ function listFriendsChat(p){
 	if(p==1){
 		if($.trim($('.chatListContainer').html())==''){
 			$('.chatListContainer').html('<div id="loading"></div>');
-			// p='?p='+p;
 		}
 	}else{
 		p='';
@@ -452,7 +453,7 @@ function toggleChatBoxGrowth(chatboxusr){
 }
 
 function linkify(text){
-	var inputText=text;//el.html();
+	var inputText=text;
 	//URLs starting with http://,https://,or ftp://
 	var replacePattern1=/(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
 	var replacedText=inputText.replace(replacePattern1,"<a href=$1 target=_blank>$1</a>");
@@ -464,7 +465,7 @@ function linkify(text){
 	replacedText=replacedText.replace(replacePattern3,"<a href=mailto:$1>$1</a>");
 	var replacePattern4=/(^|[^\/])(.*\.(net$|com$|org$))/gim;
 	replacedText=replacedText.replace(replacePattern4,"$1<a href=http://$2 target=_blank>$2</a>");
-	return replacedText;//el.html(replacedText);
+	return replacedText;
 }
 
 function emoticons(text){
@@ -480,7 +481,7 @@ function emoticons(text){
 	inputText=inputText.replace(/(^|\s):'-?\((\s|$)/gim,	'<div class="em sob"></div>');
 	inputText=inputText.replace(/(^|\s)8-?\)(\s|$)/gim,		'<div class="em hearteyes"></div>');
 	inputText=inputText.replace(/(^|\s)t[-_]t(\s|$)/gim,	'<div class="em crying"></div>');
-	inputText=inputText.replace(/(^|\s)<3(\s|$)/gim,		'<div class="em heart"></div>');
+	inputText=inputText.replace(/(^|\s)(<|&lt;)3(\s|$)/gim,	'<div class="em heart"></div>');
 	inputText=inputText.replace(/(^|\s)xd(\s|$)/gim,		'<div class="em xD"></div>');
 	inputText=inputText.replace(/(^|\s):-?\$(\s|$)/gim,		'<div class="em shame"></div>');
 	inputText=inputText.replace(/(^|\s):-?\*(\s|$)/gim,		'<div class="em kiss"></div>');
@@ -508,7 +509,6 @@ function chat_ajax(url,data,success){
 
 	d.dataType='json';
 	d.type=d.data?'post':'get';
-	// d.cache=false;
 	d.statusCode={
 		500:function(){
 			d.count=(d.count||0)+1;

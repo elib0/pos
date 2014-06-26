@@ -66,6 +66,7 @@ html{
 
 </head>
 <body>
+<?php //$this->output->enable_profiler(TRUE); ?>
 <nav class="main-menu">
 	<ul>
 		<?php

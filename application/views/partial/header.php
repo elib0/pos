@@ -8,7 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="css/ospos_print.css" media="print"/>
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
 	<link rel="stylesheet" type="text/css" href="css/notifIt.css" />
-	<link rel="stylesheet" type="text/css" href="css/chat.css" media="all" />
 	<link rel="stylesheet" type="text/css" href="css/select2.css" media="screen" />
 	<script>BASE_URL = '<?=site_url()?>';</script>
 	<!--<script src="js/jquery.switch.js" type="text/javascript" charset="UTF-8"></script>-->
@@ -20,7 +19,6 @@
 	<script src="js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/select2.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.$$=window.jQueryNew=jQuery.noConflict();</script>
 	<!-- end jquery new -->
@@ -66,6 +64,9 @@ html{
 
 </head>
 <body>
+<link rel="stylesheet" type="text/css" href="css/chat.css" media="screen" />
+<div id="chat"></div>
+<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
 <nav class="main-menu">
 	<ul>
 		<?php

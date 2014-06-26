@@ -74,7 +74,7 @@
 
 <script type="text/javascript" language="javascript">
 (function($){
-	$('.delete_item').click(function(){
+	$('#cart_contents').on('click','.delete_item',function(){
 			var that = this;
 			var url=this.href;
 			if (confirm('<?php echo $this->lang->line("orders_confirm_items"); ?>')){
@@ -87,6 +87,11 @@
 							$(that).parents('tr').fadeOut('slow', function() {
 								$(this).remove();
 							});
+						}
+
+						if ( $('#cart_contents > .sale-line').length == 0 ) {
+							var tr = '<tr><td colspan="5"><div class="warning_message" style="padding:7px;"><?php echo $this->lang->line("orders_no_items_in_cart"); ?></div></td></tr>';
+							$('#cart_contents').html(tr);							
 						}
 					}
 				});
@@ -112,9 +117,6 @@
 				data: {item: val.added.id},
 				success: function(response){
 					if (response.status) {
-						var tr_empty = '<tr>'+
-							'<td colspan="4"><div class="warning_message" style="padding:7px;"><?php echo $this->lang->line("orders_no_items_in_cart"); ?></div></td>'+
-							'</tr>';
 						var tr = '<tr id="'+val.added.id+'" class="sale-line">'+
 							'<td><a href="index.php/orders/delete_item/'+val.added.id+'" class="small_button delete_item"><?php echo $this->lang->line("common_delete") ?></a></td>'+
 							'<td>'+((val.added.item_number) ? val.added.item_number :'')+'</td>'+

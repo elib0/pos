@@ -31,7 +31,7 @@
 		<tbody id="cart_contents">
 		<?php if(count($cart)==0){ ?>
 			<tr>
-				<td colspan='4'><div class='warning_message' style='padding:7px;'><?php echo $this->lang->line('orders_no_items_in_cart'); ?></div></td>
+				<td colspan='5'><div class='warning_message' style='padding:7px;'><?php echo $this->lang->line('orders_no_items_in_cart'); ?></div></td>
 			</tr>
 		<?php }else{
 
@@ -40,7 +40,7 @@
 		?>
 					<tr id="<?=$item['item_id']?>" class="sale-line">
 						<td>
-							<?php echo anchor("orders/delete_item/".$line,$this->lang->line('common_delete'),"class='small_button delete_item'")?></td>
+							<?php echo anchor("orders/delete_item/".$item['item_id'],$this->lang->line('common_delete'),"class='small_button delete_item'")?></td>
 						<td><?=$cur_item_info->item_number?></td>
 						<td style="align:center;">
 							<?=$cur_item_info->name?>
@@ -56,7 +56,6 @@
 		</tbody>
 	</table>
 	<?php 
-	echo anchor('orders/cancel_order', $this->lang->line('orders_cancel'), 'class="big_button"');
 	echo form_submit(
 				array(
 					'name'=>'sendto',
@@ -65,6 +64,7 @@
 					'class'=>'big_button',
 					'style'=>'display: inline-block; margin:10px; float: right;'
 				));
+	echo anchor('orders/cancel_order', $this->lang->line('orders_cancel'), 'class="big_button" style="display: inline-block; margin:10px; float: right;"');
 	echo form_close(); 
 	?>
 </div>
@@ -74,7 +74,7 @@
 
 <script type="text/javascript" language="javascript">
 (function($){
-	$('.delete_item').click(function(){
+	$('#cart_contents').on('click','.delete_item',function(){
 			var that = this;
 			var url=this.href;
 			if (confirm('<?php echo $this->lang->line("orders_confirm_items"); ?>')){
@@ -87,6 +87,11 @@
 							$(that).parents('tr').fadeOut('slow', function() {
 								$(this).remove();
 							});
+						}
+
+						if ( $('#cart_contents > .sale-line').length == 0 ) {
+							var tr = '<tr><td colspan="5"><div class="warning_message" style="padding:7px;"><?php echo $this->lang->line("orders_no_items_in_cart"); ?></div></td></tr>';
+							$('#cart_contents').html(tr);							
 						}
 					}
 				});
@@ -104,7 +109,7 @@
 		}
 	}).change(function(val, added, removed){
 		if (val.added) {
-			console.log(val.added);
+			$('#item_list').select2('val','');
 			$.ajax({
 				url: 'index.php/orders/add',
 				type: 'GET',
@@ -112,8 +117,19 @@
 				data: {item: val.added.id},
 				success: function(response){
 					if (response.status) {
-						console.log('Si giro')
-						$('#cart_contents').append('<tr><td colspan="5">Agregado menol</td></tr>');
+						var tr = '<tr id="'+val.added.id+'" class="sale-line">'+
+							'<td><a href="index.php/orders/delete_item/'+val.added.id+'" class="small_button delete_item"><?php echo $this->lang->line("common_delete") ?></a></td>'+
+							'<td>'+((val.added.item_number) ? val.added.item_number :'')+'</td>'+
+							'<td style="align:center;">'+val.added.text+'</td>'+
+							'<td align="right">'+val.added.qty+'</td>'+
+							'<td align="right"><input type="text" name="items['+val.added.id+'][quantity]" value="'+val.added.reorder_level+'" style="width: 50px;text-align: right;"></td>'+
+							'</tr>';
+						if ( $('#cart_contents > .sale-line').length > 0 ) {
+							$('#cart_contents').prepend(tr);
+
+						}else{
+							$('#cart_contents').html(tr);							
+						}
 					}
 				}
 			});

@@ -9,8 +9,40 @@
 		?>
 	</div>
 </div>
+
+<div id="titleTextImg" class="middle-gray-bar">
+	<div style="float:left;">Search Options :</div>
+		<div id="search_filter_section" style="text-align: right; font-weight: bold;  font-size: 12px; ">
+		<?php 	 echo form_open("$controller_name/refresh",array('id'=>'items_filter_form')); 
+
+				 echo form_label($this->lang->line('services_today').' '.': ', 'filter_today');
+				 echo form_checkbox(array('name'=>'filter_today','id'=>'filter_today','value'=>1,'checked'=>isset($filter_today)?  ( ($filter_today)? 1 : 0) : 0)).' | ';
+				 
+				 echo form_label($this->lang->line('services_yesterday').' '.': ', 'filter_yesterday');
+				 echo form_checkbox(array('name'=>'filter_yesterday','id'=>'filter_yesterday','value'=>1,'checked'=>isset($filter_yesterday)?  ( ($filter_yesterday)? 1 : 0) : 0)).' | ';
+				 
+				 echo form_label($this->lang->line('services_lastweek').' '.': ', 'filter_lastweek');
+				 echo form_checkbox(array('name'=>'filter_lastweek','id'=>'filter_lastweek','value'=>1,'checked'=>isset($filter_lastweek)?  ( ($filter_lastweek)? 1 : 0) : 0)).' | ';
+				 
+
+				 $options = array('',
+				 				  "1"=>$this->lang->line('services_status_1'),
+								  "2"=>$this->lang->line('services_status_2'),
+								  "3"=>$this->lang->line('services_status_3'),
+								  "4"=>$this->lang->line('services_status_4'),
+								  "100"=>$this->lang->line('services_status_100'));
+
+				 echo form_label($this->lang->line('services_status').' '.': ', 'filter_status');
+
+				 echo form_dropdown('filter_status', $options, isset($filter_lastweek)?$filter_status:'',"id='filter_status'");
+				 
+			     echo form_close(); 
+		?>
+	</div>
+</div>
+
 <div style="padding:3px;margin:3px 0;"> <?=$this->pagination->create_links()?> </div>
-<div id="table_action_header">
+<div id="table_action_header" style="background-image:none;">
 	<ul>
 		<li class="float_left">
 		<?php if($this->Employee->has_privilege('delete', $controller_name)&&false):  ?>
@@ -21,7 +53,8 @@
 		</li>
 		<li class="float_right">
 		<?=form_open("$controller_name/search",array('id'=>'search_form'))?>
-		<input type="text" name='search' id='search' style="-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;border:1px solid #CCC"/>
+			<input type="text" name='search' id='search' style="width:400px;"/>
+			<input type="hidden" name='term' id='term' value=""/>
 		</form>
 		</li>
 	</ul>
@@ -41,33 +74,39 @@
 		$('#delete').attr('title',count>0?"<?=$this->lang->line('services_is_locked_alert')?>":null).prop('disabled',count>0);
 	});
 
-	// $('#search').select2({
-	// 	placeholder: 'Service ID, Nombre o Apellido...',
-	// 	minimumInputLength: 3,
-	// 	maximumInputLength: 11,
-	// 	allowClear: true,
-	// 	formatSelection: function (item) { return item.id; },
-	// 	// formatResult: function (item) { return item.text; },
-	// 	ajax:{
-	// 		url: 'index.php/services/suggest2',
-	// 		dataType: 'json',
-	// 		quietMillis: 100,
-	// 		data: function (term, page) {
- //                return {
- //                    term: term,
- //                };
- //            },
- //            results: function (data, page) {
- //            	console.log(data);
- //                return { results: data };
- //            }
-	// 	}
-	// }).change(function(val, added, removed){
-	// 	console.log(val);
-	// 	if (val.added) {
-	// 		//$('#search-form').submit();
-	// 	}
-	// });
+	$("#filter_today,#filter_yesterday,#filter_lastweek").click(function()
+		{
+			$('#items_filter_form').submit();
+		}
+	);
+
+	$("#filter_status").change(function()
+		{
+			$('#items_filter_form').submit();
+		}
+	);
+
+	$('#search').select2({
+		placeholder:'Owner, Phone Number, Brand, Model',
+		minimumInputLength:1,
+		openOnEnter:false,
+		ajax:{
+			url:'index.php/services/suggest2',
+			data:function(term,page){ return { term: term }; },
+			results:function(data,page){ return { results: data };}
+		}
+	}).change(function(val, added, removed){
+		console.log(val);
+		if (val.added) {
+			$('#term').val(val.added.term);
+			console.log($('#term').val());
+			$('#search_form').submit();
+			//tb_show('<?="<span>".$this->lang->line($controller_name.'_update')."</span>"?>','index.php/<?=$controller_name?>/view/'+val.val+'/width:660/height:465');
+		}
+	});
+
+
+
 })(jQueryNew);
 
 $(function(){
@@ -88,14 +127,11 @@ function init_table_sorting(){
 		$("#sortable_table").tablesorter({
 			sortList:[[1,0]],
 			headers:{
-				0:{sorter:false},
-				8:{sorter:false},
+				
 				9:{sorter:false}
 			}
 
 		});
 	}
 }
-
-
 </script>

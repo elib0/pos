@@ -76,21 +76,8 @@ class Order_lib
 		$insertkey=$maxkey+1;
 
 		$item_info=$this->CI->Item->get_info($item_id);
-		if($item_id==-1&&$serialnumber){
-			$item_number=$serialnumber;
-			$serialnumber=null;
-			$quantity=1;
-		}elseif($item_id>0){
-			if($item_info->is_service){
-				$item_number=$service_id;
-				$serialnumber=null;
-				$quantity=1;
-				// foreach($this->CI->Service->get_id_items($service_id) as $item){
-				// 	$this->add_item($item,1);
-				// }
-			}else{
-				$item_number=$item_info->item_number;
-			}
+		if($item_id>0){
+			$item_number=$item_info->item_number;
 		}
 		//array/cart records are identified by $insertkey and item_id is just another field.
 		$array=array(
@@ -100,7 +87,7 @@ class Order_lib
 			'quantity'				=>$quantity,
 			'reorder'				=>$item_info->reorder_level
 		);
-		$item = array(($insertkey)=>$array);
+		$item = array(($item_id)=>$array);
 
 		//Item already exists and is not serialized, add to quantity
 		if($itemalreadyinsale && ($item_info->is_serialized ==0) )

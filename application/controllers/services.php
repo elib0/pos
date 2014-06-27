@@ -22,28 +22,24 @@ class Services extends Secure_area
 	}
 
 	function refresh(){
-		$low_inventory=$this->input->post('low_inventory');
-		$is_serialized=$this->input->post('is_serialized');
-		$no_description=$this->input->post('no_description');
-		$location = $this->input->post('dblocation')!=false? $this->input->post('dblocation'): 'default';
 
-		$data['services_location']= $this->set_location();
+		
+		$data['filter_today']=$this->input->post('filter_today');
+		$data['filter_yesterday']=$this->input->post('filter_yesterday');
+		$data['filter_lastweek']=$this->input->post('filter_lastweek');
+		$data['filter_status']=$this->input->post('filter_status');
 
-		$data['search_section_state']=$this->input->post('search_section_state');
-		$data['low_inventory']=$this->input->post('low_inventory');
-		$data['is_serialized']=$this->input->post('is_serialized');
-		$data['no_description']=$this->input->post('no_description');
 		$data['controller_name']=strtolower(get_class());
 		$data['form_width']=$this->get_form_width();
 
 		//Paginacion para filtro
 		$config['base_url'] = site_url('/services/index');
-		$config['total_rows'] = $this->Service->get_all_filtered($low_inventory,$is_serialized,$no_description, $location)->num_rows();
+		$config['total_rows'] = count($this->Service->get_all_filtered($data));
 		$config['per_page'] = 20;
 		$config['uri_segment'] = 3;
 		$this->pagination->initialize($config);
 
-		$data['manage_table']=get_services_manage_table($this->Service->get_all_filtered($low_inventory,$is_serialized,$no_description, $location),$this);
+		$data['manage_table']=get_services_manage_table($this->Service->get_all_filtered($data),$this);
 		$this->load->view('services/manage',$data);
 	}
 
@@ -53,9 +49,12 @@ class Services extends Secure_area
 	}
 
 	function search(){
-		$search=$this->input->post('search');
-		$data_rows=get_services_manage_table_data_rows( $this->Service->search($search), $this );
-		die($data_rows);
+		$id_service=$this->input->post('search');
+		$term=$this->input->post('term');
+		$data['controller_name']=strtolower(get_class());
+		$data['form_width']=$this->get_form_width();
+		$data['manage_table']=get_services_manage_table( $this->Service->search($id_service,$term), $this );
+		$this->load->view('services/manage',$data);
 	}
 
 	/*
@@ -77,7 +76,7 @@ class Services extends Secure_area
 
 		if ($services) {
 			foreach ($services->result() as $row) {
-				$result[] = array('id'=>$row->service_id, 'text'=>$row->first_name.' '.$row->last_name);
+				$result[] = array('term'=>$this->input->get('term'),'id'=>$row->service_id, 'text'=>$row->first_name.' '.$row->last_name.', '.$row->brand_name.' - '.$row->model_name);
 			}
 		}
 

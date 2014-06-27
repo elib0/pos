@@ -26,28 +26,28 @@ if ($this->Employee->isAdmin()){
 		<?=form_dropdown('items_location', $dbs,$items_location, 'id="locationbd" style="display:inline;"');?>
 	</div>
 </div>
-<?php form_close();
+<?php echo form_close();
 }
 ?>
 
 <div id="titleTextImg" class="middle-gray-bar">
 	<div style="float:left;">Search Options :</div>
-	<a id="imageDivLink" href="javascript:show_hide_search_filter('search_filter_section','imageDivLink');" style="outline:none;">
-		<img src="<?=base_url().(isset($search_section_state)&&$search_section_state?'images/minus.png':'images/plus.png')?>" style="border:0;outline:none;padding:0px;margin:0px;position:relative;top:-5px;">
-	</a>
+		<div id="search_filter_section" style="text-align: right; font-weight: bold;  font-size: 12px; ">
+
+		<?php 	 echo form_open("$controller_name/refresh",array('id'=>'items_filter_form')); 
+				 echo form_label($this->lang->line('items_low_inventory_items').' '.':', 'low_inventory');
+				 echo form_checkbox(array('name'=>'low_inventory','id'=>'low_inventory','value'=>1,'checked'=>isset($low_inventory)?  ( ($low_inventory)? 1 : 0) : 0)).' | ';
+				 echo form_label($this->lang->line('items_serialized_items').' '.':', 'is_serialized');
+				 echo form_checkbox(array('name'=>'is_serialized','id'=>'is_serialized','value'=>1,'checked'=>isset($is_serialized)?  ( ($is_serialized)? 1 : 0) : 0)).' | ';
+				 echo form_label($this->lang->line('items_no_description_items').' '.':', 'no_description');
+				 echo form_checkbox(array('name'=>'no_description','id'=>'no_description','value'=>1,'checked'=>isset($no_description)?  ( ($no_description)? 1 : 0) : 0));
+			     echo form_close(); 
+		?>
+
+	</div>
 </div>
 
-<div id="search_filter_section" style="text-align: right; font-weight: bold; height: 30px; font-size: 12px; display:<?=isset($search_section_state)&&$search_section_state?'block':'none'?>;">
-	<?php echo form_open("$controller_name/refresh",array('id'=>'items_filter_form')); ?>
-	<?php echo form_label($this->lang->line('items_low_inventory_items').' '.':', 'low_inventory');?>
-	<?php echo form_checkbox(array('name'=>'low_inventory','id'=>'low_inventory','value'=>1,'checked'=>isset($low_inventory)?  ( ($low_inventory)? 1 : 0) : 0)).' | ';?>
-	<?php echo form_label($this->lang->line('items_serialized_items').' '.':', 'is_serialized');?>
-	<?php echo form_checkbox(array('name'=>'is_serialized','id'=>'is_serialized','value'=>1,'checked'=>isset($is_serialized)?  ( ($is_serialized)? 1 : 0) : 0)).' | ';?>
-	<?php echo form_label($this->lang->line('items_no_description_items').' '.':', 'no_description');?>
-	<?php echo form_checkbox(array('name'=>'no_description','id'=>'no_description','value'=>1,'checked'=>isset($no_description)?  ( ($no_description)? 1 : 0) : 0));?>
-	<input type="hidden" name="search_section_state" id="search_section_state" value="<?=isset($search_section_state)?(($search_section_state)?'block':'none'):'none'?>"/>
-	</form>
-</div>
+
 
 <div style="padding:3px;margin:3px 0;">
 	<?=$this->pagination->create_links()?>
@@ -109,6 +109,7 @@ $(function(){
 		}
 		$(this).attr('href','index.php/items/generate_barcodes/'+selected.join(':'));
 	});
+	
 	$("#low_inventory,#is_serialized,#no_description").click(function()
 	{
 		$('#items_filter_form').submit();
@@ -174,24 +175,6 @@ function post_bulk_form_submit(response)
 		set_feedback(response.message,'success_message',false);
 		setTimeout(function() { location.reload(); }, 1000);
 
-	}
-}
-
-function show_hide_search_filter(search_filter_section, switchImgTag) {
-	var ele = document.getElementById(search_filter_section);
-	var imageEle = document.getElementById(switchImgTag);
-	var elesearchstate = document.getElementById('search_section_state');
-	if(ele.style.display == "block")
-	{
-		ele.style.display = "none";
-		imageEle.innerHTML = '<img src=" <?php echo base_url()?>images/plus.png" style="border:0;outline:none;padding:0px;margin:0px;position:relative;top:-5px;" >';
-		elesearchstate.value="none";
-	}
-	else
-	{
-		ele.style.display = "block";
-		imageEle.innerHTML = '<img src=" <?php echo base_url()?>images/minus.png" style="border:0;outline:none;padding:0px;margin:0px;position:relative;top:-5px;" >';
-		elesearchstate.value="block";
 	}
 }
 </script>

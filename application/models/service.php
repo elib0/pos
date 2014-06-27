@@ -112,7 +112,45 @@ class Service extends CI_Model {
 		$this->con->join('people','people.person_id = service_log.person_id');
 		$this->con->limit($limit);
 		$this->con->offset($offset);
-		return  $this->con->get();
+		return  $this->con->get()->result();
+	}
+
+	public function get_all_filtered($data= array())
+	{
+		if(is_array($data)&&count($data)>0){
+
+			$this->con->from('service_log');
+
+			$this->con->join('model','model.model_id = service_log.model_id');
+			$this->con->join('brand','model.brand_id = brand.brand_id');
+			$this->con->join('people','people.person_id = service_log.person_id');
+
+
+			if (isset($data['filter_today'])&&$data['filter_today']!='')
+			{
+				$this->con->where('DATE(date_received) = CURDATE()');
+			}
+
+			if (isset($data['filter_yesterday'])&&$data['filter_yesterday']!='')
+			{
+				$this->con->where('DATE(date_received) = DATE(CURDATE()-1)');
+			}
+			if (isset($data['filter_lastweek'])&&$data['filter_lastweek']!='' )
+			{
+				$this->con->where('date_received between date_sub(now(),INTERVAL 1 WEEK) and now()');
+			}
+
+			if (isset($data['filter_status'])&&$data['filter_status']!=''&&$data['filter_status']!=0 )
+			{
+				$this->con->where('service_log.status',$data['filter_status']);
+			}
+
+			$this->con->where('deleted',0);
+			$this->con->order_by('date_received', 'asc');
+			return $this->con->get()->result();
+
+		}else return false;
+		
 	}
 	public function get_items($service_id=false){
 		if($service_id&&$this->exists($service_id)){
@@ -143,15 +181,20 @@ class Service extends CI_Model {
 		return $array;
 	}
 
-	public function search($service_id, $limit = 5000, $offset = 5){
+	public function search($service_id, $term, $limit = 5000, $offset = 5){
+
 		$this->con->from('service_log');
 		$this->con->join('model','model.model_id = service_log.model_id');
 		$this->con->join('brand','model.brand_id = brand.brand_id');
 		$this->con->join('people','people.person_id = service_log.person_id');
-
 		$this->con->where('service_log.service_id',$service_id);
-	
-		return  $this->con->get();
+		$by_id=$this->con->get();
+		$by_term=$this->suggest2($term,$service_id);
+
+		$by_id  = $by_id?$by_id->result():array();
+		$by_term= $by_term?$by_term->result():array();
+
+		return  array_merge($by_id,$by_term);
 	}
 
 	public function suggest($search = '', $limit = 5){
@@ -179,25 +222,25 @@ class Service extends CI_Model {
 		return $suggestions;
 	}
 
-	public function suggest2($search = ''){
+	public function suggest2($search = '', $without=false){
 		$suggestions = array();
-		$search = $this->con->escape($search);
-		$table1 = $this->con->dbprefix('service_log');
-		$table2 = $this->con->dbprefix('people');
-		$table3 = $this->con->dbprefix('model');
-
 		$this->con->from('service_log');
-		$this->con->join('people', 'people.person_id = service_log.person_id');
-		//$this->con->join('model', 'service_log.model_id = model.model_id');
-		//$this->con->where("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name, ' ',  $table3.model_name) LIKE '$search'");
-		//$this->con->like("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name)", $search);
-		$this->db->like("CONCAT(people.first_name, ' ', people.last_name, ' ', service_log.serial)", $search);
+		$this->con->join('people', 'service_log.person_id = people.person_id ');
+		$this->con->join('model',  'service_log.model_id = model.model_id');
+		$this->con->join('brand', 'model.brand_id = brand.brand_id ');
+		$searches = explode(" ", $search);
+
+	    $num=count($searches);
+		foreach ($searches as $key=>$word) {
+			$search="CONCAT(first_name,' ',last_name,' ',phone_number,' ',model_name,' ',brand_name)";
+			$this->con->like($search, $word);
+		}
+		if($without)$this->con->where('service_id !=', $without);
 		$query = $this->con->get();
 
 		if ($query->num_rows() > 0) {
 			return $query;
 		}
-
 		return false;
 	}
 

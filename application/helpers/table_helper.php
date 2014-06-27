@@ -422,7 +422,7 @@ function get_services_manage_table($services,$controller){
 	$CI =& get_instance();
 	$table='<table class="tablesorter" id="sortable_table">';
 
-	$headers = array(//'<input type="checkbox" id="select_all" />',
+	$headers = array(
 	$CI->lang->line('services_item_number'),
 	$CI->lang->line('services_name_owner'),
 	$CI->lang->line('common_phone_number'),
@@ -451,12 +451,12 @@ function get_services_manage_table_data_rows($services,$controller)
 	$CI =& get_instance();
 	$table_data_rows='';
 
-	foreach($services->result() as $service)
+	foreach($services as $service)
 	{
 		$table_data_rows.=get_service_data_row($service,$controller);
 	}
 
-	if($services->num_rows()==0)
+	if(count($services)==0)
 	{
 		$table_data_rows.="<tr><td colspan='11'><div class='warning_message' style='padding:7px;'>".$CI->lang->line('services_no_services_to_display')."</div></tr></tr>";
 	}

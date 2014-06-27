@@ -35,4 +35,8 @@ $lang['services_status_3']='Completed';
 $lang['services_status_4']='Canceled';
 $lang['services_status_100']='Billed';
 
+
+$lang['services_today']='Today';
+$lang['services_yesterday']='Yesterday';
+$lang['services_lastweek']='Last Week';
 ?>

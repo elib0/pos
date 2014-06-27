@@ -109,7 +109,7 @@ class Items extends Secure_area implements iData_controller
 
 		if ($items) {
 			foreach ($items->result() as $row) {
-				$result[] = array('id'=>$row->item_id, 'text'=>$row->name, 'qty'=>$row->quantity, 'reorder_level'=>$row->reorder_level);
+				$result[] = array('id'=>$row->item_id, 'item_number'=>$row->item_number, 'text'=>$row->name, 'qty'=>$row->quantity, 'reorder_level'=>$row->reorder_level);
 			}
 		}
 

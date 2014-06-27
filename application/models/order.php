@@ -30,7 +30,7 @@ class Order extends CI_Model {
 	}
 
 	public function get_info($oder_id = false){
-		$order = array('info'=>false, 'items'=>false)
+		$order = array('info'=>false, 'items'=>false);
 		$this->con->from('orders');
 		$this->con->where('order_id', $order_id);
 		$this->con->limit(1);

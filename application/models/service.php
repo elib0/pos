@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Service extends CI_Model { 
+class Service extends CI_Model {
 
 	var $con;
 
@@ -8,10 +8,10 @@ class Service extends CI_Model {
 	{
 		parent::__construct();
 		$db = $this->session->userdata('dblocation');
-        if($db)
-            $this->con = $this->load->database($db, true);
-        else
-            $this->con = $this->db;
+		if($db)
+			$this->con = $this->load->database($db, true);
+		else
+			$this->con = $this->db;
 	}
 
 	public function exists($service_id){
@@ -73,12 +73,12 @@ class Service extends CI_Model {
 	public function save($service_data, $service_id = -1){
 		if (!$this->exists($service_id) ) {
 			$brand_id=$this->exists_brand($service_data['brand_id']);
-			if (!$brand_id) 
-				$brand_id=$this->save_brand(array('brand_name'=>$service_data['brand_id']));	
+			if (!$brand_id)
+				$brand_id=$this->save_brand(array('brand_name'=>$service_data['brand_id']));
 			$model_id=$this->exists_model($service_data['model_id'],$brand_id);
-			if (!$model_id) 
+			if (!$model_id)
 				$model_id=$this->save_model(array('model_name'=>$service_data['model_id'],'brand_id'=>$brand_id));
-			unset($service_data['brand_id']);		
+			unset($service_data['brand_id']);
 			$service_data['model_id']=$model_id;
 			$this->con->insert('service_log', $service_data);
 			return $this->con->insert_id();
@@ -112,7 +112,7 @@ class Service extends CI_Model {
 		$this->con->join('people','people.person_id = service_log.person_id');
 		$this->con->limit($limit);
 		$this->con->offset($offset);
-		return  $this->con->get()->result();
+		return $this->con->get()->result();
 	}
 
 	public function get_all_filtered($data= array())
@@ -124,7 +124,6 @@ class Service extends CI_Model {
 			$this->con->join('model','model.model_id = service_log.model_id');
 			$this->con->join('brand','model.brand_id = brand.brand_id');
 			$this->con->join('people','people.person_id = service_log.person_id');
-
 
 			if (isset($data['filter_today'])&&$data['filter_today']!='')
 			{
@@ -150,7 +149,7 @@ class Service extends CI_Model {
 			return $this->con->get()->result();
 
 		}else return false;
-		
+
 	}
 	public function get_items($service_id=false){
 		if($service_id&&$this->exists($service_id)){
@@ -191,10 +190,10 @@ class Service extends CI_Model {
 		$by_id=$this->con->get();
 		$by_term=$this->suggest2($term,$service_id);
 
-		$by_id  = $by_id?$by_id->result():array();
+		$by_id	= $by_id?$by_id->result():array();
 		$by_term= $by_term?$by_term->result():array();
 
-		return  array_merge($by_id,$by_term);
+		return array_merge($by_id,$by_term);
 	}
 
 	public function suggest($search = '', $limit = 5){
@@ -207,7 +206,7 @@ class Service extends CI_Model {
 		$this->con->from('service_log');
 		$this->con->join('people', 'people.person_id = service_log.person_id');
 		//$this->con->join('model', 'service_log.model_id = model.model_id');
-		//$this->con->where("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name, ' ',  $table3.model_name) LIKE '$search'");
+		//$this->con->where("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name, ' ', $table3.model_name) LIKE '$search'");
 		//$this->con->like("CONCAT($table1.phone_imei, ' ', $table2.first_name, ' ',$table2.last_name)", $search);
 		$this->db->where('phone_imei', $search);
 		$this->db->limit($limit);
@@ -226,18 +225,17 @@ class Service extends CI_Model {
 		$suggestions = array();
 		$this->con->from('service_log');
 		$this->con->join('people', 'service_log.person_id = people.person_id ');
-		$this->con->join('model',  'service_log.model_id = model.model_id');
-		$this->con->join('brand', 'model.brand_id = brand.brand_id ');
+		$this->con->join('model', 'service_log.model_id = model.model_id');
+		$this->con->join('brand', 'model.brand_id = brand.brand_id');
 		$searches = explode(" ", $search);
 
-	    $num=count($searches);
 		foreach ($searches as $key=>$word) {
 			$search="CONCAT(first_name,' ',last_name,' ',phone_number,' ',model_name,' ',brand_name)";
 			$this->con->like($search, $word);
 		}
 		if($without)$this->con->where('service_id !=', $without);
 		$query = $this->con->get();
-
+		echo $this->con->last_query();
 		if ($query->num_rows() > 0) {
 			return $query;
 		}
@@ -265,16 +263,18 @@ class Service extends CI_Model {
 
 			return $info;
 		}else{
-			return (Object) array('service_id'=>-1,
-								  'first_name'=>'',
-								  'last_name'=>'', 
-								  'serial'=>'',
-								  'brand_name'=>'',
-								  'status'=>'',
-								  'model_name'=>'',
-								  'comments'=>'', 
-								  'person_id'=>'',
-								  'items'=>array());
+			return (Object) array(
+				'service_id'=>-1,
+				'first_name'=>'',
+				'last_name'=>'',
+				'serial'=>'',
+				'brand_name'=>'',
+				'status'=>'',
+				'model_name'=>'',
+				'comments'=>'',
+				'person_id'=>'',
+				'items'=>array()
+			);
 		}
 	}
 
@@ -288,7 +288,7 @@ class Service extends CI_Model {
 		if ($brand!='') $this->con->where('brand_name', $brand);
 		$this->con->order_by('model_id','asc');
 		$by_model = $this->con->get();
-		foreach($by_model->result() as $row) $suggestions[]=$row->model_name; 
+		foreach($by_model->result() as $row) $suggestions[]=$row->model_name;
 		return $suggestions;
 		// return $this->con->last_query();
 	}

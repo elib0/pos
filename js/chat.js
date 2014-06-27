@@ -50,12 +50,12 @@ $(chat).html(
 }).on('click','.chatConfig #hideChat',function(){
 	$('#showChat',chat).show();
 	$('#hideChat',chat).hide();
-	$('.chatListContainer',chat).slideDown();
+	$('.chatListContainer',chat).slideUp();
 	$.local('minchat_'+userid,true);
 }).on('click','.chatConfig #showChat',function(){
 	$('#showChat',chat).hide();
 	$('#hideChat',chat).show();
-	$('.chatListContainer',chat).slideUp();
+	$('.chatListContainer',chat).slideDown();
 	$.local('minchat_'+userid,null);
 }).on('click','.chatConfig #enable,.chatConfig #disable',function(){
 	showChat(this.id);
@@ -185,8 +185,8 @@ function showChat(enable){
 		hide=$.local('hidechat_'+userid);
 		min=$.local('minchat_'+userid);
 	}
+	if(enable=='enable'||enable=='disable') enable=(enable=='enable');
 	if(enable!==undefined) hide=!enable;
-	if(hide=='enable'||hide=='disable') hide=(hide=='disable');
 	if(hide){
 		$('#enable',chat).show();
 		$('#disable,#showChat,#hideChat',chat).hide();

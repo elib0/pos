@@ -19,10 +19,7 @@
 	<script src="js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
-<<<<<<< HEAD
-	<!--<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>-->
-=======
->>>>>>> FETCH_HEAD
+	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/select2.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.$$=window.jQueryNew=jQuery.noConflict();</script>
 	<!-- end jquery new -->

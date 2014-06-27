@@ -19,7 +19,6 @@
 	<script src="js/notifIt.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/thickbox.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/jquery.validate.min.js" type="text/javascript" charset="UTF-8"></script>
-	<script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
 	<script src="js/select2.min.js" type="text/javascript" charset="UTF-8"></script>
 	<script>window.$$=window.jQueryNew=jQuery.noConflict();</script>
 	<!-- end jquery new -->
@@ -65,9 +64,11 @@ html{
 
 </head>
 <body>
-<link rel="stylesheet" type="text/css" href="css/chat.css" media="screen" />
+<!-- inicio chat (agregar guion doble para descomentar) ->
 <div id="chat"></div>
+<link rel="stylesheet" type="text/css" href="css/chat.css" media="screen" />
 <script src="js/chat.js" type="text/javascript" charset="UTF-8"></script>
+<!-- fin chat -->
 <nav class="main-menu">
 	<ul>
 		<?php

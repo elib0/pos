@@ -227,11 +227,10 @@ class Service extends CI_Model {
 		$this->con->join('people', 'service_log.person_id = people.person_id ');
 		$this->con->join('model', 'service_log.model_id = model.model_id');
 		$this->con->join('brand', 'model.brand_id = brand.brand_id');
-		$searches = explode(" ", $search);
 
+		$searches = explode(' ', $search);
 		foreach ($searches as $key=>$word) {
-			$search="CONCAT(first_name,' ',last_name,' ',phone_number,' ',model_name,' ',brand_name)";
-			$this->con->like($search, $word);
+			$this->con->like('CONCAT_WS(" ",first_name,last_name,phone_number,model_name,brand_name)', $word);
 		}
 		if($without)$this->con->where('service_id !=', $without);
 		$query = $this->con->get();

@@ -234,8 +234,8 @@ class Service extends CI_Model {
 		}
 		if($without)$this->con->where('service_id !=', $without);
 		$query = $this->con->get();
-		echo $this->con->last_query();
-		if ($query->num_rows() > 0) {
+
+		if($query->num_rows()>0){
 			return $query;
 		}
 		return false;

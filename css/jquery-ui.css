@@ -1,10 +1,10 @@
-.ui-icon {
+.uiold-icon {
 	display: block;
 	overflow: hidden;
 	background-repeat: no-repeat;
 	text-indent: -99999px;
 }
-.ui-dialog {
+.uiold-dialog {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -12,7 +12,7 @@
 	outline: 0;
 	background-color: #fff;
 }
-.ui-dialog-overlay{
+.uiold-dialog-overlay{
 	background: #396B98;
 	opacity: 0.3;
 	-webkit-opacity: 0.3;
@@ -21,21 +21,21 @@
 	-o-opacity: 0.3;
 }
 
-.ui-dialog-container{
+.uiold-dialog-container{
 	/*padding-left: 22px;*/
 }
-.ui-dialog .ui-dialog-titlebar {
+.uiold-dialog .uiold-dialog-titlebar {
 	position: relative;
 	padding: .4em 1em;
 }
-.ui-dialog .ui-dialog-title {
+.uiold-dialog .uiold-dialog-title {
 	float: left;
 	margin: .1em 0;
 	width: 90%;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-.ui-dialog .ui-dialog-titlebar-close {
+.uiold-dialog .uiold-dialog-titlebar-close {
 	position: absolute;
 	top: -14px;
 	right: -4%;
@@ -46,106 +46,106 @@
 	background: url(../images/overlay-close.png) no-repeat;
 	text-indent: 5000px;
 }
-.ui-dialog .ui-dialog-content {
+.uiold-dialog .uiold-dialog-content {
 	position: relative;
 	overflow: auto;
 	padding: 0;
 	border: 0;
 	background: none;
 }
-.ui-dialog .ui-dialog-buttonpane {
+.uiold-dialog .uiold-dialog-buttonpane {
 	margin-top: .5em;
 	padding: .3em 1em .5em .4em;
 	border-width: 1px 0 0 0;
 	background-image: none;
 	text-align: left;
 }
-.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+.uiold-dialog .uiold-dialog-buttonpane .uiold-dialog-buttonset {
 	float: right;
 }
-.ui-dialog .ui-dialog-buttonpane button {
+.uiold-dialog .uiold-dialog-buttonpane button {
 	margin: .5em .4em .5em 0;
 	cursor: pointer;
 }
-.ui-dialog .ui-resizable-se {
+.uiold-dialog .uiold-resizable-se {
 	right: -5px;
 	bottom: -5px;
 	width: 12px;
 	height: 12px;
 	background-position: 16px 16px;
 }
-.ui-draggable .ui-dialog-titlebar {
+.uiold-draggable .uiold-dialog-titlebar {
 	cursor: move;
 }
-.ui-resizable {
+.uiold-resizable {
 	position: relative;
 }
-.ui-resizable-handle {
+.uiold-resizable-handle {
 	position: absolute;
 	display: block;
 	font-size: 0.1px;
 }
-.ui-resizable-disabled .ui-resizable-handle,
-.ui-resizable-autohide .ui-resizable-handle {
+.uiold-resizable-disabled .uiold-resizable-handle,
+.uiold-resizable-autohide .uiold-resizable-handle {
 	display: none;
 }
-.ui-resizable-n {
+.uiold-resizable-n {
 	top: -5px;
 	left: 0;
 	width: 100%;
 	height: 7px;
 	cursor: n-resize;
 }
-.ui-resizable-s {
+.uiold-resizable-s {
 	bottom: -5px;
 	left: 0;
 	width: 100%;
 	height: 7px;
 	cursor: s-resize;
 }
-.ui-resizable-e {
+.uiold-resizable-e {
 	top: 0;
 	right: -5px;
 	width: 7px;
 	height: 100%;
 	cursor: e-resize;
 }
-.ui-resizable-w {
+.uiold-resizable-w {
 	top: 0;
 	left: -5px;
 	width: 7px;
 	height: 100%;
 	cursor: w-resize;
 }
-.ui-resizable-se {
+.uiold-resizable-se {
 	right: 1px;
 	bottom: 1px;
 	width: 12px;
 	height: 12px;
 	cursor: se-resize;
 }
-.ui-resizable-sw {
+.uiold-resizable-sw {
 	bottom: -5px;
 	left: -5px;
 	width: 9px;
 	height: 9px;
 	cursor: sw-resize;
 }
-.ui-resizable-nw {
+.uiold-resizable-nw {
 	top: -5px;
 	left: -5px;
 	width: 9px;
 	height: 9px;
 	cursor: nw-resize;
 }
-.ui-resizable-ne {
+.uiold-resizable-ne {
 	top: -5px;
 	right: -5px;
 	width: 9px;
 	height: 9px;
 	cursor: ne-resize;
 }
-.ui-selectable-helper {
+.uiold-selectable-helper {
 	position: absolute;
 	z-index: 100;
 	border: 1px dotted black;

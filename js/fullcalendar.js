@@ -267,7 +267,7 @@ function Calendar(element, options, eventSources) {
 			element.addClass('fc-ltr');
 		}
 		if (options.theme) {
-			element.addClass('ui-widget');
+			element.addClass('uiold-widget');
 		}
 
 		content = $("<div class='fc-content' style='position:relative'/>")
@@ -314,7 +314,7 @@ function Calendar(element, options, eventSources) {
 
 		header.destroy();
 		content.remove();
-		element.removeClass('fc fc-rtl ui-widget');
+		element.removeClass('fc fc-rtl uiold-widget');
 	}
 	
 	
@@ -797,7 +797,7 @@ function Header(calendar, options) {
 								"<span class='fc-button fc-button-" + buttonName + " " + tm + "-state-default'>" +
 									(icon ?
 										"<span class='fc-icon-wrap'>" +
-											"<span class='ui-icon ui-icon-" + icon + "'/>" +
+											"<span class='uiold-icon uiold-icon-" + icon + "'/>" +
 										"</span>" :
 										text
 										) +
@@ -4003,7 +4003,7 @@ function AgendaEventRenderer() {
 			"<div class='fc-event-bg'></div>";
 		if (seg.isEnd && isEventResizable(event)) {
 			html +=
-				"<div class='ui-resizable-handle ui-resizable-s'>=</div>";
+				"<div class='uiold-resizable-handle uiold-resizable-s'>=</div>";
 		}
 		html +=
 			"</" + (url ? "a" : "div") + ">";
@@ -4293,7 +4293,7 @@ function AgendaEventRenderer() {
 		var snapMinutes = getSnapMinutes();
 		eventElement.resizable({
 			handles: {
-				s: '.ui-resizable-handle'
+				s: '.uiold-resizable-handle'
 			},
 			grid: snapHeight,
 			start: function(ev, ui) {
@@ -4691,8 +4691,8 @@ function View(element, calendar, viewName) {
 	function eventElementHandlers(event, eventElement) {
 		eventElement
 			.click(function(ev) {
-				if (!eventElement.hasClass('ui-draggable-dragging') &&
-					!eventElement.hasClass('ui-resizable-resizing')) {
+				if (!eventElement.hasClass('uiold-draggable-dragging') &&
+					!eventElement.hasClass('uiold-resizable-resizing')) {
 						return trigger('eventClick', this, event, ev);
 					}
 			})
@@ -5370,7 +5370,7 @@ function DayEventRenderer() {
 			"</div>";
 		if (segment.isEnd && isEventResizable(event)) {
 			html +=
-				"<div class='ui-resizable-handle ui-resizable-" + (isRTL ? 'w' : 'e') + "'>" +
+				"<div class='uiold-resizable-handle uiold-resizable-" + (isRTL ? 'w' : 'e') + "'>" +
 				"&nbsp;&nbsp;&nbsp;" + // makes hit area a lot better for IE6/7
 				"</div>";
 		}
@@ -5693,7 +5693,7 @@ function DayEventRenderer() {
 	function resizableDayEvent(event, element, segment) {
 		var isRTL = opt('isRTL');
 		var direction = isRTL ? 'w' : 'e';
-		var handle = element.find('.ui-resizable-' + direction); // TODO: stop using this class because we aren't using jqui for this
+		var handle = element.find('.uiold-resizable-' + direction); // TODO: stop using this class because we aren't using jqui for this
 		var isResizing = false;
 		
 		// TODO: look into using jquery-ui mouse widget for this stuff

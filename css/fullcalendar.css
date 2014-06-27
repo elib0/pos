@@ -75,14 +75,14 @@ html .fc,
 	}
 	
 .fc-header .fc-corner-right,  /* non-theme */
-.fc-header .ui-corner-right { /* theme */
+.fc-header .uiold-corner-right { /* theme */
 	margin-right: 0; /* back to normal */
 	}
 	
 /* button layering (for border precedence) */
 	
 .fc-header .fc-state-hover,
-.fc-header .ui-state-hover {
+.fc-header .uiold-state-hover {
 	z-index: 2;
 	}
 	
@@ -91,7 +91,7 @@ html .fc,
 	}
 
 .fc-header .fc-state-active,
-.fc-header .ui-state-active {
+.fc-header .uiold-state-active {
 	z-index: 4;
 	}
 	
@@ -184,7 +184,7 @@ html .fc,
 	top: 50%;
 	}
 	
-.fc-button .ui-icon {
+.fc-button .uiold-icon {
 	position: relative;
 	float: left;
 	margin-top: -50%;
@@ -255,8 +255,8 @@ html .fc,
 	z-index: 8;
 	}
 
-.fc-event-container > .ui-draggable-dragging,
-.fc-event-container > .ui-resizable-resizing {
+.fc-event-container > .uiold-draggable-dragging,
+.fc-event-container > .uiold-resizable-resizing {
 	z-index: 9;
 	}
 	 
@@ -294,7 +294,7 @@ a.fc-event,
 	padding: 0 1px;
 	}
 	
-.fc .ui-resizable-handle {
+.fc .uiold-resizable-handle {
 	display: block;
 	position: absolute;
 	z-index: 99999;
@@ -329,7 +329,7 @@ a.fc-event,
 	
 /* resizable */
 	
-.fc-event-hori .ui-resizable-e {
+.fc-event-hori .uiold-resizable-e {
 	top: 0           !important; /* importants override pre jquery ui 1.7 styles */
 	right: -3px      !important;
 	width: 7px       !important;
@@ -337,7 +337,7 @@ a.fc-event,
 	cursor: e-resize;
 	}
 	
-.fc-event-hori .ui-resizable-w {
+.fc-event-hori .uiold-resizable-w {
 	top: 0           !important;
 	left: -3px       !important;
 	width: 7px       !important;
@@ -345,7 +345,7 @@ a.fc-event,
 	cursor: w-resize;
 	}
 	
-.fc-event-hori .ui-resizable-handle {
+.fc-event-hori .uiold-resizable-handle {
 	_padding-bottom: 14px; /* IE6 had 0 height */
 	}
 	
@@ -517,7 +517,7 @@ table.fc-border-separate {
 	border-top-style: dotted;
 	}
 	
-.fc-agenda-slots tr.fc-minor th.ui-widget-header {
+.fc-agenda-slots tr.fc-minor th.uiold-widget-header {
 	*border-top-style: solid; /* doesn't work with background in IE6/7 */
 	}
 	
@@ -564,14 +564,14 @@ table.fc-border-separate {
 	filter: alpha(opacity=25);
 	}
 	
-.fc .ui-draggable-dragging .fc-event-bg, /* TODO: something nicer like .fc-opacity */
+.fc .uiold-draggable-dragging .fc-event-bg, /* TODO: something nicer like .fc-opacity */
 .fc-select-helper .fc-event-bg {
 	display: none\9; /* for IE6/7/8. nested opacity filters while dragging don't work */
 	}
 	
 /* resizable */
 	
-.fc-event-vert .ui-resizable-s {
+.fc-event-vert .uiold-resizable-s {
 	bottom: 0        !important; /* importants override pre jquery ui 1.7 styles */
 	width: 100%      !important;
 	height: 8px      !important;
@@ -583,7 +583,7 @@ table.fc-border-separate {
 	cursor: s-resize;
 	}
 	
-.fc-agenda .ui-resizable-resizing { /* TODO: better selector */
+.fc-agenda .uiold-resizable-resizing { /* TODO: better selector */
 	_overflow: hidden;
 	}
 	

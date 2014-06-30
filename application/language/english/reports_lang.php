@@ -95,4 +95,9 @@ $lang['reports_accounts_receivable'] = 'Invoice Discounting';
 $lang['reports_accounts_receivable_credit'] = 'Credit';
 $lang['reports_no_payments'] = 'No Payments';
 $lang['reports_send_administrator'] = 'Send to Administrator';
+$lang['reports_pending_orders'] = 'Pending Orders';
+$lang['reports_no_comment'] = 'No Comments';
+$lang['reports_location'] = 'Location';
+$lang['reports_order_id'] = 'Order ID';
+$lang['reports_amount_needed'] = 'Amount Needed';
 ?>

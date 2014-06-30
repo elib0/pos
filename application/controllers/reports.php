@@ -1074,6 +1074,16 @@ class Reports extends Secure_area
 		}
 		$this->load->view("reports/format_reports",$_data);
 	}
+
+	function pending_orders(){
+		$this->load->model('Order');
+		$data['title'] = $this->lang->line('reports_report').' '.$this->lang->line('reports_pending_orders');
+		$data['sub_title'] = $this->lang->line('reports_you_have').' '.$this->lang->line('reports_pending_orders');
+		$data['location'] = $this->session->userdata('dblocation');
+		$data['query'] = $this->Order->con->last_query();
+		
+		$this->load->view('reports/orders', $data);
+	}
 	
 }
 ?>

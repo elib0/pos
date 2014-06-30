@@ -17,7 +17,7 @@
 	</div> -->
 </div>
 <div id="table_holder">
-	<?php echo form_open('orders/save/');?>
+	<?php echo form_open('orders/save/', 'id="form-order"');?>
 	<table id="sortable_table" class="tablesorter" style="width: 100%;">
 		<thead>
 			<tr>
@@ -45,9 +45,12 @@
 						<td><?=$cur_item_info->item_number?></td>
 						<td style="align:center;">
 							<?=$cur_item_info->name?>
-							<input type="hidden" name="items[<?php echo $item['item_id']; ?>][id]" value="<?php echo $item['item_id']; ?>">
+							<input type="hidden" name="items[<?php echo $item['item_id']; ?>][id_item]" value="<?php echo $item['item_id']; ?>">
 						</td>
-						<td align="right"><?=$cur_item_info->quantity?></td>
+						<td align="right">
+							<?=$cur_item_info->quantity?>
+							<input type="hidden" name="items[<?php echo $item['item_id']; ?>][current_quantity]" value="<?=$cur_item_info->quantity?>">
+						</td>
 						<td align="right">
 							<input type="text" name="items[<?php echo $item['item_id']; ?>][quantity]" value="<?php echo $cur_item_info->reorder_level; ?>" style="width: 50px;text-align: right;">
 						</td>
@@ -122,6 +125,7 @@
 							'<td><a href="index.php/orders/delete_item/'+val.added.id+'" class="small_button delete_item"><?php echo $this->lang->line("common_delete") ?></a></td>'+
 							'<td>'+((val.added.item_number) ? val.added.item_number :'')+'</td>'+
 							'<td style="align:center;">'+val.added.text+'</td>'+
+							'<input type="hidden" name="items['+val.added.id+'][id_item]" value="'+val.added.id+'">'+
 							'<td align="right">'+val.added.qty+'</td>'+
 							'<td align="right"><input type="text" name="items['+val.added.id+'][quantity]" value="'+val.added.reorder_level+'" style="width: 50px;text-align: right;"></td>'+
 							'</tr>';
@@ -141,6 +145,25 @@
 	$('#cancel_sale_button').click(function(){
 		if(confirm("<?=$this->lang->line('sales_confirm_cancel_sale')?>")){
 			$('#cancel_sale_form').submit();
+		}
+	});
+
+	$('#form-order').ajaxForm({
+		dataType: 'json',
+		success: function(response){
+			console.log(response);
+			var msgType = 'error';
+			if (response.status) {
+				msgType = 'success';
+			}
+
+			notif({
+			  type: msgType,
+			  msg: response.message,
+			  width: "all",
+			  height: 100,
+			  position: "center"
+			});
 		}
 	});
 })(jQueryNew);

@@ -175,6 +175,9 @@ nav#notifications div.notification-shippings{
 nav#notifications div.notification-accounts_payable{
 	background-color:#CB1245;
 }
+nav#notifications div.notification-pending_orders{
+	background-color:#1D41E4;
+}
 
 /*Menu Secundario*/
 nav.main-menu{

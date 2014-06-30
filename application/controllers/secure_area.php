@@ -40,6 +40,7 @@ class Secure_area extends CI_Controller
 		//Modelos a utilizar
 		$this->load->model('reports/Inventory_low');
 		$this->load->model('Transfers');
+		$this->load->model('Order');
 		$this->load->model('reports/Detailed_receivings');
 		$this->Receiving->con=$this->Detailed_receivings->stabledb($this->session->userdata('dblocation'),true);
 		$this->Receiving->create_receivings_items_temp_table();
@@ -64,6 +65,9 @@ class Secure_area extends CI_Controller
 		$data['notifications']['accounts_receivable']['url']= 'reports/accounts_receivable/0/';
 		$data['notifications']['accounts_receivable']['title']= $this->lang->line('reports_accounts_receivable');
 		$data['notifications']['accounts_receivable']['data']= $this->Transfers->transfers_receivable('sender');
+		$data['notifications']['pending_orders']['url']= 'reports/pending_orders/';
+		$data['notifications']['pending_orders']['title']= $this->lang->line('reports_pending_orders');
+		$data['notifications']['pending_orders']['data']= $this->Order->get_all();
 		//Carga de variables
 		$this->load->vars($data);
 	}

@@ -6,6 +6,7 @@ class Orders extends Secure_area
 	{
 		parent::__construct('orders');
 		$this->load->library('order_lib');
+		$this->load->model('Order');
 	}
 
 	function index($low_stock=false)
@@ -61,20 +62,17 @@ class Orders extends Secure_area
 
 	function save($sale_id = false)
 	{
-		$response = array('status'=>false,'messagge'=>$this->lang->line('orders_no_save'));
-		$order_data['date'] = date('m/d/Y h:i:s a');
+		$response = array('status'=>false,'message'=>$this->lang->line('orders_no_save'));
+		$order_data['date'] = date('Y-m-d');
 		$order_data['employee_id'] = $this->Employee->get_logged_in_employee_info()->person_id;
 		$order_data['comments'] = $this->input->post('comments');
 		$order_data['location'] = $this->session->userdata('dblocation');
 
-		//$response['status'] = $this->Order->save($order_data, $this->input->post('items'));
+		$response['status'] = $this->Order->save($order_data, $this->input->post('items'));
 		if ($response['status']) {
-			$response['messagge'] = $this->lang->line('orders_saved');
+			$response['message'] = $this->lang->line('orders_saved');
+			$this->order_lib->clear_all();
 		}
-
-		//echo "<pre>";
-		//print_r($order_items_data);
-		//echo "</pre>";
 
 		die(json_encode($response));
 	}
@@ -84,5 +82,4 @@ class Orders extends Secure_area
 		$this->order_lib->clear_all();
 		redirect('orders');
 	}
-
 }

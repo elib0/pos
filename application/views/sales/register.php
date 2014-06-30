@@ -16,26 +16,29 @@ if (isset($success)){	echo "<div class='success_message'>$success</div>"; }
 // $this->output->enable_profiler(true);
 ?>
 <div id="register_wrapper">
-<?php //echo form_open('sales/change_mode',array('id'=>'mode_form')); ?>
-	<!-- <span><?=$this->lang->line('sales_mode')?></span> -->
-<?php //echo form_dropdown('mode',$modes,$mode,'onchange="this.form.submit();"'); ?>
-<div id="mode_form" style="padding: 20px;">
-	<div id="new_button"></div>
-	<div id="show_suspended_sales_button">
-		<?php
-		// if($this->Employee->has_privilege('add','giftcards')){
-			echo anchor('giftcards/view/sale/width:'.(isset($form_width)?$form_width:360).'/height:'.(isset($form_height)?$form_height:175),
-				'<span style="font-size:75%;">Gift Card</span>',
-				array('title'=>$this->lang->line('giftcards_new'),'class'=>'small_button thickbox','style'=>'float:left;'));
-		// }
-		?>
-		&nbsp;
-		<?php echo anchor('sales/suspended/width:425','<span style="font-size:75%;">'.$this->lang->line('sales_suspended_sales').'</span>',array('class'=>'small_button thickbox','title'=>$this->lang->line('sales_suspended_sales')));
-		?>
-	</div>
-</div>
-<!-- </form> -->
-<?php echo form_open('sales/add',array('id'=>'add_item_form')); ?>
+<?php 
+if ($mode!='shipping'){ $class="";
+	echo form_open('sales/change_mode',array('id'=>'mode_form')); ?>
+			<span><?=$this->lang->line('sales_mode')?></span>
+		<?php echo form_dropdown('mode',$modes,$mode,'onchange="this.form.submit();"'); ?>
+		<div >
+			<div id="new_button"></div>
+			<div id="show_suspended_sales_button">
+				<?php
+				// if($this->Employee->has_privilege('add','giftcards')){
+					echo anchor('giftcards/view/sale/width:'.(isset($form_width)?$form_width:360).'/height:'.(isset($form_height)?$form_height:175),
+						'<span style="font-size:75%;">Gift Card</span>',
+						array('title'=>$this->lang->line('giftcards_new'),'class'=>'small_button thickbox','style'=>'float:left;'));
+				// }
+				?>
+				&nbsp;
+				<?php echo anchor('sales/suspended/width:425','<span style="font-size:75%;">'.$this->lang->line('sales_suspended_sales').'</span>',array('class'=>'small_button thickbox','title'=>$this->lang->line('sales_suspended_sales')));
+				?>
+			</div>
+		</div>
+	</form>
+<?php }else $class="nosale"; ?>	
+<?php echo form_open('sales/add',array('id'=>'add_item_form','class'=>$class)); ?>
 <label id="item_label" for="item">
 
 <?php
@@ -172,10 +175,17 @@ if(count($cart)==0){
 	<div id='cancel_suspend_sale_button'>
 	<?php
 	// Only show this part if there is at least one payment entered.
+	if ($mode!='shipping'){
+		$txtsuspend='sales_suspend_sale';
+		$txtcancel='sales_cancel_sale';
+	}else{
+		$txtsuspend='sales_suspend_shipping';
+		$txtcancel='sales_cancel_shipping';
+	}
 	if(count($payments) > 0){ ?>
-		<div class='small_button' id='suspend_sale_button'><span><?=$this->lang->line('sales_suspend_sale')?></span></div>
+		<div class='small_button' id='suspend_sale_button'><span><?=$this->lang->line($txtsuspend)?></span></div>
 	<?php } ?>
-		<div class='small_button' id='cancel_sale_button'><span><?=$this->lang->line('sales_cancel_sale')?></span></div>
+		<div class='small_button' id='cancel_sale_button'><span><?=$this->lang->line($txtcancel)?></span></div>
 	</div>
 	
 	<div style="margin-top:5px;text-align:center;">
@@ -202,6 +212,7 @@ if(count($cart)==0){
 	}else{
 		include('application/config/database.php'); //Incluyo donde estaran todas las config de las databses
 		$dbs = $this->Location->get_select_option_list(true);
+		$dbs['default']='Principal';
 		echo form_open('sales/select_location',array('id'=>'select_customer_form'));
 		echo form_label('Receiving Location:', 'location', array('id'=>'customer_label'));
 		echo form_dropdown('location', $dbs, $this->sale_lib->get_customer(), 'id="location"');
@@ -238,8 +249,7 @@ if(count($cart)==0){
 		<div class="clearfix" style="margin-bottom:1px;">&nbsp;</div>
 		<?php
 		// Only show this part if there is at least one payment entered.
-		if(count($payments) > 0)
-		{
+		if(count($payments) > 0 || $mode=='shipping'){
 		?>
 			<div id="finish_sale">
 				<?=form_open('sales/complete',array('id'=>'finish_sale_form'))?>
@@ -259,8 +269,7 @@ if(count($cart)==0){
 						)).'<br/>('.$customer_email.')<br/>';
 				}
 
-				if($payments_cover_total)
-				{
+				if($payments_cover_total || $mode=='shipping'){
 					echo "<div class='big_button' id='finish_sale_button'><span>".$this->lang->line('sales_complete_sale')."</span></div>";
 				}
 				?>

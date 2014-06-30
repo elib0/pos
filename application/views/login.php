@@ -20,6 +20,7 @@
 
 <?php
 $dbs = $this->Location->get_select_option_list(false, true);
+$dbs['default']='Principal';
 ?>
 
 <div>
@@ -38,7 +39,9 @@ $dbs = $this->Location->get_select_option_list(false, true);
 				<td colspan="2" class="box-bkg-label-location"><?=form_label('Select your location:','locationbd')?></td>
 			</tr>
 			<tr>
-				<td colspan="2" class="box-bkg-drop-location"><?=form_dropdown('locationbd',$dbs,$this->input->post('locationbd'))?></td>
+				<td colspan="2" class="box-bkg-drop-location">
+					<?=form_dropdown('locationbd',$dbs,$this->input->post('locationbd'))?>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2" height="1"></td>

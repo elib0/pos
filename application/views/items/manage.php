@@ -16,6 +16,7 @@
 <?php
 if ($this->Employee->isAdmin()){
 	$dbs = $this->Location->get_select_option_list(false, true);
+	$dbs['default']='Principal';
 	echo form_open("$controller_name/set_location",array('id'=>'form_items_location'));
 	
 ?>

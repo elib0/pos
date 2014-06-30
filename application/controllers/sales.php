@@ -31,10 +31,10 @@ class Sales extends Secure_area
 			$data['taxing']= 'checked';
 			$this->sale_lib->set_taxing(true);
 		}
-		// $data['modes']=array(
-		// 	'sale'=>$this->lang->line('sales_sale'),
-		// 	'return'=>$this->lang->line('sales_return')
-		// );
+		$data['modes']=array(
+			'sale'=>$this->lang->line('sales_sale'),
+			'return'=>$this->lang->line('sales_return')
+		);
 		//Si tiene su bd configurada para transferencias entre tiendas
 		// if ($this->Transfers->available()) {
 		// 	$data['modes']['shipping'] = $this->lang->line('sales_shipping');

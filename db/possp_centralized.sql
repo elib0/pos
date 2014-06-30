@@ -84,20 +84,15 @@ CREATE TABLE `ospos_orders` (
   `employee_id` int(10) DEFAULT NULL,
   `comments` mediumtext,
   `location` varchar(20) DEFAULT NULL,
+  `status` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- ----------------------------
--- Records of ospos_orders
--- ----------------------------
-
--- ----------------------------
--- Table structure for `ospos_orders_items`
--- ----------------------------
-DROP TABLE IF EXISTS `ospos_orders_items`;
-CREATE TABLE `ospos_orders_items` (
+DROP TABLE IF EXISTS `ospos_order_items`;
+CREATE TABLE `ospos_order_items` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `id_item` int(10) DEFAULT NULL,
+  `current_quantity` double(15,0) DEFAULT NULL,
   `quantity` double(15,0) DEFAULT NULL,
   `id_order` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)

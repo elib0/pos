@@ -62,39 +62,6 @@ INSERT INTO `ospos_app_config` (`key`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ospos_brand`
---
-
-DROP TABLE IF EXISTS `ospos_brand`;
-CREATE TABLE IF NOT EXISTS `ospos_brand` (
-  `brand_id` int(11) NOT NULL AUTO_INCREMENT,
-  `brand_name` varchar(50) NOT NULL,
-  PRIMARY KEY (`brand_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Volcado de datos para la tabla `ospos_brand`
---
-
-INSERT INTO `ospos_brand` (`brand_id`, `brand_name`)
-VALUES
-  (1, 'Apple'),
-  (2, 'Samsung'),
-  (3, 'Nokia'),
-  (4, 'Sony Ericsson'),
-  (5, 'LG'),
-  (6, 'HTC'),
-  (7, 'Huawei'),
-  (8, 'Motorola'),
-  (9, 'Blackberry'),
-  (10, 'ZTE'),
-  (11, 'Microsoft'),
-  (12, 'Siemens');
-
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `ospos_customers`
 --
 
@@ -1238,6 +1205,39 @@ VALUES
   (18, 'Galaxy s3 mini', 2),
   (19, 'Galaxy s4', 2);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ospos_brand`
+--
+
+DROP TABLE IF EXISTS `ospos_brand`;
+CREATE TABLE IF NOT EXISTS `ospos_brand` (
+  `brand_id` int(11) NOT NULL AUTO_INCREMENT,
+  `brand_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`brand_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `ospos_brand`
+--
+
+INSERT INTO `ospos_brand` (`brand_id`, `brand_name`)
+VALUES
+  (1, 'Apple'),
+  (2, 'Samsung'),
+  (3, 'Nokia'),
+  (4, 'Sony Ericsson'),
+  (5, 'LG'),
+  (6, 'HTC'),
+  (7, 'Huawei'),
+  (8, 'Motorola'),
+  (9, 'Blackberry'),
+  (10, 'ZTE'),
+  (11, 'Microsoft'),
+  (12, 'Siemens');
+
+
 
 -- --------------------------------------------------------
 
@@ -1272,8 +1272,8 @@ VALUES
   ('sales', 'module_sales', 'module_sales_desc', '', 70, 'none'),
   ('suppliers', 'module_suppliers', 'module_suppliers_desc', '', 40, 'add,update,delete'),
   ('locations', 'module_locations', 'module_locations_desc', '', 95, 'add,update,disable'),
-  ('services', 'module_services', 'module_services_desc', '/view/-1?height=465&width=660', 1, 'add,update,delete'),
-  ('stock_control', 'module_stock_control', 'module_stock_control_desc', 60, 'Receivings,Shipping,Orders');
+  ('services', 'module_services', 'module_services_desc', '/view/-1/height:465/width:660', 1, 'add,update,delete'),
+  ('stock_control', 'module_stock_control', 'module_stock_control_desc','', 60, 'Receivings,Shipping,Orders');
 
 
 -- --------------------------------------------------------

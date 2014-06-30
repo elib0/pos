@@ -68,7 +68,6 @@ class Order extends CI_Model {
 
         $this->con->where('orders.status', 0);
         //$this->con->where('order.location', $this->session->userdata('dblocation'));
-        $this->con->limit(1);
         return $this->con->get();
     }
 

@@ -1,3 +1,4 @@
+<?php if($this->config->config['debug'])$this->output->enable_profiler(true); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

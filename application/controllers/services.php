@@ -24,9 +24,10 @@ class Services extends Secure_area
 	function refresh(){
 
 		
-		$data['filter_today']=$this->input->post('filter_today');
-		$data['filter_yesterday']=$this->input->post('filter_yesterday');
-		$data['filter_lastweek']=$this->input->post('filter_lastweek');
+		$data['filter_all']=$this->input->post('filters')==0?1:0;
+		$data['filter_today']=$this->input->post('filters')==1?1:0;
+		$data['filter_yesterday']=$this->input->post('filters')==2?1:0;
+		$data['filter_lastweek']=$this->input->post('filters')==3?1:0;
 		$data['filter_status']=$this->input->post('filter_status');
 
 		$data['controller_name']=strtolower(get_class());

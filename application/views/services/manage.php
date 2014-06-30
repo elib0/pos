@@ -15,14 +15,18 @@
 		<div id="search_filter_section" style="text-align: right; font-weight: bold;  font-size: 12px; ">
 		<?php 	 echo form_open("$controller_name/refresh",array('id'=>'items_filter_form')); 
 
+
+				 echo form_label($this->lang->line('services_all').' '.': ', 'filter_all');
+				 echo form_radio(array('name'=>'filters','id'=>'filter_all','value'=>0,'checked'=>isset($filter_all)?  ( ($filter_all)? 1 : 0) : 1)).' | ';
+
 				 echo form_label($this->lang->line('services_today').' '.': ', 'filter_today');
-				 echo form_checkbox(array('name'=>'filter_today','id'=>'filter_today','value'=>1,'checked'=>isset($filter_today)?  ( ($filter_today)? 1 : 0) : 0)).' | ';
+				 echo form_radio(array('name'=>'filters','id'=>'filter_today','value'=>1,'checked'=>isset($filter_today)?  ( ($filter_today)? 1 : 0) : 0)).' | ';
 				 
 				 echo form_label($this->lang->line('services_yesterday').' '.': ', 'filter_yesterday');
-				 echo form_checkbox(array('name'=>'filter_yesterday','id'=>'filter_yesterday','value'=>1,'checked'=>isset($filter_yesterday)?  ( ($filter_yesterday)? 1 : 0) : 0)).' | ';
+				 echo form_radio(array('name'=>'filters','id'=>'filter_yesterday','value'=>2,'checked'=>isset($filter_yesterday)?  ( ($filter_yesterday)? 1 : 0) : 0)).' | ';
 				 
 				 echo form_label($this->lang->line('services_lastweek').' '.': ', 'filter_lastweek');
-				 echo form_checkbox(array('name'=>'filter_lastweek','id'=>'filter_lastweek','value'=>1,'checked'=>isset($filter_lastweek)?  ( ($filter_lastweek)? 1 : 0) : 0)).' | ';
+				 echo form_radio(array('name'=>'filters','id'=>'filter_lastweek','value'=>3,'checked'=>isset($filter_lastweek)?  ( ($filter_lastweek)? 1 : 0) : 0)).' | ';
 				 
 
 				 $options = array('',
@@ -74,7 +78,7 @@
 		$('#delete').attr('title',count>0?"<?=$this->lang->line('services_is_locked_alert')?>":null).prop('disabled',count>0);
 	});
 
-	$("#filter_today,#filter_yesterday,#filter_lastweek").click(function()
+	$("#filter_all,#filter_today,#filter_yesterday,#filter_lastweek").click(function()
 		{
 			$('#items_filter_form').submit();
 		}
@@ -105,7 +109,9 @@
 		}
 	});
 
-
+<?php if (isset($_POST['search'])&&$_POST['search']!='') { ?>
+	$( "#sortable_table tbody tr" ).first().find("td").css( "background-color", "#e1ffdd" );
+<?php } ?>
 
 })(jQueryNew);
 
@@ -125,7 +131,7 @@ function init_table_sorting(){
 	if($('.tablesorter tbody tr').length >1)
 	{
 		$("#sortable_table").tablesorter({
-			sortList:[[1,0]],
+			//sortList:[[1,0]],
 			headers:{
 				
 				9:{sorter:false}

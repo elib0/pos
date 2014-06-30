@@ -108,6 +108,7 @@ html{
 	</div>
 	<?php
 		$dbs = $this->Location->get_select_option_list();
+		$dbs['default']='Principal';
 		$people = $this->Employee->get_all();
 	?>
 	<div class="container-menus">
@@ -186,6 +187,7 @@ html{
 	});
 })(jQueryNew);
 (function($){
+	var cont='<?=$this->uri->segment(1)?>',cont2='<?=$this->uri->segment(2)?>',cont3='<?=$this->uri->segment(3)?>';
 	$('nav.main-menu ul>li [url]').click(function(event){
 		//redirecciona si el click no se hizo sobre un link ni un thickbox
 		if(event.target.href==''||!$(event.target).hasClass('thickbox'))
@@ -195,11 +197,12 @@ html{
 	$('#assistance').click(function(event){
 		location.href='index.php/employees/assistance';
 	});
-
-	if('<?=$this->uri->segment(2)?>'=='assistance'){
+	if (cont=='receivings' || cont=='orders' || cont3=='shipping'){
+		$('#stock_control').addClass('nav-main-menu-active');
+	}else if(cont2=='assistance'){
 		$('#assistance').addClass('nav-main-menu-active');
 	}else{
-		$('nav.main-menu ul>li#<?=$this->uri->segment(1)?>').addClass('nav-main-menu-active');
+		$('nav.main-menu ul>li#'+cont).addClass('nav-main-menu-active');
 	};
 
 	//On dom ready

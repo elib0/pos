@@ -14,6 +14,7 @@
 <?php 
 	if ($this->Employee->isAdmin()){
 	$dbs = $this->Location->get_select_option_list(false, true);
+	$dbs['default']='Principal';
 	if (count($dbs)>1) $dbs['all'] = 'All';
 ?>
 	<div>

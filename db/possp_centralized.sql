@@ -73,3 +73,36 @@ CREATE TABLE `ospos_transfer_items` (
   `description` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Table structure for `ospos_orders`
+-- ----------------------------
+DROP TABLE IF EXISTS `ospos_orders`;
+CREATE TABLE `ospos_orders` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `employee_id` int(10) DEFAULT NULL,
+  `comments` mediumtext,
+  `location` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of ospos_orders
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `ospos_orders_items`
+-- ----------------------------
+DROP TABLE IF EXISTS `ospos_orders_items`;
+CREATE TABLE `ospos_orders_items` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `id_item` int(10) DEFAULT NULL,
+  `quantity` double(15,0) DEFAULT NULL,
+  `id_order` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of ospos_orders_items
+-- ----------------------------

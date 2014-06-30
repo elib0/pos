@@ -1,4 +1,5 @@
 <?php $this->load->view('partial/header'); ?>
+<?php $this->load->view('flange_option',array('control'=>'orders')); ?>
 <div id="page_title" style="margin-bottom:8px;"> <?php echo $this->lang->line('register'); ?> </div>
 <?php
 	if(isset($error)){	echo "<div class='error_message'>$error</div>"; }

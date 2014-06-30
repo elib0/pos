@@ -1,69 +1,70 @@
 <?php
 class Sale_lib
 {
-	var $CI;
+	var $CI,$nameS;
 
 	function __construct()
 	{
 		$this->CI =& get_instance();
+		$this->nameS='sale_';
 	}
 
 	function get_cart()
 	{
-		if(!$this->CI->session->userdata('cart'))
+		if(!$this->CI->session->userdata($this->nameS.'cart'))
 			$this->set_cart(array());
 
-		return $this->CI->session->userdata('cart');
+		return $this->CI->session->userdata($this->nameS.'cart');
 	}
 
 	function set_cart($cart_data)
 	{
-		$this->CI->session->set_userdata('cart',$cart_data);
+		$this->CI->session->set_userdata($this->nameS.'cart',$cart_data);
 	}
 
 	//Alain Multiple Payments
 	function get_payments()
 	{
-		if( !$this->CI->session->userdata( 'payments' ) )
+		if( !$this->CI->session->userdata($this->nameS.'payments') )
 			$this->set_payments( array( ) );
 
-		return $this->CI->session->userdata('payments');
+		return $this->CI->session->userdata($this->nameS.'payments');
 	}
 
 	//Alain Multiple Payments
 	function set_payments($payments_data)
 	{
-		$this->CI->session->set_userdata('payments',$payments_data);
+		$this->CI->session->set_userdata($this->nameS.'payments',$payments_data);
 	}
 
 	function get_comment()
 	{
-		return $this->CI->session->userdata('comment');
+		return $this->CI->session->userdata($this->nameS.'comment');
 	}
 
 	function set_comment($comment)
 	{
-		$this->CI->session->set_userdata('comment', $comment);
+		$this->CI->session->set_userdata($this->nameS.'comment', $comment);
 	}
 
 	function clear_comment()
 	{
-		$this->CI->session->unset_userdata('comment');
+		$this->CI->session->unset_userdata($this->nameS.'comment');
 	}
 
 	function get_email_receipt()
 	{
-		return $this->CI->session->userdata('email_receipt');
+		return $this->CI->session->userdata($this->nameS.'email_receipt');
 	}
 
 	function set_email_receipt($email_receipt)
 	{
-		$this->CI->session->set_userdata('email_receipt', $email_receipt);
+		$this->CI->session->set_userdata($this->nameS.'email_receipt', $email_receipt);
 	}
 
 	function clear_email_receipt()
 	{
-		$this->CI->session->unset_userdata('email_receipt');
+		$this->CI->session->unset_userdata($this->nameS.'email_receipt');
 	}
 
 	function add_payment($payment_id,$payment_amount)
@@ -115,7 +116,7 @@ class Sale_lib
 	//Alain Multiple Payments
 	function empty_payments()
 	{
-		$this->CI->session->unset_userdata('payments');
+		$this->CI->session->unset_userdata($this->nameS.'payments');
 	}
 
 	//Alain Multiple Payments
@@ -141,28 +142,28 @@ class Sale_lib
 
 	function get_customer()
 	{
-		if(!$this->CI->session->userdata('customer'))
+		if(!$this->CI->session->userdata($this->nameS.'customer'))
 			$this->set_customer(-1);
 
-		return $this->CI->session->userdata('customer');
+		return $this->CI->session->userdata($this->nameS.'customer');
 	}
 
 	function set_customer($customer_id)
 	{
-		$this->CI->session->set_userdata('customer',$customer_id);
+		$this->CI->session->set_userdata($this->nameS.'customer',$customer_id);
 	}
 
 	function get_employee()
 	{
-		if(!$this->CI->session->userdata('employee'))
+		if(!$this->CI->session->userdata($this->nameS.'employee'))
 			$this->set_employee(-1);
 
-		return $this->CI->session->userdata('employee');
+		return $this->CI->session->userdata($this->nameS.'employee');
 	}
 
 	function set_employee($employee_id)
 	{
-		$this->CI->session->set_userdata('employee',$employee_id);
+		$this->CI->session->set_userdata($this->nameS.'employee',$employee_id);
 	}
 
 	function get_mode()
@@ -446,17 +447,17 @@ class Sale_lib
 
 	function empty_cart()
 	{
-		$this->CI->session->unset_userdata('cart');
+		$this->CI->session->unset_userdata($this->nameS.'cart');
 	}
 
 	function remove_customer()
 	{
-		$this->CI->session->unset_userdata('customer');
+		$this->CI->session->unset_userdata($this->nameS.'customer');
 	}
 
 	function remove_employee()
 	{
-		$this->CI->session->unset_userdata('employee');
+		$this->CI->session->unset_userdata($this->nameS.'employee');
 	}
 
 	function clear_mode()
@@ -537,15 +538,15 @@ class Sale_lib
 	}
 
 	function get_taxing(){
-		if ( $this->CI->session->userdata( 'taxing' ) == null ) {
-			$this->CI->session->set_userdata('taxing',1);
+		if ( $this->CI->session->userdata( $this->nameS.'taxing' ) == null ) {
+			$this->CI->session->set_userdata($this->nameS.'taxing',1);
 		}
-		return $this->CI->session->userdata('taxing');
+		return $this->CI->session->userdata($this->nameS.'taxing');
 	}
 
 	function set_taxing($val)
 	{
-		$this->CI->session->set_userdata('taxing',$val);
+		$this->CI->session->set_userdata($this->nameS.'taxing',$val);
 	}
 }
 ?>

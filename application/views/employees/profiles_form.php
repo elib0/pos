@@ -27,14 +27,18 @@
 	</p>
 	<ul id="permission_list">
 	<?php
-	foreach($all_modules->result() as $module)
-	{
+	foreach($all_modules->result() as $module){
+		switch ($module->module_id) {
+			case 'stock_control': 
+				$classSee=' no-see'; break;
+			default: $classSee=''; break;
+		}
 	?>
 		<li>
 		<span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
 		<span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
-		<ul class="module-options">
-			<li>
+		<ul class="module-options<?php echo $classSee; ?>">
+			<li class="<?php echo $classSee; ?>">
 				<?php
 					$subpermissions = explode(',', $module->options);
 					$attribs = array(
@@ -100,6 +104,16 @@ $(document).ready(function()
 		var perm = $(this).attr('class').split('-');
 		if ($(this).is(':checked')){
 			$('input[type="checkbox"][value="'+perm[0]+'"].permissions-option').attr('checked','checked');
+		}else{
+			var ul=$(this).parents('ul.module-options');
+			if ($(ul).hasClass('no-see')){
+				var check=$('input[type=checkbox]',ul),band=false,obj;
+				$.each(check, function(index, val) {
+					if ($(this).parent('li').hasClass('no-see')) obj=$(this);
+					else if ($(this).is(':checked')) band=true;
+				});
+				if (!band) $(obj).removeAttr('checked');
+			}
 		}
 	});
 	$('#all-che').click(function(){

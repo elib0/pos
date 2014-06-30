@@ -1,18 +1,11 @@
-<?php $this->load->view('partial/header'); ?>
-<style>
-	select#customer{
-		width: 100%;
-	}
-</style>
+<?php $this->load->view('partial/header'); 
+if ($mode==='shipping' )$this->load->view('flange_option',array('control'=>'shipping')); ?>
 <div id="page_title" style="margin-bottom:8px;">
 	<?php 
-		if ($mode=='return') {
-			echo $this->lang->line('sales_return');
-		}elseif ($mode=='shipping') {
-			echo $this->lang->line('sales_shipping');
-		}else{
-			echo $this->lang->line('sales_register');
-		}
+		if ($mode=='return')  echo $this->lang->line('sales_return');
+		elseif ($mode=='shipping') echo $this->lang->line('sales_shipping');
+		else echo $this->lang->line('sales_register');
+		
 		echo ' '.$this->lang->line('register'); 
 	?>
 </div>
@@ -20,27 +13,28 @@
 if(isset($error)){	echo "<div class='error_message'>$error</div>"; }
 if (isset($warning)){	echo "<div class='warning_mesage'>$warning</div>"; }
 if (isset($success)){	echo "<div class='success_message'>$success</div>"; }
+// $this->output->enable_profiler(true);
 ?>
 <div id="register_wrapper">
-<?php echo form_open('sales/change_mode',array('id'=>'mode_form')); ?>
-	<span><?=$this->lang->line('sales_mode')?></span>
-<?php echo form_dropdown('mode',$modes,$mode,'onchange="this.form.submit();"'); ?>
-
-<div id="new_button">
+<?php //echo form_open('sales/change_mode',array('id'=>'mode_form')); ?>
+	<!-- <span><?=$this->lang->line('sales_mode')?></span> -->
+<?php //echo form_dropdown('mode',$modes,$mode,'onchange="this.form.submit();"'); ?>
+<div id="mode_form" style="padding: 20px;">
+	<div id="new_button"></div>
+	<div id="show_suspended_sales_button">
+		<?php
+		// if($this->Employee->has_privilege('add','giftcards')){
+			echo anchor('giftcards/view/sale/width:'.(isset($form_width)?$form_width:360).'/height:'.(isset($form_height)?$form_height:175),
+				'<span style="font-size:75%;">Gift Card</span>',
+				array('title'=>$this->lang->line('giftcards_new'),'class'=>'small_button thickbox','style'=>'float:left;'));
+		// }
+		?>
+		&nbsp;
+		<?php echo anchor('sales/suspended/width:425','<span style="font-size:75%;">'.$this->lang->line('sales_suspended_sales').'</span>',array('class'=>'small_button thickbox','title'=>$this->lang->line('sales_suspended_sales')));
+		?>
+	</div>
 </div>
-<div id="show_suspended_sales_button">
-	<?php
-	// if($this->Employee->has_privilege('add','giftcards')){
-		echo anchor('giftcards/view/sale/width:'.(isset($form_width)?$form_width:360).'/height:'.(isset($form_height)?$form_height:175),
-			'<span style="font-size:75%;">Gift Card</span>',
-			array('title'=>$this->lang->line('giftcards_new'),'class'=>'small_button thickbox','style'=>'float:left;'));
-	// }
-	?>
-	&nbsp;
-	<?php echo anchor('sales/suspended/width:425','<span style="font-size:75%;">'.$this->lang->line('sales_suspended_sales').'</span>',array('class'=>'small_button thickbox','title'=>$this->lang->line('sales_suspended_sales')));
-	?>
-</div>
-</form>
+<!-- </form> -->
 <?php echo form_open('sales/add',array('id'=>'add_item_form')); ?>
 <label id="item_label" for="item">
 

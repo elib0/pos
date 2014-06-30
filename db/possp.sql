@@ -183,7 +183,8 @@ INSERT INTO `ospos_employees_profile` (`profile_name`, `module_id`, `privileges`
 ('administrator', 'reports', 'none'),
 ('administrator', 'sales', 'none'),
 ('administrator', 'services', 'add,update,delete'),
-('administrator', 'suppliers', 'add,update,delete');
+('administrator', 'suppliers', 'add,update,delete'),
+('administrator', 'stock_control', 'Receivings,Shipping,Orders');
 
 -- --------------------------------------------------------
 
@@ -1267,13 +1268,12 @@ VALUES
   ('giftcards', 'module_giftcards', 'module_giftcards_desc', '', 90, 'add,update,delete'),
   ('items', 'module_items', 'module_items_desc', '', 20, 'add,update,delete'),
   ('item_kits', 'module_item_kits', 'module_item_kits_desc', '', 30, 'add,update,delete'),
-  ('receivings', 'module_receivings', 'module_receivings_desc', '', 60, 'none'),
   ('reports', 'module_reports', 'module_reports_desc', '', 50, 'none'),
   ('sales', 'module_sales', 'module_sales_desc', '', 70, 'none'),
   ('suppliers', 'module_suppliers', 'module_suppliers_desc', '', 40, 'add,update,delete'),
   ('locations', 'module_locations', 'module_locations_desc', '', 95, 'add,update,disable'),
   ('services', 'module_services', 'module_services_desc', '/view/-1?height=465&width=660', 1, 'add,update,delete'),
-  ('orders', 'module_orders', 'module_orders_desc', 75, 'none');
+  ('stock_control', 'module_stock_control', 'module_stock_control_desc', 60, 'Receivings,Shipping,Orders');
 
 
 -- --------------------------------------------------------
@@ -1399,19 +1399,17 @@ CREATE TABLE IF NOT EXISTS `ospos_permissions` (
 INSERT INTO `ospos_permissions` (`module_id`, `person_id`, `privileges`) VALUES
 ('locations', 1, 'add,update,disable'),
 ('employees', 1, 'add,update,delete'),
+('stock_control', 1, 'Receivings,Shipping,Orders'),
 ('items', 4, 'none'),
 ('sales', 4, 'none'),
 ('giftcards', 42, 'add,update'),
 ('employees', 42, 'add,update'),
 ('sales', 42, 'none'),
-('receivings', 42, 'none'),
 ('reports', 42, 'none'),
 ('giftcards', 1, 'add,update,delete'),
 ('sales', 1, 'none'),
-('receivings', 1, 'none'),
 ('employees', 43, 'add,update,delete'),
 ('sales', 43, 'none'),
-('receivings', 43, 'none'),
 ('reports', 43, 'none'),
 ('suppliers', 43, 'add,update,delete'),
 ('items', 43, 'add,update,delete'),
@@ -1430,7 +1428,6 @@ INSERT INTO `ospos_permissions` (`module_id`, `person_id`, `privileges`) VALUES
 ('giftcards', 52, 'none'),
 ('employees', 52, 'none'),
 ('sales', 52, 'none'),
-('receivings', 52, 'none'),
 ('reports', 52, 'none'),
 ('suppliers', 52, 'none'),
 ('item_kits', 52, 'none'),
@@ -1448,7 +1445,6 @@ INSERT INTO `ospos_permissions` (`module_id`, `person_id`, `privileges`) VALUES
 ('customers', 1, 'add,update,delete'),
 ('config', 1, 'save'),
 ('services', 1, 'add,update,delete'),
-('receivings', 54, 'none'),
 ('sales', 54, 'none'),
 ('employees', 54, 'add,update,delete'),
 ('giftcards', 54, 'add,update,delete'),

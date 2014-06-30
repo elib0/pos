@@ -72,11 +72,11 @@ html{
 <nav class="main-menu">
 	<ul>
 		<?php
-		foreach($allowed_modules->result() as $module)
-		{
+		foreach($allowed_modules->result() as $module){
+			$text=$module->module_id=='sales'?'/index/sales':'';	
 		?>
 		<li class="menu_item" id="<?=$module->module_id?>">
-			<ul url="<?=site_url("$module->module_id")?>">
+			<ul url="<?=site_url("$module->module_id").$text?>">
 				<li>
 					<img src="images/menubar/<?=$module->module_id?>.png" border="0" alt="Menubar Image" />
 				</li>

@@ -1,32 +1,6 @@
 <?php $this->load->view("partial/header"); ?>
-<style>
-	#receivings_form{
-		position: relative;
-		background-color: #FFF;
-		padding: 8px;
-		-webkit-border-radius: 5px;
-		border-radius: 5px;
-		border: 1px solid #CCC;
-		margin: 0 0 5px 0;
-	}
-	#receivings_form label{
-		font-weight: bold;
-	}
-
-	#reception{
-		-webkit-border-radius: 5px;
-		border-radius: 5px;
-		border: 1px solid #CCC;
-		height: 18px;
-	}
-	table#register input[type="number"]{
-		width: 2.9em;
-	}
-
-
-</style>
+<?php $this->load->view('flange_option',array('control'=>'receivings')); ?>
 <div id="page_title" style="margin-bottom:8px;"><?php echo $this->lang->line('recvs_register'); ?></div>
-
 <?php
 if(isset($error))
 {

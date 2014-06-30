@@ -6,11 +6,22 @@ class Sales extends Secure_area
 	{
 		parent::__construct('sales');
 		$this->load->library('sale_lib');
+		$this->sale_lib->nameS=$this->sale_lib->get_mode().'_';
 	}
 
-	function index()
+	function index($force='')
 	{
 		$data=array();
+		if ($force!=''){
+			switch ($force) {
+				case 'sale': case 'return': case 'shipping':
+					$this->sale_lib->set_mode($force);		
+					break;
+				default: $this->sale_lib->set_mode('sale'); break;
+			}
+		}
+		$this->sale_lib->nameS=$this->sale_lib->get_mode().'_';
+		$data['mode']=$this->sale_lib->get_mode();
 		$this->load->model('Transfers');
 		$person_info = $this->Employee->get_logged_in_employee_info();
 		$employee = $this->Employee->get_info( $this->sale_lib->get_employee() );
@@ -20,17 +31,14 @@ class Sales extends Secure_area
 			$data['taxing']= 'checked';
 			$this->sale_lib->set_taxing(true);
 		}
-		$data['modes']=array(
-			'sale'=>$this->lang->line('sales_sale'),
-			'return'=>$this->lang->line('sales_return')
-		);
-
+		// $data['modes']=array(
+		// 	'sale'=>$this->lang->line('sales_sale'),
+		// 	'return'=>$this->lang->line('sales_return')
+		// );
 		//Si tiene su bd configurada para transferencias entre tiendas
-		if ($this->Transfers->available()) {
-			$data['modes']['shipping'] = $this->lang->line('sales_shipping');
-		}
-
-		$data['mode']=$this->sale_lib->get_mode();
+		// if ($this->Transfers->available()) {
+		// 	$data['modes']['shipping'] = $this->lang->line('sales_shipping');
+		// }
 		$data['subtotal']=$this->sale_lib->get_subtotal();
 		$data['taxes']=$this->sale_lib->get_taxes();
 		
@@ -298,13 +306,11 @@ class Sales extends Secure_area
 		switch ( $this->sale_lib->get_mode() ) {
 			case 'return':
 				$mode = 1;
-
 				//Datos para la vista a generar
 				$data['receipt_title'] = $this->lang->line('sales_return');
 			break;
 			case 'shipping':
 				$mode = 2;
-
 				//Datos para la vista a generar
 				$data['receipt_title'] = $this->lang->line('sales_shipping');
 				$data['employee']=$emp_info->first_name.' '.$emp_info->last_name.' From: '.ucwords($this->session->userdata('dblocation'));
@@ -482,9 +488,9 @@ class Sales extends Secure_area
 		return true;
 	}
 
-	function _reload($data=array())
-	{
-		redirect('sales');
+	function _reload($data=array()){
+		if ($this->sale_lib->get_mode()==='shipping') redirect('sales/index/shipping');
+		else redirect('sales');
 	}
 
 	function cancel_sale()

@@ -9,23 +9,34 @@ class Secure_area extends CI_Controller
 	{
 		parent::__construct();	
 		$this->load->model('Employee');
-		if(!$this->Employee->is_logged_in())
-		{
-			redirect('login');
+		if(!$this->Employee->is_logged_in()){ redirect('login'); }
+		if ($module_id!='invetories_compare' && $this->Employee->isAdmin()){
+			$this->load->model('reports/Inventory_compare');
+            $model = $this->Inventory_compare;
+            if (!$model->exist_inventory()){ redirect('inventories_compare'); }
+        }
+		$id_employee_l=$this->Employee->get_logged_in_employee_info()->person_id;
+		// $this->$this->uri->segment(2);
+		switch ($module_id) {
+			case 'orders': case 'receivings':
+				$action=ucwords($module_id);
+			break;
+			case 'sales': 
+				if ($this->uri->segment(3) && $this->uri->segment(3)==='shipping') $action='Shipping';
+				else $action='';
+			break;
+			case 'invetories_compare': case 'share_inventories': case 'no_access':
+				$action=1;
+			break;
+			default: $action=''; break;
+		}
+		if ($action===''){
+			if(!$this->Employee->has_permission($module_id,$id_employee_l)) redirect('no_access/'.$module_id);
+		}elseif($action!==1){
+			if(!$this->Employee->has_privilege($action,'stock_control')){ redirect('no_access/'.$action); }
 		}
 		
-		if($module_id != 'invetories_compare' && $module_id != 'share_inventories' && $module_id != 'no_access'){
-			if(!$this->Employee->has_permission($module_id,$this->Employee->get_logged_in_employee_info()->person_id))
-			{
-				redirect('no_access/'.$module_id);
-			}else{
-        		if ($this->Employee->isAdmin()){
-        			$this->load->model('reports/Inventory_compare');
-		            $model = $this->Inventory_compare;
-		            if (!$model->exist_inventory()){ redirect('inventories_compare'); }
-		        }
-			}
-		}
+
 		//Modelos a utilizar
 		$this->load->model('reports/Inventory_low');
 		$this->load->model('Transfers');

@@ -81,12 +81,12 @@
   		border: 1px solid #DDDDDD;
 }
 #employee_permission_info #permission_list li ul li{ float:left; }
+#employee_permission_info #permission_list li ul li.no-see{ display: none; }
 #employee_permission_info #employee_permission_info span.small
 {
 	font-style:italic;
 	font-size:80%;
 }
-
 #error_message_box
 {
 	margin-bottom:7px;

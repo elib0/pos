@@ -36,4 +36,7 @@ $lang['module_services_desc']='Seguimiento y monitoreo de servicios';
 
 $lang['module_orders']='Pedidos';
 $lang['module_services_desc']='Pedidos de productos de bajo inventario';
+
+$lang['module_stock_control']='Control de Stock';
+$lang['module_stock_control_desc']='Recive, envía y solicita artículos ';
 ?>

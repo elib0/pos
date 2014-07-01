@@ -37,7 +37,7 @@ function tb_init(domChunk){
 	};
 })(window.jQueryNew||jQuery);
 
-function tb_show(caption, url, imageGroup) {//function called when the user clicks on a thickbox link
+function tb_show(caption, url, imageGroup, callback) {//function called when the user clicks on a thickbox link
 	try {
 		if (typeof document.body.style.maxHeight === "undefined") {//if IE 6
 			$("body","html").css({height: "100%", width: "100%"});
@@ -224,6 +224,9 @@ function tb_show(caption, url, imageGroup) {//function called when the user clic
 						$("#TB_load").remove();
 						// tb_init("#TB_ajaxContent a.thickbox");
 						$("#TB_window").css({display:"block"});
+						if (callback) {
+							callback();
+						};	
 					});
 				}
 		}

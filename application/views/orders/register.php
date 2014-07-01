@@ -129,17 +129,22 @@
 						var tr = '<tr id="'+val.added.id+'" class="sale-line">'+
 							'<td><a href="index.php/orders/delete_item/'+val.added.id+'" class="small_button delete_item"><?php echo $this->lang->line("common_delete") ?></a></td>'+
 							'<td>'+((val.added.item_number) ? val.added.item_number :'')+'</td>'+
-							'<td style="align:center;">'+val.added.text+'</td>'+
-							'<input type="hidden" name="items['+val.added.id+'][id_item]" value="'+val.added.id+'">'+
-							'<td align="right">'+val.added.qty+'</td>'+
+							'<td style="align:center;">'+
+								val.added.text+
+								'<input type="hidden" name="items['+val.added.id+'][id_item]" value="'+val.added.id+'">'+
+							'</td>'+
+							'<td align="right">'+
+								val.added.qty+
+								'<input type="hidden" name="items['+val.added.id+'][current_quantity]" value="'+val.added.qty+'">'+
+							'</td>'+
 							'<td align="right"><input type="text" name="items['+val.added.id+'][quantity]" value="'+val.added.reorder_level+'" style="width: 50px;text-align: right;"></td>'+
 							'</tr>';
 						if ( $('#cart_contents > .sale-line').length > 0 ) {
 							$('#cart_contents').prepend(tr);
-
 						}else{
 							$('#cart_contents').html(tr);							
 						}
+						tb_show(null, "index.php/orders/modqty/height:120/width:200/modal:true", null);
 					}
 				}
 			});

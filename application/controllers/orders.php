@@ -82,4 +82,10 @@ class Orders extends Secure_area
 		$this->order_lib->clear_all();
 		redirect('orders');
 	}
+
+	function modqty(){
+		if ($this->input->is_ajax_request()) {
+			$this->load->view('orders/form');
+		}
+	}
 }

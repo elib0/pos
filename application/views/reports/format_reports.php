@@ -35,8 +35,8 @@ if($export_excel == 1){
 	<a class="linkBack big_button" href="#"><span>Back</span></a>
 	<a class="linkPrint big_button" href="#"><span>Print</span></a>
 	<?php 
-	if ($this->uri->segment(2) == 'inventory_low') {
-		echo anchor('orders/index/1', $this->lang->line('orders_create_lowstock'), 'class="big_button"');
+	if ($this->uri->segment(2) == 'inventory_low' && $this->Employee->has_privilege('Orders','stock_control')) {
+		echo anchor('orders/index/1', $this->lang->line('orders_fill_cart_with_low_stock_items'), 'class="big_button"');
 	}
 	?>
 	<br/><br/>

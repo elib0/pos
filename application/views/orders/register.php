@@ -144,7 +144,10 @@
 						}else{
 							$('#cart_contents').html(tr);							
 						}
-						tb_show(null, "index.php/orders/modqty/height:120/width:200/modal:true", null);
+
+						tb_show(null, "index.php/orders/modqty/height:150/width:200/modal:true", null,function(){
+							$('input#new-qty').focus();
+						});
 					}
 				}
 			});

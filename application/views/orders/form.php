@@ -9,7 +9,7 @@
 <script>
 	$(function() {
 		var pressed = null;
-		$('input#new-qty').focus().keydown(function(e) {
+		$('input#new-qty').keydown(function(e) {
 			var that = this;
 			var key = e.which;
 			if (key>=96 && key<=105 || key>=48 && key<=57 || key>=37 && key<=40 || key==8 || key==46) {

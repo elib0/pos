@@ -20,8 +20,8 @@ class Sales extends Secure_area
 				default: $this->sale_lib->set_mode('sale'); break;
 			}
 		}
-		$this->sale_lib->nameS=$this->sale_lib->get_mode().'_';
 		$data['mode']=$this->sale_lib->get_mode();
+		$this->sale_lib->nameS=$data['mode'].'_';
 		$this->load->model('Transfers');
 		$person_info = $this->Employee->get_logged_in_employee_info();
 		$employee = $this->Employee->get_info( $this->sale_lib->get_employee() );
@@ -195,7 +195,7 @@ class Sales extends Secure_area
 		$this->_reload();
 	}
 
-	function add($item_id_or_number_or_item_kit_or_receipt=NULL,$service_id=NULL)
+	function add($item_id_or_number_or_item_kit_or_receipt=NULL,$service_id=NULL,$noreload=NULL)
 	{
 		$data=array();
 		$mode = $this->sale_lib->get_mode();
@@ -204,8 +204,7 @@ class Sales extends Secure_area
 
 		if(!$service_id) $service_id=$this->input->post('service');
 		if(!$service_id) $service_id=NULL;
-
-		if($service_id){
+		elseif($service_id){
 			$this->sale_lib->clear_all();
 			$this->sale_lib->set_customer($this->input->post('customer_id'));
 		} 
@@ -234,7 +233,7 @@ class Sales extends Secure_area
 			$data['warning'] = $this->lang->line('sales_quantity_less_than_zero');
 		}
 
-		$this->_reload();
+		if (!$noreload) $this->_reload();
 	}
 
 	// function get_service_items($id){
@@ -555,5 +554,22 @@ class Sales extends Secure_area
 		$this->sale_lib->copy_entire_suspended_sale($sale_id);
 		$this->Sale_suspended->delete($sale_id);
 		$this->_reload();
+	}
+	function pending_orders_to_shipping($id_order){
+		$this->load->model('Order');
+		$data['location']=$this->Order->get_info($id_order);
+		$data['location']=$data['location']['info']->row()->location;
+		if 	($data['location']==$this->session->userdata('dblocation'))	redirect('reports/pending_orders/'.$id_order.'/2');
+		else{
+			$this->sale_lib->set_mode('shipping');	
+			$this->sale_lib->nameS=$this->sale_lib->get_mode().'_';
+			$this->sale_lib->set_customer($data['location']);				
+			$data['dat'] = $this->Order->get_detail(1)->result();
+			foreach ($data['dat'] as $key) {
+				$this->sale_lib->add_item($key->id_item,$key->quantity,0,null,null,null,null);	
+			}
+			$this->_reload();
+		}
+
 	}
 }

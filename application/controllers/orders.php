@@ -88,4 +88,10 @@ class Orders extends Secure_area
 			$this->load->view('orders/form');
 		}
 	}
+	function check_availability($id_order){
+		$this->load->model('Order');
+		$items=$this->Order->check_availability($id_order);
+		if ($items===1) redirect('sales/pending_orders_to_shipping/'.$id_order);
+		else redirect('reports/pending_orders/'.$id_order.'/1:'.$items);
+	}
 }

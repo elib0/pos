@@ -349,7 +349,16 @@ class Sale_lib
 
 		return false;
 	}
-
+	function _edit_item($line,$campo,$valor)
+	{
+		$items = $this->get_cart();
+		if(isset($items[$line]))
+		{
+			$items[$line][$campo] = $valor;
+			$this->set_cart($items);
+		}
+		return false;
+	}
 	function is_valid_receipt($receipt_sale_id)
 	{
 		//POS #

@@ -55,8 +55,8 @@
 	padding:5px;
 }
 
-#permission_list
-{
+#permission_list,
+div.item_no_stock ul{
 	list-style:none;
 }
 
@@ -172,3 +172,4 @@ legend{
 	overflow: hidden !important;
 }
 .photo_add_active{ background-image: url('../images/upload_file_.png') !important; }
+div.item_no_stock ul{ margin: 10px; }

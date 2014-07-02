@@ -9,4 +9,10 @@ $lang['orders_confirm_items']='Are you sure to remove this item from the order?'
 $lang['orders_send_order']='Send Order';
 $lang['orders_fill_cart_with_low_stock_items']='Fill cart with low stock items';
 $lang['orders_quantity_required']='Quantity Required';
+$lang['orders_no_items_to_shipping']='Not have the necessary items to make this process.';
+$lang['orders_no_items_to_shipping2']='The following items do not have the enough stock for shipping.';
+$lang['orders_important_message']='Important Message.';
+$lang['orders_process_anyway']='Process Anyway';
+$lang['orders_make_shipping']='Make Shipping';
+$lang['orders_no_proce_loca']='Sorry, this operation is not available for this location';
 ?>

@@ -65,8 +65,9 @@ class Item extends CI_Model
 	/*
 	Gets information about a particular item
 	*/
-	function get_info($item_id)
+	function get_info($item_id,$campos=false)
 	{
+		if ($campos) $this->con->select($campos);
 		$this->con->from('items');
 		$this->con->where('item_id',$item_id);
 
@@ -75,11 +76,12 @@ class Item extends CI_Model
 		if($query->num_rows()==1)
 		{
 			$field=$query->row();
-			//service items have not quantity counter, start with a default value
-			if($field->is_service) $field->quantity=10;
-			//special items (<0) have not stock, 1 as default value
-			if($field->item_id<0) $field->quantity=1;
-
+			if (!$campos){
+				//service items have not quantity counter, start with a default value
+				if($field->is_service) $field->quantity=10;
+				//special items (<0) have not stock, 1 as default value
+				if($field->item_id<0) $field->quantity=1;
+			}
 			return $field;
 		}
 		else

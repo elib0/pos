@@ -29,16 +29,16 @@ class Order extends CI_Model {
 		return false;
 	}
 
-	public function get_info($oder_id = false){
+	public function get_info($order_id = false){
 		$order = array('info'=>false, 'items'=>false);
 		$this->con->from('orders');
-		$this->con->where('order_id', $order_id);
+		$this->con->where('id', $order_id);
 		$this->con->limit(1);
 		$order['info'] = $this->con->get();
 
 		if ($order['info']->num_rows() > 0) {
 			$this->con->from('order_items');
-			$this->con->where('order_id', $order_id);
+			$this->con->where('id_order', $order_id);
 			$order['items'] = $this->con->get();
 
 			return $order;
@@ -70,13 +70,22 @@ class Order extends CI_Model {
         //$this->con->where('order.location', $this->session->userdata('dblocation'));
         return $this->con->get();
     }
-
 	public function available(){
         $this->load->dbutil();
 
         return $this->dbutil->database_exists('possp_'.$this->dbgroup) && $this->con;
     }
-
+    function check_availability($order_id){
+    	$con=0;$ctotal=0;$string='';
+		$items = $this->get_detail($order_id)->result();
+		foreach ($items as $key) { $ctotal++;
+			$stock=$this->Item->get_info($key->id_item,'quantity');
+			if ($stock->quantity<$key->quantity){
+				$con++;$string.=($string==''?'':'+').$key->id_item;
+			} 
+		}
+		return $con==$ctotal?'all':$string;
+	}
 }
 
 /* End of file order.php */

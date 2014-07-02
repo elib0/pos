@@ -476,7 +476,7 @@ class Sale_lib
 
 	function clear_all()
 	{
-		$this->clear_mode();
+		//$this->clear_mode();
 		$this->empty_cart();
 		$this->clear_comment();
 		$this->clear_email_receipt();

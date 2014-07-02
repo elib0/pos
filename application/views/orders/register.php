@@ -177,7 +177,7 @@
 			  height: 100,
 			  position: "center",
 			  onfinish: function(){
-			  	location.reload();
+			  	if(response.status)location.reload();
 			  }
 			});
 		}

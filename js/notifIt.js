@@ -1,7 +1,7 @@
 /*
  * notifIt! by @naoxink
  */
-var to, width, height, position, autohide, opacity, time;
+var to, width, height, position, autohide, opacity, time, callback;
 
 function notifit_setDefaultValues() {
     width = 400;
@@ -159,9 +159,11 @@ function notif(config) {
             break;
     }
 
+    callback = config.onfinish || false;
+
     // Click to dismiss
     $("#ui_notifIt").click(function() {
-        notifit_dismiss();
+        notifit_dismiss(callback);
     });
 
     // Set the autohide
@@ -172,12 +174,12 @@ function notif(config) {
             }
         }
         to = setTimeout(function() {
-            notifit_dismiss();
+            notifit_dismiss(callback);
         }, time);
     }
 }
 
-function notifit_dismiss() {
+function notifit_dismiss(onclosed) {
     clearInterval(to);
     if (!fade) {
         // Animations
@@ -189,6 +191,7 @@ function notifit_dismiss() {
                     top: parseInt(0 - (height * 2))
                 }, 100, function() {
                     $("#ui_notifIt").remove();
+                    if(onclosed) onclosed();
                 });
             });
         } else if (position === "right") {
@@ -199,6 +202,7 @@ function notifit_dismiss() {
                     right: parseInt(0 - (width * 2))
                 }, 100, function() {
                     $("#ui_notifIt").remove();
+                    if(onclosed) onclosed();
                 });
             });
         } else if (position === "left") {
@@ -209,6 +213,7 @@ function notifit_dismiss() {
                     left: parseInt(0 - (width * 2))
                 }, 100, function() {
                     $("#ui_notifIt").remove();
+                    if(onclosed) onclosed();
                 });
             });
         }

@@ -175,7 +175,10 @@
 			  msg: response.message,
 			  width: "all",
 			  height: 100,
-			  position: "center"
+			  position: "center",
+			  onfinish: function(){
+			  	location.reload();
+			  }
 			});
 		}
 	});

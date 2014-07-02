@@ -329,3 +329,4 @@ select#customer{
 #conten-option.shipping ul li#shipp-option a,
 #conten-option.orders ul li#ordrs-option a{ color: #f4f4f4 !important; }
 /***********/
+table.tablesorter tbody tr.no_stock:not(.hide) > td{ background-color: #E0A9A9; }

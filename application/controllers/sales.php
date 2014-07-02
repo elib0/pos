@@ -564,7 +564,7 @@ class Sales extends Secure_area
 			$this->sale_lib->set_mode('shipping');	
 			$this->sale_lib->nameS=$this->sale_lib->get_mode().'_';
 			$this->sale_lib->set_customer($data['location']);				
-			$data['dat'] = $this->Order->get_detail(1)->result();
+			$data['dat'] = $this->Order->get_detail($id_order)->result();
 			foreach ($data['dat'] as $key) {
 				$this->sale_lib->add_item($key->id_item,$key->quantity,0,null,null,null,null);	
 			}

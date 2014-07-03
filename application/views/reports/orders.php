@@ -4,10 +4,32 @@
 	<div class="page_subtitle" style="margin-bottom:6px;">
 	<?php
 	// if (isset($error)) echo "<div class='error_message'>$error</div>";
-	$order = (count($notifications['pending_orders']['data']) > 1) ? $this->lang->line('reports_orders') : $this->lang->line('reports_order');
-	echo count($notifications['pending_orders']['data']).' '.$order; 
+	$order = (count($data) > 1) ? $this->lang->line('reports_orders') : $this->lang->line('reports_order');
+	echo count($data).' '.$order; 
 	$locationbd=$this->session->userdata('dblocation');
 	?>
+	</div>
+</div>
+<div id="titleTextImg" class="middle-gray-bar">
+	<div style="float:left;">Search Options :</div>
+		<div id="search_filter_section" style="text-align: right; font-weight: bold;  font-size: 12px; ">
+		<?php 	 echo form_open("reports/pending_orders".$completelocac,array('id'=>'orders_filter_form')); 
+				$labels=array($this->lang->line('services_all'),
+							$this->lang->line('services_today'),
+							$this->lang->line('services_yesterday'),
+							$this->lang->line('services_lastweek'));
+				$barra='';
+				for ($i=0; $i < 4; $i++) { 
+					$barra.=($barra==''?'':'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;').form_radio(array('name'=>'filters','id'=>'filters'.$i,'value'=>$i,'checked'=>($cfilter==$i?1:0))).'&nbsp;'.form_label($labels[$i],'labelfilter'.$i);
+							
+				}
+				echo $barra.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+				$options = array('0'=>$this->lang->line('services_status'),
+				 				  "1"=>$this->lang->line('orders_status1'),
+								  "2"=>$this->lang->line('orders_status2'));
+				echo form_dropdown('filter_status', $options,$sfilter,"id='filter_status'");
+			     echo form_close(); 
+		?>
 	</div>
 </div>
 <div id="table_holder">
@@ -22,21 +44,29 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php if (count($notifications['pending_orders']['data'])): ?>
-				<?php foreach ($notifications['pending_orders']['data'] as $order): ?>
+			<?php if (count($data)): ?>
+				<?php foreach ($data as $order): ?>
 				<tr>
 					<td class="expand"><span class="small_button thickbox">+</span></td>
-					<td><?php echo 'ORDE '.$order['id'];; ?></td>
+					<td><?php echo 'ORDE '.$order['id']; ?></td>
 					<td><?php echo $order['date'] ?></td>
 					<td><?php echo ($order['location']=='default'?'Principal':$order['location']); ?></td>
-					<?php if ($order['location']==$locationbd){ ?>
-					<td colspan="2"><?php echo (($order['comments']) ? $order['comments'] : $this->lang->line('reports_no_comment') ); ?></td>
-					<?php }else{ ?>
 					<td colspan="1"><?php echo (($order['comments']) ? $order['comments'] : $this->lang->line('reports_no_comment') ); ?></td>
-					<td colspan="1" style="width: 140px;">
-						<?php echo anchor('orders/check_availability/'.$order['id'], $this->lang->line('orders_make_shipping'), 'class="big_button" style="padding: 7px 10px;"'); ?>
-					</td>
-					<?php } ?>
+					<?php if ($order['status']==1){ ?>
+						<td colspan="1" style="color: #6C6;font-weight: bold;font-size: 14px;text-align: center;">
+							<?php echo $this->lang->line('orders_status2');  ?>
+						</td>
+					<?php }else{ 
+						 if ($order['location']==$locationbd){ ?>
+						<td colspan="1" style="color: #FA4;font-weight: bold;font-size: 14px;text-align: center;">
+							<?php echo $this->lang->line('orders_status1');  ?>
+						</td>
+					<?php }else{ ?>
+						<td colspan="1" style="width: 140px;">
+							<?php echo anchor('orders/check_availability/'.$order['id'], $this->lang->line('orders_make_shipping'), 'class="big_button" style="padding: 7px 10px;"'); ?>
+						</td>
+					<?php }
+					} ?>
 				</tr>
 				<tr class="hide">
 					<td colspan="5">
@@ -86,6 +116,13 @@
 	</table>
 </div>
 <script type="text/javascript" language="javascript">
+	$("#orders_filter_form input[type='radio']").click(function(){
+			$('#orders_filter_form').submit();
+	});
+	$("#orders_filter_form select").change(function(){
+			$('#orders_filter_form').submit();
+	});
+
 	$(".tablesorter td.expand span").click(function(event){
 		$(this).text($(this).text()!='+'?'+':'-').parents('tr').next().toggle();
 	});

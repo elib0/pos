@@ -1105,13 +1105,18 @@ class Reports extends Secure_area
 		$this->load->view("reports/format_reports",$_data);
 	}
 
-	function pending_orders($id_orders='',$error=false){
+	function pending_orders($id_orders='',$error=false,$location=false){
+		$data['cfilter']=$this->input->post('filters');
+		$data['sfilter']=$this->input->post('filter_status');
+		$data['cfilter']=$data['cfilter']?$data['cfilter']:0;
+		$data['sfilter']=$data['sfilter']?$data['sfilter']:0;
 		$this->load->model('Order');
 		$data['title'] = $this->lang->line('reports_report').' '.$this->lang->line('reports_pending_orders');
 		$data['sub_title'] = $this->lang->line('reports_you_have').' '.$this->lang->line('reports_pending_orders');
 		$data['location'] = $this->session->userdata('dblocation');
-		$data['query'] = $this->Order->con->last_query();
+		$data['data']=$this->Order->get_all($location,$data['cfilter'],$data['sfilter']);
 		if ($error){ $data['error']=$id_orders.'/'.$error; }
+		$data['completelocac']=$location?'/0/0/'.$location:'';
 		$this->load->view('reports/orders', $data);
 	}
 	function see_dialog_error($id_orders='',$error=false){
@@ -1126,9 +1131,10 @@ class Reports extends Secure_area
 					foreach ($items->result() as $key) {
 						$data['content'].='<li>'.$key->name.'</li>';							
 					}
-					$data['content'].='</ul></div><div>'.
-					anchor('sales/pending_orders_to_shipping/'.$id_orders, $this->lang->line('orders_process_anyway'), 'class="big_button"').'</div>';
+					$data['content'].='</ul></div>';
 				}
+				$data['content'].='<div>'.
+					anchor('sales/pending_orders_to_shipping/'.$id_orders, $this->lang->line('orders_process_anyway'), 'class="big_button"').'</div>';
 			break;
 			case 2: $data['content']='<div class="error_message" style="padding: 15px;font-size: 16px;margin: 15px;">'.$this->lang->line('orders_no_proce_loca').'</div>'; break;
 		}

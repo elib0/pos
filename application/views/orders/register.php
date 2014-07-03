@@ -1,11 +1,11 @@
 <?php $this->load->view('partial/header'); ?>
 <?php $this->load->view('flange_option',array('control'=>'orders')); ?>
-<div id="page_title" style="margin-bottom:8px;"> <?php echo $this->lang->line('orders').' '.$this->lang->line('register'); ?> </div>
-<?php
-	if(isset($error)){	echo "<div class='error_message'>$error</div>"; }
-	if (isset($warning)){	echo "<div class='warning_mesage'>$warning</div>"; }
-	if (isset($success)){	echo "<div class='success_message'>$success</div>"; } 
-?>
+<div id="page_title" style="margin-bottom:8px;"> 
+	<?php 
+		echo $this->lang->line('orders').' '.$this->lang->line('register'); 
+		echo anchor('reports/pending_orders/0/0/'.$this->session->userdata('dblocation'), $this->lang->line('orders_my'), 'class="big_button" style="float:right;"');
+	?> 
+</div>
 <div id="table_action_header" style="background: none;padding-left: 15px;width: 98%;">
 	<label id="item_label" for="item">
 		<?php echo $this->lang->line('sales_find_or_scan_item'); ?>

@@ -54,13 +54,27 @@ class Order extends CI_Model {
 		return false;
 	}
 
-	function get_all($location = false){
+	function get_all($location = false,$filterc=false,$filters=false){
 		$this->con->from('orders');
-		$this->con->where('status', 0);
-		$this->con->order_by('date', 'desc');
-		if ($location) {
-			$this->con->where('location', $location);
+		if ($filterc){
+			switch ($filterc) {
+				case 1: $this->con->where('DATE(date) = CURDATE()');	break;
+				case 2: $this->con->where('DATE(date) = DATE(CURDATE()-1)');	break;
+				case 3: $this->con->where('date between date_sub(now(),INTERVAL 1 WEEK) and now()');	break;
+			}
 		}
+		if ($filters){
+			switch ($filters) {
+				case 1:	$this->con->where('status', 0); break;
+				case 2:	$this->con->where('status', 1); break;
+			}
+		}
+		if ($location) $this->con->where('location', $location); 
+		else {
+			$location=$this->session->userdata('dblocation');
+			$this->con->where('location !=', $location);
+		}
+		$this->con->order_by('date', 'desc');
 		return $this->con->get()->result_array();
 	}
 
@@ -91,7 +105,7 @@ class Order extends CI_Model {
 				$con++;$string.=($string==''?'':'+').$key->id_item;
 			} 
 		}
-		return $con==$ctotal?'all':$string;
+		return $con==$ctotal?'all':($string==''?1:$string);
 	}
 }
 

@@ -1,5 +1,6 @@
 <?php
 $lang['orders']='Orders';
+$lang['orders_my']='My Orders';
 $lang['orders_no_items_in_cart']='There are not items in the cart';
 $lang['orders_saved']='Order saved!';
 $lang['orders_no_save']='Error creating order, Please try again!';
@@ -15,4 +16,6 @@ $lang['orders_important_message']='Important Message.';
 $lang['orders_process_anyway']='Process Anyway';
 $lang['orders_make_shipping']='Make Shipping';
 $lang['orders_no_proce_loca']='Sorry, this operation is not available for this location';
+$lang['orders_status1']='Pending';
+$lang['orders_status2']='Processed';
 ?>

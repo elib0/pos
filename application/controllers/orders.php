@@ -22,10 +22,6 @@ class Orders extends Secure_area
 			}
 		}
 		$data['cart'] = $this->order_lib->get_cart();
-		
-		 //echo "<pre>";
-		 //print_r($data['cart']);
-		 //echo "</pre>";
 		$this->load->view('orders/register',$data);
 	}
 

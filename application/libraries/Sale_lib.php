@@ -483,6 +483,7 @@ class Sale_lib
 		$this->empty_payments();
 		$this->remove_customer();
 		$this->remove_employee();
+		$this->CI->session->unset_userdata('from_order'); //Solo si es orden
 	}
 
 	function get_taxes()

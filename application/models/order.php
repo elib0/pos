@@ -29,6 +29,13 @@ class Order extends CI_Model {
 		return false;
 	}
 
+	public function complete($order_id = 0){
+		$order_data = array('status'=>1);
+		$this->con->where('id', $order_id);
+		$this->session->unset_userdata('from_order');
+		return $this->con->update('orders', $order_data);
+	}
+
 	public function get_info($order_id = false){
 		$order = array('info'=>false, 'items'=>false);
 		$this->con->from('orders');

@@ -342,6 +342,11 @@ class Sales extends Secure_area
 				}else{
 					$customer_id = $customer->person_id;
 				}
+
+				if ($this->session->userdata('from_order')) {
+					$this->load->model('Order');
+					$this->Order->complete( $this->session->userdata('from_order') );
+				}
 			break;
 			default:
 				//Datos para la vista a generar
@@ -561,7 +566,8 @@ class Sales extends Secure_area
 		$data['location']=$data['location']['info']->row()->location;
 		if 	($data['location']==$this->session->userdata('dblocation'))	redirect('reports/pending_orders/'.$id_order.'/2');
 		else{
-			$this->sale_lib->set_mode('shipping');	
+			$this->session->set_userdata('from_order', $id_order);
+			$this->sale_lib->set_mode('shipping');
 			$this->sale_lib->nameS=$this->sale_lib->get_mode().'_';
 			$this->sale_lib->set_customer($data['location']);				
 			$data['dat'] = $this->Order->get_detail($id_order)->result();

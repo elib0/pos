@@ -128,7 +128,7 @@
 					if (response.status) {
 						var tr = '<tr id="'+val.added.id+'" class="sale-line">'+
 							'<td><a href="index.php/orders/delete_item/'+val.added.id+'" class="small_button delete_item"><?php echo $this->lang->line("common_delete") ?></a></td>'+
-							'<td>'+((val.added.item_number) ? val.added.item_number :'')+'</td>'+
+							'<td>'+val.added.id+'</td>'+
 							'<td style="align:center;">'+
 								val.added.text+
 								'<input type="hidden" name="items['+val.added.id+'][id_item]" value="'+val.added.id+'">'+
@@ -177,7 +177,7 @@
 			  height: 100,
 			  position: "center",
 			  onfinish: function(){
-			  	if(response.status)location.reload();
+			  	if(response.status)self.location.href = 'index.php/orders';
 			  }
 			});
 		}

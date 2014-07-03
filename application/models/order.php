@@ -29,8 +29,8 @@ class Order extends CI_Model {
 		return false;
 	}
 
-	public function complete($order_id = 0){
-		$order_data = array('status'=>1);
+	public function complete($order_id = 0, $sale_id = 0){
+		$order_data = array('status'=>1, 'sale_id'=>$sale_id);
 		$this->con->where('id', $order_id);
 		$this->session->unset_userdata('from_order');
 		return $this->con->update('orders', $order_data);

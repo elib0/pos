@@ -404,7 +404,7 @@ class Employee extends Person
 		$h = $n->getOffset()/3600; 
 		$i = 60*($h-floor($h)); 
 		$offset = sprintf('%+d:%02d', $h, $i); 
-		$this->db->query("SET time_zone='$offset'");
+		$this->con->query("SET time_zone='$offset'");
 
 		$this->con->from('employees');
 		// $this->con->join('schedules','employees.person_id=schedules.person_id');
@@ -421,13 +421,13 @@ class Employee extends Person
 			if(isset($_SESSION['chat'])&&isset($_SESSION['chat'][$row->person_id]))
 				unset($_SESSION['chat'][$row->person_id]);
 
-			$this->db->select('schedule_id');
-			$this->db->from('schedules');
-			$this->db->where('person_id', $row->person_id);
-			$this->db->where(array('day'=>date('l')));
-			$this->db->where('CURTIME() BETWEEN '.$this->con->dbprefix('schedules').'.in AND '.$this->con->dbprefix('schedules').'.out');
-			$this->db->limit(1);
-			$schedule = $this->db->get();
+			$this->con->select('schedule_id');
+			$this->con->from('schedules');
+			$this->con->where('person_id', $row->person_id);
+			$this->con->where(array('day'=>date('l')));
+			$this->con->where('CURTIME() BETWEEN '.$this->con->dbprefix('schedules').'.in AND '.$this->con->dbprefix('schedules').'.out');
+			$this->con->limit(1);
+			$schedule = $this->con->get();
 
 			if ($schedule->num_rows() == 1) {
 				if ($this->can_work($row->person_id)) {
@@ -448,7 +448,7 @@ class Employee extends Person
 		$h = $n->getOffset()/3600; 
 		$i = 60*($h-floor($h)); 
 		$offset = sprintf('%+d:%02d', $h, $i); 
-		$this->db->query("SET time_zone='$offset'");
+		$this->con->query("SET time_zone='$offset'");
 
 		$this->con->from('employees');
 		$this->con->join('schedules','employees.person_id=schedules.person_id');

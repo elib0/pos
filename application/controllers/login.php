@@ -33,7 +33,7 @@ class Login extends CI_Controller
 					$person = $this->Employee->get_info( $userId );
 					$data['fastUser'] = $person->username;
 				}
-
+				echo $this->input->post('locationbd');
 				$this->load->view('login', $data);
 			}
 			else

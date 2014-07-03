@@ -342,11 +342,6 @@ class Sales extends Secure_area
 				}else{
 					$customer_id = $customer->person_id;
 				}
-
-				if ($this->session->userdata('from_order')) {
-					$this->load->model('Order');
-					$this->Order->complete( $this->session->userdata('from_order') );
-				}
 			break;
 			default:
 				//Datos para la vista a generar
@@ -367,13 +362,20 @@ class Sales extends Secure_area
 		}
 
 		//SAVE sale to database
-		$data['sale_id']='POS '.$this->Sale->save($data['cart'], $customer_id,$employee_id,$comment,$data['payments'], false, $mode);
+		$sale_id = $this->Sale->save($data['cart'], $customer_id,$employee_id,$comment,$data['payments'], false, $mode);
+		$data['sale_id']='POS '.$sale_id;
 		if ($data['sale_id'] == 'POS -1')
 		{
 			$data['error_message'] = $this->lang->line('sales_transaction_failed');
 		}
 		else
 		{
+			//Actualizamos orden
+			if ($this->session->userdata('from_order')) {
+				$this->load->model('Order');
+				$this->Order->complete( $this->session->userdata('from_order'), $sale_id );
+			}
+
 			if ($this->sale_lib->get_email_receipt() && !empty($cust_info->email))
 			{
 				$this->load->library('email');

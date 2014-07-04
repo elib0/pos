@@ -116,11 +116,13 @@
 		<?php foreach($all_modules->result() as $module) { 
 			switch ($module->module_id) {
 				case 'stock_control': 
-					$classSee=' no-see'; break;
-				default: $classSee=''; break;
+					$classSee=' no-see'; $styleli=''; break;
+				case 'notification_alert':
+					$classSee=' no-see'; $styleli='style="width:642px;height:65px;"'; break;					
+				default: $classSee='';$styleli=''; break;
 			}
 		?>
-		<li>
+		<li <?php echo $styleli; ?>>
 			<span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
 			<span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
 			<ul class="module-options<?php echo $classSee; ?>">

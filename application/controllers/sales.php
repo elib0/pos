@@ -370,12 +370,6 @@ class Sales extends Secure_area
 		}
 		else
 		{
-			//Actualizamos orden
-			if ($this->session->userdata('from_order')) {
-				$this->load->model('Order');
-				$this->Order->complete( $this->session->userdata('from_order'), $sale_id );
-			}
-
 			if ($this->sale_lib->get_email_receipt() && !empty($cust_info->email))
 			{
 				$this->load->library('email');
@@ -392,6 +386,11 @@ class Sales extends Secure_area
 			if ( $this->sale_lib->get_mode() == 'shipping' ) {
 				$this->load->model('Transfers');
 				$data['sale_id'] = $this->Transfers->save($data['cart'], $location,$employee_id,$comment,$data['payments']);
+				//Actualizamos orden
+				if ($this->session->userdata('from_order')) {
+					$this->load->model('Order');
+					$this->Order->complete( $this->session->userdata('from_order'), $data['sale_id'] );
+				}
 			}
 		}
 		$this->load->view('sales/receipt',$data);

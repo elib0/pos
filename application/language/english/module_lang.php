@@ -39,4 +39,7 @@ $lang['module_services_desc']='Items orders under inventory';
 
 $lang['module_stock_control']='Stock control';
 $lang['module_stock_control_desc']='Receive, send, and order items ';
+
+$lang['module_notification_alert']='Notification alert';
+$lang['module_notification_alert_desc']='You will receive system notifications';
 ?>

@@ -39,4 +39,7 @@ $lang['module_services_desc']='Pedidos de productos de bajo inventario';
 
 $lang['module_stock_control']='Control de Stock';
 $lang['module_stock_control_desc']='Recive, envía y solicita artículos ';
+
+$lang['module_stock_control']='Alerta de notificación';
+$lang['module_stock_control_desc']='Recibiras notificaciones del sistema';
 ?>

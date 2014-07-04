@@ -40,7 +40,7 @@
 				<th colspan="1"><?php echo $this->lang->line('reports_order_id') ?></th>
 				<th colspan="1"><?php echo $this->lang->line('reports_sent') ?></th>
 				<th colspan="1"><?php echo $this->lang->line('reports_location') ?></th>
-				<th colspan="2"><?php echo $this->lang->line('reports_comments') ?></th>
+				<th colspan="2" ><?php echo $this->lang->line('reports_comments') ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -52,17 +52,24 @@
 					<td><?php echo $order['date'] ?></td>
 					<td><?php echo ($order['location']=='default'?'Principal':$order['location']); ?></td>
 					<td colspan="1"><?php echo (($order['comments']) ? $order['comments'] : $this->lang->line('reports_no_comment') ); ?></td>
-					<?php if ($order['status']==1){ ?>
+					<?php if ($order['status']==1){ 
+						if ($order['location']==$locationbd){
+					?>
+						<td colspan="1" style="width: 100px;text-align: center;">
+							<?php echo anchor('receivings/index/'.$order['sale_id'], $this->lang->line('orders_process'), 'class="big_button" style="padding: 7px 10px;"');  ?>
+						</td>
+					<?php }else{ ?>
 						<td colspan="1" style="color: #6C6;font-weight: bold;font-size: 14px;text-align: center;">
 							<?php echo $this->lang->line('orders_status2');  ?>
 						</td>
-					<?php }else{ 
+					<?php }
+						}else{ 
 						 if ($order['location']==$locationbd){ ?>
 						<td colspan="1" style="color: #FA4;font-weight: bold;font-size: 14px;text-align: center;">
 							<?php echo $this->lang->line('orders_status1');  ?>
 						</td>
 					<?php }else{ ?>
-						<td colspan="1" style="width: 140px;">
+						<td colspan="1" style="width: 140px;text-align: center;">
 							<?php echo anchor('orders/check_availability/'.$order['id'], $this->lang->line('orders_make_shipping'), 'class="big_button" style="padding: 7px 10px;"'); ?>
 						</td>
 					<?php }

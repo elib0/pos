@@ -15,6 +15,7 @@ $lang['orders_important_message']='Mensaje Importante';
 $lang['orders_process_anyway']='Procesar de todas formas';
 $lang['orders_make_shipping']='Hacer Envío';
 $lang['orders_no_proce_loca']='Disculpe, esta operación no se encuentra disponible para esta locación';
+$lang['orders_process']='Procesar';
 $lang['orders_status1']='Pendiente';
 $lang['orders_status2']='Procesada';
 ?>

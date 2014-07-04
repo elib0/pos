@@ -120,10 +120,10 @@ class Location extends CI_Model {
 								// mysql_query('TRUNCATE TABLE ospos_items',$conn);
 
 								//Limpieza de empleados
-								mysql_query('DELETE FROM ospos_people WHERE person_id != 1;',$conn);
-								mysql_query('DELETE FROM ospos_employees WHERE person_id != 1;',$conn);
-								mysql_query('DELETE FROM ospos_employees_schedule WHERE employee_id != 1;',$conn);
-								mysql_query('DELETE FROM ospos_permissions WHERE person_id != 1;',$conn);
+								// mysql_query('DELETE FROM ospos_people WHERE person_id != 1;',$conn);
+								// mysql_query('DELETE FROM ospos_employees WHERE person_id != 1;',$conn);
+								// mysql_query('DELETE FROM ospos_employees_schedule WHERE employee_id != 1;',$conn);
+								// mysql_query('DELETE FROM ospos_permissions WHERE person_id != 1;',$conn);
 								mysql_close($conn);
 								
 								$b = $location_id; //Correcto

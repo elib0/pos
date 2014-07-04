@@ -74,7 +74,12 @@ html{
 	<ul>
 		<?php
 		foreach($allowed_modules->result() as $module){
-			$text=$module->module_id=='sales'?'/index/sales':'';	
+			switch ($module->module_id) {
+				case 'sales': $text='/index/sales'; break;
+				case 'notification_alert': $band=true; $text=''; break;
+				default: $text=''; break;
+			}
+			if (isset($band) && $band=true){ unset($band); continue; }
 		?>
 		<li class="menu_item" id="<?=$module->module_id?>">
 			<ul url="<?=site_url("$module->module_id").$text?>">

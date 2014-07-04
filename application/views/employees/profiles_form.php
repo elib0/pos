@@ -28,47 +28,49 @@
 	<ul id="permission_list">
 	<?php
 	foreach($all_modules->result() as $module){
-		switch ($module->module_id) {
-			case 'stock_control': 
-				$classSee=' no-see'; break;
-			default: $classSee=''; break;
-		}
-	?>
-		<li>
-		<span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
-		<span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
-		<ul class="module-options<?php echo $classSee; ?>">
-			<li class="<?php echo $classSee; ?>">
-				<?php
-					$subpermissions = explode(',', $module->options);
-					$attribs = array(
-						'id'=>$module->module_id,
-						'name'=>'permissions[]',
-						'value'=>$module->module_id,
-						'class'=>'permissions-option',
-						'checked'=>$this->Employee->has_permission($module->module_id,$profile,true)
-					);
-					echo form_checkbox($attribs);
-				?>
-				<span><?php echo $this->lang->line('employees_profile_see'); ?></span>	
-			</li>
-			<?php 
-			foreach ($subpermissions as $subpermission) {
-				if ($subpermission != 'none' || $subpermission == '') {
-					$attribs = array(
-						'id'=>$module->module_id.'-'.$subpermission,
-						'name'=>$module->module_id.'[]',
-						'value'=>$subpermission,
-						'class'=>$module->module_id.'-option',
-						'checked'=>$this->Employee->has_privilege_permi($module->module_id,$profile,$subpermission,true));
-					echo "<li>";
-					echo form_checkbox($attribs);
-					echo form_label(ucwords($subpermission));
-					echo "</li>";
-				}
+			switch ($module->module_id) {
+				case 'stock_control': 
+					$classSee=' no-see'; $styleli=''; break;
+				case 'notification_alert':
+					$classSee=' no-see'; $styleli='style="width:642px;height:65px;"'; break;					
+				default: $classSee='';$styleli=''; break;
 			}
-			?>
-		</ul>
+	?>
+		<li <?php echo $styleli; ?>>
+			<span class="medium"><?php echo $this->lang->line('module_'.$module->module_id);?>:</span>
+			<span class="small"><?php echo $this->lang->line('module_'.$module->module_id.'_desc');?></span>
+			<ul class="module-options<?php echo $classSee; ?>">
+				<li class="<?php echo $classSee; ?>">
+					<?php
+						$subpermissions = explode(',', $module->options);
+						$attribs = array(
+							'id'=>$module->module_id,
+							'name'=>'permissions[]',
+							'value'=>$module->module_id,
+							'class'=>'permissions-option',
+							'checked'=>$this->Employee->has_permission($module->module_id,$profile,true)
+						);
+						echo form_checkbox($attribs);
+					?>
+					<span><?php echo $this->lang->line('employees_profile_see'); ?></span>	
+				</li>
+				<?php 
+				foreach ($subpermissions as $subpermission) {
+					if ($subpermission != 'none' || $subpermission == '') {
+						$attribs = array(
+							'id'=>$module->module_id.'-'.$subpermission,
+							'name'=>$module->module_id.'[]',
+							'value'=>$subpermission,
+							'class'=>$module->module_id.'-option',
+							'checked'=>$this->Employee->has_privilege_permi($module->module_id,$profile,$subpermission,true));
+						echo "<li>";
+						echo form_checkbox($attribs);
+						echo form_label(ucwords($subpermission));
+						echo "</li>";
+					}
+				}
+				?>
+			</ul>
 		</li>
 	<?php } ?>
 	</ul>

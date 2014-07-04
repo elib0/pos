@@ -56,6 +56,12 @@
 						if ($order['location']==$locationbd){
 					?>
 						<td colspan="1" style="width: 100px;text-align: center;">
+							<?php 
+								echo $this->lang->line('orders_submitted');
+								//if ($this->Transfers->get_my_reception_detail($order['sale_id'])){
+									// echo anchor('receivings/index/'.$order['sale_id'], $this->lang->line('employees_profile_see'), 'class="big_button" style="padding: 7px 10px;"');
+								// }
+							?>
 							<?php echo anchor('receivings/index/'.$order['sale_id'], $this->lang->line('orders_process'), 'class="big_button" style="padding: 7px 10px;"');  ?>
 						</td>
 					<?php }else{ ?>

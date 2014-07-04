@@ -20,7 +20,7 @@ class Items extends Secure_area implements iData_controller
 		$this->session->set_userdata('items_location', $location);
 
 		//Llamado ajax
-		if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
+		if($this->input->is_ajax_request()){
 			die($location);
 		}else{
 			return $location;

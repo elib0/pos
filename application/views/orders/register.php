@@ -55,7 +55,7 @@
 							<input type="hidden" name="items[<?php echo $item['item_id']; ?>][current_quantity]" value="<?=$cur_item_info->quantity?>">
 						</td>
 						<td align="right">
-							<input type="text" name="items[<?php echo $item['item_id']; ?>][quantity]" value="<?php echo $cur_item_info->reorder_level; ?>" style="width: 50px;text-align: right;">
+							<input type="text" name="items[<?php echo $item['item_id']; ?>][quantity]" value="<?php echo $cur_item_info->reorder_level; ?>" class="item-quantity" style="width: 50px;text-align: right;">
 						</td>
 					</tr>
 		<?php 	}
@@ -137,7 +137,7 @@
 								val.added.qty+
 								'<input type="hidden" name="items['+val.added.id+'][current_quantity]" value="'+val.added.qty+'">'+
 							'</td>'+
-							'<td align="right"><input type="text" name="items['+val.added.id+'][quantity]" value="'+val.added.reorder_level+'" style="width: 50px;text-align: right;"></td>'+
+							'<td align="right"><input class="item-quantity"  type="text" name="items['+val.added.id+'][quantity]" value="'+val.added.reorder_level+'" style="width: 50px;text-align: right;"></td>'+
 							'</tr>';
 						if ( $('#cart_contents > .sale-line').length > 0 ) {
 							$('#cart_contents').prepend(tr);
@@ -163,6 +163,24 @@
 
 	$('#form-order').ajaxForm({
 		dataType: 'json',
+		beforeSubmit: function(arr, $form, options){
+			var b = true;
+			$('.item-quantity').each(function(index, el) {
+				console.log($(this).val());
+				if ( $(this).val() < 1 ) {
+					notif({
+					  type: 'error',
+					  msg: "<?php echo $this->lang->line('orders_fields_zero') ?>",
+					  width: "300px",
+					  height: 100,
+					  position: "right"
+					});
+					$(this).focus();
+					b = false;	
+				}
+			});
+			return b;
+		},
 		success: function(response){
 			console.log(response);
 			var msgType = 'error';

@@ -19,4 +19,5 @@ $lang['orders_no_proce_loca']='Sorry, this operation is not available for this l
 $lang['orders_process']='Process';
 $lang['orders_status1']='Pending';
 $lang['orders_status2']='Processed';
+$lang['orders_fields_zero']='The field can not be less than zero!';
 ?>

@@ -30,7 +30,7 @@
 		<h3><?php echo $this->lang->line('location_advanced_information') ?></h3><hr>
 		<ul>
 			<li><?php echo form_label($this->lang->line('location_driver').':', 'dbdriver').'<br>'.form_dropdown('dbdriver', $dbdrivers, $data['dbdriver']); ?></li>
-			<li><?php echo form_label($this->lang->line('location_active').':', 'active').'<br>'.form_checkbox('active', !$data['active'], $data['active']); ?></li>
+			<li><?php echo form_label($this->lang->line('location_active').':', 'active').'<br>'.form_checkbox('active', 1, $data['active']); ?></li>
 		</ul>
 	</div>
 	<div>

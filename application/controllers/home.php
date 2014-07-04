@@ -7,9 +7,8 @@ class Home extends Secure_area
 		parent::__construct();
 	}
 
-	function index()
-	{
-		$this->load->view("home");
+	function index(){ 
+		$this->load->view("home"); 
 	}
 
 	function confirm_user($url='', $title='', $width=600, $height=430){
@@ -32,8 +31,7 @@ class Home extends Secure_area
 		}
 	}
 
-	function logout($otherUser = '')
-	{
+	function logout($otherUser = ''){
 		$this->Employee->logout($otherUser);
 	}
 }

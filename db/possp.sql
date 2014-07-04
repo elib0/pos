@@ -139,19 +139,34 @@ CREATE TABLE IF NOT EXISTS `ospos_employees_profile` (
 -- Volcado de datos para la tabla `ospos_employees_profile`
 --
 
-INSERT INTO `ospos_employees_profile` (`profile_name`, `module_id`, `privileges`) VALUES
-('administrator', 'config', 'save'),
-('administrator', 'customers', 'add,update,delete'),
-('administrator', 'employees', 'add,update,delete'),
-('administrator', 'giftcards', 'add,update,delete'),
-('administrator', 'items', 'add,update,delete'),
-('administrator', 'item_kits', 'add,update,delete'),
-('administrator', 'receivings', 'none'),
-('administrator', 'reports', 'none'),
-('administrator', 'sales', 'none'),
-('administrator', 'services', 'add,update,delete'),
-('administrator', 'suppliers', 'add,update,delete'),
-('administrator', 'stock_control', 'Receivings,Shipping,Orders');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'config', 'save');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'customers', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'employees', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'giftcards', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'items', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'item_kits', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'locations', 'add,update,disable');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'notification_alert', 'Low Stock,Delivery to Receive,Accounts Payable,Invoice Discounting, Pendig Orders');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'reports', 'none');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'sales', 'none');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'services', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'stock_control', 'Receivings,Shipping,Orders');
+INSERT INTO `ospos_employees_profile` VALUES ('administrator', 'suppliers', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('seller', 'reports', 'none');
+INSERT INTO `ospos_employees_profile` VALUES ('seller', 'sales', 'none');
+INSERT INTO `ospos_employees_profile` VALUES ('seller', 'services', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('stock administrator', 'items', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('stock administrator', 'item_kits', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('stock administrator', 'notification_alert', 'Low Stock,Delivery to Receive,Pendig Orders');
+INSERT INTO `ospos_employees_profile` VALUES ('stock administrator', 'stock_control', 'Receivings,Shipping,Orders');
+INSERT INTO `ospos_employees_profile` VALUES ('stock administrator', 'suppliers', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('store administrator', 'employees', 'add,update');
+INSERT INTO `ospos_employees_profile` VALUES ('store administrator', 'giftcards', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('store administrator', 'notification_alert', 'Low Stock,Delivery to Receive');
+INSERT INTO `ospos_employees_profile` VALUES ('store administrator', 'reports', 'none');
+INSERT INTO `ospos_employees_profile` VALUES ('store administrator', 'sales', 'none');
+INSERT INTO `ospos_employees_profile` VALUES ('store administrator', 'services', 'add,update,delete');
+INSERT INTO `ospos_employees_profile` VALUES ('store administrator', 'stock_control', 'Receivings,Orders');
 
 -- --------------------------------------------------------
 

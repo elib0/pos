@@ -82,11 +82,12 @@ CREATE TABLE `ospos_orders` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `date` date DEFAULT NULL,
   `employee_id` int(10) DEFAULT NULL,
+  `sale_id` int(11) DEFAULT NULL,
   `comments` mediumtext,
   `location` varchar(20) DEFAULT NULL,
   `status` int(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `ospos_order_items`;
 CREATE TABLE `ospos_order_items` (

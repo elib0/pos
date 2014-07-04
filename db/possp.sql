@@ -1273,7 +1273,8 @@ VALUES
   ('suppliers', 'module_suppliers', 'module_suppliers_desc', '', 40, 'add,update,delete'),
   ('locations', 'module_locations', 'module_locations_desc', '', 95, 'add,update,disable'),
   ('services', 'module_services', 'module_services_desc', '/view/-1/height:465/width:660', 1, 'add,update,delete'),
-  ('stock_control', 'module_stock_control', 'module_stock_control_desc','', 60, 'Receivings,Shipping,Orders');
+  ('stock_control', 'module_stock_control', 'module_stock_control_desc','', 60, 'Receivings,Shipping,Orders'),
+  ('notification_alert', 'module_notification_alert', 'module_notification_alert_desc', '', 0, 'Low Stock,Delivery to Receive,Accounts Payable,Invoice Discounting,Pendig Orders');
 
 
 -- --------------------------------------------------------

@@ -117,6 +117,7 @@ html{
 		$people = $this->Employee->get_all();
 	?>
 	<div class="container-menus">
+	<?php if(isset($notifications)){ ?>
 		<nav id="notifications" class="alternative-menu">
 			<?php 
 				$li='';$num=0;
@@ -135,6 +136,7 @@ html{
 			<div><?php echo $num; ?></div>
 			<ul><?php echo $li; ?></ul>
 		</nav>
+		<?php } ?>
 		<nav id="menu_changelocation">
 			<span>User:</span><?=' '.$user_info->first_name.' '.$user_info->last_name; ?>
 		</nav>

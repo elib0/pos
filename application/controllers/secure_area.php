@@ -13,6 +13,9 @@ class Secure_area extends CI_Controller
 		if ($module_id!='invetories_compare' && $this->Employee->isAdmin()){
 			$this->load->model('reports/Inventory_compare');
             $model = $this->Inventory_compare;
+            if ($model->getData() == false) {
+            	$model->save_inventory('');
+            }
             if (!$model->exist_inventory()){ redirect('inventories_compare'); }
         }
 		$id_employee_l=$this->Employee->get_logged_in_employee_info()->person_id;

@@ -18,7 +18,7 @@ class Login extends CI_Controller
 	{	
 		if($this->Employee->is_logged_in())
 		{
-			redirect('inventories_compare');
+			redirect('home');
 		}
 		else
 		{
@@ -41,7 +41,7 @@ class Login extends CI_Controller
 				//MArco su hora de entrada automaticamente
 				$this->Employee->open_day($this->Employee->get_logged_in_employee_info()->person_id);
 				//Redirecciono al inventario y no al home para comparar inventario actual ocn entrega
-				redirect('inventories_compare');
+				redirect('home');
 			}
 		}
 	}

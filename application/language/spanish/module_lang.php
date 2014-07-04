@@ -22,9 +22,6 @@ $lang['module_items_desc']='Agregar, Actualizar, Borrar y Buscar artículos';
 $lang['module_config']='Configuración de la Tienda';
 $lang['module_config_desc']='Cambiar la configuración de la tienda';
 
-$lang['module_receivings']='Receivings';
-$lang['module_receivings_desc']='Process Purchase orders';
-
 $lang['module_giftcards']='Tarjetas de Regalo';
 $lang['module_giftcards_desc']='Agregar, Actualizar, Borrar y Buscar Tarjetas de Regalo';
 
@@ -34,12 +31,22 @@ $lang['module_item_kits_desc']='Agregar, Actualizar, Borrar y Buscar Kits de Art
 $lang['module_services']='Seguimiento de Servicios';
 $lang['module_services_desc']='Seguimiento y monitoreo de servicios';
 
-$lang['module_orders']='Pedidos';
-$lang['module_services_desc']='Pedidos de productos de bajo inventario';
-
 $lang['module_stock_control']='Control de Stock';
 $lang['module_stock_control_desc']='Recive, envía y solicita artículos ';
 
 $lang['module_stock_control']='Alerta de notificación';
 $lang['module_stock_control_desc']='Recibiras notificaciones del sistema';
+
+/*Privilegios*/
+
+$lang['module_pri_Receivings']='Recepción';
+// $lang['module_receivings_desc']='Process Purchase orders';
+$lang['module_pri_Orders']='Pedidos';
+// $lang['module_services_desc']='Items orders under inventory';
+$lang['module_pri_Shipping']='Envios';
+$lang['module_pri_Low_Stock']='Bajo Inventario';
+$lang['module_pri_Delivery_to_Receive']='Entrega a Recibir';
+$lang['module_pri_Accounts_Payable']='Cuentas por Pagar';
+$lang['module_pri_Invoice_Discounting']='Cuentas por Cobrar';
+$lang['module_pri_Pendig_Orders']='Ordenes Pendientes';
 ?>

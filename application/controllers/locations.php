@@ -31,7 +31,7 @@ class Locations extends Secure_area {
 		'username'=>$this->input->post('username'),
 		'password'=>$this->input->post('password'), 
 		'dbdriver'=>$this->input->post('dbdriver'),
-		'active'=>$this->input->post('active')?1:0
+		'active'=>$this->input->post('active')
 		);
 
 		if ($location_id <= 0) { //Solo si es insert

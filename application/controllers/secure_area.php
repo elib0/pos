@@ -28,18 +28,31 @@ class Secure_area extends CI_Controller
 				if ($this->uri->segment(3) && $this->uri->segment(3)==='shipping') $action='Shipping';
 				else $action='';
 			break;
-			case 'invetories_compare': case 'share_inventories': case 'no_access':
-				$action=1;
+			case 'reports':
+				$report=$this->uri->segment(2);
+				$action=false;
+				if ($report){
+					switch ($report) { 
+						case 'inventory_low': $report='Low Stock'; break;
+						case 'shippings': $report='Delivery to Receive'; break;
+						case 'accounts_payable': $report='Accounts Payable'; break;
+						case 'accounts_receivable': $report='Invoice Discounting'; break;
+						case 'pending_orders': $report='Pendig Orders'; break;
+						default: $action=''; break;
+					}
+				}else $action='';
 			break;
+			case 'invetories_compare': case 'share_inventories': case 'no_access': $action=1; break;
 			default: $action=''; break;
 		}
 		if ($action===''){
 			if(!$this->Employee->has_permission($module_id,$id_employee_l)) redirect('no_access/'.$module_id);
+		}elseif(isset($report)){
+			if(!$this->Employee->has_privilege($report,'notification_alert')){ redirect('no_access/'.$report.'/1'); }
 		}elseif($action!==1){
-			if(!$this->Employee->has_privilege($action,'stock_control')){ redirect('no_access/'.$action); }
+			if(!$this->Employee->has_privilege($action,'stock_control')){ redirect('no_access/'.$action.'/1'); }
 		}
 		
-
 		//Modelos a utilizar en varias notificaciones
 		$this->load->model('reports/Detailed_receivings');
 		$this->load->model('Transfers');
@@ -51,39 +64,42 @@ class Secure_area extends CI_Controller
 		$data['allowed_modules']=$this->Module->get_allowed_modules($logged_in_employee_info->person_id);
 		$data['user_info']=$logged_in_employee_info;
 
-		//Notificaciones
-		if($this->Employee->has_privilege('Low Stock','notification_alert')){
-			$this->load->model('reports/Inventory_low');
-			$data['notifications']['inventory_low']['url']= 'reports/inventory_low/0/';
-			$data['notifications']['inventory_low']['title']= 'Products with low stock!';
-			$data['notifications']['inventory_low']['data']= $this->Inventory_low->getData(array());
-		}
+		if ($module_id!='invetories_compare'){
 
-		if($this->Employee->has_privilege('Delivery to Receive','notification_alert')){
-			if ($this->Transfers->available()) {
-				$data['notifications']['shippings']['url'] = 'reports/shippings';
-				$data['notifications']['shippings']['title'] = 'Delivery to receive';
-				$data['notifications']['shippings']['data'] = $this->Transfers->get_my_reception();
+			//Notificaciones
+			if($this->Employee->has_privilege('Low Stock','notification_alert')){
+				$this->load->model('reports/Inventory_low');
+				$data['notifications']['inventory_low']['url']= 'reports/inventory_low/0/';
+				$data['notifications']['inventory_low']['title']= 'Products with low stock!';
+				$data['notifications']['inventory_low']['data']= $this->Inventory_low->getData(array());
 			}
-		}
-		
-		if($this->Employee->has_privilege('Accounts Payable','notification_alert')){
-			$data['notifications']['accounts_payable']['url']= 'reports/accounts_payable/0/';
-			$data['notifications']['accounts_payable']['title']= $this->lang->line('reports_accounts_payable');
-			$data['notifications']['accounts_payable']['data']= array_merge($this->Detailed_receivings->getData(array(),true), $this->Transfers->transfers_receivable());
-		}
 
-		if($this->Employee->has_privilege('Invoice Discounting','notification_alert')){
-			$data['notifications']['accounts_receivable']['url']= 'reports/accounts_receivable/0/';
-			$data['notifications']['accounts_receivable']['title']= $this->lang->line('reports_accounts_receivable');
-			$data['notifications']['accounts_receivable']['data']= $this->Transfers->transfers_receivable('sender');
-		}
+			if($this->Employee->has_privilege('Delivery to Receive','notification_alert')){
+				if ($this->Transfers->available()) {
+					$data['notifications']['shippings']['url'] = 'reports/shippings';
+					$data['notifications']['shippings']['title'] = 'Delivery to receive';
+					$data['notifications']['shippings']['data'] = $this->Transfers->get_my_reception();
+				}
+			}
+			
+			if($this->Employee->has_privilege('Accounts Payable','notification_alert')){
+				$data['notifications']['accounts_payable']['url']= 'reports/accounts_payable/0/';
+				$data['notifications']['accounts_payable']['title']= $this->lang->line('reports_accounts_payable');
+				$data['notifications']['accounts_payable']['data']= array_merge($this->Detailed_receivings->getData(array(),true), $this->Transfers->transfers_receivable());
+			}
 
-		if($this->Employee->has_privilege('Pendig Orders','notification_alert')){
-			$this->load->model('Order');
-			$data['notifications']['pending_orders']['url']= 'reports/pending_orders/';
-			$data['notifications']['pending_orders']['title']= $this->lang->line('reports_pending_orders');
-			$data['notifications']['pending_orders']['data']= $this->Order->get_all();
+			if($this->Employee->has_privilege('Invoice Discounting','notification_alert')){
+				$data['notifications']['accounts_receivable']['url']= 'reports/accounts_receivable/0/';
+				$data['notifications']['accounts_receivable']['title']= $this->lang->line('reports_accounts_receivable');
+				$data['notifications']['accounts_receivable']['data']= $this->Transfers->transfers_receivable('sender');
+			}
+
+			if($this->Employee->has_privilege('Pendig Orders','notification_alert')){
+				$this->load->model('Order');
+				$data['notifications']['pending_orders']['url']= 'reports/pending_orders/';
+				$data['notifications']['pending_orders']['title']= $this->lang->line('reports_pending_orders');
+				$data['notifications']['pending_orders']['data']= $this->Order->get_all();
+			}
 		}
 
 		//Carga de variables

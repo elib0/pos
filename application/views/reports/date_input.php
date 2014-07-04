@@ -21,9 +21,9 @@
 		<label class="lable-form" for="locationbd">Select a location:</label>&nbsp;
 		<?=form_dropdown('locationbd', $dbs,'', 'id="locationbd"')?>
 	</div>
-<?php }else{ ?>
+<?php }else{ 
 		form_hidden('locationbd', $this->session->userdata('dblocation'));
-<?php } ?>	
+	 } ?>	
 	<div class="sub-title-view">
 		<?php echo form_label($this->lang->line('reports_date_range'), 'report_date_range_label'); ?>:
 	</div>

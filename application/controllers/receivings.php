@@ -8,8 +8,7 @@ class Receivings extends Secure_area
 		$this->load->library('receiving_lib');
 	}
 
-	function index($cart=0)
-	{
+	function index($cart=0){
 		$this->_reload(array(), $cart);
 	}
 
@@ -101,8 +100,9 @@ class Receivings extends Secure_area
 	}
 
 	function complete($other=0)
-	{
+	{ 
 		$this->load->model('Transfers');
+		if ($this->session->userdata('from_rece_t')) $other=$this->session->userdata('from_rece_t');
 		$this->Transfers->complete_reception($other);
 
 		$data['cart']=$this->receiving_lib->get_cart();
@@ -171,7 +171,6 @@ class Receivings extends Secure_area
 	function _reload($data=array(), $cart = 0)
 	{
 		$this->load->model('Transfers');
-
 		$person_info = $this->Employee->get_logged_in_employee_info();
 		$data['cart']=$this->receiving_lib->get_cart($cart);
 		$data['modes']=array('receive'=>$this->lang->line('recvs_receiving'),'return'=>$this->lang->line('recvs_return'));
@@ -185,10 +184,11 @@ class Receivings extends Secure_area
 			$this->lang->line('sales_credit') => $this->lang->line('sales_credit')
 		);
 		$data['flag'] = $cart; //Solo para opciones de carros por transfers
-
+		if ($cart>0 && count($data['cart'])>0){
+			$this->session->set_userdata('from_rece_t', $cart);
+		}
 		$supplier_id=$this->receiving_lib->get_supplier();
-		if($supplier_id!=-1)
-		{
+		if($supplier_id!=-1){
 			$info=$this->Supplier->get_info($supplier_id);
 			$data['supplier']=$info->first_name.' '.$info->last_name;
 		}
@@ -203,8 +203,8 @@ class Receivings extends Secure_area
 		}
 	}
 
-    function cancel_receiving()
-    {
+    function cancel_receiving(){
+    	$this->session->unset_userdata('from_rece_t');
     	$this->receiving_lib->clear_all();
     	$this->_reload();
     }

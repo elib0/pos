@@ -55,14 +55,13 @@
 					<?php if ($order['status']==1){ 
 						if ($order['location']==$locationbd){
 					?>
-						<td colspan="1" style="width: 100px;text-align: center;">
-							<?php 
-								echo $this->lang->line('orders_submitted');
-								//if ($this->Transfers->get_my_reception_detail($order['sale_id'])){
-									// echo anchor('receivings/index/'.$order['sale_id'], $this->lang->line('employees_profile_see'), 'class="big_button" style="padding: 7px 10px;"');
-								// }
+						<td colspan="1" style="width: 100px;text-align: center;color: #6C6;font-weight: bold;font-size: 12px;">
+							<?php 								
+								if ($this->Transfers->get_my_reception_detail($order['sale_id'])->num_rows()){
+									echo '<span style="color: #37B">'.$this->lang->line('orders_submitted').'</span>';
+									echo anchor('receivings/index/'.$order['sale_id'], $this->lang->line('employees_profile_see'), 'class="big_button" style="padding: 5px 6px;"');
+								}else echo $this->lang->line('orders_received');
 							?>
-							<?php echo anchor('receivings/index/'.$order['sale_id'], $this->lang->line('orders_process'), 'class="big_button" style="padding: 7px 10px;"');  ?>
 						</td>
 					<?php }else{ ?>
 						<td colspan="1" style="color: #6C6;font-weight: bold;font-size: 14px;text-align: center;">

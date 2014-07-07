@@ -124,7 +124,7 @@ html{
 				foreach ($notifications as $notification => $data){
 					$noti_num = count($data['data']);
 					$num=$num+$noti_num;//clearfix
-					$li.='<li class="clearfix"><div class="notification-'.$notification.'" style="float:left;">'.$noti_num.'</div>';
+					$li.='<li class="clearfix"><div class="notification-'.$notification.'" style="max-width: 26px;float:left;'.($noti_num>999?'font-size: 12px;':'').'">'.$noti_num.'</div>';
 					if ( $noti_num > 0 ){ //Si tiene notificaciones se pone como enlace
 						$li.=anchor($data['url'],$data['title'],'style="float:right;max-width:100px;"');
 					}else{

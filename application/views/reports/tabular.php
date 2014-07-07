@@ -24,10 +24,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?php foreach ($data as $row) { ?>
+			<?php foreach ($data as $row) { $i=0; ?>
 			<tr>
-				<?php foreach ($row as $cell) { ?>
-				<td colspan="<?php echo $cs; ?>" style="<?php if($export_excel) echo 'text-align:center;'; ?>"><?php echo $cell; ?></td>
+				<?php foreach ($row as $cell) { 
+					if (isset($right))	$class=in_array($i++,$right)?'class="this-right"':'';
+					else $class='';
+				?>
+				<td colspan="<?php echo $cs; ?>" <?php echo $class; ?> style="<?php if($export_excel) echo 'text-align:center;'; ?>"><?php echo $cell; ?></td>
 				<?php } ?>
 			</tr>
 			<?php } ?>

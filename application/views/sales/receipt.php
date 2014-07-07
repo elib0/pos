@@ -1,9 +1,6 @@
-<?php $this->load->view("partial/header"); ?>
-<?php
-if (isset($error_message))
-{
-	echo '<h1 style="text-align: center;">'.$error_message.'</h1>';
-	exit;
+<?php $this->load->view("partial/header"); 
+if (isset($error_message)){
+	echo '<h1 style="text-align: center;">'.$error_message.'</h1>'; exit;
 }
 ?>
 <div id="receipt_wrapper">
@@ -42,10 +39,10 @@ if (isset($error_message))
 		<tr>
 		<td><?php echo $item['item_number']; ?></td>
 		<td><span class='long_name'><?php echo $item['name']; ?></span><span class='short_name'><?php echo character_limiter($item['name'],10); ?></span></td>
-		<td><?php echo to_currency($item['price']); ?></td>
-		<td style='text-align:center;'><?php echo $item['quantity']; ?></td>
-		<td style='text-align:center;'><?php echo $item['discount']; ?></td>
-		<td style='text-align:right;'><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>
+		<td class="this-right"><?php echo to_currency($item['price']); ?></td>
+		<td class="this-right"><?php echo $item['quantity']; ?></td>
+		<td class="this-right"><?php echo $item['discount']; ?></td>
+		<td class="this-right"><?php echo to_currency($item['price']*$item['quantity']-$item['price']*$item['quantity']*$item['discount']/100); ?></td>
 		</tr>
 
 	    <tr>

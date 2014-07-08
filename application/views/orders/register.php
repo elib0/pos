@@ -167,9 +167,9 @@
 		dataType: 'json',
 		beforeSubmit: function(arr, $form, options){
 			var b = true;
-			$('.item-quantity').each(function(index, el) {
-				console.log($(this).val());
-				if ( $(this).val() < 1 ) {
+			var inputs = $('.item-quantity');
+			for (var i = inputs.length - 1; i >= 0; i--) {
+				if ( $(inputs[i]).val() < 1 ) {
 					notif({
 					  type: 'error',
 					  msg: "<?php echo $this->lang->line('orders_fields_zero') ?>",
@@ -177,10 +177,11 @@
 					  height: 100,
 					  position: "right"
 					});
-					$(this).focus();
+					$(inputs[i]).focus();
 					b = false;	
 				}
-			});
+			};
+			
 			return b;
 		},
 		success: function(response){

@@ -144,7 +144,7 @@
 				foreach ($subpermissions as $subpermission) {
 					if ($subpermission != 'none' || $subpermission == '') {
 						$attribs = array(
-							'id'=>$module->module_id.'-'.$subpermission,
+							'id'=>$module->module_id.'-'.str_replace(" ","_",$subpermission),
 							'name'=>$module->module_id.'[]',
 							'value'=>$subpermission,
 							'class'=>$module->module_id.'-option',
@@ -215,6 +215,7 @@ echo form_close(); ?>
 <?php 
 	$retypes=''; 
 	foreach ($module_profiles as $key) {
+		$key['module']=str_replace(" ","_",$key['module']);
 		$retypes.=implode("|",$key).']';
 	}
 ?>

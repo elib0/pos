@@ -169,22 +169,39 @@ class Services extends Secure_area
 	function suggest_models($brand=''){
 		$suggestions = $this->Service->suggest_model($this->input->post('q'),$brand);
 		echo implode("\n",$suggestions);
-		// echo $suggestions;
 	}
 	function suggest_brand($module=''){
 		$suggestions = $this->Service->suggest_brand($this->input->post('q'));
-		// echo $suggestions.'hoooooola-'.$this->input->post('q');
 		echo implode("\n",$suggestions);
 	}
 	function suggest_owner($module=''){
 		$suggestions = $this->Service->suggest_owner($this->input->post('q'));
-		// echo $suggestions;
 		echo implode("\n",$suggestions);
 	}
 	function suggest_items(){
 		$suggestions = $this->Item->get_item_search_suggestions($this->input->post('q'),$this->input->post('limit'));
 		$suggestions = array_merge($suggestions, $this->Item_kit->get_item_kit_search_suggestions($this->input->post('q'),$this->input->post('limit')));
 		echo implode("\n",$suggestions);
+	}
+	function suggest3(){
+		$term = $this->input->get('term');
+		$items = $this->Item->suggest2($term);
+		$item_kits = $this->Item_kit->suggest2($term);
+		$result = array();
+
+		if ($item_kits) {
+			foreach ($item_kits->result() as $row) {
+				$result[] = array('id'=>$row->item_kit_id, 'text'=>'Item Kit: '.$row->name, 'item_kit'=>true);
+			}
+		}
+
+		if ($items) {
+			foreach ($items->result() as $row) {
+				$result[] = array('id'=>$row->item_id, 'item_number'=>$row->item_number, 'text'=>$row->name, 'qty'=>$row->quantity, 'reorder_level'=>$row->reorder_level);
+			}
+		}
+
+		die(json_encode($result));
 	}
 	/*
 	get the width for the add/edit form

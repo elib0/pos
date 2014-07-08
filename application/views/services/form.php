@@ -339,7 +339,7 @@ $(function(){
 		multiple:true,
 		minimumInputLength:1,
 		ajax:{
-			url:'index.php/items/suggest2',
+			url:'index.php/services/suggest3',
 			data:function(term,page){ return { term: term }; },
 			results:function(data,page){ return { results: data };}
 		},

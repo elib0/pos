@@ -35,10 +35,6 @@ class Sales extends Secure_area
 			'sale'=>$this->lang->line('sales_sale'),
 			'return'=>$this->lang->line('sales_return')
 		);
-		//Si tiene su bd configurada para transferencias entre tiendas
-		// if ($this->Transfers->available()) {
-		// 	$data['modes']['shipping'] = $this->lang->line('sales_shipping');
-		// }
 		$data['subtotal']=$this->sale_lib->get_subtotal();
 		$data['taxes']=$this->sale_lib->get_taxes();
 		
@@ -64,8 +60,7 @@ class Sales extends Secure_area
 		);
 
 		$customer_id=$this->sale_lib->get_customer();
-		if($customer_id!=-1)
-		{
+		if($customer_id!=-1){
 			$info=$this->Customer->get_info($customer_id);
 			$data['customer']=$info->first_name.' '.$info->last_name;
 			$data['customer_email']=$info->email;
@@ -252,23 +247,15 @@ class Sales extends Secure_area
 		$quantity = $this->input->post('quantity');
 		$discount = $this->input->post('discount');
 
-		if ($this->form_validation->run() != FALSE)
-		{
+		if ($this->form_validation->run() != FALSE){
 			$this->sale_lib->edit_item($line,$description,$serialnumber,$quantity,$discount,$price);
-		}
-		else
-		{
+		}else{
 			$data['error']=$this->lang->line('sales_error_editing_item');
 		}
-
-		if($this->sale_lib->out_of_stock($this->sale_lib->get_item_id($line)))
-		{
+		if($this->sale_lib->out_of_stock($this->sale_lib->get_item_id($line))){
 			$data['warning'] = $this->lang->line('sales_quantity_less_than_zero');
 		}
-
-		if (!$ajax) {
-			$this->_reload($data);
-		}
+		if (!$ajax)	$this->_reload($data); 
 	}
 
 	function delete_item($item_number)
@@ -286,6 +273,7 @@ class Sales extends Secure_area
 	function complete()
 	{
 		$data['cart']=$this->sale_lib->get_cart();
+		if (count($data['cart'])==0) $this->_reload();
 		$data['subtotal']=$this->sale_lib->get_subtotal();
 		$data['taxes']=$this->sale_lib->get_taxing()?$this->sale_lib->get_taxes():false;
 		$data['total']=$this->sale_lib->get_total();
@@ -414,8 +402,7 @@ class Sales extends Secure_area
 		$data['amount_change']=to_currency($this->sale_lib->get_amount_due() * -1);
 		$data['employee']=$emp_info->first_name.' '.$emp_info->last_name;
 
-		if($customer_id!=-1)
-		{
+		if($customer_id!=-1){
 			$cust_info=$this->Customer->get_info($customer_id);
 			$data['customer']=$cust_info->first_name.' '.$cust_info->last_name;
 		}
@@ -425,26 +412,26 @@ class Sales extends Secure_area
 
 	}
 	
-	function edit($sale_id)
-	{
-		$data = array();
+	// function edit($sale_id)
+	// {
+	// 	$data = array();
 
-		$data['customers'] = array('' => 'No Customer');
-		foreach ($this->Customer->get_all()->result() as $customer)
-		{
-			$data['customers'][$customer->person_id] = $customer->first_name . ' '. $customer->last_name;
-		}
+	// 	$data['customers'] = array('' => 'No Customer');
+	// 	foreach ($this->Customer->get_all()->result() as $customer)
+	// 	{
+	// 		$data['customers'][$customer->person_id] = $customer->first_name . ' '. $customer->last_name;
+	// 	}
 
-		$data['employees'] = array();
-		foreach ($this->Employee->get_all()->result() as $employee)
-		{
-			$data['employees'][$employee->person_id] = $employee->first_name . ' '. $employee->last_name;
-		}
+	// 	$data['employees'] = array();
+	// 	foreach ($this->Employee->get_all()->result() as $employee)
+	// 	{
+	// 		$data['employees'][$employee->person_id] = $employee->first_name . ' '. $employee->last_name;
+	// 	}
 
-		$data['sale_info'] = $this->Sale->get_info($sale_id)->row_array();
+	// 	$data['sale_info'] = $this->Sale->get_info($sale_id)->row_array();
 
-		$this->load->view('sales/edit', $data);
-	}
+	// 	$this->load->view('sales/edit', $data);
+	// }
 
 	function delete($sale_id){
 		$data = array();

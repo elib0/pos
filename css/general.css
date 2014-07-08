@@ -122,15 +122,11 @@ label.required
 .shortcut_button:active {
 	top:-7px;
 }
-.float_left
-{
-	float:left;
-}
+.float_left{ float:left; }
 
-.float_right
-{
-	float:right;
-}
+.float_right{ float:right; }
+
+.this-right{ text-align: right !important; }
 
 .big_button
 {

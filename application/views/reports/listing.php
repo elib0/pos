@@ -66,7 +66,9 @@
 				<li>
 					<h3><?php echo $this->lang->line('reports_inventory_reports'); ?></h3>
 					<ul>
+						<?php if($this->Employee->has_privilege('Low Stock','notification_alert')){ ?>
 						<li><a href="<?php echo site_url('reports/inventory_low');?>"><?php echo $this->lang->line('reports_low_inventory'); ?></a></li>
+						<?php } ?>
 						<li><a href="<?php echo site_url('reports/inventory_summary');?>"><?php echo $this->lang->line('reports_inventory_summary'); ?></a></li>
 						<li><a href="<?php echo site_url('reports/inventory_details_items');?>"><?php echo $this->lang->line('reports_details_items'); ?></a></li>
 					</ul>

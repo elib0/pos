@@ -15,22 +15,19 @@
 				<th colspan="1">+</th>
 				<th colspan="1"><?php echo $this->lang->line('reports_sale_id') ?></th>
 				<th colspan="1"><?php echo $this->lang->line('reports_sent') ?></th>
-				<!-- <th colspan="1">Items Sellers</th> -->
 				<th colspan="1"><?php echo $this->lang->line('reports_sender_from') ?></th>
-				<!-- <th colspan="1">Total</th> -->
-				<!-- <th colspan="1">Payment Type</th> -->
-				<th colspan="1"><?php echo $this->lang->line('reports_comments') ?></th>
+				<th colspan="1"><?php echo $this->lang->line('') ?></th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php if (count($notifications['shippings']['data'])): ?>
 				<?php foreach ($notifications['shippings']['data'] as $transaction): ?>
 				<tr>
-					<td class="expand"><span class="small_button thickbox">+</span></td>
-					<td><a title="<?php echo $this->lang->line('reports_processing_order') ?>" href="index.php/receivings/index/<?php echo $transaction['transfer_id']; ?>" title="">TRAN <?php echo $transaction['transfer_id'] ?></a></td>
+					<td class="expand" style="width: 15px;"><span class="small_button thickbox">+</span></td>
+					<td>TRAN <?php echo $transaction['transfer_id'] ?></td>
 					<td><?php echo $transaction['date'] ?></td>
 					<td><?php echo $transaction['sender'] ?></td>
-					<td><?php echo $transaction['comment'] ?></td>
+					<td><?php echo anchor('receivings/index/'.$transaction['transfer_id'], $this->lang->line('employees_profile_see'), 'class="big_button" style="padding:5px 7px;"'); ?></td>
 				</tr>
 				<tr class="hide">
 					<td colspan="5">

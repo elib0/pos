@@ -771,7 +771,7 @@ class Reports extends Secure_area
 		$details_data = array();
 		foreach($report_data['summary'] as $key=>$row)
 		{
-			$summary_data[] = array(anchor('sales/edit/'.$row['sale_id'], 'POS '.$row['sale_id'], array('target' => '_blank')), $row['sale_date'], $row['items_purchased'], $row['employee_name'], to_currency($row['subtotal']), to_currency($row['total']), to_currency($row['tax']),to_currency($row['profit']), $row['payment_type'], $row['comment']);
+			$summary_data[] = array(anchor('sales/receipt/'.$row['sale_id'], 'POS '.$row['sale_id'], array('target' => '_blank')), $row['sale_date'], $row['items_purchased'], $row['employee_name'], to_currency($row['subtotal']), to_currency($row['total']), to_currency($row['tax']),to_currency($row['profit']), $row['payment_type'], $row['comment']);
 			foreach($report_data['details'][$key] as $drow)
 			{
 				$details_data[$key][] = array($drow['name'], $drow['category'], $drow['serialnumber'], $drow['description'], $drow['quantity_purchased'], to_currency($drow['subtotal']), to_currency($drow['total']), to_currency($drow['tax']),to_currency($drow['profit']), $drow['discount_percent'].'%');
@@ -823,7 +823,7 @@ class Reports extends Secure_area
 		$details_data = array();
 		foreach($report_data['summary'] as $key=>$row)
 		{
-			$summary_data[] = array(anchor('sales/edit/'.$row['sale_id'], 'POS '.$row['sale_id'], array('target' => '_blank')), $row['sale_date'], $row['items_purchased'], $row['customer_name'], to_currency($row['subtotal']), to_currency($row['total']), to_currency($row['tax']),to_currency($row['profit']), $row['payment_type'], $row['comment']);
+			$summary_data[] = array(anchor('sales/receipt/'.$row['sale_id'], 'POS '.$row['sale_id'], array('target' => '_blank')), $row['sale_date'], $row['items_purchased'], $row['customer_name'], to_currency($row['subtotal']), to_currency($row['total']), to_currency($row['tax']),to_currency($row['profit']), $row['payment_type'], $row['comment']);
 			foreach($report_data['details'][$key] as $drow)
 			{
 				$details_data[$key][] = array($drow['name'], $drow['category'], $drow['serialnumber'], $drow['description'], $drow['quantity_purchased'], to_currency($drow['subtotal']), to_currency($drow['total']), to_currency($drow['tax']),to_currency($drow['profit']), $drow['discount_percent'].'%');
@@ -858,17 +858,12 @@ class Reports extends Secure_area
 		foreach($locations as $location){
 			$this->Sale->con=$model->stabledb($location,true);
 			$this->Sale->create_sales_items_temp_table();
-			//$this->Receiving->con=$this->Sale->con;
-			//$this->Receiving->create_receivings_items_temp_table();
-			$headers = $model->getDataColumns();
 			$report_data = $model->getData(array('start_date'=>$start_date, 'end_date'=>$end_date, 'sale_type' => $sale_type));
 			$summary_data = array();
 			$details_data = array();
-			foreach($report_data['summary'] as $key=>$row)
-			{
-				$summary_data[] = array(anchor('sales/edit/'.$row['sale_id'], 'POS '.$row['sale_id'], array('target' => '_blank')), $row['sale_date'], $row['items_purchased'], $row['employee_name'], $row['customer_name'], to_currency($row['subtotal']), to_currency($row['total']), to_currency($row['tax']),to_currency($row['profit']), $row['payment_type'], $row['comment']);
-				foreach($report_data['details'][$key] as $drow)
-				{
+			foreach($report_data['summary'] as $key=>$row){
+				$summary_data[] = array('POS '.$row['sale_id'], $row['sale_date'], $row['items_purchased'], $row['employee_name'], $row['customer_name'], to_currency($row['subtotal']), to_currency($row['total']), to_currency($row['tax']),to_currency($row['profit']), $row['payment_type'],anchor('sales/receipt/'.$row['sale_id'],$this->lang->line('employees_profile_see'), array('class'=>'big_button','target' => '_blank','style'=>'padding: 5px 7px;')));
+				foreach($report_data['details'][$key] as $drow){
 					$details_data[$key][] = array($drow['name'], $drow['category'], $drow['serialnumber'], $drow['description'], $drow['quantity_purchased'], to_currency($drow['subtotal']), to_currency($drow['total']), to_currency($drow['tax']),to_currency($drow['profit']), $drow['discount_percent'].'%');
 				}
 			}
@@ -942,15 +937,15 @@ class Reports extends Secure_area
 		$data['sub_title'] = $this->lang->line('reports_you_have').' '.$this->lang->line('reports_receiving_orders');
 		$data['location'] = $this->session->userdata('dblocation');
 		// $data['transfers'] = $this->Transfers->get_my_reception_detail();
-		$data['query'] = $this->Transfers->con->last_query();
-		
+		// $data['query'] = $this->Transfers->con->last_query();
 		$this->load->view('reports/shippings', $data);
 	}
 
-	function inventory_low($export_excel=0,$location='default')
+	function inventory_low($export_excel=0,$location=false)
 	{
 		$loca = urldecode($this->input->get('loc'));
 		if ($loca) $location=$loca;
+		if (!$location) $location=$this->session->userdata('dblocation');
 		$_data['view']='reports/tabular';
 		$_data['export_excel']=$export_excel;
 		$this->load->model('reports/Inventory_low');
@@ -961,9 +956,8 @@ class Reports extends Secure_area
 			$tabular_data = array();
 			$model->stabledb($location,true);
 			$report_data = $model->getData(array());
-			foreach($report_data as $row)
-			{
-				$tabular_data[] = array($row['name'], $row['item_number'], $row['description'], $row['quantity'], $row['reorder_level']);
+			foreach($report_data as $row){
+				$tabular_data[] = array($row['name'], ($row['item_number']?$row['item_number']:''), $row['description'], $row['quantity'], $row['reorder_level']);
 			}
 			$data = array(
 				"title" => $this->lang->line('reports_low_inventory_report'),
@@ -972,7 +966,8 @@ class Reports extends Secure_area
 				"data" => $tabular_data,
 				"location"=>ucwords(($location=='default'?'Principal':$location)),
 				"summary_data" => $model->getSummaryData(array()),
-				"export_excel" => $export_excel
+				"export_excel" => $export_excel,
+				"right"=>array(3,4)
 			);
 			$_data['list'][]=$data;
 		}
@@ -1026,7 +1021,8 @@ class Reports extends Secure_area
 		}
 		$this->load->view("reports/format_reports",$_data);
 	}
-	function accounts_payable($export_excel=0,$location='default'){
+	function accounts_payable($export_excel=0,$location=false){
+		if (!$location) $location=$this->session->userdata('dblocation');
 		$this->load->model('Transfers');
 		$_data['view']='reports/tabular';
 		$_data['export_excel']=$export_excel;
@@ -1065,7 +1061,8 @@ class Reports extends Secure_area
 				"data" => $tabular_data,
 				"location"=>ucwords(($location=='default'?'Principal':$location)),
 				"summary_data" => array(),
-				"export_excel" => $export_excel
+				"export_excel" => $export_excel,
+				"right"=>array(5,7)
 			);
 			$_data['list'][]=$data;
 		}
@@ -1098,7 +1095,8 @@ class Reports extends Secure_area
 				"data" => $tabular_data,
 				"location"=>ucwords(($location=='default'?'Principal':$location)),
 				"summary_data" => array(),
-				"export_excel" => $export_excel
+				"export_excel" => $export_excel,
+				"right"=>array(4,5,6)
 			);
 			$_data['list'][]=$data;
 		}
@@ -1110,6 +1108,10 @@ class Reports extends Secure_area
 		$data['sfilter']=$this->input->post('filter_status');
 		$data['cfilter']=$data['cfilter']?$data['cfilter']:0;
 		$data['sfilter']=$data['sfilter']?$data['sfilter']:0;
+		if ($id_orders=='pending'){
+			$id_orders='';
+			$data['sfilter']=1;
+		}
 		$this->load->model('Order');
 		$data['title'] = $this->lang->line('reports_report').' '.$this->lang->line('reports_pending_orders');
 		$data['sub_title'] = $this->lang->line('reports_you_have').' '.$this->lang->line('reports_pending_orders');

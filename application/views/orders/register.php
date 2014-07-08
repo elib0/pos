@@ -2,8 +2,10 @@
 <?php $this->load->view('flange_option',array('control'=>'orders')); ?>
 <div id="page_title" style="margin-bottom:8px;"> 
 	<?php 
-		echo $this->lang->line('orders').' '.$this->lang->line('register'); 
-		echo anchor('reports/pending_orders/0/0/'.$this->session->userdata('dblocation'), $this->lang->line('orders_my'), 'class="big_button" style="float:right;"');
+		echo $this->lang->line('orders').' '.$this->lang->line('register');
+		if($this->Employee->has_privilege('Pendig Orders','notification_alert')){
+			echo anchor('reports/pending_orders/0/0/'.$this->session->userdata('dblocation'), $this->lang->line('orders_my'), 'class="big_button" style="float:right;"');
+		}
 	?> 
 </div>
 <div id="table_action_header" style="background: none;padding-left: 15px;width: 98%;">

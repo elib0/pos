@@ -28,6 +28,10 @@ class Secure_area extends CI_Controller
 				if ($this->uri->segment(3) && $this->uri->segment(3)==='shipping') $action='Shipping';
 				else $action='';
 			break;
+			case 'employees': 
+				if ($this->uri->segment(2) && $this->uri->segment(2)==='assistance') $action=1;
+				else $action='';
+			break;
 			case 'reports':
 				$report=$this->uri->segment(2);
 				$action=false;
@@ -69,6 +73,7 @@ class Secure_area extends CI_Controller
 			//Notificaciones
 			if($this->Employee->has_privilege('Low Stock','notification_alert')){
 				$this->load->model('reports/Inventory_low');
+				$this->Inventory_low->stabledb($this->session->userdata('dblocation'),true);
 				$data['notifications']['inventory_low']['url']= 'reports/inventory_low/0/';
 				$data['notifications']['inventory_low']['title']= 'Products with low stock!';
 				$data['notifications']['inventory_low']['data']= $this->Inventory_low->getData(array());
@@ -96,9 +101,9 @@ class Secure_area extends CI_Controller
 
 			if($this->Employee->has_privilege('Pendig Orders','notification_alert')){
 				$this->load->model('Order');
-				$data['notifications']['pending_orders']['url']= 'reports/pending_orders/';
+				$data['notifications']['pending_orders']['url']= 'reports/pending_orders/pending';
 				$data['notifications']['pending_orders']['title']= $this->lang->line('reports_pending_orders');
-				$data['notifications']['pending_orders']['data']= $this->Order->get_all();
+				$data['notifications']['pending_orders']['data']= $this->Order->get_all(false,false,1);
 			}
 		}
 

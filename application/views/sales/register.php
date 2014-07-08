@@ -85,7 +85,7 @@ if(count($cart)==0){
 	foreach(array_reverse($cart,true) as $line=>$item)
 	{
 		$cur_item_info = $this->Item->get_info($item['item_id']);
-		echo form_open( "sales/edit_item/$line", array('id'=>'edit_item'.$item['item_id']) );
+		echo form_open( "sales/edit_item/$line/1", array('id'=>'edit_item'.$item['item_id']) );
 	?>
 		<tr id="<?=$item['item_id']?>" class="sale-line">
 		<td><?=anchor("sales/delete_item/$line",$this->lang->line('common_delete'),"class='small_button'")?></td>
@@ -107,14 +107,16 @@ if(count($cart)==0){
 				<?=$item['quantity']?>
 				<?=form_hidden('quantity',$item['quantity'])?>
 			<?php else: ?>
-				<select name="quantity" class="select-edit-item" ref="<?=$item['item_id']?>">
+				<input type="text" name="quantity" class="select-edit-item text_box " size="4"  ref="<?=$item['item_id']?>" value="<?php echo $item['quantity']; ?>"/>
+				<!-- <select name="quantity" class="select-edit-item" ref="<?=$item['item_id']?>"> -->
 				<?php 
-				for ($i=0; $i < $item['quantity_total']; $i++) {
-					$j = $i+1; 
-					$selected = ($j == $item['quantity']) ? ' selected' : '';
-					echo "<option value=\"$j\"$selected>$j</option>";
-				} ?>
-				</select>
+				// for ($i=0; $i < $item['quantity_total']; $i++) {
+				// 	$j = $i+1; 
+				// 	$selected = ($j == $item['quantity']) ? ' selected' : '';
+				// 	echo "<option value=\"$j\"$selected>$j</option>";
+				// } 
+				?>
+				<!-- </select> -->
 			<?php endif; ?>
 			<?php //echo form_input(array('name'=>'quantity','value'=>$item['quantity'],'size'=>'2')); ?>
 		</td>
@@ -381,22 +383,28 @@ $(function(){
 			set_amounts();
 		});
 	});
-	$('.select-edit-item').change(function(event){
-		var ref = $(this).attr('ref');
-		$('#edit_item'+ref).ajaxSubmit({
-			success:function(response){
-				set_amounts(ref);
-			}
-		});
+	$('.select-edit-item').keydown(function(event) {
+		if (!characteres(event,1) && !characteres(event,2) && !characteres(event,4) && !characteres(event,5)) event.preventDefault();
 	});
-	$('.edit-item').blur(function(event){
-		var ref = $(this).attr('ref');
-		$('#edit_item'+ref).ajaxSubmit({
-			success:function(response){
-				set_amounts(ref);
-			}
-		});
+	$('.edit-item').keydown(function(event) {
+		if (!characteres(event,1) && !characteres(event,2) && !characteres(event,3) && !characteres(event,4) && !characteres(event,5)) event.preventDefault();
 	});
+	var band=false;
+	$('.select-edit-item,.edit-item').focus(function(){
+		band=true;
+	}).blur(function(event) {
+		if (band){
+			event.preventDefault();
+			var ref = $(this).attr('ref');
+			$('#edit_item'+ref).ajaxSubmit({
+				success:function(response){
+					set_amounts(ref);
+				}
+			});
+			band=false;
+		}
+	});
+	$('.sale-line td input[type="text"]').css('text-align','right');
 
 	$('#employee').autocomplete('index.php/employees/suggest/1',{
 		max:100,
@@ -536,7 +544,7 @@ $(function(){
 				if(line){
 					var taxes = new Array();
 					var price = $('tr#'+line+' input[name=price]').val();
-		 			var quantity = $('tr#'+line+' select').val();
+		 			var quantity = $('tr#'+line+' input[name="quantity"]').val();
 					var discount = $('tr#'+line+' input[name=discount]').val();
 					$('tr#'+line+' td.sub-total').html(price*quantity-price*quantity*discount/100).formatCurrency();
 					for (var key in data.taxes){ taxes.push(data.taxes[key]); }
@@ -569,6 +577,26 @@ $(function(){
 		}else{
 			$('#amount_tendered_label').html("<?=$this->lang->line('sales_amount_tendered')?>");
 		}
+	}
+	function characteres(c,o){
+		switch(o){
+			case 1://numeros
+				if ((c.keyCode>=48 && c.keyCode<=57)||(c.keyCode>=96 && c.keyCode<=105)) return true;
+				break;
+			case 2://direccion
+				if (c.keyCode>=37 && c.keyCode<=40) return true;
+				break;
+			case 3://punto
+				if (c.keyCode==110 || c.keyCode==190) return true;
+				break;
+			case 4://borrar
+				if (c.keyCode==8 || c.keyCode==46) return true;
+				break;
+			case 5://tabular
+				if (c.keyCode==9) return true;
+				break;
+		}
+		return false;
 	}
 });
 </script>

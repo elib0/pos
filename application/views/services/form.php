@@ -100,6 +100,16 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 		</div>
 	</div>
 	<div class="field_row clearfix">
+		<div style="float: left">
+			<div class="field_row clearfix">
+				<?=form_label($this->lang->line('services_used_items').':','items',array('class'=>'lable-form'))?>
+				<div>
+					<input type="text" id="item_list" name="item_list" value="<?=$item_list?>" style="width:500px;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="field_row clearfix">
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
 				<?=form_label($this->lang->line('services_brand').':','brand_label',array('class'=>'lable-form-required'))?>
@@ -135,16 +145,6 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 					//$status[100]=$this->lang->line('services_status_100');
 				?>
 				<div><?=form_dropdown('status',$status,$service_info->status,'id="status"')?></div>
-			</div>
-		</div>
-	</div>
-	<div class="field_row clearfix">
-		<div style="float: left">
-			<div class="field_row clearfix">
-				<?=form_label($this->lang->line('services_used_items').':','items',array('class'=>'lable-form'))?>
-				<div>
-					<input type="text" id="item_list" name="item_list" value="<?=$item_list?>" style="width:500px;">
-				</div>
 			</div>
 		</div>
 	</div>
@@ -341,7 +341,7 @@ $(function(){
 		ajax:{
 			url:'index.php/services/suggest3',
 			data:function(term,page){ return { term: term }; },
-			results:function(data,page){ return { results: data };}
+			results:function(data,page){ return { results: data }; }
 		},
 		initSelection:function(element,callback){
 			var list={},
@@ -355,7 +355,13 @@ $(function(){
 			});
 			callback(data);
 		}
+	}).bind('select2-selecting',function(e){
+		if (e.choice.model_name && e.choice.model_name!=''){
+			$('#brand').val(e.choice.brand_name);
+			$('#model').val(e.choice.model_name);
+		}
 	});
+
 })(jQueryNew);
 
 </script>

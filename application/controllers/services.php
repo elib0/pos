@@ -188,7 +188,6 @@ class Services extends Secure_area
 		$items = $this->Item->suggest2($term);
 		$item_kits = $this->Item_kit->suggest2($term);
 		$result = array();
-
 		if ($item_kits) {
 			foreach ($item_kits->result() as $row) {
 				$result[] = array('id'=>$row->item_kit_id, 'text'=>'Item Kit: '.$row->name, 'item_kit'=>true);
@@ -197,7 +196,9 @@ class Services extends Secure_area
 
 		if ($items) {
 			foreach ($items->result() as $row) {
-				$result[] = array('id'=>$row->item_id, 'item_number'=>$row->item_number, 'text'=>$row->name, 'qty'=>$row->quantity, 'reorder_level'=>$row->reorder_level);
+				if ($row->item_id) $brand=$this->Service->suggest_model_brand($row->item_id);
+				if (!isset($brand) || count($brand)==0) $brand=array(0=>'',1=>'');
+				$result[] = array('id'=>$row->item_id, 'item_number'=>$row->item_number, 'text'=>$row->name, 'qty'=>$row->quantity, 'reorder_level'=>$row->reorder_level,'brand_name'=>$brand[1],'model_name'=>$brand[0]);
 			}
 		}
 

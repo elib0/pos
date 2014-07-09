@@ -69,6 +69,8 @@ class Item extends CI_Model
 	{
 		if ($campos) $this->con->select($campos);
 		$this->con->from('items');
+		$this->con->join('model','ospos_model.model_id=ospos_items.model_id');
+		$this->con->join('brand','ospos_brand.brand_id=ospos_model.brand_id');
 		$this->con->where('item_id',$item_id);
 
 		$query = $this->con->get();

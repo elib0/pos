@@ -842,6 +842,7 @@ CREATE TABLE IF NOT EXISTS `ospos_items` (
   `is_locked` tinyint(1) NOT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   `broken_quantity` int(15) unsigned NOT NULL DEFAULT '0',
+  `model_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`item_id`),
   UNIQUE KEY `item_number` (`item_number`),
   KEY `ospos_items_ibfk_1` (`supplier_id`)

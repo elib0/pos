@@ -566,4 +566,9 @@ class Sales extends Secure_area
 		}
 
 	}
+
+	function workorder(){
+		$data['test'] = 'test';
+		$this->load->view('sales/workorder',$data);
+	}
 }

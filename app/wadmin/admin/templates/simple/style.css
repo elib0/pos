@@ -1,0 +1,612 @@
+/* --------------------------------------------------------------
+   GLOBAL
+-------------------------------------------------------------- */
+*{
+    list-style:none;
+}
+body {
+	background-color: #2F5388;
+	margin: 0;
+}
+body, td, th {
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000;
+}
+form {
+	margin: 0;
+	padding: 0;
+}
+input, select, textarea {
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000;
+}
+a, a:visited {
+	color: #202F60;
+	text-decoration: underline;
+}
+a:hover {
+	text-decoration: none;
+}
+a img {
+	border: 0;
+}
+a.highlight, a.highlight:visited, a.highlight:hover {
+	color: #CC0000;
+}
+h1 {
+    font-family: Arial;
+	color: #fff;
+	font-size: 20px;
+	margin: 15px 0 0 50px;
+	padding: 0;
+	font-weight: normal;
+}
+h2 {
+	color: #666;
+	font-size: 16px;
+	font-weight: bold;
+}
+#header {
+    height:100px;
+    border-bottom: 2px solid #fff;
+}
+#headerright {
+    text-align: right;
+    padding: 10px;
+    color: #F0EADE;
+}
+#headerright a {
+    color: #F0EADE;
+}
+#footer {
+	text-align: right;
+	margin: 0;
+	border-top: 2px solid #fff;
+    padding: 15px;
+    color: #fff;
+}
+#footer a {
+    color: #fff;
+}
+
+/* --------------------------------------------------------------
+   NAV
+-------------------------------------------------------------- */
+
+#logoWrapper{
+    position:absolute;
+    top:0;
+    left:0;
+    padding:0;
+    margin:0;
+    width:300px;
+    height:30px;
+}
+
+#menu li a.menuFont{
+    color:#FFF;
+    text-decoration:none;
+    text-transform:capitalize;
+    font-size:12px;
+    font-weight:bold;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+#menu li a.menuFont:visited{
+    color:#FFF;
+    text-decoration:none;
+}
+#menu li:hover a.menuFont{
+    color:#202F60;
+}
+#menu li:hover ul li a.menuFont{
+    color:#FFF;
+}
+#menu li ul li a.menuFont{
+    font-size:11px;
+    font-weight:bold;
+    font-family: Arial, Verdana, Helvetica, sans-serif;
+    text-transform:capitalize;
+    color:#FFF;
+    text-decoration:none;
+}
+#menu li ul li:hover a.menuFont{
+    color:#202F60;
+}
+a.subMenuLinks{
+    margin-left:5px;
+    font-family:Tahoma;
+    font-size:11px;
+    line-height:22px;
+    font-weight:bold;
+    text-decoration:none;
+    color:#000;
+    display:block;
+}
+a.subMenuLinks:link{
+    text-decoration:none;
+    color:#fff;
+}
+a.subMenuLinks:visited{
+    text-decoration:none;
+    color:#fff;
+}
+a.subMenuLinks:hover{
+    text-decoration:none;
+    color:#202F60;
+}
+#navigation ul{
+    position:absolute;
+    padding:0;
+    margin:0;
+    left:21px;
+    top:58px;
+    width:900px;
+}
+#navigation li{
+    background-color:#202F60;
+    border:1px solid #FFF;
+    padding:0 20px;
+    margin:0;
+    margin-left:-1px;
+    height:40px;
+    line-height:40px;
+    text-align:center;
+    float:left;
+    position:relative;
+    display:block;
+}
+#navigation li:hover{
+    background-color:#FFF;
+}
+#navigation li ul{
+    padding:0;
+    display:none;
+}
+#navigation li:hover ul{
+    top:40px;
+    position:absolute;
+    padding:0;
+    margin:1px 0 0 -1px;
+    left:0;
+    width:170px;
+    display:block;
+}
+#navigation li:hover ul li{
+    text-align:left;
+    margin:-1px 0 0 0;
+    padding:0 0 5px 3px;
+    position:relative;
+    line-height:17px;
+    height:17px;
+    width:165px;
+    width:100%;
+    display:block;
+    background-color:#2F5388;
+    border:1px solid #fff;
+}
+#navigation li:hover ul li:hover{
+    background-color:#F0EADE;
+}
+
+/* --------------------------------------------------------------
+   INTELLIGENT SEARCH
+-------------------------------------------------------------- */
+
+#intellisearch #searchresults {
+	margin-top: 10px;
+    padding: 0;
+	display: none;
+    line-height: 12px;
+    border-bottom: 1px solid #ccc;
+    font-size: 10px;
+    background-color: #fff;
+}
+#intellisearch #searchresults .searchresultheader {
+    border-top: 1px solid #ccc;
+    background-color: #202F60;
+    color: #fff;
+    padding:2px;
+    font-weight:bold;
+    text-align:center;
+}
+#intellisearch #searchresults .searchresult {
+    border-top: 1px solid #ccc;
+    padding: 2px 0 2px 5px;
+}
+#intellisearch #searchresults .searchresult .desc {
+    color: #888;
+}
+#intellisearch #searchresults .searchresult:hover {
+    background-color: #f8f8f8;
+}
+#intellisearch #searchresults .searchresult a {
+    text-decoration: none;
+    display: block;
+}
+
+#ticketclientsearchresults {
+    position: absolute;
+    width: 300px;
+    background-color: #FCF9D2;
+	border: 1px solid #F9D43E;
+	padding: 0;
+	margin: 0 10px 0 0;
+	display: none;
+	white-space: nowrap;
+    font-size: 10px;
+    font-family: Tahoma;
+}
+#ticketclientsearchresults .searchresultheader {
+    background-color:#FFEC9F;
+    padding:2px;
+    font-weight:bold;
+    text-align:center;
+}
+#ticketclientsearchresults .searchresult {
+    border-top: 1px solid #FFEC9F;
+    padding: 2px 0 2px 5px;
+}
+#ticketclientsearchresults .searchresult .desc {
+    color: #888;
+}
+#ticketclientsearchresults .searchresult:hover {
+    background-color: #fff;
+}
+#ticketclientsearchresults .searchresult a {
+    text-decoration: none;
+    display: block;
+}
+#clientsearchcancel {
+    display: none;
+}
+
+/* --------------------------------------------------------------
+   TOOLBAR
+-------------------------------------------------------------- */
+
+#toolbar {
+    width:200px;
+    background-color: #F0EADE;
+    padding: 10px;
+}
+#toolbar .header {
+	text-align: center;
+	height: 22px;
+	line-height: 22px;
+	font-weight: bold;
+	padding-top: 0;
+    margin-top: 10px;
+}
+#toolbar .plain_header {
+	display: block;
+	color: #000;
+	font-weight: bold;
+	height: 25px;
+	line-height: 25px;
+	border-bottom: 1px solid #CCC;
+	padding: 0;
+	margin: 0 0 10px 0;
+}
+
+#toolbar ul.menu li a, #toolbar ul.menu li a:visited {
+	display: block;
+    text-align: left;
+	padding: 0;
+	margin: 0;
+	color: #000;
+	text-decoration: none;
+}
+#toolbar ul.menu li a:hover {
+	font-weight: bold;
+}
+#toolbar ul.menu {
+	list-style-type: circle;
+	margin: 0 0 0 15px;
+	padding: 5px;
+}
+
+/* --------------------------------------------------------------
+   TABS
+-------------------------------------------------------------- */
+
+#tabs ul, #clienttabs ul {
+	display: block;
+	background-color: #fff;
+	height: 21px;
+	line-height: 20px;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+    border-bottom: 1px solid #CCCCCC;
+}
+#tabs ul li, #clienttabs ul li {
+	float: left;
+	padding: 0;
+	margin: 0 0 0 5px;
+}
+#tabs ul li a, #tabs ul li a:visited, #clienttabs ul li a, #clienttabs ul li a:visited {
+	display: block;
+	background-color: #efefef;
+	padding: 0 7px;
+	margin: 0;
+	border: 1px solid #CCC;
+	color: #000;
+	text-decoration: none;
+}
+#tabs ul li a:hover, #clienttabs ul li a:hover {
+	display: block;
+	background-color: #f9f9f9;
+	padding: 0 7px;
+	margin: 0;
+	border: 1px solid #CCC;
+	color: #000;
+	text-decoration: none;
+}
+#tabs ul li.tabselected a, #tabs ul li.tabselected a:visited, #tabs ul li.tabselected a:hover, #clienttabs ul li.tabselected a, #clienttabs ul li.tabselected a:visited, #clienttabs ul li.tabselected a:hover {
+	background-color: #f9f9f9;
+	font-weight: bold;
+}
+#tab_content {
+	background-color: #fff;
+	text-align: left;
+	margin: 0px;
+	padding: 10px;
+	border: 1px solid #CCC;
+    border-top: 0;
+    text-align: center;
+}
+
+/* --------------------------------------------------------------
+   MY NOTES
+-------------------------------------------------------------- */
+
+#mynotes {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f3f3f3;
+    text-align: center;
+}
+
+/* --------------------------------------------------------------
+   TABLES
+-------------------------------------------------------------- */
+
+table.form {
+    border: 1px solid #B8CBE7;
+    background-color: #fff;
+	padding: 0px;
+}
+table.form td.fieldlabel {
+    text-align: right;
+    font-weight: bold;
+    padding: 5px;
+    background-color: #E4ECF8;
+}
+table.form td.fieldarea {
+    text-align: left;
+    padding: 5px;
+    border-bottom: 1px dashed #ccc;
+}
+.tablebg {
+	background-color: #e9e9e9;
+}
+table.datatable {
+	padding: 0;
+	margin: 0;
+}
+table.datatable th {
+	background-color: #f3f3f3;
+	font-weight: bold;
+	text-align: center;
+}
+table.datatable td {
+	background-color: #fff;
+    text-align: center;
+}
+table.datatable tr.rowhighlight td {
+	background-color: #EFF2F9;
+}
+table.datatable tr:hover td {
+	background-color: #EFF2F9;
+}
+
+/* --------------------------------------------------------------
+   SPECIAL CLASSES
+-------------------------------------------------------------- */
+
+.absmiddle {
+	vertical-align: middle;
+}
+.clear {
+	clear: both;
+}
+.smallfont {
+	font-size: 10px;
+}
+
+/* --------------------------------------------------------------
+   INFO BOXES
+-------------------------------------------------------------- */
+
+.infobox {
+	background-image: url('../../images/warning.gif');
+	background-repeat: no-repeat;
+	background-position: 5px;
+	margin: 10px 5px 10px 5px;
+	padding: 5px 5px 5px 45px;
+	background-color: #FCF9D2;
+	border: 1px solid #F9D43E;
+    text-align: left;
+}
+.contentbox {
+	text-align: center;
+	background-color: #f7f7f7;
+	border: 1px dashed #cccccc;
+	padding: 10px;
+}
+.errorbox {
+	border: 1px dashed #cc0000;
+	font-weight: bold;
+	background-color: #FBEEEB;
+	text-align: center;
+	padding: 10px;
+	color: #cc0000;
+}
+.invoicetooltip {
+	border: 1px solid #F0EADE;
+    background-color: #F3F4EC;
+	color: #000000;
+	padding: 5px;
+	z-index: 100;
+}
+
+/* --------------------------------------------------------------
+   TEXT COLORS
+-------------------------------------------------------------- */
+
+.textblack {
+	color: #000000;
+}
+
+.textblue {
+    color: #224488;
+}
+
+.textgreen {
+	color: #779500;
+}
+
+.textgrey {
+	color: #888888;
+}
+
+.textgold {
+    color: #ffbb55;
+}
+
+.textorange {
+	color: #ff6600;
+}
+
+.textred {
+	color: #cc0000;
+}
+
+/* --------------------------------------------------------------
+   DATE PICKER
+-------------------------------------------------------------- */
+
+.datepick {
+    width: 75px;
+}
+.datepick + img {
+    position: relative;
+    left: 5px;
+    top: 1px;
+}
+
+/* --------------------------------------------------------------
+   HOMEPAGE PERCENTAGE BARS
+-------------------------------------------------------------- */
+
+img.greenbar {
+ background: white url(../../images/percentbar_green.png) top left no-repeat;
+ padding: 0;
+ margin: 2px 0 2px 0;
+ background-position: 1px 0;
+}
+img.redbar {
+ background: white url(../../images/percentbar_red.png) top left no-repeat;
+ padding: 0;
+ margin: 2px 0 2px 0;
+ background-position: 1px 0;
+}
+img.bluebar {
+ background: white url(../../images/percentbar_blue.png) top left no-repeat;
+ padding: 0;
+ margin: 2px 0 2px 0;
+ background-position: 1px 0;
+}
+img.goldbar {
+ background: white url(../../images/percentbar_gold.png) top left no-repeat;
+ padding: 0;
+ margin: 2px 0 2px 0;
+ background-position: 1px 0;
+}
+img.blackbar {
+ background: white url(../../images/percentbar_black.png) top left no-repeat;
+ padding: 0;
+ margin: 2px 0 2px 0;
+ background-position: 1px 0;
+}
+img.orangebar {
+ background: white url(../../images/percentbar_orange.png) top left no-repeat;
+ padding: 0;
+ margin: 2px 0 2px 0;
+ background-position: 1px 0;
+}
+
+/* --------------------------------------------------------------
+   CLIENT SUMMARY PAGE
+-------------------------------------------------------------- */
+
+.clientssummarybox {
+    background-color: #F3F7FC;
+    border: 1px dashed #B8CBE7;
+    padding: 10px;
+    margin: 10px 10px 5px 10px;
+}
+.clientssummarybox .title {
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 14px;
+    color: #000;
+}
+.clientssummarybox ul {
+    list-style-type: none;
+    margin: 10px 0 0 0;
+}
+.clientssummarybox ul li {
+    margin: 0 0 2px 20px;
+}
+table.clientssummarystats {
+    width: 100%;
+    border: 1px solid #BAE3FC;
+}
+table.clientssummarystats td {
+    background-color: #fff;
+    font-size: 11px;
+    padding-left: 4px;
+}
+table.clientssummarystats tr.altrow td {
+    background-color: #E4ECF8;
+    padding-left: 4px;
+}
+
+/* --------------------------------------------------------------
+   SUPPORT TICKETS
+-------------------------------------------------------------- */
+
+.ticketstaffnotes {
+     background-color: #FFFFE6;
+     border: 1px dashed #DACD83;
+     padding: 5px;
+}
+
+.ticketstaffnotestable {
+    width: 100%;
+    border-bottom: 1px dashed #000;
+    margin-bottom: 7px;
+}
+
+.ticketflag {
+    background-color: #FFFFCC;
+}

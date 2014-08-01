@@ -1,0 +1,598 @@
+/*
+Global
+*/
+
+h2 {
+    font-size: 18px;
+    font-weight: normal;
+    border: 0;
+    margin: 0;
+}
+
+.loading {
+    display: none;
+    padding-top: 20px;
+    text-align: center;
+}
+
+#orderfrm input,#orderfrm select,#ccinputform input,#ccinputform select {
+    border: 1px solid #ccc;
+    padding: 4px;
+}
+
+.clear {
+    clear: both;
+}
+
+.cartbutton.green {
+    color:#529214;
+}
+.cartbutton.red {
+    color:#d12f19;
+}
+
+.errorbox {
+    text-align: left;
+    list-style-type: none;
+}
+
+.cartcontainer {
+    border: 2px solid #efefef;
+    background-color: #fff;
+    background-image: url('images/bg.png');
+    background-repeat:repeat-x;
+    width: 600px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+/*
+Steps
+*/
+
+.stepscontainer {
+    width: 630px;
+    border: 1px solid #000;
+    background-image: url('images/stepsbg.png');
+    font-size: 11px;
+    margin: 15px auto 10px auto;
+}
+
+.stepscontainer .arrow {
+    float: left;
+    width: 33px;
+    height: 35px;
+    background-image: url('images/stepsarrow.png');
+}
+
+.stepscontainer .arrowactiveleft {
+    float: left;
+    width: 33px;
+    height: 35px;
+    background-image: url('images/stepsarrowactiveleft.png');
+}
+
+.stepscontainer .arrowactiveright {
+    float: left;
+    width: 33px;
+    height: 35px;
+    background-image: url('images/stepsarrowactiveright.png');
+}
+
+.stepscontainer .stepactive {
+    float: left;
+    background-image: url('images/activestep.png');
+    width: 188px;
+    line-height: 34px;
+    text-align: center;
+    color: #fff;
+}
+
+.stepscontainer .step {
+    float: left;
+    width: 188px;
+    line-height: 34px;
+    text-align: center;
+    color: #000;
+}
+
+.stepscontainer .title {
+    font-size: 14px;
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+/*
+Categories
+*/
+
+.cartcats {
+    background-color: #f2f2f2;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin: 0 0 20px 0;
+    padding: 10px 25px 10px 25px;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+.cartcats a {
+    color: #000;
+}
+
+.domainregtitle {
+    font-size: 14px;
+}
+
+/*
+Product Listing
+*/
+
+.currencychooser {
+    float: right;
+    margin: 0 20px 10px 0;
+    padding: 5px 5px 5px 10px;
+    background-color: #F8F7ED;
+    border: 1px solid #F4E3A2;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-family: Verdana;
+}
+
+.currencychooser a {
+    text-decoration: none;
+    padding-right: 5px;
+    color: #000;
+}
+
+.currencychooser a:hover {
+    color: #0066CC;
+}
+
+.prodtablecol {
+    float: left;
+    width: 20%;
+    font-size: 14px;
+    text-align: center;
+}
+
+.prodtablecol .title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.prodtablecol .divider {
+    height: 1px;
+    background-color: #fff;
+}
+
+.prodtablecol div.featureheader {
+    padding: 10px 0 10px 0;
+    height: 34px;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.prodtablecol div.feature {
+    background-color: #666;
+    line-height: 30px;
+    font-size: 12px;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.prodtablecol div.aheader {
+    background-color: #204791;
+    padding: 10px 0 10px 0;
+    color: #fff;
+    font-size: 12px;
+    height: 34px;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.prodtablecol div.aheaderexpandable {
+    background-color: #204791;
+    padding: 10px 0 10px 0;
+    color: #fff;
+    font-size: 12px;
+    min-height: 55px;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.prodtablecol div.afeature1 {
+    background-color: #EAF2F7;
+    line-height: 30px;
+    color: #204791;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.prodtablecol div.afeature2 {
+    background-color: #CEE1EC;
+    line-height: 30px;
+    color: #204791;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.prodtablecol div.bheader {
+    background-color: #7BAA24;
+    padding: 10px 0 10px 0;
+    color: #fff;
+    font-size: 12px;
+    height: 34px;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.prodtablecol div.bheaderexpandable {
+    background-color: #7BAA24;
+    padding: 10px 0 10px 0;
+    color: #fff;
+    font-size: 12px;
+    min-height: 55px;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.prodtablecol div.bfeature1 {
+    background-color: #F0F7EA;
+    line-height: 30px;
+    color: #668C1E;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.prodtablecol div.bfeature2 {
+    background-color: #DFEED2;
+    line-height: 30px;
+    color: #668C1E;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+/*
+Addons
+*/
+
+.addoncontainer {
+    float: left;
+    width: 50%;
+}
+
+.addon {
+    margin: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.addon:hover {
+    background-color: #FFF9E6;
+}
+
+.addon .title {
+    float: left;
+    padding: 0 0 6px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.addon .pricing {
+    float: right;
+    padding: 0 0 6px 0;
+    text-align: right;
+    font-size: 14px;
+    color: #cc0000;
+}
+
+.addon .setup {
+    font-size: 12px;
+}
+
+.addon .product {
+    padding-top: 6px;
+    text-align: right;
+}
+
+.addon select {
+    padding: 3px;
+    border: 1px solid #ccc;
+    width: 180px;
+}
+
+/*
+Domain Registration
+*/
+
+.domainreginput {
+    margin-top: 15px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
+}
+
+.domainreginput input {
+    font-size: 14px;
+    padding: 3px;
+    border: 1px solid #ccc;
+}
+
+.domainreginput select, .domainregperiod select {
+    font-size: 13px;
+    padding: 3px;
+    border: 1px solid #ccc;
+}
+
+.domainavailable {
+    color: #9AC003;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.domainunavailable {
+    color: #cc0000;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.domaininvalid {
+    color: #cc0000;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.domainregperiod {
+    font-size: 12px;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+div.domainsuggestions {
+    font-size: 18px;
+    font-weight: normal;
+    padding-bottom: 5px;
+    margin-top: 15px;
+}
+
+table.domainsuggestions {
+    width: 100%;
+}
+table.domainsuggestions th {
+	background-color: #ccc;
+    font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+    padding: 3px;
+    line-height: 20px;
+    color: #000;
+}
+table.domainsuggestions td {
+	background-color: #FFF;
+    text-align: center;
+	border-bottom: 1px solid #EBEBEB;
+	font-size: 12px;
+    line-height: 28px;
+}
+
+/*
+Product Config
+*/
+
+.billingcycle {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 2px;
+    margin-bottom: 20px;
+}
+
+.serverconfig {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 2px;
+    margin-bottom: 20px;
+}
+
+.configoptions {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 2px;
+    margin-bottom: 20px;
+}
+
+.addons {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 2px;
+    margin-bottom: 20px;
+}
+
+.customfields {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 2px;
+    margin-bottom: 20px;
+}
+
+/*
+Domain Config
+*/
+
+.domainconfig {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 2px;
+    margin-bottom: 20px;
+}
+
+.nameservers {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 2px;
+    margin-bottom: 20px;
+}
+
+.hiddenns {
+    display: none;
+}
+
+/*
+Config Tables
+*/
+
+.configtable td {
+    padding: 2px 5px 2px 5px;
+}
+
+.configtable td.fieldlabel {
+    width: 150px;
+    text-align: right;
+}
+
+.configtable td.radiofield {
+    width: 30px;
+    text-align: right;
+}
+
+.configtable td.fieldarea {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #fff;
+    text-align: left;
+}
+
+.configoplabel {
+    color: #ff6600;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+}
+
+/*
+Order Summary
+*/
+
+.ordersummary {
+    margin: 15px;
+}
+
+.totalduetoday {
+    text-align: right;
+    font-size: 20px;
+    color: #cc0000;
+}
+
+.totalrecurring {
+    text-align: right;
+    font-size: 14px;
+    color: #000066;
+}
+
+.checkoutbuttonsleft {
+    float: left;
+    margin: 5px 0 0 0;
+}
+
+.checkoutbuttonsright {
+    float: right;
+    margin: 5px 0 0 0;
+}
+
+/*
+Checkout
+*/
+
+.carttable {
+	background-color: #fff;
+	width: 100%;
+    padding-bottom: 10px;
+}
+
+.carttableheading td {
+	background-color: #efefef;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+	color: #222222;
+	height: 20px;
+	font-weight: bold;
+	font-size: 12px;
+	text-align: center;
+}
+
+.carttablesummary td {
+	background-color: #efefef;
+    border-bottom: 1px solid #ccc;
+	color: #222222;
+	height: 20px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.carttablerow td {
+	background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+	padding: 4px;
+    text-align: center;
+}
+
+.carttableproduct td {
+	background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+	color: #555555;
+	padding: 4px;
+}
+
+.carttableaddon td {
+	background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
+	color: #555555;
+	padding: 2px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.promo {
+    text-align: right;
+}
+
+.promo input {
+    font-size: 11px;
+}
+
+.viewcartcol1 {
+    float: left;
+    margin-top: 20px;
+    width: 55%;
+}
+
+.viewcartcol2 {
+    float: left;
+    margin-top: 20px;
+    width: 45%;
+}
+
+.paymentmethods {
+    padding-left: 20px;
+}
+
+.checkoutsecure {
+    text-align: left;
+    width: 450px;
+    margin: 20px auto 10px auto;
+}
+
+#domaincontactfields {
+    display: none;
+}

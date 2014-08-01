@@ -1,0 +1,19 @@
+.promobox{
+	display:block;
+	float:left;
+	width:295px!important;
+	}
+ul.display li {
+	padding:15px!important;
+	
+}
+#banner_wrap{
+	background: none!important; 
+}
+.carousel .carousel-previous{
+	background:top left  no-repeat url('../images/banner_nav_right.jpg');
+	}
+
+.carousel .carousel-next{
+	background:top left  no-repeat url('../images/banner_nav_left.jpg');
+	}

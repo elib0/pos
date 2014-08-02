@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Customers extends CI_Controller {
+class Employee extends CI_Controller {
 
 	private $data;
 
@@ -8,12 +8,12 @@ class Customers extends CI_Controller {
 	{
 		parent::__construct();
 		$this->data = array();
-		$this->load->model('ModelCustomers');
+		$this->load->model('ModelEmployee');
 	}
 
 	public function complete($value){
 
-		$customers = $this->ModelCustomers->get_seek(" WHERE b.deleted = '0' AND (a.first_name LIKE '%".$value."%' OR a.last_name LIKE '%".$value."%') ");
+		$customers = $this->ModelEmployee->get_seek(" WHERE a.deleted = '0' AND (b.first_name LIKE '%".$value."%' OR b.last_name LIKE '%".$value."%') ");
 		$i = '';
 		foreach ($customers as $array){
 
@@ -22,9 +22,8 @@ class Customers extends CI_Controller {
 		}
 		
 		echo json_encode($this->data);
-
-		
 	}
+
 }
 
 ?>

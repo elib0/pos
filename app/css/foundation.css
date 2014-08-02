@@ -1919,10 +1919,10 @@ meta.foundation-mq-topbar {
 .panel {
   border-style: solid;
   border-width: 1px;
-  border-color: #d8d8d8;
+  border-color: #dddddd;
   margin-bottom: 1.25rem;
   padding: 1.25rem;
-  background: #f2f2f2; }
+  background: #FBFBFB; }
   .panel > :first-child {
     margin-top: 0; }
   .panel > :last-child {
@@ -2810,7 +2810,8 @@ blockquote p {
     font-size: 1.6875rem; }
 
   h4 {
-    font-size: 1.4375rem; }
+    font-size: 1.4375rem;
+    color: #000000; }
 
   h5 {
     font-size: 1.125rem; }
@@ -4567,7 +4568,12 @@ input[type="file"] {
 fieldset {
   border: 1px solid #dddddd;
   padding: 1.25rem;
-  margin: 1.125rem 0; }
+  margin: 1.125rem 0;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px; }
   fieldset legend {;
     background: white;
     padding: 0 0.1875rem;

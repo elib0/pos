@@ -1,0 +1,7 @@
+#new_customer{
+	display: none;
+}
+
+textarea{
+	min-height: 120px;
+}

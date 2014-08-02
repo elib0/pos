@@ -22,7 +22,7 @@ class ModelCustomers extends CI_Model {
 
 			FROM ospos_people a JOIN ospos_customers b ON a.person_id = b.person_id
 			$where 
-			ORDER BY first_name, first_name
+			ORDER BY a.first_name, a.first_name
 			$limit
 		");
 		return $query->result_array();

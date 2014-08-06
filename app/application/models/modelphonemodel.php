@@ -12,21 +12,12 @@ class ModelPhoneModel extends CI_Model {
 	{
 		$query = $this->db->query("
 			SELECT 
-				a.model_id AS id,
-				a.model_name AS name,
-				b.brand_name AS brand
-
-
-				
-
-			FROM ospos_model a JOIN ospos_brand b ON a.brand_id = b.brand_id
-
-			$where 
-
-			
-			GROUP BY a.model_id, a.model_name, b.brand_name
-
-			ORDER BY a.model_name
+				model_id AS id,
+				model_name AS name
+			FROM ospos_model
+			$where 		
+			GROUP BY model_id, model_name
+			ORDER BY model_name
 			$limit
 		");
 		return $query->result_array();

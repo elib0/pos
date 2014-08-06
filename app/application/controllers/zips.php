@@ -17,7 +17,7 @@ class Zips extends CI_Controller {
 		$i = '';
 		foreach ($customers as $array){
 
-			$this->data[]['name'] = 'State: '.formatString($array['state']).', City: '.formatString($array['city']).', Zip Code: '.formatString($array['zip']);
+			$this->data[]['name'] = 'Country: '.formatString($array['country']).', State: '.formatString($array['state']).', City: '.formatString($array['city']).', Zip Code: '.formatString($array['zip']);
 			
 		}
 		

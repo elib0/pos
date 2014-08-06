@@ -13,6 +13,7 @@ class ModelZips extends CI_Model {
 		$query = $this->db->query("
 			SELECT 
 				a.id AS id,
+				a.country AS country,	
 				a.state AS state,
 				a.city AS city,
 				a.zip AS zip

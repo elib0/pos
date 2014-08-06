@@ -13,11 +13,11 @@ class PhoneModels extends CI_Controller {
 
 	public function complete($value){
 
-		$customers = $this->ModelPhoneModel->get_seek(" WHERE a.model_name LIKE '%".$value."%' OR b.brand_name LIKE '%".$value."%' ");
+		$customers = $this->ModelPhoneModel->get_seek(" WHERE model_name LIKE '%".$value."%' ");
 		$i = '';
 		foreach ($customers as $array){
 
-			$this->data[]['name'] = '('.formatString($array['brand'],4).') - '.formatString($array['name']);
+			$this->data[]['name'] = 'Code: '.$array['id'].', Model: '.formatString($array['name']);
 			
 		}
 

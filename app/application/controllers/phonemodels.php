@@ -12,7 +12,6 @@ class PhoneModels extends CI_Controller {
 	}
 
 	public function complete($value){
-
 		$customers = $this->ModelPhoneModel->get_seek(" WHERE model_name LIKE '%".$value."%' ");
 		$i = '';
 		foreach ($customers as $array){
@@ -20,9 +19,7 @@ class PhoneModels extends CI_Controller {
 			$this->data[]['name'] = 'Code: '.$array['id'].', Model: '.formatString($array['name']);
 			
 		}
-
 		echo json_encode($this->data);
-
 	}
 }
 

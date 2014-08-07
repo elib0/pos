@@ -48,7 +48,7 @@ class ModelPeople extends CI_Model {
 		$this->last_id = $this->db->insert_id();
 		$array = array(
 			'person_id' => $this->last_id,
-			'account_number' => '',
+			'account_number' =>  $this->last_id,
 			'taxable' => '1',
 			'deleted' => '0'
 		);
@@ -59,6 +59,11 @@ class ModelPeople extends CI_Model {
 		return $this->last_id;
 	}
 
+	public function get_field($field, $where){
+		$query = $this->db->query("SELECT $field FROM ospos_people $where LIMIT 1 ");
+		$array = $query->row();
+		return $array->$field;
+	}
 }
 
 ?>

@@ -19,7 +19,8 @@
 		<h5><small>I agree DASH works in my phone.</small></h5>
 		
 		<div class="row">
-			<form name="frmCases" id="frmCases" action="<?=$config['domain']?>/work_orders/save/" method="POST" enctype="multipart/form-data">
+			<!-- data-abide -->
+			<form data-abide name="frmCases" id="frmCases" action="<?=$config['domain']?>/tracking/save/" method="POST" enctype="multipart/form-data">
 				<div class="large-12 columns">
 					
 					<div class="row" id="customer_search_label">
@@ -117,7 +118,7 @@
 		
 		$("#btn_new_customer").click(function() {
 			$.ajax({
-				url: "<?=$config['domain']?>/work_orders/new_customer_form",
+				url: "<?=$config['domain']?>/tracking/new_customer_form",
 			    dataType: 'html',
 			    success : function(data) {
 					$("#customer_search_label,#customer_search_box").hide();
@@ -192,30 +193,24 @@
 		});	
 
 		//save
-		
-
-
-
-		$("#btnSave").click(function() { alert('1');
+		$("#btnSave").click(function() {
 			$('#frmCases').submit();
 		});
 
-
-		// $('#frmCases').ajaxForm({
-		//     dataType: 'JSON',
-		//     success : function(data) { 
-		//         alert('data');
-		//     }
-		// });	
-		// 
-		// 	
-			
-
-
-
-
-
-
+		$('#frmCases').ajaxForm({
+			type: "POST",
+		    dataType: 'json',
+		    success : function(data) { 
+				$('#contact-reveal h2').html(data['title']);
+				$('#contact-reveal h5').append(data['message']+'<br>'+data['work_order']);
+				$('#contact-reveal').foundation('reveal', 'open');
+				if (data['out']=='ok'){
+		            setTimeout(function(){
+		                redirect(data['url']);
+		            }, 3000);
+		        }
+		    }
+		});
 
 	</script>
     

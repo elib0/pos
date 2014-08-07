@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Work_orders extends CI_Controller {
+class Tracking extends CI_Controller {
 
 	private $data;
 	private $language;
@@ -9,20 +9,19 @@ class Work_orders extends CI_Controller {
 	{
 		parent::__construct();
 		$this->data = array();
-
 	}
 
-	//home page
 	public function index()
 	{	
-		$this->load->layout('work_orders',$this->data);
+		$this->load->layout('tracking',$this->data);
 	}
 
 	public function save(){
-		_imprimir($_POST);
+		//_imprimir($_POST);
 		$this->load->model('ModelPeople');
-		$this->load->model('ModelCaseHistory');
-		$id_customer = '';
+		$this->load->model('ModelTracking');
+		$email_customer = explode('-', $this->input->post('txtCustomer'));
+		$id_customer = $this->ModelPeople->get_field('person_id', " WHERE email LIKE '".trim($email_customer[1])."'");  
 		if (!$this->ModelPeople->exists($this->input->post('txtEmail'))){
 			$address = explode(',', $this->input->post('txtCity'));
 			$country = explode(':', $address[0]);
@@ -42,24 +41,32 @@ class Work_orders extends CI_Controller {
 				'country' => trim($country[1]),
 				'comments' => 'New customer from case history module, date: '.date('Y-m-d')
 			);
+			//_imprimir($customer);
 			$this->ModelPeople->insert_customer($customer);
 			$id_customer = $this->ModelPeople->get_last_id();
 		}
+		$model = explode(',', $this->input->post('txtModel'));
+		$model_id = explode(':', $model[0]);
 		$case = array(
 			'person_id' => $id_customer, 
-			'model_id' => '',
-			'imei_serial' => $this->input->post('txtImei'),
+			'model_id' => trim($model_id[1]),
+			'serial' => $this->input->post('txtImei'),
 			'color' => $this->input->post('txtColor'),
-			'problem' => $this->input->post('txtProblem')
+			'comments' => $this->input->post('txtProblem')
 		);
-		$this->ModelCaseHistory->insert($case);
+		//_imprimir($case);
+		$this->ModelTracking->insert($case);
+		echo json_encode(array(
+			'out' => 'ok',
+			'url' => base_url(),
+			'title' => 'Message',
+			'message' => 'Your request was saved successfully!',
+			'work_order' => 'Your work order is: '.$this->ModelTracking->get_last_id()
+		));
 	}
-
 
 	public function new_customer_form(){
 		$this->load->layout('ajax/customers_form.php',$this->data);
 	}
-
-
 }
 ?>

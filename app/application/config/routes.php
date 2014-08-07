@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = "work_orders";
+$route['default_controller'] = "tracking";
 $route['404_override'] = '';
 
 

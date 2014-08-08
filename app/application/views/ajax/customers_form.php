@@ -33,14 +33,4 @@
 			</label>
 		</div>
 	</div>
-	<div class="row">
-		<div class="large-12 columns">
-			&nbsp;
-		</div>
-		<div class="large-2 columns">
-			<label>
-				<button type="button" id="btnBackSearch" name="btnBackSearch" class="button tiny">Back to Search</button>
-			</label>
-		</div>
-	</div>
 </fieldset>

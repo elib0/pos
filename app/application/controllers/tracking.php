@@ -20,8 +20,12 @@ class Tracking extends CI_Controller {
 		//_imprimir($_POST);
 		$this->load->model('ModelPeople');
 		$this->load->model('ModelTracking');
-		$email_customer = explode('-', $this->input->post('txtCustomer'));
-		$id_customer = $this->ModelPeople->get_field('person_id', " WHERE email LIKE '".trim($email_customer[1])."'");  
+		if ($this->input->post('txtCustomer')!=''){
+			$email_customer = explode('-', $this->input->post('txtCustomer'));
+			$id_customer = $this->ModelPeople->get_field('person_id', " WHERE email LIKE '".trim($email_customer[1])."'");
+		}else{
+			$id_customer = '';
+		}  
 		if (!$this->ModelPeople->exists($this->input->post('txtEmail'))){
 			$address = explode(',', $this->input->post('txtCity'));
 			$country = explode(':', $address[0]);
@@ -44,6 +48,8 @@ class Tracking extends CI_Controller {
 			//_imprimir($customer);
 			$this->ModelPeople->insert_customer($customer);
 			$id_customer = $this->ModelPeople->get_last_id();
+		}else{
+			$id_customer = $this->ModelPeople->get_field('person_id', " WHERE email LIKE '".$this->input->post('txtEmail')."'");
 		}
 		$model = explode(',', $this->input->post('txtModel'));
 		$model_id = explode(':', $model[0]);
@@ -54,7 +60,54 @@ class Tracking extends CI_Controller {
 			'color' => $this->input->post('txtColor'),
 			'comments' => $this->input->post('txtProblem')
 		);
-		//_imprimir($case);
+		//email
+		$this->load->library('email');
+
+		$body = '
+			<table align="center" cellpadding="0" cellspacing="0" border="0" style="width: 600px; font-size: 12px; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;font-weight: normal;border: 1px solid #f4f4f4; ">
+			<tr>
+			<td style="border: 1px solid #f4f4f4;border-bottom: none;"><img src="'.base_url().'img/top_mail.png" alt=""></td>
+			</tr>
+			<tr>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none; border-top: none;"><h4>Datos de la Persona</h4></td>
+			</tr>
+			<tr>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Nombre:</strong>&nbsp;***</td>
+			</tr>
+			<tr>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Email:</strong>&nbsp;***</td>
+			</tr>
+			<tr>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Tel&eacute;fono:</strong>&nbsp;***</td>
+			</tr>
+			<tr>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><h4>Datos de la Solicitud</h4></td>
+			</tr>
+			<tr>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Solicitud:</strong>&nbsp;***</td>
+			</tr>
+			<tr>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Motivo:</strong>&nbsp;***</td>
+			</tr>
+			<tr>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Mensaje</strong>&nbsp;</td>
+			</tr>
+			<tr>
+			<td style="padding:10px;border: 1px solid #f4f4f4;">***</td>
+			</tr>
+			<tr>
+			<td>&nbsp;</td>
+			</tr>
+			</table>		
+		';
+
+		$this->email->initialize(emailSetting());
+		$this->email->from('info@websarrollo.com', 'DASH Cellular Repair');
+		$this->email->to('gustavoocanto@gmail.com');
+		$this->email->subject('test form');
+		$this->email->message($body);
+
+		//out
 		$this->ModelTracking->insert($case);
 		echo json_encode(array(
 			'out' => 'ok',

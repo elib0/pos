@@ -30,15 +30,23 @@
 					</div>
 					<div class="row collapse panel" id="customer_search_box">
 						<div class="small-10 columns">
-							<input id="txtCustomer" name="txtCustomer" type="text" placeholder="Type to start search ..." required>
+							<input id="txtCustomer" name="txtCustomer" type="text" placeholder="Type to start search ...">
 							<small class="error">Customer is required.</small>
 						</div>
 						<div class="small-2 columns">
 							<a href="<?=$config['not_click']?>" id="btn_new_customer" class="button postfix">Add</a>
 						</div>
 					</div>
+					<div class="row" id="layerBackButton">
+						<div class="large-10 columns">
+							&nbsp;
+						</div>
+						<div class="large-2 columns">
+							<button type="button" id="btnBackSearch" name="btnBackSearch" class="button expand">Back to Search</button>
+						</div>
+					</div>
 					
-					<div class="row"  >
+					<div class="row">
 						<div class="large-12 columns" id="customers_form"></div>
 					</div>
 
@@ -66,7 +74,6 @@
 						</div>	
 					</fieldset>
 
-
 					<fieldset>
 	    				<legend><h4>Problem</h4></legend>
 							<div class="row">
@@ -87,6 +94,7 @@
 					<div class="row">
 						<div class="large-4 columns">
 							<button type="button" id="btnSave" name="btnSave" class="button tiny">&nbsp;&nbsp;&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;&nbsp;</button>
+							<input type="hidden" id="isNewCustomer" name="isNewCustomer" value="0">
 						</div>
 						<div class="large-2 columns">
 							&nbsp;
@@ -112,15 +120,22 @@
 	<script type="text/javascript" src="<?=base_url()?>js/foundation.min.js"></script>
 
 	<script type="text/javascript" src="<?=base_url()?>js/jquery.form.min.js"></script>
+
+	<script type="text/javascript" src="<?=base_url()?>js/functions.js"></script>
 	
 	<script>
 		$(document).foundation();
 		
 		$("#btn_new_customer").click(function() {
+
+			$('#isNewCustomer').val(1);
+			$('#layerBackButton').show();
+
 			$.ajax({
 				url: "<?=$config['domain']?>/tracking/new_customer_form",
 			    dataType: 'html',
 			    success : function(data) {
+					
 					$("#customer_search_label,#customer_search_box").hide();
 			    	$("#customers_form").html(data);
 
@@ -142,19 +157,10 @@
 						    }
 						});
 					});
-
-					//back button
-					$( "#btnBackSearch").click(function() {
-						$("#new_customer").fadeOut(1000,function(){
-							$("#customer_search_label,#customer_search_box").fadeIn(500);
-						});
-					});
-
 			    } //success
 			});
 			
 		});
-
 		
 		$("#txtCustomer").keyup(function() {
 			var txt = $(this);
@@ -194,13 +200,27 @@
 
 		//save
 		$("#btnSave").click(function() {
+			if ($('#isNewCustomer').val() == 0){ 
+				$('#txtCustomer').attr('required','required');
+			}else{
+				//removeAttr
+				$('#txtCustomer').removeAttr('required');
+				$('#txtCustomer').removeAttr('data-invalid');
+			}	
 			$('#frmCases').submit();
+		});
+
+		//back
+		$("#btnBackSearch").click(function(){
+			$('#layerBackButton').hide();
+			$("#customer_search_label,#customer_search_box").show();
+			$('#isNewCustomer').val(0);
 		});
 
 		$('#frmCases').ajaxForm({
 			type: "POST",
 		    dataType: 'json',
-		    success : function(data) { 
+		    success : function(data) {
 				$('#contact-reveal h2').html(data['title']);
 				$('#contact-reveal h5').append(data['message']+'<br>'+data['work_order']);
 				$('#contact-reveal').foundation('reveal', 'open');

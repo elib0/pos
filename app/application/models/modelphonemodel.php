@@ -21,7 +21,15 @@ class ModelPhoneModel extends CI_Model {
 			$limit
 		");
 		return $query->result_array();
-	}	
+	}
+
+	public function get_field($field, $where){
+		$query = $this->db->query("SELECT $field FROM ospos_model $where LIMIT 1 ");
+		$array = $query->row();
+		return $array->$field;
+	}
+
+		
 }
 
 ?>

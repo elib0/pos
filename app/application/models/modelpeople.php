@@ -64,6 +64,12 @@ class ModelPeople extends CI_Model {
 		$array = $query->row();
 		return $array->$field;
 	}
+
+	public function full_name($id){ 
+		$query = $this->db->query("SELECT first_name, last_name FROM ospos_people WHERE person_id = '".$id."' LIMIT 1 ");
+		$array =  $query->row();
+		return $array->first_name.' '.$array->last_name; 
+	}
 }
 
 ?>

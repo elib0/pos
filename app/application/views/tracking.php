@@ -8,19 +8,18 @@
 	<link href="<?=base_url()?>css/quicksign.css" rel="stylesheet">
 	<link type="text/css" href="<?=base_url()?>css/jquery-ui.css" rel="stylesheet">
 	<link type="text/css" href="<?=base_url()?>css/app.css" rel="stylesheet">
-	
 	<script src="<?=base_url()?>js/vendor/modernizr.js"></script>
 </head>
 <body>
     
 	<div class="row">
 		
-		<h3>Work Order Approval</h3>
-		<h5><small>I agree DASH works in my phone.</small></h5>
+		<h3>DASH - Work Order</h3>
+		<h5><small></small></h5>
 		
 		<div class="row">
 			<!-- data-abide -->
-			<form data-abide name="frmCases" id="frmCases" action="<?=$config['domain']?>/tracking/save/" method="POST" enctype="multipart/form-data">
+			<form data-abide name="frmCases" id="frmCases" action="<?=$config['domain']?>/tracking/save/" method="POST">
 				<div class="large-12 columns">
 					
 					<div class="row" id="customer_search_label">
@@ -86,7 +85,7 @@
 
 					<div class="row">
 						<div class="large-12 columns">
-							<input id="chkTerm" type="checkbox" required><label for="chkTerm">I accept DASH term and conditions.</label>
+							<input id="chkTerm" type="checkbox" required><label for="chkTerm"><div align="justify"><b>I understand that Dash is not responsible for any damage to any items due to previous condition and/or usage. Failure to inform the technician of any prior or current condition may result in testing, troubleshooting and repair methods being used when they should not. In this case the customer is responsible for the damage of the product and any damage to equipment used to troubleshoot the product, unless a technician has been negligent and/or abusive. Dash is not responsible for any damage to product caused by attempting a repair in a proper way. Any equipment left over 30 days will be recycled. All personal data will be irrevocable destroyed to protect your privacy. I understand that services rendered by Dash and any damage to this device or data are incidental to the services rendered. Any warranty expressed or implied only covers that part and the labor provided on the part. All parts come with a 30 day warranty which does not include physical and/or liquid damage.</b> </div></label>
 							<small class="error">Term and Conditions are required.</small>
 						</div>
 					</div>
@@ -217,20 +216,20 @@
 			$('#isNewCustomer').val(0);
 		});
 
-		$('#frmCases').ajaxForm({
-			type: "POST",
-		    dataType: 'json',
-		    success : function(data) {
-				$('#contact-reveal h2').html(data['title']);
-				$('#contact-reveal h5').append(data['message']+'<br>'+data['work_order']);
-				$('#contact-reveal').foundation('reveal', 'open');
-				if (data['out']=='ok'){
-		            setTimeout(function(){
-		                redirect(data['url']);
-		            }, 3000);
-		        }
-		    }
-		});
+		// $('#frmCases').ajaxForm({
+		// 	type: "POST",
+		//     dataType: 'json',
+		//     success : function(data) {
+		// 		$('#contact-reveal h2').html(data['title']);
+		// 		$('#contact-reveal h5').append(data['message']+'<br>'+data['work_order']);
+		// 		$('#contact-reveal').foundation('reveal', 'open');
+		// 		if (data['out']=='ok'){
+		//             setTimeout(function(){
+		//                 redirect(data['url']);
+		//             }, 3000);
+		//         }
+		//     }
+		// });
 
 	</script>
     

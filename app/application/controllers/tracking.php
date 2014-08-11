@@ -22,22 +22,22 @@ class Tracking extends CI_Controller {
 
 	public function save(){
 		$this->load->model('ModelPeople');
-		$this->load->model('ModelTracking');
 		$this->load->model('ModelPhoneModel');
 
+		//if the user pick the customer in the search box
 		if ($this->input->post('txtCustomer')!=''){
 			$email_customer = explode('-', $this->input->post('txtCustomer'));
-			$this->id_customer = $this->ModelPeople->get_field('person_id', " WHERE email LIKE '".trim($email_customer[1])."'");
+			$id_customer = $this->ModelPeople->get_field('person_id', " WHERE email LIKE '".trim($email_customer[1])."'");
 		}  
 
 		//new customer 
-		if (!$this->ModelPeople->exists($this->input->post('txtEmail'))){
+		if (!$this->ModelPeople->exists($this->input->post('txtEmail')) && $this->input->post('txtCustomer')==''){
 			$address = explode(',', $this->input->post('txtCity'));
 			$country = explode(':', $address[0]);
 			$state = explode(':', $address[1]);
 			$city = explode(':', $address[2]);
 			$zip  = explode(':', $address[3]);
-			$this->customer = array(
+			$customer = array(
 				'first_name' => $this->input->post('txtFirstName'),
 				'last_name' => $this->input->post('txtLastName'),
 				'phone_number' => $this->input->post('txtPhoneNumber'),
@@ -47,43 +47,39 @@ class Tracking extends CI_Controller {
 				'city' => trim($city[1]),
 				'state' => trim($state[1]),
 				'zip' => trim($zip[1]),
-				'country' => trim($country[1]),
-				'comments' => 'New customer from case history module, date: '.date('Y-m-d')
-			);	
-			$this->id_customer = $this->ModelPeople->get_last_id();
-		}else{
-			$this->id_customer = $this->ModelPeople->get_field('person_id', " WHERE email LIKE '".$this->input->post('txtEmail')."'");
+				'country' => trim($country[1])
+			);
 		}
-		
+
 		//tracking case
 		$model = explode(',', $this->input->post('txtModel'));
 		$model_id = explode(':', $model[0]);
 
-		$this->case = array(
-			'person_id' => $this->id_customer, 
-			'model_id' => trim($model_id[1]),
-			'serial' => $this->input->post('txtImei'),
-			'color' => $this->input->post('txtColor'),
-			'comments' => $this->input->post('txtProblem')
-		);
-
-		//view 2
+		//tracking approval view
 		$this->data = array(
-			'customer' => $this->ModelPeople->full_name($this->id_customer),
+			'customer_name' => isset($id_customer) ? $this->ModelPeople->full_name($id_customer) : $customer['first_name'].' '.$customer['last_name'],
 			'device' => $this->ModelPhoneModel->get_field('model_name', " WHERE model_id = '".trim($model_id[1])."'"),
-			'imei' => $this->case['serial'],
-			'color' => $this->case['color'],
-			'problem' => $this->case['comments'],
-			'case' => $this->case,
-			'arrayCustomer' => $this->customer,
-			'id_customer' => $this->id_customer
+			'case' => 
+				array(
+					'person_id' => isset($id_customer) ? $id_customer : '', 
+					'model_id' => trim($model_id[1]),
+					'serial' => $this->input->post('txtImei'),
+					'color' => $this->input->post('txtColor'),
+					'comments' => $this->input->post('txtProblem')
+				),
+			'customer' => $customer,
+			'id_customer' => isset($id_customer) ? $id_customer : ''
 		);
-		$this->load->layout('approvalSignature',$this->data);
+		$this->load->layout('trackingApproval',$this->data);
 	}
 
 	public function approval(){
-
-		if ($this->input->post('txtEmail')!=''){
+		$this->load->model('ModelPeople');
+		$this->load->model('ModelTracking');
+		
+		$id_customer = '';
+		if ($this->input->post('email')!=''&&$this->input->post('id_customer')==''){
+			echo '--';
 			$customer = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
@@ -98,34 +94,36 @@ class Tracking extends CI_Controller {
 				'comments' => $this->input->post('comments')
 			);
 			_imprimir($customer);
-			//$this->ModelPeople->insert_customer($customer);
+			echo '--';
+			$this->ModelPeople->insert_customer($customer);
+			$id_customer = $this->ModelPeople->get_last_id();
+		}elseif ($this->input->post('id_customer')!='') {
+			$id_customer = $this->input->post('id_customer');
 		}
 
 		$case = array(
-			'person_id' => $this->input->post('person_id'), 
+			'person_id' => $id_customer, 
 			'model_id' => $this->input->post('model_id'),
 			'serial' => $this->input->post('serial'),
 			'color' => $this->input->post('color'),
 			'comments' => $this->input->post('comments')
-		);		
+		);	
 
-		$this->data = array(
-			'output' => $this->input->post('output')
-		);
+		$this->ModelTracking->insert($case);
 
 		//out
-		//$this->ModelTracking->insert($case);
-		// echo json_encode(array(
-		// 	'out' => 'ok',
-		// 	'url' => base_url(),
-		// 	'title' => 'Message',
-		// 	'message' => 'Your request was saved successfully!',
-		// 	'work_order' => 'Your work order is: '.$this->ModelTracking->get_last_id()
-		// ));
-		_imprimir($_POST);
-		$this->load->layout('approval',$this->data);
-		_imprimir($case);
+		echo json_encode(array(
+			'out' => 'ok',
+			'url' => base_url(),
+			'title' => 'Message',
+			'message' => 'Your request was saved successfully!',
+			'work_order' => 'Your work order is: '.$this->ModelTracking->get_last_id(),
+			'output' => $this->input->post('output')
+		));
 
+		//_imprimir($_POST);
+		// $this->load->layout('approval',$this->data);
+		// _imprimir($case);
 	}
 
 	function send_email(){

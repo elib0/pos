@@ -25,7 +25,7 @@
 
 		<div class="cell">
 			<div><h4>Customer</h4></div>
-			<div class="field"><?=$customer?></div>
+			<div class="field"><?=$customer_name?></div>
 		</div>
 
 		<div class="cell">
@@ -35,17 +35,17 @@
 
 		<div class="cell">
 			<div><h4>IMEI</h4></div>
-			<div class="field"><?=$imei?></div>
+			<div class="field"><?=$case['serial']?></div>
 		</div>
 
 		<div class="cell">
 			<div><h4>Color</h4></div>
-			<div class="field"><?=$color?></div>
+			<div class="field"><?=$case['color']?></div>
 		</div>
 
 		<div class="cell">
 			<div><h4>Problem</h4></div>
-			<div class="field"><?=$problem?></div>
+			<div class="field"><?=$case['comments']?></div>
 		</div>
 	</div>
 
@@ -64,15 +64,14 @@
 	<div class="wrap">
 		<input type="submit" name="btnSend" class="appbutton" value="Send">
 	</div>
-	<?php 
-		while ($value = current($case)) {
-			echo '<input type="hidden" name="'.key($case).'" id="'.key($case).'" value="'.$value.'">';
-			next($case);
+	<?php
+		foreach($case as $key => $value){
+			echo '<input type = "hidden" name="'.$key.'" id="'.$key.'" value="'.$value.'">';
 		}
-		if (count($arrayCustomer)>0){
-			while ($value = current($arrayCustomer)) {
-				echo '<input type="hidden" name="'.key($arrayCustomer).'" id="'.key($arrayCustomer).'" value="'.$value.'">';
-				next($arrayCustomer);
+
+		if (count($customer)>0){
+			foreach($customer as $key => $value){
+				echo '<input type = "hidden" name="'.$key.'" id="'.$key.'" value="'.$value.'">';
 			}
 		}
 	?>

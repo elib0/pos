@@ -17,10 +17,10 @@ class Tracking extends CI_Controller {
 
 	public function index()
 	{	
-		$this->load->layout('tracking',$this->data);
+		$this->load->layout('tracking/workOrder',$this->data);
 	}
 
-	public function save(){
+	public function approval(){
 		$this->load->model('ModelPeople');
 		$this->load->model('ModelPhoneModel');
 
@@ -30,7 +30,8 @@ class Tracking extends CI_Controller {
 			$id_customer = $this->ModelPeople->get_field('person_id', " WHERE email LIKE '".trim($email_customer[1])."'");
 		}  
 
-		//new customer 
+		//new customer
+		$customer = array(); 
 		if (!$this->ModelPeople->exists($this->input->post('txtEmail')) && $this->input->post('txtCustomer')==''){
 			$address = explode(',', $this->input->post('txtCity'));
 			$country = explode(':', $address[0]);
@@ -47,15 +48,14 @@ class Tracking extends CI_Controller {
 				'city' => trim($city[1]),
 				'state' => trim($state[1]),
 				'zip' => trim($zip[1]),
-				'country' => trim($country[1])
+				'country' => trim($country[1]),
+				'comments' => 'New customer from app, date: '.date('Y-m-d')
 			);
 		}
 
-		//tracking case
+		//approval view
 		$model = explode(',', $this->input->post('txtModel'));
 		$model_id = explode(':', $model[0]);
-
-		//tracking approval view
 		$this->data = array(
 			'customer_name' => isset($id_customer) ? $this->ModelPeople->full_name($id_customer) : $customer['first_name'].' '.$customer['last_name'],
 			'device' => $this->ModelPhoneModel->get_field('model_name', " WHERE model_id = '".trim($model_id[1])."'"),
@@ -68,12 +68,13 @@ class Tracking extends CI_Controller {
 					'comments' => $this->input->post('txtProblem')
 				),
 			'customer' => $customer,
-			'id_customer' => isset($id_customer) ? $id_customer : ''
+			'id_customer' => isset($id_customer) ? $id_customer : '',
+			'email_customer' => isset($email_customer) ? $email_customer : ''
 		);
-		$this->load->layout('trackingApproval',$this->data);
+		$this->load->layout('tracking/approval',$this->data);
 	}
 
-	public function approval(){
+	public function save(){
 		$this->load->model('ModelPeople');
 		$this->load->model('ModelTracking');
 		
@@ -95,8 +96,8 @@ class Tracking extends CI_Controller {
 			);
 			_imprimir($customer);
 			echo '--';
-			$this->ModelPeople->insert_customer($customer);
-			$id_customer = $this->ModelPeople->get_last_id();
+			//$this->ModelPeople->insert_customer($customer);
+			//$id_customer = $this->ModelPeople->get_last_id();
 		}elseif ($this->input->post('id_customer')!='') {
 			$id_customer = $this->input->post('id_customer');
 		}
@@ -109,21 +110,34 @@ class Tracking extends CI_Controller {
 			'comments' => $this->input->post('comments')
 		);	
 
-		$this->ModelTracking->insert($case);
+		//$this->ModelTracking->insert($case);
 
 		//out
-		echo json_encode(array(
+		$this->data = array(
 			'out' => 'ok',
 			'url' => base_url(),
 			'title' => 'Message',
 			'message' => 'Your request was saved successfully!',
-			'work_order' => 'Your work order is: '.$this->ModelTracking->get_last_id(),
+			//'work_order' => 'Your work order is: '.$this->ModelTracking->get_last_id(),
 			'output' => $this->input->post('output')
-		));
+		);
 
-		//_imprimir($_POST);
-		// $this->load->layout('approval',$this->data);
-		// _imprimir($case);
+		$img = sigJsonToImage($this->input->post('output'));
+		
+		// Output to browser
+		
+		$this->output->set_content_type('png');
+        
+
+		
+        //$this->output->set_output('img/test.png');
+		//header('Content-Type: image/png');
+		//imagepng($img, 'img');
+
+		// Destroy the image in memory when complete
+		//imagedestroy($img);
+
+		$this->load->layout('tracking/save',$this->data);
 	}
 
 	function send_email(){
@@ -174,8 +188,8 @@ class Tracking extends CI_Controller {
 		$this->email->message($body);		
 	}
 
-	public function new_customer_form(){
-		$this->load->layout('ajax/customers_form.php');
+	public function new_customer(){
+		$this->load->layout('tracking/ajax/form_cust.php');
 	}
 
 

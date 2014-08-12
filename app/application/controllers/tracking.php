@@ -80,7 +80,6 @@ class Tracking extends CI_Controller {
 		
 		$id_customer = '';
 		if ($this->input->post('email')!=''&&$this->input->post('id_customer')==''){
-			echo '--';
 			$customer = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
@@ -94,14 +93,13 @@ class Tracking extends CI_Controller {
 				'country' => $this->input->post('country'),
 				'comments' => $this->input->post('comments')
 			);
-			_imprimir($customer);
-			echo '--';
-			//$this->ModelPeople->insert_customer($customer);
-			//$id_customer = $this->ModelPeople->get_last_id();
+			$this->ModelPeople->insert_customer($customer);
+			$id_customer = $this->ModelPeople->get_last_id();
 		}elseif ($this->input->post('id_customer')!='') {
 			$id_customer = $this->input->post('id_customer');
 		}
 
+		//work order insert
 		$case = array(
 			'person_id' => $id_customer, 
 			'model_id' => $this->input->post('model_id'),
@@ -110,7 +108,7 @@ class Tracking extends CI_Controller {
 			'comments' => $this->input->post('comments')
 		);	
 
-		//$this->ModelTracking->insert($case);
+		$this->ModelTracking->insert($case);
 
 		//out
 		$this->data = array(
@@ -118,25 +116,13 @@ class Tracking extends CI_Controller {
 			'url' => base_url(),
 			'title' => 'Message',
 			'message' => 'Your request was saved successfully!',
-			//'work_order' => 'Your work order is: '.$this->ModelTracking->get_last_id(),
+			'work_order' => 'Your work order is: '.$this->ModelTracking->get_last_id(),
 			'output' => $this->input->post('output')
 		);
 
 		$img = sigJsonToImage($this->input->post('output'));
-		
-		// Output to browser
-		
-		$this->output->set_content_type('png');
-        
-
-		
-        //$this->output->set_output('img/test.png');
-		//header('Content-Type: image/png');
-		//imagepng($img, 'img');
-
-		// Destroy the image in memory when complete
-		//imagedestroy($img);
-
+		imagepng($img, 'images/signatures/people_'.$id_customer.'.png');
+		imagedestroy($img);
 		$this->load->layout('tracking/save',$this->data);
 	}
 

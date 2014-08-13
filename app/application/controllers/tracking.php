@@ -97,6 +97,7 @@ class Tracking extends CI_Controller {
 			$id_customer = $this->ModelPeople->get_last_id();
 		}elseif ($this->input->post('id_customer')!='') {
 			$id_customer = $this->input->post('id_customer');
+			$arrayCustomer = $this->ModelPeople->getRow($id_customer);
 		}
 
 		//work order insert
@@ -107,8 +108,24 @@ class Tracking extends CI_Controller {
 			'color' => $this->input->post('color'),
 			'comments' => $this->input->post('comments')
 		);	
-
+		
 		$this->ModelTracking->insert($case);
+		$id_work_order = $this->ModelTracking->get_last_id();
+		$img = sigJsonToImage($this->input->post('output'));
+		imagepng($img, 'images/signatures/people_'.$id_customer.'.png');
+		imagedestroy($img);
+
+		//send email
+		$emailData = array(
+			'customer' => ($this->input->post('id_customer')=='') ? $arrayCustomer->first_name.' '.$arrayCustomer->last_name : $this->ModelPeople->full_name($id_customer),
+			'email' => ($this->input->post('id_customer')=='') ? $this->input->post('email') : $arrayCustomer->email,
+			'work_order' => $id_work_order,
+			'signature' => base_url().'images/signatures/people_'.$id_customer.'.png',
+			'destiny' => 'workorder@fast-i-repair.com',
+			'phone_number' => ($this->input->post('id_customer')=='') ? $this->input->post('phone_number') : $arrayCustomer->phone_number,
+			'comments' => $case['comments']
+		);
+		$this->send_email($emailData);
 
 		//out
 		$this->data = array(
@@ -116,68 +133,74 @@ class Tracking extends CI_Controller {
 			'url' => base_url(),
 			'title' => 'Message',
 			'message' => 'Your request was saved successfully!',
-			'work_order' => 'Your work order is: '.$this->ModelTracking->get_last_id(),
-			'output' => $this->input->post('output')
+			'work_order' => 'Your work order is: '.$this->ModelTracking->get_last_id()
 		);
 
-		$img = sigJsonToImage($this->input->post('output'));
-		imagepng($img, 'images/signatures/people_'.$id_customer.'.png');
-		imagedestroy($img);
-		$this->load->layout('tracking/save',$this->data);
+		$this->load->layout('tracking/workOrder',$this->data);
 	}
 
-	function send_email(){
+	function send_email($case, $debug=false){
 		$this->load->library('email');
 
 		$body = '
 			<table align="center" cellpadding="0" cellspacing="0" border="0" style="width: 600px; font-size: 12px; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;font-weight: normal;border: 1px solid #f4f4f4; ">
+			
 			<tr>
-			<td style="border: 1px solid #f4f4f4;border-bottom: none;"><img src="'.base_url().'img/top_mail.png" alt=""></td>
+			<td style="border: 1px solid #f4f4f4;border-bottom: none;"><img src="'.base_url().'images/top_mail.png" alt=""></td>
 			</tr>
+			
 			<tr>
-			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none; border-top: none;"><h4>Datos de la Persona</h4></td>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none; border-top: none;"><h4>Customer Info</h4></td>
 			</tr>
+			
 			<tr>
-			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Nombre:</strong>&nbsp;***</td>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Customer:</strong>&nbsp;&nbsp;&nbsp;'.$case['customer'].'</td>
 			</tr>
+			
 			<tr>
-			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Email:</strong>&nbsp;***</td>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Email:</strong>&nbsp;&nbsp;&nbsp;'.$case['email'].'</td>
 			</tr>
+			
 			<tr>
-			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Tel&eacute;fono:</strong>&nbsp;***</td>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Tel&eacute;fono:</strong>&nbsp;&nbsp;&nbsp;'.$case['phone_number'].'</td>
 			</tr>
+			
 			<tr>
-			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><h4>Datos de la Solicitud</h4></td>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><h4>Request Info</h4></td>
 			</tr>
+			
 			<tr>
-			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Solicitud:</strong>&nbsp;***</td>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Work Order Number:</strong>&nbsp;&nbsp;&nbsp;'.$case['work_order'].'</td>
 			</tr>
+			
 			<tr>
-			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Motivo:</strong>&nbsp;***</td>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Problem:</strong>&nbsp;&nbsp;&nbsp;'.$case['comments'].'</td>
 			</tr>
+			
 			<tr>
-			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Mensaje</strong>&nbsp;</td>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Approval:</strong>&nbsp;&nbsp;&nbsp;<img src="'.$case['signature'].'" alt=""></td>
 			</tr>
-			<tr>
-			<td style="padding:10px;border: 1px solid #f4f4f4;">***</td>
-			</tr>
+			
 			<tr>
 			<td>&nbsp;</td>
 			</tr>
+			
 			</table>		
 		';
 
 		$this->email->initialize(emailSetting());
-		$this->email->from('info@websarrollo.com', 'DASH Cellular Repair');
-		$this->email->to('gustavoocanto@gmail.com');
-		$this->email->subject('test form');
-		$this->email->message($body);		
+		$this->email->from('info@fast-i-repair.com', 'DASH Cellular Repair');
+		$this->email->to($case['destiny']);
+		$this->email->subject('New work order # '.$case['work_order']);
+		$this->email->message($body);
+		$this->email->send();
+		
+		if ($debug)
+			echo $this->email->print_debugger();	
 	}
 
 	public function new_customer(){
 		$this->load->layout('tracking/ajax/form_cust.php');
 	}
-
-
 }
 ?>

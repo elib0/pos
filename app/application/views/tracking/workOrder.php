@@ -136,7 +136,22 @@
 	
 	<script>
 		$(document).foundation();
-		
+
+		var out = '<?=(isset($out)?$out:'')?>';
+		var title = '<?=(isset($title)?$title:'')?>';
+		var message = '<?=(isset($message)?$message:'')?>';
+		var work_order = '<?=(isset($work_order)?$work_order:'')?>';
+
+		if (out=='ok'&&title!=''&&message!=''&&work_order!=''){
+			$('#contact-reveal h2').html(title);
+	        $('#contact-reveal h5').append(message);
+	        $('#contact-reveal h5').append('<br/><br/>'+work_order);
+	        $('#contact-reveal').foundation('reveal', 'open');
+		        setTimeout(function(){
+	                redirect('<?=(isset($url))?$url:base_url()?>');
+	            }, 3000);
+		}
+
 		$("#btn_new_customer").click(function() {
 
 			$('#isNewCustomer').val(1);

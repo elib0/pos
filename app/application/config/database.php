@@ -48,82 +48,21 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-
-
-
-
-if (preg_match('/^(localhost|127\.\d\.\d\.\d|192\.168(\.\d{1,3}){2})/',$_SERVER['SERVER_NAME'])){
-
-	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = 'root';
-	$db['default']['password'] = 'root';
-	$db['default']['database'] = 'possp';
-	$db['default']['dbdriver'] = 'mysql';
-	$db['default']['dbprefix'] = '';
-	$db['default']['pconnect'] = TRUE;
-	$db['default']['db_debug'] = TRUE;
-	$db['default']['cache_on'] = FALSE;
-	$db['default']['cachedir'] = '';
-	$db['default']['char_set'] = 'utf8';
-	$db['default']['dbcollat'] = 'utf8_general_ci';
-	$db['default']['swap_pre'] = '';
-	$db['default']['autoinit'] = TRUE;
-	$db['default']['stricton'] = FALSE;
-
-	//wadmin
-	$db['whmcs']['hostname'] = 'localhost';
-	$db['whmcs']['username'] = 'root';
-	$db['whmcs']['password'] = 'root';
-	$db['whmcs']['database'] = 'whmcs';
-	$db['whmcs']['dbdriver'] = 'mysql';
-	$db['whmcs']['dbprefix'] = '';
-	$db['whmcs']['pconnect'] = TRUE;
-	$db['whmcs']['db_debug'] = TRUE;
-	$db['whmcs']['cache_on'] = FALSE;
-	$db['whmcs']['cachedir'] = '';
-	$db['whmcs']['char_set'] = 'utf8';
-	$db['whmcs']['dbcollat'] = 'utf8_general_ci';
-	$db['whmcs']['swap_pre'] = '';
-	$db['whmcs']['autoinit'] = TRUE;
-	$db['whmcs']['stricton'] = FALSE;
-
-}else{
-	
-	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = 'websarro';
-	$db['default']['password'] = '*W3bsarrollo.com*';
-	$db['default']['database'] = 'websarro_v2';
-	$db['default']['dbdriver'] = 'mysql';
-	$db['default']['dbprefix'] = '';
-	$db['default']['pconnect'] = TRUE;
-	$db['default']['db_debug'] = TRUE;
-	$db['default']['cache_on'] = FALSE;
-	$db['default']['cachedir'] = '';
-	$db['default']['char_set'] = 'utf8';
-	$db['default']['dbcollat'] = 'utf8_general_ci';
-	$db['default']['swap_pre'] = '';
-	$db['default']['autoinit'] = TRUE;
-	$db['default']['stricton'] = FALSE;
-
-	//wadmin
-	$db['whmcs']['hostname'] = 'localhost';
-	$db['whmcs']['username'] = 'websarro';
-	$db['whmcs']['password'] = '*W3bsarrollo.com*';
-	$db['whmcs']['database'] = 'websarro_whmcs2';
-	$db['whmcs']['dbdriver'] = 'mysql';
-	$db['whmcs']['dbprefix'] = '';
-	$db['whmcs']['pconnect'] = TRUE;
-	$db['whmcs']['db_debug'] = TRUE;
-	$db['whmcs']['cache_on'] = FALSE;
-	$db['whmcs']['cachedir'] = '';
-	$db['whmcs']['char_set'] = 'utf8';
-	$db['whmcs']['dbcollat'] = 'utf8_general_ci';
-	$db['whmcs']['swap_pre'] = '';
-	$db['whmcs']['autoinit'] = TRUE;
-	$db['whmcs']['stricton'] = FALSE;
-}
-
-
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'root';
+$db['default']['database'] = 'possp';
+$db['default']['dbdriver'] = 'mysql';
+$db['default']['dbprefix'] = '';
+$db['default']['pconnect'] = TRUE;
+$db['default']['db_debug'] = TRUE;
+$db['default']['cache_on'] = FALSE;
+$db['default']['cachedir'] = '';
+$db['default']['char_set'] = 'utf8';
+$db['default']['dbcollat'] = 'utf8_general_ci';
+$db['default']['swap_pre'] = '';
+$db['default']['autoinit'] = TRUE;
+$db['default']['stricton'] = FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

@@ -32,6 +32,12 @@ class ModelPeople extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function getRow($id)
+	{
+		$query = $this->db->query("SELECT * FROM ospos_people WHERE person_id = '".$id."' LIMIT 1 ");
+		return $query->row();
+	}
+
 	public function exists($email)
 	{
 		$query = $this->db->query("

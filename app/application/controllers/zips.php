@@ -18,6 +18,13 @@ class Zips extends CI_Controller {
 		}
 		echo json_encode($this->data);
 	}
+
+	public function get_cities($state){
+		$this->data = array(
+			'cities' => $this->ModelZips->getRows(" WHERE state LIKE '".$state."'", '', ' ORDER BY city', ' GROUP BY city')
+		);
+		$this->load->layout('tracking/ajax/cboCities.php', $this->data);
+	}
 }
 
 ?>

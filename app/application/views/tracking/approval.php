@@ -45,7 +45,7 @@
 
 		<div class="cell">
 			<div><h4>Problem</h4></div>
-			<div class="field"><?=$case['comments']?></div>
+			<div class="field"><?=$case['problem']?></div>
 		</div>
 	</div>
 

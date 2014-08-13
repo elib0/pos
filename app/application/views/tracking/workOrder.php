@@ -166,20 +166,21 @@
 			    	$("#customers_form").html(data);
 
 			    	//cities complete	
-					$("#txtCity").keyup(function() {
+					$("#cboState").change(function() {
 						var txt = $(this);
 						$.ajax({
-							url: "<?=$config['domain']?>/zips/complete/"+txt.val(),
-						    dataType: 'json',
+							url: "<?=$config['domain']?>/zips/get_cities/"+txt.val(),
+						    dataType: 'html',
 						    success : function(data) {
-								var _customers = [];
-								$.each(data, function(i, item) {
-								    _customers.push(item.name); 
-								});
+						    	$('#citiesLayer').html(data);
+								// var _customers = [];
+								// $.each(data, function(i, item) {
+								//     _customers.push(item.name); 
+								// });
 
-								$( "#txtCity" ).autocomplete({
-									source: _customers
-								});
+								// $( "#txtCity" ).autocomplete({
+								// 	source: _customers
+								// });
 						    }
 						});
 					});

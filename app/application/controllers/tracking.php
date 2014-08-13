@@ -33,11 +33,6 @@ class Tracking extends CI_Controller {
 		//new customer
 		$customer = array(); 
 		if (!$this->ModelPeople->exists($this->input->post('txtEmail')) && $this->input->post('txtCustomer')==''){
-			$address = explode(',', $this->input->post('txtCity'));
-			$country = explode(':', $address[0]);
-			$state = explode(':', $address[1]);
-			$city = explode(':', $address[2]);
-			$zip  = explode(':', $address[3]);
 			$customer = array(
 				'first_name' => $this->input->post('txtFirstName'),
 				'last_name' => $this->input->post('txtLastName'),
@@ -45,12 +40,14 @@ class Tracking extends CI_Controller {
 				'email' => $this->input->post('txtEmail'),
 				'address_1' => '',
 				'address_2' => '',
-				'city' => trim($city[1]),
-				'state' => trim($state[1]),
-				'zip' => trim($zip[1]),
-				'country' => trim($country[1]),
+				'city' => $this->input->post('cboCity'),
+				'state' => $this->input->post('cboState'),
+				'zip' => $this->input->post('txtZip'),
+				'country' => 'US',
 				'comments' => 'New customer from app, date: '.date('Y-m-d')
 			);
+		}elseif($this->ModelPeople->exists($this->input->post('txtEmail')) && $this->input->post('txtCustomer')==''){
+			$id_customer = $this->ModelPeople->get_field('person_id', " WHERE email LIKE '".$this->input->post('txtEmail')."'");	
 		}
 
 		//approval view
@@ -65,7 +62,7 @@ class Tracking extends CI_Controller {
 					'model_id' => trim($model_id[1]),
 					'serial' => $this->input->post('txtImei'),
 					'color' => $this->input->post('txtColor'),
-					'comments' => $this->input->post('txtProblem')
+					'problem' => $this->input->post('txtProblem')
 				),
 			'customer' => $customer,
 			'id_customer' => isset($id_customer) ? $id_customer : '',
@@ -80,7 +77,7 @@ class Tracking extends CI_Controller {
 		
 		$id_customer = '';
 		if ($this->input->post('email')!=''&&$this->input->post('id_customer')==''){
-			$customer = array(
+			$arrayCustomer = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name' => $this->input->post('last_name'),
 				'phone_number' => $this->input->post('phone_number'),
@@ -93,7 +90,7 @@ class Tracking extends CI_Controller {
 				'country' => $this->input->post('country'),
 				'comments' => $this->input->post('comments')
 			);
-			$this->ModelPeople->insert_customer($customer);
+			$this->ModelPeople->insert_customer($arrayCustomer);
 			$id_customer = $this->ModelPeople->get_last_id();
 		}elseif ($this->input->post('id_customer')!='') {
 			$id_customer = $this->input->post('id_customer');
@@ -106,7 +103,7 @@ class Tracking extends CI_Controller {
 			'model_id' => $this->input->post('model_id'),
 			'serial' => $this->input->post('serial'),
 			'color' => $this->input->post('color'),
-			'comments' => $this->input->post('comments')
+			'problem' => $this->input->post('problem')
 		);	
 		
 		$this->ModelTracking->insert($case);
@@ -117,13 +114,13 @@ class Tracking extends CI_Controller {
 
 		//send email
 		$emailData = array(
-			'customer' => ($this->input->post('id_customer')=='') ? $arrayCustomer->first_name.' '.$arrayCustomer->last_name : $this->ModelPeople->full_name($id_customer),
-			'email' => ($this->input->post('id_customer')=='') ? $this->input->post('email') : $arrayCustomer->email,
+			'customer' => ($this->input->post('id_customer')=='') ? $arrayCustomer['first_name'].' '.$arrayCustomer['last_name'] : $this->ModelPeople->full_name($id_customer),
+			'email' => ($this->input->post('id_customer')=='') ? $arrayCustomer['email'] : $arrayCustomer->email,
 			'work_order' => $id_work_order,
 			'signature' => base_url().'images/signatures/people_'.$id_customer.'.png',
 			'destiny' => 'workorder@fast-i-repair.com',
-			'phone_number' => ($this->input->post('id_customer')=='') ? $this->input->post('phone_number') : $arrayCustomer->phone_number,
-			'comments' => $case['comments']
+			'phone_number' => ($this->input->post('id_customer')=='') ? $arrayCustomer['phone_number'] : $arrayCustomer->phone_number,
+			'problem' => $case['problem']
 		);
 		$this->send_email($emailData);
 
@@ -174,7 +171,7 @@ class Tracking extends CI_Controller {
 			</tr>
 			
 			<tr>
-			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Problem:</strong>&nbsp;&nbsp;&nbsp;'.$case['comments'].'</td>
+			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Problem:</strong>&nbsp;&nbsp;&nbsp;'.$case['problem'].'</td>
 			</tr>
 			
 			<tr>
@@ -200,7 +197,13 @@ class Tracking extends CI_Controller {
 	}
 
 	public function new_customer(){
-		$this->load->layout('tracking/ajax/form_cust.php');
+		$this->load->model('ModelZips');
+//this is a test
+		$this->data = array(
+			'states' => $this->ModelZips->getRows('', '', '', $group=' GROUP BY state')
+		);
+
+		$this->load->layout('tracking/ajax/form_cust.php', $this->data);
 	}
 }
 ?>

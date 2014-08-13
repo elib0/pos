@@ -24,7 +24,20 @@ class ModelZips extends CI_Model {
 			$limit
 		");
 		return $query->result_array();
-	}	
+	}
+
+	public function getRows($where='', $limit='', $order=' ORDER BY state', $group='')
+	{
+		$query = $this->db->query("
+			SELECT * 
+			FROM ospos_zips 
+			$where  
+			$group  
+			$order 
+			$limit 
+		");
+        return $query->result_array();
+	}
 }
 
 ?>

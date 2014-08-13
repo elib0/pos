@@ -26,11 +26,39 @@
 			<small class="error radius">Email is required and it has to have a valid format.</small>
 		</div>
 	</div>
-	<div class="row">
+	<!-- <div class="row">
 		<div class="large-12 columns">
 			<label>State, City or Zip Code:&nbsp;<small>(Required)</small>
-				<input type="text" name="txtCity" id="txtCity"  placeholder="You can start the search typing States, Cities or Zip codes ..." required />
+				<input type="text" name="txtCity" id="txtCity"  placeholder="You can start the search typing States, Cities or Zip codes ..." />
 			</label>
 		</div>
+	</div>	 -->
+	<div class="row">
+		<div class="large-3 columns">
+			<label>State:&nbsp;<small>(Required)</small>
+				<select name="cboState" id="cboState">
+					<option value="">---</option>
+					<?php foreach ($states as $array){ ?>
+						<option value="<?=$array['state']?>"><?=$array['state']?></option>
+					<?php } ?>	
+				</select>
+			</label>
+			<small class="error radius">State is required.</small>
+		</div>
+		<div class="large-3 columns" id="citiesLayer">
+			<label>City:&nbsp;<small>(Required)</small>
+				<select name="cboCity" id="cboCity">
+					<option value="">---</option>	
+				</select>
+			</label>
+			<small class="error radius">City is required.</small>
+		</div>
+		<div class="large-3 columns">
+			<label>Zip Code:&nbsp;<small>(Required)</small>
+				<input type="text" name="txtZip" id="txtZip"  placeholder="" required />
+			</label>
+			<small class="error radius">Zip Code is required.</small>
+		</div>
+		<div class="large-3 columns">&nbsp;</div>
 	</div>
 </fieldset>

@@ -1,11 +1,11 @@
 <?php
 $lang['services_services']='Tracking Services';
 $lang['services_name_owner']='Owner\'s name';
-$lang['services_IMEI']='CODE ID';
+$lang['services_IMEI']='IMEI';
 $lang['services_model']='Model';
 $lang['services_brand']='Brand';
 $lang['services_name_owner_is_required']='Owner\'s name is required';
-$lang['services_IMEI_is_required']='Code IMEI is required';
+$lang['services_IMEI_is_required']='IMEI is required';
 $lang['services_model_is_required']='Item Model is required';
 $lang['services_brand_is_required']='Item Brand is required';
 $lang['services_status_is_required']='Item Status is required';
@@ -27,6 +27,7 @@ $lang['services_received']='Date Received';
 $lang['services_delivered']='Date Delivered';
 $lang['services_actions']='Actions';
 $lang['services_used_items']='Used Items';
+$lang['services_problem']='Problem';
 
 //Status
 $lang['services_status_1']='Open';

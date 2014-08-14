@@ -87,7 +87,7 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 		</div>
 		<div style="width: 210px; float: left">
 			<div class="field_row clearfix">
-				<?php echo form_label($this->lang->line('services_IMEI').':', 'code',array('class'=>'lable-form')); ?>
+				<?php echo form_label($this->lang->line('services_IMEI').':', 'code',array('class'=>'lable-form-required')); ?>
 				<div>
 				<?php echo form_input(array(
 					'name'=>'codeimei',
@@ -148,17 +148,17 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 			</div>
 		</div>
 	</div>
-	<div class="field_row clearfix">
+	<div class="field_row clearfix">       
 		<div style="float:left;">
 			<div class="field_row clearfix">
-				<?=form_label($this->lang->line('common_comments').':','comments',array('class'=>'lable-form'))?>
+				<?=form_label($this->lang->line('services_problem').':','comments',array('class'=>'lable-form'))?>
 				<div>
 				<?=form_textarea(array(
 					'name'=>'comments',
 					'id'=>'comments',
-					'value'=>$service_info->comments,
-					'rows'=>'3',
-					'cols'=>'70'
+					'value'=> isset($service_info->problem)?$service_info->problem:'',
+					'rows'=>'10',
+					'cols'=>'70'      
 				))?>
 				</div>
 			</div>
@@ -304,7 +304,7 @@ $(function(){
 				number:true
 			},
 			name:"required",
-			//codeimei:"required",
+			codeimei:"required",
 			model:'required',
 			status:'required',
 			brand:'required',
@@ -324,7 +324,7 @@ $(function(){
 			email: "<?php echo $this->lang->line('common_email_invalid_format'); ?>",
 			phone_number:"<?php echo $this->lang->line('common_phone_invalid_format');  ?>",
 			name:"<?php echo $this->lang->line('services_name_owner_is_required'); ?>",
-			//codeimei:"<?php echo $this->lang->line('services_IMEI_is_required'); ?>",
+			codeimei:"<?php echo $this->lang->line('services_IMEI_is_required'); ?>",
 			model:"<?php echo $this->lang->line('services_model_is_required'); ?>",
 			status:"<?php echo $this->lang->line('services_status_is_required'); ?>",
 			brand:"<?php echo $this->lang->line('services_brand_is_required'); ?>"

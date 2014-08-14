@@ -270,7 +270,7 @@ class Service extends CI_Model {
 				'brand_name'=>'',
 				'status'=>'',
 				'model_name'=>'',
-				'comments'=>'',
+				'problem'=>'',
 				'person_id'=>'',
 				'items'=>array()
 			);

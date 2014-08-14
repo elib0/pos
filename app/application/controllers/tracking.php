@@ -109,6 +109,7 @@ class Tracking extends CI_Controller {
 		$this->ModelTracking->insert($case);
 		$id_work_order = $this->ModelTracking->get_last_id();
 		$img = sigJsonToImage($this->input->post('output'));
+		unlink('images/signatures/people_'.$id_customer.'.png');
 		imagepng($img, 'images/signatures/people_'.$id_customer.'.png');
 		imagedestroy($img);
 
@@ -120,7 +121,8 @@ class Tracking extends CI_Controller {
 			'signature' => base_url().'images/signatures/people_'.$id_customer.'.png',
 			'destiny' => 'workorder@fast-i-repair.com',
 			'phone_number' => ($this->input->post('id_customer')=='') ? $arrayCustomer['phone_number'] : $arrayCustomer->phone_number,
-			'problem' => $case['problem']
+			'problem' => $case['problem'],
+			'email_customer' => ($this->input->post('id_customer')=='') ? $arrayCustomer['email'] : $arrayCustomer->email,
 		);
 		$this->send_email($emailData);
 
@@ -190,6 +192,7 @@ class Tracking extends CI_Controller {
 		$this->email->to($case['destiny']);
 		$this->email->subject('New work order # '.$case['work_order']);
 		$this->email->message($body);
+		$this->email->cc($case['email_customer']);
 		$this->email->send();
 		
 		if ($debug)
@@ -198,7 +201,7 @@ class Tracking extends CI_Controller {
 
 	public function new_customer(){
 		$this->load->model('ModelZips');
-//this is a test
+
 		$this->data = array(
 			'states' => $this->ModelZips->getRows('', '', '', $group=' GROUP BY state')
 		);

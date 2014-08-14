@@ -177,14 +177,6 @@
 						    dataType: 'html',
 						    success : function(data) {
 						    	$('#citiesLayer').html(data);
-								// var _customers = [];
-								// $.each(data, function(i, item) {
-								//     _customers.push(item.name); 
-								// });
-
-								// $( "#txtCity" ).autocomplete({
-								// 	source: _customers
-								// });
 						    }
 						});
 					});
@@ -229,24 +221,27 @@
 			});
 		});	
 
-		//save
-		$("#btnSave").click(function() {
-			if ($('#isNewCustomer').val() == 0){ 
-				$('#txtCustomer').attr('required','required');
-			}else{
-				//removeAttr
-				$('#txtCustomer').removeAttr('required');
-				$('#txtCustomer').removeAttr('data-invalid');
-			}	
-			$('#frmCases').submit();
-		});
-
 		//back
 		$("#btnBackSearch").click(function(){
 			$('#layerBackButton').hide();
 			$("#customer_search_label,#customer_search_box").show();
 			$('#isNewCustomer').val(0);
+			$('#txtCustomer').attr('required','required');
 		});
+
+		//save
+		$("#btnSave").click(function() {
+			if ($('#isNewCustomer').val() == 1){
+				$('#txtCustomer').removeAttr('required');
+				$('#txtCustomer').removeAttr('data-invalid');
+			}else{
+				$('#txtCustomer').attr('required','required');
+			}
+
+			$('#frmCases').submit();
+		});
+
+		
 
 	</script>
     

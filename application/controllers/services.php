@@ -114,7 +114,7 @@ class Services extends Secure_area
 		}else{
 			if ($service_id!=-1){
 				$service_data = array(
-					'comments'=>$this->input->post('comments'),
+					'problem'=>$this->input->post('comments'),
 					'status'=>$this->input->post('status')
 				);
 			}else{
@@ -140,7 +140,7 @@ class Services extends Secure_area
 				$service_data = array(
 				'person_id'=>$person_id,
 				'serial'=>$this->input->post('codeimei'),
-				'comments'=>$this->input->post('comments'),
+				'problem'=>$this->input->post('comments'),
 				'brand_id'=>$this->input->post('brand'),
 				'model_id'=>$this->input->post('model'),
 				'status'=>$this->input->post('status')

@@ -17,6 +17,8 @@ class Tracking extends CI_Controller {
 
 	public function index()
 	{	
+		//delete_files('images/signatures/people_people_2.png');
+		unlink('../../images/signatures/people_people_2.png');
 		$this->load->layout('tracking/workOrder',$this->data);
 	}
 
@@ -109,7 +111,7 @@ class Tracking extends CI_Controller {
 		$this->ModelTracking->insert($case);
 		$id_work_order = $this->ModelTracking->get_last_id();
 		$img = sigJsonToImage($this->input->post('output'));
-		unlink('images/signatures/people_'.$id_customer.'.png');
+		//unlink('images/signatures/people_'.$id_customer.'.png');
 		imagepng($img, 'images/signatures/people_'.$id_customer.'.png');
 		imagedestroy($img);
 

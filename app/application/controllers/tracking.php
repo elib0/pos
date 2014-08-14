@@ -18,7 +18,11 @@ class Tracking extends CI_Controller {
 	public function index()
 	{	
 		//delete_files('images/signatures/people_people_2.png');
-		unlink('../../images/signatures/people_people_2.png');
+		//unlink('../../images/signatures/people_people_2.png');
+		$this->load->model('ModelPhoneModel');
+		$this->data = array(
+			'phone_models' => $this->ModelPhoneModel->getRows()
+		);
 		$this->load->layout('tracking/workOrder',$this->data);
 	}
 
@@ -53,15 +57,13 @@ class Tracking extends CI_Controller {
 		}
 
 		//approval view
-		$model = explode(',', $this->input->post('txtModel'));
-		$model_id = explode(':', $model[0]);
 		$this->data = array(
 			'customer_name' => isset($id_customer) ? $this->ModelPeople->full_name($id_customer) : $customer['first_name'].' '.$customer['last_name'],
-			'device' => $this->ModelPhoneModel->get_field('model_name', " WHERE model_id = '".trim($model_id[1])."'"),
+			'device' => $this->ModelPhoneModel->get_field('model_name', " WHERE model_id = '".$this->input->post('cboPhoneModel')."'"),
 			'case' => 
 				array(
 					'person_id' => isset($id_customer) ? $id_customer : '', 
-					'model_id' => trim($model_id[1]),
+					'model_id' => $this->input->post('cboPhoneModel'),
 					'serial' => $this->input->post('txtImei'),
 					'color' => $this->input->post('txtColor'),
 					'problem' => $this->input->post('txtProblem')
@@ -144,48 +146,37 @@ class Tracking extends CI_Controller {
 		$this->load->library('email');
 
 		$body = '
-			<table align="center" cellpadding="0" cellspacing="0" border="0" style="width: 600px; font-size: 12px; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;font-weight: normal;border: 1px solid #f4f4f4; ">
-			
+			<table align="center" cellpadding="0" cellspacing="0" border="0" style="width: 600px; font-size: 12px; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;font-weight: normal;border: 1px solid #f4f4f4; ">		
 			<tr>
 			<td style="border: 1px solid #f4f4f4;border-bottom: none;"><img src="'.base_url().'images/top_mail.png" alt=""></td>
-			</tr>
-			
+			</tr>		
 			<tr>
 			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none; border-top: none;"><h4>Customer Info</h4></td>
-			</tr>
-			
+			</tr>		
 			<tr>
 			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Customer:</strong>&nbsp;&nbsp;&nbsp;'.$case['customer'].'</td>
-			</tr>
-			
+			</tr>		
 			<tr>
 			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Email:</strong>&nbsp;&nbsp;&nbsp;'.$case['email'].'</td>
-			</tr>
-			
+			</tr>		
 			<tr>
 			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Tel&eacute;fono:</strong>&nbsp;&nbsp;&nbsp;'.$case['phone_number'].'</td>
-			</tr>
-			
+			</tr>		
 			<tr>
 			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><h4>Request Info</h4></td>
-			</tr>
-			
+			</tr>		
 			<tr>
 			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Work Order Number:</strong>&nbsp;&nbsp;&nbsp;'.$case['work_order'].'</td>
-			</tr>
-			
+			</tr>			
 			<tr>
 			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Problem:</strong>&nbsp;&nbsp;&nbsp;'.$case['problem'].'</td>
-			</tr>
-			
+			</tr>			
 			<tr>
 			<td style="padding:10px;border: 1px solid #f4f4f4;border-bottom: none;"><strong>Approval:</strong>&nbsp;&nbsp;&nbsp;<img src="'.$case['signature'].'" alt=""></td>
 			</tr>
-			
 			<tr>
 			<td>&nbsp;</td>
 			</tr>
-			
 			</table>		
 		';
 

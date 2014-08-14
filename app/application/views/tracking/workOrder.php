@@ -25,13 +25,13 @@
 							<h5>Customer:&nbsp;<small>(Required)</small></h5>
 						</div>
 					</div>
-					<div class="row collapse panel" id="customer_search_box">
+					<div class="row collapse panel radius" id="customer_search_box">
 						<div class="small-10 columns">
 							<input id="txtCustomer" name="txtCustomer" type="text" placeholder="Type to start search ...">
 							<small class="error">Customer is required.</small>
 						</div>
 						<div class="small-2 columns">
-							<a href="<?=$config['not_click']?>" id="btn_new_customer" class="button postfix">Add</a>
+							<a href="<?=$config['not_click']?>" id="btn_new_customer" class="button postfix success">New Customer</a>
 						</div>
 					</div>
 					<div class="row" id="layerBackButton">
@@ -51,16 +51,20 @@
 	    				<legend><h4>Device Info</h4></legend>
 						<div class="row">
 							<div class="large-4 columns">
-								<label>Model:&nbsp;<small>(Required)</small>
-									<input id="txtModel" name="txtModel" type="text" placeholder="You can type either Brand or Model" required>
+								<label>Brand:&nbsp;<small>(Required)</small>
+								<select name="cboPhoneModel" id="cboPhoneModel" required>
+									<option value="">---</option>
+										<?php foreach ($phone_models as $array){ ?>
+									<option value="<?=$array['model_id']?>"><?=$array['model_name']?></option>
+									<?php } ?>	
+								</select>
 								</label>
-								<small class="error">Model is required.</small>
+								<small class="error radius">Make is required.</small>
 							</div>
 							<div class="large-4 columns">
-								<label>IMEI / Serial number:&nbsp;<small>(Required)</small>
-									<input type="text" name="txtImei" id="txtImei" pattern="alpha_numeric" placeholder="IMEI or Serial number" required />
+								<label>IMEI / Serial number:
+									<input type="text" name="txtImei" id="txtImei" pattern="alpha_numeric" placeholder="IMEI or Serial number" />
 								</label>
-								<small class="error">IMEI / Serial number is required.</small>
 							</div>
 							<div class="large-4 columns">
 								<label>Color:&nbsp;

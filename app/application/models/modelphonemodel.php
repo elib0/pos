@@ -29,6 +29,18 @@ class ModelPhoneModel extends CI_Model {
 		return $array->$field;
 	}
 
+	public function getRows($where='', $limit='', $order=' ORDER BY model_name')
+	{
+		$query = $this->db->query("
+			SELECT * 
+			FROM ospos_model 
+			$where  
+			$order 
+			$limit 
+		");
+        return $query->result_array();
+	}
+
 		
 }
 

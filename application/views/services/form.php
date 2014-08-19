@@ -157,17 +157,20 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 					'name'=>'comments',
 					'id'=>'comments',
 					'value'=> isset($service_info->problem)?$service_info->problem:'',
-					'rows'=>'10',
+					'rows'=>'5',
 					'cols'=>'70'      
 				))?>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+
+</div> <!-- end wrap -->
+
 <div class="field_row clearfix requested">
 	<?=$this->lang->line('common_fields_required_message')?>
 </div>
+
 <ul id="error_message_box"></ul>
 <?php
 	echo form_button(
@@ -211,6 +214,14 @@ $disabled=$service_info->service_id!=-1?'disabled':'';
 
 
 ?>
+
+<style>
+	.test{
+
+	}
+</style>
+
+
 <script type='text/javascript'>
 
 		function post_service_form_submit(response){

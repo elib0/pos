@@ -333,6 +333,28 @@ class Service extends CI_Model {
 		return $suggestions;
 	}
 
+	public function add_note($array){
+		$this->con->insert('ospos_service_log_notes', $array);
+	}
+
+	public function get_notes($limit=" LIMIT 10")
+	{
+		$query = $this->con->query("
+			SELECT 
+				CONCAT(a.first_name, ' ', a.last_name) AS name,
+				a.first_name AS first_name,
+				a.last_name AS last_name,
+				b.note AS note,
+				b.date AS date
+			FROM ospos_people a JOIN ospos_service_log_notes b ON a.person_id = b.employee_id 
+			ORDER BY date DESC
+			$limit
+		");
+		return $query->result_array();
+	}
+
+
+
 }
 
 /* End of file service.php */

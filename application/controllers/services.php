@@ -5,6 +5,7 @@ class Services extends Secure_area
 {
 	function __construct(){
 		parent::__construct('services');
+		$this->load->library('sale_lib');
 	}
 
 	function index(){
@@ -95,6 +96,14 @@ class Services extends Secure_area
 		$data['item_list_json']=json_encode($this->Service->get_items($service_id));
 		$data['item_list']=implode(',',$this->Service->get_id_items($service_id));
 		$this->load->view('services/form',$data);
+	}
+
+	function notes_view($service_id){
+		$data['service_info']=$this->Service->get_info($service_id);
+		$data['item_list_json']=json_encode($this->Service->get_items($service_id));
+		$data['item_list']=implode(',',$this->Service->get_id_items($service_id));
+		$data['notes'] = $this->Service->get_notes();
+		$this->load->view('services/lst_notes',$data);
 	}
 
 	function count_details($service_id=-1){
@@ -208,5 +217,27 @@ class Services extends Secure_area
 	get the width for the add/edit form
 	*/
 	function get_form_width(){ return '660/height:465'; }
+
+	function add_note($service_id, $note){
+
+		$employee = $this->Person->get_info($this->session->userdata('person_id'));
+		
+		$data = array(
+			'employee_id' => $employee->person_id,
+			'service_id' => $service_id,
+			'note' => $note
+		);
+
+		$this->Service->add_note($data); //insert
+
+		$out = array(
+			'employee' => $employee->first_name.' '.$employee->last_name,
+			'note' => $note,
+			'date' => date('Y-m-d')
+		);
+		
+		echo json_encode($out);
+
+	}
 
 }

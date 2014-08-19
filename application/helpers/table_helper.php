@@ -496,8 +496,14 @@ function get_service_data_row($service,$controller)
 		case 100:
 			$table_data_row.='<td width="5%">'.$CI->lang->line('services_no_actions').'</td>';
 		break;
-		default:
-			$table_data_row.='<td width="5%">'.anchor($controller_name."/view/$service->service_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+		default: 
+			
+			$b_note = anchor($controller_name."/notes_view/$service->service_id/width:$width", $CI->lang->line('services_btn_notes'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_list_notes')));
+			$b_edit = anchor($controller_name."/view/$service->service_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update'))); 
+
+			$table_data_row.= '<td width="5%">'.$b_note.'&nbsp;'.$b_edit.'</td>';
+			//$table_data_row.= '<td width="5%">'.anchor($controller_name."/view/$service->service_id/width:$width", $CI->lang->line('common_edit'),array('class'=>'small_button thickbox','title'=>$CI->lang->line($controller_name.'_update'))).'</td>';
+
 		break;
 	}
 	$table_data_row.='</tr>';
